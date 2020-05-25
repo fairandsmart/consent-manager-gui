@@ -1,0 +1,17 @@
+<div *ngIf="entryContent != null">
+  <pre>{{entryContent | json}}</pre>
+  <ng-container [ngSwitch]="entryContent.entry.type">
+    <ng-container *ngSwitchCase="'header'">
+
+    </ng-container>
+    <ng-container *ngSwitchCase="'treatment'">
+
+    </ng-container>
+    <ng-container *ngSwitchCase="'conditions'">
+
+    </ng-container>
+    <ng-container *ngSwitchCase="'footer'">
+<!--      <app-entry-footer [entry]="entry" [entryContent]="entryContent"></app-entry-footer>-->
+    </ng-container>
+  </ng-container>
+</div>

@@ -1,0 +1,9 @@
+.spacer {
+  flex: 1 1 auto;
+}
+
+:host ::ng-deep router-outlet + * {
+  display: block;
+  margin: 2em auto;
+  width: 980px;
+}

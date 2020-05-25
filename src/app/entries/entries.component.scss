@@ -1,0 +1,23 @@
+.table-container {
+  position: relative;
+  margin-top: 1em;
+  .progress-bar-container {
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 0;
+  }
+  table {
+    width: 100%;
+    &.loading {
+      ::ng-deep tbody tr {
+        opacity: 0.5;
+      }
+    }
+    ::ng-deep tbody tr {
+      &:hover {
+        cursor: pointer;
+      }
+    }
+  }
+}
