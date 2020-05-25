@@ -84,34 +84,16 @@ export class EntriesComponent implements OnInit, AfterViewInit {
   paginator: MatPaginator;
 
   constructor(private consentsResource: ConsentsResourceService, private dialog: MatDialog) {
-    // [1, 2, 3, 4, 5, 6, 7, 8, 9].forEach(index => {
-    //   const footer: Footer = {
-    //     type: 'footer',
-    //     body: 'Footer body',
-    //     showAcceptAll: true,
-    //     customAcceptAllText: 'Custom accept All Text'
-    //   };
-    //   this.consentsResource.createEntry({
-    //     key: `test-footer-${index}`,
-    //     name: 'Test Footer',
-    //     description: 'This is a test',
-    //     locale: 'en',
-    //     content: footer
-    //   }).subscribe(x => {
-    //     console.log(x);
-    //   });
-    //   const header: Header = {
-    //     type: 'header',
-    //     body: 'Header body'
-    //   } as Header;
-    //   this.consentsResource.createEntry({
-    //     key: `test-header-${index}`,
-    //     name: 'Test Header',
-    //     description: 'This is a test',
-    //     locale: 'en',
-    //     content: header
-    //   }).subscribe(x => {
-    //     console.log(x);
+    // CONSENT_ELEMENT_DATA_TYPES.forEach((type: ConsentElementDataType) => {
+    //   [1, 2, 3, 4, 5, 6, 7, 8, 9].forEach(index => {
+    //     this.consentsResource.createEntry({
+    //       type,
+    //       key: `test-${type}-${index}`,
+    //       name: `Test ${type}`,
+    //       description: 'This is a test'
+    //     }).subscribe(x => {
+    //       console.log(x);
+    //     });
     //   });
     // });
   }
