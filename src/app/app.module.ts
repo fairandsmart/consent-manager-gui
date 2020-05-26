@@ -17,6 +17,7 @@ import { EntryEditorDialogComponent } from './entry-editor-dialog/entry-editor-d
 import { EntryInfoComponent } from './entry-info/entry-info.component';
 import { StoreModule } from '@ngrx/store';
 import { EffectsModule } from '@ngrx/effects';
+import { RecordsComponent } from './records/records.component';
 
 const keycloakService = new KeycloakService();
 
@@ -28,7 +29,8 @@ const keycloakService = new KeycloakService();
     EntryFooterComponent,
     EntryEditorDialogComponent,
     EntryInfoComponent,
-    ShortIdPipe
+    ShortIdPipe,
+    RecordsComponent
   ],
   imports: [
     BrowserModule,

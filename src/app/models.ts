@@ -175,3 +175,34 @@ export enum ReceiptDeliveryType {
   STORE = 'STORE',
   DOWNLOAD = 'DOWNLOAD'
 }
+
+export enum RecordStatus {
+  PENDING = 'PENDING',
+  COMMITTED = 'COMMITTED',
+  EXPIRED = 'EXPIRED'
+}
+
+export interface Record {
+  id: string;
+  version: number;
+  creationTimestamp: number;
+  expirationTimestamp: number;
+  owner: string;
+  subject: string;
+  transaction: string;
+  parent: string;
+  serial: string;
+  type: string;
+  head: string;
+  body: string;
+  foot: string;
+  value: string;
+  status: RecordStatus;
+  attributes: {[key: string]: string};
+}
+
+export interface RecordFilter {
+  query?: string;
+  page?: number;
+  size?: number;
+}

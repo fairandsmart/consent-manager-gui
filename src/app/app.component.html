@@ -2,6 +2,7 @@
   <span [routerLink]="'/'">Consent Manager</span>
   <span class="spacer"></span>
   <span>
+    <button mat-button [routerLink]="'/records'">Records</button>
     <button mat-button [matMenuTriggerFor]="userMenu">{{keycloak.getUsername()}}</button>
     <mat-menu #userMenu="matMenu">
       <button mat-menu-item (click)="keycloak.logout()">Logout</button>
