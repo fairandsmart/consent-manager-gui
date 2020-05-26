@@ -14,6 +14,9 @@ import { ShortIdPipe } from './common/short-id.pipe';
 import { MaterialModule } from './material.module';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { EntryEditorDialogComponent } from './entry-editor-dialog/entry-editor-dialog.component';
+import { EntryInfoComponent } from './entry-info/entry-info.component';
+import { StoreModule } from '@ngrx/store';
+import { EffectsModule } from '@ngrx/effects';
 
 const keycloakService = new KeycloakService();
 
@@ -24,6 +27,7 @@ const keycloakService = new KeycloakService();
     EntryComponent,
     EntryFooterComponent,
     EntryEditorDialogComponent,
+    EntryInfoComponent,
     ShortIdPipe
   ],
   imports: [
@@ -34,7 +38,9 @@ const keycloakService = new KeycloakService();
     FormsModule,
     ReactiveFormsModule,
     KeycloakAngularModule,
-    MaterialModule
+    MaterialModule,
+    StoreModule.forRoot({}, {}),
+    EffectsModule.forRoot([])
   ],
   providers: [
     {

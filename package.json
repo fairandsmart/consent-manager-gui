@@ -21,6 +21,8 @@
     "@angular/platform-browser": "~9.1.9",
     "@angular/platform-browser-dynamic": "~9.1.9",
     "@angular/router": "~9.1.9",
+    "@ngrx/effects": "^9.1.2",
+    "@ngrx/store": "^9.1.2",
     "keycloak-angular": "^7.2.0",
     "keycloak-js": "^10.0.1",
     "rxjs": "~6.5.4",

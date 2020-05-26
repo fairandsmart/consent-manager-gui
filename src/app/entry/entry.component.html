@@ -1,6 +1,6 @@
-<div *ngIf="entryContent != null">
-  <pre>{{entryContent | json}}</pre>
-  <ng-container [ngSwitch]="entryContent.entry.type">
+<div>
+  <app-entry-info [entry]="entry"></app-entry-info>
+  <ng-container [ngSwitch]="entryContent?.entry.type">
     <ng-container *ngSwitchCase="'header'">
 
     </ng-container>

@@ -1,23 +1,23 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { EntriesComponent } from './entries.component';
-import { ConsentsResourceService } from '../consents-resource.service';
 import { ActivatedRoute } from '@angular/router';
 import { ActivatedRouteStub } from '../testing/activated-route-stub';
 import { MaterialModule } from '../material.module';
 import { of } from 'rxjs';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
+import { ModelsResourceService } from '../models-resource.service';
 import createSpyObj = jasmine.createSpyObj;
 import SpyObj = jasmine.SpyObj;
 
 describe('EntriesComponent', () => {
   let component: EntriesComponent;
   let fixture: ComponentFixture<EntriesComponent>;
-  let consentsResourceServiceSpy: SpyObj<ConsentsResourceService>;
+  let modelsResourceServiceSpy: SpyObj<ModelsResourceService>;
   let activatedRouteStub: ActivatedRouteStub;
 
   beforeEach(async(() => {
-    consentsResourceServiceSpy =  createSpyObj<ConsentsResourceService>('ConsentsResourceService', ['listEntries']);
+    modelsResourceServiceSpy =  createSpyObj<ModelsResourceService>('ModelsResourceService', ['listEntries']);
     activatedRouteStub = new ActivatedRouteStub();
 
     TestBed.configureTestingModule({
@@ -27,7 +27,7 @@ describe('EntriesComponent', () => {
         NoopAnimationsModule
       ],
       providers: [
-        {provide: ConsentsResourceService, useValue: consentsResourceServiceSpy},
+        {provide: ModelsResourceService, useValue: modelsResourceServiceSpy},
         {provide: ActivatedRoute, useValue: activatedRouteStub}
       ]
     })
@@ -35,7 +35,7 @@ describe('EntriesComponent', () => {
   }));
 
   beforeEach(() => {
-    consentsResourceServiceSpy.listEntries.and.returnValue(of({
+    modelsResourceServiceSpy.listEntries.and.returnValue(of({
       values: [],
       page: 0,
       pageSize: 0,

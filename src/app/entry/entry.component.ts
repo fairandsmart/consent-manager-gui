@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { mergeMap } from 'rxjs/operators';
-import { ConsentElementVersion, ConsentsResourceService } from '../consents-resource.service';
+import { ModelEntry, ModelVersion } from '../models';
+import { ModelsResourceService } from '../models-resource.service';
 
 @Component({
   selector: 'app-entry',
@@ -10,16 +11,18 @@ import { ConsentElementVersion, ConsentsResourceService } from '../consents-reso
 })
 export class EntryComponent implements OnInit {
 
-  entryContent: ConsentElementVersion;
+  entry: ModelEntry;
 
-  constructor(private activatedRoute: ActivatedRoute, private consentsResource: ConsentsResourceService) {
+  entryContent: ModelVersion;
+
+  constructor(private activatedRoute: ActivatedRoute, private modelsResourceService: ModelsResourceService) {
   }
 
   ngOnInit(): void {
     this.activatedRoute.paramMap.pipe(
-      mergeMap(params => this.consentsResource.getEntryContent(params.get('id')))
-    ).subscribe((entryContent) => {
-      this.entryContent = entryContent;
+      mergeMap(params => this.modelsResourceService.getEntry(params.get('id')))
+    ).subscribe((entry) => {
+      this.entry = entry;
     });
   }
 

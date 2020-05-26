@@ -1,30 +1,23 @@
 import { AfterViewInit, Component, OnInit, ViewChild } from '@angular/core';
-import {
-  CONSENT_ELEMENT_DATA_TYPES,
-  ConsentElementDataType,
-  ConsentElementEntry,
-  ConsentElementEntryFilter,
-  ConsentsResourceService,
-  Footer,
-  Header
-} from '../consents-resource.service';
 import { MatPaginator } from '@angular/material/paginator';
 import { CollectionViewer, DataSource } from '@angular/cdk/collections';
 import { BehaviorSubject, Observable } from 'rxjs';
-import { delay, finalize, tap } from 'rxjs/operators';
+import { finalize, tap } from 'rxjs/operators';
 import { MatDialog } from '@angular/material/dialog';
 import { EntryEditorDialogComponent, EntryEditorDialogComponentData } from '../entry-editor-dialog/entry-editor-dialog.component';
+import { MODEL_DATA_TYPES, ModelDataType, ModelEntry, ModelFilter } from '../models';
+import { ModelsResourceService } from '../models-resource.service';
 
-class ConsentElementEntryDataSource implements DataSource<ConsentElementEntry> {
+class ConsentElementEntryDataSource implements DataSource<ModelEntry> {
 
-  private entriesSubject = new BehaviorSubject<ConsentElementEntry[]>([]);
+  private entriesSubject = new BehaviorSubject<ModelEntry[]>([]);
   private loadingSubject = new BehaviorSubject<boolean>(false);
 
   public loading$ = this.loadingSubject.asObservable();
 
   private _paginator: MatPaginator;
 
-  constructor(private consentsResource: ConsentsResourceService) {
+  constructor(private modelsResourceService: ModelsResourceService) {
   }
 
   get paginator(): MatPaginator | null {
@@ -35,7 +28,7 @@ class ConsentElementEntryDataSource implements DataSource<ConsentElementEntry> {
     this._paginator = paginator;
   }
 
-  connect(collectionViewer: CollectionViewer): Observable<ConsentElementEntry[] | ReadonlyArray<ConsentElementEntry>> {
+  connect(collectionViewer: CollectionViewer): Observable<ModelEntry[] | ReadonlyArray<ModelEntry>> {
     return this.entriesSubject.asObservable();
   }
 
@@ -44,9 +37,9 @@ class ConsentElementEntryDataSource implements DataSource<ConsentElementEntry> {
     this.loadingSubject.complete();
   }
 
-  loadEntries(filter: ConsentElementEntryFilter): void {
+  loadEntries(filter: ModelFilter): void {
     this.loadingSubject.next(true);
-    this.consentsResource.listEntries(filter).pipe(
+    this.modelsResourceService.listEntries(filter).pipe(
       finalize(() => this.loadingSubject.next(false))
     ).subscribe(response => {
       if (this._paginator != null) {
@@ -74,8 +67,8 @@ export class EntriesComponent implements OnInit, AfterViewInit {
 
   dataSource: ConsentElementEntryDataSource;
 
-  filter: ConsentElementEntryFilter = {
-    types: CONSENT_ELEMENT_DATA_TYPES,
+  filter: ModelFilter = {
+    types: MODEL_DATA_TYPES,
     page: 0,
     size: 10
   };
@@ -83,10 +76,10 @@ export class EntriesComponent implements OnInit, AfterViewInit {
   @ViewChild(MatPaginator, {static: true})
   paginator: MatPaginator;
 
-  constructor(private consentsResource: ConsentsResourceService, private dialog: MatDialog) {
-    // CONSENT_ELEMENT_DATA_TYPES.forEach((type: ConsentElementDataType) => {
+  constructor(private modelsResourceService: ModelsResourceService, private dialog: MatDialog) {
+    // MODEL_DATA_TYPES.forEach((type: ModelDataType) => {
     //   [1, 2, 3, 4, 5, 6, 7, 8, 9].forEach(index => {
-    //     this.consentsResource.createEntry({
+    //     this.modelsResourceService.createEntry({
     //       type,
     //       key: `test-${type}-${index}`,
     //       name: `Test ${type}`,
@@ -99,7 +92,7 @@ export class EntriesComponent implements OnInit, AfterViewInit {
   }
 
   ngOnInit(): void {
-    this.dataSource = new ConsentElementEntryDataSource(this.consentsResource);
+    this.dataSource = new ConsentElementEntryDataSource(this.modelsResourceService);
     this.dataSource.paginator = this.paginator;
     this.paginator.page.pipe(
       tap((e) => {
@@ -128,7 +121,7 @@ export class EntriesComponent implements OnInit, AfterViewInit {
     });
   }
 
-  editEntry(entry: ConsentElementEntry, $event: MouseEvent): void {
+  editEntry(entry: ModelEntry, $event: MouseEvent): void {
     $event.preventDefault();
     $event.stopPropagation();
     this.dialog.open<EntryEditorDialogComponent, EntryEditorDialogComponentData>(EntryEditorDialogComponent, {

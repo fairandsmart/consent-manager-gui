@@ -1,6 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { ConsentElementEntry, FooterVersion } from '../consents-resource.service';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Footer, ModelEntry, ModelVersion } from '../models';
 
 @Component({
   selector: 'app-entry-footer',
@@ -10,10 +10,10 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 export class EntryFooterComponent implements OnInit {
 
   @Input()
-  entry: ConsentElementEntry;
+  entry: ModelEntry;
 
   @Input()
-  entryContent: FooterVersion;
+  entryContent: ModelVersion<Footer>;
 
   form: FormGroup;
 
@@ -29,7 +29,7 @@ export class EntryFooterComponent implements OnInit {
     }
   }
 
-  private loadVersion(version: FooterVersion): void {
+  private loadVersion(version: ModelVersion<Footer>): void {
     this.form.patchValue({
       defaultLocale: version.defaultLocale,
       availableLocales: version.availableLocales

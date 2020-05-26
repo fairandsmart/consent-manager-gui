@@ -1,18 +1,12 @@
 import { Component, Inject, OnInit } from '@angular/core';
-import {
-  CONSENT_ELEMENT_DATA_TYPES,
-  ConsentElementDataType,
-  ConsentElementEntry,
-  ConsentsResourceService,
-  CreateEntryDto,
-  FIELD_VALIDATORS, UpdateEntryDto
-} from '../consents-resource.service';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { Observable } from 'rxjs';
+import { CreateModelDto, FIELD_VALIDATORS, MODEL_DATA_TYPES, ModelEntry, UpdateModelDto } from '../models';
+import { ModelsResourceService } from '../models-resource.service';
 
 export interface EntryEditorDialogComponentData {
-  entry?: ConsentElementEntry;
+  entry?: ModelEntry;
 }
 
 @Component({
@@ -24,12 +18,12 @@ export class EntryEditorDialogComponent implements OnInit {
 
   form: FormGroup;
 
-  readonly TYPES = CONSENT_ELEMENT_DATA_TYPES;
+  readonly TYPES = MODEL_DATA_TYPES;
 
-  constructor(private dialogRef: MatDialogRef<EntryEditorDialogComponent, ConsentElementEntry>,
+  constructor(private dialogRef: MatDialogRef<EntryEditorDialogComponent, ModelEntry>,
               @Inject(MAT_DIALOG_DATA) public data: EntryEditorDialogComponentData,
               private fb: FormBuilder,
-              private consentsResource: ConsentsResourceService) {
+              private modelsResourceService: ModelsResourceService) {
   }
 
   ngOnInit(): void {
@@ -59,22 +53,22 @@ export class EntryEditorDialogComponent implements OnInit {
   submit(): void {
     if (this.form.valid) {
       this.form.disable();
-      let obs: Observable<ConsentElementEntry>;
+      let obs: Observable<ModelEntry>;
       const formValue = this.form.getRawValue();
       if (this.data?.entry != null) {
-        const dto: UpdateEntryDto = {
+        const dto: UpdateModelDto = {
           name: formValue.name,
           description: formValue.description
         };
-        obs = this.consentsResource.updateEntry(this.data.entry.id, dto);
+        obs = this.modelsResourceService.updateEntry(this.data.entry.id, dto);
       } else {
-        const dto: CreateEntryDto = {
+        const dto: CreateModelDto = {
           type: formValue.type,
           key: formValue.key,
           name: formValue.name,
           description: formValue.description
         };
-        obs = this.consentsResource.createEntry(dto);
+        obs = this.modelsResourceService.createEntry(dto);
       }
       obs.subscribe((entry) => {
         this.dialogRef.close(entry);

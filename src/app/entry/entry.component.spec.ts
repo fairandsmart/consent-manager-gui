@@ -2,20 +2,20 @@ import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { EntryComponent } from './entry.component';
 import { ActivatedRoute } from '@angular/router';
-import { ConsentsResourceService } from '../consents-resource.service';
 import { ActivatedRouteStub } from '../testing/activated-route-stub';
+import { of } from 'rxjs';
+import { ModelsResourceService } from '../models-resource.service';
 import SpyObj = jasmine.SpyObj;
 import createSpyObj = jasmine.createSpyObj;
-import { of } from 'rxjs';
 
 describe('EntryComponent', () => {
   let component: EntryComponent;
   let fixture: ComponentFixture<EntryComponent>;
-  let consentsResourceServiceSpy: SpyObj<ConsentsResourceService>;
+  let modelsResourceServiceSpy: SpyObj<ModelsResourceService>;
   let activatedRouteStub: ActivatedRouteStub;
 
   beforeEach(async(() => {
-    consentsResourceServiceSpy =  createSpyObj<ConsentsResourceService>('ConsentsResourceService', ['getEntry']);
+    modelsResourceServiceSpy =  createSpyObj<ModelsResourceService>('ModelsResourceService', ['getEntry']);
     activatedRouteStub = new ActivatedRouteStub({
       params: {
         id: '123e4567-e89b-12d3-a456-426614174000'
@@ -25,7 +25,7 @@ describe('EntryComponent', () => {
     TestBed.configureTestingModule({
       declarations: [ EntryComponent ],
       providers: [
-        {provide: ConsentsResourceService, useValue: consentsResourceServiceSpy},
+        {provide: ModelsResourceService, useValue: modelsResourceServiceSpy},
         {provide: ActivatedRoute, useValue: activatedRouteStub},
       ]
     })
@@ -33,7 +33,7 @@ describe('EntryComponent', () => {
   }));
 
   beforeEach(() => {
-    consentsResourceServiceSpy.getEntry.and.returnValue(of(null));
+    modelsResourceServiceSpy.getEntry.and.returnValue(of(null));
 
     fixture = TestBed.createComponent(EntryComponent);
     component = fixture.componentInstance;

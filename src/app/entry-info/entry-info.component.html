@@ -1,0 +1,17 @@
+<mat-card>
+  <mat-card-content>
+    <dl *ngIf="entry">
+      <dt>Type</dt>
+      <dd>{{entry.type}}</dd>
+      <dt>Key</dt>
+      <dd>{{entry.key}}</dd>
+      <dt>Name</dt>
+      <dd>{{entry.name}}</dd>
+      <dt>Description</dt>
+      <dd>{{entry.description || '-'}}</dd>
+    </dl>
+  </mat-card-content>
+  <mat-card-actions>
+    <button mat-button color="primary" (click)="edit()">Edit</button>
+  </mat-card-actions>
+</mat-card>
