@@ -3,6 +3,7 @@ import { ModelData, ModelEntry, ModelVersion, ModelVersionStatus } from '../mode
 import { Observable } from 'rxjs';
 import { FormGroup } from '@angular/forms';
 import { ModelsResourceService } from '../models-resource.service';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Directive()
 export abstract class EntryContentDirective<T extends ModelData> implements OnInit {
@@ -15,7 +16,7 @@ export abstract class EntryContentDirective<T extends ModelData> implements OnIn
 
   form: FormGroup;
 
-  protected constructor(private modelsResourceService: ModelsResourceService) {
+  protected constructor(private modelsResourceService: ModelsResourceService, private snackBar: MatSnackBar) {
   }
 
   ngOnInit(): void {
@@ -48,6 +49,9 @@ export abstract class EntryContentDirective<T extends ModelData> implements OnIn
       }
       obs.subscribe(version => {
         this.version = version;
+        this.snackBar.open('Content saved!', null, {
+          duration: 3000
+        });
       }, err => {
         console.error(err);
       });

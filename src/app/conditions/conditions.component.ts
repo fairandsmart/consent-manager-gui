@@ -3,6 +3,7 @@ import { EntryContentDirective } from '../entry-content/entry-content.directive'
 import { Conditions } from '../models';
 import { FormBuilder, Validators } from '@angular/forms';
 import { ModelsResourceService } from '../models-resource.service';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-conditions',
@@ -11,8 +12,8 @@ import { ModelsResourceService } from '../models-resource.service';
 })
 export class ConditionsComponent extends EntryContentDirective<Conditions> implements OnInit {
 
-  constructor(private fb: FormBuilder, modelsResourceService: ModelsResourceService) {
-    super(modelsResourceService);
+  constructor(private fb: FormBuilder, modelsResourceService: ModelsResourceService, snackBar: MatSnackBar) {
+    super(modelsResourceService, snackBar);
   }
 
   ngOnInit(): void {

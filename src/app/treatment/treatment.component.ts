@@ -3,6 +3,7 @@ import { EntryContentDirective } from '../entry-content/entry-content.directive'
 import { Treatment } from '../models';
 import { FormBuilder, Validators } from '@angular/forms';
 import { ModelsResourceService } from '../models-resource.service';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-treatment',
@@ -11,8 +12,8 @@ import { ModelsResourceService } from '../models-resource.service';
 })
 export class TreatmentComponent extends EntryContentDirective<Treatment> implements OnInit {
 
-  constructor(private fb: FormBuilder, modelsResourceService: ModelsResourceService) {
-    super(modelsResourceService);
+  constructor(private fb: FormBuilder, modelsResourceService: ModelsResourceService, snackBar: MatSnackBar) {
+    super(modelsResourceService, snackBar);
   }
 
   ngOnInit(): void {
