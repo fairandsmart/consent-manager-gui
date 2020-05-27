@@ -1,17 +1,17 @@
 <div>
-  <app-entry-info [entry]="entry"></app-entry-info>
-  <ng-container [ngSwitch]="entryContent?.entry.type">
+  <app-entry-info *ngIf="entry" [entry]="entry"></app-entry-info>
+  <ng-container [ngSwitch]="entry?.type">
     <ng-container *ngSwitchCase="'header'">
-
+      <app-header [entry]="entry" [version]="latest"></app-header>
     </ng-container>
     <ng-container *ngSwitchCase="'treatment'">
-
+      <app-treatment [entry]="entry" [version]="latest"></app-treatment>
     </ng-container>
     <ng-container *ngSwitchCase="'conditions'">
-
+      <app-conditions [entry]="entry" [version]="latest"></app-conditions>
     </ng-container>
     <ng-container *ngSwitchCase="'footer'">
-<!--      <app-entry-footer [entry]="entry" [entryContent]="entryContent"></app-entry-footer>-->
+      <app-footer [entry]="entry" [version]="latest"></app-footer>
     </ng-container>
   </ng-container>
 </div>

@@ -7,6 +7,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { EntryEditorDialogComponent, EntryEditorDialogComponentData } from '../entry-editor-dialog/entry-editor-dialog.component';
 import { MODEL_DATA_TYPES, ModelDataType, ModelEntry, ModelFilter } from '../models';
 import { ModelsResourceService } from '../models-resource.service';
+import { Router } from '@angular/router';
 
 class ConsentElementEntryDataSource implements DataSource<ModelEntry> {
 
@@ -76,7 +77,7 @@ export class EntriesComponent implements OnInit, AfterViewInit {
   @ViewChild(MatPaginator, {static: true})
   paginator: MatPaginator;
 
-  constructor(private modelsResourceService: ModelsResourceService, private dialog: MatDialog) {
+  constructor(private modelsResourceService: ModelsResourceService, private dialog: MatDialog, private router: Router) {
     // MODEL_DATA_TYPES.forEach((type: ModelDataType) => {
     //   [1, 2, 3, 4, 5, 6, 7, 8, 9].forEach(index => {
     //     this.modelsResourceService.createEntry({
@@ -115,8 +116,7 @@ export class EntriesComponent implements OnInit, AfterViewInit {
     this.dialog.open<EntryEditorDialogComponent, EntryEditorDialogComponentData>(EntryEditorDialogComponent)
       .afterClosed().subscribe((entry) => {
       if (entry != null) {
-        this.filter.page = 0;
-        this.loadEntriesPage();
+        this.router.navigate(['entries', entry.id]);
       }
     });
   }

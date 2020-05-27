@@ -1,0 +1,82 @@
+<form *ngIf="form" [formGroup]="form">
+  <mat-card>
+    <mat-card-title>Content</mat-card-title>
+    <mat-card-content>
+      <mat-form-field appearance="outline">
+        <mat-label>Logo path</mat-label>
+        <input matInput formControlName="logoPath" autocomplete="off">
+      </mat-form-field>
+      <mat-form-field appearance="outline">
+        <mat-label>Logo alt-text</mat-label>
+        <input matInput formControlName="logoAltText" autocomplete="off">
+      </mat-form-field>
+      <mat-form-field appearance="outline">
+        <mat-label>Title</mat-label>
+        <input matInput formControlName="title" autocomplete="off">
+      </mat-form-field>
+      <mat-form-field appearance="outline">
+        <mat-label>Body</mat-label>
+        <textarea matInput formControlName="body"></textarea>
+      </mat-form-field>
+      <mat-form-field appearance="outline">
+        <mat-label>Jurisdiction</mat-label>
+        <textarea matInput formControlName="jurisdiction"></textarea>
+      </mat-form-field>
+      <mat-checkbox formControlName="showJurisdiction">Show jurisdiction</mat-checkbox>
+      <mat-form-field appearance="outline">
+        <mat-label>Collection method</mat-label>
+        <textarea matInput formControlName="collectionMethod"></textarea>
+      </mat-form-field>
+      <mat-checkbox formControlName="showCollectionMethod">Show collection method</mat-checkbox>
+      <mat-card formGroupName="dataController">
+        <mat-card-title>Data controller</mat-card-title>
+        <mat-card-content>
+          <mat-checkbox formControlName="actingBehalfCompany">Acting behalf company</mat-checkbox>
+          <mat-form-field appearance="outline">
+            <mat-label>Company</mat-label>
+            <input matInput formControlName="company" autocomplete="off">
+          </mat-form-field>
+          <mat-form-field appearance="outline">
+            <mat-label>Name</mat-label>
+            <input matInput formControlName="name" autocomplete="off">
+          </mat-form-field>
+          <mat-form-field appearance="outline">
+            <mat-label>Address</mat-label>
+            <input matInput formControlName="address" autocomplete="off">
+          </mat-form-field>
+          <mat-form-field appearance="outline">
+            <mat-label>Email</mat-label>
+            <input matInput formControlName="email" autocomplete="off">
+          </mat-form-field>
+          <mat-form-field appearance="outline">
+            <mat-label>Phone number</mat-label>
+            <input matInput formControlName="phoneNumber" autocomplete="off">
+          </mat-form-field>
+        </mat-card-content>
+      </mat-card>
+      <mat-checkbox formControlName="showDataController">Show data controller</mat-checkbox>
+      <mat-form-field appearance="outline">
+        <mat-label>Scope</mat-label>
+        <textarea matInput formControlName="scope"></textarea>
+      </mat-form-field>
+      <mat-checkbox formControlName="showScope">Show scope</mat-checkbox>
+      <mat-form-field appearance="outline">
+        <mat-label>Short notice link</mat-label>
+        <input matInput formControlName="shortNoticeLink" autocomplete="off">
+      </mat-form-field>
+      <mat-checkbox formControlName="showShortNoticeLink">Show short notice link</mat-checkbox>
+      <mat-checkbox formControlName="showScope">Show scope</mat-checkbox>
+      <mat-form-field appearance="outline">
+        <mat-label>Privacy policy url</mat-label>
+        <input matInput formControlName="privacyPolicyUrl" autocomplete="off">
+      </mat-form-field>
+      <mat-form-field appearance="outline">
+        <mat-label>Custom privacy policy text</mat-label>
+        <textarea matInput formControlName="customPrivacyPolicyText"></textarea>
+      </mat-form-field>
+    </mat-card-content>
+    <mat-card-actions>
+      <button mat-button type="button" color="primary" (click)="save()">Save</button>
+    </mat-card-actions>
+  </mat-card>
+</form>

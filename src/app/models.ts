@@ -114,6 +114,39 @@ export interface Footer extends ModelData {
   customAcceptAllText: string;
 }
 
+export enum TreatmentPurpose {
+  CONSENT_CORE_SERVICE = 'CONSENT_CORE_SERVICE',
+  CONSENT_IMPROVED_SERVICE = 'CONSENT_IMPROVED_SERVICE',
+  CONSENT_MARKETING = 'CONSENT_MARKETING',
+  CONSENT_THIRD_PART_SHARING = 'CONSENT_THIRD_PART_SHARING',
+  CONSENT_RESEARCH = 'CONSENT_RESEARCH'
+}
+
+export interface Treatment extends ModelData {
+  type: 'treatment';
+  treatmentTitle: string;
+  dataTitle: string;
+  dataBody: string;
+  retentionTitle: string;
+  retentionBody: string;
+  usageTitle: string;
+  usageBody: string;
+  purposes: TreatmentPurpose[];
+  containsSensitiveData: boolean;
+  containsMedicalData: boolean;
+  dataController: Controller;
+  showDataController: boolean;
+  thirdParties: {[key: string]: string};
+}
+
+export interface Conditions extends ModelData {
+  type: 'conditions';
+  title: string;
+  body: string;
+  acceptLabel: string;
+  rejectLabel: string;
+}
+
 export interface Controller {
   actingBehalfCompany: boolean;
   company: string;

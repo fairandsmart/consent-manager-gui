@@ -9,7 +9,7 @@ import { KEYCLOAK_CONFIG } from '../keycloak-config';
 import { EntriesComponent } from './entries/entries.component';
 import { HttpClientModule } from '@angular/common/http';
 import { EntryComponent } from './entry/entry.component';
-import { EntryFooterComponent } from './entry-footer/entry-footer.component';
+import { FooterComponent } from './footer/footer.component';
 import { ShortIdPipe } from './common/short-id.pipe';
 import { MaterialModule } from './material.module';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
@@ -18,6 +18,9 @@ import { EntryInfoComponent } from './entry-info/entry-info.component';
 import { StoreModule } from '@ngrx/store';
 import { EffectsModule } from '@ngrx/effects';
 import { RecordsComponent } from './records/records.component';
+import { HeaderComponent } from './header/header.component';
+import { ConditionsComponent } from './conditions/conditions.component';
+import { TreatmentComponent } from './treatment/treatment.component';
 
 const keycloakService = new KeycloakService();
 
@@ -26,7 +29,10 @@ const keycloakService = new KeycloakService();
     AppComponent,
     EntriesComponent,
     EntryComponent,
-    EntryFooterComponent,
+    HeaderComponent,
+    TreatmentComponent,
+    ConditionsComponent,
+    FooterComponent,
     EntryEditorDialogComponent,
     EntryInfoComponent,
     ShortIdPipe,

@@ -1,0 +1,26 @@
+<form *ngIf="form" [formGroup]="form">
+  <mat-card>
+    <mat-card-title>Content</mat-card-title>
+    <mat-card-content>
+      <mat-form-field appearance="outline">
+        <mat-label>Title</mat-label>
+        <input matInput formControlName="title" autocomplete="off">
+      </mat-form-field>
+      <mat-form-field appearance="outline">
+        <mat-label>Body</mat-label>
+        <textarea matInput formControlName="body"></textarea>
+      </mat-form-field>
+      <mat-form-field appearance="outline">
+        <mat-label>Accept label</mat-label>
+        <input matInput formControlName="acceptLabel" autocomplete="off">
+      </mat-form-field>
+      <mat-form-field appearance="outline">
+        <mat-label>Reject label</mat-label>
+        <input matInput formControlName="rejectLabel" autocomplete="off">
+      </mat-form-field>
+    </mat-card-content>
+    <mat-card-actions>
+      <button mat-button type="button" color="primary" (click)="save()">Save</button>
+    </mat-card-actions>
+  </mat-card>
+</form>

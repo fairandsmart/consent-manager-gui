@@ -12,6 +12,7 @@ import { MatDialogModule } from '@angular/material/dialog';
 import { MatSelectModule } from '@angular/material/select';
 import { MatIconModule } from '@angular/material/icon';
 import { MatCardModule } from '@angular/material/card';
+import { MatCheckboxModule } from '@angular/material/checkbox';
 
 const modules = [
   MatButtonModule,
@@ -26,7 +27,8 @@ const modules = [
   MatDividerModule,
   MatDialogModule,
   MatIconModule,
-  MatCardModule
+  MatCardModule,
+  MatCheckboxModule
 ];
 
 @NgModule({
