@@ -21,6 +21,8 @@ export interface ModelFilter {
   types: ModelDataType[];
   page?: number;
   size?: number;
+  order?: string;
+  direction?: string;
 }
 
 export interface CreateModelDto {
