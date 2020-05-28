@@ -1,9 +1,20 @@
-<button mat-raised-button color="primary" (click)="newEntry()">New entry</button>
+<div class="filter-container">
+  <mat-form-field appearance="fill">
+    <mat-label>Type</mat-label>
+    <mat-select (ngModelChange)="filterChange('types', $event)" [ngModel]="filter.types" multiple="true">
+      <mat-option *ngFor="let type of TYPES" [value]="type">{{type}}</mat-option>
+    </mat-select>
+  </mat-form-field>
+  <div>
+    <button mat-raised-button color="primary" (click)="newEntry()">New entry</button>
+  </div>
+</div>
 <div class="table-container mat-elevation-z6">
   <div class="progress-bar-container" *ngIf="dataSource.loading$ | async">
     <mat-progress-bar mode="indeterminate"></mat-progress-bar>
   </div>
-  <table mat-table [dataSource]="dataSource" [class.loading]="dataSource.loading$ | async">
+  <table mat-table [dataSource]="dataSource" [class.loading]="dataSource.loading$ | async"
+         matSort [matSortActive]="filter.order" [matSortDirection]="filter.direction" matSortDisableClear="true">
 
     <ng-container matColumnDef="id">
       <th mat-header-cell *matHeaderCellDef> Id </th>
@@ -11,17 +22,17 @@
     </ng-container>
 
     <ng-container matColumnDef="key">
-      <th mat-header-cell *matHeaderCellDef> Key </th>
+      <th mat-header-cell mat-sort-header *matHeaderCellDef> Key </th>
       <td mat-cell *matCellDef="let element"> {{element.key}} </td>
     </ng-container>
 
     <ng-container matColumnDef="name">
-      <th mat-header-cell *matHeaderCellDef> Name </th>
+      <th mat-header-cell mat-sort-header *matHeaderCellDef> Name </th>
       <td mat-cell *matCellDef="let element"> {{element.name}} </td>
     </ng-container>
 
     <ng-container matColumnDef="type">
-      <th mat-header-cell *matHeaderCellDef> Type </th>
+      <th mat-header-cell mat-sort-header *matHeaderCellDef> Type </th>
       <td mat-cell *matCellDef="let element"> {{element.type}} </td>
     </ng-container>
 

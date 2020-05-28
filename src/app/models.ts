@@ -21,6 +21,8 @@ export interface ModelFilter {
   types: ModelDataType[];
   page?: number;
   size?: number;
+  order?: string;
+  direction?: string;
 }
 
 export interface CreateModelDto {
@@ -121,6 +123,8 @@ export enum TreatmentPurpose {
   CONSENT_THIRD_PART_SHARING = 'CONSENT_THIRD_PART_SHARING',
   CONSENT_RESEARCH = 'CONSENT_RESEARCH'
 }
+
+export const TREATMENT_PURPOSES = Object.keys(TreatmentPurpose);
 
 export interface Treatment extends ModelData {
   type: 'treatment';
