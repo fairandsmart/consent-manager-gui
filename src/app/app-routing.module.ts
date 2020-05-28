@@ -3,6 +3,7 @@ import { Routes, RouterModule } from '@angular/router';
 import { EntriesComponent } from './entries/entries.component';
 import { EntryComponent } from './entry/entry.component';
 import { RecordsComponent } from './records/records.component';
+import { TokenCreationComponent } from './token-creation/token-creation.component';
 
 
 const routes: Routes = [
@@ -22,6 +23,10 @@ const routes: Routes = [
   {
     path: 'records',
     component: RecordsComponent
+  },
+  {
+    path: 'token',
+    component: TokenCreationComponent
   }
 ];
 

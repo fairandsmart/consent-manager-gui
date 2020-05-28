@@ -17,10 +17,18 @@ export class ConsentsResourceService {
   constructor(private http: HttpClient) { }
 
   generateToken(ctx: ConsentContext): Observable<string> {
-    return this.http.post<string>(`${environment.managerUrl}/consents/token`, ctx);
+    return this.http.post<string>(`${environment.managerUrl}/consents/token`, ctx, {responseType: 'text' as 'json'});
+  }
+
+  getForm(token: string): Observable<string> {
+    return this.http.get<string>(`${environment.managerUrl}/consents`, {params: {'t': token}, responseType: 'text' as 'json'});
+  }
+
+  getFormUrl(token: string): string {
+    return `${environment.managerUrl}/consents?t=` + token;
   }
 
   listRecords(filter: RecordFilter): Observable<CollectionPage<Record>> {
-    return this.http.get<CollectionPage<Record>>(`${environment.managerUrl}/consents/records`, {params: {query: filter.query}});
+    return this.http.get<CollectionPage<Record>>(`${environment.managerUrl}/consents/records`, {params: filter as any});
   }
 }

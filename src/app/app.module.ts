@@ -18,6 +18,7 @@ import { EntryInfoComponent } from './entry-info/entry-info.component';
 import { StoreModule } from '@ngrx/store';
 import { EffectsModule } from '@ngrx/effects';
 import { RecordsComponent } from './records/records.component';
+import { TokenCreationComponent } from './token-creation/token-creation.component';
 import { HeaderComponent } from './header/header.component';
 import { ConditionsComponent } from './conditions/conditions.component';
 import { TreatmentComponent } from './treatment/treatment.component';
@@ -36,7 +37,8 @@ const keycloakService = new KeycloakService();
     EntryEditorDialogComponent,
     EntryInfoComponent,
     ShortIdPipe,
-    RecordsComponent
+    RecordsComponent,
+    TokenCreationComponent
   ],
   imports: [
     BrowserModule,

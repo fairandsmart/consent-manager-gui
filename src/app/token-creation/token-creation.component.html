@@ -1,0 +1,53 @@
+<mat-card>
+  <mat-card-title>Form token creator</mat-card-title>
+  <mat-card-content>
+    <mat-form-field appearance="outline">
+      <mat-label>Subject</mat-label>
+      <input matInput [(ngModel)]="subject" autocomplete="off">
+    </mat-form-field>
+
+    <mat-checkbox [(ngModel)]="vertical" checked>Vertical orientation</mat-checkbox>
+
+    <mat-form-field appearance="outline">
+      <mat-label>Header key</mat-label>
+      <input matInput [(ngModel)]="headerKey" autocomplete="off">
+    </mat-form-field>
+
+    <mat-form-field appearance="outline">
+      <mat-label>Treatments keys</mat-label>
+      <input matInput [(ngModel)]="treatmentsKeys" autocomplete="off">
+    </mat-form-field>
+
+    <mat-form-field appearance="outline">
+      <mat-label>Footer key</mat-label>
+      <input matInput [(ngModel)]="footerKey" autocomplete="off">
+    </mat-form-field>
+
+    <mat-form-field appearance="outline">
+      <mat-label>Locale</mat-label>
+      <input matInput [(ngModel)]="locale" autocomplete="off">
+    </mat-form-field>
+
+    <mat-checkbox [(ngModel)]="fullReceipt" checked>Full receipt</mat-checkbox>
+
+    <mat-form-field appearance="outline">
+      <mat-label>Opt-out email</mat-label>
+      <input matInput [(ngModel)]="optoutEmail" autocomplete="off">
+    </mat-form-field>
+
+    <mat-card *ngIf="token.length > 0">
+      <mat-card-title>Token</mat-card-title>
+      <div class="token">{{token}}</div>
+    </mat-card>
+  </mat-card-content>
+
+  <mat-card-actions>
+    <button mat-button type="button" color="primary" (click)="generateToken()">Update token</button>
+    <button mat-button type="button" color="primary" (click)="updateIframe()" *ngIf="token.length > 0">Update iframe with token</button>
+  </mat-card-actions>
+</mat-card>
+
+<mat-card id="iframe-container">
+  <mat-card-title>Preview</mat-card-title>
+  <iframe id="form-iframe" title="Form Iframe" width="100%" height="800" src=""></iframe>
+</mat-card>
