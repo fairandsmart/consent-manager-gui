@@ -124,6 +124,8 @@ export enum TreatmentPurpose {
   CONSENT_RESEARCH = 'CONSENT_RESEARCH'
 }
 
+export const TREATMENT_PURPOSES = Object.keys(TreatmentPurpose);
+
 export interface Treatment extends ModelData {
   type: 'treatment';
   treatmentTitle: string;

@@ -1,6 +1,6 @@
 <div class="filter-container">
   <mat-form-field appearance="fill">
-    <mat-label>Types</mat-label>
+    <mat-label>Type</mat-label>
     <mat-select (ngModelChange)="filterChange('types', $event)" [ngModel]="filter.types" multiple="true">
       <mat-option *ngFor="let type of TYPES" [value]="type">{{type}}</mat-option>
     </mat-select>
