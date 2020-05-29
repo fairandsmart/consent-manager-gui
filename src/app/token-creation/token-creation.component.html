@@ -35,6 +35,8 @@
       <input matInput [(ngModel)]="optoutEmail" autocomplete="off">
     </mat-form-field>
 
+    <mat-checkbox [(ngModel)]="preview" checked>Preview</mat-checkbox>
+
     <mat-card *ngIf="token.length > 0">
       <mat-card-title>Token</mat-card-title>
       <div class="token">{{token}}</div>
@@ -48,6 +50,6 @@
 </mat-card>
 
 <mat-card id="iframe-container">
-  <mat-card-title>Preview</mat-card-title>
+  <mat-card-title>Form</mat-card-title>
   <iframe id="form-iframe" title="Form Iframe" width="100%" height="800" src=""></iframe>
 </mat-card>

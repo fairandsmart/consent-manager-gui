@@ -23,6 +23,7 @@ export class TokenCreationComponent implements OnInit {
   public locale: string = "";
   public fullReceipt: boolean = true;
   public optoutEmail: string = "";
+  public preview: boolean = true;
 
   public token: string = "";
 
@@ -46,7 +47,7 @@ export class TokenCreationComponent implements OnInit {
       userinfos: {},
       attributes: {},
       optoutEmail: this.optoutEmail,
-      preview: true,
+      preview: this.preview,
       iframe: true
     };
     this.consentsResource.generateToken(context).subscribe(response => {
