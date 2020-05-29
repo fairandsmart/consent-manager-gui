@@ -1,16 +1,11 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import {
-  Record,
-  RecordFilter
-} from '../models';
-import {
-  ConsentsResourceService
-} from '../consents-resource.service';
+import { Record, RecordFilter } from '../models';
+import { ConsentsResourceService } from '../consents-resource.service';
 import { MatPaginator } from '@angular/material/paginator';
 import { CollectionViewer, DataSource } from '@angular/cdk/collections';
 import { BehaviorSubject, Observable } from 'rxjs';
-import { delay, finalize, tap } from 'rxjs/operators';
-import { MatDialog } from '@angular/material/dialog';
+import { finalize, tap } from 'rxjs/operators';
+import { MatSort, Sort } from '@angular/material/sort';
 
 class RecordDataSource implements DataSource<Record> {
 
@@ -74,17 +69,28 @@ export class RecordsComponent implements OnInit {
   filter: RecordFilter = {
     query: '',
     page: 0,
-    size: 10
+    size: 10,
+    order: 'id',
+    direction: 'asc'
   };
 
   @ViewChild(MatPaginator, {static: true})
   paginator: MatPaginator;
 
-  constructor(private consentsResource: ConsentsResourceService, private dialog: MatDialog) {}
+  @ViewChild(MatSort, {static: true})
+  sort: MatSort;
+
+  constructor(private consentsResource: ConsentsResourceService) {}
 
   ngOnInit(): void {
     this.dataSource = new RecordDataSource(this.consentsResource);
     this.dataSource.paginator = this.paginator;
+    this.sort.sortChange.subscribe((sort: Sort) => {
+      this.filter.page = 0;
+      this.filter.order = sort.active;
+      this.filter.direction = sort.direction;
+      this.loadRecordsPage();
+    });
     this.paginator.page.pipe(
       tap((e) => {
         this.filter.size = e.pageSize;

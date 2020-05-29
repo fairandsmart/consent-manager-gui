@@ -242,4 +242,6 @@ export interface RecordFilter {
   query?: string;
   page?: number;
   size?: number;
+  order?: string;
+  direction?: string;
 }
