@@ -2,6 +2,10 @@
   display: flex;
   flex-direction: row;
   padding-bottom: 1em;
+  mat-form-field {
+    flex: 1 1 auto;
+    margin-right: 1em;
+  }
 }
 
 .search-field {

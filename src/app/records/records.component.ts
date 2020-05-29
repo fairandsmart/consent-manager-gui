@@ -72,7 +72,7 @@ export class RecordsComponent implements OnInit {
   dataSource: RecordDataSource;
 
   filter: RecordFilter = {
-    query: "",
+    query: '',
     page: 0,
     size: 10
   };

@@ -1,7 +1,14 @@
-<div class="search-container">
-  <input class="search-field" type="text" placeholder="Subject" [(ngModel)]="filter.query">
-  <button mat-raised-button color="primary" (click)="loadRecordsPage()">Search</button>
-</div>
+<form (ngSubmit)="loadRecordsPage()">
+  <div class="search-container">
+    <mat-form-field appearance="fill">
+      <mat-label>Subject</mat-label>
+      <input matInput class="search-field" name="query" type="text" [(ngModel)]="filter.query" autocomplete="off">
+    </mat-form-field>
+    <div>
+      <button mat-raised-button type="submit" color="primary">Search</button>
+    </div>
+  </div>
+</form>
 
 <div class="table-container mat-elevation-z6">
   <div class="progress-bar-container" *ngIf="dataSource.loading$ | async">
