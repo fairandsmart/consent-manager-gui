@@ -63,7 +63,7 @@ class ConsentElementEntryDataSource implements DataSource<ModelEntry> {
 })
 export class EntriesComponent implements OnInit {
 
-  displayedColumns = ['key', 'name', 'type', 'id', 'version', 'actions'];
+  displayedColumns = ['key', 'name', 'type', 'id', 'actions'];
 
   pageSizeOptions = [10, 25, 50];
 
