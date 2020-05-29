@@ -22,6 +22,7 @@ import { TokenCreationComponent } from './token-creation/token-creation.componen
 import { HeaderComponent } from './header/header.component';
 import { ConditionsComponent } from './conditions/conditions.component';
 import { TreatmentComponent } from './treatment/treatment.component';
+import { MAT_SNACK_BAR_DEFAULT_OPTIONS } from '@angular/material/snack-bar';
 
 const keycloakService = new KeycloakService();
 
@@ -56,7 +57,8 @@ const keycloakService = new KeycloakService();
     {
       provide: KeycloakService,
       useValue: keycloakService
-    }
+    },
+    {provide: MAT_SNACK_BAR_DEFAULT_OPTIONS, useValue: {duration: 3000}}
   ]
 })
 export class AppModule implements DoBootstrap {
