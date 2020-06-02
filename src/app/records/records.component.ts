@@ -60,7 +60,7 @@ class RecordDataSource implements DataSource<Record> {
 })
 export class RecordsComponent implements OnInit {
 
-  displayedColumns = ['id', 'serial', 'subject', 'value'];
+  displayedColumns = ['id', 'serial', 'subject', 'type', 'value', 'creationTimestamp'];
 
   pageSizeOptions = [10, 25, 50];
 

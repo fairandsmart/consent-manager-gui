@@ -72,7 +72,10 @@
     </mat-card-content>
     <mat-card-actions>
       <button mat-button type="button" color="primary" [disabled]="form.invalid" (click)="save()">Save</button>
-      <button mat-button type="button" color="primary" [disabled]="version == null || version.status === STATUS.ACTIVE" (click)="activate()">Activate</button>
+      <ng-container *ngIf="version != null">
+        <button mat-button type="button" color="primary" [disabled]="version.status === STATUS.ACTIVE" (click)="activate()">Activate draft</button>
+        <button mat-button type="button" color="warn" [disabled]="version.status !== STATUS.DRAFT" (click)="delete()">Delete draft</button>
+      </ng-container>
     </mat-card-actions>
   </mat-card>
 </form>

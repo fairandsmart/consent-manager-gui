@@ -1,10 +1,12 @@
 import { Directive, Input, OnInit } from '@angular/core';
 import { ModelData, ModelEntry, ModelVersion, ModelVersionStatus } from '../models';
-import { Observable } from 'rxjs';
+import { EMPTY, Observable } from 'rxjs';
 import { FormGroup } from '@angular/forms';
 import { ModelsResourceService } from '../models-resource.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import * as _ from 'lodash';
+import { catchError, mergeMap } from 'rxjs/operators';
+import { HttpErrorResponse } from '@angular/common/http';
 
 @Directive()
 export abstract class EntryContentDirective<T extends ModelData> implements OnInit {
@@ -89,6 +91,30 @@ export abstract class EntryContentDirective<T extends ModelData> implements OnIn
         this.snackBar.open('Cannot activate version...');
         console.error(err);
       });
+  }
+
+  delete(): void {
+    this.modelsResourceService.deleteVersion(this.entry.id, this.version.id).pipe(
+      catchError((err) => {
+        this.snackBar.open('Cannot delete version...');
+        console.error(err);
+        return EMPTY;
+      }),
+      mergeMap(() => {
+        this.snackBar.open('Version deleted!');
+        return this.modelsResourceService.getLatestVersion<T>(this.entry.id);
+      })
+    ).subscribe(version => {
+      this.updateVersion(version);
+    }, (err: HttpErrorResponse) => {
+      if (err.status === 404) {
+        this.version = null;
+        this.initForm();
+      } else {
+        console.error(err);
+        this.snackBar.open('Cannot reload latest version...');
+      }
+    });
   }
 
 }
