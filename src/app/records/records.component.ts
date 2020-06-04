@@ -1,54 +1,20 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { Record, RecordFilter } from '../models';
+import { CollectionPage, Record, RecordFilter } from '../models';
 import { ConsentsResourceService } from '../consents-resource.service';
 import { MatPaginator } from '@angular/material/paginator';
-import { CollectionViewer, DataSource } from '@angular/cdk/collections';
-import { BehaviorSubject, Observable } from 'rxjs';
-import { finalize, tap } from 'rxjs/operators';
+import { Observable } from 'rxjs';
+import { tap } from 'rxjs/operators';
 import { MatSort, Sort } from '@angular/material/sort';
+import { CollectionDatasource } from '../common/collection-datasource';
 
-class RecordDataSource implements DataSource<Record> {
-
-  private recordsSubject = new BehaviorSubject<Record[]>([]);
-  private loadingSubject = new BehaviorSubject<boolean>(false);
-
-  public loading$ = this.loadingSubject.asObservable();
-
-  private _paginator: MatPaginator;
+class RecordDataSource extends CollectionDatasource<Record, RecordFilter> {
 
   constructor(private consentsResource: ConsentsResourceService) {
+    super();
   }
 
-  get paginator(): MatPaginator | null {
-    return this._paginator;
-  }
-
-  set paginator(paginator: MatPaginator | null) {
-    this._paginator = paginator;
-  }
-
-  connect(collectionViewer: CollectionViewer): Observable<Record[] | ReadonlyArray<Record>> {
-    return this.recordsSubject.asObservable();
-  }
-
-  disconnect(collectionViewer: CollectionViewer): void {
-    this.recordsSubject.complete();
-    this.loadingSubject.complete();
-  }
-
-  loadRecords(filter: RecordFilter): void {
-    this.loadingSubject.next(true);
-    this.consentsResource.listRecords(filter).pipe(
-      finalize(() => this.loadingSubject.next(false))
-    ).subscribe(response => {
-      if (this._paginator != null) {
-        this._paginator.length = response.totalCount;
-      }
-      this.recordsSubject.next(response.values);
-    }, error => {
-      console.error(error);
-      this.recordsSubject.next([]);
-    });
+  protected getPage(pageFilter: RecordFilter): Observable<CollectionPage<Record>> {
+    return this.consentsResource.listRecords(pageFilter);
   }
 
 }
@@ -102,7 +68,7 @@ export class RecordsComponent implements OnInit {
   }
 
   loadRecordsPage(): void {
-    this.dataSource.loadRecords(this.filter);
+    this.dataSource.loadPage(this.filter);
   }
 
 }

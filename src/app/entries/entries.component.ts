@@ -1,57 +1,23 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { MatPaginator } from '@angular/material/paginator';
-import { CollectionViewer, DataSource } from '@angular/cdk/collections';
-import { BehaviorSubject, Observable } from 'rxjs';
-import { finalize, tap } from 'rxjs/operators';
+import { Observable } from 'rxjs';
+import { tap } from 'rxjs/operators';
 import { MatDialog } from '@angular/material/dialog';
 import { EntryEditorDialogComponent, EntryEditorDialogComponentData } from '../entry-editor-dialog/entry-editor-dialog.component';
-import { MODEL_DATA_TYPES, ModelEntry, ModelFilter } from '../models';
+import { CollectionPage, MODEL_DATA_TYPES, ModelEntry, ModelFilter } from '../models';
 import { ModelsResourceService } from '../models-resource.service';
 import { Router } from '@angular/router';
 import { MatSort, Sort } from '@angular/material/sort';
+import { CollectionDatasource } from '../common/collection-datasource';
 
-class ConsentElementEntryDataSource implements DataSource<ModelEntry> {
-
-  private entriesSubject = new BehaviorSubject<ModelEntry[]>([]);
-  private loadingSubject = new BehaviorSubject<boolean>(false);
-
-  public loading$ = this.loadingSubject.asObservable();
-
-  private _paginator: MatPaginator;
+class ConsentElementEntryDataSource extends CollectionDatasource<ModelEntry, ModelFilter> {
 
   constructor(private modelsResourceService: ModelsResourceService) {
+    super();
   }
 
-  get paginator(): MatPaginator | null {
-    return this._paginator;
-  }
-
-  set paginator(paginator: MatPaginator | null) {
-    this._paginator = paginator;
-  }
-
-  connect(collectionViewer: CollectionViewer): Observable<ModelEntry[] | ReadonlyArray<ModelEntry>> {
-    return this.entriesSubject.asObservable();
-  }
-
-  disconnect(collectionViewer: CollectionViewer): void {
-    this.entriesSubject.complete();
-    this.loadingSubject.complete();
-  }
-
-  loadEntries(filter: ModelFilter): void {
-    this.loadingSubject.next(true);
-    this.modelsResourceService.listEntries(filter).pipe(
-      finalize(() => this.loadingSubject.next(false))
-    ).subscribe(response => {
-      if (this._paginator != null) {
-        this._paginator.length = response.totalCount;
-      }
-      this.entriesSubject.next(response.values);
-    }, error => {
-      console.error(error);
-      this.entriesSubject.next([]);
-    });
+  protected getPage(pageFilter: ModelFilter): Observable<CollectionPage<ModelEntry>> {
+    return this.modelsResourceService.listEntries(pageFilter);
   }
 
 }
@@ -120,7 +86,7 @@ export class EntriesComponent implements OnInit {
   }
 
   loadEntriesPage(): void {
-    this.dataSource.loadEntries(this.filter);
+    this.dataSource.loadPage(this.filter);
   }
 
   filterChange<T extends keyof ModelFilter>(key: T, value: ModelFilter[T]): void {
