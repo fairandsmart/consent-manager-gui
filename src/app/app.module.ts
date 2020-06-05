@@ -24,12 +24,14 @@ import { ConditionsComponent } from './conditions/conditions.component';
 import { TreatmentComponent } from './treatment/treatment.component';
 import { MAT_SNACK_BAR_DEFAULT_OPTIONS } from '@angular/material/snack-bar';
 import { UserRecordsComponent } from './user-records/user-records.component';
+import { ConfigComponent } from './config/config.component';
 
 const keycloakService = new KeycloakService();
 
 @NgModule({
   declarations: [
     AppComponent,
+    ConfigComponent,
     EntriesComponent,
     EntryComponent,
     HeaderComponent,

@@ -54,6 +54,7 @@ export enum ModelVersionType {
 
 export interface ConsentElementIdentifier {
   type: ModelDataType;
+  key: string;
   serial: string;
 }
 
@@ -186,7 +187,8 @@ export interface ConsentContext {
   footer: string;
   callback: string;
   locale: string;
-  formType: ReceiptFormType;
+  validity?: string;
+  formType: ConsentFormType;
   receiptDeliveryType: ReceiptDeliveryType;
   userinfos: { [key: string]: string };
   attributes: { [key: string]: string };
@@ -200,7 +202,7 @@ export enum ConsentFormOrientation {
   VERTICAL = 'VERTICAL'
 }
 
-export enum ReceiptFormType {
+export enum ConsentFormType {
   PARTIAL = 'PARTIAL',
   FULL = 'FULL'
 }
@@ -230,9 +232,12 @@ export interface Record {
   parent: string;
   serial: string;
   type: string;
-  head: string;
-  body: string;
-  foot: string;
+  headSerial: string;
+  bodySerial: string;
+  footSerial: string;
+  headKey: string;
+  bodyKey: string;
+  footKey: string;
   value: string;
   status: RecordStatus;
   attributes: {[key: string]: string};

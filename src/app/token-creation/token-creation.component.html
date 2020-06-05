@@ -24,6 +24,11 @@
     </mat-form-field>
 
     <mat-form-field appearance="outline">
+      <mat-label>Validity</mat-label>
+      <input matInput [(ngModel)]="validity" autocomplete="off">
+    </mat-form-field>
+
+    <mat-form-field appearance="outline">
       <mat-label>Locale</mat-label>
       <input matInput [(ngModel)]="locale" autocomplete="off">
     </mat-form-field>
@@ -49,7 +54,7 @@
   </mat-card-actions>
 </mat-card>
 
-<mat-card id="iframe-container">
+<mat-card *ngIf="formUrl">
   <mat-card-title>Form</mat-card-title>
-  <iframe id="form-iframe" title="Form Iframe" width="100%" height="800" src=""></iframe>
+  <iframe [src]="formUrl" title="Form Iframe" width="100%" height="800"></iframe>
 </mat-card>

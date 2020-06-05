@@ -19,3 +19,7 @@ mat-divider {
   display: block;
   margin-bottom: 2em;
 }
+
+mat-card + mat-card {
+  margin-top: 1em;
+}
