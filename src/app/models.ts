@@ -256,3 +256,11 @@ export interface UserRecord {
   value: string;
   status: string;
 }
+
+export interface UserRecordFilter {
+  user?: string;
+  page?: number;
+  size?: number;
+  order?: string;
+  direction?: string;
+}

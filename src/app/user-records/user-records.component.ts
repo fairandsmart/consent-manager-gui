@@ -1,6 +1,6 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { CollectionPage, UserRecord, RecordFilter } from '../models';
+import { CollectionPage, UserRecord, UserRecordFilter } from '../models';
 import { ConsentsResourceService } from '../consents-resource.service';
 import { MatPaginator } from '@angular/material/paginator';
 import { Observable } from 'rxjs';
@@ -8,13 +8,13 @@ import { tap } from 'rxjs/operators';
 import { MatSort, Sort } from '@angular/material/sort';
 import { CollectionDatasource } from '../common/collection-datasource';
 
-class UserRecordDataSource extends CollectionDatasource<UserRecord, RecordFilter> {
+class UserRecordDataSource extends CollectionDatasource<UserRecord, UserRecordFilter> {
 
   constructor(private consentsResource: ConsentsResourceService) {
     super();
   }
 
-  protected getPage(pageFilter: RecordFilter): Observable<CollectionPage<UserRecord>> {
+  protected getPage(pageFilter: UserRecordFilter): Observable<CollectionPage<UserRecord>> {
     return this.consentsResource.listUserRecords(pageFilter);
   }
 
@@ -33,11 +33,11 @@ export class UserRecordsComponent implements OnInit {
 
   dataSource: UserRecordDataSource;
 
-  filter: RecordFilter = {
-    query: "",
+  filter: UserRecordFilter = {
+    user: "",
     page: 0,
     size: 10,
-    order: 'bodyKey',
+    order: 'key',
     direction: 'asc'
   };
 
@@ -53,7 +53,7 @@ export class UserRecordsComponent implements OnInit {
     this.dataSource = new UserRecordDataSource(this.consentsResource);
     this.dataSource.paginator = this.paginator;
     this.activatedRoute.paramMap.subscribe(params => {
-      this.filter.query = params.get('user');
+      this.filter.user = params.get('user');
       this.dataSource.loadPage(this.filter);
     });
     this.sort.sortChange.subscribe((sort: Sort) => {
