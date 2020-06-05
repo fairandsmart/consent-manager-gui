@@ -7,6 +7,9 @@ import { Observable } from 'rxjs';
 import { tap } from 'rxjs/operators';
 import { MatSort, Sort } from '@angular/material/sort';
 import { CollectionDatasource } from '../common/collection-datasource';
+import { MatDialog } from '@angular/material/dialog';
+import { UserRecordEditorDialogComponent, UserRecordEditorDialogComponentData } from '../user-record-editor-dialog/user-record-editor-dialog.component';
+import { KeycloakService } from 'keycloak-angular';
 
 class UserRecordDataSource extends CollectionDatasource<UserRecord, UserRecordFilter> {
 
@@ -47,32 +50,53 @@ export class UserRecordsComponent implements OnInit {
   @ViewChild(MatSort, {static: true})
   sort: MatSort;
 
-  constructor(private activatedRoute: ActivatedRoute, private consentsResource: ConsentsResourceService) {}
+  constructor(
+    private activatedRoute: ActivatedRoute,
+    private consentsResource: ConsentsResourceService,
+    private dialog: MatDialog,
+    public keycloak: KeycloakService) {}
 
   ngOnInit(): void {
     this.dataSource = new UserRecordDataSource(this.consentsResource);
     this.dataSource.paginator = this.paginator;
     this.activatedRoute.paramMap.subscribe(params => {
       this.filter.user = params.get('user');
-      this.dataSource.loadPage(this.filter);
+      this.loadUserRecordsPage();
     });
     this.sort.sortChange.subscribe((sort: Sort) => {
       this.filter.page = 0;
       this.filter.order = sort.active;
       this.filter.direction = sort.direction;
-      this.dataSource.loadPage(this.filter);
+      this.loadUserRecordsPage();
     });
     this.paginator.page.pipe(
       tap((e) => {
         this.filter.size = e.pageSize;
         this.filter.page = e.pageIndex;
-        this.dataSource.loadPage(this.filter);
+        this.loadUserRecordsPage();
       })
     ).subscribe();
   }
 
-  editConsent(element, event): void {
-    console.log("TODO :)");
+  loadUserRecordsPage(): void {
+    this.dataSource.loadPage(this.filter);
+  }
+
+  editRecord(record: UserRecord, $event: MouseEvent): void {
+    $event.preventDefault();
+    $event.stopPropagation();
+    this.dialog.open<UserRecordEditorDialogComponent, UserRecordEditorDialogComponentData>(UserRecordEditorDialogComponent, {
+      data: {
+        record: record,
+        owner: this.keycloak.getUsername(),
+        subject: this.filter.user
+      }
+    }).afterClosed().subscribe((updatedRecord) => {
+      if (updatedRecord != null) {
+        this.filter.page = 0;
+        this.loadUserRecordsPage();
+      }
+    });
   }
 
 }

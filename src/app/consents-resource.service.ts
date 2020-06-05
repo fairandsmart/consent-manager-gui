@@ -30,4 +30,8 @@ export class ConsentsResourceService {
   listUserRecords(filter: RecordFilter): Observable<CollectionPage<UserRecord>> {
     return this.http.get<CollectionPage<UserRecord>>(`${environment.managerUrl}/consents/records/user`, {params: filter as any});
   }
+
+  putRecord(dto: UserRecord): Observable<UserRecord> {
+    return this.http.put<UserRecord>(`${environment.managerUrl}/consents/records/user`, dto);
+  }
 }

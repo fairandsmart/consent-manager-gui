@@ -71,4 +71,8 @@ export class RecordsComponent implements OnInit {
     this.dataSource.loadPage(this.filter);
   }
 
+  submitSearch(): void {
+    this.filter.page = 0;
+    this.loadRecordsPage();
+  }
 }

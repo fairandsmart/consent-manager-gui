@@ -1,0 +1,33 @@
+<h2 mat-dialog-title>{{data.record.status ? 'Update record' : 'New record'}}</h2>
+
+<div mat-dialog-content *ngIf="form" [formGroup]="form">
+
+  <mat-form-field appearance="outline">
+    <mat-label>Body key</mat-label>
+    <input matInput disabled [value]="data.record.bodyKey">
+  </mat-form-field>
+
+  <mat-form-field appearance="outline">
+    <mat-label>Owner</mat-label>
+    <input matInput disabled [value]="data.record.owner">
+  </mat-form-field>
+
+  <mat-form-field appearance="outline">
+    <mat-label>Subject</mat-label>
+    <input matInput disabled [value]="data.record.subject">
+  </mat-form-field>
+
+  <mat-form-field appearance="outline">
+    <mat-label>Value</mat-label>
+    <mat-select formControlName="value">
+      <mat-option value="accepted">Accept</mat-option>
+      <mat-option value="refused">Refuse</mat-option>
+    </mat-select>
+  </mat-form-field>
+
+</div>
+
+<div class="btn-uppercase align-right" mat-dialog-actions>
+  <button mat-button color="primary" [disabled]="form.disabled" [mat-dialog-close]="null">Cancel</button>
+  <button mat-button color="primary" [disabled]="form.disabled" (click)="submit()">{{data.record.status ? 'Update' : 'Create'}}</button>
+</div>
