@@ -23,6 +23,7 @@ import { HeaderComponent } from './header/header.component';
 import { ConditionsComponent } from './conditions/conditions.component';
 import { TreatmentComponent } from './treatment/treatment.component';
 import { MAT_SNACK_BAR_DEFAULT_OPTIONS } from '@angular/material/snack-bar';
+import { UserRecordsComponent } from './user-records/user-records.component';
 
 const keycloakService = new KeycloakService();
 
@@ -39,7 +40,8 @@ const keycloakService = new KeycloakService();
     EntryInfoComponent,
     ShortIdPipe,
     RecordsComponent,
-    TokenCreationComponent
+    TokenCreationComponent,
+    UserRecordsComponent
   ],
   imports: [
     BrowserModule,

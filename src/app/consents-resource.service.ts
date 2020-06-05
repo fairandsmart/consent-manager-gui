@@ -2,12 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { environment } from '../environments/environment';
-import {
-  ConsentContext,
-  CollectionPage,
-  Record,
-  RecordFilter
-} from './models';
+import { ConsentContext, CollectionPage, Record, RecordFilter, UserRecord } from './models';
 
 @Injectable({
   providedIn: 'root'
@@ -30,5 +25,9 @@ export class ConsentsResourceService {
 
   listRecords(filter: RecordFilter): Observable<CollectionPage<Record>> {
     return this.http.get<CollectionPage<Record>>(`${environment.managerUrl}/consents/records`, {params: filter as any});
+  }
+
+  listUserRecords(filter: RecordFilter): Observable<CollectionPage<UserRecord>> {
+    return this.http.get<CollectionPage<UserRecord>>(`${environment.managerUrl}/consents/records/user`, {params: filter as any});
   }
 }

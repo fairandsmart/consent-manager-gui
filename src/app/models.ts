@@ -245,3 +245,14 @@ export interface RecordFilter {
   order?: string;
   direction?: string;
 }
+
+export interface UserRecord {
+  bodyKey: string;
+  owner: string;
+  subject: string;
+  creationTimestamp: number;
+  expirationTimestamp: number;
+  type: string;
+  value: string;
+  status: string;
+}

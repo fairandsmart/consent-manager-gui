@@ -1,0 +1,51 @@
+<div class="table-container mat-elevation-z6">
+  <div class="progress-bar-container" *ngIf="dataSource.loading$ | async">
+    <mat-progress-bar mode="indeterminate"></mat-progress-bar>
+  </div>
+  <table mat-table [dataSource]="dataSource" [class.loading]="dataSource.loading$ | async"
+         matSort [matSortActive]="filter.order" [matSortDirection]="filter.direction" matSortDisableClear="true">
+
+    <ng-container matColumnDef="bodyKey">
+      <th mat-header-cell mat-sort-header *matHeaderCellDef> Body key </th>
+      <td mat-cell *matCellDef="let element"> {{element.bodyKey}}</td>
+    </ng-container>
+
+    <ng-container matColumnDef="type">
+      <th mat-header-cell mat-sort-header *matHeaderCellDef> Element type </th>
+      <td mat-cell *matCellDef="let element"> {{element.type ? element.type : "-"}}</td>
+    </ng-container>
+
+    <ng-container matColumnDef="value">
+      <th mat-header-cell mat-sort-header *matHeaderCellDef> Value </th>
+      <td mat-cell *matCellDef="let element"> {{element.value ? element.value : "-"}}</td>
+    </ng-container>
+
+    <ng-container matColumnDef="status">
+      <th mat-header-cell mat-sort-header *matHeaderCellDef> Status </th>
+      <td mat-cell *matCellDef="let element"> {{element.status ? element.status : "-"}}</td>
+    </ng-container>
+
+    <ng-container matColumnDef="creationTimestamp">
+      <th mat-header-cell mat-sort-header *matHeaderCellDef> Creation timestamp </th>
+      <td mat-cell *matCellDef="let element"> {{element.creationTimestamp > 0 ? (element.creationTimestamp | date:'short') : "-"}}</td>
+    </ng-container>
+
+    <ng-container matColumnDef="expirationTimestamp">
+      <th mat-header-cell mat-sort-header *matHeaderCellDef> Expiration timestamp </th>
+      <td mat-cell *matCellDef="let element"> {{element.expirationTimestamp > 0 ? (element.expirationTimestamp | date:'short') : "-"}}</td>
+    </ng-container>
+
+    <ng-container matColumnDef="actions">
+      <th mat-header-cell *matHeaderCellDef> </th>
+      <td mat-cell *matCellDef="let element">
+        <button mat-icon-button (click)="editConsent(element, $event)"><mat-icon>edit</mat-icon></button>
+      </td>
+    </ng-container>
+
+    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+
+  </table>
+  <mat-paginator [pageSizeOptions]="pageSizeOptions" [pageIndex]="filter.page" [pageSize]="this.filter.size"
+                 showFirstLastButtons></mat-paginator>
+</div>
