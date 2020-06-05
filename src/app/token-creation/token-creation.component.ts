@@ -2,10 +2,11 @@ import { Component, OnInit } from '@angular/core';
 import {
   ConsentContext,
   ConsentFormOrientation,
-  ReceiptFormType,
+  ConsentFormType,
   ReceiptDeliveryType
 } from '../models';
 import { ConsentsResourceService } from '../consents-resource.service';
+import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-token-creation',
@@ -14,35 +15,39 @@ import { ConsentsResourceService } from '../consents-resource.service';
 })
 export class TokenCreationComponent implements OnInit {
 
-  public subject: string = "";
-  public owner: string = "";
-  public vertical: boolean = true;
-  public headerKey: string = "";
-  public treatmentsKeys: string = "";
-  public footerKey: string = "";
-  public locale: string = "";
-  public fullReceipt: boolean = true;
-  public optoutEmail: string = "";
-  public preview: boolean = true;
+  public subject = '';
+  public owner = '';
+  public vertical = true;
+  public headerKey = '';
+  public treatmentsKeys = '';
+  public footerKey = '';
+  public validity = '';
+  public locale = '';
+  public fullReceipt = true;
+  public optoutEmail = '';
+  public preview = true;
 
-  public token: string = "";
+  public formUrl: SafeResourceUrl;
 
-  constructor(private consentsResource: ConsentsResourceService) { }
+  public token = '';
+
+  constructor(private consentsResource: ConsentsResourceService, private sanitizer: DomSanitizer) { }
 
   ngOnInit(): void {
   }
 
   generateToken(): void {
-    var context: ConsentContext = {
-      owner: "", // géré côté backend
+    const context: ConsentContext = {
+      owner: '', // géré côté backend
       subject: this.subject,
       orientation: this.vertical ? ConsentFormOrientation.VERTICAL : ConsentFormOrientation.HORIZONTAL,
       header: this.headerKey,
-      elements: this.treatmentsKeys.split(","),
+      elements: this.treatmentsKeys.split(','),
       footer: this.footerKey,
-      callback: "",
+      callback: '',
+      validity: this.validity,
       locale: this.locale,
-      formType: this.fullReceipt ? ReceiptFormType.FULL : ReceiptFormType.PARTIAL,
+      formType: this.fullReceipt ? ConsentFormType.FULL : ConsentFormType.PARTIAL,
       receiptDeliveryType: ReceiptDeliveryType.DISPLAY,
       userinfos: {},
       attributes: {},
@@ -56,14 +61,10 @@ export class TokenCreationComponent implements OnInit {
   }
 
   updateIframe(): void {
-    var container = document.getElementById("iframe-container");
-    var iframe: HTMLIFrameElement = document.getElementById("form-iframe") as HTMLIFrameElement;
     if (this.token.length > 0) {
-      iframe.src = this.consentsResource.getFormUrl(this.token);
-      container.style.display = "block";
+      this.formUrl = this.sanitizer.bypassSecurityTrustResourceUrl(this.consentsResource.getFormUrl(this.token));
     } else {
-      iframe.src = "";
-      container.style.display = "none";
+      this.formUrl = null;
     }
   }
 }

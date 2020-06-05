@@ -1,0 +1,19 @@
+<mat-toolbar color="primary">
+  <span [routerLink]="'/'">Consent Manager</span>
+  <nav>
+    <button mat-button [routerLink]="'./entries'"
+            [routerLinkActive]="'active-link'">Entries</button>
+    <button mat-button [routerLink]="'./records'"
+            [routerLinkActive]="'active-link'">Records</button>
+    <button mat-button [routerLink]="'./token'"
+            [routerLinkActive]="'active-link'">Token</button>
+  </nav>
+  <span class="spacer"></span>
+  <span>
+    <button mat-button [matMenuTriggerFor]="userMenu">{{keycloak.getUsername()}}</button>
+    <mat-menu #userMenu="matMenu">
+      <button mat-menu-item (click)="keycloak.logout()">Logout</button>
+    </mat-menu>
+  </span>
+</mat-toolbar>
+<router-outlet></router-outlet>

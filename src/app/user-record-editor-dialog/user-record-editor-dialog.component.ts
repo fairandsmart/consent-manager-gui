@@ -2,7 +2,7 @@ import { Component, Inject, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { Observable } from 'rxjs';
-import { UserRecord } from '../models';
+import { UserRecord, UserRecordDto } from '../models';
 import { ConsentsResourceService } from '../consents-resource.service';
 
 export interface UserRecordEditorDialogComponentData {
@@ -47,15 +47,11 @@ export class UserRecordEditorDialogComponent implements OnInit {
       this.form.disable();
       let obs: Observable<UserRecord>;
       const formValue = this.form.getRawValue();
-      const dto: UserRecord = {
+      const dto: UserRecordDto = {
         bodyKey: this.data.record.bodyKey,
         owner: this.data.record.owner,
         subject: this.data.record.subject,
-        creationTimestamp: 0,
-        expirationTimestamp: 0,
-        type: this.data.record.type,
-        value: formValue.value,
-        status: ""
+        value: formValue.value
       };
       obs = this.consentsResourceService.putRecord(dto);
       obs.subscribe((record) => {
