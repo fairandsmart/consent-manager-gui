@@ -99,7 +99,7 @@ export class EntriesComponent implements OnInit {
     this.dialog.open<EntryEditorDialogComponent, EntryEditorDialogComponentData>(EntryEditorDialogComponent)
       .afterClosed().subscribe((entry) => {
       if (entry != null) {
-        this.router.navigate(['entries', entry.id]);
+        this.router.navigate(['config/entries', entry.id]);
       }
     });
   }
