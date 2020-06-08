@@ -175,6 +175,9 @@ export const FIELD_VALIDATORS = {
   },
   description: {
     max: 2500
+  },
+  elementsKeys: {
+    pattern: '^([0-9a-zA-Z-_.]{2,255},)*[0-9a-zA-Z-_.]{2,255}$'
   }
 };
 
@@ -207,13 +210,9 @@ export enum ConsentFormType {
   FULL = 'FULL'
 }
 
-export enum ReceiptDeliveryType {
-  NONE = 'NONE',
-  GENERATE = 'GENERATE',
-  DISPLAY = 'DISPLAY',
-  STORE = 'STORE',
-  DOWNLOAD = 'DOWNLOAD'
-}
+export type ReceiptDeliveryType = 'NONE' | 'GENERATE' | 'DISPLAY' | 'STORE' | 'DOWNLOAD';
+
+export const RECEIPT_DELIVERY_TYPES: ReceiptDeliveryType[] = ['NONE', 'GENERATE', 'DISPLAY', 'STORE', 'DOWNLOAD'];
 
 export enum RecordStatus {
   PENDING = 'PENDING',

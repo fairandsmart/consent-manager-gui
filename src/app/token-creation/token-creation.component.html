@@ -1,57 +1,63 @@
-<mat-card>
+<mat-card *ngIf="form" [formGroup]="form">
   <mat-card-title>Form token creator</mat-card-title>
   <mat-card-content>
     <mat-form-field appearance="outline">
       <mat-label>Subject</mat-label>
-      <input matInput [(ngModel)]="subject" autocomplete="off">
+      <input matInput formControlName="subject" autocomplete="off">
     </mat-form-field>
 
-    <mat-checkbox [(ngModel)]="vertical" checked>Vertical orientation</mat-checkbox>
+    <mat-checkbox formControlName="vertical" checked>Vertical orientation</mat-checkbox>
 
     <mat-form-field appearance="outline">
       <mat-label>Header key</mat-label>
-      <input matInput [(ngModel)]="headerKey" autocomplete="off">
+      <input matInput formControlName="headerKey" autocomplete="off">
     </mat-form-field>
 
     <mat-form-field appearance="outline">
-      <mat-label>Treatments keys</mat-label>
-      <input matInput [(ngModel)]="treatmentsKeys" autocomplete="off">
+      <mat-label>Elements keys (comma-separated)</mat-label>
+      <input matInput formControlName="elementsKeys" autocomplete="off">
     </mat-form-field>
 
     <mat-form-field appearance="outline">
       <mat-label>Footer key</mat-label>
-      <input matInput [(ngModel)]="footerKey" autocomplete="off">
+      <input matInput formControlName="footerKey" autocomplete="off">
     </mat-form-field>
 
     <mat-form-field appearance="outline">
       <mat-label>Validity</mat-label>
-      <input matInput [(ngModel)]="validity" autocomplete="off">
+      <input matInput formControlName="validity" autocomplete="off">
+    </mat-form-field>
+
+    <mat-form-field appearance="outline">
+      <mat-label>Receipt type</mat-label>
+      <mat-select formControlName="receiptType">
+        <mat-option *ngFor="let type of TYPES" [value]="type">{{type}}</mat-option>
+      </mat-select>
     </mat-form-field>
 
     <mat-form-field appearance="outline">
       <mat-label>Locale</mat-label>
-      <input matInput [(ngModel)]="locale" autocomplete="off">
+      <input matInput formControlName="locale" autocomplete="off">
     </mat-form-field>
 
-    <mat-checkbox [(ngModel)]="fullReceipt" checked>Full receipt</mat-checkbox>
+    <mat-checkbox formControlName="forceDisplay" checked>Force display of all elements</mat-checkbox>
 
     <mat-form-field appearance="outline">
       <mat-label>Opt-out email</mat-label>
-      <input matInput [(ngModel)]="optoutEmail" autocomplete="off">
+      <input matInput formControlName="optoutEmail" autocomplete="off">
     </mat-form-field>
 
-    <mat-checkbox [(ngModel)]="preview" checked>Preview</mat-checkbox>
+    <mat-checkbox formControlName="preview" checked>Preview</mat-checkbox>
+
+    <mat-card-actions>
+      <button mat-button color="primary" [disabled]="form.disabled" (click)="submit()">{{submitText}}</button>
+    </mat-card-actions>
 
     <mat-card *ngIf="token.length > 0">
       <mat-card-title>Token</mat-card-title>
       <div class="token">{{token}}</div>
     </mat-card>
   </mat-card-content>
-
-  <mat-card-actions>
-    <button mat-button type="button" color="primary" (click)="generateToken()">Update token</button>
-    <button mat-button type="button" color="primary" (click)="updateIframe()" *ngIf="token.length > 0">Update iframe with token</button>
-  </mat-card-actions>
 </mat-card>
 
 <mat-card *ngIf="formUrl">

@@ -16,7 +16,7 @@ export interface EntryEditorDialogComponentData {
 })
 export class EntryEditorDialogComponent implements OnInit {
 
-  form: FormGroup;
+  public form: FormGroup;
 
   readonly TYPES = MODEL_DATA_TYPES;
 

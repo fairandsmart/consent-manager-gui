@@ -36,7 +36,7 @@ export class RecordsComponent implements OnInit {
     query: '',
     page: 0,
     size: 10,
-    order: 'id',
+    order: 'creationTimestamp',
     direction: 'asc'
   };
 
