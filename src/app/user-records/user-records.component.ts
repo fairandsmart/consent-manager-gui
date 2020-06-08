@@ -30,7 +30,7 @@ class UserRecordDataSource extends CollectionDatasource<UserRecord, UserRecordFi
 })
 export class UserRecordsComponent implements OnInit {
 
-  displayedColumns = ['bodyKey', 'type', 'value', 'status', 'creationTimestamp', 'expirationTimestamp', 'actions'];
+  displayedColumns = ['bodyKey', 'type', 'value', 'status', 'collectionMethod', 'creationTimestamp', 'expirationTimestamp', 'actions'];
 
   pageSizeOptions = [10, 25, 50];
 

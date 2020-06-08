@@ -196,6 +196,7 @@ export interface ConsentContext {
   userinfos: { [key: string]: string };
   attributes: { [key: string]: string };
   optoutEmail: string;
+  collectionMethod: CollectionMethod;
   preview: boolean;
   iframe: boolean;
 }
@@ -208,6 +209,11 @@ export enum ConsentFormOrientation {
 export enum ConsentFormType {
   PARTIAL = 'PARTIAL',
   FULL = 'FULL'
+}
+
+export enum CollectionMethod {
+  WEBFORM = 'WEBFORM',
+  OPERATOR = 'OPERATOR'
 }
 
 export type ReceiptDeliveryType = 'NONE' | 'GENERATE' | 'DISPLAY' | 'STORE' | 'DOWNLOAD';
@@ -259,6 +265,7 @@ export interface UserRecord {
   type: string;
   value: string;
   status: string;
+  collectionMethod: CollectionMethod;
 }
 
 export interface UserRecordFilter {

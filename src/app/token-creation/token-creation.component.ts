@@ -3,6 +3,7 @@ import {
   ConsentContext,
   ConsentFormOrientation,
   ConsentFormType,
+  CollectionMethod,
   RECEIPT_DELIVERY_TYPES,
   FIELD_VALIDATORS
 } from '../models';
@@ -90,6 +91,7 @@ export class TokenCreationComponent implements OnInit {
         userinfos: {},
         attributes: {},
         optoutEmail: formValue.optoutEmail,
+        collectionMethod: CollectionMethod.WEBFORM,
         preview: formValue.preview,
         iframe: true
       };

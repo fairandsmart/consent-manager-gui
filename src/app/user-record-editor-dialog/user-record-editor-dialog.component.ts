@@ -45,7 +45,6 @@ export class UserRecordEditorDialogComponent implements OnInit {
   submit(): void {
     if (this.form.valid) {
       this.form.disable();
-      let obs: Observable<UserRecord>;
       const formValue = this.form.getRawValue();
       const dto: UserRecordDto = {
         bodyKey: this.data.record.bodyKey,
@@ -53,8 +52,7 @@ export class UserRecordEditorDialogComponent implements OnInit {
         subject: this.data.record.subject,
         value: formValue.value
       };
-      obs = this.consentsResourceService.putRecord(dto);
-      obs.subscribe((record) => {
+      this.consentsResourceService.putRecord(dto).subscribe((record) => {
         this.dialogRef.close(record);
       }, (err) => {
         console.error(err);
