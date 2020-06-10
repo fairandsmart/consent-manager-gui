@@ -2,13 +2,14 @@ import { Component, Inject, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { Observable } from 'rxjs';
-import { UserRecord, UserRecordDto } from '../models';
+import { UserRecord, OperatorRecordDto } from '../models';
 import { ConsentsResourceService } from '../consents-resource.service';
 
 export interface UserRecordEditorDialogComponentData {
-  record: UserRecord;
-  owner: string;
+  bodyKey: string;
+  author: string;
   subject: string;
+  value: string;
 }
 
 @Component({
@@ -18,27 +19,24 @@ export interface UserRecordEditorDialogComponentData {
 })
 export class UserRecordEditorDialogComponent implements OnInit {
 
-  form: FormGroup;
+  public form: FormGroup;
 
-  constructor(private dialogRef: MatDialogRef<UserRecordEditorDialogComponent, UserRecord>,
+  constructor(private dialogRef: MatDialogRef<UserRecordEditorDialogComponent, String>,
               @Inject(MAT_DIALOG_DATA) public data: UserRecordEditorDialogComponentData,
               private fb: FormBuilder,
               private consentsResourceService: ConsentsResourceService) {
   }
 
   ngOnInit(): void {
-    if (!this.data.record.owner) {
-      this.data.record.owner = this.data.owner;
-    }
-    if (!this.data.record.subject) {
-      this.data.record.subject = this.data.subject;
-    }
     this.form = this.fb.group({
       value: ['', [
         Validators.required
+      ]],
+      comment: ['', [
+        Validators.required
       ]]
     });
-    this.form.patchValue(this.data.record);
+    this.form.patchValue(this.data);
     this.form.enable();
   }
 
@@ -46,14 +44,16 @@ export class UserRecordEditorDialogComponent implements OnInit {
     if (this.form.valid) {
       this.form.disable();
       const formValue = this.form.getRawValue();
-      const dto: UserRecordDto = {
-        bodyKey: this.data.record.bodyKey,
-        owner: this.data.record.owner,
-        subject: this.data.record.subject,
-        value: formValue.value
+      const dto: OperatorRecordDto = {
+        bodyKey: this.data.bodyKey,
+        author: this.data.author,
+        subject: this.data.subject,
+        value: formValue.value,
+        comment: formValue.comment
       };
-      this.consentsResourceService.putRecord(dto).subscribe((record) => {
-        this.dialogRef.close(record);
+      this.consentsResourceService.putRecord(dto).subscribe((result) => {
+        console.log(result);
+        this.dialogRef.close(result);
       }, (err) => {
         console.error(err);
         this.form.enable();

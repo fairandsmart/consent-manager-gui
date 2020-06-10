@@ -266,6 +266,7 @@ export interface UserRecord {
   value: string;
   status: string;
   collectionMethod: CollectionMethod;
+  comment: string;
 }
 
 export interface UserRecordFilter {
@@ -276,9 +277,10 @@ export interface UserRecordFilter {
   direction?: string;
 }
 
-export interface UserRecordDto {
+export interface OperatorRecordDto {
   bodyKey: string;
-  owner: string;
+  author: string;
   subject: string;
   value: string;
+  comment: string;
 }

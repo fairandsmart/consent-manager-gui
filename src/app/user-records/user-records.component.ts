@@ -30,7 +30,7 @@ class UserRecordDataSource extends CollectionDatasource<UserRecord, UserRecordFi
 })
 export class UserRecordsComponent implements OnInit {
 
-  displayedColumns = ['bodyKey', 'type', 'value', 'status', 'collectionMethod', 'creationTimestamp', 'expirationTimestamp', 'actions'];
+  displayedColumns = ['bodyKey', 'type', 'value', 'status', 'collectionMethod', 'comment', 'creationTimestamp', 'expirationTimestamp', 'actions'];
 
   pageSizeOptions = [10, 25, 50];
 
@@ -87,12 +87,13 @@ export class UserRecordsComponent implements OnInit {
     $event.stopPropagation();
     this.dialog.open<UserRecordEditorDialogComponent, UserRecordEditorDialogComponentData>(UserRecordEditorDialogComponent, {
       data: {
-        record: record,
-        owner: this.keycloak.getUsername(),
-        subject: this.filter.user
+        bodyKey: record.bodyKey,
+        author: this.keycloak.getUsername(),
+        subject: this.filter.user,
+        value: record.value
       }
-    }).afterClosed().subscribe((updatedRecord) => {
-      if (updatedRecord != null) {
+    }).afterClosed().subscribe((result) => {
+      if (result == "ok") {
         this.filter.page = 0;
         this.loadUserRecordsPage();
       }
