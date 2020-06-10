@@ -92,11 +92,14 @@ export class UserRecordsComponent implements OnInit {
         subject: this.filter.user,
         value: record.value
       }
-    }).afterClosed().subscribe((result) => {
-      if (result == "ok") {
-        this.filter.page = 0;
-        this.loadUserRecordsPage();
-      }
+    }).afterClosed().subscribe((dto) => {
+        this.consentsResource.postRecord(dto).subscribe((result) => {
+          console.log("Record created");
+          this.filter.page = 0;
+          this.loadUserRecordsPage();
+        }, (err) => {
+          console.error(err);
+        });
     });
   }
 

@@ -2,7 +2,14 @@ import { Component, Inject, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { Observable } from 'rxjs';
-import { UserRecord, OperatorRecordDto } from '../models';
+import {
+  UserRecord,
+  OperatorRecordDto,
+  ConsentContext,
+  ConsentFormOrientation,
+  ConsentFormType,
+  CollectionMethod
+} from '../models';
 import { ConsentsResourceService } from '../consents-resource.service';
 
 export interface UserRecordEditorDialogComponentData {
@@ -21,10 +28,10 @@ export class UserRecordEditorDialogComponent implements OnInit {
 
   public form: FormGroup;
 
-  constructor(private dialogRef: MatDialogRef<UserRecordEditorDialogComponent, String>,
+  constructor(private dialogRef: MatDialogRef<UserRecordEditorDialogComponent, OperatorRecordDto>,
               @Inject(MAT_DIALOG_DATA) public data: UserRecordEditorDialogComponentData,
               private fb: FormBuilder,
-              private consentsResourceService: ConsentsResourceService) {
+              private consentsResource: ConsentsResourceService) {
   }
 
   ngOnInit(): void {
@@ -44,16 +51,34 @@ export class UserRecordEditorDialogComponent implements OnInit {
     if (this.form.valid) {
       this.form.disable();
       const formValue = this.form.getRawValue();
-      const dto: OperatorRecordDto = {
-        bodyKey: this.data.bodyKey,
-        author: this.data.author,
+
+      const context: ConsentContext = {
         subject: this.data.subject,
-        value: formValue.value,
-        comment: formValue.comment
+        owner: '', // géré côté backend
+        orientation: ConsentFormOrientation.VERTICAL,
+        header: 'h2', // TODO dynamic
+        elements: [this.data.bodyKey],
+        footer: 'f2', // TODO dynamic
+        callback: '',
+        locale: 'en',
+        formType: ConsentFormType.FULL,
+        receiptDeliveryType: 'NONE',
+        userinfos: {},
+        attributes: {},
+        optoutEmail: '',
+        collectionMethod: CollectionMethod.OPERATOR,
+        preview: false,
+        iframe: false
       };
-      this.consentsResourceService.putRecord(dto).subscribe((result) => {
-        console.log(result);
-        this.dialogRef.close(result);
+
+      this.consentsResource.generateToken(context).subscribe((token) => {
+        const dto: OperatorRecordDto = {
+          token: token,
+          author: this.data.author,
+          value: formValue.value,
+          comment: formValue.comment
+        };
+        this.dialogRef.close(dto);
       }, (err) => {
         console.error(err);
         this.form.enable();

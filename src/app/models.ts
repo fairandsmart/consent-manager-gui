@@ -278,9 +278,8 @@ export interface UserRecordFilter {
 }
 
 export interface OperatorRecordDto {
-  bodyKey: string;
+  token: string;
   author: string;
-  subject: string;
   value: string;
   comment: string;
 }
