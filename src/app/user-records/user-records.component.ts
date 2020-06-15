@@ -1,6 +1,19 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
-import { CollectionPage, UserRecord, UserRecordFilter } from '../models';
+import { ActivatedRoute, Router } from '@angular/router';
+import {
+  CollectionPage,
+  UserRecord,
+  UserRecordFilter,
+  ModelEntry,
+  ModelDataType,
+  ModelFilter,
+  OperatorRecordDto,
+  OperatorRecordElement,
+  ConsentContext,
+  ConsentFormOrientation,
+  ConsentFormType,
+  CollectionMethod
+} from '../models';
 import { ConsentsResourceService } from '../consents-resource.service';
 import { MatPaginator } from '@angular/material/paginator';
 import { Observable } from 'rxjs';
@@ -8,8 +21,10 @@ import { tap } from 'rxjs/operators';
 import { MatSort, Sort } from '@angular/material/sort';
 import { CollectionDatasource } from '../common/collection-datasource';
 import { MatDialog } from '@angular/material/dialog';
-import { UserRecordEditorDialogComponent, UserRecordEditorDialogComponentData } from '../user-record-editor-dialog/user-record-editor-dialog.component';
+import { UserRecordEditorDialogComponent } from '../user-record-editor-dialog/user-record-editor-dialog.component';
+import { ModelsResourceService } from '../models-resource.service';
 import { KeycloakService } from 'keycloak-angular';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 class UserRecordDataSource extends CollectionDatasource<UserRecord, UserRecordFilter> {
 
@@ -26,17 +41,17 @@ class UserRecordDataSource extends CollectionDatasource<UserRecord, UserRecordFi
 @Component({
   selector: 'app-user-records',
   templateUrl: './user-records.component.html',
-  styleUrls: ['./user-records.component.scss']
+  styleUrls: ['../entry-content/_entry-content.directive.scss', './user-records.component.scss']
 })
 export class UserRecordsComponent implements OnInit {
 
-  displayedColumns = ['bodyKey', 'type', 'value', 'status', 'collectionMethod', 'comment', 'creationTimestamp', 'expirationTimestamp', 'actions'];
+  public displayedColumns = ['bodyKey', 'type', 'value', 'status', 'collectionMethod', 'comment', 'creationTimestamp', 'expirationTimestamp', 'actions'];
 
-  pageSizeOptions = [10, 25, 50];
+  public pageSizeOptions = [10, 25, 50];
 
-  dataSource: UserRecordDataSource;
+  public dataSource: UserRecordDataSource;
 
-  filter: UserRecordFilter = {
+  public filter: UserRecordFilter = {
     user: "",
     page: 0,
     size: 10,
@@ -44,17 +59,29 @@ export class UserRecordsComponent implements OnInit {
     direction: 'asc'
   };
 
+  public displayOperatorForm: boolean = false;
+
   @ViewChild(MatPaginator, {static: true})
-  paginator: MatPaginator;
+  public paginator: MatPaginator;
 
   @ViewChild(MatSort, {static: true})
-  sort: MatSort;
+  public sort: MatSort;
+
+  public headers: ModelEntry[] = [];
+  public footers: ModelEntry[] = [];
+
+  public form: FormGroup;
+
+  public operatorRecordsElements: OperatorRecordElement[] = [];
 
   constructor(
+    private router: Router,
     private activatedRoute: ActivatedRoute,
     private consentsResource: ConsentsResourceService,
     private dialog: MatDialog,
-    public keycloak: KeycloakService) {}
+    private modelsResource: ModelsResourceService,
+    private keycloak: KeycloakService,
+    private fb: FormBuilder) {}
 
   ngOnInit(): void {
     this.dataSource = new UserRecordDataSource(this.consentsResource);
@@ -76,6 +103,30 @@ export class UserRecordsComponent implements OnInit {
         this.loadUserRecordsPage();
       })
     ).subscribe();
+
+    this.form = this.fb.group({
+      headerKey: ['', [
+        Validators.required
+      ]],
+      footerKey: ['', [
+        Validators.required
+      ]],
+      comment: ['', [
+        Validators.required
+      ]]
+    });
+    this.form.enable();
+
+    this.loadEntries('header').subscribe((headers) => {
+      this.headers = headers.values;
+    }, (err) => {
+      console.error(err);
+    });
+    this.loadEntries('footer').subscribe((footers) => {
+      this.footers = footers.values;
+    }, (err) => {
+      console.error(err);
+    });
   }
 
   loadUserRecordsPage(): void {
@@ -85,22 +136,95 @@ export class UserRecordsComponent implements OnInit {
   editRecord(record: UserRecord, $event: MouseEvent): void {
     $event.preventDefault();
     $event.stopPropagation();
-    this.dialog.open<UserRecordEditorDialogComponent, UserRecordEditorDialogComponentData>(UserRecordEditorDialogComponent, {
-      data: {
-        bodyKey: record.bodyKey,
-        author: this.keycloak.getUsername(),
-        subject: this.filter.user,
-        value: record.value
+    const data: OperatorRecordElement = {
+      bodyKey: record.bodyKey,
+      value: record.value
+    };
+    this.dialog.open<UserRecordEditorDialogComponent, OperatorRecordElement>(UserRecordEditorDialogComponent, {
+      data: data
+    }).afterClosed().subscribe((result) => {
+      if (result) {
+        const previousIndex = this.operatorRecordsElements.findIndex(element => element.bodyKey == result.bodyKey);
+        if (previousIndex < 0) {
+          this.operatorRecordsElements.push(result);
+        } else {
+          this.operatorRecordsElements[previousIndex] = result;
+        }
       }
-    }).afterClosed().subscribe((dto) => {
-        this.consentsResource.postRecord(dto).subscribe((result) => {
-          console.log("Record created");
-          this.filter.page = 0;
-          this.loadUserRecordsPage();
-        }, (err) => {
-          console.error(err);
-        });
     });
   }
 
+  showOperatorForm(): void {
+    this.displayOperatorForm = true;
+  }
+
+  loadEntries(entriesType: ModelDataType): Observable<CollectionPage<ModelEntry>> {
+    const entriesFilter: ModelFilter = {
+      types: [entriesType],
+      page: 0,
+      size: 10,
+      order: 'name',
+      direction: 'asc'
+    };
+    return this.modelsResource.listEntries(entriesFilter);
+  }
+
+  removeElement(element: OperatorRecordElement, $event: MouseEvent): void {
+      const index = this.operatorRecordsElements.findIndex(e => e.bodyKey == element.bodyKey);
+      this.operatorRecordsElements.splice(index, 1);
+  }
+
+  submit(): void {
+    if (this.form.valid) {
+      this.form.disable();
+      const formValue = this.form.getRawValue();
+
+      const elements: string[] = [];
+      for (let index = 0; index < this.operatorRecordsElements.length; index++) {
+        elements.push(this.operatorRecordsElements[index].bodyKey);
+      }
+
+      const context: ConsentContext = {
+        subject: this.filter.user,
+        owner: '', // géré côté backend
+        orientation: ConsentFormOrientation.VERTICAL,
+        header: formValue.headerKey,
+        elements: elements,
+        footer: formValue.footerKey,
+        callback: '',
+        locale: 'en',
+        formType: ConsentFormType.FULL,
+        receiptDeliveryType: 'DISPLAY',
+        userinfos: {},
+        attributes: {},
+        optoutEmail: '',
+        collectionMethod: CollectionMethod.OPERATOR,
+        author: this.keycloak.getUsername(),
+        preview: false,
+        iframe: false
+      };
+
+      this.consentsResource.generateToken(context).subscribe((token) => {
+        var values = {};
+        this.operatorRecordsElements.forEach(element => values[element.bodyKey] = element.value);
+
+        const dto: OperatorRecordDto = {
+          token: token,
+          values: values,
+          comment: formValue.comment
+        };
+
+        this.consentsResource.createOperatorRecords(dto).subscribe((result) => {
+          console.log("Receipt : " + result);
+          this.router.navigate(['../'], { relativeTo: this.activatedRoute });
+        }, (err) => {
+          console.error(err);
+          this.form.enable();
+        });
+      }, (err) => {
+        console.error(err);
+        this.form.enable();
+      });
+    }
+  }
 }

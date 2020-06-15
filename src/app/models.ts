@@ -197,6 +197,7 @@ export interface ConsentContext {
   attributes: { [key: string]: string };
   optoutEmail: string;
   collectionMethod: CollectionMethod;
+  author: string;
   preview: boolean;
   iframe: boolean;
 }
@@ -257,7 +258,9 @@ export interface RecordFilter {
 }
 
 export interface UserRecord {
+  headerKey: string;
   bodyKey: string;
+  footerKey: string;
   owner: string;
   subject: string;
   creationTimestamp: number;
@@ -279,7 +282,11 @@ export interface UserRecordFilter {
 
 export interface OperatorRecordDto {
   token: string;
-  author: string;
-  value: string;
+  values: {[key: string]: string};
   comment: string;
+}
+
+export interface OperatorRecordElement {
+  bodyKey: string;
+  value: string;
 }

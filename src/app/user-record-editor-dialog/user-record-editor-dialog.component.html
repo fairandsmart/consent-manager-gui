@@ -8,26 +8,11 @@
   </mat-form-field>
 
   <mat-form-field appearance="outline">
-    <mat-label>Author</mat-label>
-    <input matInput disabled [value]="data.author">
-  </mat-form-field>
-
-  <mat-form-field appearance="outline">
-    <mat-label>Subject</mat-label>
-    <input matInput disabled [value]="data.subject">
-  </mat-form-field>
-
-  <mat-form-field appearance="outline">
     <mat-label>Value</mat-label>
     <mat-select formControlName="value">
       <mat-option value="accepted">Accept</mat-option>
       <mat-option value="refused">Refuse</mat-option>
     </mat-select>
-  </mat-form-field>
-
-  <mat-form-field appearance="outline">
-    <mat-label>Comment</mat-label>
-    <input matInput formControlName="comment">
   </mat-form-field>
 
 </div>

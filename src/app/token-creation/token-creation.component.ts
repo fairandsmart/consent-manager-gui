@@ -92,6 +92,7 @@ export class TokenCreationComponent implements OnInit {
         attributes: {},
         optoutEmail: formValue.optoutEmail,
         collectionMethod: CollectionMethod.WEBFORM,
+        author: '',
         preview: formValue.preview,
         iframe: true
       };

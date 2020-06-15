@@ -31,7 +31,7 @@ export class ConsentsResourceService {
     return this.http.get<CollectionPage<UserRecord>>(`${environment.managerUrl}/consents/records/user`, {params: filter as any});
   }
 
-  postRecord(dto: OperatorRecordDto): Observable<Record> {
-    return this.http.post<Record>(`${environment.managerUrl}/consents/records/user`, dto);
+  createOperatorRecords(dto: OperatorRecordDto): Observable<string> {
+    return this.http.post<string>(`${environment.managerUrl}/consents/records/user`, dto, {responseType: 'text' as 'json'});
   }
 }

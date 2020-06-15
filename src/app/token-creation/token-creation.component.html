@@ -1,6 +1,8 @@
 <mat-card *ngIf="form" [formGroup]="form">
   <mat-card-title>Form token creator</mat-card-title>
+
   <mat-card-content>
+
     <mat-form-field appearance="outline">
       <mat-label>Subject</mat-label>
       <input matInput formControlName="subject" autocomplete="off">
@@ -57,6 +59,7 @@
       <mat-card-title>Token</mat-card-title>
       <div class="token">{{token}}</div>
     </mat-card>
+
   </mat-card-content>
 </mat-card>
 
