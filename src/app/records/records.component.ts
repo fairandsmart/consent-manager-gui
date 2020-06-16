@@ -6,6 +6,7 @@ import { Observable } from 'rxjs';
 import { tap } from 'rxjs/operators';
 import { MatSort, Sort } from '@angular/material/sort';
 import { CollectionDatasource } from '../common/collection-datasource';
+import { ActivatedRoute, Router } from '@angular/router';
 
 class RecordDataSource extends CollectionDatasource<Record, RecordFilter> {
 
@@ -46,7 +47,10 @@ export class RecordsComponent implements OnInit {
   @ViewChild(MatSort, {static: true})
   sort: MatSort;
 
-  constructor(private consentsResource: ConsentsResourceService) {}
+  constructor(
+      private router: Router,
+      private activatedRoute: ActivatedRoute,
+      private consentsResource: ConsentsResourceService) {}
 
   ngOnInit(): void {
     this.dataSource = new RecordDataSource(this.consentsResource);
@@ -74,5 +78,9 @@ export class RecordsComponent implements OnInit {
   submitSearch(): void {
     this.filter.page = 0;
     this.loadRecordsPage();
+  }
+
+  goToUserRecords(): void {
+    this.router.navigate(['./' + this.filter.query], { relativeTo: this.activatedRoute });
   }
 }

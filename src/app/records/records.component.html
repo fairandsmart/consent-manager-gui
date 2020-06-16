@@ -79,3 +79,7 @@
   <mat-paginator [pageSizeOptions]="pageSizeOptions" [pageIndex]="filter.page" [pageSize]="this.filter.size"
                  showFirstLastButtons></mat-paginator>
 </div>
+
+<div class="operator-container">
+  <button mat-raised-button color="primary" (click)="goToUserRecords()" [disabled]="filter.query.length == 0">See user page</button>
+</div>

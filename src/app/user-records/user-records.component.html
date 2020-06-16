@@ -1,3 +1,7 @@
+<div>
+  <h2>Records for {{filter.user}}</h2>
+</div>
+
 <div class="table-container mat-elevation-z6">
   <div class="progress-bar-container" *ngIf="dataSource.loading$ | async">
     <mat-progress-bar mode="indeterminate"></mat-progress-bar>
@@ -63,6 +67,7 @@
 <div class="operator-container" *ngIf="!displayOperatorForm">
   <button mat-raised-button color="primary" (click)="showOperatorForm()" [disabled]="filter.user.length == 0">New consent request</button>
 </div>
+
 <div class="operator-container mat-elevation-z6" *ngIf="displayOperatorForm">
   <mat-card *ngIf="form" [formGroup]="form">
     <mat-card-title>New consent</mat-card-title>

@@ -56,7 +56,7 @@ export class TokenCreationComponent implements OnInit {
       receiptType: ['', [
         Validators.required
       ]],
-      locale: ['', [
+      locale: ['en', [
         Validators.required
       ]],
       forceDisplay: [true, [
