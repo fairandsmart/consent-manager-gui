@@ -79,16 +79,17 @@
                             <arguments>run maven-build</arguments>
                         </configuration>
                     </execution>
-                    <execution>
-                        <id>npm test</id>
-                        <goals>
-                            <goal>npm</goal>
-                        </goals>
-                        <phase>test</phase>
-                        <configuration>
-                            <arguments>run maven-test</arguments>
-                        </configuration>
-                    </execution>
+<!--                  no tests now-->
+<!--                    <execution>-->
+<!--                        <id>npm test</id>-->
+<!--                        <goals>-->
+<!--                            <goal>npm</goal>-->
+<!--                        </goals>-->
+<!--                        <phase>test</phase>-->
+<!--                        <configuration>-->
+<!--                            <arguments>run maven-test</arguments>-->
+<!--                        </configuration>-->
+<!--                    </execution>-->
                 </executions>
             </plugin>
             <plugin>
