@@ -1,9 +1,7 @@
 import { Component, Inject, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
-import { Observable } from 'rxjs';
-import { UserRecord, OperatorRecordElement } from '../models';
-import { ConsentsResourceService } from '../consents-resource.service';
+import { OperatorRecordElement } from '../models';
 
 @Component({
   selector: 'app-user-record-editor-dialog',
@@ -16,8 +14,7 @@ export class UserRecordEditorDialogComponent implements OnInit {
 
   constructor(private dialogRef: MatDialogRef<UserRecordEditorDialogComponent, OperatorRecordElement>,
               @Inject(MAT_DIALOG_DATA) public data: OperatorRecordElement,
-              private fb: FormBuilder,
-              private consentsResource: ConsentsResourceService) {}
+              private fb: FormBuilder) {}
 
   ngOnInit(): void {
     this.form = this.fb.group({
@@ -36,7 +33,7 @@ export class UserRecordEditorDialogComponent implements OnInit {
       const result: OperatorRecordElement = {
         bodyKey: this.data.bodyKey,
         value: formValue.value
-      }
+      };
       this.dialogRef.close(result);
     }
   }

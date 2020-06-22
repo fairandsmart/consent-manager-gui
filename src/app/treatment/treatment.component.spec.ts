@@ -1,14 +1,27 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { TreatmentComponent } from './treatment.component';
+import { ReactiveFormsModule } from '@angular/forms';
+import { ModelsResourceService } from '../models-resource.service';
+import SpyObj = jasmine.SpyObj;
+import createSpyObj = jasmine.createSpyObj;
+import { MaterialModule } from '../material.module';
+import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 
 describe('TreatmentComponent', () => {
   let component: TreatmentComponent;
   let fixture: ComponentFixture<TreatmentComponent>;
+  let modelsResourceServiceSpy: SpyObj<ModelsResourceService>;
 
   beforeEach(async(() => {
+    modelsResourceServiceSpy =  createSpyObj<ModelsResourceService>('ModelsResourceService', ['listEntries']);
+
     TestBed.configureTestingModule({
-      declarations: [ TreatmentComponent ]
+      declarations: [ TreatmentComponent ],
+      imports: [ ReactiveFormsModule, MaterialModule, NoopAnimationsModule ],
+      providers: [
+        {provide: ModelsResourceService, useValue: modelsResourceServiceSpy},
+      ]
     })
     .compileComponents();
   }));

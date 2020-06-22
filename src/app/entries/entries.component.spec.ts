@@ -4,9 +4,11 @@ import { EntriesComponent } from './entries.component';
 import { ActivatedRoute } from '@angular/router';
 import { ActivatedRouteStub } from '../testing/activated-route-stub';
 import { MaterialModule } from '../material.module';
-import { of } from 'rxjs';
+import { EMPTY, of } from 'rxjs';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { ModelsResourceService } from '../models-resource.service';
+import { RouterTestingModule } from '@angular/router/testing';
+import { FormsModule } from '@angular/forms';
 import createSpyObj = jasmine.createSpyObj;
 import SpyObj = jasmine.SpyObj;
 
@@ -17,15 +19,12 @@ describe('EntriesComponent', () => {
   let activatedRouteStub: ActivatedRouteStub;
 
   beforeEach(async(() => {
-    modelsResourceServiceSpy =  createSpyObj<ModelsResourceService>('ModelsResourceService', ['listEntries']);
+    modelsResourceServiceSpy =  createSpyObj<ModelsResourceService>('ModelsResourceService', ['listEntries', 'getLatestVersion']);
     activatedRouteStub = new ActivatedRouteStub();
 
     TestBed.configureTestingModule({
       declarations: [ EntriesComponent ],
-      imports: [
-        MaterialModule,
-        NoopAnimationsModule
-      ],
+      imports: [ RouterTestingModule, FormsModule, MaterialModule, NoopAnimationsModule ],
       providers: [
         {provide: ModelsResourceService, useValue: modelsResourceServiceSpy},
         {provide: ActivatedRoute, useValue: activatedRouteStub}
@@ -42,6 +41,8 @@ describe('EntriesComponent', () => {
       totalCount: 0,
       totalPages: 0,
     }));
+
+    modelsResourceServiceSpy.getLatestVersion.and.returnValue(EMPTY);
 
     fixture = TestBed.createComponent(EntriesComponent);
     component = fixture.componentInstance;

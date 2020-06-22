@@ -1,6 +1,8 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { EntryInfoComponent } from './entry-info.component';
+import { MaterialModule } from '../material.module';
+import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 
 describe('EntryInfoComponent', () => {
   let component: EntryInfoComponent;
@@ -8,7 +10,8 @@ describe('EntryInfoComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ EntryInfoComponent ]
+      declarations: [ EntryInfoComponent ],
+      imports: [ MaterialModule, NoopAnimationsModule ],
     })
     .compileComponents();
   }));
