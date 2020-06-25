@@ -1,0 +1,302 @@
+{
+  "NAV": {
+    "TITLE": "Gestionnaire de consentements",
+    "KEYCLOAK": {
+      "LOGOUT": "Déconnexion"
+    }
+  },
+  "COMMON": {
+    "BUTTONS": {
+      "CANCEL": "Annuler",
+      "SAVE": "Enregistrer",
+      "EDIT": "Modifier",
+      "SUBMIT": "Valider"
+    },
+    "ENTRY_TYPES": {
+      "HEADER": "En-tête",
+      "FOOTER": "Pied de page",
+      "TREATMENT": "Traitement",
+      "CONDITIONS": "CGU/CGS"
+    }
+  },
+  "ENTRIES": {
+    "TITLE": "Éléments",
+    "COMMON": {
+      "ID": {
+        "LABEL": "Id"
+      },
+      "KEY": {
+        "LABEL": "Référence"
+      },
+      "NAME": {
+        "LABEL": "Nom"
+      },
+      "DESCRIPTION": {
+        "LABEL": "Description"
+      },
+      "TYPE": {
+        "LABEL": "Type"
+      }
+    },
+    "CREATE_BUTTON": "Nouvel élément",
+    "DIALOG": {
+      "TITLE_NEW": "Nouvel élément",
+      "TITLE_UPDATE": "Modification de l'élément"
+    },
+    "EDITOR": {
+      "INFORMATION": {
+        "TITLE": "Informations"
+      },
+      "CONTENT": {
+        "TITLE": "Contenu",
+        "SHOW": "Afficher dans les formulaires",
+        "DATA_CONTROLLER": {
+          "TITLE": "Responsable de traitement",
+          "ACTING_BEHALF_COMPANY": {
+            "LABEL": "Agit au nom de l'entreprise"
+          },
+          "COMPANY": {
+            "LABEL": "Entreprise"
+          },
+          "NAME": {
+            "LABEL": "Nom"
+          },
+          "ADDRESS": {
+            "LABEL": "Adresse"
+          },
+          "EMAIL": {
+            "LABEL": "Email"
+          },
+          "PHONE": {
+            "LABEL": "Numéro de téléphone"
+          }
+        },
+        "HEADER": {
+          "LOGO": {
+            "PATH": {
+              "LABEL": "Chemin du logo"
+            },
+            "ALT_TEXT": {
+              "LABEL": "Texte alternatif du logo"
+            }
+          },
+          "TITLE": {
+            "LABEL": "Titre"
+          },
+          "BODY": {
+            "LABEL": "Corps de l'en-tête"
+          },
+          "JURISDICTION": {
+            "LABEL": "Juridiction"
+          },
+          "COLLECTION_METHOD": {
+            "LABEL": "Méthode de collecte"
+          },
+          "SCOPE": {
+            "LABEL": "Scope ??"
+          },
+          "SHORT_NOTICE": {
+            "LABEL": "Short notice link ??"
+          },
+          "PRIVACY_POLICY": {
+            "URL": {
+              "LABEL": "URL de la politique de confidentialité"
+            },
+            "LINK_LABEL": {
+              "LABEL": "Libellé du lien vers la politique de confidentialité"
+            }
+          }
+        },
+        "FOOTER": {
+          "BODY": {
+            "LABEL": "Corps du pied de page"
+          },
+          "ACCEPT_ALL": {
+            "DISPLAY": {
+              "LABEL": "Afficher le bouton \"Tout accepter\""
+            },
+            "BUTTON_LABEL": {
+              "LABEL": "Libellé du bouton \"Tout accepter\""
+            }
+          }
+        },
+        "TREATMENT": {
+          "TITLE": {
+            "LABEL": "Libellé du traitement"
+          },
+          "DATA": {
+            "TITLE": {
+              "LABEL": "Libellé des données"
+            },
+            "BODY": {
+              "LABEL": "Description des données"
+            }
+          },
+          "RETENTION": {
+            "TITLE": {
+              "LABEL": "Libellé de la durée de rétention"
+            },
+            "BODY": {
+              "LABEL": "Description de la durée de rétention"
+            }
+          },
+          "USAGE": {
+            "TITLE": {
+              "LABEL": "Libellé de la finalité"
+            },
+            "BODY": {
+              "LABEL": "Description de la finalité"
+            }
+          },
+          "PURPOSE": {
+            "LABEL": "Purposes ??",
+            "VALUES": {
+              "CONSENT_CORE_SERVICE": "Service principal ??",
+              "CONSENT_IMPROVED_SERVICE": "Service amélioré",
+              "CONSENT_MARKETING": "Marketing",
+              "CONSENT_THIRD_PART_SHARING": "Partage à des tiers ??",
+              "CONSENT_RESEARCH": "Recherche"
+            }
+          },
+          "SENSITIVE": {
+            "LABEL": "Contient des données sensibles"
+          },
+          "MEDICAL": {
+            "LABEL": "Contient des données de santé"
+          },
+          "THIRD_PARTIES": {
+            "LABEL": "Tiers ??"
+          }
+        },
+        "CONDITIONS": {
+          "TITLE": {
+            "LABEL": "Libellé"
+          },
+          "BODY": {
+            "LABEL": "CGU/CGS"
+          },
+          "ACCEPT": {
+            "LABEL": "Libellé du bouton \"Accepter\""
+          },
+          "REJECT": {
+            "LABEL": "Libellé du bouton \"Refuser\""
+          }
+        }
+      },
+      "BUTTONS": {
+        "SAVE": "Enregistrer brouillon",
+        "ACTIVATE": "Activer",
+        "DELETE": "Supprimer brouillon"
+      }
+    }
+  },
+  "RECORDS": {
+    "TITLE": "Enregistrements",
+    "SEARCH_BUTTON": "Rechercher",
+    "JUMP_BUTTON": "Voir les enregistrements de cet utilisateur",
+    "COMMON": {
+      "ID": {
+        "LABEL": "Id"
+      },
+      "SERIAL": {
+        "LABEL": "Numéro de série"
+      },
+      "HEADER": {
+        "LABEL": "En-tête"
+      },
+      "BODY": {
+        "LABEL": "Corps ??"
+      },
+      "FOOTER": {
+        "LABEL": "Pied de page"
+      },
+      "SUBJECT": {
+        "LABEL": "Subject ??"
+      },
+      "TYPE": {
+        "LABEL": "Type"
+      },
+      "CREATION": {
+        "LABEL": "Date de création"
+      },
+      "EXPIRATION": {
+        "LABEL": "Date d'expiration"
+      },
+      "VALUE": {
+        "LABEL": "Réponse",
+        "ACCEPTED": "Accepté",
+        "REFUSED": "Refusé"
+      },
+      "COLLECTION_METHOD": {
+        "LABEL": "Méthode de collecte"
+      },
+      "COMMENT": {
+        "LABEL": "Commentaire"
+      }
+    },
+    "DIALOG": {
+      "TITLE_NEW": "Nouvelle réponse",
+      "TITLE_UPDATE": "Modification de la réponse"
+    },
+    "INDIVIDUAL": {
+      "TITLE": "Enregistrements pour",
+      "CREATE_BUTTON": "Nouveau consentement",
+      "EDITOR": {
+        "TITLE": "Nouveau consentement",
+        "EMPTY": "Il n'y a aucune valeur pour le moment."
+      }
+    }
+  },
+  "TOKEN": {
+    "TITLE": "Jetons ??",
+    "FORM": {
+      "TITLE": "Créateur de formulaire et de jeton ??",
+      "SUBJECT": {
+        "LABEL": "Subject ??"
+      },
+      "ORIENTATION": {
+        "LABEL": "Orientation verticale"
+      },
+      "HEADER": {
+        "LABEL": "Référence d'en-tête"
+      },
+      "TREATMENTS": {
+        "LABEL": "Références de traitements (séparées par des virgules)"
+      },
+      "FOOTER": {
+        "LABEL": "Référence de pied de page"
+      },
+      "VALIDITY": {
+        "LABEL": "Durée de validité"
+      },
+      "RECEIPT": {
+        "LABEL": "Type de reçu",
+        "VALUES": {
+          "NONE": "Aucun",
+          "GENERATE": "Générer",
+          "DISPLAY": "Afficher",
+          "STORE": "Stocker",
+          "DOWNLOAD": "Télécharger"
+        }
+      },
+      "LOCALE": {
+        "LABEL": "Paramètre régional ??"
+      },
+      "FORCE_DISPLAY": {
+        "LABEL": "Forcer l'affichage de tous les traitements"
+      },
+      "EMAIL": {
+        "LABEL": "Email de désengagement ??"
+      },
+      "PREVIEW": {
+        "LABEL": "Aperçu (empêche la validation du formulaire)"
+      },
+      "TOKEN": {
+        "LABEL": "Jeton ??"
+      }
+    },
+    "IFRAME": {
+      "TITLE": "Résultat"
+    }
+  }
+}

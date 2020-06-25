@@ -1,18 +1,18 @@
 <mat-card>
-  <mat-card-title>Information</mat-card-title>
+  <mat-card-title>{{'ENTRIES.EDITOR.INFORMATION.TITLE' | translate}}</mat-card-title>
   <mat-card-content>
     <dl *ngIf="entry">
-      <dt>Type</dt>
-      <dd>{{entry.type}}</dd>
-      <dt>Key</dt>
+      <dt>{{'ENTRIES.COMMON.TYPE.LABEL' | translate}}</dt>
+      <dd>{{'COMMON.ENTRY_TYPES.' + entry.type.toUpperCase() | translate}}</dd>
+      <dt>{{'ENTRIES.COMMON.KEY.LABEL' | translate}}</dt>
       <dd>{{entry.key}}</dd>
-      <dt>Name</dt>
+      <dt>{{'ENTRIES.COMMON.NAME.LABEL' | translate}}</dt>
       <dd>{{entry.name}}</dd>
-      <dt>Description</dt>
+      <dt>{{'ENTRIES.COMMON.DESCRIPTION.LABEL' | translate}}</dt>
       <dd>{{entry.description || '-'}}</dd>
     </dl>
   </mat-card-content>
   <mat-card-actions>
-    <button mat-button color="primary" (click)="edit()">Edit</button>
+    <button mat-button color="primary" (click)="edit()">{{'COMMON.BUTTONS.EDIT' | translate}}</button>
   </mat-card-actions>
 </mat-card>

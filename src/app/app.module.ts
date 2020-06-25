@@ -1,5 +1,5 @@
 import { BrowserModule } from '@angular/platform-browser';
-import { ApplicationRef, DoBootstrap, NgModule } from '@angular/core';
+import { ApplicationRef, DoBootstrap, NgModule, LOCALE_ID } from '@angular/core';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -7,7 +7,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { KeycloakAngularModule, KeycloakService } from 'keycloak-angular';
 import { KEYCLOAK_CONFIG } from '../keycloak-config';
 import { EntriesComponent } from './entries/entries.component';
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClient, HttpClientModule } from '@angular/common/http';
 import { EntryComponent } from './entry/entry.component';
 import { FooterComponent } from './footer/footer.component';
 import { ShortIdPipe } from './common/short-id.pipe';
@@ -26,8 +26,28 @@ import { MAT_SNACK_BAR_DEFAULT_OPTIONS } from '@angular/material/snack-bar';
 import { UserRecordsComponent } from './user-records/user-records.component';
 import { UserRecordEditorDialogComponent } from './user-record-editor-dialog/user-record-editor-dialog.component';
 import { ConfigComponent } from './config/config.component';
+import { TranslateLoader, TranslateModule, TranslateService } from '@ngx-translate/core';
+import { TranslateHttpLoader } from '@ngx-translate/http-loader';
+import { registerLocaleData } from '@angular/common';
+import localeFr from '@angular/common/locales/fr';
 
 const keycloakService = new KeycloakService();
+
+export function createTranslateLoader(http: HttpClient) {
+  return new TranslateHttpLoader(http, './assets/i18n/', '.json');
+}
+
+export class DynamicLocaleId extends String {
+  constructor(protected service: TranslateService) {
+    super();
+  }
+
+  toString() {
+    return this.service.currentLang;
+  }
+}
+
+registerLocaleData(localeFr, 'fr');
 
 @NgModule({
   declarations: [
@@ -56,6 +76,13 @@ const keycloakService = new KeycloakService();
     ReactiveFormsModule,
     KeycloakAngularModule,
     MaterialModule,
+    TranslateModule.forRoot({
+      loader: {
+        provide: TranslateLoader,
+        useFactory: (createTranslateLoader),
+        deps: [HttpClient]
+      }
+    }),
     StoreModule.forRoot({}, {}),
     EffectsModule.forRoot([])
   ],
@@ -64,7 +91,9 @@ const keycloakService = new KeycloakService();
       provide: KeycloakService,
       useValue: keycloakService
     },
-    {provide: MAT_SNACK_BAR_DEFAULT_OPTIONS, useValue: {duration: 3000}}
+    {provide: MAT_SNACK_BAR_DEFAULT_OPTIONS, useValue: {duration: 3000}},
+    // Workaround for https://github.com/angular/angular/issues/15039
+    {provide: LOCALE_ID, useClass: DynamicLocaleId, deps: [TranslateService]}
   ]
 })
 export class AppModule implements DoBootstrap {

@@ -1,0 +1,302 @@
+{
+  "NAV": {
+    "TITLE": "Consent Manager",
+    "KEYCLOAK": {
+      "LOGOUT": "Log out"
+    }
+  },
+  "COMMON": {
+    "BUTTONS": {
+      "CANCEL": "Cancel",
+      "SAVE": "Save",
+      "EDIT": "Edit",
+      "SUBMIT": "Submit"
+    },
+    "ENTRY_TYPES": {
+      "HEADER": "Header",
+      "FOOTER": "Footer",
+      "TREATMENT": "Treatment",
+      "CONDITIONS": "EULA"
+    }
+  },
+  "ENTRIES": {
+    "TITLE": "Entries",
+    "COMMON": {
+      "ID": {
+        "LABEL": "Id"
+      },
+      "KEY": {
+        "LABEL": "Reference"
+      },
+      "NAME": {
+        "LABEL": "Name"
+      },
+      "DESCRIPTION": {
+        "LABEL": "Description"
+      },
+      "TYPE": {
+        "LABEL": "Type"
+      }
+    },
+    "CREATE_BUTTON": "New entry",
+    "DIALOG": {
+      "TITLE_NEW": "New entry",
+      "TITLE_UPDATE": "Update entry"
+    },
+    "EDITOR": {
+      "INFORMATION": {
+        "TITLE": "Information"
+      },
+      "CONTENT": {
+        "TITLE": "Content",
+        "SHOW": "Display in forms",
+        "DATA_CONTROLLER": {
+          "TITLE": "Data controller",
+          "ACTING_BEHALF_COMPANY": {
+            "LABEL": "Acting on behalf of company"
+          },
+          "COMPANY": {
+            "LABEL": "Company"
+          },
+          "NAME": {
+            "LABEL": "Name"
+          },
+          "ADDRESS": {
+            "LABEL": "Address"
+          },
+          "EMAIL": {
+            "LABEL": "Email"
+          },
+          "PHONE": {
+            "LABEL": "Phone number"
+          }
+        },
+        "HEADER": {
+          "LOGO": {
+            "PATH": {
+              "LABEL": "Logo path"
+            },
+            "ALT_TEXT": {
+              "LABEL": "Logo alt-text"
+            }
+          },
+          "TITLE": {
+            "LABEL": "Title"
+          },
+          "BODY": {
+            "LABEL": "Header body"
+          },
+          "JURISDICTION": {
+            "LABEL": "Jurisdiction"
+          },
+          "COLLECTION_METHOD": {
+            "LABEL": "Collection method"
+          },
+          "SCOPE": {
+            "LABEL": "Scope"
+          },
+          "SHORT_NOTICE": {
+            "LABEL": "Short notice link"
+          },
+          "PRIVACY_POLICY": {
+            "URL": {
+              "LABEL": "Privacy policy URL"
+            },
+            "LINK_LABEL": {
+              "LABEL": "Privacy policy link label"
+            }
+          }
+        },
+        "FOOTER": {
+          "BODY": {
+            "LABEL": "Footer fody"
+          },
+          "ACCEPT_ALL": {
+            "DISPLAY": {
+              "LABEL": "Display \"Accept all\" button"
+            },
+            "BUTTON_LABEL": {
+              "LABEL": "\"Accept all\" button label"
+            }
+          }
+        },
+        "TREATMENT": {
+          "TITLE": {
+            "LABEL": "Treatment label"
+          },
+          "DATA": {
+            "TITLE": {
+              "LABEL": "Data label"
+            },
+            "BODY": {
+              "LABEL": "Data description"
+            }
+          },
+          "RETENTION": {
+            "TITLE": {
+              "LABEL": "Retention duration label"
+            },
+            "BODY": {
+              "LABEL": "Retention duration description"
+            }
+          },
+          "USAGE": {
+            "TITLE": {
+              "LABEL": "Usage label"
+            },
+            "BODY": {
+              "LABEL": "Usage description"
+            }
+          },
+          "PURPOSE": {
+            "LABEL": "Purposes",
+            "VALUES": {
+              "CONSENT_CORE_SERVICE": "Core service",
+              "CONSENT_IMPROVED_SERVICE": "Improved service",
+              "CONSENT_MARKETING": "Marketing",
+              "CONSENT_THIRD_PART_SHARING": "Third part sharing",
+              "CONSENT_RESEARCH": "Research"
+            }
+          },
+          "SENSITIVE": {
+            "LABEL": "Contains sensitive data"
+          },
+          "MEDICAL": {
+            "LABEL": "Contains medical data"
+          },
+          "THIRD_PARTIES": {
+            "LABEL": "Third parties"
+          }
+        },
+        "CONDITIONS": {
+          "TITLE": {
+            "LABEL": "Label"
+          },
+          "BODY": {
+            "LABEL": "EULA"
+          },
+          "ACCEPT": {
+            "LABEL": "\"Accept\" button label"
+          },
+          "REJECT": {
+            "LABEL": "\"Reject\" button label"
+          }
+        }
+      },
+      "BUTTONS": {
+        "SAVE": "Save draft",
+        "ACTIVATE": "Activate",
+        "DELETE": "Delete draft"
+      }
+    }
+  },
+  "RECORDS": {
+    "TITLE": "Records",
+    "SEARCH_BUTTON": "Search",
+    "JUMP_BUTTON": "Jump to user records",
+    "COMMON": {
+      "ID": {
+        "LABEL": "Id"
+      },
+      "SERIAL": {
+        "LABEL": "Serial"
+      },
+      "HEADER": {
+        "LABEL": "Header"
+      },
+      "BODY": {
+        "LABEL": "Body"
+      },
+      "FOOTER": {
+        "LABEL": "Footer"
+      },
+      "SUBJECT": {
+        "LABEL": "Subject"
+      },
+      "TYPE": {
+        "LABEL": "Type"
+      },
+      "CREATION": {
+        "LABEL": "Creation date"
+      },
+      "EXPIRATION": {
+        "LABEL": "Expiration date"
+      },
+      "VALUE": {
+        "LABEL": "Answer",
+        "ACCEPTED": "Accepted",
+        "REFUSED": "Refused"
+      },
+      "COLLECTION_METHOD": {
+        "LABEL": "Collection method"
+      },
+      "COMMENT": {
+        "LABEL": "Comment"
+      }
+    },
+    "DIALOG": {
+      "TITLE_NEW": "New consent record",
+      "TITLE_UPDATE": "Update consent record"
+    },
+    "INDIVIDUAL": {
+      "TITLE": "Records for",
+      "CREATE_BUTTON": "New consent request",
+      "EDITOR": {
+        "TITLE": "New consent",
+        "EMPTY": "There is no value yet."
+      }
+    }
+  },
+  "TOKEN": {
+    "TITLE": "Tokens",
+    "FORM": {
+      "TITLE": "Form and token creator",
+      "SUBJECT": {
+        "LABEL": "Subject"
+      },
+      "ORIENTATION": {
+        "LABEL": "Vertical orientation"
+      },
+      "HEADER": {
+        "LABEL": "Header reference"
+      },
+      "TREATMENTS": {
+        "LABEL": "Treatments references (comma-separated)"
+      },
+      "FOOTER": {
+        "LABEL": "Footer reference"
+      },
+      "VALIDITY": {
+        "LABEL": "Validity"
+      },
+      "RECEIPT": {
+        "LABEL": "Receipt type",
+        "VALUES": {
+          "NONE": "None",
+          "GENERATE": "Generate",
+          "DISPLAY": "Display",
+          "STORE": "Store",
+          "DOWNLOAD": "Download"
+        }
+      },
+      "LOCALE": {
+        "LABEL": "Locale"
+      },
+      "FORCE_DISPLAY": {
+        "LABEL": "Force display of all treatments"
+      },
+      "EMAIL": {
+        "LABEL": "Opt-out email"
+      },
+      "PREVIEW": {
+        "LABEL": "Preview (prevents submitting)"
+      },
+      "TOKEN": {
+        "LABEL": "Token"
+      }
+    },
+    "IFRAME": {
+      "TITLE": "Result"
+    }
+  }
+}

@@ -1,18 +1,18 @@
 <mat-toolbar color="primary">
-  <span [routerLink]="'/'">Consent Manager</span>
+  <span [routerLink]="'/'">{{'NAV.TITLE' | translate}}</span>
   <nav>
     <button mat-button [routerLink]="'./entries'"
-            [routerLinkActive]="'active-link'">Entries</button>
+            [routerLinkActive]="'active-link'">{{'ENTRIES.TITLE' | translate}}</button>
     <button mat-button [routerLink]="'./records'"
-            [routerLinkActive]="'active-link'">Records</button>
+            [routerLinkActive]="'active-link'">{{'RECORDS.TITLE' | translate}}</button>
     <button mat-button [routerLink]="'./token'"
-            [routerLinkActive]="'active-link'">Token</button>
+            [routerLinkActive]="'active-link'">{{'TOKEN.TITLE' | translate}}</button>
   </nav>
   <span class="spacer"></span>
   <span>
     <button mat-button [matMenuTriggerFor]="userMenu">{{keycloak.getUsername()}}</button>
     <mat-menu #userMenu="matMenu">
-      <button mat-menu-item (click)="keycloak.logout()">Logout</button>
+      <button mat-menu-item (click)="keycloak.logout()">{{'NAV.KEYCLOAK.LOGOUT' | translate}}</button>
     </mat-menu>
   </span>
 </mat-toolbar>

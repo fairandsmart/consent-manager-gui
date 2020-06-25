@@ -1,5 +1,7 @@
 import { Component } from '@angular/core';
 import { KeycloakService } from 'keycloak-angular';
+import { TranslateService } from '@ngx-translate/core';
+import { LANGUAGES } from './common/constants';
 
 @Component({
   selector: 'app-root',
@@ -8,6 +10,13 @@ import { KeycloakService } from 'keycloak-angular';
 })
 export class AppComponent {
 
-  constructor(public keycloak: KeycloakService) {
+  constructor(
+    public keycloak: KeycloakService,
+    public translate: TranslateService
+  ) {
+    this.translate.addLangs(LANGUAGES);
+    const browserLang = this.translate.getBrowserLang();
+    const lang = this.translate.langs.includes(browserLang) ? browserLang : 'fr';
+    this.translate.use(lang);
   }
 }

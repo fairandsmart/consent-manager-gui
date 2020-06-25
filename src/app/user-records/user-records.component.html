@@ -1,5 +1,5 @@
 <div>
-  <h2>Records for {{filter.user}}</h2>
+  <h2>{{'RECORDS.INDIVIDUAL.TITLE' | translate}} {{filter.user}}</h2>
 </div>
 
 <div class="table-container mat-elevation-z6">
@@ -10,43 +10,38 @@
          matSort [matSortActive]="filter.order" [matSortDirection]="filter.direction" matSortDisableClear="true">
 
     <ng-container matColumnDef="bodyKey">
-      <th mat-header-cell mat-sort-header *matHeaderCellDef> Element Key </th>
-      <td mat-cell *matCellDef="let element"> {{element.bodyKey}}</td>
+      <th mat-header-cell mat-sort-header *matHeaderCellDef>{{'RECORDS.COMMON.BODY.LABEL' | translate}}</th>
+      <td mat-cell *matCellDef="let element">{{element.bodyKey}}</td>
     </ng-container>
 
     <ng-container matColumnDef="type">
-      <th mat-header-cell mat-sort-header *matHeaderCellDef> Element Type </th>
-      <td mat-cell *matCellDef="let element"> {{element.type ? element.type : "-"}}</td>
+      <th mat-header-cell mat-sort-header *matHeaderCellDef>{{'RECORDS.COMMON.TYPE.LABEL' | translate}}</th>
+      <td mat-cell *matCellDef="let element">{{'COMMON.ENTRY_TYPES.' + element.type.toUpperCase() | translate}}</td>
     </ng-container>
 
     <ng-container matColumnDef="value">
-      <th mat-header-cell mat-sort-header *matHeaderCellDef> Value </th>
-      <td mat-cell *matCellDef="let element"> {{element.value ? element.value : "-"}}</td>
-    </ng-container>
-
-    <ng-container matColumnDef="status">
-      <th mat-header-cell mat-sort-header *matHeaderCellDef> Status </th>
-      <td mat-cell *matCellDef="let element"> {{element.status ? element.status : "-"}}</td>
+      <th mat-header-cell mat-sort-header *matHeaderCellDef>{{'RECORDS.COMMON.VALUE.LABEL' | translate}}</th>
+      <td mat-cell *matCellDef="let element">{{element.value ? ('RECORDS.COMMON.VALUE.' + element.value.toUpperCase() | translate) : '-'}}</td>
     </ng-container>
 
     <ng-container matColumnDef="collectionMethod">
-      <th mat-header-cell mat-sort-header *matHeaderCellDef> Collection Method </th>
-      <td mat-cell *matCellDef="let element"> {{element.collectionMethod ? element.collectionMethod : "-"}}</td>
+      <th mat-header-cell mat-sort-header *matHeaderCellDef>{{'RECORDS.COMMON.COLLECTION_METHOD.LABEL' | translate}}</th>
+      <td mat-cell *matCellDef="let element">{{element.collectionMethod || '-'}}</td>
     </ng-container>
 
     <ng-container matColumnDef="comment">
-      <th mat-header-cell mat-sort-header *matHeaderCellDef> Comment </th>
-      <td mat-cell *matCellDef="let element"> {{element.comment ? element.comment : "-"}}</td>
+      <th mat-header-cell mat-sort-header *matHeaderCellDef>{{'RECORDS.COMMON.COMMENT.LABEL' | translate}}</th>
+      <td mat-cell *matCellDef="let element">{{element.comment || '-'}}</td>
     </ng-container>
 
     <ng-container matColumnDef="creationTimestamp">
-      <th mat-header-cell mat-sort-header *matHeaderCellDef> Creation </th>
-      <td mat-cell *matCellDef="let element"> {{element.creationTimestamp > 0 ? (element.creationTimestamp | date:'short') : "-"}}</td>
+      <th mat-header-cell mat-sort-header *matHeaderCellDef>{{'RECORDS.COMMON.CREATION.LABEL' | translate}}</th>
+      <td mat-cell *matCellDef="let element">{{element.creationTimestamp > 0 ? (element.creationTimestamp | date:'short') : '-'}}</td>
     </ng-container>
 
     <ng-container matColumnDef="expirationTimestamp">
-      <th mat-header-cell mat-sort-header *matHeaderCellDef> Expiration </th>
-      <td mat-cell *matCellDef="let element"> {{element.expirationTimestamp > 0 ? (element.expirationTimestamp | date:'short') : "-"}}</td>
+      <th mat-header-cell mat-sort-header *matHeaderCellDef>{{'RECORDS.COMMON.EXPIRATION.LABEL' | translate}}</th>
+      <td mat-cell *matCellDef="let element">{{element.expirationTimestamp > 0 ? (element.expirationTimestamp | date:'short') : '-'}}</td>
     </ng-container>
 
     <ng-container matColumnDef="actions">
@@ -65,43 +60,43 @@
 </div>
 
 <div class="operator-container" *ngIf="!displayOperatorForm">
-  <button mat-raised-button color="primary" (click)="showOperatorForm()" [disabled]="filter.user.length == 0">New consent request</button>
+  <button mat-raised-button color="primary" (click)="showOperatorForm()" [disabled]="filter.user.length == 0">{{'RECORDS.INDIVIDUAL.CREATE_BUTTON' | translate}}</button>
 </div>
 
 <div class="operator-container mat-elevation-z6" *ngIf="displayOperatorForm">
   <mat-card *ngIf="form" [formGroup]="form">
-    <mat-card-title>New consent</mat-card-title>
+    <mat-card-title>{{'RECORDS.INDIVIDUAL.EDITOR.TITLE' | translate}}</mat-card-title>
 
     <mat-card-content>
 
       <mat-form-field appearance="outline">
-        <mat-label>Header</mat-label>
+        <mat-label>{{'RECORDS.COMMON.HEADER.LABEL' | translate}}</mat-label>
         <mat-select formControlName="headerKey">
           <mat-option *ngFor="let header of headers" [value]="header.key">{{header.name}}</mat-option>
         </mat-select>
       </mat-form-field>
 
       <mat-form-field appearance="outline">
-        <mat-label>Footer</mat-label>
+        <mat-label>{{'RECORDS.COMMON.FOOTER.LABEL' | translate}}</mat-label>
         <mat-select formControlName="footerKey">
           <mat-option *ngFor="let footer of footers" [value]="footer.key">{{footer.name}}</mat-option>
         </mat-select>
       </mat-form-field>
 
       <mat-card>
-        <div *ngIf="operatorRecordsElements.length == 0">There is no value yet.</div>
+        <div *ngIf="operatorRecordsElements.length == 0">{{'RECORDS.INDIVIDUAL.EDITOR.EMPTY' | translate}}</div>
         <ul *ngIf="operatorRecordsElements.length > 0">
-          <li *ngFor="let element of operatorRecordsElements">{{element.bodyKey}} : {{element.value}} <button mat-icon-button (click)="removeElement(element, $event)"><mat-icon>delete</mat-icon></button></li>
+          <li *ngFor="let element of operatorRecordsElements">{{element.bodyKey}} : {{'RECORDS.COMMON.VALUE.' + element.value.toUpperCase() | translate}}<button mat-icon-button (click)="removeElement(element, $event)"><mat-icon>delete</mat-icon></button></li>
         </ul>
       </mat-card>
 
       <mat-form-field appearance="outline">
-        <mat-label>Comment</mat-label>
+        <mat-label>{{'RECORDS.COMMON.COMMENT.LABEL' | translate}}</mat-label>
         <input matInput formControlName="comment">
       </mat-form-field>
 
       <mat-card-actions>
-        <button mat-button color="primary" [disabled]="form.disabled || operatorRecordsElements.length == 0" (click)="submit()">Submit</button>
+        <button mat-button color="primary" [disabled]="form.disabled || operatorRecordsElements.length == 0" (click)="submit()">{{'COMMON.BUTTONS.SUBMIT' | translate}}</button>
       </mat-card-actions>
 
     </mat-card-content>

@@ -26,8 +26,6 @@ export class TokenCreationComponent implements OnInit {
 
   public token = '';
 
-  public submitText = "Generate form";
-
   constructor(private consentsResource: ConsentsResourceService,
               private fb: FormBuilder,
               private sanitizer: DomSanitizer) { }
@@ -99,7 +97,6 @@ export class TokenCreationComponent implements OnInit {
       this.consentsResource.generateToken(context).subscribe((token) => {
         this.token = token;
         this.formUrl = this.sanitizer.bypassSecurityTrustResourceUrl(this.consentsResource.getFormUrl(this.token));
-        this.submitText = "Update form";
         this.form.enable();
       }, (err) => {
         console.error(err);

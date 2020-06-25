@@ -1,23 +1,23 @@
-<h2 mat-dialog-title>{{data.value ? 'Update record' : 'New record'}}</h2>
+<h2 mat-dialog-title>{{data.value ? ('RECORDS.DIALOG.TITLE_UPDATE' | translate) : ('RECORDS.DIALOG.TITLE_NEW' | translate)}}</h2>
 
 <div mat-dialog-content *ngIf="form" [formGroup]="form">
 
   <mat-form-field appearance="outline">
-    <mat-label>Body key</mat-label>
+    <mat-label>{{'RECORDS.COMMON.BODY.LABEL' | translate}}</mat-label>
     <input matInput disabled [value]="data.bodyKey">
   </mat-form-field>
 
   <mat-form-field appearance="outline">
-    <mat-label>Value</mat-label>
+    <mat-label>{{'RECORDS.COMMON.VALUE.LABEL' | translate}}</mat-label>
     <mat-select formControlName="value">
-      <mat-option value="accepted">Accept</mat-option>
-      <mat-option value="refused">Refuse</mat-option>
+      <mat-option value="accepted">{{'RECORDS.COMMON.VALUE.ACCEPTED' | translate}}</mat-option>
+      <mat-option value="refused">{{'RECORDS.COMMON.VALUE.REFUSED' | translate}}</mat-option>
     </mat-select>
   </mat-form-field>
 
 </div>
 
 <div class="btn-uppercase align-right" mat-dialog-actions>
-  <button mat-button color="primary" [disabled]="form.disabled" [mat-dialog-close]="null">Cancel</button>
-  <button mat-button color="primary" [disabled]="form.disabled" (click)="submit()">{{data.value ? 'Update' : 'Create'}}</button>
+  <button mat-button color="primary" [disabled]="form.disabled" [mat-dialog-close]="null">{{'COMMON.BUTTONS.CANCEL' | translate}}</button>
+  <button mat-button color="primary" [disabled]="form.disabled" (click)="submit()">{{'COMMON.BUTTONS.SAVE' | translate}}</button>
 </div>

@@ -1,12 +1,12 @@
 <div class="filter-container">
   <mat-form-field appearance="fill">
-    <mat-label>Type</mat-label>
+    <mat-label>{{'ENTRIES.COMMON.TYPE.LABEL' | translate}}</mat-label>
     <mat-select (ngModelChange)="filterChange('types', $event)" [ngModel]="filter.types" multiple="true">
-      <mat-option *ngFor="let type of TYPES" [value]="type">{{type}}</mat-option>
+      <mat-option *ngFor="let type of TYPES" [value]="type">{{'COMMON.ENTRY_TYPES.' + type.toUpperCase() | translate}}</mat-option>
     </mat-select>
   </mat-form-field>
   <div>
-    <button mat-raised-button color="primary" (click)="newEntry()">New entry</button>
+    <button mat-raised-button color="primary" (click)="newEntry()">{{'ENTRIES.CREATE_BUTTON' | translate}}</button>
   </div>
 </div>
 <div class="table-container mat-elevation-z6">
@@ -17,23 +17,23 @@
          matSort [matSortActive]="filter.order" [matSortDirection]="filter.direction" matSortDisableClear="true">
 
     <ng-container matColumnDef="id">
-      <th mat-header-cell *matHeaderCellDef> Id </th>
-      <td mat-cell *matCellDef="let element"> {{element.id | shortId}} </td>
+      <th mat-header-cell *matHeaderCellDef>{{'ENTRIES.COMMON.ID.LABEL' | translate}}</th>
+      <td mat-cell *matCellDef="let element">{{element.id | shortId}}</td>
     </ng-container>
 
     <ng-container matColumnDef="key">
-      <th mat-header-cell mat-sort-header *matHeaderCellDef> Key </th>
-      <td mat-cell *matCellDef="let element"> {{element.key}} </td>
+      <th mat-header-cell mat-sort-header *matHeaderCellDef>{{'ENTRIES.COMMON.KEY.LABEL' | translate}}</th>
+      <td mat-cell *matCellDef="let element">{{element.key}}</td>
     </ng-container>
 
     <ng-container matColumnDef="name">
-      <th mat-header-cell mat-sort-header *matHeaderCellDef> Name </th>
-      <td mat-cell *matCellDef="let element"> {{element.name}} </td>
+      <th mat-header-cell mat-sort-header *matHeaderCellDef>{{'ENTRIES.COMMON.NAME.LABEL' | translate}}</th>
+      <td mat-cell *matCellDef="let element">{{element.name}}</td>
     </ng-container>
 
     <ng-container matColumnDef="type">
-      <th mat-header-cell mat-sort-header *matHeaderCellDef> Type </th>
-      <td mat-cell *matCellDef="let element"> {{element.type}} </td>
+      <th mat-header-cell mat-sort-header *matHeaderCellDef>{{'ENTRIES.COMMON.TYPE.LABEL' | translate}}</th>
+      <td mat-cell *matCellDef="let element">{{'COMMON.ENTRY_TYPES.' + element.type.toUpperCase() | translate}}</td>
     </ng-container>
 
     <ng-container matColumnDef="actions">
