@@ -3,7 +3,7 @@ import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { EntryComponent } from './entry.component';
 import { ActivatedRoute } from '@angular/router';
 import { ActivatedRouteStub } from '../testing/activated-route-stub';
-import { of } from 'rxjs';
+import { EMPTY, of } from 'rxjs';
 import { ModelsResourceService } from '../models-resource.service';
 import SpyObj = jasmine.SpyObj;
 import createSpyObj = jasmine.createSpyObj;
@@ -15,7 +15,7 @@ describe('EntryComponent', () => {
   let activatedRouteStub: ActivatedRouteStub;
 
   beforeEach(async(() => {
-    modelsResourceServiceSpy =  createSpyObj<ModelsResourceService>('ModelsResourceService', ['getEntry']);
+    modelsResourceServiceSpy =  createSpyObj<ModelsResourceService>('ModelsResourceService', ['getEntry', 'getLatestVersion']);
     activatedRouteStub = new ActivatedRouteStub({
       params: {
         id: '123e4567-e89b-12d3-a456-426614174000'
@@ -34,6 +34,7 @@ describe('EntryComponent', () => {
 
   beforeEach(() => {
     modelsResourceServiceSpy.getEntry.and.returnValue(of(null));
+    modelsResourceServiceSpy.getLatestVersion.and.returnValue(EMPTY);
 
     fixture = TestBed.createComponent(EntryComponent);
     component = fixture.componentInstance;

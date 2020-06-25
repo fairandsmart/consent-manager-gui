@@ -79,6 +79,7 @@
                             <arguments>run maven-build</arguments>
                         </configuration>
                     </execution>
+<!--                  no tests now-->
                     <execution>
                         <id>npm test</id>
                         <goals>
@@ -125,7 +126,7 @@
     </repositories>
     <profiles>
         <profile>
-            <id>gui-consent-manager build on CI</id>
+            <id>CI</id>
             <activation>
                 <property>
                     <name>env.CI</name>

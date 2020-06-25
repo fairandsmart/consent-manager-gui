@@ -1,14 +1,27 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { FooterComponent } from './footer.component';
+import { ReactiveFormsModule } from '@angular/forms';
+import { MaterialModule } from '../material.module';
+import { NoopAnimationsModule } from '@angular/platform-browser/animations';
+import { ModelsResourceService } from '../models-resource.service';
+import SpyObj = jasmine.SpyObj;
+import createSpyObj = jasmine.createSpyObj;
 
 describe('EntryFooterComponent', () => {
   let component: FooterComponent;
   let fixture: ComponentFixture<FooterComponent>;
+  let modelsResourceServiceSpy: SpyObj<ModelsResourceService>;
 
   beforeEach(async(() => {
+    modelsResourceServiceSpy =  createSpyObj('ModelsResourceService', ['listEntries']);
+
     TestBed.configureTestingModule({
-      declarations: [ FooterComponent ]
+      declarations: [ FooterComponent ],
+      imports: [ ReactiveFormsModule, MaterialModule, NoopAnimationsModule ],
+      providers: [
+        {provide: ModelsResourceService, useValue: modelsResourceServiceSpy},
+      ]
     })
     .compileComponents();
   }));
