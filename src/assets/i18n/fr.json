@@ -17,6 +17,10 @@
       "FOOTER": "Pied de page",
       "TREATMENT": "Traitement",
       "CONDITIONS": "CGU/CGS"
+    },
+    "LANGUAGES": {
+      "EN": "Anglais",
+      "FR": "Français"
     }
   },
   "ENTRIES": {
@@ -93,10 +97,11 @@
             "LABEL": "Méthode de collecte"
           },
           "SCOPE": {
-            "LABEL": "Scope ??"
+            "LABEL": "Opérations autorisées",
+            "PLACEHOLDER": "lecture, mise à jour"
           },
           "SHORT_NOTICE": {
-            "LABEL": "Short notice link ??"
+            "LABEL": "Lien vers la politique simplifiée"
           },
           "PRIVACY_POLICY": {
             "URL": {
@@ -149,12 +154,12 @@
             }
           },
           "PURPOSE": {
-            "LABEL": "Purposes ??",
+            "LABEL": "Base de consentement",
             "VALUES": {
-              "CONSENT_CORE_SERVICE": "Service principal ??",
+              "CONSENT_CORE_SERVICE": "Service principal",
               "CONSENT_IMPROVED_SERVICE": "Service amélioré",
               "CONSENT_MARKETING": "Marketing",
-              "CONSENT_THIRD_PART_SHARING": "Partage à des tiers ??",
+              "CONSENT_THIRD_PART_SHARING": "Partage à une tierce-partie",
               "CONSENT_RESEARCH": "Recherche"
             }
           },
@@ -165,7 +170,7 @@
             "LABEL": "Contient des données de santé"
           },
           "THIRD_PARTIES": {
-            "LABEL": "Tiers ??"
+            "LABEL": "Tierce-parties"
           }
         },
         "CONDITIONS": {
@@ -205,13 +210,13 @@
         "LABEL": "En-tête"
       },
       "BODY": {
-        "LABEL": "Corps ??"
+        "LABEL": "Corps"
       },
       "FOOTER": {
         "LABEL": "Pied de page"
       },
       "SUBJECT": {
-        "LABEL": "Subject ??"
+        "LABEL": "Auteur du consentement"
       },
       "TYPE": {
         "LABEL": "Type"
@@ -248,11 +253,11 @@
     }
   },
   "TOKEN": {
-    "TITLE": "Jetons ??",
+    "TITLE": "Formulaire de consentement",
     "FORM": {
-      "TITLE": "Créateur de formulaire et de jeton ??",
+      "TITLE": "Génération du formulaire de consentement",
       "SUBJECT": {
-        "LABEL": "Subject ??"
+        "LABEL": "Auteur du consentement"
       },
       "ORIENTATION": {
         "LABEL": "Orientation verticale"
@@ -280,19 +285,19 @@
         }
       },
       "LOCALE": {
-        "LABEL": "Paramètre régional ??"
+        "LABEL": "Langage"
       },
       "FORCE_DISPLAY": {
         "LABEL": "Forcer l'affichage de tous les traitements"
       },
       "EMAIL": {
-        "LABEL": "Email de désengagement ??"
+        "LABEL": "Email de confirmation"
       },
       "PREVIEW": {
         "LABEL": "Aperçu (empêche la validation du formulaire)"
       },
       "TOKEN": {
-        "LABEL": "Jeton ??"
+        "LABEL": "Jeton"
       }
     },
     "IFRAME": {

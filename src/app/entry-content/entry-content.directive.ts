@@ -57,15 +57,18 @@ export abstract class EntryContentDirective<T extends ModelData> implements OnIn
     }
     if (this.form.valid) {
       let obs: Observable<ModelVersion<T>>;
+      const formValue = this.form.getRawValue();
+      const locale = formValue.locale;
+      delete formValue.locale;
       if (this.version?.status === ModelVersionStatus.DRAFT) {
         obs = this.modelsResourceService.updateVersion(this.entry.id, this.version.id, {
-          locale: 'en',
-          content: this.form.getRawValue()
+          locale: locale,
+          content: formValue
         });
       } else {
         obs = this.modelsResourceService.createVersion(this.entry.id, {
-          locale: 'en',
-          content: this.form.getRawValue()
+          locale: locale,
+          content: formValue
         });
       }
       obs.subscribe(version => {

@@ -4,6 +4,7 @@ import { Conditions } from '../models';
 import { FormBuilder, Validators } from '@angular/forms';
 import { ModelsResourceService } from '../models-resource.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { LANGUAGES } from '../common/constants';
 
 @Component({
   selector: 'app-conditions',
@@ -11,6 +12,8 @@ import { MatSnackBar } from '@angular/material/snack-bar';
   styleUrls: ['../entry-content/_entry-content.directive.scss', './conditions.component.scss']
 })
 export class ConditionsComponent extends EntryContentDirective<Conditions> implements OnInit {
+
+  readonly LANGUAGES = LANGUAGES;
 
   constructor(private fb: FormBuilder, modelsResourceService: ModelsResourceService, snackBar: MatSnackBar) {
     super(modelsResourceService, snackBar);
@@ -23,6 +26,7 @@ export class ConditionsComponent extends EntryContentDirective<Conditions> imple
   protected initForm(): void {
     this.form = this.fb.group({
       type: ['conditions', [Validators.required]],
+      locale: ['', [Validators.required]],
       title: ['', [Validators.required]],
       body: ['', [Validators.required]],
       acceptLabel: ['', [Validators.required]],

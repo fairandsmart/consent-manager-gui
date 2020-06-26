@@ -17,6 +17,10 @@
       "FOOTER": "Footer",
       "TREATMENT": "Treatment",
       "CONDITIONS": "EULA"
+    },
+    "LANGUAGES": {
+      "EN": "English",
+      "FR": "French"
     }
   },
   "ENTRIES": {
@@ -93,7 +97,8 @@
             "LABEL": "Collection method"
           },
           "SCOPE": {
-            "LABEL": "Scope"
+            "LABEL": "Scope",
+            "PLACEHOLDER": "read, update"
           },
           "SHORT_NOTICE": {
             "LABEL": "Short notice link"
@@ -248,9 +253,9 @@
     }
   },
   "TOKEN": {
-    "TITLE": "Tokens",
+    "TITLE": "Consent form",
     "FORM": {
-      "TITLE": "Form and token creator",
+      "TITLE": "Form creator",
       "SUBJECT": {
         "LABEL": "Subject"
       },

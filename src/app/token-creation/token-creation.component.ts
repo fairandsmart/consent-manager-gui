@@ -10,6 +10,7 @@ import {
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ConsentsResourceService } from '../consents-resource.service';
 import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
+import { LANGUAGES } from '../common/constants';
 
 @Component({
   selector: 'app-token-creation',
@@ -18,12 +19,11 @@ import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
 })
 export class TokenCreationComponent implements OnInit {
 
-  public form: FormGroup;
-
   readonly TYPES = RECEIPT_DELIVERY_TYPES;
+  readonly LANGUAGES = LANGUAGES;
 
+  public form: FormGroup;
   public formUrl: SafeResourceUrl;
-
   public token = '';
 
   constructor(private consentsResource: ConsentsResourceService,
@@ -54,7 +54,7 @@ export class TokenCreationComponent implements OnInit {
       receiptType: ['', [
         Validators.required
       ]],
-      locale: ['en', [
+      locale: ['', [
         Validators.required
       ]],
       forceDisplay: [true, [

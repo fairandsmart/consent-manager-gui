@@ -3,6 +3,12 @@
     <mat-card-title>{{'ENTRIES.EDITOR.CONTENT.TITLE' | translate}}</mat-card-title>
     <mat-card-content>
       <mat-form-field appearance="outline">
+        <mat-label>{{'TOKEN.FORM.LOCALE.LABEL' | translate}}</mat-label>
+        <mat-select formControlName="locale">
+          <mat-option *ngFor="let language of LANGUAGES" [value]="language">{{'COMMON.LANGUAGES.' + language.toUpperCase() | translate}}</mat-option>
+        </mat-select>
+      </mat-form-field>
+      <mat-form-field appearance="outline">
         <mat-label>{{'ENTRIES.EDITOR.CONTENT.CONDITIONS.TITLE.LABEL' | translate}}</mat-label>
         <input matInput formControlName="title" autocomplete="off">
       </mat-form-field>

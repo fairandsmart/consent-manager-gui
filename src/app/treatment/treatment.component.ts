@@ -4,6 +4,7 @@ import { Treatment, TREATMENT_PURPOSES } from '../models';
 import { FormBuilder, Validators } from '@angular/forms';
 import { ModelsResourceService } from '../models-resource.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { LANGUAGES } from '../common/constants';
 
 @Component({
   selector: 'app-treatment',
@@ -13,6 +14,7 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 export class TreatmentComponent extends EntryContentDirective<Treatment> implements OnInit {
 
   readonly PURPOSES = TREATMENT_PURPOSES;
+  readonly LANGUAGES = LANGUAGES;
 
   constructor(private fb: FormBuilder, modelsResourceService: ModelsResourceService, snackBar: MatSnackBar) {
     super(modelsResourceService, snackBar);
@@ -25,6 +27,7 @@ export class TreatmentComponent extends EntryContentDirective<Treatment> impleme
   protected initForm(): void {
     this.form = this.fb.group({
       type: ['treatment', [Validators.required]],
+      locale: ['', [Validators.required]],
       treatmentTitle: [''],
       dataTitle: [''],
       dataBody: [''],

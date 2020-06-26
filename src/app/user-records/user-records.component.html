@@ -70,6 +70,13 @@
     <mat-card-content>
 
       <mat-form-field appearance="outline">
+        <mat-label>{{'TOKEN.FORM.LOCALE.LABEL' | translate}}</mat-label>
+        <mat-select formControlName="locale">
+          <mat-option *ngFor="let language of LANGUAGES" [value]="language">{{'COMMON.LANGUAGES.' + language.toUpperCase() | translate}}</mat-option>
+        </mat-select>
+      </mat-form-field>
+
+      <mat-form-field appearance="outline">
         <mat-label>{{'RECORDS.COMMON.HEADER.LABEL' | translate}}</mat-label>
         <mat-select formControlName="headerKey">
           <mat-option *ngFor="let header of headers" [value]="header.key">{{header.name}}</mat-option>

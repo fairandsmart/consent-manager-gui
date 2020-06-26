@@ -39,7 +39,9 @@
 
     <mat-form-field appearance="outline">
       <mat-label>{{'TOKEN.FORM.LOCALE.LABEL' | translate}}</mat-label>
-      <input matInput formControlName="locale" autocomplete="off">
+      <mat-select formControlName="locale">
+        <mat-option *ngFor="let language of LANGUAGES" [value]="language">{{'COMMON.LANGUAGES.' + language.toUpperCase() | translate}}</mat-option>
+      </mat-select>
     </mat-form-field>
 
     <mat-checkbox formControlName="forceDisplay" checked>{{'TOKEN.FORM.FORCE_DISPLAY.LABEL' | translate}}</mat-checkbox>

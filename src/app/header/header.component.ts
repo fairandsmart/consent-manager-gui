@@ -4,6 +4,7 @@ import { Header } from '../models';
 import { FormBuilder, Validators } from '@angular/forms';
 import { ModelsResourceService } from '../models-resource.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { LANGUAGES } from '../common/constants';
 
 @Component({
   selector: 'app-header',
@@ -11,6 +12,8 @@ import { MatSnackBar } from '@angular/material/snack-bar';
   styleUrls: ['../entry-content/_entry-content.directive.scss', './header.component.scss']
 })
 export class HeaderComponent extends EntryContentDirective<Header> implements OnInit {
+
+  readonly LANGUAGES = LANGUAGES;
 
   constructor(private fb: FormBuilder, modelsResourceService: ModelsResourceService, snackBar: MatSnackBar) {
     super(modelsResourceService, snackBar);
@@ -23,6 +26,7 @@ export class HeaderComponent extends EntryContentDirective<Header> implements On
   protected initForm(): void {
     this.form = this.fb.group({
       type: ['header', [Validators.required]],
+      locale: ['', [Validators.required]],
       logoPath: [''],
       logoAltText: [''],
       title: [''],

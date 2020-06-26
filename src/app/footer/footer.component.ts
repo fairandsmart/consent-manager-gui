@@ -4,6 +4,7 @@ import { Footer } from '../models';
 import { ModelsResourceService } from '../models-resource.service';
 import { EntryContentDirective } from '../entry-content/entry-content.directive';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { LANGUAGES } from '../common/constants';
 
 @Component({
   selector: 'app-footer',
@@ -11,6 +12,8 @@ import { MatSnackBar } from '@angular/material/snack-bar';
   styleUrls: ['../entry-content/_entry-content.directive.scss', './footer.component.scss']
 })
 export class FooterComponent extends EntryContentDirective<Footer> implements OnInit {
+
+  readonly LANGUAGES = LANGUAGES;
 
   constructor(private fb: FormBuilder, modelsResourceService: ModelsResourceService, snackBar: MatSnackBar) {
     super(modelsResourceService, snackBar);
@@ -23,6 +26,7 @@ export class FooterComponent extends EntryContentDirective<Footer> implements On
   protected initForm(): void {
     this.form = this.fb.group({
       type: ['footer', [Validators.required]],
+      locale: ['', [Validators.required]],
       body: ['', [Validators.required]],
       showAcceptAll: [false],
       customAcceptAllText: ['']

@@ -25,6 +25,7 @@ import { UserRecordEditorDialogComponent } from '../user-record-editor-dialog/us
 import { ModelsResourceService } from '../models-resource.service';
 import { KeycloakService } from 'keycloak-angular';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { LANGUAGES } from '../common/constants';
 
 class UserRecordDataSource extends CollectionDatasource<UserRecord, UserRecordFilter> {
 
@@ -44,6 +45,8 @@ class UserRecordDataSource extends CollectionDatasource<UserRecord, UserRecordFi
   styleUrls: ['../entry-content/_entry-content.directive.scss', './user-records.component.scss']
 })
 export class UserRecordsComponent implements OnInit {
+
+  readonly LANGUAGES = LANGUAGES;
 
   public displayedColumns = ['bodyKey', 'type', 'value', 'collectionMethod', 'comment', 'creationTimestamp', 'expirationTimestamp', 'actions'];
 
@@ -105,6 +108,9 @@ export class UserRecordsComponent implements OnInit {
     ).subscribe();
 
     this.form = this.fb.group({
+      locale: ['', [
+        Validators.required
+      ]],
       headerKey: ['', [
         Validators.required
       ]],
@@ -192,7 +198,7 @@ export class UserRecordsComponent implements OnInit {
         elements: elements,
         footer: formValue.footerKey,
         callback: '',
-        locale: 'en',
+        locale: formValue.locale,
         formType: ConsentFormType.FULL,
         receiptDeliveryType: 'DISPLAY',
         userinfos: {},
