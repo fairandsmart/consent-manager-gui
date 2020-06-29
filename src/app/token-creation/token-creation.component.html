@@ -20,32 +20,31 @@
       </mat-autocomplete>
     </mat-form-field>
 
-    <mat-form-field appearance="outline">
-      <mat-label>{{'TOKEN.FORM.TREATMENTS.LABEL' | translate}}</mat-label>
-      <mat-chip-list #elementsChipList>
-        <mat-chip
-          *ngFor="let element of form.get('elementsKeys').value"
-          [selectable]="false"
-          (removed)="removeTreatment(element)">
-          {{element}}
-          <mat-icon matChipRemove>cancel</mat-icon>
-        </mat-chip>
-        <input
-          #elementsInput
-          formControlName="elementsKeysInput"
-          [matAutocomplete]="elementsAutocomplete"
-          [matChipInputFor]="elementsChipList"
-          [matChipInputSeparatorKeyCodes]="SEPARATOR_KEYS_CODE"
-          (matChipInputTokenEnd)="addTreatment($event)">
-      </mat-chip-list>
-      <mat-autocomplete #elementsAutocomplete="matAutocomplete" autoActiveFirstOption
-                        (optionSelected)="selectTreatment($event)">
-        <mat-option *ngFor="let option of optionsByType.treatment | async"
-                    [disabled]="isTreatmentDisabled(option)" [value]="option.key">
-          {{option.name}} <small>({{option.key}})</small>
-        </mat-option>
-      </mat-autocomplete>
-    </mat-form-field>
+    <div class="elements-container">
+      <h2>{{'TOKEN.FORM.TREATMENTS.LABEL_AVAILABLE' | translate}}</h2>
+      <div
+        cdkDropList
+        #availableList="cdkDropList"
+        [cdkDropListData]="availableTreatments"
+        [cdkDropListConnectedTo]="[displayedList]"
+        class="elements-list"
+        (cdkDropListDropped)="drop($event)">
+        <div class="elements-box" *ngFor="let treatment of availableTreatments" cdkDrag>{{treatment.name}}</div>
+      </div>
+    </div>
+
+    <div class="elements-container" [class.container-invalid]="form.get('elementsKeys').touched && form.get('elementsKeys').invalid">
+      <h2>{{'TOKEN.FORM.TREATMENTS.LABEL_DISPLAYED' | translate}}</h2>
+      <div
+        cdkDropList
+        #displayedList="cdkDropList"
+        [cdkDropListData]="displayedTreatments"
+        [cdkDropListConnectedTo]="[availableList]"
+        class="elements-list"
+        (cdkDropListDropped)="drop($event)">
+        <div class="elements-box" *ngFor="let treatment of displayedTreatments" cdkDrag>{{treatment.name}}</div>
+      </div>
+    </div>
 
     <mat-form-field appearance="outline">
       <mat-label>{{'TOKEN.FORM.FOOTER.LABEL' | translate}}</mat-label>

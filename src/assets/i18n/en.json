@@ -266,7 +266,8 @@
         "LABEL": "Header reference"
       },
       "TREATMENTS": {
-        "LABEL": "Treatments references (comma-separated)"
+        "LABEL_AVAILABLE": "Available treatments",
+        "LABEL_DISPLAYED": "Displayed treatments"
       },
       "FOOTER": {
         "LABEL": "Footer reference"

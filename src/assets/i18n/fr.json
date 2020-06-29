@@ -266,7 +266,8 @@
         "LABEL": "Référence d'en-tête"
       },
       "TREATMENTS": {
-        "LABEL": "Références de traitements (séparées par des virgules)"
+        "LABEL_AVAILABLE": "Traitements disponibles",
+        "LABEL_DISPLAYED": "Traitements affichés"
       },
       "FOOTER": {
         "LABEL": "Référence de pied de page"
