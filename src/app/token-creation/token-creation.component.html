@@ -12,17 +12,49 @@
 
     <mat-form-field appearance="outline">
       <mat-label>{{'TOKEN.FORM.HEADER.LABEL' | translate}}</mat-label>
-      <input matInput formControlName="headerKey" autocomplete="off">
+      <input matInput formControlName="headerKey" autocomplete="off" [matAutocomplete]="headerAutocomplete">
+      <mat-autocomplete autoActiveFirstOption #headerAutocomplete="matAutocomplete">
+        <mat-option *ngFor="let option of optionsByType.header | async" [value]="option.key">
+          {{option.name}} <small>({{option.key}})</small>
+        </mat-option>
+      </mat-autocomplete>
     </mat-form-field>
 
     <mat-form-field appearance="outline">
       <mat-label>{{'TOKEN.FORM.TREATMENTS.LABEL' | translate}}</mat-label>
-      <input matInput formControlName="elementsKeys" autocomplete="off">
+      <mat-chip-list #elementsChipList>
+        <mat-chip
+          *ngFor="let element of form.get('elementsKeys').value"
+          [selectable]="false"
+          (removed)="removeTreatment(element)">
+          {{element}}
+          <mat-icon matChipRemove>cancel</mat-icon>
+        </mat-chip>
+        <input
+          #elementsInput
+          formControlName="elementsKeysInput"
+          [matAutocomplete]="elementsAutocomplete"
+          [matChipInputFor]="elementsChipList"
+          [matChipInputSeparatorKeyCodes]="SEPARATOR_KEYS_CODE"
+          (matChipInputTokenEnd)="addTreatment($event)">
+      </mat-chip-list>
+      <mat-autocomplete #elementsAutocomplete="matAutocomplete" autoActiveFirstOption
+                        (optionSelected)="selectTreatment($event)">
+        <mat-option *ngFor="let option of optionsByType.treatment | async"
+                    [disabled]="isTreatmentDisabled(option)" [value]="option.key">
+          {{option.name}} <small>({{option.key}})</small>
+        </mat-option>
+      </mat-autocomplete>
     </mat-form-field>
 
     <mat-form-field appearance="outline">
       <mat-label>{{'TOKEN.FORM.FOOTER.LABEL' | translate}}</mat-label>
-      <input matInput formControlName="footerKey" autocomplete="off">
+      <input matInput formControlName="footerKey" autocomplete="off" [matAutocomplete]="footerAutocomplete">
+      <mat-autocomplete autoActiveFirstOption #footerAutocomplete="matAutocomplete">
+        <mat-option *ngFor="let option of optionsByType.footer | async" [value]="option.key">
+          {{option.name}} <small>({{option.key}})</small>
+        </mat-option>
+      </mat-autocomplete>
     </mat-form-field>
 
     <mat-form-field appearance="outline">
