@@ -9,6 +9,7 @@ import { EMPTY } from 'rxjs';
 import { FormsModule } from '@angular/forms';
 import createSpyObj = jasmine.createSpyObj;
 import SpyObj = jasmine.SpyObj;
+import { TranslateModule } from '@ngx-translate/core';
 
 describe('RecordsComponent', () => {
   let component: RecordsComponent;
@@ -20,7 +21,7 @@ describe('RecordsComponent', () => {
 
     TestBed.configureTestingModule({
       declarations: [ RecordsComponent ],
-      imports: [ FormsModule, RouterTestingModule, MaterialModule, NoopAnimationsModule ],
+      imports: [ FormsModule, RouterTestingModule, MaterialModule, NoopAnimationsModule, TranslateModule.forRoot() ],
       providers: [
         {provide: ConsentsResourceService, useValue: consentsResourceServiceSpy},
       ]

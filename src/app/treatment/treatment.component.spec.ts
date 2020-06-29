@@ -7,6 +7,7 @@ import SpyObj = jasmine.SpyObj;
 import createSpyObj = jasmine.createSpyObj;
 import { MaterialModule } from '../material.module';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
+import { TranslateModule } from '@ngx-translate/core';
 
 describe('TreatmentComponent', () => {
   let component: TreatmentComponent;
@@ -18,7 +19,7 @@ describe('TreatmentComponent', () => {
 
     TestBed.configureTestingModule({
       declarations: [ TreatmentComponent ],
-      imports: [ ReactiveFormsModule, MaterialModule, NoopAnimationsModule ],
+      imports: [ ReactiveFormsModule, MaterialModule, NoopAnimationsModule, TranslateModule.forRoot() ],
       providers: [
         {provide: ModelsResourceService, useValue: modelsResourceServiceSpy},
       ]

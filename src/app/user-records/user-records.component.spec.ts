@@ -11,6 +11,7 @@ import { MaterialModule } from '../material.module';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { ModelsResourceService } from '../models-resource.service';
 import { KeycloakService } from 'keycloak-angular';
+import { TranslateModule } from '@ngx-translate/core';
 
 describe('UserRecordsComponent', () => {
   let component: UserRecordsComponent;
@@ -26,7 +27,7 @@ describe('UserRecordsComponent', () => {
 
     TestBed.configureTestingModule({
       declarations: [ UserRecordsComponent ],
-      imports: [RouterTestingModule, ReactiveFormsModule, MaterialModule, NoopAnimationsModule],
+      imports: [RouterTestingModule, ReactiveFormsModule, MaterialModule, NoopAnimationsModule, TranslateModule.forRoot()],
       providers: [
         {provide: ConsentsResourceService, useValue: consentsResourceServiceSpy},
         {provide: ModelsResourceService, useValue: modelsResourceServiceSpy},

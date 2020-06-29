@@ -7,6 +7,7 @@ import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { ModelsResourceService } from '../models-resource.service';
 import SpyObj = jasmine.SpyObj;
 import createSpyObj = jasmine.createSpyObj;
+import { TranslateModule } from '@ngx-translate/core';
 
 describe('EntryFooterComponent', () => {
   let component: FooterComponent;
@@ -18,7 +19,7 @@ describe('EntryFooterComponent', () => {
 
     TestBed.configureTestingModule({
       declarations: [ FooterComponent ],
-      imports: [ ReactiveFormsModule, MaterialModule, NoopAnimationsModule ],
+      imports: [ ReactiveFormsModule, MaterialModule, NoopAnimationsModule, TranslateModule.forRoot() ],
       providers: [
         {provide: ModelsResourceService, useValue: modelsResourceServiceSpy},
       ]

@@ -6,6 +6,8 @@ import { KeycloakService } from 'keycloak-angular';
 import SpyObj = jasmine.SpyObj;
 import createSpyObj = jasmine.createSpyObj;
 import { RouterTestingModule } from '@angular/router/testing';
+import { NoopAnimationsModule } from '@angular/platform-browser/animations';
+import { TranslateModule } from '@ngx-translate/core';
 
 describe('ConfigComponent', () => {
   let component: ConfigComponent;
@@ -17,7 +19,7 @@ describe('ConfigComponent', () => {
 
     TestBed.configureTestingModule({
       declarations: [ ConfigComponent ],
-      imports: [MaterialModule, RouterTestingModule],
+      imports: [MaterialModule, RouterTestingModule, TranslateModule.forRoot()],
       providers: [
         {provide: KeycloakService, useValue: keycloakServiceSpy}
       ]

@@ -7,6 +7,8 @@ import { MaterialModule } from '../material.module';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import SpyObj = jasmine.SpyObj;
 import createSpyObj = jasmine.createSpyObj;
+import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
+import { of } from 'rxjs';
 
 describe('UserRecordEditorDialogComponent', () => {
   let component: UserRecordEditorDialogComponent;
@@ -18,7 +20,7 @@ describe('UserRecordEditorDialogComponent', () => {
 
     TestBed.configureTestingModule({
       declarations: [ UserRecordEditorDialogComponent ],
-      imports: [ ReactiveFormsModule, MaterialModule, NoopAnimationsModule ],
+      imports: [ ReactiveFormsModule, MaterialModule, NoopAnimationsModule, TranslateModule.forRoot() ],
       providers: [
         {provide: MatDialogRef, useValue: dialogRefSpy},
         {provide: MAT_DIALOG_DATA, useValue: {value: 'foobar'}}

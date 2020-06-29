@@ -8,6 +8,7 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { MaterialModule } from '../material.module';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { ModelsResourceService } from '../models-resource.service';
+import { TranslateModule } from '@ngx-translate/core';
 
 describe('EntryEditorDialogComponent', () => {
   let component: EntryEditorDialogComponent;
@@ -21,7 +22,7 @@ describe('EntryEditorDialogComponent', () => {
 
     TestBed.configureTestingModule({
       declarations: [ EntryEditorDialogComponent ],
-      imports: [ ReactiveFormsModule, MaterialModule, NoopAnimationsModule ],
+      imports: [ ReactiveFormsModule, MaterialModule, NoopAnimationsModule, TranslateModule.forRoot() ],
       providers: [
         {provide: MatDialogRef, useValue: dialogRefSpy},
         {provide: MAT_DIALOG_DATA, useValue: {value: 'foobar'}},

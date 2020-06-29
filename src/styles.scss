@@ -3,6 +3,10 @@
 html, body { height: 100%; }
 body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
 
+body {
+  background-color: #efefef;
+}
+
 [mat-dialog-actions], mat-dialog-actions {
   &.align-right {
     justify-content: flex-end;

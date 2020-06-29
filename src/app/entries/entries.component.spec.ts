@@ -11,6 +11,7 @@ import { RouterTestingModule } from '@angular/router/testing';
 import { FormsModule } from '@angular/forms';
 import createSpyObj = jasmine.createSpyObj;
 import SpyObj = jasmine.SpyObj;
+import { TranslateModule } from '@ngx-translate/core';
 
 describe('EntriesComponent', () => {
   let component: EntriesComponent;
@@ -24,7 +25,7 @@ describe('EntriesComponent', () => {
 
     TestBed.configureTestingModule({
       declarations: [ EntriesComponent ],
-      imports: [ RouterTestingModule, FormsModule, MaterialModule, NoopAnimationsModule ],
+      imports: [ RouterTestingModule, FormsModule, MaterialModule, NoopAnimationsModule, TranslateModule.forRoot() ],
       providers: [
         {provide: ModelsResourceService, useValue: modelsResourceServiceSpy},
         {provide: ActivatedRoute, useValue: activatedRouteStub}
