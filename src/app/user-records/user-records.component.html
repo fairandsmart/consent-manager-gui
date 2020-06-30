@@ -21,7 +21,7 @@
 
     <ng-container matColumnDef="value">
       <th mat-header-cell mat-sort-header *matHeaderCellDef>{{'RECORDS.COMMON.VALUE.LABEL' | translate}}</th>
-      <td mat-cell *matCellDef="let element">{{element.value ? ('RECORDS.COMMON.VALUE.' + element.value.toUpperCase() | translate) : '-'}}</td>
+      <td mat-cell *matCellDef="let element"><mat-icon>{{element.value == "accepted" ? 'check' : (element.value == "refused" ? 'close' : '-')}}</mat-icon></td>
     </ng-container>
 
     <ng-container matColumnDef="collectionMethod">

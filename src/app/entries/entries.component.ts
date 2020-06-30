@@ -51,20 +51,10 @@ export class EntriesComponent implements OnInit {
   @ViewChild(MatSort, {static: true})
   sort: MatSort;
 
-  constructor(private modelsResourceService: ModelsResourceService, private dialog: MatDialog, private router: Router) {
-    // MODEL_DATA_TYPES.forEach((type: ModelDataType) => {
-    //   [1, 2, 3, 4, 5, 6, 7, 8, 9].forEach(index => {
-    //     this.modelsResourceService.createEntry({
-    //       type,
-    //       key: `test-${type}-${index}`,
-    //       name: `Test ${type}`,
-    //       description: 'This is a test'
-    //     }).subscribe(x => {
-    //       console.log(x);
-    //     });
-    //   });
-    // });
-  }
+  constructor(
+      private modelsResourceService: ModelsResourceService,
+      private dialog: MatDialog,
+      private router: Router) {}
 
   ngOnInit(): void {
     this.dataSource = new ConsentElementEntryDataSource(this.modelsResourceService);

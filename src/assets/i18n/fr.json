@@ -23,6 +23,16 @@
       "FR": "Français"
     }
   },
+  "MATERIAL": {
+    "PAGINATOR": {
+      "FIRST_PAGE": "Première page",
+      "LAST_PAGE": "Dernière page",
+      "NEXT_PAGE": "Page suivante",
+      "PREVIOUS_PAGE": "Page précédente",
+      "ITEMS_PER_PAGE": "Éléments par page :",
+      "RANGE": "sur"
+    }
+  },
   "ENTRIES": {
     "TITLE": "Éléments",
     "COMMON": {
@@ -221,12 +231,6 @@
       "TYPE": {
         "LABEL": "Type"
       },
-      "CREATION": {
-        "LABEL": "Date de création"
-      },
-      "EXPIRATION": {
-        "LABEL": "Date d'expiration"
-      },
       "VALUE": {
         "LABEL": "Réponse",
         "ACCEPTED": "Accepté",
@@ -234,6 +238,15 @@
       },
       "COLLECTION_METHOD": {
         "LABEL": "Méthode de collecte"
+      },
+      "STATUS": {
+        "LABEL": "Statut"
+      },
+      "CREATION": {
+        "LABEL": "Date de création"
+      },
+      "EXPIRATION": {
+        "LABEL": "Date d'expiration"
       },
       "COMMENT": {
         "LABEL": "Commentaire"

@@ -23,6 +23,16 @@
       "FR": "French"
     }
   },
+  "MATERIAL": {
+    "PAGINATOR": {
+      "FIRST_PAGE": "First page",
+      "LAST_PAGE": "Last page",
+      "NEXT_PAGE": "Next page",
+      "PREVIOUS_PAGE": "Previous page",
+      "ITEMS_PER_PAGE": "Items per page:",
+      "RANGE": "of"
+    }
+  },
   "ENTRIES": {
     "TITLE": "Entries",
     "COMMON": {
@@ -221,12 +231,6 @@
       "TYPE": {
         "LABEL": "Type"
       },
-      "CREATION": {
-        "LABEL": "Creation date"
-      },
-      "EXPIRATION": {
-        "LABEL": "Expiration date"
-      },
       "VALUE": {
         "LABEL": "Answer",
         "ACCEPTED": "Accepted",
@@ -234,6 +238,15 @@
       },
       "COLLECTION_METHOD": {
         "LABEL": "Collection method"
+      },
+      "STATUS": {
+        "LABEL": "Status"
+      },
+      "CREATION": {
+        "LABEL": "Creation date"
+      },
+      "EXPIRATION": {
+        "LABEL": "Expiration date"
       },
       "COMMENT": {
         "LABEL": "Comment"
