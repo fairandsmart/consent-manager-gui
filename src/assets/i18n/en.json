@@ -18,6 +18,10 @@
       "TREATMENT": "Treatment",
       "CONDITIONS": "EULA"
     },
+    "COLLECTION_METHODS": {
+      "WEBFORM": "Web form",
+      "OPERATOR": "Operator"
+    },
     "LANGUAGES": {
       "EN": "English",
       "FR": "French"
@@ -240,7 +244,12 @@
         "LABEL": "Collection method"
       },
       "STATUS": {
-        "LABEL": "Status"
+        "LABEL": "Status",
+        "VALUES": {
+          "PENDING": "Pending",
+          "COMMITTED": "Committed",
+          "EXPIRED": "Expired"
+        }
       },
       "CREATION": {
         "LABEL": "Creation date"

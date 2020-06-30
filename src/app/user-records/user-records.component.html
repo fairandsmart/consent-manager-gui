@@ -26,7 +26,7 @@
 
     <ng-container matColumnDef="collectionMethod">
       <th mat-header-cell mat-sort-header *matHeaderCellDef>{{'RECORDS.COMMON.COLLECTION_METHOD.LABEL' | translate}}</th>
-      <td mat-cell *matCellDef="let element">{{element.collectionMethod || '-'}}</td>
+      <td mat-cell *matCellDef="let element">{{element.collectionMethod ? ('COMMON.COLLECTION_METHODS.' + element.collectionMethod | translate) : '-'}}</td>
     </ng-container>
 
     <ng-container matColumnDef="comment">

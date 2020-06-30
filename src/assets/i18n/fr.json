@@ -18,6 +18,10 @@
       "TREATMENT": "Traitement",
       "CONDITIONS": "CGU/CGS"
     },
+    "COLLECTION_METHODS": {
+      "WEBFORM": "Formulaire Web",
+      "OPERATOR": "Opérateur"
+    },
     "LANGUAGES": {
       "EN": "Anglais",
       "FR": "Français"
@@ -220,7 +224,7 @@
         "LABEL": "En-tête"
       },
       "BODY": {
-        "LABEL": "Corps"
+        "LABEL": "Elément"
       },
       "FOOTER": {
         "LABEL": "Pied de page"
@@ -240,7 +244,12 @@
         "LABEL": "Méthode de collecte"
       },
       "STATUS": {
-        "LABEL": "Statut"
+        "LABEL": "Statut",
+        "VALUES": {
+          "PENDING": "En attente",
+          "COMMITTED": "Validé",
+          "EXPIRED": "Expiré"
+        }
       },
       "CREATION": {
         "LABEL": "Date de création"

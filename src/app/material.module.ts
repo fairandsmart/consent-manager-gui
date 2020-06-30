@@ -21,7 +21,7 @@ import { DragDropModule } from '@angular/cdk/drag-drop';
 import { TranslateService } from '@ngx-translate/core';
 
 @Injectable()
-export class MatPaginatorIntlFr extends MatPaginatorIntl {
+export class MatPaginatorIntlTranslated extends MatPaginatorIntl {
 
   private rangeLabel: string;
 
@@ -86,7 +86,7 @@ const modules = [
 @NgModule({
   imports: [...modules],
   exports: [...modules],
-  providers: [{provide: MatPaginatorIntl, useClass: MatPaginatorIntlFr}]
+  providers: [{provide: MatPaginatorIntl, useClass: MatPaginatorIntlTranslated}]
 })
 export class MaterialModule {
 }
