@@ -35,7 +35,8 @@
             "allowedCommonJsDependencies": [
               "lodash",
               "keycloak-js",
-              "js-sha256"
+              "js-sha256",
+              "@angular/common/locales/fr"
             ]
           },
           "configurations": {

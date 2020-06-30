@@ -1,4 +1,4 @@
-import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import {
   CollectionMethod,
   ConsentContext,
@@ -16,10 +16,8 @@ import { LANGUAGES } from '../common/constants';
 import { ModelsResourceService } from '../models-resource.service';
 import * as _ from 'lodash';
 import { BehaviorSubject, Observable } from 'rxjs';
-import { first, map, mergeMap, startWith, tap } from 'rxjs/operators';
-import { COMMA, ENTER } from '@angular/cdk/keycodes';
-import { MatAutocomplete, MatAutocompleteSelectedEvent } from '@angular/material/autocomplete';
-import { MatChipInputEvent } from '@angular/material/chips';
+import { map, mergeMap, startWith, tap } from 'rxjs/operators';
+import { CdkDragDrop, moveItemInArray, transferArrayItem } from '@angular/cdk/drag-drop';
 
 @Component({
   selector: 'app-token-creation',
@@ -34,14 +32,26 @@ export class TokenCreationComponent implements OnInit {
   public form: FormGroup;
   public formUrl: SafeResourceUrl;
   public token = '';
-  readonly SEPARATOR_KEYS_CODE: number[] = [ENTER, COMMA];
 
   public entriesByTypeSource: BehaviorSubject<{ [type: string]: ModelEntry[] }> = new BehaviorSubject<{[p: string]: ModelEntry[]}>({});
   public entriesByType$: Observable<{ [type: string]: ModelEntry[] }> = this.entriesByTypeSource.asObservable();
   public optionsByType: {[type: string]: Observable<ModelEntry[]>} = {};
 
-  @ViewChild('elementsInput') elementsInput: ElementRef<HTMLInputElement>;
-  @ViewChild('elementsAutocomplete') elementsAutocomplete: MatAutocomplete;
+  availableTreatments = [];
+
+  displayedTreatments = [];
+
+  drop(event: CdkDragDrop<ModelEntry[]>) {
+    if (event.previousContainer === event.container) {
+      moveItemInArray(event.container.data, event.previousIndex, event.currentIndex);
+    } else {
+      transferArrayItem(event.previousContainer.data,
+        event.container.data,
+        event.previousIndex,
+        event.currentIndex);
+    }
+    this.form.get('elementsKeys').setValue(this.displayedTreatments.map(entry => entry.key));
+  }
 
   constructor(private consentsResource: ConsentsResourceService,
               private modelsResource: ModelsResourceService,
@@ -50,7 +60,10 @@ export class TokenCreationComponent implements OnInit {
 
   ngOnInit(): void {
     this.modelsResource.listEntries({types: MODEL_DATA_TYPES, page: 0, size: 100}).pipe(
-      map((response) => _.groupBy(response.values, 'type'))
+      map((response) => _.groupBy(response.values, 'type')),
+      tap((entriesByType) => {
+        this.availableTreatments = entriesByType.treatment;
+      })
     ).subscribe(x => this.entriesByTypeSource.next(x));
     this.form = this.fb.group({
       subject: ['', [
@@ -67,7 +80,6 @@ export class TokenCreationComponent implements OnInit {
         Validators.required,
         Validators.pattern(FIELD_VALIDATORS.elementsKeys.pattern)
       ]],
-      elementsKeysInput: [''],
       footerKey: ['', [
         Validators.required,
         Validators.pattern(FIELD_VALIDATORS.key.pattern)
@@ -90,7 +102,7 @@ export class TokenCreationComponent implements OnInit {
       ]]
     });
     this.form.enable();
-    [['header', 'headerKey'], ['treatment', 'elementsKeysInput'], ['footer', 'footerKey']].forEach(([type, controlName]) => {
+    [['header', 'headerKey'], ['footer', 'footerKey']].forEach(([type, controlName]) => {
       this.optionsByType[type] = this.form.get(controlName).valueChanges.pipe(
         startWith(''),
         mergeMap((inputValue) => {
@@ -146,45 +158,4 @@ export class TokenCreationComponent implements OnInit {
     });
   }
 
-  isTreatmentDisabled(option: ModelEntry): void {
-    return this.form.get('elementsKeys').value.some(key => key === option.key);
-  }
-
-  addTreatment(event: MatChipInputEvent): void {
-    this.entriesByTypeSource.asObservable().pipe(
-      first(),
-      tap((entries) => {
-        const input = event.input;
-        const value = event.value;
-        if (!value?.trim() || !entries.treatment.some(o => o.key === value.trim())) {
-          return;
-        }
-
-        // Add our fruit
-        if ((value || '').trim()) {
-          this.form.get('elementsKeys').setValue(this.form.get('elementsKeys').value.concat([value.trim()]));
-        }
-
-        // Reset the input value
-        if (input) {
-          input.value = '';
-        }
-
-        this.form.get('elementsKeysInput').setValue('');
-      })
-    ).subscribe();
-  }
-
-
-  selectTreatment(event: MatAutocompleteSelectedEvent): void {
-    this.form.get('elementsKeys')
-      .setValue(this.form.get('elementsKeys').value.concat([event.option.value]));
-    this.elementsInput.nativeElement.value = '';
-    this.form.get('elementsKeysInput').setValue('');
-  }
-
-  removeTreatment(key: string): void {
-    this.form.get('elementsKeys')
-      .setValue(this.form.get('elementsKeys').value.filter(k => k !== key));
-  }
 }

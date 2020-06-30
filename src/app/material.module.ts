@@ -17,6 +17,7 @@ import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { MatSortModule } from '@angular/material/sort';
 import { MatAutocompleteModule } from '@angular/material/autocomplete';
 import { MatChipsModule } from '@angular/material/chips';
+import { DragDropModule } from '@angular/cdk/drag-drop';
 import { TranslateService } from '@ngx-translate/core';
 
 @Injectable()
@@ -79,7 +80,7 @@ const modules = [
   MatSnackBarModule,
   MatSortModule,
   MatAutocompleteModule,
-  MatChipsModule
+  DragDropModule
 ];
 
 @NgModule({
