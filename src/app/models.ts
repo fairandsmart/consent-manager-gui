@@ -9,7 +9,7 @@ export interface CollectionPage<T> {
 export interface ModelEntry {
   id: string;
   version: number;
-  type: string;
+  type: ModelDataType;
   key: string;
   name: string;
   description: string;
@@ -21,8 +21,8 @@ export interface ModelFilter {
   types: ModelDataType[];
   page?: number;
   size?: number;
-  order?: string;
-  direction?: string;
+  order?: keyof ModelEntry;
+  direction?: SortDirection;
 }
 
 export interface CreateModelDto {
@@ -163,6 +163,8 @@ export interface Controller {
 
 export type ModelDataType = 'header' | 'treatment' | 'conditions' | 'footer';
 
+export type SortDirection = 'asc' | 'desc' | '';
+
 export const MODEL_DATA_TYPES: ModelDataType[] = ['header', 'treatment', 'conditions', 'footer'];
 
 export const FIELD_VALIDATORS = {
@@ -253,8 +255,8 @@ export interface RecordFilter {
   query?: string;
   page?: number;
   size?: number;
-  order?: string;
-  direction?: string;
+  order?: keyof Record;
+  direction?: SortDirection;
 }
 
 export interface UserRecord {
@@ -277,7 +279,7 @@ export interface UserRecordFilter {
   page?: number;
   size?: number;
   order?: string;
-  direction?: string;
+  direction?: SortDirection;
 }
 
 export interface OperatorRecordDto {

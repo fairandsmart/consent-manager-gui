@@ -2,11 +2,11 @@ import { Component, Inject, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { Observable } from 'rxjs';
-import { CreateModelDto, FIELD_VALIDATORS, MODEL_DATA_TYPES, ModelEntry, UpdateModelDto } from '../models';
+import { CreateModelDto, FIELD_VALIDATORS, MODEL_DATA_TYPES, ModelDataType, ModelEntry, UpdateModelDto } from '../models';
 import { ModelsResourceService } from '../models-resource.service';
 
 export interface EntryEditorDialogComponentData {
-  entry?: ModelEntry;
+  entry: Partial<ModelEntry> & {type: ModelDataType};
 }
 
 @Component({
@@ -55,7 +55,7 @@ export class EntryEditorDialogComponent implements OnInit {
       this.form.disable();
       let obs: Observable<ModelEntry>;
       const formValue = this.form.getRawValue();
-      if (this.data?.entry != null) {
+      if (this.data?.entry.key != null) {
         const dto: UpdateModelDto = {
           name: formValue.name,
           description: formValue.description
@@ -82,8 +82,12 @@ export class EntryEditorDialogComponent implements OnInit {
   private enableForm(): void {
     this.form.enable();
     if (this.data?.entry != null) {
-      this.form.get('type').disable();
-      this.form.get('key').disable();
+      if (this.data.entry.type) {
+        this.form.get('type').disable();
+      }
+      if (this.data.entry.key) {
+        this.form.get('key').disable();
+      }
     }
   }
 

@@ -1,29 +1,74 @@
-.filter-container {
-  display: flex;
-  justify-content: space-between;
-  align-content: center;
+@import '~@angular/material/theming';
+
+:host mat-expansion-panel {
+  box-shadow: none !important;
+  background: none !important;
+  .mat-expansion-panel-header {
+    background: none !important;
+    .mat-progress-bar {
+      align-self: center;
+      width: 32px;
+      margin-left: 10px;
+    }
+  }
 }
 
-.table-container {
-  position: relative;
-  margin-top: 1em;
-  .progress-bar-container {
-    position: absolute;
-    left: 0;
-    right: 0;
-    top: 0;
+.section-toolbar {
+  margin-bottom: 1em;
+  display: flex;
+  justify-content: space-between;
+}
+
+.sort-actions button {
+  color: $dark-secondary-text;
+  &[mat-icon-button]:hover {
+    background-color: mat-color($mat-light-theme-background, hover);
   }
-  table {
-    width: 100%;
-    &.loading {
-      ::ng-deep tbody tr {
-        opacity: 0.5;
+}
+
+.mat-grid-list {
+  &.loading {
+    .mat-grid-tile {
+      opacity: 0.4;
+      user-select: none;
+    }
+  }
+
+  .mat-grid-tile {
+    overflow: visible !important;
+  }
+}
+
+.mat-paginator {
+  background: none;
+  &.single-page {
+    display: none;
+  }
+}
+
+mat-card {
+  flex: 1 1 auto;
+  align-self: stretch;
+  justify-self: stretch;
+  cursor: pointer;
+  &:hover {
+    @include mat-elevation(4);
+  }
+  ::ng-deep {
+    .mat-card-title {
+      font-size: 16px;
+      display: flex;
+      justify-content: space-between;
+      .entry-key {
+        font-size: 12px;
+        color: $dark-secondary-text;
       }
     }
-    ::ng-deep tbody tr {
-      &:hover {
-        cursor: pointer;
-      }
+    .mat-card-content {
+      white-space: nowrap;
+      text-overflow: ellipsis;
+      overflow: hidden;
+      color: $dark-secondary-text;
     }
   }
 }

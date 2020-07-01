@@ -29,7 +29,12 @@
         [cdkDropListConnectedTo]="[displayedList]"
         class="elements-list"
         (cdkDropListDropped)="drop($event)">
-        <div class="elements-box" *ngFor="let treatment of availableTreatments" cdkDrag>{{treatment.name}}</div>
+        <div class="element-box" *ngFor="let treatment of availableTreatments" cdkDrag>
+          <span>{{treatment.name}}</span>
+          <span class="element-actions">
+            <button mat-icon-button (click)="addTreatment(treatment)"><mat-icon>add</mat-icon></button>
+          </span>
+        </div>
       </div>
     </div>
 
@@ -42,7 +47,12 @@
         [cdkDropListConnectedTo]="[availableList]"
         class="elements-list"
         (cdkDropListDropped)="drop($event)">
-        <div class="elements-box" *ngFor="let treatment of displayedTreatments" cdkDrag>{{treatment.name}}</div>
+        <div class="element-box" *ngFor="let treatment of displayedTreatments" cdkDrag>
+          <span>{{treatment.name}}</span>
+          <span class="element-actions">
+            <button mat-icon-button (click)="removeTreatment(treatment)"><mat-icon>delete</mat-icon></button>
+          </span>
+        </div>
       </div>
     </div>
 

@@ -38,7 +38,7 @@ export class RecordsComponent implements OnInit {
     page: 0,
     size: 10,
     order: 'creationTimestamp',
-    direction: 'asc'
+    direction: 'desc'
   };
 
   @ViewChild(MatPaginator, {static: true})
@@ -57,7 +57,7 @@ export class RecordsComponent implements OnInit {
     this.dataSource.paginator = this.paginator;
     this.sort.sortChange.subscribe((sort: Sort) => {
       this.filter.page = 0;
-      this.filter.order = sort.active;
+      this.filter.order = sort.active as keyof Record;
       this.filter.direction = sort.direction;
       this.loadRecordsPage();
     });
