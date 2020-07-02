@@ -5,6 +5,7 @@ import { ModelsResourceService } from '../models-resource.service';
 import { EntryContentDirective } from '../entry-content/entry-content.directive';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { LANGUAGES } from '../common/constants';
+import { TranslateService } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-footer',
@@ -15,8 +16,12 @@ export class FooterComponent extends EntryContentDirective<Footer> implements On
 
   readonly LANGUAGES = LANGUAGES;
 
-  constructor(private fb: FormBuilder, modelsResourceService: ModelsResourceService, snackBar: MatSnackBar) {
-    super(modelsResourceService, snackBar);
+  constructor(
+      private fb: FormBuilder,
+      modelsResourceService: ModelsResourceService,
+      snackBar: MatSnackBar,
+      translateService: TranslateService) {
+    super(modelsResourceService, snackBar, translateService);
   }
 
   ngOnInit(): void {

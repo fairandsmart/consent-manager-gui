@@ -5,6 +5,7 @@ import { FormBuilder, Validators } from '@angular/forms';
 import { ModelsResourceService } from '../models-resource.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { LANGUAGES } from '../common/constants';
+import { TranslateService } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-treatment',
@@ -16,8 +17,12 @@ export class TreatmentComponent extends EntryContentDirective<Treatment> impleme
   readonly PURPOSES = TREATMENT_PURPOSES;
   readonly LANGUAGES = LANGUAGES;
 
-  constructor(private fb: FormBuilder, modelsResourceService: ModelsResourceService, snackBar: MatSnackBar) {
-    super(modelsResourceService, snackBar);
+  constructor(
+      private fb: FormBuilder,
+      modelsResourceService: ModelsResourceService,
+      snackBar: MatSnackBar,
+      translateService: TranslateService) {
+    super(modelsResourceService, snackBar, translateService);
   }
 
   ngOnInit(): void {

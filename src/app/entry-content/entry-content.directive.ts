@@ -7,6 +7,7 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 import * as _ from 'lodash';
 import { catchError, mergeMap } from 'rxjs/operators';
 import { HttpErrorResponse } from '@angular/common/http';
+import { TranslateService } from '@ngx-translate/core';
 
 @Directive()
 export abstract class EntryContentDirective<T extends ModelData> implements OnInit {
@@ -23,8 +24,10 @@ export abstract class EntryContentDirective<T extends ModelData> implements OnIn
 
   readonly STATUS = ModelVersionStatus;
 
-  protected constructor(private modelsResourceService: ModelsResourceService, private snackBar: MatSnackBar) {
-  }
+  protected constructor(
+      private modelsResourceService: ModelsResourceService,
+      private snackBar: MatSnackBar,
+      private translateService: TranslateService) {}
 
   ngOnInit(): void {
     this.initForm();
@@ -50,9 +53,13 @@ export abstract class EntryContentDirective<T extends ModelData> implements OnIn
     this.loadVersion(this.version);
   }
 
+  private showSnackbar(messageKey) {
+    this.translateService.get(messageKey).subscribe(translation => this.snackBar.open(translation));
+  }
+
   save(): void {
     if (!this.hasChanges) {
-      this.snackBar.open('No change');
+      this.showSnackbar('MATERIAL.SNACKBAR.NO_CHANGE');
       return;
     }
     if (this.form.valid) {
@@ -73,9 +80,9 @@ export abstract class EntryContentDirective<T extends ModelData> implements OnIn
       }
       obs.subscribe(version => {
         this.updateVersion(version);
-        this.snackBar.open('Content saved!');
+        this.showSnackbar('MATERIAL.SNACKBAR.SAVE_SUCCESS');
       }, err => {
-        this.snackBar.open('Cannot save content...');
+        this.showSnackbar('MATERIAL.SNACKBAR.SAVE_ERROR');
         console.error(err);
       });
     }
@@ -83,15 +90,15 @@ export abstract class EntryContentDirective<T extends ModelData> implements OnIn
 
   activate(): void {
     if (this.hasChanges) {
-      this.snackBar.open('Unsaved changes, cannot activate');
+      this.showSnackbar('MATERIAL.SNACKBAR.UNSAVED_CHANGES');
       return;
     }
     this.modelsResourceService.updateVersionStatus<T>(this.entry.id, this.version.id, ModelVersionStatus.ACTIVE)
       .subscribe(version => {
         this.updateVersion(version);
-        this.snackBar.open('Version activated!');
+        this.showSnackbar('MATERIAL.SNACKBAR.ACTIVATION_SUCCESS');
       }, err => {
-        this.snackBar.open('Cannot activate version...');
+        this.showSnackbar('MATERIAL.SNACKBAR.ACTIVATION_ERROR');
         console.error(err);
       });
   }
@@ -99,12 +106,12 @@ export abstract class EntryContentDirective<T extends ModelData> implements OnIn
   delete(): void {
     this.modelsResourceService.deleteVersion(this.entry.id, this.version.id).pipe(
       catchError((err) => {
-        this.snackBar.open('Cannot delete version...');
+        this.showSnackbar('MATERIAL.SNACKBAR.DELETION_ERROR');
         console.error(err);
         return EMPTY;
       }),
       mergeMap(() => {
-        this.snackBar.open('Version deleted!');
+        this.showSnackbar('MATERIAL.SNACKBAR.DELETION_SUCCESS');
         return this.modelsResourceService.getLatestVersion<T>(this.entry.id);
       })
     ).subscribe(version => {
@@ -115,7 +122,7 @@ export abstract class EntryContentDirective<T extends ModelData> implements OnIn
         this.initForm();
       } else {
         console.error(err);
-        this.snackBar.open('Cannot reload latest version...');
+        this.showSnackbar('MATERIAL.SNACKBAR.RELOAD_ERROR');
       }
     });
   }
