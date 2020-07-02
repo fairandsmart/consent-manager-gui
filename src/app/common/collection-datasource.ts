@@ -2,11 +2,12 @@ import { CollectionViewer, DataSource } from '@angular/cdk/collections';
 import { CollectionPage } from '../models';
 import { BehaviorSubject, Observable, of } from 'rxjs';
 import { MatPaginator } from '@angular/material/paginator';
-import { catchError, filter, skip, takeUntil } from 'rxjs/operators';
+import { catchError, filter, first, skip, takeUntil, tap } from 'rxjs/operators';
 
 export abstract class CollectionDatasource<T, F> implements DataSource<T> {
 
-  private valuesSubject = new BehaviorSubject<T[]>([]);
+  private valuesSubject = new BehaviorSubject<T[]>(null);
+  private responseSubject = new BehaviorSubject<CollectionPage<T>>(null);
   private loadingSubject = new BehaviorSubject<boolean>(false);
 
   public loading$ = this.loadingSubject.asObservable();
@@ -19,9 +20,20 @@ export abstract class CollectionDatasource<T, F> implements DataSource<T> {
 
   set paginator(paginator: MatPaginator | null) {
     this._paginator = paginator;
+    if (paginator != null) {
+      this.responseSubject.asObservable().pipe(
+        first(),
+        tap((response) => {
+          if (response != null) {
+            this._paginator.length = response.totalCount;
+            this._paginator.pageSize = response.pageSize;
+          }
+        })
+      ).subscribe();
+    }
   }
 
-  connect(collectionViewer: CollectionViewer): Observable<T[] | ReadonlyArray<T>> {
+  connect(collectionViewer?: CollectionViewer): Observable<T[] | ReadonlyArray<T>> {
     return this.valuesSubject.asObservable();
   }
 
@@ -38,16 +50,18 @@ export abstract class CollectionDatasource<T, F> implements DataSource<T> {
       takeUntil(this.loading$.pipe(
         skip(1),
         // Aborts request if loadPage() called up again before completion of previous
-        filter(loading => loading)
+        filter(loading => loading),
       )),
       catchError(err => {
         console.error(err);
-        return of({values: [], totalCount: 0});
+        return of({values: [], totalCount: 0} as CollectionPage<T>);
       })
     ).subscribe(response => {
       this.loadingSubject.next(false);
+      this.responseSubject.next(response);
       if (this._paginator != null) {
         this._paginator.length = response.totalCount;
+        this._paginator.pageSize = response.pageSize;
       }
       this.valuesSubject.next(response.values);
     });

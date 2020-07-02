@@ -49,7 +49,20 @@
     }
   },
   "ENTRIES": {
+    "header": {
+      "PANEL_TITLE": "En-tête",
+      "BUTTON_ADD": "Ajouter une en-tête"
+    },
+    "treatment": {
+      "PANEL_TITLE": "Traitements",
+      "BUTTON_ADD": "Ajouter un traitement"
+    },
+    "footer": {
+      "PANEL_TITLE": "Pied de page",
+      "BUTTON_ADD": "Ajouter un pied de page"
+    },
     "TITLE": "Éléments",
+    "NO_DESCRIPTION": "Pas de description",
     "COMMON": {
       "ID": {
         "LABEL": "Id"

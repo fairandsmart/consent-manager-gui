@@ -16,9 +16,13 @@ import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { MatSortModule } from '@angular/material/sort';
 import { MatAutocompleteModule } from '@angular/material/autocomplete';
-import { MatChipsModule } from '@angular/material/chips';
 import { DragDropModule } from '@angular/cdk/drag-drop';
 import { TranslateService } from '@ngx-translate/core';
+import { MatExpansionModule } from '@angular/material/expansion';
+import { MatGridListModule } from '@angular/material/grid-list';
+import { MatRippleModule } from '@angular/material/core';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+import { MatTooltipModule } from '@angular/material/tooltip';
 
 @Injectable()
 export class MatPaginatorIntlTranslated extends MatPaginatorIntl {
@@ -80,7 +84,12 @@ const modules = [
   MatSnackBarModule,
   MatSortModule,
   MatAutocompleteModule,
-  DragDropModule
+  DragDropModule,
+  MatExpansionModule,
+  MatGridListModule,
+  MatRippleModule,
+  MatProgressSpinnerModule,
+  MatTooltipModule
 ];
 
 @NgModule({

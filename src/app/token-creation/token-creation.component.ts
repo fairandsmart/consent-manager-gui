@@ -41,18 +41,6 @@ export class TokenCreationComponent implements OnInit {
 
   displayedTreatments = [];
 
-  drop(event: CdkDragDrop<ModelEntry[]>) {
-    if (event.previousContainer === event.container) {
-      moveItemInArray(event.container.data, event.previousIndex, event.currentIndex);
-    } else {
-      transferArrayItem(event.previousContainer.data,
-        event.container.data,
-        event.previousIndex,
-        event.currentIndex);
-    }
-    this.form.get('elementsKeys').setValue(this.displayedTreatments.map(entry => entry.key));
-  }
-
   constructor(private consentsResource: ConsentsResourceService,
               private modelsResource: ModelsResourceService,
               private fb: FormBuilder,
@@ -117,6 +105,36 @@ export class TokenCreationComponent implements OnInit {
         })
       );
     });
+  }
+
+  drop(event: CdkDragDrop<ModelEntry[]>) {
+    if (event.previousContainer === event.container) {
+      moveItemInArray(event.container.data, event.previousIndex, event.currentIndex);
+    } else {
+      transferArrayItem(event.previousContainer.data,
+        event.container.data,
+        event.previousIndex,
+        event.currentIndex);
+    }
+    this.form.get('elementsKeys').setValue(this.displayedTreatments.map(entry => entry.key));
+  }
+
+  addTreatment(treatment: ModelEntry) {
+    const currentIndex = this.availableTreatments.filter(t => t.key === treatment.key).findIndex(t => t === treatment);
+    transferArrayItem(this.availableTreatments,
+      this.displayedTreatments,
+      currentIndex,
+      this.displayedTreatments.length);
+    this.form.get('elementsKeys').setValue(this.displayedTreatments.map(entry => entry.key));
+  }
+
+  removeTreatment(treatment: ModelEntry) {
+    const currentIndex = this.displayedTreatments.filter(t => t.key === treatment.key).findIndex(t => t === treatment);
+    transferArrayItem(this.displayedTreatments,
+      this.availableTreatments,
+      currentIndex,
+      this.availableTreatments.length);
+    this.form.get('elementsKeys').setValue(this.displayedTreatments.map(entry => entry.key));
   }
 
   submit(): void {

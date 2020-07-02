@@ -49,7 +49,20 @@
     }
   },
   "ENTRIES": {
+    "header": {
+      "PANEL_TITLE": "Header",
+      "BUTTON_ADD": "Add header"
+    },
+    "treatment": {
+      "PANEL_TITLE": "Treatments",
+      "BUTTON_ADD": "Add treatment"
+    },
+    "footer": {
+      "PANEL_TITLE": "Footer",
+      "BUTTON_ADD": "Add footer"
+    },
     "TITLE": "Entries",
+    "NO_DESCRIPTION": "No description",
     "COMMON": {
       "ID": {
         "LABEL": "Id"

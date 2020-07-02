@@ -1,54 +1,42 @@
-<div class="filter-container">
-  <mat-form-field appearance="fill">
-    <mat-label>{{'ENTRIES.COMMON.TYPE.LABEL' | translate}}</mat-label>
-    <mat-select (ngModelChange)="filterChange('types', $event)" [ngModel]="filter.types" multiple="true">
-      <mat-option *ngFor="let type of TYPES" [value]="type">{{'COMMON.ENTRY_TYPES.' + type.toUpperCase() | translate}}</mat-option>
-    </mat-select>
-  </mat-form-field>
-  <div>
-    <button mat-raised-button color="primary" (click)="newEntry()">{{'ENTRIES.CREATE_BUTTON' | translate}}</button>
-  </div>
-</div>
-<div class="table-container mat-elevation-z6">
-  <div class="progress-bar-container" *ngIf="dataSource.loading$ | async">
-    <mat-progress-bar mode="indeterminate"></mat-progress-bar>
-  </div>
-  <table mat-table [dataSource]="dataSource" [class.loading]="dataSource.loading$ | async"
-         matSort [matSortActive]="filter.order" [matSortDirection]="filter.direction" matSortDisableClear="true">
-
-    <ng-container matColumnDef="id">
-      <th mat-header-cell *matHeaderCellDef>{{'ENTRIES.COMMON.ID.LABEL' | translate}}</th>
-      <td mat-cell *matCellDef="let element">{{element.id | shortId}}</td>
-    </ng-container>
-
-    <ng-container matColumnDef="key">
-      <th mat-header-cell mat-sort-header *matHeaderCellDef>{{'ENTRIES.COMMON.KEY.LABEL' | translate}}</th>
-      <td mat-cell *matCellDef="let element">{{element.key}}</td>
-    </ng-container>
-
-    <ng-container matColumnDef="name">
-      <th mat-header-cell mat-sort-header *matHeaderCellDef>{{'ENTRIES.COMMON.NAME.LABEL' | translate}}</th>
-      <td mat-cell *matCellDef="let element">{{element.name}}</td>
-    </ng-container>
-
-    <ng-container matColumnDef="type">
-      <th mat-header-cell mat-sort-header *matHeaderCellDef>{{'ENTRIES.COMMON.TYPE.LABEL' | translate}}</th>
-      <td mat-cell *matCellDef="let element">{{'COMMON.ENTRY_TYPES.' + element.type.toUpperCase() | translate}}</td>
-    </ng-container>
-
-    <ng-container matColumnDef="description">
-      <th mat-header-cell *matHeaderCellDef>{{'ENTRIES.COMMON.DESCRIPTION.LABEL' | translate}}</th>
-      <td mat-cell *matCellDef="let element">{{element.description}}</td>
-    </ng-container>
-
-    <ng-container matColumnDef="actions">
-      <th mat-header-cell *matHeaderCellDef> </th>
-      <td mat-cell *matCellDef="let element"> <button mat-icon-button (click)="editEntry(element, $event)"><mat-icon>edit</mat-icon></button> </td>
-    </ng-container>
-
-    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-    <tr [routerLink]="'./' + row.id" mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
-
-  </table>
-  <mat-paginator [pageSizeOptions]="pageSizeOptions" [pageIndex]="filter.page" [pageSize]="this.filter.size" showFirstLastButtons></mat-paginator>
-</div>
+<mat-accordion [multi]="true">
+  <mat-expansion-panel *ngFor="let section of sections" hideToggle [expanded]="true">
+    <mat-expansion-panel-header>
+      <mat-panel-title>
+        <span>{{'ENTRIES.' + section.type + '.PANEL_TITLE' | translate}}</span>
+        <mat-progress-bar *ngIf="section.dataSource.loading$ | async" mode="buffer"></mat-progress-bar>
+      </mat-panel-title>
+      <mat-panel-description>
+      </mat-panel-description>
+    </mat-expansion-panel-header>
+    <div>
+      <ng-container *ngIf="(section.dataSource.connect() | async) as entries">
+        <div class="section-toolbar">
+          <button *ngIf="section.canAddMultiple || entries?.length === 0" [matTooltip]="'ENTRIES.' + section.type + '.BUTTON_ADD' | translate" mat-mini-fab (click)="newEntry(section.type)"><mat-icon>add</mat-icon></button>
+          <div *ngIf="section.showSort && entries.length > 0" class="sort-actions">
+            <button mat-button [matMenuTriggerFor]="orderMenu">{{'ENTRIES.COMMON.' + section.filter.order.toUpperCase() + '.LABEL' | translate}}</button>
+            <mat-menu #orderMenu>
+              <ng-template matMenuContent>
+                <button mat-menu-item [disabled]="section.filter.order === 'name'"(click)="sortBy('name', section)">{{'ENTRIES.COMMON.NAME.LABEL' | translate}}</button>
+                <button mat-menu-item [disabled]="section.filter.order === 'key'" (click)="sortBy('key', section)">{{'ENTRIES.COMMON.KEY.LABEL' | translate}}</button>
+              </ng-template>
+            </mat-menu>
+            <button (click)="toggleDirection(section)" mat-icon-button><mat-icon>{{section.filter.direction === 'asc' ? 'arrow_upward' : 'arrow_downward'}}</mat-icon></button>
+          </div>
+        </div>
+        <mat-grid-list *ngIf="entries.length > 0" cols="3" gutterSize="10" rowHeight="90" [class.loading]="section.dataSource.loading$ | async">
+          <mat-grid-tile *ngFor="let entry of entries">
+            <mat-card [routerLink]="'./' + entry.id" matRipple>
+              <mat-card-title>
+                <span>{{entry.name}}</span>
+                <span class="entry-key">{{entry.key}}</span>
+              </mat-card-title>
+              <mat-card-content>{{entry.description || ('ENTRIES.NO_DESCRIPTION' | translate)}}</mat-card-content>
+            </mat-card>
+          </mat-grid-tile>
+        </mat-grid-list>
+      </ng-container>
+      <mat-paginator [id]="'paginator-' + section.type" [class.single-page]="paginator.pageIndex === 0 && !paginator.hasNextPage()"
+                     #paginator="matPaginator" [hidePageSize]="true" [pageIndex]="section.filter.page" [pageSize]="section.filter.size"></mat-paginator>
+    </div>
+  </mat-expansion-panel>
+</mat-accordion>
