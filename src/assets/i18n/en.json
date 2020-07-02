@@ -233,6 +233,9 @@
       }
     }
   },
+  "ENTRY_CARD": {
+    "LABEL_NO_DESCRIPTION": "No description"
+  },
   "RECORDS": {
     "TITLE": "Records",
     "SEARCH_BUTTON": "Search",
