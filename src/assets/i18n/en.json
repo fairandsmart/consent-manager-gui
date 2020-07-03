@@ -364,6 +364,9 @@
       "LOCALE": {
         "LABEL": "Locale"
       },
+      "THEME": {
+        "LABEL": "Theme (optional)"
+      },
       "FORCE_DISPLAY": {
         "LABEL": "Force display of all treatments"
       },

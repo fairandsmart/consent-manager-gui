@@ -85,6 +85,16 @@
       </mat-select>
     </mat-form-field>
 
+    <mat-form-field appearance="outline">
+      <mat-label>{{'TOKEN.FORM.THEME.LABEL' | translate}}</mat-label>
+      <input matInput formControlName="themeKey" autocomplete="off" [matAutocomplete]="themeAutocomplete">
+      <mat-autocomplete autoActiveFirstOption #themeAutocomplete="matAutocomplete">
+        <mat-option *ngFor="let option of optionsByType.theme | async" [value]="option.key">
+          {{option.name}} <small>({{option.key}})</small>
+        </mat-option>
+      </mat-autocomplete>
+    </mat-form-field>
+
     <mat-checkbox formControlName="forceDisplay" checked>{{'TOKEN.FORM.FORCE_DISPLAY.LABEL' | translate}}</mat-checkbox>
 
     <mat-form-field appearance="outline">

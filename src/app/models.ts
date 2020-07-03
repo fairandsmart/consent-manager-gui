@@ -181,6 +181,8 @@ export type ModelDataType = 'header' | 'treatment' | 'conditions' | 'footer' | '
 
 export const MODEL_DATA_TYPES: ModelDataType[] = ['header', 'treatment', 'conditions', 'footer'];
 
+export const MODEL_DATA_TYPES_COMPLETE: ModelDataType[] = ['header', 'treatment', 'conditions', 'footer', 'theme'];
+
 export type SortDirection = 'asc' | 'desc' | '';
 
 export const FIELD_VALIDATORS = {
@@ -218,6 +220,7 @@ export interface ConsentContext {
   author: string;
   preview: boolean;
   iframe: boolean;
+  theme?: string;
 }
 
 export enum ConsentFormOrientation {

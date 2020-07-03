@@ -364,6 +364,9 @@
       "LOCALE": {
         "LABEL": "Langage"
       },
+      "THEME": {
+        "LABEL": "Thème (facultatif)"
+      },
       "FORCE_DISPLAY": {
         "LABEL": "Forcer l'affichage de tous les traitements"
       },

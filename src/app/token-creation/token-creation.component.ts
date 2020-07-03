@@ -5,7 +5,7 @@ import {
   ConsentFormOrientation,
   ConsentFormType,
   FIELD_VALIDATORS,
-  MODEL_DATA_TYPES,
+  MODEL_DATA_TYPES_COMPLETE,
   ModelEntry,
   RECEIPT_DELIVERY_TYPES
 } from '../models';
@@ -47,7 +47,7 @@ export class TokenCreationComponent implements OnInit {
               private sanitizer: DomSanitizer) { }
 
   ngOnInit(): void {
-    this.modelsResource.listEntries({types: MODEL_DATA_TYPES, page: 0, size: 100}).pipe(
+    this.modelsResource.listEntries({types: MODEL_DATA_TYPES_COMPLETE, page: 0, size: 100}).pipe(
       map((response) => _.groupBy(response.values, 'type')),
       tap((entriesByType) => {
         this.availableTreatments = entriesByType.treatment;
@@ -79,6 +79,9 @@ export class TokenCreationComponent implements OnInit {
       locale: ['', [
         Validators.required
       ]],
+      themeKey: ['', [
+        Validators.pattern(FIELD_VALIDATORS.key.pattern)
+      ]],
       forceDisplay: [true, [
         Validators.required
       ]],
@@ -90,7 +93,7 @@ export class TokenCreationComponent implements OnInit {
       ]]
     });
     this.form.enable();
-    [['header', 'headerKey'], ['footer', 'footerKey']].forEach(([type, controlName]) => {
+    [['header', 'headerKey'], ['footer', 'footerKey'], ['theme', 'themeKey']].forEach(([type, controlName]) => {
       this.optionsByType[type] = this.form.get(controlName).valueChanges.pipe(
         startWith(''),
         mergeMap((inputValue) => {
@@ -162,7 +165,8 @@ export class TokenCreationComponent implements OnInit {
       collectionMethod: CollectionMethod.WEBFORM,
       author: '',
       preview: formValue.preview,
-      iframe: true
+      iframe: true,
+      theme: formValue.themeKey
     };
     this.consentsResource.generateToken(context).subscribe((token) => {
       this.token = token;
