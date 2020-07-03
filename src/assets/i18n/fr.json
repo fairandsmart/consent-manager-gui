@@ -237,7 +237,7 @@
   "THEMES": {
     "TITLE": "Thèmes",
     "BUTTON_ADD": "Ajouter un thème",
-    "NO_PRESENTATION": "Pas de présentation",
+    "NO_DESCRIPTION": "Pas de description",
     "COMMON": {
       "KEY": {
         "LABEL": "Référence"
@@ -249,7 +249,17 @@
         "LABEL": "Présentation"
       },
       "TARGETTYPE": {
-        "LABEL": "Type"
+        "LABEL": "Catégorie",
+        "VALUES": {
+          "FORM": "Formulaire de consentement",
+          "EMAIL_OPT_OUT": "Email de confirmation"
+        }
+      },
+      "ICON": {
+        "LABEL": "Vignette"
+      },
+      "CSS": {
+        "LABEL": "Style"
       }
     }
   },

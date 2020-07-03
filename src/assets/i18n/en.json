@@ -249,7 +249,17 @@
         "LABEL": "Presentation"
       },
       "TARGETTYPE": {
-        "LABEL": "Type"
+        "LABEL": "Category",
+        "VALUES": {
+          "FORM": "Consent form",
+          "EMAIL_OPT_OUT": "Opt-out email"
+        }
+      },
+      "ICON": {
+        "LABEL": "Icon"
+      },
+      "CSS": {
+        "LABEL": "Style"
       }
     }
   },

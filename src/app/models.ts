@@ -175,6 +175,8 @@ export enum TargetType {
   EMAIL_OPT_OUT = 'EMAIL_OPT_OUT'
 }
 
+export const TARGET_TYPES = Object.keys(TargetType);
+
 export type ModelDataType = 'header' | 'treatment' | 'conditions' | 'footer' | 'theme';
 
 export const MODEL_DATA_TYPES: ModelDataType[] = ['header', 'treatment', 'conditions', 'footer'];

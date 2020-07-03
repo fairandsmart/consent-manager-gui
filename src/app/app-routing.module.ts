@@ -38,7 +38,7 @@ const routes: Routes = [
       },
       {
         path: 'themes/:id',
-        component: ThemeComponent
+        component: EntryComponent
       },
       {
         path: 'records',
