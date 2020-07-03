@@ -2,8 +2,11 @@
 <div mat-dialog-content *ngIf="form" [formGroup]="form">
   <mat-form-field appearance="outline">
     <mat-label>{{'ENTRIES.COMMON.TYPE.LABEL' | translate}}</mat-label>
-    <mat-select formControlName="type">
+    <mat-select *ngIf="data?.entry?.type != 'theme'" formControlName="type">
       <mat-option *ngFor="let type of TYPES" [value]="type">{{'COMMON.ENTRY_TYPES.' + type.toUpperCase() | translate}}</mat-option>
+    </mat-select>
+    <mat-select *ngIf="data?.entry?.type == 'theme'" formControlName="type">
+      <mat-option value="theme">{{'COMMON.ENTRY_TYPES.THEME' | translate}}</mat-option>
     </mat-select>
   </mat-form-field>
   <mat-form-field appearance="outline">

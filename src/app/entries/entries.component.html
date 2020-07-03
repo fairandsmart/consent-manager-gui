@@ -2,7 +2,7 @@
   <mat-expansion-panel *ngFor="let section of sections" hideToggle [expanded]="true">
     <mat-expansion-panel-header>
       <mat-panel-title>
-        <span>{{'ENTRIES.' + section.type + '.PANEL_TITLE' | translate}}</span>
+        <span>{{'ENTRIES.' + section.type.toUpperCase() + '.PANEL_TITLE' | translate}}</span>
         <mat-progress-bar *ngIf="section.dataSource.loading$ | async" mode="buffer"></mat-progress-bar>
       </mat-panel-title>
       <mat-panel-description>
@@ -11,7 +11,7 @@
     <div>
       <ng-container *ngIf="(section.dataSource.connect() | async) as entries">
         <div class="section-toolbar">
-          <button *ngIf="section.canAddMultiple || entries?.length === 0" [matTooltip]="'ENTRIES.' + section.type + '.BUTTON_ADD' | translate" mat-mini-fab (click)="newEntry(section.type)"><mat-icon>add</mat-icon></button>
+          <button *ngIf="section.canAddMultiple || entries?.length === 0" [matTooltip]="'ENTRIES.' + section.type.toUpperCase() + '.BUTTON_ADD' | translate" mat-mini-fab (click)="newEntry(section.type)"><mat-icon>add</mat-icon></button>
           <div *ngIf="section.showSort && entries.length > 0" class="sort-actions">
             <button mat-button [matMenuTriggerFor]="orderMenu">{{'ENTRIES.COMMON.' + section.filter.order.toUpperCase() + '.LABEL' | translate}}</button>
             <mat-menu #orderMenu>

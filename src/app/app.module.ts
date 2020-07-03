@@ -32,6 +32,8 @@ import { registerLocaleData } from '@angular/common';
 import localeFr from '@angular/common/locales/fr';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 import { environment } from '../environments/environment';
+import { ThemesComponent } from './themes/themes.component';
+import { ThemeComponent } from './theme/theme.component';
 
 const keycloakService = new KeycloakService();
 
@@ -67,7 +69,9 @@ registerLocaleData(localeFr, 'fr');
     RecordsComponent,
     TokenCreationComponent,
     UserRecordsComponent,
-    UserRecordEditorDialogComponent
+    UserRecordEditorDialogComponent,
+    ThemesComponent,
+    ThemeComponent
   ],
   imports: [
     BrowserModule,

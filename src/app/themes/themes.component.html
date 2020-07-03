@@ -1,0 +1,30 @@
+<mat-progress-bar *ngIf="dataSource.loading$ | async" mode="buffer"></mat-progress-bar>
+
+<ng-container *ngIf="(dataSource.connect() | async) as entries">
+  <div class="section-toolbar">
+    <button [matTooltip]="'THEMES.BUTTON_ADD' | translate" mat-mini-fab (click)="newTheme()"><mat-icon>add</mat-icon></button>
+    <div class="sort-actions">
+      <button mat-button [matMenuTriggerFor]="orderMenu">{{'THEMES.COMMON.' + filter.order.toUpperCase() + '.LABEL' | translate}}</button>
+      <mat-menu #orderMenu>
+        <ng-template matMenuContent>
+          <button *ngFor="let option of sortOptions" mat-menu-item [disabled]="filter.order === option" (click)="sortBy(option)">{{'ENTRIES.COMMON.' + option.toUpperCase() + '.LABEL' | translate}}</button>
+        </ng-template>
+      </mat-menu>
+      <button (click)="toggleDirection()" mat-icon-button><mat-icon>{{filter.direction === 'asc' ? 'arrow_upward' : 'arrow_downward'}}</mat-icon></button>
+    </div>
+  </div>
+  <mat-grid-list *ngIf="entries.length > 0" cols="3" gutterSize="10" rowHeight="90" [class.loading]="dataSource.loading$ | async">
+    <mat-grid-tile *ngFor="let entry of entries">
+      <mat-card [routerLink]="'./' + entry.id" matRipple>
+        <mat-card-title>
+          <span>{{entry.name}}</span>
+          <span class="entry-key">{{entry.key}}</span>
+        </mat-card-title>
+        <mat-card-content>{{entry.presentation || ('THEMES.NO_PRESENTATION' | translate)}}</mat-card-content>
+      </mat-card>
+    </mat-grid-tile>
+  </mat-grid-list>
+</ng-container>
+
+<mat-paginator id="paginator" [class.single-page]="paginator.pageIndex === 0 && !paginator.hasNextPage()"
+               #paginator="matPaginator" [hidePageSize]="true" [pageIndex]="filter.page" [pageSize]="filter.size"></mat-paginator>

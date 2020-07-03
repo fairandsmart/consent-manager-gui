@@ -7,7 +7,8 @@ import { UserRecordsComponent } from './user-records/user-records.component';
 import { TokenCreationComponent } from './token-creation/token-creation.component';
 import { RolesGuardService } from './guards/roles-guard.service';
 import { ConfigComponent } from './config/config.component';
-
+import { ThemesComponent } from './themes/themes.component';
+import { ThemeComponent } from './theme/theme.component';
 
 const routes: Routes = [
   {
@@ -30,6 +31,14 @@ const routes: Routes = [
       {
         path: 'entries/:id',
         component: EntryComponent
+      },
+      {
+        path: 'themes',
+        component: ThemesComponent
+      },
+      {
+        path: 'themes/:id',
+        component: ThemeComponent
       },
       {
         path: 'records',

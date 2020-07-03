@@ -44,7 +44,7 @@ export interface ModelData {
 export enum ModelVersionStatus {
   DRAFT = 'DRAFT',
   ACTIVE = 'ACTIVE',
-  ARCHIVED = 'ARCHIVED',
+  ARCHIVED = 'ARCHIVED'
 }
 
 export enum ModelVersionType {
@@ -161,11 +161,25 @@ export interface Controller {
   phoneNumber: string;
 }
 
-export type ModelDataType = 'header' | 'treatment' | 'conditions' | 'footer';
+export interface Theme extends ModelData {
+  type: 'theme';
+  name: string;
+  presentation: string;
+  icon: string;
+  css: string;
+  targetType: TargetType;
+}
 
-export type SortDirection = 'asc' | 'desc' | '';
+export enum TargetType {
+  FORM = 'FORM',
+  EMAIL_OPT_OUT = 'EMAIL_OPT_OUT'
+}
+
+export type ModelDataType = 'header' | 'treatment' | 'conditions' | 'footer' | 'theme';
 
 export const MODEL_DATA_TYPES: ModelDataType[] = ['header', 'treatment', 'conditions', 'footer'];
+
+export type SortDirection = 'asc' | 'desc' | '';
 
 export const FIELD_VALIDATORS = {
   key: {
