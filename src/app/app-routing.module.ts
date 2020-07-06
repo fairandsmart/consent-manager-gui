@@ -1,12 +1,12 @@
 import { NgModule } from '@angular/core';
-import { Routes, RouterModule } from '@angular/router';
+import { RouterModule, Routes } from '@angular/router';
 import { EntriesComponent } from './entries/entries.component';
 import { EntryComponent } from './entry/entry.component';
 import { RecordsComponent } from './records/records.component';
 import { UserRecordsComponent } from './user-records/user-records.component';
-import { TokenCreationComponent } from './token-creation/token-creation.component';
 import { RolesGuardService } from './guards/roles-guard.service';
 import { ConfigComponent } from './config/config.component';
+import { FormCreatorComponent } from './form-creator/form-creator.component';
 
 
 const routes: Routes = [
@@ -40,8 +40,8 @@ const routes: Routes = [
         component: UserRecordsComponent
       },
       {
-        path: 'token',
-        component: TokenCreationComponent
+        path: 'form',
+        component: FormCreatorComponent
       }
     ]
   }

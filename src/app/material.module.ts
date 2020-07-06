@@ -23,6 +23,10 @@ import { MatGridListModule } from '@angular/material/grid-list';
 import { MatRippleModule } from '@angular/material/core';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatTooltipModule } from '@angular/material/tooltip';
+import { MatSidenavModule } from '@angular/material/sidenav';
+import { MatListModule } from '@angular/material/list';
+import { MatSlideToggleModule } from '@angular/material/slide-toggle';
+import { MatStepper, MatStepperModule } from '@angular/material/stepper';
 
 @Injectable()
 export class MatPaginatorIntlTranslated extends MatPaginatorIntl {
@@ -33,6 +37,16 @@ export class MatPaginatorIntlTranslated extends MatPaginatorIntl {
     super();
     this.translateService.onLangChange.subscribe(() => this.getTranslations());
   }
+
+  getRangeLabel = ((page, pageSize, length) => {
+    if (length === 0 || pageSize === 0) {
+      return `0 ${this.rangeLabel} ${length}`;
+    }
+    length = Math.max(length, 0);
+    const startIndex = page * pageSize;
+    const endIndex = startIndex < length ? Math.min(startIndex + pageSize, length) : startIndex + pageSize;
+    return `${startIndex + 1} - ${endIndex} ${this.rangeLabel} ${length}`;
+  });
 
   getTranslations() {
     this.translateService.get([
@@ -53,16 +67,6 @@ export class MatPaginatorIntlTranslated extends MatPaginatorIntl {
         this.changes.next();
       });
   }
-
-  getRangeLabel = ((page, pageSize, length) => {
-    if (length === 0 || pageSize === 0) {
-      return `0 ${this.rangeLabel} ${length}`;
-    }
-    length = Math.max(length, 0);
-    const startIndex = page * pageSize;
-    const endIndex = startIndex < length ? Math.min(startIndex + pageSize, length) : startIndex + pageSize;
-    return `${startIndex + 1} - ${endIndex} ${this.rangeLabel} ${length}`;
-  });
 
 }
 
@@ -89,7 +93,11 @@ const modules = [
   MatGridListModule,
   MatRippleModule,
   MatProgressSpinnerModule,
-  MatTooltipModule
+  MatTooltipModule,
+  MatSidenavModule,
+  MatListModule,
+  MatSlideToggleModule,
+  MatStepperModule
 ];
 
 @NgModule({

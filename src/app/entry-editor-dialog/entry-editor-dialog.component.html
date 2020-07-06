@@ -1,25 +1,19 @@
-<h2 mat-dialog-title>{{data?.entry?.key ? ('ENTRIES.DIALOG.TITLE_UPDATE' | translate) : ('ENTRIES.DIALOG.TITLE_NEW' | translate)}}</h2>
+<h2 mat-dialog-title>{{(updating ? 'ENTRIES.DIALOG.TITLE_UPDATE.' : 'ENTRIES.DIALOG.TITLE_NEW.') + data.entry.type | translate }}</h2>
 <div mat-dialog-content *ngIf="form" [formGroup]="form">
-  <mat-form-field appearance="outline">
-    <mat-label>{{'ENTRIES.COMMON.TYPE.LABEL' | translate}}</mat-label>
-    <mat-select formControlName="type">
-      <mat-option *ngFor="let type of TYPES" [value]="type">{{'COMMON.ENTRY_TYPES.' + type.toUpperCase() | translate}}</mat-option>
-    </mat-select>
-  </mat-form-field>
-  <mat-form-field appearance="outline">
+  <mat-form-field appearance="fill">
     <mat-label>{{'ENTRIES.COMMON.NAME.LABEL' | translate}}</mat-label>
     <input matInput required formControlName="name" autocomplete="off">
   </mat-form-field>
-  <mat-form-field appearance="outline">
+  <mat-form-field appearance="fill">
     <mat-label>{{'ENTRIES.COMMON.KEY.LABEL' | translate}}</mat-label>
     <input matInput required formControlName="key" autocomplete="off">
   </mat-form-field>
-  <mat-form-field appearance="outline">
+  <mat-form-field appearance="fill">
     <mat-label>{{'ENTRIES.COMMON.DESCRIPTION.LABEL' | translate}}</mat-label>
     <textarea matInput formControlName="description" cdkTextareaAutosize></textarea>
   </mat-form-field>
 </div>
 <div class="btn-uppercase align-right" mat-dialog-actions>
   <button mat-button color="primary" [disabled]="form.disabled" [mat-dialog-close]="null">{{'COMMON.BUTTONS.CANCEL' | translate}}</button>
-  <button mat-button color="primary" [disabled]="form.disabled" (click)="submit()">{{'COMMON.BUTTONS.SAVE' | translate}}</button>
+  <button mat-button color="primary" [disabled]="form.disabled" (click)="submit()">{{(updating ? 'COMMON.BUTTONS.SAVE' : 'COMMON.BUTTONS.CREATE') | translate}}</button>
 </div>

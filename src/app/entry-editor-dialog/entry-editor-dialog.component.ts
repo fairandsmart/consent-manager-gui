@@ -2,7 +2,7 @@ import { Component, Inject, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { Observable } from 'rxjs';
-import { CreateModelDto, FIELD_VALIDATORS, MODEL_DATA_TYPES, ModelDataType, ModelEntry, UpdateModelDto } from '../models';
+import { CreateModelDto, FIELD_VALIDATORS, ModelDataType, ModelEntry, UpdateModelDto } from '../models';
 import { ModelsResourceService } from '../models-resource.service';
 
 export interface EntryEditorDialogComponentData {
@@ -18,7 +18,7 @@ export class EntryEditorDialogComponent implements OnInit {
 
   public form: FormGroup;
 
-  readonly TYPES = MODEL_DATA_TYPES;
+  public updating = false;
 
   constructor(private dialogRef: MatDialogRef<EntryEditorDialogComponent, ModelEntry>,
               @Inject(MAT_DIALOG_DATA) public data: EntryEditorDialogComponentData,
@@ -46,6 +46,9 @@ export class EntryEditorDialogComponent implements OnInit {
     });
     if (this.data?.entry != null) {
       this.form.patchValue(this.data.entry);
+      if (this.data.entry.key != null) {
+        this.updating = true;
+      }
     }
     this.enableForm();
   }

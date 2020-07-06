@@ -9,6 +9,8 @@
     "BUTTONS": {
       "CANCEL": "Annuler",
       "SAVE": "Enregistrer",
+      "DELETE": "Supprimer",
+      "CREATE": "Créer",
       "EDIT": "Modifier",
       "SUBMIT": "Valider"
     },
@@ -51,15 +53,19 @@
   "ENTRIES": {
     "header": {
       "PANEL_TITLE": "En-tête",
-      "BUTTON_ADD": "Ajouter une en-tête"
+      "EMPTY": "Commencez par ajouter un en-tête...",
+      "BUTTON_ADD": "Ajouter un en-tête"
     },
     "treatment": {
       "PANEL_TITLE": "Traitements",
+      "EMPTY": "Commencez par ajouter un traitement...",
       "BUTTON_ADD": "Ajouter un traitement"
     },
     "footer": {
       "PANEL_TITLE": "Pied de page",
-      "BUTTON_ADD": "Ajouter un pied de page"
+      "BUTTON_ADD": "Ajouter un pied de page",
+      "EMPTY": "Commencez par ajouter un pied de page...",
+      "EXCLUDED": "Le formulaire ne contiendra pas de pied de page"
     },
     "TITLE": "Éléments",
     "COMMON": {
@@ -81,8 +87,16 @@
     },
     "CREATE_BUTTON": "Nouvel élément",
     "DIALOG": {
-      "TITLE_NEW": "Nouvel élément",
-      "TITLE_UPDATE": "Modification de l'élément"
+      "TITLE_NEW": {
+        "header": "Nouvel en-tête",
+        "treatment": "Nouveau traitement",
+        "footer": "Nouveau pied de page"
+      },
+      "TITLE_UPDATE": {
+        "header": "Modification de l'en-tête",
+        "treatment": "Modification du traitement",
+        "footer": "Modification du pied de page"
+      }
     },
     "EDITOR": {
       "INFORMATION": {
@@ -302,13 +316,22 @@
   },
   "TOKEN": {
     "TITLE": "Formulaire de consentement",
+    "STEP_ELEMENTS": "Éléments",
+    "STEP_OPTIONS": "Options",
+    "STEP_PREVIEW": "Prévisualisation",
+    "BUTTON_LABEL_NEXT_STEP": "Suivant",
+    "BUTTON_LABEL_PREVIOUS_STEP": "Précédent",
     "FORM": {
       "TITLE": "Génération du formulaire de consentement",
       "SUBJECT": {
         "LABEL": "Auteur du consentement"
       },
       "ORIENTATION": {
-        "LABEL": "Orientation verticale"
+        "LABEL": "Orientation",
+        "VALUES": {
+          "VERTICAL": "Verticale",
+          "HORIZONTAL": "Horizontale"
+        }
       },
       "HEADER": {
         "LABEL": "Référence d'en-tête"

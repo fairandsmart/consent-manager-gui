@@ -2,12 +2,18 @@
 // `ng build --prod` replaces `environment.ts` with `environment.prod.ts`.
 // The list of file replacements can be found in `angular.json`.
 
-export const environment = {
+import { AppEnvironment } from './app-environment';
+
+export const environment: AppEnvironment = {
   production: false,
   authUrl: 'http://localhost:8080/auth',
   authRealm: 'FairAndSmart',
   authClientId: 'gui-consent-manager',
-  managerUrl: 'http://localhost:8087'
+  managerUrl: 'http://localhost:8087',
+  customization: {
+    multipleHeader: false,
+    multipleFooter: false
+  }
 };
 
 /*

@@ -8,6 +8,7 @@ import { CollectionPage, ModelDataType, ModelEntry, ModelFilter } from '../model
 import { ModelsResourceService } from '../models-resource.service';
 import { Router } from '@angular/router';
 import { CollectionDatasource } from '../common/collection-datasource';
+import { environment } from '../../environments/environment';
 
 class ConsentElementEntryDataSource extends CollectionDatasource<ModelEntry, ModelFilter> {
 
@@ -23,7 +24,7 @@ class ConsentElementEntryDataSource extends CollectionDatasource<ModelEntry, Mod
 
 interface SectionConfig {
   type: ModelDataType;
-  canAddMultiple: boolean;
+  multiple: boolean;
   showSort: boolean;
   dataSource: ConsentElementEntryDataSource;
   filter: ModelFilter;
@@ -40,7 +41,7 @@ export class EntriesComponent implements OnInit, AfterViewInit {
   sections: SectionConfig[] = [
     {
       type: 'header',
-      canAddMultiple: false,
+      multiple: environment.customization.multipleHeader,
       showSort: false,
       dataSource: new ConsentElementEntryDataSource(this.modelsResourceService),
       filter: {
@@ -51,7 +52,7 @@ export class EntriesComponent implements OnInit, AfterViewInit {
     },
     {
       type: 'treatment',
-      canAddMultiple: true,
+      multiple: true,
       showSort: true,
       dataSource: new ConsentElementEntryDataSource(this.modelsResourceService),
       filter: {
@@ -64,7 +65,7 @@ export class EntriesComponent implements OnInit, AfterViewInit {
     },
     {
       type: 'footer',
-      canAddMultiple: false,
+      multiple: environment.customization.multipleFooter,
       showSort: false,
       dataSource: new ConsentElementEntryDataSource(this.modelsResourceService),
       filter: {
