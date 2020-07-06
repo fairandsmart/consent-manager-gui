@@ -1,0 +1,33 @@
+@import '~@angular/material/theming';
+
+:host {
+  display: block;
+  position: relative;
+
+  &.entry-card-selectable {
+    &:hover mat-card {
+      cursor: pointer;
+      @include mat-elevation(4);
+    }
+  }
+  .mat-card {
+    overflow: visible;
+    ::ng-deep {
+      .mat-card-title {
+        font-size: 16px;
+        display: flex;
+        justify-content: space-between;
+        .entry-key {
+          font-size: 12px;
+          color: $dark-secondary-text;
+        }
+      }
+      .entry-description {
+        white-space: nowrap;
+        text-overflow: ellipsis;
+        overflow: hidden;
+        color: $dark-secondary-text;
+      }
+    }
+  }
+}

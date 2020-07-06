@@ -23,15 +23,9 @@
             <button (click)="toggleDirection(section)" mat-icon-button><mat-icon>{{section.filter.direction === 'asc' ? 'arrow_upward' : 'arrow_downward'}}</mat-icon></button>
           </div>
         </div>
-        <mat-grid-list *ngIf="entries.length > 0" cols="3" gutterSize="10" rowHeight="90" [class.loading]="section.dataSource.loading$ | async">
+        <mat-grid-list *ngIf="entries.length > 0" cols="3" gutterSize="10" rowHeight="80" [class.loading]="section.dataSource.loading$ | async">
           <mat-grid-tile *ngFor="let entry of entries">
-            <mat-card [routerLink]="'./' + entry.id" matRipple>
-              <mat-card-title>
-                <span>{{entry.name}}</span>
-                <span class="entry-key">{{entry.key}}</span>
-              </mat-card-title>
-              <mat-card-content>{{entry.description || ('ENTRIES.NO_DESCRIPTION' | translate)}}</mat-card-content>
-            </mat-card>
+            <app-entry-card [routerLink]="'./' + entry.id" [selectable]="true" [entry]="entry"></app-entry-card>
           </mat-grid-tile>
         </mat-grid-list>
       </ng-container>

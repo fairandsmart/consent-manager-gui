@@ -63,7 +63,6 @@
       "BUTTON_ADD": "Ajouter un pied de page"
     },
     "TITLE": "Éléments",
-    "NO_DESCRIPTION": "Pas de description",
     "COMMON": {
       "ID": {
         "LABEL": "Id"
@@ -233,6 +232,9 @@
         "DELETE": "Supprimer brouillon"
       }
     }
+  },
+  "ENTRY_CARD": {
+    "LABEL_NO_DESCRIPTION": "Pas de description"
   },
   "THEMES": {
     "TITLE": "Thèmes",

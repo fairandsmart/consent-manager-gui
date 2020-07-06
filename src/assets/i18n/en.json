@@ -234,6 +234,9 @@
       }
     }
   },
+  "ENTRY_CARD": {
+    "LABEL_NO_DESCRIPTION": "No description"
+  },
   "THEMES": {
     "TITLE": "Thèmes",
     "BUTTON_ADD": "Add theme",

@@ -1,0 +1,10 @@
+<mat-card *ngIf="entry">
+  <mat-card-title>
+    <span>{{entry.name}}</span>
+    <span class="entry-key">{{entry.key}}</span>
+  </mat-card-title>
+  <mat-card-content>
+    <div class="entry-description" matTooltipShowDelay="666"
+         [matTooltip]="entry.description">{{entry.description || ('ENTRY_CARD.LABEL_NO_DESCRIPTION' | translate)}}</div>
+  </mat-card-content>
+</mat-card>

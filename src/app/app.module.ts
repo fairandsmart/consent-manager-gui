@@ -65,6 +65,7 @@ registerLocaleData(localeFr, 'fr');
     FooterComponent,
     EntryEditorDialogComponent,
     EntryInfoComponent,
+    EntryCardComponent,
     ShortIdPipe,
     RecordsComponent,
     TokenCreationComponent,
