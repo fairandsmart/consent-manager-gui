@@ -396,7 +396,8 @@
         "LABEL": "Langage"
       },
       "THEME": {
-        "LABEL": "Thème (facultatif)"
+        "LABEL": "Thème (facultatif)",
+        "DEFAULT": "Thème par défaut"
       },
       "FORCE_DISPLAY": {
         "LABEL": "Forcer l'affichage de tous les traitements"

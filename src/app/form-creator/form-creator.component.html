@@ -57,6 +57,13 @@
                   <mat-option *ngFor="let type of RECEIPT_TYPES" [value]="type">{{'TOKEN.FORM.RECEIPT.VALUES.' + type.toUpperCase() | translate}}</mat-option>
                 </mat-select>
               </mat-form-field>
+              <mat-form-field appearance="fill">
+                <mat-label>{{'TOKEN.FORM.THEME.LABEL' | translate}}</mat-label>
+                <mat-select formControlName="theme">
+                  <mat-option value="" selected>{{'TOKEN.FORM.THEME.DEFAULT' | translate}}</mat-option>
+                  <mat-option *ngFor="let theme of themes" [value]="theme.key">{{theme.name}}</mat-option>
+                </mat-select>
+              </mat-form-field>
             </mat-card-content>
           </mat-card>
           <div class="step-actions">

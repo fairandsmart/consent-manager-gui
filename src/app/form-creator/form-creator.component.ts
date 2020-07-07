@@ -69,6 +69,8 @@ export class FormCreatorComponent implements OnInit {
   public formUrl: SafeResourceUrl;
   private previousContext: ConsentContext;
 
+  public themes: ModelEntry[];
+
   constructor(private consentsResource: ConsentsResourceService,
               private modelsResource: ModelsResourceService,
               private fb: FormBuilder,
@@ -88,6 +90,9 @@ export class FormCreatorComponent implements OnInit {
         this.refreshSelectedByType();
       })
     ).subscribe();
+    this.modelsResource.listEntries({types: ['theme']}).subscribe((response) => {
+      this.themes = response.values;
+    });
     this.form = this.fb.array([
       this.fb.group({
         header: ['', [Validators.required, Validators.pattern(FIELD_VALIDATORS.key.pattern)]],
@@ -102,7 +107,8 @@ export class FormCreatorComponent implements OnInit {
         locale: ['', [Validators.required]],
         forceDisplay: [true, [Validators.required]],
         optoutEmail: [''],
-        preview: [true, [Validators.required]]
+        preview: [true, [Validators.required]],
+        theme: ['', [Validators.pattern(FIELD_VALIDATORS.key.pattern)]]
       })
     ]);
   }
@@ -149,7 +155,8 @@ export class FormCreatorComponent implements OnInit {
       collectionMethod: CollectionMethod.WEBFORM,
       author: '',
       preview: formValue.preview,
-      iframe: true
+      iframe: true,
+      theme: formValue.theme
     };
     if (context === this.previousContext) {
       return;
