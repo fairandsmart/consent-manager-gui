@@ -18,7 +18,7 @@ export class EntriesLibraryComponent extends EntriesComponent {
   changes = new EventEmitter<{type: ModelDataType}>();
 
   isDisabled(entry: ModelEntry): boolean {
-    return entry.version === 0 || this.selected?.[entry.type]?.some(e => e.key === entry.key);
+    return this.selected?.[entry.type]?.some(e => e.key === entry.key);
   }
 
   drop(event: CdkDragDrop<ModelEntry[]>) {
