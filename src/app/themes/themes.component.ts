@@ -24,7 +24,7 @@ class ThemeEntryDataSource extends CollectionDatasource<ModelEntry, ModelFilter>
 @Component({
   selector: 'app-themes',
   templateUrl: './themes.component.html',
-  styleUrls: ['./themes.component.scss']
+  styleUrls: ['../entries/entries.component.scss', './themes.component.scss']
 })
 export class ThemesComponent implements OnInit {
 
@@ -38,7 +38,7 @@ export class ThemesComponent implements OnInit {
     direction: 'asc'
   };
 
-  sortOptions = ['name', 'key', 'targetType'];
+  sortOptions = ['name', 'key'];
 
   @ViewChild(MatPaginator, {static: true})
   paginator: MatPaginator;

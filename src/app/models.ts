@@ -228,10 +228,14 @@ export enum ConsentFormOrientation {
   VERTICAL = 'VERTICAL'
 }
 
+export const CONSENT_FORM_ORIENTATIONS: ConsentFormOrientation[] = Object.keys(ConsentFormOrientation) as ConsentFormOrientation[];
+
 export enum ConsentFormType {
   PARTIAL = 'PARTIAL',
   FULL = 'FULL'
 }
+
+export const CONSENT_FORM_TYPES: ConsentFormType[] = Object.keys(ConsentFormType) as ConsentFormType[];
 
 export enum CollectionMethod {
   WEBFORM = 'WEBFORM',

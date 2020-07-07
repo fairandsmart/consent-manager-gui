@@ -23,6 +23,9 @@ export class EntryInfoComponent implements OnInit {
     this.dialog.open<EntryEditorDialogComponent, EntryEditorDialogComponentData>(EntryEditorDialogComponent, {
       data: {entry: this.entry}
     }).afterClosed().subscribe((updatedEntry) => {
+      if (updatedEntry != null) {
+        this.entry = updatedEntry;
+      }
     });
   }
 

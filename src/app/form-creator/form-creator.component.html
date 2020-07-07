@@ -1,0 +1,80 @@
+<mat-sidenav-container>
+  <mat-sidenav-content>
+      <mat-horizontal-stepper #stepper linear="true" labelPosition="bottom" (selectionChange)="stepChange($event)">
+        <mat-step [label]="'TOKEN.STEP_ELEMENTS' | translate" [stepControl]="form.at(STEPS.ELEMENTS)">
+          <ng-container *ngFor="let type of ['header', 'treatment', 'footer']">
+            <h4>
+              <span>{{'ENTRIES.' + type.toUpperCase() + '.PANEL_TITLE' | translate}}</span>
+              <mat-slide-toggle *ngIf="type === 'footer'" [(ngModel)]="entriesByType[type].included"></mat-slide-toggle>
+            </h4>
+            <div class="form-container" [class.excluded]="!entriesByType[type].included" [class.empty]="entriesByType[type].selected.length === 0"
+                 cdkDropList [id]="'selected-' + type"
+                 [cdkDropListDisabled]="entriesByType[type].draggingDisabled"
+                 [cdkDropListData]="entriesByType[type].selected"
+                 [cdkDropListConnectedTo]="['available-' + type]"
+                 (cdkDropListDropped)="drop($event)">
+              <mat-card *ngIf="entriesByType[type].selected.length === 0" class="empty-hint">
+                <span>{{'ENTRIES.' + type.toUpperCase() + '.EMPTY' | translate}}</span>
+              </mat-card>
+              <app-entry-card *ngFor="let entry of entriesByType[type].selected"
+                              cdkDrag [selectable]="!entriesByType[type].draggingDisabled" [entry]="entry"></app-entry-card>
+            </div>
+            <div *ngIf="!entriesByType[type].included" class="form-container">
+              <mat-card class="excluded-hint">{{'ENTRIES.' + type.toUpperCase() + '.EXCLUDED' | translate}}</mat-card>
+            </div>
+          </ng-container>
+          <div class="step-actions">
+            <span></span>
+            <button mat-button color="primary" matStepperNext>{{'TOKEN.BUTTON_LABEL_NEXT_STEP' | translate}}</button>
+          </div>
+        </mat-step>
+        <mat-step [label]="'TOKEN.STEP_OPTIONS' | translate" [stepControl]="form.at(STEPS.OPTIONS)">
+          <mat-card [formGroup]="form.at(STEPS.OPTIONS)">
+            <mat-card-content>
+              <mat-form-field appearance="fill">
+                <mat-label>{{'TOKEN.FORM.SUBJECT.LABEL' | translate}}</mat-label>
+                <input matInput required formControlName="subject" autocomplete="off">
+              </mat-form-field>
+              <mat-form-field appearance="fill">
+                <mat-label>{{'TOKEN.FORM.LOCALE.LABEL' | translate}}</mat-label>
+                <mat-select formControlName="locale" required>
+                  <mat-option *ngFor="let language of LANGUAGES" [value]="language">{{'COMMON.LANGUAGES.' + language.toUpperCase() | translate}}</mat-option>
+                </mat-select>
+              </mat-form-field>
+              <mat-form-field appearance="fill">
+                <mat-label>{{'TOKEN.FORM.ORIENTATION.LABEL' | translate}}</mat-label>
+                <mat-select formControlName="orientation" required>
+                  <mat-option *ngFor="let orientation of ORIENTATIONS" [value]="orientation">{{'TOKEN.FORM.ORIENTATION.VALUES.' + orientation | translate}}</mat-option>
+                </mat-select>
+              </mat-form-field>
+              <mat-form-field appearance="fill">
+                <mat-label>{{'TOKEN.FORM.VALIDITY.LABEL' | translate}}</mat-label>
+                <input matInput formControlName="validity" autocomplete="off">
+              </mat-form-field>
+              <mat-form-field appearance="fill">
+                <mat-label>{{'TOKEN.FORM.RECEIPT.LABEL' | translate}}</mat-label>
+                <mat-select formControlName="receiptDeliveryType">
+                  <mat-option *ngFor="let type of RECEIPT_TYPES" [value]="type">{{'TOKEN.FORM.RECEIPT.VALUES.' + type.toUpperCase() | translate}}</mat-option>
+                </mat-select>
+              </mat-form-field>
+            </mat-card-content>
+          </mat-card>
+          <div class="step-actions">
+            <button mat-button color="primary" matStepperPrevious>{{'TOKEN.BUTTON_LABEL_PREVIOUS_STEP' | translate}}</button>
+            <button mat-button color="primary" matStepperNext>{{'TOKEN.BUTTON_LABEL_NEXT_STEP' | translate}}</button>
+          </div>
+        </mat-step>
+        <mat-step [label]="'TOKEN.STEP_PREVIEW' | translate">
+          <mat-card *ngIf="formUrl" class="form-preview">
+            <iframe [src]="formUrl"></iframe>
+          </mat-card>
+        </mat-step>
+      </mat-horizontal-stepper>
+  </mat-sidenav-content>
+  <mat-sidenav opened mode="side" position="end">
+    <app-entries-library
+      (changes)="droppedOut()"
+      [style]="stepper.selectedIndex !== 0 ? 'display: none' : ''"
+      [selected]="selectedByType$ | async"></app-entries-library>
+  </mat-sidenav>
+</mat-sidenav-container>

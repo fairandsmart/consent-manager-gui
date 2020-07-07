@@ -25,7 +25,7 @@ describe('EntryEditorDialogComponent', () => {
       imports: [ ReactiveFormsModule, MaterialModule, NoopAnimationsModule, TranslateModule.forRoot() ],
       providers: [
         {provide: MatDialogRef, useValue: dialogRefSpy},
-        {provide: MAT_DIALOG_DATA, useValue: {value: 'foobar'}},
+        {provide: MAT_DIALOG_DATA, useValue: {entry: {type: 'treatment'}}},
         {provide: ModelsResourceService, useValue: modelsResourceServiceSpy},
       ]
     })

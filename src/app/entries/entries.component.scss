@@ -1,14 +1,19 @@
 @import '~@angular/material/theming';
 
-:host mat-expansion-panel {
-  box-shadow: none !important;
-  background: none !important;
-  .mat-expansion-panel-header {
+:host {
+  display: block;
+  mat-expansion-panel {
+    box-shadow: none !important;
     background: none !important;
-    .mat-progress-bar {
-      align-self: center;
-      width: 32px;
-      margin-left: 10px;
+
+    .mat-expansion-panel-header {
+      background: none !important;
+
+      .mat-progress-bar {
+        align-self: center;
+        width: 32px;
+        margin-left: 10px;
+      }
     }
   }
 }

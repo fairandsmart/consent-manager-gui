@@ -9,6 +9,8 @@
     "BUTTONS": {
       "CANCEL": "Cancel",
       "SAVE": "Save",
+      "DELETE": "Delete",
+      "CREATE": "Create",
       "EDIT": "Edit",
       "SUBMIT": "Submit"
     },
@@ -52,18 +54,21 @@
   "ENTRIES": {
     "HEADER": {
       "PANEL_TITLE": "Header",
+      "EMPTY": "First, create a header...",
       "BUTTON_ADD": "Add header"
     },
     "TREATMENT": {
       "PANEL_TITLE": "Treatments",
+      "EMPTY": "First, create a treatment...",
       "BUTTON_ADD": "Add treatment"
     },
     "FOOTER": {
       "PANEL_TITLE": "Footer",
-      "BUTTON_ADD": "Add footer"
+      "BUTTON_ADD": "Add footer",
+      "EMPTY": "First, add a footer...",
+      "EXCLUDED": "The form will not have a footer."
     },
     "TITLE": "Entries",
-    "NO_DESCRIPTION": "No description",
     "COMMON": {
       "ID": {
         "LABEL": "Id"
@@ -83,8 +88,18 @@
     },
     "CREATE_BUTTON": "New entry",
     "DIALOG": {
-      "TITLE_NEW": "New entry",
-      "TITLE_UPDATE": "Update entry"
+      "TITLE_NEW": {
+        "HEADER": "New header",
+        "TREATMENT": "New treatment",
+        "FOOTER": "New footer",
+        "THEME": "New theme"
+      },
+      "TITLE_UPDATE": {
+        "HEADER": "Update header",
+        "TREATMENT": "Update treatment",
+        "FOOTER": "Update footer",
+        "THEME": "Update theme"
+      }
     },
     "EDITOR": {
       "INFORMATION": {
@@ -238,7 +253,8 @@
     "LABEL_NO_DESCRIPTION": "No description"
   },
   "THEMES": {
-    "TITLE": "Thèmes",
+    "TITLE": "Themes",
+    "PANEL_TITLE": "Themes library",
     "BUTTON_ADD": "Add theme",
     "NO_DESCRIPTION": "No description",
     "IFRAME": {
@@ -336,13 +352,22 @@
   },
   "TOKEN": {
     "TITLE": "Consent form",
+    "STEP_ELEMENTS": "Elements",
+    "STEP_OPTIONS": "Options",
+    "STEP_PREVIEW": "Preview",
+    "BUTTON_LABEL_NEXT_STEP": "Next",
+    "BUTTON_LABEL_PREVIOUS_STEP": "Previous",
     "FORM": {
       "TITLE": "Form creator",
       "SUBJECT": {
         "LABEL": "Subject"
       },
       "ORIENTATION": {
-        "LABEL": "Vertical orientation"
+        "LABEL": "Orientation",
+        "VALUES": {
+          "VERTICAL": "Vertical",
+          "HORIZONTAL": "Horizontal"
+        }
       },
       "HEADER": {
         "LABEL": "Header reference"

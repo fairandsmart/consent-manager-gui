@@ -1,19 +1,20 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { TokenCreationComponent } from './token-creation.component';
-import { ConsentsResourceService } from '../consents-resource.service';
-import SpyObj = jasmine.SpyObj;
-import createSpyObj = jasmine.createSpyObj;
-import { ReactiveFormsModule } from '@angular/forms';
+import { FormCreatorComponent } from './form-creator.component';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MaterialModule } from '../material.module';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { TranslateModule } from '@ngx-translate/core';
+import { ConsentsResourceService } from '../consents-resource.service';
 import { ModelsResourceService } from '../models-resource.service';
 import { EMPTY } from 'rxjs';
+import { NO_ERRORS_SCHEMA } from '@angular/core';
+import SpyObj = jasmine.SpyObj;
+import createSpyObj = jasmine.createSpyObj;
 
-describe('TokenCreationComponent', () => {
-  let component: TokenCreationComponent;
-  let fixture: ComponentFixture<TokenCreationComponent>;
+describe('FormCreatorComponent', () => {
+  let component: FormCreatorComponent;
+  let fixture: ComponentFixture<FormCreatorComponent>;
   let consentsResourceServiceSpy: SpyObj<ConsentsResourceService>;
   let modelsResourceServiceSpy: SpyObj<ModelsResourceService>;
 
@@ -22,12 +23,13 @@ describe('TokenCreationComponent', () => {
     modelsResourceServiceSpy =  createSpyObj<ModelsResourceService>('ModelsResourceService', ['listEntries']);
 
     TestBed.configureTestingModule({
-      declarations: [ TokenCreationComponent ],
-      imports: [ ReactiveFormsModule, MaterialModule, NoopAnimationsModule, TranslateModule.forRoot() ],
+      declarations: [ FormCreatorComponent ],
+      imports: [ FormsModule, ReactiveFormsModule, MaterialModule, NoopAnimationsModule, TranslateModule.forRoot() ],
       providers: [
         {provide: ConsentsResourceService, useValue: consentsResourceServiceSpy},
         {provide: ModelsResourceService, useValue: modelsResourceServiceSpy},
-      ]
+      ],
+      schemas: [ NO_ERRORS_SCHEMA ]
     })
     .compileComponents();
   }));
@@ -35,7 +37,7 @@ describe('TokenCreationComponent', () => {
   beforeEach(() => {
     modelsResourceServiceSpy.listEntries.and.returnValue(EMPTY);
 
-    fixture = TestBed.createComponent(TokenCreationComponent);
+    fixture = TestBed.createComponent(FormCreatorComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

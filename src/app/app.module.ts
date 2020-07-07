@@ -15,11 +15,9 @@ import { MaterialModule } from './material.module';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { EntryEditorDialogComponent } from './entry-editor-dialog/entry-editor-dialog.component';
 import { EntryInfoComponent } from './entry-info/entry-info.component';
-import { EntryCardComponent } from './entry-card/entry-card.component';
 import { StoreModule } from '@ngrx/store';
 import { EffectsModule } from '@ngrx/effects';
 import { RecordsComponent } from './records/records.component';
-import { TokenCreationComponent } from './token-creation/token-creation.component';
 import { HeaderComponent } from './header/header.component';
 import { ConditionsComponent } from './conditions/conditions.component';
 import { TreatmentComponent } from './treatment/treatment.component';
@@ -35,6 +33,9 @@ import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 import { environment } from '../environments/environment';
 import { ThemesComponent } from './themes/themes.component';
 import { ThemeComponent } from './theme/theme.component';
+import { EntryCardComponent } from './entry-card/entry-card.component';
+import { FormCreatorComponent } from './form-creator/form-creator.component';
+import { EntriesLibraryComponent } from './entries/entries-library.component';
 
 const keycloakService = new KeycloakService();
 
@@ -59,6 +60,7 @@ registerLocaleData(localeFr, 'fr');
     AppComponent,
     ConfigComponent,
     EntriesComponent,
+    EntriesLibraryComponent,
     EntryComponent,
     HeaderComponent,
     TreatmentComponent,
@@ -69,11 +71,11 @@ registerLocaleData(localeFr, 'fr');
     EntryCardComponent,
     ShortIdPipe,
     RecordsComponent,
-    TokenCreationComponent,
     UserRecordsComponent,
     UserRecordEditorDialogComponent,
     ThemesComponent,
-    ThemeComponent
+    ThemeComponent,
+    FormCreatorComponent
   ],
   imports: [
     BrowserModule,

@@ -9,6 +9,8 @@
     "BUTTONS": {
       "CANCEL": "Annuler",
       "SAVE": "Enregistrer",
+      "DELETE": "Supprimer",
+      "CREATE": "Créer",
       "EDIT": "Modifier",
       "SUBMIT": "Valider"
     },
@@ -52,15 +54,19 @@
   "ENTRIES": {
     "HEADER": {
       "PANEL_TITLE": "En-tête",
-      "BUTTON_ADD": "Ajouter une en-tête"
+      "EMPTY": "Commencez par ajouter un en-tête...",
+      "BUTTON_ADD": "Ajouter un en-tête"
     },
     "TREATMENT": {
       "PANEL_TITLE": "Traitements",
+      "EMPTY": "Commencez par ajouter un traitement...",
       "BUTTON_ADD": "Ajouter un traitement"
     },
     "FOOTER": {
       "PANEL_TITLE": "Pied de page",
-      "BUTTON_ADD": "Ajouter un pied de page"
+      "BUTTON_ADD": "Ajouter un pied de page",
+      "EMPTY": "Commencez par ajouter un pied de page...",
+      "EXCLUDED": "Le formulaire ne contiendra pas de pied de page"
     },
     "TITLE": "Éléments",
     "COMMON": {
@@ -82,8 +88,18 @@
     },
     "CREATE_BUTTON": "Nouvel élément",
     "DIALOG": {
-      "TITLE_NEW": "Nouvel élément",
-      "TITLE_UPDATE": "Modification de l'élément"
+      "TITLE_NEW": {
+        "HEADER": "Nouvel en-tête",
+        "TREATMENT": "Nouveau traitement",
+        "FOOTER": "Nouveau pied de page",
+        "THEME": "Nouveau thème"
+      },
+      "TITLE_UPDATE": {
+        "HEADER": "Modification de l'en-tête",
+        "TREATMENT": "Modification du traitement",
+        "FOOTER": "Modification du pied de page",
+        "THEME": "Modification du thème"
+      }
     },
     "EDITOR": {
       "INFORMATION": {
@@ -238,6 +254,7 @@
   },
   "THEMES": {
     "TITLE": "Thèmes",
+    "PANEL_TITLE": "Bibliothèque de thèmes",
     "BUTTON_ADD": "Ajouter un thème",
     "NO_DESCRIPTION": "Pas de description",
     "IFRAME": {
@@ -335,13 +352,22 @@
   },
   "TOKEN": {
     "TITLE": "Formulaire de consentement",
+    "STEP_ELEMENTS": "Éléments",
+    "STEP_OPTIONS": "Options",
+    "STEP_PREVIEW": "Prévisualisation",
+    "BUTTON_LABEL_NEXT_STEP": "Suivant",
+    "BUTTON_LABEL_PREVIOUS_STEP": "Précédent",
     "FORM": {
       "TITLE": "Génération du formulaire de consentement",
       "SUBJECT": {
         "LABEL": "Auteur du consentement"
       },
       "ORIENTATION": {
-        "LABEL": "Orientation verticale"
+        "LABEL": "Orientation",
+        "VALUES": {
+          "VERTICAL": "Verticale",
+          "HORIZONTAL": "Horizontale"
+        }
       },
       "HEADER": {
         "LABEL": "Référence d'en-tête"
@@ -351,7 +377,7 @@
         "LABEL_DISPLAYED": "Traitements affichés"
       },
       "FOOTER": {
-        "LABEL": "Référence de pied de page"
+        "LABEL": "Référence de pied de page."
       },
       "VALIDITY": {
         "LABEL": "Durée de validité"
