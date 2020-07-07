@@ -241,6 +241,9 @@
     "TITLE": "Thèmes",
     "BUTTON_ADD": "Add theme",
     "NO_DESCRIPTION": "No description",
+    "IFRAME": {
+      "TITLE": "Preview"
+    },
     "COMMON": {
       "KEY": {
         "LABEL": "Reference"

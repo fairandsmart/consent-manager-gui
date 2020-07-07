@@ -15,6 +15,7 @@ import { MaterialModule } from './material.module';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { EntryEditorDialogComponent } from './entry-editor-dialog/entry-editor-dialog.component';
 import { EntryInfoComponent } from './entry-info/entry-info.component';
+import { EntryCardComponent } from './entry-card/entry-card.component';
 import { StoreModule } from '@ngrx/store';
 import { EffectsModule } from '@ngrx/effects';
 import { RecordsComponent } from './records/records.component';

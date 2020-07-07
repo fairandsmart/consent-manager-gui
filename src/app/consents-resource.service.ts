@@ -23,6 +23,10 @@ export class ConsentsResourceService {
     return `${environment.managerUrl}/consents?t=` + token;
   }
 
+  getPreviewForm(): Observable<string> {
+    return this.http.get<string>(`${environment.managerUrl}/consents/preview`, {responseType: 'text' as 'json'});
+  }
+
   listRecords(filter: RecordFilter): Observable<CollectionPage<Record>> {
     return this.http.get<CollectionPage<Record>>(`${environment.managerUrl}/consents/records`, {params: filter as any});
   }
