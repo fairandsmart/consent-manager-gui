@@ -28,11 +28,25 @@ export class ConsentsResourceService {
   }
 
   listRecords(filter: RecordFilter): Observable<CollectionPage<Record>> {
-    return this.http.get<CollectionPage<Record>>(`${environment.managerUrl}/consents/records`, {params: filter as any});
+    const safeFilter: RecordFilter = {};
+    for (const key in filter) {
+      if (filter.hasOwnProperty(key)) {
+        safeFilter[key] = filter[key];
+      }
+    }
+    safeFilter.query = encodeURIComponent(safeFilter.query);
+    return this.http.get<CollectionPage<Record>>(`${environment.managerUrl}/consents/records`, {params: safeFilter as any});
   }
 
   listUserRecords(filter: UserRecordFilter): Observable<CollectionPage<UserRecord>> {
-    return this.http.get<CollectionPage<UserRecord>>(`${environment.managerUrl}/consents/records/user`, {params: filter as any});
+    const safeFilter: UserRecordFilter = {};
+    for (const key in filter) {
+      if (filter.hasOwnProperty(key)) {
+        safeFilter[key] = filter[key];
+      }
+    }
+    safeFilter.user = encodeURIComponent(safeFilter.user);
+    return this.http.get<CollectionPage<UserRecord>>(`${environment.managerUrl}/consents/records/user`, {params: safeFilter as any});
   }
 
   createOperatorRecords(dto: OperatorRecordDto): Observable<string> {
