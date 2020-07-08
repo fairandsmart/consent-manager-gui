@@ -1,5 +1,4 @@
 import { TestBed } from '@angular/core/testing';
-
 import { ConsentsResourceService } from './consents-resource.service';
 import { HttpClientModule } from '@angular/common/http';
 

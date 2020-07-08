@@ -33,6 +33,10 @@ export class ThemeComponent extends EntryContentDirective<Theme> implements OnIn
     super(modelsResourceService, snackBar, translateService);
   }
 
+  ngOnInit(): void {
+    super.ngOnInit();
+  }
+
   ngAfterViewInit(): void {
     this.consentsResourceService.getPreviewForm().subscribe((content) => {
       this.rawPreview = content.split("/assets/").join(`${environment.managerUrl}/assets/`);
