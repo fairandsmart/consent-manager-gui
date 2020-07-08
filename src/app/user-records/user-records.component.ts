@@ -55,14 +55,14 @@ export class UserRecordsComponent implements OnInit {
   public dataSource: UserRecordDataSource;
 
   public filter: UserRecordFilter = {
-    user: "",
+    user: '',
     page: 0,
     size: 10,
     order: 'key',
     direction: 'asc'
   };
 
-  public displayOperatorForm: boolean = false;
+  public displayOperatorForm = false;
 
   @ViewChild(MatPaginator, {static: true})
   public paginator: MatPaginator;
@@ -150,7 +150,7 @@ export class UserRecordsComponent implements OnInit {
       data: data
     }).afterClosed().subscribe((result) => {
       if (result) {
-        const previousIndex = this.operatorRecordsElements.findIndex(element => element.bodyKey == result.bodyKey);
+        const previousIndex = this.operatorRecordsElements.findIndex(element => element.bodyKey === result.bodyKey);
         if (previousIndex < 0) {
           this.operatorRecordsElements.push(result);
         } else {
@@ -175,8 +175,8 @@ export class UserRecordsComponent implements OnInit {
     return this.modelsResource.listEntries(entriesFilter);
   }
 
-  removeElement(element: OperatorRecordElement, $event: MouseEvent): void {
-      const index = this.operatorRecordsElements.findIndex(e => e.bodyKey == element.bodyKey);
+  removeElement(element: OperatorRecordElement): void {
+      const index = this.operatorRecordsElements.findIndex(e => e.bodyKey === element.bodyKey);
       this.operatorRecordsElements.splice(index, 1);
   }
 
@@ -186,17 +186,17 @@ export class UserRecordsComponent implements OnInit {
       const formValue = this.form.getRawValue();
 
       const elements: string[] = [];
-      for (let index = 0; index < this.operatorRecordsElements.length; index++) {
-        elements.push(this.operatorRecordsElements[index].bodyKey);
+      for (const element of this.operatorRecordsElements) {
+        elements.push(element.bodyKey);
       }
 
       const context: ConsentContext = {
         subject: this.filter.user,
         owner: '', // géré côté backend
         orientation: ConsentFormOrientation.VERTICAL,
-        header: formValue.headerKey,
+        header: formValue.headerKey, // TODO : récupérer LE header, pas de sélection pour l'utilisateur
         elements: elements,
-        footer: formValue.footerKey,
+        footer: formValue.footerKey, // TODO : récupérer LE footer, pas de sélection pour l'utilisateur
         callback: '',
         locale: formValue.locale,
         formType: ConsentFormType.FULL,
@@ -211,7 +211,7 @@ export class UserRecordsComponent implements OnInit {
       };
 
       this.consentsResource.generateToken(context).subscribe((token) => {
-        var values = {};
+        const values = {};
         this.operatorRecordsElements.forEach(element => values[element.bodyKey] = element.value);
 
         const dto: OperatorRecordDto = {
@@ -221,7 +221,7 @@ export class UserRecordsComponent implements OnInit {
         };
 
         this.consentsResource.createOperatorRecords(dto).subscribe((result) => {
-          console.log("Receipt : " + result);
+          console.log('Receipt : ' + result);
           this.router.navigate(['../'], { relativeTo: this.activatedRoute });
         }, (err) => {
           console.error(err);

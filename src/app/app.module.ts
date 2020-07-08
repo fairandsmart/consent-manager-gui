@@ -29,8 +29,6 @@ import { TranslateLoader, TranslateModule, TranslateService } from '@ngx-transla
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 import { registerLocaleData } from '@angular/common';
 import localeFr from '@angular/common/locales/fr';
-import { StoreDevtoolsModule } from '@ngrx/store-devtools';
-import { environment } from '../environments/environment';
 import { ThemesComponent } from './themes/themes.component';
 import { ThemeComponent } from './theme/theme.component';
 import { EntryCardComponent } from './entry-card/entry-card.component';

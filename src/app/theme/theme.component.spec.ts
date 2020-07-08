@@ -9,7 +9,7 @@ import { ConsentsResourceService } from '../consents-resource.service';
 import SpyObj = jasmine.SpyObj;
 import createSpyObj = jasmine.createSpyObj;
 import { TranslateModule } from '@ngx-translate/core';
-import {of} from "rxjs";
+import { of } from 'rxjs';
 
 describe('ThemeComponent', () => {
   let component: ThemeComponent;
@@ -33,7 +33,7 @@ describe('ThemeComponent', () => {
   }));
 
   beforeEach(() => {
-    consentsResourceServiceSpy.getPreviewForm.and.returnValue(of("<html><div>ok</div></html>"));
+    consentsResourceServiceSpy.getPreviewForm.and.returnValue(of('<html lang="fr"><div>ok</div></html>'));
 
     fixture = TestBed.createComponent(ThemeComponent);
     component = fixture.componentInstance;

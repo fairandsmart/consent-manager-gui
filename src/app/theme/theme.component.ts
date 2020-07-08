@@ -21,7 +21,7 @@ export class ThemeComponent extends EntryContentDirective<Theme> implements OnIn
 
   private rawPreview: string;
 
-  @ViewChild("preview")
+  @ViewChild('preview')
   private iframe: ElementRef;
 
   constructor(
@@ -39,7 +39,7 @@ export class ThemeComponent extends EntryContentDirective<Theme> implements OnIn
 
   ngAfterViewInit(): void {
     this.consentsResourceService.getPreviewForm().subscribe((content) => {
-      this.rawPreview = content.split("/assets/").join(`${environment.managerUrl}/assets/`);
+      this.rawPreview = content.split('/assets/').join(`${environment.managerUrl}/assets/`);
       this.updatePreview();
     });
   }
@@ -57,10 +57,10 @@ export class ThemeComponent extends EntryContentDirective<Theme> implements OnIn
   }
 
   updatePreview(): void {
-    var result = this.rawPreview;
+    let result = this.rawPreview;
     const style = this.form.get('css');
     if (style && style.value) {
-      const headIndex = result.indexOf("</head>");
+      const headIndex = result.indexOf('</head>');
       result = result.substring(0, headIndex) + `<style>${style.value}</style>` + result.substring(headIndex);
     }
     this.iframe.nativeElement.contentDocument.body.innerHTML = result;

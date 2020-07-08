@@ -4,12 +4,12 @@ import { ThemesComponent } from './themes.component';
 import { ModelsResourceService } from '../models-resource.service';
 import SpyObj = jasmine.SpyObj;
 import createSpyObj = jasmine.createSpyObj;
-import {RouterTestingModule} from "@angular/router/testing";
-import {FormsModule} from "@angular/forms";
-import {MaterialModule} from "../material.module";
-import {NoopAnimationsModule} from "@angular/platform-browser/animations";
-import {TranslateModule} from "@ngx-translate/core";
-import {EMPTY, of} from "rxjs";
+import { RouterTestingModule } from '@angular/router/testing';
+import { FormsModule } from '@angular/forms';
+import { MaterialModule } from '../material.module';
+import { NoopAnimationsModule } from '@angular/platform-browser/animations';
+import { TranslateModule } from '@ngx-translate/core';
+import { EMPTY, of } from 'rxjs';
 
 describe('ThemesComponent', () => {
   let component: ThemesComponent;

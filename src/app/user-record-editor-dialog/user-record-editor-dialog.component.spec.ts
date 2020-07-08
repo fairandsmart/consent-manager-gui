@@ -7,8 +7,7 @@ import { MaterialModule } from '../material.module';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import SpyObj = jasmine.SpyObj;
 import createSpyObj = jasmine.createSpyObj;
-import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
-import { of } from 'rxjs';
+import { TranslateModule } from '@ngx-translate/core';
 
 describe('UserRecordEditorDialogComponent', () => {
   let component: UserRecordEditorDialogComponent;

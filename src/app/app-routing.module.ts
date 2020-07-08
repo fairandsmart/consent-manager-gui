@@ -7,7 +7,6 @@ import { UserRecordsComponent } from './user-records/user-records.component';
 import { RolesGuardService } from './guards/roles-guard.service';
 import { ConfigComponent } from './config/config.component';
 import { ThemesComponent } from './themes/themes.component';
-import { ThemeComponent } from './theme/theme.component';
 import { FormCreatorComponent } from './form-creator/form-creator.component';
 
 const routes: Routes = [

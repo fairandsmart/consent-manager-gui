@@ -23,3 +23,13 @@
 .operator-container {
   margin-top: 1em;
 }
+
+.list-content {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+
+  .list-content-text {
+    align-self: center;
+  }
+}

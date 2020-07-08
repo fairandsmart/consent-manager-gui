@@ -16,7 +16,7 @@ export class ConsentsResourceService {
   }
 
   getForm(token: string): Observable<string> {
-    return this.http.get<string>(`${environment.managerUrl}/consents`, {params: {'t': token}, responseType: 'text' as 'json'});
+    return this.http.get<string>(`${environment.managerUrl}/consents`, {params: {t: token}, responseType: 'text' as 'json'});
   }
 
   getFormUrl(token: string): string {

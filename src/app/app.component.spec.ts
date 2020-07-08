@@ -3,7 +3,6 @@ import { RouterTestingModule } from '@angular/router/testing';
 import { AppComponent } from './app.component';
 import { KeycloakAngularModule } from 'keycloak-angular';
 import { MaterialModule } from './material.module';
-import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { TranslateModule } from '@ngx-translate/core';
 
 describe('AppComponent', () => {
