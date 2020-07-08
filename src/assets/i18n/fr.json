@@ -52,37 +52,42 @@
     }
   },
   "ENTRIES": {
-    "HEADER": {
+    "header": {
       "PANEL_TITLE": "En-tête",
       "EMPTY": "Commencez par ajouter un en-tête...",
       "BUTTON_ADD": "Ajouter un en-tête"
     },
-    "TREATMENT": {
+    "treatment": {
       "PANEL_TITLE": "Traitements",
       "EMPTY": "Commencez par ajouter un traitement...",
       "BUTTON_ADD": "Ajouter un traitement"
     },
-    "FOOTER": {
+    "footer": {
       "PANEL_TITLE": "Pied de page",
       "BUTTON_ADD": "Ajouter un pied de page",
       "EMPTY": "Commencez par ajouter un pied de page...",
       "EXCLUDED": "Le formulaire ne contiendra pas de pied de page"
     },
+    "theme": {
+      "PANEL_TITLE": "Bibliothèque de thèmes",
+      "BUTTON_ADD": "Ajouter un thème",
+      "NO_DESCRIPTION": "Pas de description"
+    },
     "TITLE": "Éléments",
     "COMMON": {
-      "ID": {
+      "id": {
         "LABEL": "Id"
       },
-      "KEY": {
+      "key": {
         "LABEL": "Référence"
       },
-      "NAME": {
+      "name": {
         "LABEL": "Nom"
       },
-      "DESCRIPTION": {
+      "description": {
         "LABEL": "Description"
       },
-      "TYPE": {
+      "type": {
         "LABEL": "Type"
       }
     },

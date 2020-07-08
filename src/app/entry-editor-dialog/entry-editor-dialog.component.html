@@ -1,15 +1,15 @@
 <h2 mat-dialog-title>{{(updating ? 'ENTRIES.DIALOG.TITLE_UPDATE.' : 'ENTRIES.DIALOG.TITLE_NEW.') + data.entry.type.toUpperCase() | translate }}</h2>
 <div mat-dialog-content *ngIf="form" [formGroup]="form">
   <mat-form-field appearance="fill">
-    <mat-label>{{'ENTRIES.COMMON.NAME.LABEL' | translate}}</mat-label>
+    <mat-label>{{'ENTRIES.COMMON.name.LABEL' | translate}}</mat-label>
     <input matInput required formControlName="name" autocomplete="off">
   </mat-form-field>
   <mat-form-field appearance="fill">
-    <mat-label>{{'ENTRIES.COMMON.KEY.LABEL' | translate}}</mat-label>
+    <mat-label>{{'ENTRIES.COMMON.key.LABEL' | translate}}</mat-label>
     <input matInput required formControlName="key" autocomplete="off">
   </mat-form-field>
   <mat-form-field appearance="fill">
-    <mat-label>{{'ENTRIES.COMMON.DESCRIPTION.LABEL' | translate}}</mat-label>
+    <mat-label>{{'ENTRIES.COMMON.description.LABEL' | translate}}</mat-label>
     <textarea matInput formControlName="description" cdkTextareaAutosize></textarea>
   </mat-form-field>
 </div>

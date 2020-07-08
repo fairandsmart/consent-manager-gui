@@ -29,13 +29,16 @@ import { TranslateLoader, TranslateModule, TranslateService } from '@ngx-transla
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 import { registerLocaleData } from '@angular/common';
 import localeFr from '@angular/common/locales/fr';
+import { metaReducers, reducers } from './store/reducers';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 import { environment } from '../environments/environment';
-import { ThemesComponent } from './themes/themes.component';
 import { ThemeComponent } from './theme/theme.component';
 import { EntryCardComponent } from './entry-card/entry-card.component';
 import { FormCreatorComponent } from './form-creator/form-creator.component';
-import { EntriesLibraryComponent } from './entries/entries-library.component';
+import { EntriesLibraryDragAndDropComponent } from './entries/entries-library-drag-and-drop.component';
+import { EntriesPageComponent } from './entries-page/entries-page.component';
+import { ThemesPageComponent } from './themes-page/themes-page.component';
+import { EntriesLibrarySelectComponent } from './entries/entries-library-select.component';
 
 const keycloakService = new KeycloakService();
 
@@ -59,8 +62,10 @@ registerLocaleData(localeFr, 'fr');
   declarations: [
     AppComponent,
     ConfigComponent,
+    EntriesPageComponent,
     EntriesComponent,
-    EntriesLibraryComponent,
+    EntriesLibraryDragAndDropComponent,
+    EntriesLibrarySelectComponent,
     EntryComponent,
     HeaderComponent,
     TreatmentComponent,
@@ -73,9 +78,9 @@ registerLocaleData(localeFr, 'fr');
     RecordsComponent,
     UserRecordsComponent,
     UserRecordEditorDialogComponent,
-    ThemesComponent,
     ThemeComponent,
-    FormCreatorComponent
+    FormCreatorComponent,
+    ThemesPageComponent
   ],
   imports: [
     BrowserModule,

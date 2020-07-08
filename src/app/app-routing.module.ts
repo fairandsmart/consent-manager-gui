@@ -1,14 +1,13 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { EntriesComponent } from './entries/entries.component';
 import { EntryComponent } from './entry/entry.component';
 import { RecordsComponent } from './records/records.component';
 import { UserRecordsComponent } from './user-records/user-records.component';
 import { RolesGuardService } from './guards/roles-guard.service';
 import { ConfigComponent } from './config/config.component';
-import { ThemesComponent } from './themes/themes.component';
-import { ThemeComponent } from './theme/theme.component';
 import { FormCreatorComponent } from './form-creator/form-creator.component';
+import { EntriesPageComponent } from './entries-page/entries-page.component';
+import { ThemesPageComponent } from './themes-page/themes-page.component';
 
 const routes: Routes = [
   {
@@ -26,7 +25,7 @@ const routes: Routes = [
     children: [
       {
         path: 'entries',
-        component: EntriesComponent
+        component: EntriesPageComponent
       },
       {
         path: 'entries/:id',
@@ -34,7 +33,7 @@ const routes: Routes = [
       },
       {
         path: 'themes',
-        component: ThemesComponent
+        component: ThemesPageComponent
       },
       {
         path: 'themes/:id',

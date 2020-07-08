@@ -1,4 +1,4 @@
-@import '~@angular/material/theming';
+@import '~src/variables';
 
 :host {
   display: block;
@@ -23,7 +23,19 @@
     }
   }
 
-  &.entry-card-selectable:not(.cdk-drag-disabled) {
+  &.entry-card-selected {
+    cursor: pointer;
+    mat-card {
+      @include mat-elevation(6);
+      background-color: mat-color($app-accent, 500) !important;
+      color: $light-primary-text;
+      .entry-key, .entry-description {
+        color: $light-secondary-text !important;
+      }
+    }
+  }
+
+  &.entry-card-selectable:not(.cdk-drag-disabled):not(.entry-card-selected) {
     &:hover {
       cursor: pointer;
       mat-card {
@@ -35,6 +47,9 @@
   .mat-card {
     overflow: visible;
     ::ng-deep {
+      .entry-key, .entry-description {
+        color: $dark-secondary-text;
+      }
       .mat-card-title {
         font-size: 16px;
         display: flex;
@@ -45,7 +60,6 @@
         }
         .entry-key {
           font-size: 12px;
-          color: $dark-secondary-text;
         }
         mat-icon {
           font-size: 16px !important;
@@ -59,7 +73,6 @@
         white-space: nowrap;
         text-overflow: ellipsis;
         overflow: hidden;
-        color: $dark-secondary-text;
       }
     }
   }

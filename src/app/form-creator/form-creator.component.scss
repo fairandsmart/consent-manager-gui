@@ -53,7 +53,7 @@
   mat-sidenav {
     min-width: 400px;
     overflow: hidden;
-    app-entries-library ::ng-deep app-entry-card ::ng-deep mat-card {
+    app-entries-library-drag-and-drop ::ng-deep app-entry-card ::ng-deep mat-card {
       background-color: mat-color($mat-light-theme-background, background);
     }
   }

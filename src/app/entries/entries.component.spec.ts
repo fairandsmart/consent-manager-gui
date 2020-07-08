@@ -47,6 +47,8 @@ describe('EntriesComponent', () => {
 
     fixture = TestBed.createComponent(EntriesComponent);
     component = fixture.componentInstance;
+    component.sections = [];
+
     fixture.detectChanges();
   });
 
