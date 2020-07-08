@@ -163,6 +163,9 @@ export class FormCreatorComponent implements OnInit {
   }
 
   preview(): void {
+    if (this.form.invalid) {
+      return;
+    }
     this.form.disable();
     const formValue: Partial<ConsentContext & {forceDisplay: boolean}> = {
       ...this.form.at(FORM_CREATOR_STEP.OPTIONS).value,
