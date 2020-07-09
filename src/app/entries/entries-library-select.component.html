@@ -9,7 +9,7 @@
     <div>
       <ng-container *ngIf="(section.dataSource.connect() | async) as entries">
         <div class="section-toolbar">
-          <button *ngIf="section.multiple || entries?.length === 0" [matTooltip]="'ENTRIES.' + section.type + '.BUTTON_ADD' | translate" mat-mini-fab (click)="newEntry(section.type)"><mat-icon>add</mat-icon></button>
+          <div></div>
           <div *ngIf="section.showSort && entries.length > 0 && section.orderingOptions.length > 0" class="sort-actions">
             <button mat-button [matMenuTriggerFor]="orderMenu">{{'ENTRIES.COMMON.' + section.filter.order + '.LABEL' | translate}}</button>
             <mat-menu #orderMenu>
@@ -20,9 +20,9 @@
             <button (click)="toggleDirection(section)" mat-icon-button><mat-icon>{{section.filter.direction === 'asc' ? 'arrow_upward' : 'arrow_downward'}}</mat-icon></button>
           </div>
         </div>
-        <mat-grid-list *ngIf="entries.length > 0" cols="3" gutterSize="10" rowHeight="80" [class.loading]="section.dataSource.loading$ | async">
+        <mat-grid-list *ngIf="entries.length > 0" cols="2" gutterSize="10" rowHeight="80" [class.loading]="section.dataSource.loading$ | async">
           <mat-grid-tile *ngFor="let entry of entries">
-            <app-entry-card [routerLink]="'./' + entry.id" [entry]="entry"></app-entry-card>
+            <app-entry-card (click)="select(entry)" [selected]="isSelected(entry)" [entry]="entry"></app-entry-card>
           </mat-grid-tile>
         </mat-grid-list>
       </ng-container>

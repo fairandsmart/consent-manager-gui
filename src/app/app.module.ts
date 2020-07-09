@@ -7,7 +7,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { KeycloakAngularModule, KeycloakService } from 'keycloak-angular';
 import { KEYCLOAK_CONFIG } from '../keycloak-config';
 import { EntriesComponent } from './entries/entries.component';
-import { HttpClient, HttpClientModule } from '@angular/common/http';
+import { HTTP_INTERCEPTORS, HttpClient, HttpClientModule } from '@angular/common/http';
 import { EntryComponent } from './entry/entry.component';
 import { FooterComponent } from './footer/footer.component';
 import { ShortIdPipe } from './common/short-id.pipe';
@@ -29,11 +29,15 @@ import { TranslateLoader, TranslateModule, TranslateService } from '@ngx-transla
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 import { registerLocaleData } from '@angular/common';
 import localeFr from '@angular/common/locales/fr';
-import { ThemesComponent } from './themes/themes.component';
 import { ThemeComponent } from './theme/theme.component';
 import { EntryCardComponent } from './entry-card/entry-card.component';
 import { FormCreatorComponent } from './form-creator/form-creator.component';
-import { EntriesLibraryComponent } from './entries/entries-library.component';
+import { EntriesLibraryDragAndDropComponent } from './entries/entries-library-drag-and-drop.component';
+import { EntriesPageComponent } from './entries-page/entries-page.component';
+import { ThemesPageComponent } from './themes-page/themes-page.component';
+import { EntriesLibrarySelectComponent } from './entries/entries-library-select.component';
+import { HealthInterceptor } from './interceptors/health.interceptor';
+import { HealthErrorComponent } from './interceptors/health-error.component';
 
 const keycloakService = new KeycloakService();
 
@@ -57,8 +61,10 @@ registerLocaleData(localeFr, 'fr');
   declarations: [
     AppComponent,
     ConfigComponent,
+    EntriesPageComponent,
     EntriesComponent,
-    EntriesLibraryComponent,
+    EntriesLibraryDragAndDropComponent,
+    EntriesLibrarySelectComponent,
     EntryComponent,
     HeaderComponent,
     TreatmentComponent,
@@ -71,9 +77,10 @@ registerLocaleData(localeFr, 'fr');
     RecordsComponent,
     UserRecordsComponent,
     UserRecordEditorDialogComponent,
-    ThemesComponent,
     ThemeComponent,
-    FormCreatorComponent
+    FormCreatorComponent,
+    ThemesPageComponent,
+    HealthErrorComponent
   ],
   imports: [
     BrowserModule,
@@ -101,7 +108,8 @@ registerLocaleData(localeFr, 'fr');
     },
     {provide: MAT_SNACK_BAR_DEFAULT_OPTIONS, useValue: {duration: 3000}},
     // Workaround for https://github.com/angular/angular/issues/15039
-    {provide: LOCALE_ID, useClass: DynamicLocaleId, deps: [TranslateService]}
+    {provide: LOCALE_ID, useClass: DynamicLocaleId, deps: [TranslateService]},
+    {provide: HTTP_INTERCEPTORS, useClass: HealthInterceptor, multi: true},
   ]
 })
 export class AppModule implements DoBootstrap {

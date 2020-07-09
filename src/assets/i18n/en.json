@@ -52,37 +52,42 @@
     }
   },
   "ENTRIES": {
-    "HEADER": {
+    "header": {
       "PANEL_TITLE": "Header",
       "EMPTY": "First, create a header...",
       "BUTTON_ADD": "Add header"
     },
-    "TREATMENT": {
+    "treatment": {
       "PANEL_TITLE": "Treatments",
       "EMPTY": "First, create a treatment...",
       "BUTTON_ADD": "Add treatment"
     },
-    "FOOTER": {
+    "footer": {
       "PANEL_TITLE": "Footer",
       "BUTTON_ADD": "Add footer",
       "EMPTY": "First, add a footer...",
       "EXCLUDED": "The form will not have a footer."
     },
+    "theme": {
+      "PANEL_TITLE": "Themes library",
+      "BUTTON_ADD": "Add theme",
+      "NO_DESCRIPTION": "No description"
+    },
     "TITLE": "Entries",
     "COMMON": {
-      "ID": {
+      "id": {
         "LABEL": "Id"
       },
-      "KEY": {
+      "key": {
         "LABEL": "Reference"
       },
-      "NAME": {
+      "name": {
         "LABEL": "Name"
       },
-      "DESCRIPTION": {
+      "description": {
         "LABEL": "Description"
       },
-      "TYPE": {
+      "type": {
         "LABEL": "Type"
       }
     },
@@ -258,9 +263,6 @@
   },
   "THEMES": {
     "TITLE": "Themes",
-    "PANEL_TITLE": "Themes library",
-    "BUTTON_ADD": "Add theme",
-    "NO_DESCRIPTION": "No description",
     "IFRAME": {
       "TITLE": "Preview"
     },
@@ -419,5 +421,10 @@
     "IFRAME": {
       "TITLE": "Result"
     }
+  },
+  "HEALTH": {
+    "TITLE": "Server unavailable",
+    "CONTENT": "Unable to contact the server. Please try again later.",
+    "RELOAD": "Reload the page"
   }
 }

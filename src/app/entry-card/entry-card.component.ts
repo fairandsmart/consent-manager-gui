@@ -16,7 +16,8 @@ export class EntryCardComponent implements OnInit {
   selectable = true;
 
   @Input()
-  showStatus = false;
+  @HostBinding('class.entry-card-selected')
+  selected: boolean;
 
   constructor() { }
 

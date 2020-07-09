@@ -12,14 +12,15 @@ import {
   RECEIPT_DELIVERY_TYPES
 } from '../models';
 import { tap } from 'rxjs/operators';
-import * as _ from 'lodash';
-import { BehaviorSubject, Observable, zip } from 'rxjs';
+import { zip } from 'rxjs';
 import { CdkDragDrop, copyArrayItem, moveItemInArray } from '@angular/cdk/drag-drop';
 import { FormArray, FormBuilder, Validators } from '@angular/forms';
 import { LANGUAGES } from '../common/constants';
 import { ConsentsResourceService } from '../consents-resource.service';
 import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
 import { StepperSelectionEvent } from '@angular/cdk/stepper';
+import { SectionConfig } from '../entries/entries.component';
+import { environment } from '../../environments/environment';
 
 enum FORM_CREATOR_STEP {
   ELEMENTS,
@@ -38,27 +39,57 @@ enum FORM_CREATOR_STEP {
 })
 export class FormCreatorComponent implements OnInit {
 
-  public entriesByType = {
+  public elementsConfig: {[type: string]: {
+      draggingDisabled: boolean,
+      included: boolean
+    }} = {
     header: {
-      selected: [],
       draggingDisabled: false,
       included: true
     },
     treatment: {
-      selected: [],
       draggingDisabled: false,
       included: true
     },
     footer: {
-      selected: [],
       draggingDisabled: false,
       included: true
     }
   };
 
-  private selectedByTypeSource: BehaviorSubject<{ [type: string]: ModelEntry[] }>
-    = new BehaviorSubject<{ [p: string]: ModelEntry[] }>(null);
-  public selectedByType$: Observable<{ [type: string]: ModelEntry[] }> = this.selectedByTypeSource.asObservable();
+  public selectedElements: {[type: string]: ModelEntry[]} = {
+    header: [],
+    treatment: [],
+    footer: []
+  };
+
+  public elementsLibraryConfig: SectionConfig[] = [
+    {
+      type: 'header',
+      multiple: environment.customization.multipleHeader,
+      showSort: false
+    },
+    {
+      type: 'treatment',
+      multiple: true,
+      showSort: true
+    },
+    {
+      type: 'footer',
+      multiple: environment.customization.multipleFooter,
+      showSort: false
+    },
+  ];
+
+  public themesLibraryConfig: SectionConfig[] = [
+    {
+      type: 'theme',
+      multiple: true,
+      showSort: true
+    }
+  ];
+
+  public selectedTheme: {[type: string]: ModelEntry[]} = {theme: []};
 
   public form: FormArray;
   public readonly STEPS = FORM_CREATOR_STEP;
@@ -69,8 +100,6 @@ export class FormCreatorComponent implements OnInit {
   public formUrl: SafeResourceUrl;
   private previousContext: ConsentContext;
 
-  public themes: ModelEntry[];
-
   constructor(private consentsResource: ConsentsResourceService,
               private modelsResource: ModelsResourceService,
               private fb: FormBuilder,
@@ -80,19 +109,17 @@ export class FormCreatorComponent implements OnInit {
     const types: ModelDataType[] = ['header', 'treatment', 'footer'];
     zip(...types.map(t => this.modelsResource.listEntries({types: [t], size: 1}))).pipe(
       tap((responses) => {
+        const selected: {[type: string]: ModelEntry[]} = {...this.selectedElements};
         responses.forEach((response, index) => {
           if (response.totalCount === 1) {
             const type: ModelDataType = types[index];
-            this.entriesByType[type].selected = response.values;
-            this.entriesByType[type].draggingDisabled = true;
+            selected[type] = response.values;
+            this.elementsConfig[type].draggingDisabled = true;
           }
         });
-        this.refreshSelectedByType();
+        this.setSelectedElements(selected);
       })
     ).subscribe();
-    this.modelsResource.listEntries({types: ['theme']}).subscribe((response) => {
-      this.themes = response.values;
-    });
     this.form = this.fb.array([
       this.fb.group({
         header: ['', [Validators.required, Validators.pattern(FIELD_VALIDATORS.key.pattern)]],
@@ -107,13 +134,15 @@ export class FormCreatorComponent implements OnInit {
         locale: ['', [Validators.required]],
         forceDisplay: [true, [Validators.required]],
         optoutEmail: [''],
-        preview: [true, [Validators.required]],
+        preview: [true, [Validators.required]]
+      }),
+      this.fb.group({
         theme: ['', [Validators.pattern(FIELD_VALIDATORS.key.pattern)]]
       })
     ]);
   }
 
-  drop(event: CdkDragDrop<ModelEntry[]>): void {
+  elementDropped(event: CdkDragDrop<ModelEntry[]>): void {
     if (event.previousContainer === event.container) {
       moveItemInArray(event.container.data, event.previousIndex, event.currentIndex);
     } else {
@@ -122,20 +151,26 @@ export class FormCreatorComponent implements OnInit {
         event.previousIndex,
         event.currentIndex);
     }
-    this.refreshSelectedByType();
-    this.syncFormValuesForEntries();
+    this.setSelectedElements({...this.selectedElements});
   }
 
-  droppedOut(): void {
-    this.refreshSelectedByType();
-    this.syncFormValuesForEntries();
+  selectedElementsChange(event: {[type: string]: ModelEntry[]}): void {
+    this.setSelectedElements(event);
+  }
+
+  selectedThemeChange(event: {[type: string]: ModelEntry[]}): void {
+    this.setSelectedTheme(event);
   }
 
   preview(): void {
+    if (this.form.invalid) {
+      return;
+    }
     this.form.disable();
     const formValue: Partial<ConsentContext & {forceDisplay: boolean}> = {
       ...this.form.at(FORM_CREATOR_STEP.OPTIONS).value,
-      ...this.form.at(FORM_CREATOR_STEP.ELEMENTS).value
+      ...this.form.at(FORM_CREATOR_STEP.ELEMENTS).value,
+      ...this.form.at(FORM_CREATOR_STEP.PREVIEW).value
     };
     const context: ConsentContext = {
       owner: '', // géré côté backend
@@ -178,16 +213,21 @@ export class FormCreatorComponent implements OnInit {
     }
   }
 
-  private refreshSelectedByType(): void {
-    this.selectedByTypeSource.next(_.mapValues(this.entriesByType, 'selected'));
+  private setSelectedElements(value: {[type: string]: ModelEntry[]}): void {
+    this.selectedElements = value;
+    this.form.at(FORM_CREATOR_STEP.ELEMENTS).setValue({
+      header: this.selectedElements.header.map(e => e.key)?.[0] || '',
+      elements: this.selectedElements.treatment.map(e => e.key),
+      footer: this.selectedElements.footer.map(e => e.key)?.[0] || ''
+    });
   }
 
-  private syncFormValuesForEntries(): void {
-    this.form.at(FORM_CREATOR_STEP.ELEMENTS).setValue({
-      header: this.entriesByType.header.selected.map(e => e.key)?.[0] || '',
-      elements: this.entriesByType.treatment.selected.map(e => e.key),
-      footer: this.entriesByType.footer.selected.map(e => e.key)?.[0] || ''
+  private setSelectedTheme(value: {[type: string]: ModelEntry[]}): void {
+    this.selectedTheme = value;
+    this.form.at(FORM_CREATOR_STEP.PREVIEW).setValue({
+      theme: value.theme?.[0]?.key || ''
     });
+    this.preview();
   }
 
 }

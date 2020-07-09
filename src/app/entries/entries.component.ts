@@ -1,4 +1,4 @@
-import { AfterViewInit, ChangeDetectionStrategy, Component, OnInit, QueryList, ViewChildren } from '@angular/core';
+import { AfterViewInit, ChangeDetectionStrategy, Component, Input, OnInit, QueryList, ViewChildren } from '@angular/core';
 import { MatPaginator } from '@angular/material/paginator';
 import { Observable } from 'rxjs';
 import { tap } from 'rxjs/operators';
@@ -6,28 +6,28 @@ import { MatDialog } from '@angular/material/dialog';
 import { EntryEditorDialogComponent, EntryEditorDialogComponentData } from '../entry-editor-dialog/entry-editor-dialog.component';
 import { CollectionPage, ModelDataType, ModelEntry, ModelFilter } from '../models';
 import { ModelsResourceService } from '../models-resource.service';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { CollectionDatasource } from '../common/collection-datasource';
-import { environment } from '../../environments/environment';
 
-class ConsentElementEntryDataSource extends CollectionDatasource<ModelEntry, ModelFilter> {
+export class ConsentElementEntryDataSource extends CollectionDatasource<ModelEntry, ModelFilter> {
 
-  constructor(private modelsResourceService: ModelsResourceService) {
+  constructor(private modelsResource: ModelsResourceService) {
     super();
   }
 
   protected getPage(pageFilter: ModelFilter): Observable<CollectionPage<ModelEntry>> {
-    return this.modelsResourceService.listEntries(pageFilter);
+    return this.modelsResource.listEntries(pageFilter);
   }
 
 }
 
-interface SectionConfig {
+export interface SectionConfig {
   type: ModelDataType;
   multiple: boolean;
   showSort: boolean;
-  dataSource: ConsentElementEntryDataSource;
-  filter: ModelFilter;
+  filter?: ModelFilter;
+  dataSource?: ConsentElementEntryDataSource;
+  orderingOptions?: (keyof ModelEntry)[];
 }
 
 @Component({
@@ -38,53 +38,37 @@ interface SectionConfig {
 })
 export class EntriesComponent implements OnInit, AfterViewInit {
 
-  sections: SectionConfig[] = [
-    {
-      type: 'header',
-      multiple: environment.customization.multipleHeader,
-      showSort: false,
-      dataSource: new ConsentElementEntryDataSource(this.modelsResourceService),
-      filter: {
-        types: ['header'],
-        page: 0,
-        size: 12
-      }
-    },
-    {
-      type: 'treatment',
-      multiple: true,
-      showSort: true,
-      dataSource: new ConsentElementEntryDataSource(this.modelsResourceService),
-      filter: {
-        types: ['treatment'],
-        page: 0,
-        size: 12,
-        order: 'name',
-        direction: 'asc'
-      }
-    },
-    {
-      type: 'footer',
-      multiple: environment.customization.multipleFooter,
-      showSort: false,
-      dataSource: new ConsentElementEntryDataSource(this.modelsResourceService),
-      filter: {
-        types: ['footer'],
-        page: 0,
-        size: 12
-      }
-    },
-  ];
+  // tslint:disable-next-line:no-input-rename
+  @Input('config')
+  sections: SectionConfig[];
 
   @ViewChildren(MatPaginator)
   paginators!: QueryList<MatPaginator>;
 
   constructor(
-      private modelsResourceService: ModelsResourceService,
+      private modelsResource: ModelsResourceService,
       private dialog: MatDialog,
+      private route: ActivatedRoute,
       private router: Router) {}
 
   ngOnInit(): void {
+    this.sections.forEach(s => {
+      if (s.dataSource == null) {
+        s.dataSource = new ConsentElementEntryDataSource(this.modelsResource);
+      }
+      if (s.orderingOptions == null) {
+        s.orderingOptions = ['name', 'key'];
+      }
+      if (s.filter == null) {
+        s.filter = {
+          types: [s.type],
+          page: 0,
+          size: 12,
+          order: 'name',
+          direction: 'asc'
+        };
+      }
+    });
     this.loadEntriesPage();
   }
 
@@ -125,7 +109,7 @@ export class EntriesComponent implements OnInit, AfterViewInit {
       data: {entry: {type}}
     }).afterClosed().subscribe((entry) => {
       if (entry != null) {
-        this.router.navigate(['config/entries', entry.id]);
+        this.router.navigate(['.', entry.id], {relativeTo: this.route});
       }
     });
   }
