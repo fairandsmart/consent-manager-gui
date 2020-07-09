@@ -1,23 +1,5 @@
 @import '~@angular/material/theming';
 
-:host {
-  display: block;
-  mat-expansion-panel {
-    box-shadow: none !important;
-    background: none !important;
-
-    .mat-expansion-panel-header {
-      background: none !important;
-
-      .mat-progress-bar {
-        align-self: center;
-        width: 32px;
-        margin-left: 10px;
-      }
-    }
-  }
-}
-
 .section-toolbar {
   margin-bottom: 1em;
   display: flex;

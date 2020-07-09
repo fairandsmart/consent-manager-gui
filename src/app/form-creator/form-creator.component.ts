@@ -7,7 +7,6 @@ import {
   ConsentFormOrientation,
   ConsentFormType,
   FIELD_VALIDATORS,
-  ModelDataType,
   ModelEntry,
   RECEIPT_DELIVERY_TYPES
 } from '../models';
@@ -19,7 +18,7 @@ import { LANGUAGES } from '../common/constants';
 import { ConsentsResourceService } from '../consents-resource.service';
 import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
 import { StepperSelectionEvent } from '@angular/cdk/stepper';
-import { SectionConfig } from '../entries/entries.component';
+import { SectionConfig } from '../entries/entries-library/entries-library.component';
 import { environment } from '../../environments/environment';
 
 enum FORM_CREATOR_STEP {
@@ -39,57 +38,49 @@ enum FORM_CREATOR_STEP {
 })
 export class FormCreatorComponent implements OnInit {
 
-  public elementsConfig: {[type: string]: {
-      draggingDisabled: boolean,
-      included: boolean
-    }} = {
-    header: {
-      draggingDisabled: false,
-      included: true
-    },
-    treatment: {
-      draggingDisabled: false,
-      included: true
-    },
-    footer: {
-      draggingDisabled: false,
-      included: true
-    }
+  public selectedElements: {[id: string]: ModelEntry[]} = {
+    headers: [],
+    treatments: [],
+    footers: []
   };
 
-  public selectedElements: {[type: string]: ModelEntry[]} = {
-    header: [],
-    treatment: [],
-    footer: []
-  };
-
-  public elementsLibraryConfig: SectionConfig[] = [
+  public elementsLibraryConfig: (SectionConfig & {draggingDisabled: boolean, included: boolean})[] = [
     {
-      type: 'header',
+      id: 'headers',
+      types: ['header'],
       multiple: environment.customization.multipleHeader,
-      showSort: false
+      showSort: environment.customization.multipleHeader,
+      draggingDisabled: false,
+      included: true
     },
     {
-      type: 'treatment',
+      id: 'treatments',
+      types: ['treatment'],
       multiple: true,
-      showSort: true
+      showSort: true,
+      draggingDisabled: false,
+      included: true
     },
     {
-      type: 'footer',
+      id: 'footers',
+      types: ['footer'],
       multiple: environment.customization.multipleFooter,
-      showSort: false
+      showSort: environment.customization.multipleFooter,
+      draggingDisabled: false,
+      included: true
     },
   ];
 
   public themesLibraryConfig: SectionConfig[] = [
     {
-      type: 'theme',
+      id: 'themes',
+      types: ['theme'],
       multiple: true,
       showSort: true
     }
   ];
 
-  public selectedTheme: {[type: string]: ModelEntry[]} = {theme: []};
+  public selectedTheme: {[id: string]: ModelEntry[]} = {themes: []};
 
   public form: FormArray;
   public readonly STEPS = FORM_CREATOR_STEP;
@@ -106,15 +97,14 @@ export class FormCreatorComponent implements OnInit {
               private sanitizer: DomSanitizer) { }
 
   ngOnInit(): void {
-    const types: ModelDataType[] = ['header', 'treatment', 'footer'];
-    zip(...types.map(t => this.modelsResource.listEntries({types: [t], size: 1}))).pipe(
+    zip(...this.elementsLibraryConfig.map(c => this.modelsResource.listEntries({types: c.types, size: 1}))).pipe(
       tap((responses) => {
-        const selected: {[type: string]: ModelEntry[]} = {...this.selectedElements};
+        const selected: {[id: string]: ModelEntry[]} = {...this.selectedElements};
         responses.forEach((response, index) => {
           if (response.totalCount === 1) {
-            const type: ModelDataType = types[index];
-            selected[type] = response.values;
-            this.elementsConfig[type].draggingDisabled = true;
+            const config = this.elementsLibraryConfig[index];
+            selected[config.id] = response.values;
+            config.draggingDisabled = true;
           }
         });
         this.setSelectedElements(selected);
@@ -154,11 +144,11 @@ export class FormCreatorComponent implements OnInit {
     this.setSelectedElements({...this.selectedElements});
   }
 
-  selectedElementsChange(event: {[type: string]: ModelEntry[]}): void {
+  selectedElementsChange(event: {[id: string]: ModelEntry[]}): void {
     this.setSelectedElements(event);
   }
 
-  selectedThemeChange(event: {[type: string]: ModelEntry[]}): void {
+  selectedThemeChange(event: {[id: string]: ModelEntry[]}): void {
     this.setSelectedTheme(event);
   }
 
@@ -213,19 +203,25 @@ export class FormCreatorComponent implements OnInit {
     }
   }
 
-  private setSelectedElements(value: {[type: string]: ModelEntry[]}): void {
-    this.selectedElements = value;
+  includedChange(): void {
+    // Set selected elements to take into account included state
+    this.setSelectedElements(this.selectedElements);
+  }
+
+  private setSelectedElements(selected: {[id: string]: ModelEntry[]}): void {
+    this.selectedElements = selected;
+    const footerIncluded = this.elementsLibraryConfig.find(c => c.id === 'footers').included;
     this.form.at(FORM_CREATOR_STEP.ELEMENTS).setValue({
-      header: this.selectedElements.header.map(e => e.key)?.[0] || '',
-      elements: this.selectedElements.treatment.map(e => e.key),
-      footer: this.selectedElements.footer.map(e => e.key)?.[0] || ''
+      header: this.selectedElements.headers.map(e => e.key)?.[0] || '',
+      elements: this.selectedElements.treatments.map(e => e.key),
+      footer: footerIncluded ? this.selectedElements.footers.map(e => e.key)?.[0] || '' : ''
     });
   }
 
-  private setSelectedTheme(value: {[type: string]: ModelEntry[]}): void {
-    this.selectedTheme = value;
+  private setSelectedTheme(selected: {[id: string]: ModelEntry[]}): void {
+    this.selectedTheme = selected;
     this.form.at(FORM_CREATOR_STEP.PREVIEW).setValue({
-      theme: value.theme?.[0]?.key || ''
+      theme: this.selectedTheme.themes?.[0]?.key || ''
     });
     this.preview();
   }

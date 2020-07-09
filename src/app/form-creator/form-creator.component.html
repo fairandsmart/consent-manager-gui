@@ -2,27 +2,30 @@
   <mat-sidenav-content>
       <mat-horizontal-stepper #stepper linear="true" labelPosition="bottom" (selectionChange)="stepChange($event)">
         <mat-step [label]="'TOKEN.STEP_ELEMENTS' | translate" [stepControl]="form.at(STEPS.ELEMENTS)">
-          <ng-container *ngFor="let type of ['header', 'treatment', 'footer']">
+          <ng-container *ngFor="let section of elementsLibraryConfig">
             <h4>
-              <span>{{'ENTRIES.' + type + '.PANEL_TITLE' | translate}}</span>
-              <mat-slide-toggle *ngIf="type === 'footer'" [(ngModel)]="elementsConfig[type].included"></mat-slide-toggle>
+              <span>{{'ENTRIES.' + section.id + '.PANEL_TITLE' | translate}}</span>
+              <mat-slide-toggle *ngIf="section.id === 'footers'" [(ngModel)]="section.included" (ngModelChange)="includedChange()"></mat-slide-toggle>
             </h4>
             <div class="form-container"
-                 [class.excluded]="!elementsConfig[type].included"
-                 [class.empty]="selectedElements[type].length === 0"
-                 cdkDropList [id]="'selected-' + type"
-                 [cdkDropListDisabled]="elementsConfig[type].draggingDisabled"
-                 [cdkDropListData]="selectedElements[type]"
-                 [cdkDropListConnectedTo]="['available-' + type]"
+                 [class.excluded]="!section.included"
+                 [class.empty]="selectedElements[section.id].length === 0"
+                 cdkDropList [id]="'selected-' + section.id"
+                 [cdkDropListDisabled]="section.draggingDisabled"
+                 [cdkDropListData]="selectedElements[section.id]"
+                 [cdkDropListConnectedTo]="['available-' + section.id]"
                  (cdkDropListDropped)="elementDropped($event)">
-              <mat-card *ngIf="selectedElements[type].length === 0" class="empty-hint">
-                <span>{{'ENTRIES.' + type + '.EMPTY' | translate}}</span>
+              <mat-card *ngIf="selectedElements[section.id].length === 0" class="empty-hint">
+                <span>{{'ENTRIES.' + section.id + '.EMPTY' | translate}}</span>
               </mat-card>
-              <app-entry-card *ngFor="let entry of selectedElements[type]"
-                              cdkDrag [selectable]="!elementsConfig[type].draggingDisabled" [entry]="entry"></app-entry-card>
+              <app-entry-card *ngFor="let entry of selectedElements[section.id]"
+                              cdkDrag
+                              [selectable]="!section.draggingDisabled"
+                              [cdkDragData]="entry"
+                              [entry]="entry"></app-entry-card>
             </div>
-            <div *ngIf="!elementsConfig[type].included" class="form-container">
-              <mat-card class="excluded-hint">{{'ENTRIES.' + type + '.EXCLUDED' | translate}}</mat-card>
+            <div *ngIf="!section.included" class="form-container">
+              <mat-card class="excluded-hint">{{'ENTRIES.' + section.id + '.EXCLUDED' | translate}}</mat-card>
             </div>
           </ng-container>
           <div class="step-actions">
@@ -74,17 +77,15 @@
       </mat-horizontal-stepper>
   </mat-sidenav-content>
   <mat-sidenav opened mode="side" position="end">
-    <app-entries-library-drag-and-drop
-      name="selected-elements"
+    <app-entries-library
+      [style]="stepper.selectedIndex !== STEPS.ELEMENTS ? 'display: none' : ''"
       [config]="elementsLibraryConfig"
-      [ngModel]="selectedElements"
-      (ngModelChange)="selectedElementsChange($event)"
-      [style]="stepper.selectedIndex !== STEPS.ELEMENTS ? 'display: none' : ''"></app-entries-library-drag-and-drop>
-    <app-entries-library-select
-      name="selected-theme"
+      [selected]="selectedElements" [mode]="'drag'"
+      (selectedChange)="selectedElementsChange($event)"></app-entries-library>
+    <app-entries-library
+      [style]="stepper.selectedIndex !== STEPS.PREVIEW ? 'display: none' : ''"
       [config]="themesLibraryConfig"
-      [ngModel]="selectedTheme"
-      (ngModelChange)="selectedThemeChange($event)"
-      [style]="stepper.selectedIndex !== STEPS.PREVIEW ? 'display: none' : ''"></app-entries-library-select>
+      [selected]="selectedTheme" [mode]="'select'"
+      (selectedChange)="selectedThemeChange($event)"></app-entries-library>
   </mat-sidenav>
 </mat-sidenav-container>

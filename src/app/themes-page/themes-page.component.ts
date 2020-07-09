@@ -1,17 +1,18 @@
 import { Component } from '@angular/core';
-import { SectionConfig } from '../entries/entries.component';
+import { SectionConfig } from '../entries/entries-library/entries-library.component';
 
 @Component({
   selector: 'app-themes-page',
   template: `
-    <app-entries [config]="config"></app-entries>
+    <app-entries-library [config]="config"></app-entries-library>
   `
 })
 export class ThemesPageComponent {
 
   public config: SectionConfig[] = [
     {
-      type: 'theme',
+      id: 'themes',
+      types: ['theme'],
       multiple: true,
       showSort: true
     }

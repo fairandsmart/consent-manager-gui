@@ -1,30 +1,30 @@
 import { ChangeDetectionStrategy, Component, forwardRef, Input, OnInit } from '@angular/core';
-import { EntriesComponent } from './entries.component';
-import { ModelEntry } from '../models';
+import { ModelEntry } from '../../models';
 import { CdkDragDrop, transferArrayItem } from '@angular/cdk/drag-drop';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
+import { EntriesListComponent } from '../entries-list/entries-list.component';
 
 @Component({
-  selector: 'app-entries-library-drag-and-drop',
-  templateUrl: './entries-library-drag-and-drop.component.html',
-  styleUrls: ['./entries.component.scss', './entries-library-drag-and-drop.component.scss'],
+  selector: 'app-entries-list-drag-and-drop',
+  templateUrl: './entries-list-drag-and-drop.component.html',
+  styleUrls: ['../entries-list/entries-list.component.scss', './entries-list-drag-and-drop.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
   providers: [
     {
       provide: NG_VALUE_ACCESSOR,
-      useExisting: forwardRef(() => EntriesLibraryDragAndDropComponent),
+      useExisting: forwardRef(() => EntriesListDragAndDropComponent),
       multi: true
     }
   ]
 })
-export class EntriesLibraryDragAndDropComponent extends EntriesComponent implements OnInit, ControlValueAccessor {
+export class EntriesListDragAndDropComponent extends EntriesListComponent implements OnInit, ControlValueAccessor {
 
-  private selected: {[type: string]: ModelEntry[]};
+  private selected: ModelEntry[];
 
   @Input()
   disabled = false;
 
-  private onChange = (value: {[type: string]: ModelEntry[]}) => {};
+  private onChange = (value: ModelEntry[]) => {};
 
   private onTouched = () => {};
 
@@ -44,9 +44,10 @@ export class EntriesLibraryDragAndDropComponent extends EntriesComponent impleme
     this.disabled = isDisabled;
   }
 
-  writeValue(value: {[type: string]: ModelEntry[]}): void {
+  writeValue(value: ModelEntry[]): void {
     this.selected = value;
     this.onChange(value);
+    this.ref.markForCheck();
   }
 
   isDisabled(entry: ModelEntry): boolean {
@@ -54,7 +55,7 @@ export class EntriesLibraryDragAndDropComponent extends EntriesComponent impleme
   }
 
   isSelected(entry: ModelEntry): boolean {
-    return this.selected?.[entry.type]?.some(e => e.key === entry.key);
+    return this.selected?.some(e => e.key === entry.key);
   }
 
   drop(event: CdkDragDrop<ModelEntry[]>) {

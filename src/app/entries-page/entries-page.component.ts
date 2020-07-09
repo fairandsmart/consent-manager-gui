@@ -1,30 +1,33 @@
 import { Component } from '@angular/core';
 import { environment } from '../../environments/environment';
-import { SectionConfig } from '../entries/entries.component';
+import { SectionConfig } from '../entries/entries-library/entries-library.component';
 
 @Component({
   selector: 'app-entries-page',
   template: `
-    <app-entries [config]="config"></app-entries>
+    <app-entries-library [config]="config"></app-entries-library>
   `
 })
 export class EntriesPageComponent {
 
   public config: SectionConfig[] = [
     {
-      type: 'header',
+      id: 'headers',
+      types: ['header'],
       multiple: environment.customization.multipleHeader,
-      showSort: false
+      showSort: environment.customization.multipleHeader
     },
     {
-      type: 'treatment',
+      id: 'treatments',
+      types: ['treatment'],
       multiple: true,
       showSort: true
     },
     {
-      type: 'footer',
+      id: 'footers',
+      types: ['footer'],
       multiple: environment.customization.multipleFooter,
-      showSort: false
+      showSort: environment.customization.multipleFooter
     },
   ];
 

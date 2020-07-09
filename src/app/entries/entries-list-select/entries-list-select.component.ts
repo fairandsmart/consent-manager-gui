@@ -1,24 +1,24 @@
 import { ChangeDetectionStrategy, Component, forwardRef, Input, OnInit } from '@angular/core';
-import { EntriesComponent } from './entries.component';
-import { ModelEntry } from '../models';
+import { ModelEntry } from '../../models';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
+import { EntriesListComponent } from '../entries-list/entries-list.component';
 
 @Component({
-  selector: 'app-entries-library-select',
-  templateUrl: './entries-library-select.component.html',
-  styleUrls: ['./entries.component.scss'],
+  selector: 'app-entries-list-select',
+  templateUrl: './entries-list-select.component.html',
+  styleUrls: ['../entries-list/entries-list.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
   providers: [
     {
       provide: NG_VALUE_ACCESSOR,
-      useExisting: forwardRef(() => EntriesLibrarySelectComponent),
+      useExisting: forwardRef(() => EntriesListSelectComponent),
       multi: true
     }
   ]
 })
-export class EntriesLibrarySelectComponent extends EntriesComponent implements OnInit, ControlValueAccessor {
+export class EntriesListSelectComponent extends EntriesListComponent implements OnInit, ControlValueAccessor {
 
-  private selected: {[type: string]: ModelEntry[]};
+  private selected: ModelEntry[];
 
   @Input()
   multiple = false;
@@ -26,7 +26,7 @@ export class EntriesLibrarySelectComponent extends EntriesComponent implements O
   @Input()
   disabled = false;
 
-  private onChange = (value: {[type: string]: ModelEntry[]}) => {};
+  private onChange = (value: ModelEntry[]) => {};
 
   private onTouched = () => {};
 
@@ -46,23 +46,24 @@ export class EntriesLibrarySelectComponent extends EntriesComponent implements O
     this.disabled = isDisabled;
   }
 
-  writeValue(value: {[type: string]: ModelEntry[]}): void {
+  writeValue(value: ModelEntry[]): void {
     this.selected = value;
     this.onChange(value);
+    this.ref.markForCheck();
   }
 
   isSelected(entry: ModelEntry): boolean {
-    return this.selected?.[entry.type]?.some(e => e.key === entry.key);
+    return this.selected?.some(e => e.key === entry.key);
   }
 
   select(entry: ModelEntry): void {
     if (this.isSelected(entry)) {
-      this.selected[entry.type] = this.selected[entry.type].filter(e => e.key !== entry.key);
+      this.selected = this.selected.filter(e => e.key !== entry.key);
     } else {
       if (this.multiple) {
-        this.selected[entry.type] = this.selected[entry.type].concat(entry);
+        this.selected = this.selected.concat(entry);
       } else {
-        this.selected[entry.type] = [entry];
+        this.selected = [entry];
       }
     }
     this.onChange(this.selected);

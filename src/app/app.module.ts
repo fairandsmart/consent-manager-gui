@@ -6,7 +6,6 @@ import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { KeycloakAngularModule, KeycloakService } from 'keycloak-angular';
 import { KEYCLOAK_CONFIG } from '../keycloak-config';
-import { EntriesComponent } from './entries/entries.component';
 import { HTTP_INTERCEPTORS, HttpClient, HttpClientModule } from '@angular/common/http';
 import { EntryComponent } from './entry/entry.component';
 import { FooterComponent } from './footer/footer.component';
@@ -32,12 +31,14 @@ import localeFr from '@angular/common/locales/fr';
 import { ThemeComponent } from './theme/theme.component';
 import { EntryCardComponent } from './entry-card/entry-card.component';
 import { FormCreatorComponent } from './form-creator/form-creator.component';
-import { EntriesLibraryDragAndDropComponent } from './entries/entries-library-drag-and-drop.component';
 import { EntriesPageComponent } from './entries-page/entries-page.component';
 import { ThemesPageComponent } from './themes-page/themes-page.component';
-import { EntriesLibrarySelectComponent } from './entries/entries-library-select.component';
 import { HealthInterceptor } from './interceptors/health.interceptor';
 import { HealthErrorComponent } from './interceptors/health-error.component';
+import { EntriesLibraryComponent } from './entries/entries-library/entries-library.component';
+import { EntriesListDragAndDropComponent } from './entries/entries-list-drag-and-drop/entries-list-drag-and-drop.component';
+import { EntriesListSelectComponent } from './entries/entries-list-select/entries-list-select.component';
+import { EntriesListComponent } from './entries/entries-list/entries-list.component';
 
 const keycloakService = new KeycloakService();
 
@@ -62,9 +63,10 @@ registerLocaleData(localeFr, 'fr');
     AppComponent,
     ConfigComponent,
     EntriesPageComponent,
-    EntriesComponent,
-    EntriesLibraryDragAndDropComponent,
-    EntriesLibrarySelectComponent,
+    EntriesLibraryComponent,
+    EntriesListComponent,
+    EntriesListDragAndDropComponent,
+    EntriesListSelectComponent,
     EntryComponent,
     HeaderComponent,
     TreatmentComponent,
