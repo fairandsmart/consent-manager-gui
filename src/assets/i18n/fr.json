@@ -224,7 +224,11 @@
             "LABEL": "Contient des données de santé"
           },
           "THIRD_PARTIES": {
-            "LABEL": "Tierce-parties"
+            "LABEL": "Tierce-parties",
+            "NAME": "Nom",
+            "VALUE": "Description",
+            "BUTTON_ADD": "Ajouter une tierce-partie",
+            "EMPTY": "Aucune tierce-partie pour le moment."
           }
         },
         "CONDITIONS": {

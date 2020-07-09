@@ -99,7 +99,7 @@
           <mat-list-item *ngFor="let element of operatorRecordsElements">
             <div class="list-content">
               <span class="list-content-text">{{element.bodyKey}} : {{'RECORDS.COMMON.VALUE.' + element.value.toUpperCase() | translate}}</span>
-              <button mat-icon-button (click)="removeElement(element, $event)"><mat-icon>delete</mat-icon></button>
+              <button mat-icon-button (click)="removeElement(element)"><mat-icon>delete</mat-icon></button>
             </div>
           </mat-list-item>
         </mat-list>

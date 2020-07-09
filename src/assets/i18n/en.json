@@ -224,7 +224,11 @@
             "LABEL": "Contains medical data"
           },
           "THIRD_PARTIES": {
-            "LABEL": "Third parties"
+            "LABEL": "Third parties",
+            "NAME": "Name",
+            "VALUE": "Description",
+            "BUTTON_ADD": "Add third party",
+            "EMPTY": "There is no third party yet."
           }
         },
         "CONDITIONS": {

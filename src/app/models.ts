@@ -141,7 +141,7 @@ export interface Treatment extends ModelData {
   containsMedicalData: boolean;
   dataController: Controller;
   showDataController: boolean;
-  thirdParties: {[key: string]: string};
+  thirdParties: { name: string, value: string }[];
 }
 
 export interface Conditions extends ModelData {

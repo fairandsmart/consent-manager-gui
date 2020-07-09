@@ -73,7 +73,27 @@
       <mat-checkbox formControlName="showDataController">{{'ENTRIES.EDITOR.CONTENT.SHOW' | translate}}</mat-checkbox>
       <mat-card>
         <mat-card-title>{{'ENTRIES.EDITOR.CONTENT.TREATMENT.THIRD_PARTIES.LABEL' | translate}}</mat-card-title>
-        <mat-card-content>TODO</mat-card-content>
+        <mat-card-content>
+          <div *ngIf="getThirdParties().controls.length == 0" class="third-parties-empty">{{'ENTRIES.EDITOR.CONTENT.TREATMENT.THIRD_PARTIES.EMPTY' | translate}}</div>
+          <div *ngIf="getThirdParties().controls.length > 0" formArrayName="thirdParties">
+            <div *ngFor="let control of getThirdParties().controls; let index = index" class="third-party" [formGroupName]="index">
+              <div class="third-party-fields">
+                <mat-form-field appearance="outline">
+                  <mat-label>{{'ENTRIES.EDITOR.CONTENT.TREATMENT.THIRD_PARTIES.NAME' | translate}}</mat-label>
+                  <input matInput formControlName="name" autocomplete="off">
+                </mat-form-field>
+                <mat-form-field appearance="outline" class="third-party-description">
+                  <mat-label>{{'ENTRIES.EDITOR.CONTENT.TREATMENT.THIRD_PARTIES.VALUE' | translate}}</mat-label>
+                  <input matInput formControlName="value" autocomplete="off">
+                </mat-form-field>
+              </div>
+              <button mat-icon-button (click)="removeThirdParty(index)"><mat-icon>delete</mat-icon></button>
+            </div>
+          </div>
+        </mat-card-content>
+        <mat-card-actions>
+          <button mat-button (click)="addThirdParty()">{{'ENTRIES.EDITOR.CONTENT.TREATMENT.THIRD_PARTIES.BUTTON_ADD' | translate}}</button>
+        </mat-card-actions>
       </mat-card>
     </mat-card-content>
     <mat-card-actions>
