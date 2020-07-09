@@ -420,5 +420,10 @@
     "IFRAME": {
       "TITLE": "Résultat"
     }
+  },
+  "HEALTH": {
+    "TITLE": "Serveur indisponible",
+    "CONTENT": "Impossible de contacter le serveur. Veuillez réessayez ultérieurement.",
+    "RELOAD": "Recharger la page"
   }
 }

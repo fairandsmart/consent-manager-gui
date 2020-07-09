@@ -416,5 +416,10 @@
     "IFRAME": {
       "TITLE": "Result"
     }
+  },
+  "HEALTH": {
+    "TITLE": "Server unavailable",
+    "CONTENT": "Unable to contact the server. Please try again later.",
+    "RELOAD": "Reload the page"
   }
 }
