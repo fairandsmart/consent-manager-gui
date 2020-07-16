@@ -391,6 +391,15 @@
       "VALIDITY": {
         "LABEL": "Durée de validité"
       },
+      "VALIDITY_UNIT": {
+        "LABEL": "Unité",
+        "VALUES": {
+          "D": "Jour(s)",
+          "W": "Semaine(s)",
+          "M": "Mois",
+          "Y": "An(s)"
+        }
+      },
       "RECEIPT": {
         "LABEL": "Type de reçu",
         "VALUES": {

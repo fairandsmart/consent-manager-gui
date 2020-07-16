@@ -38,12 +38,6 @@ enum FORM_CREATOR_STEP {
 })
 export class FormCreatorComponent implements OnInit {
 
-  public selectedElements: {[id: string]: ModelEntry[]} = {
-    headers: [],
-    treatments: [],
-    footers: []
-  };
-
   public elementsLibraryConfig: (SectionConfig & {draggingDisabled: boolean, included: boolean})[] = [
     {
       id: 'headers',
@@ -71,6 +65,12 @@ export class FormCreatorComponent implements OnInit {
     },
   ];
 
+  public selectedElements: {[id: string]: ModelEntry[]} = {
+    headers: [],
+    treatments: [],
+    footers: []
+  };
+
   public themesLibraryConfig: SectionConfig[] = [
     {
       id: 'themes',
@@ -87,6 +87,7 @@ export class FormCreatorComponent implements OnInit {
   public readonly ORIENTATIONS = CONSENT_FORM_ORIENTATIONS;
   public readonly RECEIPT_TYPES = RECEIPT_DELIVERY_TYPES;
   public readonly LANGUAGES = LANGUAGES;
+  public readonly VALIDITY_UNITS = ['D', 'W', 'M', 'Y'];
 
   public formUrl: SafeResourceUrl;
   private previousContext: ConsentContext;
@@ -119,7 +120,8 @@ export class FormCreatorComponent implements OnInit {
       this.fb.group({
         subject: ['', [Validators.required]],
         orientation: [ConsentFormOrientation.VERTICAL, [Validators.required]],
-        validity: [''],
+        validity: [6, [Validators.min(1)]],
+        validityUnit: ['M'],
         receiptDeliveryType: ['DISPLAY'],
         locale: ['', [Validators.required]],
         forceDisplay: [true, [Validators.required]],
@@ -157,7 +159,7 @@ export class FormCreatorComponent implements OnInit {
       return;
     }
     this.form.disable();
-    const formValue: Partial<ConsentContext & {forceDisplay: boolean}> = {
+    const formValue: Partial<ConsentContext & {forceDisplay: boolean, validityUnit: string}> = {
       ...this.form.at(FORM_CREATOR_STEP.OPTIONS).value,
       ...this.form.at(FORM_CREATOR_STEP.ELEMENTS).value,
       ...this.form.at(FORM_CREATOR_STEP.PREVIEW).value
@@ -170,7 +172,7 @@ export class FormCreatorComponent implements OnInit {
       elements: formValue.elements,
       footer: formValue.footer,
       callback: '',
-      validity: formValue.validity,
+      validity: formValue.validity ? `P${formValue.validity}${formValue.validityUnit}` : '',
       locale: formValue.locale,
       formType: formValue.forceDisplay ? ConsentFormType.FULL : ConsentFormType.PARTIAL,
       receiptDeliveryType: formValue.receiptDeliveryType,

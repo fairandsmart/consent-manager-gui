@@ -391,6 +391,15 @@
       "VALIDITY": {
         "LABEL": "Validity"
       },
+      "VALIDITY_UNIT": {
+        "LABEL": "Unit",
+        "VALUES": {
+          "D": "Day(s)",
+          "W": "Week(s)",
+          "M": "Month(s)",
+          "Y": "Year(s)"
+        }
+      },
       "RECEIPT": {
         "LABEL": "Receipt type",
         "VALUES": {

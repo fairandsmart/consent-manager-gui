@@ -114,11 +114,29 @@ mat-form-field {
 }
 
 .form-preview {
-  padding: 6px 6px 0px 6px !important;
+  padding: 6px 6px 0 6px !important;
 
   iframe {
     border: none;
     width: 100%;
     min-height: 70vh;
+  }
+}
+
+.consent-validity-wrapper {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  margin-top: 1em;
+  mat-form-field {
+    margin-top: 0 !important;
+    &:first-child {
+      width: 130px;
+      flex: 0 0 130px;
+      margin-right: 1em;
+    }
+    &:last-child {
+      flex: 1 1 auto;
+    }
   }
 }
