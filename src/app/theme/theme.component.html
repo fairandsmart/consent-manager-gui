@@ -26,10 +26,10 @@
         <mat-label>{{'THEMES.COMMON.ICON.LABEL' | translate}}</mat-label>
         <input matInput formControlName="icon" autocomplete="off">
       </mat-form-field>
-      <mat-form-field appearance="outline">
-        <mat-label>{{'THEMES.COMMON.CSS.LABEL' | translate}}</mat-label>
-        <textarea matInput formControlName="css"></textarea>
-      </mat-form-field>
+      <div>
+        <p class="css-input-label">{{'THEMES.COMMON.CSS.LABEL' | translate}}</p>
+        <ngx-codemirror formControlName="css" name="css" [options]="CODE_MIRROR_OPTIONS"></ngx-codemirror>
+      </div>
     </mat-card-content>
     <mat-card-actions>
       <button mat-button type="button" color="primary" [disabled]="form.invalid" (click)="save()">{{'ENTRIES.EDITOR.BUTTONS.SAVE' | translate}}</button>

@@ -18,6 +18,10 @@ export class ThemeComponent extends EntryContentDirective<Theme> implements OnIn
 
   readonly LANGUAGES = LANGUAGES;
   readonly TARGET_TYPES = TARGET_TYPES;
+  readonly CODE_MIRROR_OPTIONS = {
+    lineNumbers: true,
+    mode: 'css'
+  };
 
   private rawPreview: string;
 

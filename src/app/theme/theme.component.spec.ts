@@ -10,6 +10,7 @@ import SpyObj = jasmine.SpyObj;
 import createSpyObj = jasmine.createSpyObj;
 import { TranslateModule } from '@ngx-translate/core';
 import { of } from 'rxjs';
+import { CodemirrorModule } from '@ctrl/ngx-codemirror';
 
 describe('ThemeComponent', () => {
   let component: ThemeComponent;
@@ -23,7 +24,7 @@ describe('ThemeComponent', () => {
 
     TestBed.configureTestingModule({
       declarations: [ ThemeComponent ],
-      imports: [ ReactiveFormsModule, MaterialModule, NoopAnimationsModule, TranslateModule.forRoot() ],
+      imports: [ ReactiveFormsModule, MaterialModule, NoopAnimationsModule, TranslateModule.forRoot(), CodemirrorModule ],
       providers: [
         {provide: ModelsResourceService, useValue: modelsResourceServiceSpy},
         {provide: ConsentsResourceService, useValue: consentsResourceServiceSpy}

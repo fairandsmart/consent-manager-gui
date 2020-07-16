@@ -39,6 +39,7 @@ import { EntriesLibraryComponent } from './entries/entries-library/entries-libra
 import { EntriesListDragAndDropComponent } from './entries/entries-list-drag-and-drop/entries-list-drag-and-drop.component';
 import { EntriesListSelectComponent } from './entries/entries-list-select/entries-list-select.component';
 import { EntriesListComponent } from './entries/entries-list/entries-list.component';
+import { CodemirrorModule } from '@ctrl/ngx-codemirror';
 
 const keycloakService = new KeycloakService();
 
@@ -93,6 +94,7 @@ registerLocaleData(localeFr, 'fr');
     ReactiveFormsModule,
     KeycloakAngularModule,
     MaterialModule,
+    CodemirrorModule,
     TranslateModule.forRoot({
       loader: {
         provide: TranslateLoader,
