@@ -27,7 +27,12 @@
         <input matInput formControlName="icon" autocomplete="off">
       </mat-form-field>
       <div>
-        <p class="css-input-label">{{'THEMES.COMMON.CSS.LABEL' | translate}}</p>
+        <p class="css-input-label">{{'THEMES.COMMON.CSS.LABEL' | translate}}
+          <span class="mat-caption">
+            <br>{{'THEMES.COMMON.CSS.HINT' | translate}}
+            <br>{{'THEMES.COMMON.CSS.AUTOCOMPLETE' | translate}}
+          </span>
+        </p>
         <ngx-codemirror formControlName="css" name="css" [options]="CODE_MIRROR_OPTIONS"></ngx-codemirror>
       </div>
     </mat-card-content>

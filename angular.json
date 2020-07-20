@@ -28,14 +28,28 @@
               "src/assets"
             ],
             "styles": [
+              "node_modules/codemirror/lib/codemirror.css",
+              "node_modules/codemirror/addon/lint/lint.css",
+              "node_modules/codemirror/addon/hint/show-hint.css",
               "src/styles.scss"
             ],
-            "scripts": [],
+            "scripts": [
+              "node_modules/csslint/dist/csslint.js",
+              "node_modules/codemirror/lib/codemirror.js",
+              "node_modules/codemirror/mode/css/css.js",
+              "node_modules/codemirror/addon/lint/lint.js",
+              "node_modules/codemirror/addon/lint/css-lint.js",
+              "node_modules/codemirror/addon/hint/show-hint.js",
+              "node_modules/codemirror/addon/hint/css-hint.js"
+            ],
             "allowedCommonJsDependencies": [
               "lodash",
               "keycloak-js",
               "js-sha256",
-              "@angular/common/locales/fr"
+              "@angular/common/locales/fr",
+              "codemirror/mode/css/css",
+              "codemirror/addon/lint/lint",
+              "codemirror/addon/lint/css-lint"
             ]
           },
           "configurations": {

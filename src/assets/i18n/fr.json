@@ -290,7 +290,9 @@
         "LABEL": "Vignette"
       },
       "CSS": {
-        "LABEL": "Style"
+        "LABEL": "Style",
+        "HINT": "Renseignez votre style CSS ou déposez un fichier CSS",
+        "AUTOCOMPLETE": "(profitez de l'auto-complétion grace à CTRL+E ou CMD+E pour vous aider à paramétrer le style des éléments du formulaire)"
       }
     }
   },

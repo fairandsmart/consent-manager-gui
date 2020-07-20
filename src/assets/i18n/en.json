@@ -290,7 +290,9 @@
         "LABEL": "Icon"
       },
       "CSS": {
-        "LABEL": "Style"
+        "LABEL": "Style",
+        "HINT": "Write your custom CSS or drop a CSS file",
+        "AUTOCOMPLETE": "(toggle auto-completion with CTRL+E or CMD+E to help you stylized the form elements)"
       }
     }
   },
