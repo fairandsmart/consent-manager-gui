@@ -1,18 +1,12 @@
-<mat-card>
-  <mat-card-title>{{'ENTRIES.EDITOR.INFORMATION.TITLE' | translate}}</mat-card-title>
-  <mat-card-content>
-    <dl *ngIf="entry">
-      <dt>{{'ENTRIES.COMMON.type.LABEL' | translate}}</dt>
-      <dd>{{'COMMON.ENTRY_TYPES.' + entry.type.toUpperCase() | translate}}</dd>
-      <dt>{{'ENTRIES.COMMON.key.LABEL' | translate}}</dt>
-      <dd>{{entry.key}}</dd>
-      <dt>{{'ENTRIES.COMMON.name.LABEL' | translate}}</dt>
-      <dd>{{entry.name}}</dd>
-      <dt>{{'ENTRIES.COMMON.description.LABEL' | translate}}</dt>
-      <dd>{{entry.description || '-'}}</dd>
-    </dl>
-  </mat-card-content>
-  <mat-card-actions>
-    <button mat-button color="primary" (click)="edit()">{{'COMMON.BUTTONS.EDIT' | translate}}</button>
-  </mat-card-actions>
-</mat-card>
+<h2>{{'ENTRIES.EDITOR.INFORMATION.TITLE' | translate}}</h2>
+<dl *ngIf="entry">
+  <dt>{{'ENTRIES.COMMON.type.LABEL' | translate}}</dt>
+  <dd>{{'COMMON.ENTRY_TYPES.' + entry.type.toUpperCase() | translate}}</dd>
+  <dt>{{'ENTRIES.COMMON.key.LABEL' | translate}}</dt>
+  <dd>{{entry.key}}</dd>
+  <dt>{{'ENTRIES.COMMON.name.LABEL' | translate}}</dt>
+  <dd>{{entry.name}}</dd>
+  <dt>{{'ENTRIES.COMMON.description.LABEL' | translate}}</dt>
+  <dd>{{entry.description || '-'}}</dd>
+</dl>
+<button mat-button color="primary" (click)="edit()">{{'COMMON.BUTTONS.EDIT' | translate}}</button>

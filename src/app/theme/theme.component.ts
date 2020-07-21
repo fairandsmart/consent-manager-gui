@@ -41,7 +41,6 @@ export class ThemeComponent extends EntryContentDirective<Theme> implements OnIn
       'Cmd-E': 'autocomplete'
     },
     hintOptions: {hint: (cm: Editor) => {
-        console.log(cm.state);
         const cur = cm.getCursor();
         const token = cm.getTokenAt(cur);
         const inner = CodeMirror.innerMode(cm.getMode(), token.state);
@@ -145,6 +144,8 @@ export class ThemeComponent extends EntryContentDirective<Theme> implements OnIn
       const headIndex = result.indexOf('</head>');
       result = result.substring(0, headIndex) + `<style>${style.value}</style>` + result.substring(headIndex);
     }
-    this.iframe.nativeElement.contentDocument.body.innerHTML = result;
+    if (this.iframe.nativeElement?.contentDocument?.body) {
+      this.iframe.nativeElement.contentDocument.body.innerHTML = result;
+    }
   }
 }

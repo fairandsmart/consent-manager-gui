@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, HostBinding, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { catchError, mergeMap } from 'rxjs/operators';
 import { ModelEntry, ModelVersion } from '../models';
@@ -8,7 +8,11 @@ import { of, zip } from 'rxjs';
 @Component({
   selector: 'app-entry',
   templateUrl: './entry.component.html',
-  styleUrls: ['./entry.component.scss']
+  styleUrls: ['./entry.component.scss'],
+  // tslint:disable-next-line:no-host-metadata-property
+  host: {
+    class: 'side-nav-wrapper',
+  }
 })
 export class EntryComponent implements OnInit {
 

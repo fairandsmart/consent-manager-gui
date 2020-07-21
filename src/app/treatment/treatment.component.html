@@ -1,107 +1,114 @@
-<form *ngIf="form" [formGroup]="form">
-  <mat-card>
-    <mat-card-title>{{'ENTRIES.EDITOR.CONTENT.TITLE' | translate}}</mat-card-title>
-    <mat-card-content>
-      <mat-form-field appearance="outline">
-        <mat-label>{{'TOKEN.FORM.LOCALE.LABEL' | translate}}</mat-label>
-        <mat-select formControlName="locale">
-          <mat-option *ngFor="let language of LANGUAGES" [value]="language">{{'COMMON.LANGUAGES.' + language.toUpperCase() | translate}}</mat-option>
-        </mat-select>
-      </mat-form-field>
-      <mat-form-field appearance="outline">
-        <mat-label>{{'ENTRIES.EDITOR.CONTENT.TREATMENT.TITLE.LABEL' | translate}}</mat-label>
-        <input matInput formControlName="treatmentTitle" autocomplete="off">
-      </mat-form-field>
-      <mat-form-field appearance="outline">
-        <mat-label>{{'ENTRIES.EDITOR.CONTENT.TREATMENT.DATA.TITLE.LABEL' | translate}}</mat-label>
-        <input matInput formControlName="dataTitle" autocomplete="off">
-      </mat-form-field>
-      <mat-form-field appearance="outline">
-        <mat-label>{{'ENTRIES.EDITOR.CONTENT.TREATMENT.DATA.BODY.LABEL' | translate}}</mat-label>
-        <textarea matInput formControlName="dataBody"></textarea>
-      </mat-form-field>
-      <mat-form-field appearance="outline">
-        <mat-label>{{'ENTRIES.EDITOR.CONTENT.TREATMENT.RETENTION.TITLE.LABEL' | translate}}</mat-label>
-        <input matInput formControlName="retentionTitle" autocomplete="off">
-      </mat-form-field>
-      <mat-form-field appearance="outline">
-        <mat-label>{{'ENTRIES.EDITOR.CONTENT.TREATMENT.RETENTION.BODY.LABEL' | translate}}</mat-label>
-        <textarea matInput formControlName="retentionBody"></textarea>
-      </mat-form-field>
-      <mat-form-field appearance="outline">
-        <mat-label>{{'ENTRIES.EDITOR.CONTENT.TREATMENT.USAGE.TITLE.LABEL' | translate}}</mat-label>
-        <input matInput formControlName="usageTitle" autocomplete="off">
-      </mat-form-field>
-      <mat-form-field appearance="outline">
-        <mat-label>{{'ENTRIES.EDITOR.CONTENT.TREATMENT.USAGE.BODY.LABEL' | translate}}</mat-label>
-        <textarea matInput formControlName="usageBody"></textarea>
-      </mat-form-field>
-      <mat-form-field appearance="outline">
-        <mat-label>{{'ENTRIES.EDITOR.CONTENT.TREATMENT.PURPOSE.LABEL' | translate}}</mat-label>
-        <mat-select formControlName="purposes" multiple="true">
-          <mat-option *ngFor="let purpose of PURPOSES" [value]="purpose">{{'ENTRIES.EDITOR.CONTENT.TREATMENT.PURPOSE.VALUES.' + purpose | translate}}</mat-option>
-        </mat-select>
-      </mat-form-field>
-      <mat-checkbox formControlName="containsSensitiveData">{{'ENTRIES.EDITOR.CONTENT.TREATMENT.SENSITIVE.LABEL' | translate}}</mat-checkbox>
-      <mat-checkbox formControlName="containsMedicalData">{{'ENTRIES.EDITOR.CONTENT.TREATMENT.MEDICAL.LABEL' | translate}}</mat-checkbox>
-      <mat-card formGroupName="dataController">
-        <mat-card-title>{{'ENTRIES.EDITOR.CONTENT.DATA_CONTROLLER.TITLE' | translate}}</mat-card-title>
-        <mat-card-content>
-          <mat-checkbox formControlName="actingBehalfCompany">{{'ENTRIES.EDITOR.CONTENT.DATA_CONTROLLER.ACTING_BEHALF_COMPANY.LABEL' | translate}}</mat-checkbox>
-          <mat-form-field appearance="outline">
-            <mat-label>{{'ENTRIES.EDITOR.CONTENT.DATA_CONTROLLER.COMPANY.LABEL' | translate}}</mat-label>
-            <input matInput formControlName="company" autocomplete="off">
-          </mat-form-field>
-          <mat-form-field appearance="outline">
-            <mat-label>{{'ENTRIES.EDITOR.CONTENT.DATA_CONTROLLER.NAME.LABEL' | translate}}</mat-label>
-            <input matInput formControlName="name" autocomplete="off">
-          </mat-form-field>
-          <mat-form-field appearance="outline">
-            <mat-label>{{'ENTRIES.EDITOR.CONTENT.DATA_CONTROLLER.ADDRESS.LABEL' | translate}}</mat-label>
-            <input matInput formControlName="address" autocomplete="off">
-          </mat-form-field>
-          <mat-form-field appearance="outline">
-            <mat-label>{{'ENTRIES.EDITOR.CONTENT.DATA_CONTROLLER.EMAIL.LABEL' | translate}}</mat-label>
-            <input matInput formControlName="email" autocomplete="off">
-          </mat-form-field>
-          <mat-form-field appearance="outline">
-            <mat-label>{{'ENTRIES.EDITOR.CONTENT.DATA_CONTROLLER.PHONE.LABEL' | translate}}</mat-label>
-            <input matInput formControlName="phoneNumber" autocomplete="off">
-          </mat-form-field>
-        </mat-card-content>
-      </mat-card>
-      <mat-checkbox formControlName="showDataController">{{'ENTRIES.EDITOR.CONTENT.SHOW' | translate}}</mat-checkbox>
+<mat-sidenav-container>
+  <mat-sidenav-content>
+    <form *ngIf="form" [formGroup]="form">
       <mat-card>
-        <mat-card-title>{{'ENTRIES.EDITOR.CONTENT.TREATMENT.THIRD_PARTIES.LABEL' | translate}}</mat-card-title>
+        <mat-card-title>{{'ENTRIES.EDITOR.CONTENT.TITLE' | translate}}</mat-card-title>
         <mat-card-content>
-          <div *ngIf="getThirdParties().controls.length == 0" class="third-parties-empty">{{'ENTRIES.EDITOR.CONTENT.TREATMENT.THIRD_PARTIES.EMPTY' | translate}}</div>
-          <div *ngIf="getThirdParties().controls.length > 0" formArrayName="thirdParties">
-            <div *ngFor="let control of getThirdParties().controls; let index = index" class="third-party" [formGroupName]="index">
-              <div class="third-party-fields">
-                <mat-form-field appearance="outline">
-                  <mat-label>{{'ENTRIES.EDITOR.CONTENT.TREATMENT.THIRD_PARTIES.NAME' | translate}}</mat-label>
-                  <input matInput formControlName="name" autocomplete="off">
-                </mat-form-field>
-                <mat-form-field appearance="outline" class="third-party-description">
-                  <mat-label>{{'ENTRIES.EDITOR.CONTENT.TREATMENT.THIRD_PARTIES.VALUE' | translate}}</mat-label>
-                  <input matInput formControlName="value" autocomplete="off">
-                </mat-form-field>
+          <mat-form-field appearance="outline">
+            <mat-label>{{'TOKEN.FORM.LOCALE.LABEL' | translate}}</mat-label>
+            <mat-select formControlName="locale">
+              <mat-option *ngFor="let language of LANGUAGES" [value]="language">{{'COMMON.LANGUAGES.' + language.toUpperCase() | translate}}</mat-option>
+            </mat-select>
+          </mat-form-field>
+          <mat-form-field appearance="outline">
+            <mat-label>{{'ENTRIES.EDITOR.CONTENT.TREATMENT.TITLE.LABEL' | translate}}</mat-label>
+            <input matInput formControlName="treatmentTitle" autocomplete="off">
+          </mat-form-field>
+          <mat-form-field appearance="outline">
+            <mat-label>{{'ENTRIES.EDITOR.CONTENT.TREATMENT.DATA.TITLE.LABEL' | translate}}</mat-label>
+            <input matInput formControlName="dataTitle" autocomplete="off">
+          </mat-form-field>
+          <mat-form-field appearance="outline">
+            <mat-label>{{'ENTRIES.EDITOR.CONTENT.TREATMENT.DATA.BODY.LABEL' | translate}}</mat-label>
+            <textarea matInput formControlName="dataBody"></textarea>
+          </mat-form-field>
+          <mat-form-field appearance="outline">
+            <mat-label>{{'ENTRIES.EDITOR.CONTENT.TREATMENT.RETENTION.TITLE.LABEL' | translate}}</mat-label>
+            <input matInput formControlName="retentionTitle" autocomplete="off">
+          </mat-form-field>
+          <mat-form-field appearance="outline">
+            <mat-label>{{'ENTRIES.EDITOR.CONTENT.TREATMENT.RETENTION.BODY.LABEL' | translate}}</mat-label>
+            <textarea matInput formControlName="retentionBody"></textarea>
+          </mat-form-field>
+          <mat-form-field appearance="outline">
+            <mat-label>{{'ENTRIES.EDITOR.CONTENT.TREATMENT.USAGE.TITLE.LABEL' | translate}}</mat-label>
+            <input matInput formControlName="usageTitle" autocomplete="off">
+          </mat-form-field>
+          <mat-form-field appearance="outline">
+            <mat-label>{{'ENTRIES.EDITOR.CONTENT.TREATMENT.USAGE.BODY.LABEL' | translate}}</mat-label>
+            <textarea matInput formControlName="usageBody"></textarea>
+          </mat-form-field>
+          <mat-form-field appearance="outline">
+            <mat-label>{{'ENTRIES.EDITOR.CONTENT.TREATMENT.PURPOSE.LABEL' | translate}}</mat-label>
+            <mat-select formControlName="purposes" multiple="true">
+              <mat-option *ngFor="let purpose of PURPOSES" [value]="purpose">{{'ENTRIES.EDITOR.CONTENT.TREATMENT.PURPOSE.VALUES.' + purpose | translate}}</mat-option>
+            </mat-select>
+          </mat-form-field>
+          <mat-checkbox formControlName="containsSensitiveData">{{'ENTRIES.EDITOR.CONTENT.TREATMENT.SENSITIVE.LABEL' | translate}}</mat-checkbox>
+          <mat-checkbox formControlName="containsMedicalData">{{'ENTRIES.EDITOR.CONTENT.TREATMENT.MEDICAL.LABEL' | translate}}</mat-checkbox>
+          <mat-card formGroupName="dataController">
+            <mat-card-title>{{'ENTRIES.EDITOR.CONTENT.DATA_CONTROLLER.TITLE' | translate}}</mat-card-title>
+            <mat-card-content>
+              <mat-checkbox formControlName="actingBehalfCompany">{{'ENTRIES.EDITOR.CONTENT.DATA_CONTROLLER.ACTING_BEHALF_COMPANY.LABEL' | translate}}</mat-checkbox>
+              <mat-form-field appearance="outline">
+                <mat-label>{{'ENTRIES.EDITOR.CONTENT.DATA_CONTROLLER.COMPANY.LABEL' | translate}}</mat-label>
+                <input matInput formControlName="company" autocomplete="off">
+              </mat-form-field>
+              <mat-form-field appearance="outline">
+                <mat-label>{{'ENTRIES.EDITOR.CONTENT.DATA_CONTROLLER.NAME.LABEL' | translate}}</mat-label>
+                <input matInput formControlName="name" autocomplete="off">
+              </mat-form-field>
+              <mat-form-field appearance="outline">
+                <mat-label>{{'ENTRIES.EDITOR.CONTENT.DATA_CONTROLLER.ADDRESS.LABEL' | translate}}</mat-label>
+                <input matInput formControlName="address" autocomplete="off">
+              </mat-form-field>
+              <mat-form-field appearance="outline">
+                <mat-label>{{'ENTRIES.EDITOR.CONTENT.DATA_CONTROLLER.EMAIL.LABEL' | translate}}</mat-label>
+                <input matInput formControlName="email" autocomplete="off">
+              </mat-form-field>
+              <mat-form-field appearance="outline">
+                <mat-label>{{'ENTRIES.EDITOR.CONTENT.DATA_CONTROLLER.PHONE.LABEL' | translate}}</mat-label>
+                <input matInput formControlName="phoneNumber" autocomplete="off">
+              </mat-form-field>
+            </mat-card-content>
+          </mat-card>
+          <mat-checkbox formControlName="showDataController">{{'ENTRIES.EDITOR.CONTENT.SHOW' | translate}}</mat-checkbox>
+          <mat-card>
+            <mat-card-title>{{'ENTRIES.EDITOR.CONTENT.TREATMENT.THIRD_PARTIES.LABEL' | translate}}</mat-card-title>
+            <mat-card-content>
+              <div *ngIf="getThirdParties().controls.length == 0" class="third-parties-empty">{{'ENTRIES.EDITOR.CONTENT.TREATMENT.THIRD_PARTIES.EMPTY' | translate}}</div>
+              <div *ngIf="getThirdParties().controls.length > 0" formArrayName="thirdParties">
+                <div *ngFor="let control of getThirdParties().controls; let index = index" class="third-party" [formGroupName]="index">
+                  <div class="third-party-fields">
+                    <mat-form-field appearance="outline">
+                      <mat-label>{{'ENTRIES.EDITOR.CONTENT.TREATMENT.THIRD_PARTIES.NAME' | translate}}</mat-label>
+                      <input matInput formControlName="name" autocomplete="off">
+                    </mat-form-field>
+                    <mat-form-field appearance="outline" class="third-party-description">
+                      <mat-label>{{'ENTRIES.EDITOR.CONTENT.TREATMENT.THIRD_PARTIES.VALUE' | translate}}</mat-label>
+                      <input matInput formControlName="value" autocomplete="off">
+                    </mat-form-field>
+                  </div>
+                  <button mat-icon-button (click)="removeThirdParty(index)"><mat-icon>delete</mat-icon></button>
+                </div>
               </div>
-              <button mat-icon-button (click)="removeThirdParty(index)"><mat-icon>delete</mat-icon></button>
-            </div>
-          </div>
+            </mat-card-content>
+            <mat-card-actions>
+              <button mat-button (click)="addThirdParty()">{{'ENTRIES.EDITOR.CONTENT.TREATMENT.THIRD_PARTIES.BUTTON_ADD' | translate}}</button>
+            </mat-card-actions>
+          </mat-card>
         </mat-card-content>
         <mat-card-actions>
-          <button mat-button (click)="addThirdParty()">{{'ENTRIES.EDITOR.CONTENT.TREATMENT.THIRD_PARTIES.BUTTON_ADD' | translate}}</button>
+          <button mat-button type="button" color="primary" [disabled]="form.invalid" (click)="save()">{{'ENTRIES.EDITOR.BUTTONS.SAVE' | translate}}</button>
+          <ng-container *ngIf="version != null">
+            <button mat-button type="button" color="primary" [disabled]="version.status === STATUS.ACTIVE" (click)="activate()">{{'ENTRIES.EDITOR.BUTTONS.ACTIVATE' | translate}}</button>
+            <button mat-button type="button" color="warn" [disabled]="version.status !== STATUS.DRAFT" (click)="delete()">{{'ENTRIES.EDITOR.BUTTONS.DELETE' | translate}}</button>
+          </ng-container>
         </mat-card-actions>
       </mat-card>
-    </mat-card-content>
-    <mat-card-actions>
-      <button mat-button type="button" color="primary" [disabled]="form.invalid" (click)="save()">{{'ENTRIES.EDITOR.BUTTONS.SAVE' | translate}}</button>
-      <ng-container *ngIf="version != null">
-        <button mat-button type="button" color="primary" [disabled]="version.status === STATUS.ACTIVE" (click)="activate()">{{'ENTRIES.EDITOR.BUTTONS.ACTIVATE' | translate}}</button>
-        <button mat-button type="button" color="warn" [disabled]="version.status !== STATUS.DRAFT" (click)="delete()">{{'ENTRIES.EDITOR.BUTTONS.DELETE' | translate}}</button>
-      </ng-container>
-    </mat-card-actions>
-  </mat-card>
-</form>
+    </form>
+  </mat-sidenav-content>
+  <mat-sidenav opened mode="side" position="end">
+    <app-entry-info *ngIf="entry" [entry]="entry"></app-entry-info>
+  </mat-sidenav>
+</mat-sidenav-container>

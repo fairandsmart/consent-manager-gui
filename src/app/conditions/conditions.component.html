@@ -1,36 +1,43 @@
-<form *ngIf="form" [formGroup]="form">
-  <mat-card>
-    <mat-card-title>{{'ENTRIES.EDITOR.CONTENT.TITLE' | translate}}</mat-card-title>
-    <mat-card-content>
-      <mat-form-field appearance="outline">
-        <mat-label>{{'TOKEN.FORM.LOCALE.LABEL' | translate}}</mat-label>
-        <mat-select formControlName="locale">
-          <mat-option *ngFor="let language of LANGUAGES" [value]="language">{{'COMMON.LANGUAGES.' + language.toUpperCase() | translate}}</mat-option>
-        </mat-select>
-      </mat-form-field>
-      <mat-form-field appearance="outline">
-        <mat-label>{{'ENTRIES.EDITOR.CONTENT.CONDITIONS.TITLE.LABEL' | translate}}</mat-label>
-        <input matInput formControlName="title" autocomplete="off">
-      </mat-form-field>
-      <mat-form-field appearance="outline">
-        <mat-label>{{'ENTRIES.EDITOR.CONTENT.CONDITIONS.BODY.LABEL' | translate}}</mat-label>
-        <textarea matInput formControlName="body"></textarea>
-      </mat-form-field>
-      <mat-form-field appearance="outline">
-        <mat-label>{{'ENTRIES.EDITOR.CONTENT.CONDITIONS.ACCEPT.LABEL' | translate}}</mat-label>
-        <input matInput formControlName="acceptLabel" autocomplete="off">
-      </mat-form-field>
-      <mat-form-field appearance="outline">
-        <mat-label>{{'ENTRIES.EDITOR.CONTENT.CONDITIONS.REJECT.LABEL' | translate}}</mat-label>
-        <input matInput formControlName="rejectLabel" autocomplete="off">
-      </mat-form-field>
-    </mat-card-content>
-    <mat-card-actions>
-      <button mat-button type="button" color="primary" [disabled]="form.invalid" (click)="save()">{{'ENTRIES.EDITOR.BUTTONS.SAVE' | translate}}</button>
-      <ng-container *ngIf="version != null">
-        <button mat-button type="button" color="primary" [disabled]="version.status === STATUS.ACTIVE" (click)="activate()">{{'ENTRIES.EDITOR.BUTTONS.ACTIVATE' | translate}}</button>
-        <button mat-button type="button" color="warn" [disabled]="version.status !== STATUS.DRAFT" (click)="delete()">{{'ENTRIES.EDITOR.BUTTONS.DELETE' | translate}}</button>
-      </ng-container>
-    </mat-card-actions>
-  </mat-card>
-</form>
+<mat-sidenav-container>
+  <mat-sidenav-content>
+    <form *ngIf="form" [formGroup]="form">
+      <mat-card>
+        <mat-card-title>{{'ENTRIES.EDITOR.CONTENT.TITLE' | translate}}</mat-card-title>
+        <mat-card-content>
+          <mat-form-field appearance="outline">
+            <mat-label>{{'TOKEN.FORM.LOCALE.LABEL' | translate}}</mat-label>
+            <mat-select formControlName="locale">
+              <mat-option *ngFor="let language of LANGUAGES" [value]="language">{{'COMMON.LANGUAGES.' + language.toUpperCase() | translate}}</mat-option>
+            </mat-select>
+          </mat-form-field>
+          <mat-form-field appearance="outline">
+            <mat-label>{{'ENTRIES.EDITOR.CONTENT.CONDITIONS.TITLE.LABEL' | translate}}</mat-label>
+            <input matInput formControlName="title" autocomplete="off">
+          </mat-form-field>
+          <mat-form-field appearance="outline">
+            <mat-label>{{'ENTRIES.EDITOR.CONTENT.CONDITIONS.BODY.LABEL' | translate}}</mat-label>
+            <textarea matInput formControlName="body"></textarea>
+          </mat-form-field>
+          <mat-form-field appearance="outline">
+            <mat-label>{{'ENTRIES.EDITOR.CONTENT.CONDITIONS.ACCEPT.LABEL' | translate}}</mat-label>
+            <input matInput formControlName="acceptLabel" autocomplete="off">
+          </mat-form-field>
+          <mat-form-field appearance="outline">
+            <mat-label>{{'ENTRIES.EDITOR.CONTENT.CONDITIONS.REJECT.LABEL' | translate}}</mat-label>
+            <input matInput formControlName="rejectLabel" autocomplete="off">
+          </mat-form-field>
+        </mat-card-content>
+        <mat-card-actions>
+          <button mat-button type="button" color="primary" [disabled]="form.invalid" (click)="save()">{{'ENTRIES.EDITOR.BUTTONS.SAVE' | translate}}</button>
+          <ng-container *ngIf="version != null">
+            <button mat-button type="button" color="primary" [disabled]="version.status === STATUS.ACTIVE" (click)="activate()">{{'ENTRIES.EDITOR.BUTTONS.ACTIVATE' | translate}}</button>
+            <button mat-button type="button" color="warn" [disabled]="version.status !== STATUS.DRAFT" (click)="delete()">{{'ENTRIES.EDITOR.BUTTONS.DELETE' | translate}}</button>
+          </ng-container>
+        </mat-card-actions>
+      </mat-card>
+    </form>
+  </mat-sidenav-content>
+  <mat-sidenav opened mode="side" position="end">
+    <app-entry-info *ngIf="entry" [entry]="entry"></app-entry-info>
+  </mat-sidenav>
+</mat-sidenav-container>

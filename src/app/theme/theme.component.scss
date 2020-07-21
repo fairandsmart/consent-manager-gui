@@ -1,5 +1,30 @@
 @import '~@angular/material/theming';
 
+mat-sidenav-container {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+}
+
+mat-sidenav {
+  min-width: 500px;
+  overflow: hidden;
+  padding: 1em;
+  .preview-title-wrapper {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+  }
+  iframe {
+    display: block;
+    width: 100%;
+    min-height: 80vh;
+    box-sizing: border-box;
+  }
+}
+
 .preview-container {
   margin-top: 1em;
 }
@@ -7,6 +32,7 @@
 .preview-title {
   display: flex;
   justify-content: space-between;
+  align-items: center;
 }
 
 .css-input-label {
