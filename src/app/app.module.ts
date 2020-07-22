@@ -40,6 +40,7 @@ import { EntriesListDragAndDropComponent } from './entries/entries-list-drag-and
 import { EntriesListSelectComponent } from './entries/entries-list-select/entries-list-select.component';
 import { EntriesListComponent } from './entries/entries-list/entries-list.component';
 import { CodemirrorModule } from '@ctrl/ngx-codemirror';
+import { ClipboardModule } from '@angular/cdk/clipboard';
 
 const keycloakService = new KeycloakService();
 
@@ -103,7 +104,8 @@ registerLocaleData(localeFr, 'fr');
       }
     }),
     StoreModule.forRoot({}, {}),
-    EffectsModule.forRoot([])
+    EffectsModule.forRoot([]),
+    ClipboardModule
   ],
   providers: [
     {

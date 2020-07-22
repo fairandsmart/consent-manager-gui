@@ -81,6 +81,15 @@
           <mat-card *ngIf="formUrl" class="form-preview">
             <iframe [src]="formUrl"></iframe>
           </mat-card>
+          <mat-card *ngIf="apiCallCode" class="api-call-code">
+            <mat-card-title>
+              {{'TOKEN.CODE.TITLE' | translate}}
+              <button mat-icon-button [cdkCopyToClipboard]="apiCallCode"><mat-icon>content_copy</mat-icon></button>
+            </mat-card-title>
+            <mat-card-content>
+              <code>{{apiCallCode}}</code>
+            </mat-card-content>
+          </mat-card>
         </mat-step>
       </mat-horizontal-stepper>
   </mat-sidenav-content>

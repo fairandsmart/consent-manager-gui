@@ -15,6 +15,14 @@ export class ConsentsResourceService {
     return this.http.post<string>(`${environment.managerUrl}/consents/token`, ctx, {responseType: 'text' as 'json'});
   }
 
+  generateBothTokens(ctx: ConsentContext): Observable<{ preview: string, real: string }> {
+    return this.http.post<{ preview: string, real: string }>(`${environment.managerUrl}/consents/bothtokens`, ctx);
+  }
+
+  getApiCallCode(token: string): string {
+    return `${environment.managerUrl}/consents?t=` + encodeURIComponent(token);
+  }
+
   getForm(token: string): Observable<string> {
     return this.http.get<string>(`${environment.managerUrl}/consents`, {params: {t: token}, responseType: 'text' as 'json'});
   }

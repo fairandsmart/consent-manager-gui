@@ -90,6 +90,7 @@ export class FormCreatorComponent implements OnInit {
   public readonly VALIDITY_UNITS = ['D', 'W', 'M', 'Y'];
 
   public formUrl: SafeResourceUrl;
+  public apiCallCode: string;
   private previousContext: ConsentContext;
 
   constructor(private consentsResource: ConsentsResourceService,
@@ -125,8 +126,7 @@ export class FormCreatorComponent implements OnInit {
         receiptDeliveryType: ['DISPLAY'],
         locale: ['', [Validators.required]],
         forceDisplay: [true, [Validators.required]],
-        optoutEmail: [''],
-        preview: [true, [Validators.required]]
+        optoutEmail: ['']
       }),
       this.fb.group({
         theme: ['', [Validators.pattern(FIELD_VALIDATORS.key.pattern)]]
@@ -181,21 +181,23 @@ export class FormCreatorComponent implements OnInit {
       optoutEmail: formValue.optoutEmail,
       collectionMethod: CollectionMethod.WEBFORM,
       author: '',
-      preview: formValue.preview,
+      preview: true,
       iframe: true,
       theme: formValue.theme
     };
     if (context === this.previousContext) {
       return;
     }
-    this.consentsResource.generateToken(context).subscribe((token) => {
+    this.consentsResource.generateBothTokens(context).subscribe((tokens) => {
       this.previousContext = context;
-      this.formUrl = this.sanitizer.bypassSecurityTrustResourceUrl(this.consentsResource.getFormUrl(token));
+      this.formUrl = this.sanitizer.bypassSecurityTrustResourceUrl(this.consentsResource.getFormUrl(tokens.preview));
       this.form.enable();
+      this.apiCallCode = this.consentsResource.getApiCallCode(tokens.real);
     }, (err) => {
       console.error(err);
       this.form.enable();
       this.formUrl = '';
+      this.apiCallCode = '';
     });
   }
 

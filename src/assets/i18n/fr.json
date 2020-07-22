@@ -434,6 +434,9 @@
     },
     "IFRAME": {
       "TITLE": "Résultat"
+    },
+    "CODE": {
+      "TITLE": "Code d'appel à l'API"
     }
   },
   "HEALTH": {

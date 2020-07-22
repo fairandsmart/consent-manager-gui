@@ -115,6 +115,7 @@ mat-form-field {
 
 .form-preview {
   padding: 6px 6px 0 6px !important;
+  margin-bottom: 1em;
 
   iframe {
     border: none;
@@ -138,5 +139,22 @@ mat-form-field {
     &:last-child {
       flex: 1 1 auto;
     }
+  }
+}
+
+.api-call-code {
+  .mat-card-title {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  code {
+    background-color: #ccc;
+    display: block;
+    white-space: pre-wrap;
+    overflow-x: auto;
+    padding: 4px;
+    word-break: break-all;
   }
 }
