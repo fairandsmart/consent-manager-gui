@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
     <groupId>com.fairandsmart</groupId>
     <artifactId>gui-consent-manager</artifactId>
@@ -21,6 +20,7 @@
         <version.maven-site-plugin>3.8.2</version.maven-site-plugin>
         <version.node>v12.13.0</version.node>
         <version.npm>6.12.0</version.npm>
+        <version.sortpom-maven-plugin>2.10.0</version.sortpom-maven-plugin>
         <version.versions-maven-plugin>2.7</version.versions-maven-plugin>
     </properties>
     <build>
@@ -82,9 +82,21 @@
                     <artifactId>maven-assembly-plugin</artifactId>
                     <version>${version.maven-assembly-plugin}</version>
                 </plugin>
-
+                <plugin>
+                    <groupId>com.github.ekryd.sortpom</groupId>
+                    <artifactId>sortpom-maven-plugin</artifactId>
+                    <version>${version.sortpom-maven-plugin}</version>
+                    <configuration>
+                        <predefinedSortOrder>custom_1</predefinedSortOrder>
+                        <lineSeparator>\n</lineSeparator>
+                        <encoding>${project.build.sourceEncoding}</encoding>
+                        <sortProperties>true</sortProperties>
+                        <keepBlankLines>false</keepBlankLines>
+                        <expandEmptyElements>false</expandEmptyElements>
+                        <nrOfIndentSpace>4</nrOfIndentSpace>
+                    </configuration>
+                </plugin>
             </plugins>
-
         </pluginManagement>
         <plugins>
             <plugin>
@@ -171,6 +183,25 @@
             </plugin>
         </plugins>
     </build>
+    <scm>
+        <connection>scm:git:ssh://git@gitlab.fairandsmart.tech:10022/fairandsmart/${project.artifactId}</connection>
+        <developerConnection>scm:git:ssh://git@gitlab.fairandsmart.tech:10022/fairandsmart/${project.artifactId}</developerConnection>
+        <url>https://gitlab.fairandsmart.tech/fairandsmart/${project.artifactId}</url>
+        <tag>parent-14</tag>
+    </scm>
+    <repositories>
+        <repository>
+            <releases>
+                <enabled>true</enabled>
+            </releases>
+            <snapshots>
+                <enabled>true</enabled>
+                <updatePolicy>always</updatePolicy>
+            </snapshots>
+            <id>fns-nexus</id>
+            <url>https://repository.fairandsmart.tech/nexus/content/groups/public/</url>
+        </repository>
+    </repositories>
     <profiles>
         <profile>
             <id>CI</id>
@@ -231,8 +262,7 @@
                                     <phase>validate</phase>
                                     <configuration>
                                         <processDependencyManagement>false</processDependencyManagement>
-                                        <processPluginDependenciesInPluginManagement>false
-                                        </processPluginDependenciesInPluginManagement>
+                                        <processPluginDependenciesInPluginManagement>false</processPluginDependenciesInPluginManagement>
                                     </configuration>
                                 </execution>
                             </executions>
