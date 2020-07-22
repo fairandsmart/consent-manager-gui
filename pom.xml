@@ -202,6 +202,18 @@
             <url>https://repository.fairandsmart.tech/nexus/content/groups/public/</url>
         </repository>
     </repositories>
+    <distributionManagement>
+        <repository>
+            <id>fns-nexus</id>
+            <name>Fair And Smart Nexus Releases</name>
+            <url>https://repository.fairandsmart.tech/nexus/content/repositories/releases/</url>
+        </repository>
+        <snapshotRepository>
+            <id>fns-nexus</id>
+            <name>Fair And Smart Nexus Snapshots</name>
+            <url>https://repository.fairandsmart.tech/nexus/content/repositories/snapshots/</url>
+        </snapshotRepository>
+    </distributionManagement>
     <profiles>
         <profile>
             <id>CI</id>
