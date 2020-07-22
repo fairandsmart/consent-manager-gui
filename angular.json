@@ -49,7 +49,8 @@
               "@angular/common/locales/fr",
               "codemirror/mode/css/css",
               "codemirror/addon/lint/lint",
-              "codemirror/addon/lint/css-lint"
+              "codemirror/addon/lint/css-lint",
+              "@ctrl/ngx-codemirror"
             ]
           },
           "configurations": {

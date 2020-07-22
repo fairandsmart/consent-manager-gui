@@ -41,6 +41,7 @@ import { EntriesListSelectComponent } from './entries/entries-list-select/entrie
 import { EntriesListComponent } from './entries/entries-list/entries-list.component';
 import { CodemirrorModule } from '@ctrl/ngx-codemirror';
 import { ClipboardModule } from '@angular/cdk/clipboard';
+import { TextOverflowDirective } from './common/text-overflow.directive';
 
 const keycloakService = new KeycloakService();
 
@@ -84,7 +85,8 @@ registerLocaleData(localeFr, 'fr');
     ThemeComponent,
     FormCreatorComponent,
     ThemesPageComponent,
-    HealthErrorComponent
+    HealthErrorComponent,
+    TextOverflowDirective
   ],
   imports: [
     BrowserModule,
