@@ -16,7 +16,7 @@ export class AppComponent {
   ) {
     this.translate.addLangs(LANGUAGES);
     const browserLang = this.translate.getBrowserLang();
-    const lang = this.translate.langs.includes(browserLang) ? browserLang : 'fr';
+    const lang = this.translate.langs.includes(browserLang) ? browserLang : 'en';
     this.translate.use(lang);
   }
 }
