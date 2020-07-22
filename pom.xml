@@ -17,10 +17,10 @@
         <version.maven-deploy-plugin>3.0.0-M1</version.maven-deploy-plugin>
         <version.maven-enforcer-plugin>3.0.0-M3</version.maven-enforcer-plugin>
         <version.maven-install-plugin>3.0.0-M1</version.maven-install-plugin>
-        <version.maven-site-plugin>3.8.2</version.maven-site-plugin>
+        <version.maven-site-plugin>3.9.0</version.maven-site-plugin>
         <version.node>v12.13.0</version.node>
         <version.npm>6.12.0</version.npm>
-        <version.sortpom-maven-plugin>2.10.0</version.sortpom-maven-plugin>
+        <version.sortpom-maven-plugin>2.11.0</version.sortpom-maven-plugin>
         <version.versions-maven-plugin>2.7</version.versions-maven-plugin>
     </properties>
     <build>
@@ -187,7 +187,6 @@
         <connection>scm:git:ssh://git@gitlab.fairandsmart.tech:10022/fairandsmart/${project.artifactId}</connection>
         <developerConnection>scm:git:ssh://git@gitlab.fairandsmart.tech:10022/fairandsmart/${project.artifactId}</developerConnection>
         <url>https://gitlab.fairandsmart.tech/fairandsmart/${project.artifactId}</url>
-        <tag>parent-14</tag>
     </scm>
     <repositories>
         <repository>

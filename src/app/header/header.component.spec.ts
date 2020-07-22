@@ -8,6 +8,7 @@ import { ModelsResourceService } from '../models-resource.service';
 import SpyObj = jasmine.SpyObj;
 import createSpyObj = jasmine.createSpyObj;
 import { TranslateModule } from '@ngx-translate/core';
+import { EntryInfoComponent } from '../entry-info/entry-info.component';
 
 describe('HeaderComponent', () => {
   let component: HeaderComponent;
@@ -18,7 +19,7 @@ describe('HeaderComponent', () => {
     modelsResourceServiceSpy =  createSpyObj<ModelsResourceService>('ModelsResourceService', ['listEntries']);
 
     TestBed.configureTestingModule({
-      declarations: [ HeaderComponent ],
+      declarations: [ HeaderComponent, EntryInfoComponent ],
       imports: [ ReactiveFormsModule, MaterialModule, NoopAnimationsModule, TranslateModule.forRoot() ],
       providers: [
         {provide: ModelsResourceService, useValue: modelsResourceServiceSpy},
