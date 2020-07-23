@@ -260,6 +260,9 @@
           },
           "REJECT": {
             "LABEL": "\"Reject\" button label"
+          },
+          "IFRAME": {
+            "TITLE": "Preview"
           }
         }
       },

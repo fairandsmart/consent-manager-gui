@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { EntryContentDirective } from '../entry-content/entry-content.directive';
 import { Conditions } from '../models';
 import { FormBuilder, Validators } from '@angular/forms';
@@ -6,11 +6,12 @@ import { ModelsResourceService } from '../models-resource.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { LANGUAGES } from '../common/constants';
 import { TranslateService } from '@ngx-translate/core';
+import { debounceTime } from 'rxjs/operators';
 
 @Component({
   selector: 'app-conditions',
   templateUrl: './conditions.component.html',
-  styleUrls: ['../entry-content/_entry-content.directive.scss', './conditions.component.scss']
+  styleUrls: ['../entry-content/_entry-content.directive.scss', '../theme/theme.component.scss', './conditions.component.scss']
 })
 export class ConditionsComponent extends EntryContentDirective<Conditions> implements OnInit {
 
@@ -26,6 +27,11 @@ export class ConditionsComponent extends EntryContentDirective<Conditions> imple
       'Cmd-E': 'autocomplete'
     }
   };
+
+  private delay = 500;
+
+  @ViewChild('preview')
+  private iframe: ElementRef;
 
   constructor(
       private fb: FormBuilder,
@@ -48,6 +54,14 @@ export class ConditionsComponent extends EntryContentDirective<Conditions> imple
       acceptLabel: ['', [Validators.required]],
       rejectLabel: ['', [Validators.required]]
     });
+    this.form.valueChanges.pipe(debounceTime(this.delay)).subscribe(() => {
+      this.refreshPreview();
+    });
   }
 
+  refreshPreview(): void {
+    if (this.iframe.nativeElement?.contentDocument?.body) {
+      this.iframe.nativeElement.contentDocument.body.innerHTML = this.form.get('body').value;
+    }
+  }
 }

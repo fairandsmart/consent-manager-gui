@@ -10,6 +10,7 @@ import { TranslateService } from '@ngx-translate/core';
 import { environment } from '../../environments/environment';
 import * as CodeMirror from 'codemirror';
 import { Editor } from 'codemirror';
+import { debounceTime } from 'rxjs/operators';
 
 const snippets: { text: string, displayText: string }[] = [
   { text: '.logo-wrapper', displayText: 'Logo - Conteneur' },
@@ -101,6 +102,7 @@ export class ThemeComponent extends EntryContentDirective<Theme> implements OnIn
   };
 
   private rawPreview: string;
+  private delay = 500;
 
   @ViewChild('preview')
   private iframe: ElementRef;
@@ -121,7 +123,7 @@ export class ThemeComponent extends EntryContentDirective<Theme> implements OnIn
   ngAfterViewInit(): void {
     this.consentsResourceService.getPreviewForm().subscribe((content) => {
       this.rawPreview = content.split('/assets/').join(`${environment.managerUrl}/assets/`);
-      this.updatePreview();
+      this.refreshPreview();
     });
   }
 
@@ -135,9 +137,12 @@ export class ThemeComponent extends EntryContentDirective<Theme> implements OnIn
       icon: [''],
       css: ['', [Validators.required]]
     });
+    this.form.valueChanges.pipe(debounceTime(this.delay)).subscribe(() => {
+      this.refreshPreview();
+    });
   }
 
-  updatePreview(): void {
+  refreshPreview(): void {
     let result = this.rawPreview;
     const style = this.form.get('css');
     if (style && style.value) {

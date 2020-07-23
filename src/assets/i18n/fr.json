@@ -260,6 +260,9 @@
           },
           "REJECT": {
             "LABEL": "Libellé du bouton \"Refuser\""
+          },
+          "IFRAME": {
+            "TITLE": "Prévisualisation"
           }
         }
       },
@@ -422,7 +425,7 @@
         }
       },
       "LOCALE": {
-        "LABEL": "Langage"
+        "LABEL": "Langue"
       },
       "THEME": {
         "LABEL": "Thème (facultatif)",

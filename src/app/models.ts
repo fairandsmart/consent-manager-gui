@@ -220,6 +220,7 @@ export interface ConsentContext {
   author: string;
   preview: boolean;
   iframe: boolean;
+  conditions?: boolean;
   theme?: string;
 }
 

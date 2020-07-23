@@ -29,7 +29,7 @@
             <input matInput formControlName="icon" autocomplete="off">
           </mat-form-field>
           <div>
-            <p class="css-input-label">{{'THEMES.COMMON.CSS.LABEL' | translate}}
+            <p class="code-input-label">{{'THEMES.COMMON.CSS.LABEL' | translate}}
               <span class="mat-caption">
                 <br>{{'THEMES.COMMON.CSS.HINT' | translate}}
                 <br>{{'THEMES.COMMON.CSS.AUTOCOMPLETE' | translate}}
@@ -52,7 +52,6 @@
     <app-entry-info [entry]="entry"></app-entry-info>
     <h2 class="preview-title-wrapper">
       <span>{{'THEMES.IFRAME.TITLE' | translate}}</span>
-      <button (click)="updatePreview()" mat-icon-button><mat-icon>refresh</mat-icon></button>
     </h2>
     <iframe #preview title="Preview"></iframe>
   </mat-sidenav>

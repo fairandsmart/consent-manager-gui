@@ -15,7 +15,7 @@
             <input matInput formControlName="title" autocomplete="off">
           </mat-form-field>
           <div>
-            <p class="html-input-label">{{'ENTRIES.EDITOR.CONTENT.CONDITIONS.BODY.LABEL' | translate}}
+            <p class="code-input-label">{{'ENTRIES.EDITOR.CONTENT.CONDITIONS.BODY.LABEL' | translate}}
               <span class="mat-caption">
                 <br>{{'ENTRIES.EDITOR.CONTENT.CONDITIONS.BODY.HINT' | translate}}
                 <br>{{'ENTRIES.EDITOR.CONTENT.CONDITIONS.BODY.AUTOCOMPLETE' | translate}}
@@ -43,6 +43,10 @@
     </form>
   </mat-sidenav-content>
   <mat-sidenav opened mode="side" position="end">
-    <app-entry-info *ngIf="entry" [entry]="entry"></app-entry-info>
+    <app-entry-info [entry]="entry"></app-entry-info>
+    <h2 class="preview-title-wrapper">
+      <span>{{'ENTRIES.EDITOR.CONTENT.CONDITIONS.IFRAME.TITLE' | translate}}</span>
+    </h2>
+    <iframe #preview title="Preview"></iframe>
   </mat-sidenav>
 </mat-sidenav-container>
