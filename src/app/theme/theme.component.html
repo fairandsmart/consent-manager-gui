@@ -10,14 +10,14 @@
               <mat-option *ngFor="let language of LANGUAGES" [value]="language">{{'COMMON.LANGUAGES.' + language.toUpperCase() | translate}}</mat-option>
             </mat-select>
           </mat-form-field>
-          <mat-form-field appearance="outline">
-            <mat-label>{{'THEMES.COMMON.NAME.LABEL' | translate}}</mat-label>
-            <input matInput formControlName="name" autocomplete="off">
-          </mat-form-field>
-          <mat-form-field appearance="outline">
-            <mat-label>{{'THEMES.COMMON.PRESENTATION.LABEL' | translate}}</mat-label>
-            <textarea matInput formControlName="presentation"></textarea>
-          </mat-form-field>
+<!--          <mat-form-field appearance="outline">-->
+<!--            <mat-label>{{'THEMES.COMMON.NAME.LABEL' | translate}}</mat-label>-->
+<!--            <input matInput formControlName="name" autocomplete="off">-->
+<!--          </mat-form-field>-->
+<!--          <mat-form-field appearance="outline">-->
+<!--            <mat-label>{{'THEMES.COMMON.PRESENTATION.LABEL' | translate}}</mat-label>-->
+<!--            <textarea matInput formControlName="presentation"></textarea>-->
+<!--          </mat-form-field>-->
           <mat-form-field appearance="outline">
             <mat-label>{{'THEMES.COMMON.TARGETTYPE.LABEL' | translate}}</mat-label>
             <mat-select formControlName="targetType">
@@ -49,7 +49,7 @@
     </form>
   </mat-sidenav-content>
   <mat-sidenav opened mode="side" position="end">
-    <app-entry-info [entry]="entry"></app-entry-info>
+    <app-entry-info [entry]="entry" [showType]="false"></app-entry-info>
     <h2 class="preview-title-wrapper">
       <span>{{'THEMES.IFRAME.TITLE' | translate}}</span>
       <button (click)="updatePreview()" mat-icon-button><mat-icon>refresh</mat-icon></button>
