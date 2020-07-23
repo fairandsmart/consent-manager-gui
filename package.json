@@ -47,7 +47,7 @@
     "@ngrx/store-devtools": "^10.0.0-beta.1",
     "@types/jasmine": "~3.5.0",
     "@types/jasminewd2": "~2.0.3",
-    "@types/lodash": "^4.14.157",
+    "@types/lodash": "^4.14.158",
     "@types/node": "^12.12.51",
     "codelyzer": "^6.0.0",
     "jasmine-core": "~3.5.0",

@@ -11,6 +11,7 @@ import createSpyObj = jasmine.createSpyObj;
 import { TranslateModule } from '@ngx-translate/core';
 import { of } from 'rxjs';
 import { CodemirrorModule } from '@ctrl/ngx-codemirror';
+import { EntryInfoComponent } from '../entry-info/entry-info.component';
 
 describe('ThemeComponent', () => {
   let component: ThemeComponent;
@@ -23,7 +24,7 @@ describe('ThemeComponent', () => {
     consentsResourceServiceSpy =  createSpyObj('ConsentsResourceService', ['getPreviewForm']);
 
     TestBed.configureTestingModule({
-      declarations: [ ThemeComponent ],
+      declarations: [ ThemeComponent, EntryInfoComponent ],
       imports: [ ReactiveFormsModule, MaterialModule, NoopAnimationsModule, TranslateModule.forRoot(), CodemirrorModule ],
       providers: [
         {provide: ModelsResourceService, useValue: modelsResourceServiceSpy},

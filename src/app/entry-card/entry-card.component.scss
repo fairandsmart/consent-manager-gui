@@ -54,7 +54,15 @@
         font-size: 16px;
         display: flex;
         justify-content: space-between;
+        overflow: hidden;
+        .entry-name {
+          text-overflow: ellipsis;
+          white-space: nowrap;
+          overflow: hidden;
+          flex: 1 1 auto;
+        }
         .entry-info {
+          margin-left: 6px;
           display: flex;
           align-items: center;
         }

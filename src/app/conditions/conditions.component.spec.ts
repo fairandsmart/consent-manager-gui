@@ -9,6 +9,7 @@ import SpyObj = jasmine.SpyObj;
 import createSpyObj = jasmine.createSpyObj;
 import { TranslateModule } from '@ngx-translate/core';
 import { CodemirrorModule } from '@ctrl/ngx-codemirror';
+import { EntryInfoComponent } from '../entry-info/entry-info.component';
 
 describe('ConditionsComponent', () => {
   let component: ConditionsComponent;
@@ -19,7 +20,7 @@ describe('ConditionsComponent', () => {
     modelsResourceServiceSpy =  createSpyObj<ModelsResourceService>('ModelsResourceService', ['listEntries']);
 
     TestBed.configureTestingModule({
-      declarations: [ ConditionsComponent ],
+      declarations: [ ConditionsComponent, EntryInfoComponent ],
       imports: [ ReactiveFormsModule, MaterialModule, NoopAnimationsModule, TranslateModule.forRoot(), CodemirrorModule ],
       providers: [
         {provide: ModelsResourceService, useValue: modelsResourceServiceSpy},
