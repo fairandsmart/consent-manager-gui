@@ -8,6 +8,8 @@ import { ConfigComponent } from './config/config.component';
 import { FormCreatorComponent } from './form-creator/form-creator.component';
 import { EntriesPageComponent } from './entries-page/entries-page.component';
 import { ThemesPageComponent } from './themes-page/themes-page.component';
+import { ConditionsComponent } from './conditions/conditions.component';
+import { ConditionsPageComponent } from './conditions-page/conditions-page.component';
 
 const routes: Routes = [
   {
@@ -29,6 +31,14 @@ const routes: Routes = [
       },
       {
         path: 'entries/:id',
+        component: EntryComponent
+      },
+      {
+        path: 'conditions',
+        component: ConditionsPageComponent
+      },
+      {
+        path: 'conditions/:id',
         component: EntryComponent
       },
       {

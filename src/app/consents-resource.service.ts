@@ -32,7 +32,7 @@ export class ConsentsResourceService {
   }
 
   getPreviewForm(): Observable<string> {
-    return this.http.get<string>(`${environment.managerUrl}/consents/preview`, {responseType: 'text' as 'json'});
+    return this.http.get<string>(`${environment.managerUrl}/consents/themes/preview`, {responseType: 'text' as 'json'});
   }
 
   listRecords(filter: RecordFilter): Observable<CollectionPage<Record>> {

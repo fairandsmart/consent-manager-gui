@@ -183,6 +183,7 @@ export class FormCreatorComponent implements OnInit {
       author: '',
       preview: true,
       iframe: true,
+      conditions: false,
       theme: formValue.theme
     };
     if (context === this.previousContext) {

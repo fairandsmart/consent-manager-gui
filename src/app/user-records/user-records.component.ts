@@ -207,6 +207,7 @@ export class UserRecordsComponent implements OnInit {
         collectionMethod: CollectionMethod.OPERATOR,
         author: this.keycloak.getUsername(),
         preview: false,
+        conditions: false,
         iframe: false
       };
 
