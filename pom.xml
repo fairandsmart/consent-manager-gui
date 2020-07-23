@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
     <groupId>com.fairandsmart</groupId>
     <artifactId>gui-consent-manager</artifactId>
@@ -24,84 +25,58 @@
         <version.versions-maven-plugin>2.7</version.versions-maven-plugin>
     </properties>
     <build>
-        <pluginManagement>
-            <plugins>
-                <plugin>
-                    <artifactId>maven-deploy-plugin</artifactId>
-                    <version>${version.maven-deploy-plugin}</version>
-                </plugin>
-                <plugin>
-                    <artifactId>maven-install-plugin</artifactId>
-                    <version>${version.maven-install-plugin}</version>
-                </plugin>
-                <plugin>
-                    <artifactId>maven-site-plugin</artifactId>
-                    <version>${version.maven-site-plugin}</version>
-                </plugin>
-                <plugin>
-                    <groupId>org.apache.maven.plugins</groupId>
-                    <artifactId>maven-enforcer-plugin</artifactId>
-                    <version>${version.maven-enforcer-plugin}</version>
-                </plugin>
-                <plugin>
-                    <groupId>org.apache.maven.plugins</groupId>
-                    <artifactId>maven-clean-plugin</artifactId>
-                    <version>${version.maven-clean-plugin}</version>
-                    <configuration>
-                        <filesets>
-                            <fileset>
-                                <directory>dist</directory>
-                            </fileset>
-                            <fileset>
-                                <directory>node_modules</directory>
-                            </fileset>
-                            <fileset>
-                                <directory>.scannerwork</directory>
-                            </fileset>
-                            <fileset>
-                                <directory>coverage</directory>
-                            </fileset>
-                        </filesets>
-                    </configuration>
-                </plugin>
-                <plugin>
-                    <groupId>com.github.eirslett</groupId>
-                    <artifactId>frontend-maven-plugin</artifactId>
-                    <version>${version.frontend-maven-plugin}</version>
-                    <configuration>
-                        <environmentVariables>
-                            <CI>true</CI>
-                        </environmentVariables>
-                        <nodeVersion>${version.node}</nodeVersion>
-                        <npmVersion>${version.npm}</npmVersion>
-                        <installDirectory>target</installDirectory>
-                    </configuration>
-                </plugin>
-                <plugin>
-                    <groupId>org.apache.maven.plugins</groupId>
-                    <artifactId>maven-assembly-plugin</artifactId>
-                    <version>${version.maven-assembly-plugin}</version>
-                </plugin>
-                <plugin>
-                    <groupId>com.github.ekryd.sortpom</groupId>
-                    <artifactId>sortpom-maven-plugin</artifactId>
-                    <version>${version.sortpom-maven-plugin}</version>
-                    <configuration>
-                        <predefinedSortOrder>custom_1</predefinedSortOrder>
-                        <lineSeparator>\n</lineSeparator>
-                        <encoding>${project.build.sourceEncoding}</encoding>
-                        <sortProperties>true</sortProperties>
-                        <keepBlankLines>false</keepBlankLines>
-                        <expandEmptyElements>false</expandEmptyElements>
-                        <nrOfIndentSpace>4</nrOfIndentSpace>
-                    </configuration>
-                </plugin>
-            </plugins>
-        </pluginManagement>
         <plugins>
+            <plugin>
+                <artifactId>maven-deploy-plugin</artifactId>
+                <version>${version.maven-deploy-plugin}</version>
+            </plugin>
+            <plugin>
+                <artifactId>maven-install-plugin</artifactId>
+                <version>${version.maven-install-plugin}</version>
+            </plugin>
+            <plugin>
+                <artifactId>maven-site-plugin</artifactId>
+                <version>${version.maven-site-plugin}</version>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-clean-plugin</artifactId>
+                <version>${version.maven-clean-plugin}</version>
+                <configuration>
+                    <filesets>
+                        <fileset>
+                            <directory>dist</directory>
+                        </fileset>
+                        <fileset>
+                            <directory>node_modules</directory>
+                        </fileset>
+                        <fileset>
+                            <directory>.scannerwork</directory>
+                        </fileset>
+                        <fileset>
+                            <directory>coverage</directory>
+                        </fileset>
+                    </filesets>
+                </configuration>
+            </plugin>
+            <plugin>
+                <groupId>com.github.ekryd.sortpom</groupId>
+                <artifactId>sortpom-maven-plugin</artifactId>
+                <version>${version.sortpom-maven-plugin}</version>
+                <configuration>
+                    <predefinedSortOrder>custom_1</predefinedSortOrder>
+                    <lineSeparator>\n</lineSeparator>
+                    <encoding>${project.build.sourceEncoding}</encoding>
+                    <sortProperties>true</sortProperties>
+                    <keepBlankLines>false</keepBlankLines>
+                    <expandEmptyElements>false</expandEmptyElements>
+                    <nrOfIndentSpace>4</nrOfIndentSpace>
+                </configuration>
+            </plugin>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-enforcer-plugin</artifactId>
+                <version>${version.maven-enforcer-plugin}</version>
                 <inherited>true</inherited>
                 <executions>
                     <execution>
@@ -123,6 +98,15 @@
             <plugin>
                 <groupId>com.github.eirslett</groupId>
                 <artifactId>frontend-maven-plugin</artifactId>
+                <version>${version.frontend-maven-plugin}</version>
+                <configuration>
+                    <environmentVariables>
+                        <CI>true</CI>
+                    </environmentVariables>
+                    <nodeVersion>${version.node}</nodeVersion>
+                    <npmVersion>${version.npm}</npmVersion>
+                    <installDirectory>target</installDirectory>
+                </configuration>
                 <executions>
                     <execution>
                         <id>install node and npm</id>
@@ -165,6 +149,7 @@
             </plugin>
             <plugin>
                 <artifactId>maven-assembly-plugin</artifactId>
+                <version>${version.maven-assembly-plugin}</version>
                 <executions>
                     <execution>
                         <id>create-archive</id>
@@ -185,34 +170,10 @@
     </build>
     <scm>
         <connection>scm:git:ssh://git@gitlab.fairandsmart.tech:10022/fairandsmart/${project.artifactId}</connection>
-        <developerConnection>scm:git:ssh://git@gitlab.fairandsmart.tech:10022/fairandsmart/${project.artifactId}</developerConnection>
+        <developerConnection>scm:git:ssh://git@gitlab.fairandsmart.tech:10022/fairandsmart/${project.artifactId}
+        </developerConnection>
         <url>https://gitlab.fairandsmart.tech/fairandsmart/${project.artifactId}</url>
     </scm>
-    <repositories>
-        <repository>
-            <releases>
-                <enabled>true</enabled>
-            </releases>
-            <snapshots>
-                <enabled>true</enabled>
-                <updatePolicy>always</updatePolicy>
-            </snapshots>
-            <id>fns-nexus</id>
-            <url>https://repository.fairandsmart.tech/nexus/content/groups/public/</url>
-        </repository>
-    </repositories>
-    <distributionManagement>
-        <repository>
-            <id>fns-nexus</id>
-            <name>Fair And Smart Nexus Releases</name>
-            <url>https://repository.fairandsmart.tech/nexus/content/repositories/releases/</url>
-        </repository>
-        <snapshotRepository>
-            <id>fns-nexus</id>
-            <name>Fair And Smart Nexus Snapshots</name>
-            <url>https://repository.fairandsmart.tech/nexus/content/repositories/snapshots/</url>
-        </snapshotRepository>
-    </distributionManagement>
     <profiles>
         <profile>
             <id>CI</id>
@@ -222,69 +183,63 @@
                 </property>
             </activation>
             <build>
-                <pluginManagement>
-                    <plugins>
-                        <plugin>
-                            <groupId>org.owasp</groupId>
-                            <artifactId>dependency-check-maven</artifactId>
-                            <version>${version.dependency-check-maven}</version>
-                            <configuration>
-                                <enableRetired>true</enableRetired>
-                                <enableExperimental>true</enableExperimental>
-                                <scanSet>
-                                    <fileSet>
-                                        <directory>.</directory>
-                                        <includes>
-                                            <include>package.json</include>
-                                            <include>package-lock.json</include>
-                                        </includes>
-                                    </fileSet>
-                                    <fileSet>
-                                        <directory>src/main</directory>
-                                    </fileSet>
-                                </scanSet>
-                                <format>ALL</format>
-                                <suppressionFiles>
-                                    <suppressionFile>project-suppression.xml</suppressionFile>
-                                </suppressionFiles>
-                                <failBuildOnCVSS>11</failBuildOnCVSS>
-                            </configuration>
-                            <executions>
-                                <execution>
-                                    <goals>
-                                        <goal>check</goal>
-                                    </goals>
-                                    <phase>verify</phase>
-                                </execution>
-                            </executions>
-                        </plugin>
-                        <plugin>
-                            <groupId>org.codehaus.mojo</groupId>
-                            <artifactId>versions-maven-plugin</artifactId>
-                            <version>${version.versions-maven-plugin}</version>
-                            <executions>
-                                <execution>
-                                    <goals>
-                                        <goal>display-property-updates</goal>
-                                        <goal>display-plugin-updates</goal>
-                                        <goal>display-parent-updates</goal>
-                                        <goal>display-dependency-updates</goal>
-                                    </goals>
-                                    <phase>validate</phase>
-                                    <configuration>
-                                        <processDependencyManagement>false</processDependencyManagement>
-                                        <processPluginDependenciesInPluginManagement>false</processPluginDependenciesInPluginManagement>
-                                    </configuration>
-                                </execution>
-                            </executions>
-                        </plugin>
-                    </plugins>
-                </pluginManagement>
                 <plugins>
                     <plugin>
                         <groupId>org.codehaus.mojo</groupId>
                         <artifactId>versions-maven-plugin</artifactId>
+                        <version>${version.versions-maven-plugin}</version>
+                        <executions>
+                            <execution>
+                                <goals>
+                                    <goal>display-property-updates</goal>
+                                    <goal>display-plugin-updates</goal>
+                                    <goal>display-parent-updates</goal>
+                                    <goal>display-dependency-updates</goal>
+                                </goals>
+                                <phase>validate</phase>
+                                <configuration>
+                                    <processDependencyManagement>false</processDependencyManagement>
+                                    <processPluginDependenciesInPluginManagement>false
+                                    </processPluginDependenciesInPluginManagement>
+                                </configuration>
+                            </execution>
+                        </executions>
                     </plugin>
+                    <plugin>
+                        <groupId>org.owasp</groupId>
+                        <artifactId>dependency-check-maven</artifactId>
+                        <version>${version.dependency-check-maven}</version>
+                        <configuration>
+                            <enableRetired>true</enableRetired>
+                            <enableExperimental>true</enableExperimental>
+                            <scanSet>
+                                <fileSet>
+                                    <directory>.</directory>
+                                    <includes>
+                                        <include>package.json</include>
+                                        <include>package-lock.json</include>
+                                    </includes>
+                                </fileSet>
+                                <fileSet>
+                                    <directory>src/main</directory>
+                                </fileSet>
+                            </scanSet>
+                            <format>ALL</format>
+                            <suppressionFiles>
+                                <suppressionFile>project-suppression.xml</suppressionFile>
+                            </suppressionFiles>
+                            <failBuildOnCVSS>11</failBuildOnCVSS>
+                        </configuration>
+                        <executions>
+                            <execution>
+                                <goals>
+                                    <goal>check</goal>
+                                </goals>
+                                <phase>verify</phase>
+                            </execution>
+                        </executions>
+                    </plugin>
+
                 </plugins>
             </build>
         </profile>
