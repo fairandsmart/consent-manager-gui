@@ -24,6 +24,12 @@ export class EntriesPageComponent {
       showSort: true
     },
     {
+      id: 'conditions',
+      types: ['conditions'],
+      multiple: true,
+      showSort: true
+    },
+    {
       id: 'footers',
       types: ['footer'],
       multiple: environment.customization.multipleFooter,

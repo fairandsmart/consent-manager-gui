@@ -8,6 +8,7 @@ import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import SpyObj = jasmine.SpyObj;
 import createSpyObj = jasmine.createSpyObj;
 import { TranslateModule } from '@ngx-translate/core';
+import { CodemirrorModule } from '@ctrl/ngx-codemirror';
 
 describe('ConditionsComponent', () => {
   let component: ConditionsComponent;
@@ -19,7 +20,7 @@ describe('ConditionsComponent', () => {
 
     TestBed.configureTestingModule({
       declarations: [ ConditionsComponent ],
-      imports: [ ReactiveFormsModule, MaterialModule, NoopAnimationsModule, TranslateModule.forRoot() ],
+      imports: [ ReactiveFormsModule, MaterialModule, NoopAnimationsModule, TranslateModule.forRoot(), CodemirrorModule ],
       providers: [
         {provide: ModelsResourceService, useValue: modelsResourceServiceSpy},
       ]

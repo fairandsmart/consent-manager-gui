@@ -15,6 +15,17 @@ import { TranslateService } from '@ngx-translate/core';
 export class ConditionsComponent extends EntryContentDirective<Conditions> implements OnInit {
 
   readonly LANGUAGES = LANGUAGES;
+  readonly CODE_MIRROR_OPTIONS = {
+    lineNumbers: true,
+    mode: 'htmlmixed',
+    gutters: ['CodeMirror-lint-markers'],
+    lint: true,
+    extraKeys: {
+      'Ctrl-Space': 'autocomplete',
+      'Ctrl-E': 'autocomplete',
+      'Cmd-E': 'autocomplete'
+    }
+  };
 
   constructor(
       private fb: FormBuilder,

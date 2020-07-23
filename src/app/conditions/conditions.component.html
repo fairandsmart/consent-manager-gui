@@ -14,10 +14,15 @@
             <mat-label>{{'ENTRIES.EDITOR.CONTENT.CONDITIONS.TITLE.LABEL' | translate}}</mat-label>
             <input matInput formControlName="title" autocomplete="off">
           </mat-form-field>
-          <mat-form-field appearance="outline">
-            <mat-label>{{'ENTRIES.EDITOR.CONTENT.CONDITIONS.BODY.LABEL' | translate}}</mat-label>
-            <textarea matInput formControlName="body"></textarea>
-          </mat-form-field>
+          <div>
+            <p class="html-input-label">{{'ENTRIES.EDITOR.CONTENT.CONDITIONS.BODY.LABEL' | translate}}
+              <span class="mat-caption">
+                <br>{{'ENTRIES.EDITOR.CONTENT.CONDITIONS.BODY.HINT' | translate}}
+                <br>{{'ENTRIES.EDITOR.CONTENT.CONDITIONS.BODY.AUTOCOMPLETE' | translate}}
+              </span>
+            </p>
+            <ngx-codemirror formControlName="body" name="body" [options]="CODE_MIRROR_OPTIONS"></ngx-codemirror>
+          </div>
           <mat-form-field appearance="outline">
             <mat-label>{{'ENTRIES.EDITOR.CONTENT.CONDITIONS.ACCEPT.LABEL' | translate}}</mat-label>
             <input matInput formControlName="acceptLabel" autocomplete="off">

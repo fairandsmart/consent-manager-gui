@@ -61,6 +61,10 @@
       "PANEL_TITLE": "Treatments",
       "EMPTY": "First, create a treatment..."
     },
+    "conditions": {
+      "PANEL_TITLE": "Conditions",
+      "EMPTY": "First, create a conditions model..."
+    },
     "footers": {
       "PANEL_TITLE": "Footer",
       "EMPTY": "First, add a footer...",
@@ -73,6 +77,7 @@
     "BUTTON_ADD": {
       "header": "New header",
       "treatment": "New treatment",
+      "conditions": "New conditions",
       "footer": "New footer",
       "theme": "New theme",
       "MULTIPLE": "Add..."
@@ -99,12 +104,14 @@
       "TITLE_NEW": {
         "HEADER": "New header",
         "TREATMENT": "New treatment",
+        "CONDITIONS": "New conditions",
         "FOOTER": "New footer",
         "THEME": "New theme"
       },
       "TITLE_UPDATE": {
         "HEADER": "Update header",
         "TREATMENT": "Update treatment",
+        "CONDITIONS": "Update conditions",
         "FOOTER": "Update footer",
         "THEME": "Update theme"
       }
@@ -244,7 +251,9 @@
             "LABEL": "Label"
           },
           "BODY": {
-            "LABEL": "EULA"
+            "LABEL": "EULA",
+            "HINT": "Write your custom HTML or drop a HTML file",
+            "AUTOCOMPLETE": "(toggle auto-completion with CTRL+E or CMD+E)"
           },
           "ACCEPT": {
             "LABEL": "\"Accept\" button label"
@@ -292,7 +301,7 @@
       "CSS": {
         "LABEL": "Style",
         "HINT": "Write your custom CSS or drop a CSS file",
-        "AUTOCOMPLETE": "(toggle auto-completion with CTRL+E or CMD+E to help you stylized the form elements)"
+        "AUTOCOMPLETE": "(toggle auto-completion with CTRL+E or CMD+E to help you stylize the form elements)"
       }
     }
   },
