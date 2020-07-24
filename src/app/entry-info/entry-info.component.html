@@ -1,12 +1,16 @@
-<h2>{{'ENTRIES.EDITOR.INFORMATION.TITLE' | translate}}</h2>
+<h2>
+  <span>{{'ENTRIES.EDITOR.INFORMATION.TITLE' | translate}}</span>
+  <button mat-icon-button (click)="edit()"><mat-icon>edit</mat-icon></button>
+</h2>
 <dl *ngIf="entry">
-  <dt>{{'ENTRIES.COMMON.type.LABEL' | translate}}</dt>
-  <dd>{{'COMMON.ENTRY_TYPES.' + entry.type.toUpperCase() | translate}}</dd>
-  <dt>{{'ENTRIES.COMMON.key.LABEL' | translate}}</dt>
-  <dd>{{entry.key}}</dd>
   <dt>{{'ENTRIES.COMMON.name.LABEL' | translate}}</dt>
   <dd>{{entry.name}}</dd>
   <dt>{{'ENTRIES.COMMON.description.LABEL' | translate}}</dt>
   <dd>{{entry.description || '-'}}</dd>
+  <ng-container *ngIf="showType">
+    <dt>{{'ENTRIES.COMMON.type.LABEL' | translate}}</dt>
+    <dd>{{'COMMON.ENTRY_TYPES.' + entry.type.toUpperCase() | translate}}</dd>
+  </ng-container>
+  <dt>{{'ENTRIES.COMMON.key.LABEL' | translate}}</dt>
+  <dd>{{entry.key}}</dd>
 </dl>
-<button mat-button color="primary" (click)="edit()">{{'COMMON.BUTTONS.EDIT' | translate}}</button>

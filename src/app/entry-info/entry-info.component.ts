@@ -13,6 +13,9 @@ export class EntryInfoComponent implements OnInit {
   @Input()
   entry: ModelEntry;
 
+  @Input()
+  showType = true;
+
   constructor(private dialog: MatDialog) {
   }
 

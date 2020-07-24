@@ -131,8 +131,8 @@ export class ThemeComponent extends EntryContentDirective<Theme> implements OnIn
     this.form = this.fb.group({
       type: ['theme', [Validators.required]],
       locale: ['', [Validators.required]],
-      name: ['', [Validators.required]],
-      presentation: [''],
+      // name: ['', [Validators.required]],
+      // presentation: [''],
       targetType: ['', [Validators.required]],
       icon: [''],
       css: ['', [Validators.required]]

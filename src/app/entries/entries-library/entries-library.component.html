@@ -1,5 +1,5 @@
 <mat-accordion [multi]="true">
-  <mat-expansion-panel *ngFor="let section of sections" hideToggle [expanded]="true">
+  <mat-expansion-panel *ngFor="let section of sections" [expanded]="true">
     <mat-expansion-panel-header>
       <mat-panel-title>
         <span>{{'ENTRIES.' + section.id + '.PANEL_TITLE' | translate}}</span>
