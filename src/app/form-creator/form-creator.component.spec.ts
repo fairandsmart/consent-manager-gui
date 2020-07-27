@@ -5,7 +5,6 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MaterialModule } from '../material.module';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { TranslateModule } from '@ngx-translate/core';
-import { ConsentsResourceService } from '../consents-resource.service';
 import { ModelsResourceService } from '../models-resource.service';
 import { EMPTY } from 'rxjs';
 import { NO_ERRORS_SCHEMA } from '@angular/core';
@@ -15,18 +14,15 @@ import createSpyObj = jasmine.createSpyObj;
 describe('FormCreatorComponent', () => {
   let component: FormCreatorComponent;
   let fixture: ComponentFixture<FormCreatorComponent>;
-  let consentsResourceServiceSpy: SpyObj<ConsentsResourceService>;
   let modelsResourceServiceSpy: SpyObj<ModelsResourceService>;
 
   beforeEach(async(() => {
-    consentsResourceServiceSpy =  createSpyObj<ConsentsResourceService>('ConsentsResourceService', ['listUserRecords']);
     modelsResourceServiceSpy =  createSpyObj<ModelsResourceService>('ModelsResourceService', ['listEntries']);
 
     TestBed.configureTestingModule({
       declarations: [ FormCreatorComponent ],
       imports: [ FormsModule, ReactiveFormsModule, MaterialModule, NoopAnimationsModule, TranslateModule.forRoot() ],
       providers: [
-        {provide: ConsentsResourceService, useValue: consentsResourceServiceSpy},
         {provide: ModelsResourceService, useValue: modelsResourceServiceSpy},
       ],
       schemas: [ NO_ERRORS_SCHEMA ]

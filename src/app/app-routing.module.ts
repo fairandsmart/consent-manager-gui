@@ -8,14 +8,39 @@ import { ConfigComponent } from './config/config.component';
 import { FormCreatorComponent } from './form-creator/form-creator.component';
 import { EntriesPageComponent } from './entries-page/entries-page.component';
 import { ThemesPageComponent } from './themes-page/themes-page.component';
-import { ConditionsComponent } from './conditions/conditions.component';
 import { ConditionsPageComponent } from './conditions-page/conditions-page.component';
+import { ConditionsReadOnlyComponent } from './conditions-read-only/conditions-read-only.component';
 
 const routes: Routes = [
   {
     path: '',
     redirectTo: 'config/entries',
     pathMatch: 'full'
+  },
+  {
+    path: 'conditions',
+    children: [
+      {
+        path: '',
+        redirectTo: '/config/entries',
+        pathMatch: 'full'
+      },
+      {
+        path: ':owner',
+        children: [
+          {
+            path: '',
+            redirectTo: '/config/entries',
+            pathMatch: 'full'
+          },
+          {
+            path: ':key',
+            component: ConditionsReadOnlyComponent
+          }
+        ]
+
+      }
+    ]
   },
   {
     path: 'config',

@@ -34,12 +34,12 @@ export class HeaderComponent extends EntryContentDirective<Header> implements On
       locale: ['', [Validators.required]],
       logoPath: [''],
       logoAltText: [''],
-      title: [''],
-      body: [''],
+      title: ['', [Validators.required]],
+      body: ['', [Validators.required]],
       jurisdiction: [''],
-      showJurisdiction: [''],
+      showJurisdiction: [false],
       collectionMethod: [''],
-      showCollectionMethod: [''],
+      showCollectionMethod: [false],
       dataController: this.fb.group({
         actingBehalfCompany: [false],
         company: [''],
@@ -48,12 +48,12 @@ export class HeaderComponent extends EntryContentDirective<Header> implements On
         email: [''],
         phoneNumber: ['']
       }),
-      showDataController: [''],
+      showDataController: [false],
       scope: [''],
       showScope: [false],
       shortNoticeLink: [''],
-      showShortNoticeLink: [''],
-      privacyPolicyUrl: [''],
+      showShortNoticeLink: [false],
+      privacyPolicyUrl: ['', [Validators.required]],
       customPrivacyPolicyText: ['']
     });
   }

@@ -194,9 +194,9 @@ export class UserRecordsComponent implements OnInit {
         subject: this.filter.user,
         owner: '', // géré côté backend
         orientation: ConsentFormOrientation.VERTICAL,
-        header: formValue.headerKey, // TODO : récupérer LE header, pas de sélection pour l'utilisateur
+        header: formValue.headerKey,
         elements: elements,
-        footer: formValue.footerKey, // TODO : récupérer LE footer, pas de sélection pour l'utilisateur
+        footer: formValue.footerKey,
         callback: '',
         locale: formValue.locale,
         formType: ConsentFormType.FULL,

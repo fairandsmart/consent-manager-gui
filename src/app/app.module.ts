@@ -43,6 +43,7 @@ import { CodemirrorModule } from '@ctrl/ngx-codemirror';
 import { ClipboardModule } from '@angular/cdk/clipboard';
 import { ConditionsPageComponent } from './conditions-page/conditions-page.component';
 import { TextOverflowDirective } from './common/text-overflow.directive';
+import { ConditionsReadOnlyComponent } from './conditions-read-only/conditions-read-only.component';
 
 const keycloakService = new KeycloakService();
 
@@ -88,7 +89,8 @@ registerLocaleData(localeFr, 'fr');
     ThemesPageComponent,
     HealthErrorComponent,
     ConditionsPageComponent,
-    TextOverflowDirective
+    TextOverflowDirective,
+    ConditionsReadOnlyComponent
   ],
   imports: [
     BrowserModule,

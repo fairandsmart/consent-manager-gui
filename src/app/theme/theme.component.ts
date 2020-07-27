@@ -41,7 +41,8 @@ export class ThemeComponent extends EntryContentDirective<Theme> implements OnIn
       'Ctrl-E': 'autocomplete',
       'Cmd-E': 'autocomplete'
     },
-    hintOptions: {hint: (cm: Editor) => {
+    hintOptions: {
+      hint: (cm: Editor) => {
         const cur = cm.getCursor();
         const token = cm.getTokenAt(cur);
         const inner = CodeMirror.innerMode(cm.getMode(), token.state);
@@ -98,7 +99,8 @@ export class ThemeComponent extends EntryContentDirective<Theme> implements OnIn
             to: CodeMirror.Pos(cur.line, end)
           };
         }
-    }}
+      }
+    }
   };
 
   private rawPreview: string;
