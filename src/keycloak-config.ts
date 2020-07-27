@@ -11,6 +11,7 @@ export const KEYCLOAK_CONFIG: KeycloakOptions = {
     onLoad: 'login-required',
     checkLoginIframe: true
   },
+  loadUserProfileAtStartUp: true,
   enableBearerInterceptor: true,
   bearerExcludedUrls: [
     '/assets'
