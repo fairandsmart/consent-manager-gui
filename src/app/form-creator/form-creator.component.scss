@@ -53,6 +53,9 @@
   mat-sidenav {
     min-width: 400px;
     overflow: hidden;
+    mat-form-field {
+      margin: 16px;
+    }
     app-entries-library ::ng-deep app-entries-list-drag-and-drop app-entry-card ::ng-deep mat-card {
       background-color: mat-color($mat-light-theme-background, background);
     }

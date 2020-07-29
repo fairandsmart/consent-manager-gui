@@ -33,6 +33,15 @@
             <button mat-button color="primary" matStepperNext>{{'TOKEN.BUTTON_LABEL_NEXT_STEP' | translate}}</button>
           </div>
         </mat-step>
+        <mat-step [label]="'TOKEN.STEP_PREVIEW' | translate">
+          <mat-card *ngIf="formUrl" class="form-preview">
+            <iframe [src]="formUrl"></iframe>
+          </mat-card>
+          <div class="step-actions">
+            <button mat-button color="primary" matStepperPrevious>{{'TOKEN.BUTTON_LABEL_PREVIOUS_STEP' | translate}}</button>
+            <button mat-button color="primary" matStepperNext>{{'TOKEN.BUTTON_LABEL_NEXT_STEP' | translate}}</button>
+          </div>
+        </mat-step>
         <mat-step [label]="'TOKEN.STEP_OPTIONS' | translate" [stepControl]="form.at(STEPS.OPTIONS)">
           <mat-card [formGroup]="form.at(STEPS.OPTIONS)">
             <mat-card-content>
@@ -40,18 +49,12 @@
                 <mat-label>{{'TOKEN.FORM.SUBJECT.LABEL' | translate}}</mat-label>
                 <input matInput required formControlName="subject" autocomplete="off">
               </mat-form-field>-->
-              <mat-form-field appearance="fill">
-                <mat-label>{{'TOKEN.FORM.LOCALE.LABEL' | translate}}</mat-label>
-                <mat-select formControlName="locale" required>
-                  <mat-option *ngFor="let language of LANGUAGES" [value]="language">{{'COMMON.LANGUAGES.' + language.toUpperCase() | translate}}</mat-option>
-                </mat-select>
-              </mat-form-field>
-              <mat-form-field appearance="fill">
-                <mat-label>{{'TOKEN.FORM.ORIENTATION.LABEL' | translate}}</mat-label>
-                <mat-select formControlName="orientation" required>
-                  <mat-option *ngFor="let orientation of ORIENTATIONS" [value]="orientation">{{'TOKEN.FORM.ORIENTATION.VALUES.' + orientation | translate}}</mat-option>
-                </mat-select>
-              </mat-form-field>
+<!--              <mat-form-field appearance="fill">-->
+<!--                <mat-label>{{'TOKEN.FORM.ORIENTATION.LABEL' | translate}}</mat-label>-->
+<!--                <mat-select formControlName="orientation" required>-->
+<!--                  <mat-option *ngFor="let orientation of ORIENTATIONS" [value]="orientation">{{'TOKEN.FORM.ORIENTATION.VALUES.' + orientation | translate}}</mat-option>-->
+<!--                </mat-select>-->
+<!--              </mat-form-field>-->
               <div class="consent-validity-wrapper">
                 <mat-form-field appearance="fill">
                   <mat-label>{{'TOKEN.FORM.VALIDITY.LABEL' | translate}}</mat-label>
@@ -74,15 +77,6 @@
           </mat-card>
           <div class="step-actions">
             <button mat-button color="primary" matStepperPrevious>{{'TOKEN.BUTTON_LABEL_PREVIOUS_STEP' | translate}}</button>
-            <button mat-button color="primary" matStepperNext>{{'TOKEN.BUTTON_LABEL_NEXT_STEP' | translate}}</button>
-          </div>
-        </mat-step>
-        <mat-step [label]="'TOKEN.STEP_PREVIEW' | translate">
-          <mat-card *ngIf="formUrl" class="form-preview">
-            <iframe [src]="formUrl"></iframe>
-          </mat-card>
-          <div class="step-actions">
-            <button mat-button color="primary" matStepperPrevious>{{'TOKEN.BUTTON_LABEL_PREVIOUS_STEP' | translate}}</button>
             <button mat-button color="primary" (click)="openApiUrlDialog()">{{'TOKEN.API_URL.BUTTON_VIEW' | translate}}</button>
           </div>
         </mat-step>
@@ -93,7 +87,22 @@
       [style]="stepper.selectedIndex !== STEPS.ELEMENTS ? 'display: none' : ''"
       [config]="elementsLibraryConfig"
       [selected]="selectedElements" [mode]="'drag'"
-      (selectedChange)="selectedElementsChange($event)"></app-entries-library>
+      (selectedChange)="selectedElementsChange($event)"
+      [mode]="'drag'"></app-entries-library>
+    <ng-container *ngIf="stepper.selectedIndex === STEPS.PREVIEW" [formGroup]="form.at(STEPS.OPTIONS)">
+      <mat-form-field appearance="fill">
+        <mat-label>{{'TOKEN.FORM.ORIENTATION.LABEL' | translate}}</mat-label>
+        <mat-select formControlName="orientation" required>
+          <mat-option *ngFor="let orientation of ORIENTATIONS" [value]="orientation">{{'TOKEN.FORM.ORIENTATION.VALUES.' + orientation | translate}}</mat-option>
+        </mat-select>
+      </mat-form-field>
+      <mat-form-field appearance="fill">
+        <mat-label>{{'TOKEN.FORM.LOCALE.LABEL' | translate}}</mat-label>
+        <mat-select formControlName="locale" required>
+          <mat-option *ngFor="let language of LANGUAGES" [value]="language">{{'COMMON.LANGUAGES.' + language.toUpperCase() | translate}}</mat-option>
+        </mat-select>
+      </mat-form-field>
+    </ng-container>
     <app-entries-library
       [style]="stepper.selectedIndex !== STEPS.PREVIEW ? 'display: none' : ''"
       [config]="themesLibraryConfig"

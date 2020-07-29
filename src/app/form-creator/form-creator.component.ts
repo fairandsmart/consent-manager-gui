@@ -13,20 +13,21 @@ import {
 import { tap } from 'rxjs/operators';
 import { zip } from 'rxjs';
 import { CdkDragDrop, copyArrayItem, moveItemInArray } from '@angular/cdk/drag-drop';
-import { FormArray, FormBuilder, Validators } from '@angular/forms';
+import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { LANGUAGES } from '../common/constants';
 import { ConsentsResourceService } from '../consents-resource.service';
 import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
 import { StepperSelectionEvent } from '@angular/cdk/stepper';
 import { SectionConfig } from '../entries/entries-library/entries-library.component';
 import { environment } from '../../environments/environment';
+import * as _ from 'lodash';
 import { MatDialog } from '@angular/material/dialog';
 import { FormUrlDialogComponent, FormUrlDialogComponentData } from '../form-url-dialog/form-url-dialog.component';
 
 enum FORM_CREATOR_STEP {
   ELEMENTS,
-  OPTIONS,
-  PREVIEW
+  PREVIEW,
+  OPTIONS
 }
 
 @Component({
@@ -93,6 +94,9 @@ export class FormCreatorComponent implements OnInit {
 
   public formUrl: SafeResourceUrl;
   private previousContext: ConsentContext;
+  private previousOrientation: ConsentFormOrientation;
+  private previousLocale: string;
+  private currentStep: FORM_CREATOR_STEP;
 
   constructor(private consentsResource: ConsentsResourceService,
               private modelsResource: ModelsResourceService,
@@ -121,19 +125,33 @@ export class FormCreatorComponent implements OnInit {
         footer: ['', [Validators.pattern(FIELD_VALIDATORS.key.pattern)]]
       }),
       this.fb.group({
+        theme: ['', [Validators.pattern(FIELD_VALIDATORS.key.pattern)]],
+      }),
+      this.fb.group({
         // subject: ['', [Validators.required]],
         orientation: [ConsentFormOrientation.VERTICAL, [Validators.required]],
         validity: [6, [Validators.min(1)]],
         validityUnit: ['M'],
         receiptDeliveryType: ['DISPLAY'],
-        locale: ['', [Validators.required]],
+        locale: ['fr', [Validators.required]],
         forceDisplay: [true, [Validators.required]],
         optoutEmail: ['']
-      }),
-      this.fb.group({
-        theme: ['', [Validators.pattern(FIELD_VALIDATORS.key.pattern)]]
       })
     ]);
+    this.form.at(FORM_CREATOR_STEP.OPTIONS).get('orientation').valueChanges.subscribe((orientation) => {
+      if (this.currentStep === FORM_CREATOR_STEP.PREVIEW && this.previousOrientation !== orientation
+        && this.previousContext != null && this.previousContext.orientation !== orientation) {
+        this.previousOrientation = orientation;
+        this.preview();
+      }
+    });
+    this.form.at(FORM_CREATOR_STEP.OPTIONS).get('locale').valueChanges.subscribe((locale) => {
+      if (this.currentStep === FORM_CREATOR_STEP.PREVIEW && this.previousLocale !== locale
+        && this.previousContext != null && this.previousContext.locale !== locale) {
+        this.previousLocale = locale;
+        this.preview();
+      }
+    });
   }
 
   elementDropped(event: CdkDragDrop<ModelEntry[]>): void {
@@ -157,12 +175,13 @@ export class FormCreatorComponent implements OnInit {
   }
 
   preview(): void {
-    if (this.form.invalid) {
+    if (this.form.at(FORM_CREATOR_STEP.ELEMENTS).invalid || this.form.at(FORM_CREATOR_STEP.PREVIEW).invalid) {
       return;
     }
     this.form.disable();
     const context: ConsentContext = this.buildContext(true);
-    if (context === this.previousContext) {
+    if (_.isEqual(context, this.previousContext)) {
+      this.form.enable();
       return;
     }
     this.consentsResource.generateToken(context).subscribe((token) => {
@@ -177,6 +196,7 @@ export class FormCreatorComponent implements OnInit {
   }
 
   stepChange(event: StepperSelectionEvent): void {
+    this.currentStep = event.selectedIndex;
     if (event.selectedIndex === FORM_CREATOR_STEP.PREVIEW) {
       this.preview();
     }
@@ -229,7 +249,7 @@ export class FormCreatorComponent implements OnInit {
 
   private setSelectedTheme(selected: {[id: string]: ModelEntry[]}): void {
     this.selectedTheme = selected;
-    this.form.at(FORM_CREATOR_STEP.PREVIEW).setValue({
+    this.form.at(FORM_CREATOR_STEP.PREVIEW).patchValue({
       theme: this.selectedTheme.themes?.[0]?.key || ''
     });
     this.preview();
