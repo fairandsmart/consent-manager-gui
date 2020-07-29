@@ -126,7 +126,7 @@ export class UserRecordsComponent implements OnInit {
     this.loadEntries('header').subscribe((headers) => {
       this.headers = headers.values;
       if (this.headers.length > 0) {
-        this.form.setValue({ headerKey: this.headers[0].key });
+        this.form.patchValue({ headerKey: this.headers[0].key });
       }
     }, (err) => {
       console.error(err);
@@ -134,7 +134,7 @@ export class UserRecordsComponent implements OnInit {
     this.loadEntries('footer').subscribe((footers) => {
       this.footers = footers.values;
       if (this.footers.length > 0) {
-        this.form.setValue({ footerKey: this.footers[0].key });
+        this.form.patchValue({ footerKey: this.footers[0].key });
       }
     }, (err) => {
       console.error(err);

@@ -1,12 +1,15 @@
 import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { EntryContentDirective } from '../entry-content/entry-content.directive';
-import { Conditions } from '../models';
+import { CollectionMethod, Conditions, ConsentContext, ConsentFormOrientation, ConsentFormType } from '../models';
 import { FormBuilder, Validators } from '@angular/forms';
 import { ModelsResourceService } from '../models-resource.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { LANGUAGES } from '../common/constants';
 import { TranslateService } from '@ngx-translate/core';
 import { debounceTime } from 'rxjs/operators';
+import { FormUrlDialogComponent, FormUrlDialogComponentData } from '../form-url-dialog/form-url-dialog.component';
+import { MatDialog } from '@angular/material/dialog';
+import { ConsentsResourceService } from '../consents-resource.service';
 
 @Component({
   selector: 'app-conditions',
@@ -36,8 +39,10 @@ export class ConditionsComponent extends EntryContentDirective<Conditions> imple
   constructor(
       private fb: FormBuilder,
       modelsResourceService: ModelsResourceService,
+      public consentsResourceService: ConsentsResourceService,
       snackBar: MatSnackBar,
-      translateService: TranslateService) {
+      translateService: TranslateService,
+      private dialog: MatDialog) {
     super(modelsResourceService, snackBar, translateService);
   }
 
@@ -61,7 +66,45 @@ export class ConditionsComponent extends EntryContentDirective<Conditions> imple
 
   refreshPreview(): void {
     if (this.iframe.nativeElement?.contentDocument?.body) {
-      this.iframe.nativeElement.contentDocument.body.innerHTML = this.form.get('body').value;
+      const stopLinks = '<style>a { pointer-events: none; }</style>';
+      this.iframe.nativeElement.contentDocument.body.innerHTML = stopLinks + this.form.get('body').value;
     }
+  }
+
+  openApiUrlDialog(): void {
+    if (this.form.invalid) {
+      return;
+    }
+    const formValue = this.form.getRawValue();
+    const context: ConsentContext = {
+      owner: '', // géré côté backend
+      subject: '',
+      orientation: ConsentFormOrientation.VERTICAL,
+      header: '',
+      elements: [this.entry.key],
+      footer: '',
+      callback: '',
+      validity: '',
+      locale: formValue.locale,
+      formType: ConsentFormType.FULL,
+      receiptDeliveryType: 'NONE',
+      userinfos: {},
+      attributes: {},
+      optoutEmail: '',
+      collectionMethod: CollectionMethod.WEBFORM,
+      author: '',
+      preview: false,
+      iframe: true,
+      conditions: true,
+      theme: ''
+    };
+    this.consentsResourceService.generateToken(context).subscribe((token) => {
+      const url = this.consentsResourceService.buildSubmitConsentUrl(token);
+      this.dialog.open<FormUrlDialogComponent, FormUrlDialogComponentData>(FormUrlDialogComponent, {
+        data: {url: url}
+      });
+    }, (err) => {
+      console.error(err);
+    });
   }
 }

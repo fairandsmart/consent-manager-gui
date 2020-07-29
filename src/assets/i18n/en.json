@@ -449,9 +449,9 @@
     },
     "API_URL": {
       "DIALOG_TITLE": "Generate forms",
-      "TITLE": "API call code",
+      "TITLE": "API call URL",
       "BUTTON_OK": "Done",
-      "BUTTON_VIEW": "View API call code"
+      "BUTTON_VIEW": "Get API call URL"
     }
   },
   "HEALTH": {

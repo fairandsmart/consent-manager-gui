@@ -449,9 +449,9 @@
     },
     "API_URL": {
       "DIALOG_TITLE": "Générer des formulaires",
-      "TITLE": "Code d'appel à l'API",
+      "TITLE": "URL d'appel à l'API",
       "BUTTON_OK": "Terminé",
-      "BUTTON_VIEW": "Voir le code d'appel à l'API"
+      "BUTTON_VIEW": "Obtenir l'URL d'appel à l'API"
     }
   },
   "HEALTH": {
