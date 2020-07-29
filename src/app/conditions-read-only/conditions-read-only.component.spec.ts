@@ -6,6 +6,7 @@ import { ConsentsResourceService } from '../consents-resource.service';
 import SpyObj = jasmine.SpyObj;
 import { ActivatedRoute } from '@angular/router';
 import createSpyObj = jasmine.createSpyObj;
+import { of } from 'rxjs';
 
 describe('ConditionsReadOnlyComponent', () => {
   let component: ConditionsReadOnlyComponent;
@@ -38,6 +39,8 @@ describe('ConditionsReadOnlyComponent', () => {
   beforeEach(() => {
     fixture = TestBed.createComponent(ConditionsReadOnlyComponent);
     component = fixture.componentInstance;
+    consentsResourceServiceSpy.generateToken.and.returnValue(of('TOKEN'));
+
     fixture.detectChanges();
   });
 

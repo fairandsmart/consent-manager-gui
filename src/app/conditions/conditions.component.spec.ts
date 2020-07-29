@@ -10,20 +10,24 @@ import createSpyObj = jasmine.createSpyObj;
 import { TranslateModule } from '@ngx-translate/core';
 import { CodemirrorModule } from '@ctrl/ngx-codemirror';
 import { EntryInfoComponent } from '../entry-info/entry-info.component';
+import { ConsentsResourceService } from '../consents-resource.service';
 
 describe('ConditionsComponent', () => {
   let component: ConditionsComponent;
   let fixture: ComponentFixture<ConditionsComponent>;
   let modelsResourceServiceSpy: SpyObj<ModelsResourceService>;
+  let consentsResourceServiceSpy: SpyObj<ConsentsResourceService>;
 
   beforeEach(async(() => {
     modelsResourceServiceSpy =  createSpyObj<ModelsResourceService>('ModelsResourceService', ['listEntries']);
+    consentsResourceServiceSpy =  createSpyObj<ConsentsResourceService>('ConsentsResourceService', ['generateToken']);
 
     TestBed.configureTestingModule({
       declarations: [ ConditionsComponent, EntryInfoComponent ],
       imports: [ ReactiveFormsModule, MaterialModule, NoopAnimationsModule, TranslateModule.forRoot(), CodemirrorModule ],
       providers: [
         {provide: ModelsResourceService, useValue: modelsResourceServiceSpy},
+        {provide: ConsentsResourceService, useValue: consentsResourceServiceSpy},
       ]
     })
     .compileComponents();
