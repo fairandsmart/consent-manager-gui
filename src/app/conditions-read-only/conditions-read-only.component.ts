@@ -3,6 +3,8 @@ import { ConsentsResourceService } from '../consents-resource.service';
 import { ActivatedRoute } from '@angular/router';
 import { CollectionMethod, ConsentContext, ConsentFormOrientation, ConsentFormType } from '../models';
 import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
+import { combineLatest } from 'rxjs';
+import { mergeMap, tap } from 'rxjs/operators';
 
 @Component({
   selector: 'app-conditions-read-only',
@@ -19,10 +21,11 @@ export class ConditionsReadOnlyComponent implements OnInit {
     private sanitizer: DomSanitizer) { }
 
   ngOnInit(): void {
-    this.activatedRoute.paramMap.subscribe((params) => {
-      this.activatedRoute.queryParamMap.subscribe((queryParams) => {
-        console.log(params);
-        console.log(queryParams);
+    combineLatest([
+      this.activatedRoute.paramMap,
+      this.activatedRoute.queryParamMap
+    ]).pipe(
+      mergeMap(([params, queryParams]) => {
         const context: ConsentContext = {
           owner: params.get('owner'),
           subject: '',
@@ -45,11 +48,12 @@ export class ConditionsReadOnlyComponent implements OnInit {
           conditions: true,
           theme: ''
         };
-        this.consentsResource.generateToken(context).subscribe((token) => {
-          this.conditionsUrl = this.sanitizer.bypassSecurityTrustResourceUrl(this.consentsResource.getFormUrl(token));
-        });
-      });
-    });
+        return this.consentsResource.generateToken(context);
+      }),
+      tap((token) => {
+        this.conditionsUrl = this.sanitizer.bypassSecurityTrustResourceUrl(this.consentsResource.getFormUrl(token));
+      })
+    ).subscribe();
   }
 
 }
