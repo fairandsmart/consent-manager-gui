@@ -1,0 +1,18 @@
+.mat-card-title {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.mat-form-field {
+  width: 100%;
+}
+
+code {
+  background-color: #ccc;
+  display: block;
+  white-space: pre-wrap;
+  overflow-x: auto;
+  padding: 4px;
+  word-break: break-all;
+}

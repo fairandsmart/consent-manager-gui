@@ -44,6 +44,7 @@ import { ClipboardModule } from '@angular/cdk/clipboard';
 import { ConditionsPageComponent } from './conditions-page/conditions-page.component';
 import { TextOverflowDirective } from './common/text-overflow.directive';
 import { ConditionsReadOnlyComponent } from './conditions-read-only/conditions-read-only.component';
+import { FormUrlDialogComponent } from './form-url-dialog/form-url-dialog.component';
 
 const keycloakService = new KeycloakService();
 
@@ -90,7 +91,8 @@ registerLocaleData(localeFr, 'fr');
     HealthErrorComponent,
     ConditionsPageComponent,
     TextOverflowDirective,
-    ConditionsReadOnlyComponent
+    ConditionsReadOnlyComponent,
+    FormUrlDialogComponent
   ],
   imports: [
     BrowserModule,

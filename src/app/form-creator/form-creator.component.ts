@@ -20,6 +20,8 @@ import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
 import { StepperSelectionEvent } from '@angular/cdk/stepper';
 import { SectionConfig } from '../entries/entries-library/entries-library.component';
 import { environment } from '../../environments/environment';
+import { MatDialog } from '@angular/material/dialog';
+import { FormUrlDialogComponent, FormUrlDialogComponentData } from '../form-url-dialog/form-url-dialog.component';
 
 enum FORM_CREATOR_STEP {
   ELEMENTS,
@@ -90,13 +92,13 @@ export class FormCreatorComponent implements OnInit {
   public readonly VALIDITY_UNITS = ['D', 'W', 'M', 'Y'];
 
   public formUrl: SafeResourceUrl;
-  public apiCallCode: string;
   private previousContext: ConsentContext;
 
   constructor(private consentsResource: ConsentsResourceService,
               private modelsResource: ModelsResourceService,
               private fb: FormBuilder,
-              private sanitizer: DomSanitizer) { }
+              private sanitizer: DomSanitizer,
+              private dialog: MatDialog) { }
 
   ngOnInit(): void {
     zip(...this.elementsLibraryConfig.map(c => this.modelsResource.listEntries({types: c.types, size: 1}))).pipe(
@@ -119,7 +121,7 @@ export class FormCreatorComponent implements OnInit {
         footer: ['', [Validators.pattern(FIELD_VALIDATORS.key.pattern)]]
       }),
       this.fb.group({
-        subject: ['', [Validators.required]],
+        // subject: ['', [Validators.required]],
         orientation: [ConsentFormOrientation.VERTICAL, [Validators.required]],
         validity: [6, [Validators.min(1)]],
         validityUnit: ['M'],
@@ -159,14 +161,41 @@ export class FormCreatorComponent implements OnInit {
       return;
     }
     this.form.disable();
+    const context: ConsentContext = this.buildContext(true);
+    if (context === this.previousContext) {
+      return;
+    }
+    this.consentsResource.generateToken(context).subscribe((token) => {
+      this.previousContext = context;
+      this.formUrl = this.sanitizer.bypassSecurityTrustResourceUrl(this.consentsResource.getFormUrl(token));
+      this.form.enable();
+    }, (err) => {
+      console.error(err);
+      this.form.enable();
+      this.formUrl = '';
+    });
+  }
+
+  stepChange(event: StepperSelectionEvent): void {
+    if (event.selectedIndex === FORM_CREATOR_STEP.PREVIEW) {
+      this.preview();
+    }
+  }
+
+  includedChange(): void {
+    // Set selected elements to take into account included state
+    this.setSelectedElements(this.selectedElements);
+  }
+
+  private buildContext(isPreview: boolean): ConsentContext {
     const formValue: Partial<ConsentContext & {forceDisplay: boolean, validityUnit: string}> = {
       ...this.form.at(FORM_CREATOR_STEP.OPTIONS).value,
       ...this.form.at(FORM_CREATOR_STEP.ELEMENTS).value,
       ...this.form.at(FORM_CREATOR_STEP.PREVIEW).value
     };
-    const context: ConsentContext = {
+    return {
       owner: '', // géré côté backend
-      subject: formValue.subject,
+      subject: '',
       orientation: formValue.orientation,
       header: formValue.header,
       elements: formValue.elements,
@@ -181,36 +210,11 @@ export class FormCreatorComponent implements OnInit {
       optoutEmail: formValue.optoutEmail,
       collectionMethod: CollectionMethod.WEBFORM,
       author: '',
-      preview: true,
+      preview: isPreview,
       iframe: true,
       conditions: false,
       theme: formValue.theme
     };
-    if (context === this.previousContext) {
-      return;
-    }
-    this.consentsResource.generateBothTokens(context).subscribe((tokens) => {
-      this.previousContext = context;
-      this.formUrl = this.sanitizer.bypassSecurityTrustResourceUrl(this.consentsResource.getFormUrl(tokens.preview));
-      this.form.enable();
-      this.apiCallCode = this.consentsResource.getApiCallCode(tokens.real);
-    }, (err) => {
-      console.error(err);
-      this.form.enable();
-      this.formUrl = '';
-      this.apiCallCode = '';
-    });
-  }
-
-  stepChange(event: StepperSelectionEvent): void {
-    if (event.selectedIndex === FORM_CREATOR_STEP.PREVIEW) {
-      this.preview();
-    }
-  }
-
-  includedChange(): void {
-    // Set selected elements to take into account included state
-    this.setSelectedElements(this.selectedElements);
   }
 
   private setSelectedElements(selected: {[id: string]: ModelEntry[]}): void {
@@ -231,4 +235,24 @@ export class FormCreatorComponent implements OnInit {
     this.preview();
   }
 
+  openApiUrlDialog(): void {
+    if (this.form.invalid) {
+      return;
+    }
+    this.form.disable();
+    const context: ConsentContext = this.buildContext(false);
+    if (context === this.previousContext) {
+      return;
+    }
+    this.consentsResource.generateToken(context).subscribe((token) => {
+      this.form.enable();
+      const url = this.consentsResource.buildSubmitConsentUrl(token);
+      this.dialog.open<FormUrlDialogComponent, FormUrlDialogComponentData>(FormUrlDialogComponent, {
+        data: {url: url}
+      });
+    }, (err) => {
+      console.error(err);
+      this.form.enable();
+    });
+  }
 }

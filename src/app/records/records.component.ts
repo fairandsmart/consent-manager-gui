@@ -27,7 +27,7 @@ class RecordDataSource extends CollectionDatasource<Record, RecordFilter> {
 })
 export class RecordsComponent implements OnInit {
 
-  displayedColumns = ['bodyKey', 'subject', 'value', 'collectionMethod', 'status', 'creationTimestamp', 'expirationTimestamp'];
+  displayedColumns = ['bodyKey', 'subject', 'value', 'collectionMethod', 'type', 'status', 'creationTimestamp', 'expirationTimestamp'];
 
   pageSizeOptions = [10, 25, 50];
 

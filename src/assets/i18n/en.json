@@ -447,8 +447,11 @@
     "IFRAME": {
       "TITLE": "Result"
     },
-    "CODE": {
-      "TITLE": "API call code"
+    "API_URL": {
+      "DIALOG_TITLE": "Generate forms",
+      "TITLE": "API call code",
+      "BUTTON_OK": "Done",
+      "BUTTON_VIEW": "View API call code"
     }
   },
   "HEALTH": {

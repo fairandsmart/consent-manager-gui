@@ -36,10 +36,10 @@
         <mat-step [label]="'TOKEN.STEP_OPTIONS' | translate" [stepControl]="form.at(STEPS.OPTIONS)">
           <mat-card [formGroup]="form.at(STEPS.OPTIONS)">
             <mat-card-content>
-              <mat-form-field appearance="fill">
+              <!--<mat-form-field appearance="fill">
                 <mat-label>{{'TOKEN.FORM.SUBJECT.LABEL' | translate}}</mat-label>
                 <input matInput required formControlName="subject" autocomplete="off">
-              </mat-form-field>
+              </mat-form-field>-->
               <mat-form-field appearance="fill">
                 <mat-label>{{'TOKEN.FORM.LOCALE.LABEL' | translate}}</mat-label>
                 <mat-select formControlName="locale" required>
@@ -81,15 +81,10 @@
           <mat-card *ngIf="formUrl" class="form-preview">
             <iframe [src]="formUrl"></iframe>
           </mat-card>
-          <mat-card *ngIf="apiCallCode" class="api-call-code">
-            <mat-card-title>
-              {{'TOKEN.CODE.TITLE' | translate}}
-              <button mat-icon-button [cdkCopyToClipboard]="apiCallCode"><mat-icon>content_copy</mat-icon></button>
-            </mat-card-title>
-            <mat-card-content>
-              <code>{{apiCallCode}}</code>
-            </mat-card-content>
-          </mat-card>
+          <div class="step-actions">
+            <button mat-button color="primary" matStepperPrevious>{{'TOKEN.BUTTON_LABEL_PREVIOUS_STEP' | translate}}</button>
+            <button mat-button color="primary" (click)="openApiUrlDialog()">{{'TOKEN.API_URL.BUTTON_VIEW' | translate}}</button>
+          </div>
         </mat-step>
       </mat-horizontal-stepper>
   </mat-sidenav-content>

@@ -1,0 +1,19 @@
+<h2 mat-dialog-title>{{'TOKEN.API_URL.DIALOG_TITLE' | translate }}</h2>
+<div mat-dialog-content>
+  <mat-form-field appearance="fill">
+    <mat-label>{{'TOKEN.FORM.SUBJECT.LABEL' | translate}}</mat-label>
+    <input matInput [(ngModel)]="subject" autocomplete="off">
+  </mat-form-field>
+  <mat-card *ngIf="data.url">
+    <mat-card-title>
+      {{'TOKEN.API_URL.TITLE' | translate}}
+      <button mat-icon-button [cdkCopyToClipboard]="data.url+subject"><mat-icon>content_copy</mat-icon></button>
+    </mat-card-title>
+    <mat-card-content>
+      <code>{{data.url+subject}}</code>
+    </mat-card-content>
+  </mat-card>
+</div>
+<div class="btn-uppercase align-right" mat-dialog-actions>
+  <button mat-button color="primary" (click)="close()">{{'TOKEN.API_URL.BUTTON_OK' | translate}}</button>
+</div>
