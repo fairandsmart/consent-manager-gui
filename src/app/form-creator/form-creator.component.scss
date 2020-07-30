@@ -31,7 +31,7 @@
           overflow: hidden;
           flex: 1 1 auto;
         }
-        #cdk-step-content-0-1 {
+        .mat-horizontal-stepper-content:nth-child(2) {
           height: 100%;
           display: flex;
           flex-direction: column;
