@@ -50,6 +50,6 @@
     <h2 class="preview-title-wrapper">
       <span>{{'ENTRIES.EDITOR.CONTENT.CONDITIONS.IFRAME.TITLE' | translate}}</span>
     </h2>
-    <iframe #preview title="Preview"></iframe>
+    <iframe *ngIf="safePreview != null" [srcdoc]="safePreview" title="Preview"></iframe>
   </mat-sidenav>
 </mat-sidenav-container>

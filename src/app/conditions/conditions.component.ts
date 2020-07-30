@@ -10,6 +10,7 @@ import { debounceTime } from 'rxjs/operators';
 import { FormUrlDialogComponent, FormUrlDialogComponentData } from '../form-url-dialog/form-url-dialog.component';
 import { MatDialog } from '@angular/material/dialog';
 import { ConsentsResourceService } from '../consents-resource.service';
+import { SafeHtml } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-conditions',
@@ -32,6 +33,7 @@ export class ConditionsComponent extends EntryContentDirective<Conditions> imple
   };
 
   private delay = 500;
+  public safePreview: SafeHtml;
 
   @ViewChild('preview')
   private iframe: ElementRef;
@@ -65,9 +67,11 @@ export class ConditionsComponent extends EntryContentDirective<Conditions> imple
   }
 
   refreshPreview(): void {
-    if (this.iframe.nativeElement?.contentDocument?.body) {
+    if (this.form.get('body').value) {
       const stopLinks = '<style>a { pointer-events: none; }</style>';
-      this.iframe.nativeElement.contentDocument.body.innerHTML = stopLinks + this.form.get('body').value;
+      this.safePreview = stopLinks + this.form.get('body').value;
+    } else {
+      this.safePreview = null;
     }
   }
 
