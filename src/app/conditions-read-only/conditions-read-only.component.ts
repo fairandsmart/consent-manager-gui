@@ -3,8 +3,8 @@ import { ConsentsResourceService } from '../consents-resource.service';
 import { ActivatedRoute } from '@angular/router';
 import { CollectionMethod, ConsentContext, ConsentFormOrientation, ConsentFormType } from '../models';
 import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
-import { combineLatest } from 'rxjs';
-import { mergeMap, tap } from 'rxjs/operators';
+import { combineLatest, EMPTY } from 'rxjs';
+import { catchError, mergeMap, tap } from 'rxjs/operators';
 
 @Component({
   selector: 'app-conditions-read-only',
@@ -52,6 +52,10 @@ export class ConditionsReadOnlyComponent implements OnInit {
       }),
       tap((token) => {
         this.conditionsUrl = this.sanitizer.bypassSecurityTrustResourceUrl(this.consentsResource.getFormUrl(token));
+      }),
+      catchError((error) => {
+        console.error(error);
+        return EMPTY;
       })
     ).subscribe();
   }
