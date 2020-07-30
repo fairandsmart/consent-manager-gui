@@ -10,7 +10,7 @@ import { TranslateService } from '@ngx-translate/core';
 import { environment } from '../../environments/environment';
 import * as CodeMirror from 'codemirror';
 import { Editor } from 'codemirror';
-import { debounceTime } from 'rxjs/operators';
+import { debounceTime, skip, tap } from 'rxjs/operators';
 import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
 
 const snippets: { text: string, displayText: string }[] = [
@@ -105,7 +105,7 @@ export class ThemeComponent extends EntryContentDirective<Theme> implements OnIn
   };
 
   private rawPreview: string;
-  private safePreview: SafeHtml;
+  public safePreview: SafeHtml;
   private delay = 500;
 
   constructor(
@@ -139,9 +139,11 @@ export class ThemeComponent extends EntryContentDirective<Theme> implements OnIn
       icon: [''],
       css: ['', [Validators.required]]
     });
-    this.form.valueChanges.pipe(debounceTime(this.delay)).subscribe(() => {
-      this.refreshPreview();
-    });
+    this.form.get('css').valueChanges.pipe(
+      skip(1),
+      debounceTime(this.delay),
+      tap(() => this.refreshPreview())
+    ).subscribe();
   }
 
   refreshPreview(): void {

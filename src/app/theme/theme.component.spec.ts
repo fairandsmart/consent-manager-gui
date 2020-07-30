@@ -12,6 +12,7 @@ import { TranslateModule } from '@ngx-translate/core';
 import { of } from 'rxjs';
 import { CodemirrorModule } from '@ctrl/ngx-codemirror';
 import { EntryInfoComponent } from '../entry-info/entry-info.component';
+import { delay } from 'rxjs/operators';
 
 describe('ThemeComponent', () => {
   let component: ThemeComponent;
@@ -35,7 +36,11 @@ describe('ThemeComponent', () => {
   }));
 
   beforeEach(() => {
-    consentsResourceServiceSpy.getPreviewForm.and.returnValue(of('<html lang="fr"><div>ok</div></html>'));
+    consentsResourceServiceSpy.getPreviewForm.and.returnValue(
+      of('<html lang="fr"><div>ok</div></html>').pipe(
+        delay(10)
+      )
+    );
 
     fixture = TestBed.createComponent(ThemeComponent);
     component = fixture.componentInstance;
