@@ -10,7 +10,7 @@ import { debounceTime } from 'rxjs/operators';
 import { FormUrlDialogComponent, FormUrlDialogComponentData } from '../form-url-dialog/form-url-dialog.component';
 import { MatDialog } from '@angular/material/dialog';
 import { ConsentsResourceService } from '../consents-resource.service';
-import { SafeHtml } from '@angular/platform-browser';
+import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-conditions',
@@ -44,6 +44,7 @@ export class ConditionsComponent extends EntryContentDirective<Conditions> imple
       public consentsResourceService: ConsentsResourceService,
       snackBar: MatSnackBar,
       translateService: TranslateService,
+      private sanitizer: DomSanitizer,
       private dialog: MatDialog) {
     super(modelsResourceService, snackBar, translateService);
   }
@@ -69,7 +70,7 @@ export class ConditionsComponent extends EntryContentDirective<Conditions> imple
   refreshPreview(): void {
     if (this.form.get('body').value) {
       const stopLinks = '<style>a { pointer-events: none; }</style>';
-      this.safePreview = stopLinks + this.form.get('body').value;
+      this.safePreview = this.sanitizer.bypassSecurityTrustHtml(stopLinks + this.form.get('body').value);
     } else {
       this.safePreview = null;
     }
