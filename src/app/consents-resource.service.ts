@@ -12,7 +12,7 @@ export class ConsentsResourceService {
   constructor(private http: HttpClient) { }
 
   generateToken(ctx: ConsentContext): Observable<string> {
-    return this.http.post<string>(`${environment.managerUrl}/consents/token`, ctx, {responseType: 'text' as 'json'});
+    return this.http.post(`${environment.managerUrl}/consents/token`, ctx, {responseType: 'text'});
   }
 
   buildSubmitConsentUrl(token: string): string {
@@ -20,7 +20,7 @@ export class ConsentsResourceService {
   }
 
   getForm(token: string): Observable<string> {
-    return this.http.get<string>(`${environment.managerUrl}/consents`, {params: {t: token}, responseType: 'text' as 'json'});
+    return this.http.get(`${environment.managerUrl}/consents`, {params: {t: token}, responseType: 'text'});
   }
 
   getFormUrl(token: string): string {
@@ -28,7 +28,7 @@ export class ConsentsResourceService {
   }
 
   getPreviewForm(): Observable<string> {
-    return this.http.get<string>(`${environment.managerUrl}/consents/themes/preview`, {responseType: 'text' as 'json'});
+    return this.http.get(`${environment.managerUrl}/consents/themes/preview`, {responseType: 'text'});
   }
 
   listRecords(filter: RecordFilter): Observable<CollectionPage<Record>> {
@@ -54,6 +54,6 @@ export class ConsentsResourceService {
   }
 
   createOperatorRecords(dto: OperatorRecordDto): Observable<string> {
-    return this.http.post<string>(`${environment.managerUrl}/consents/records/user`, dto, {responseType: 'text' as 'json'});
+    return this.http.post(`${environment.managerUrl}/consents/records/user`, dto, {responseType: 'text'});
   }
 }
