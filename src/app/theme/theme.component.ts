@@ -11,6 +11,7 @@ import { environment } from '../../environments/environment';
 import * as CodeMirror from 'codemirror';
 import { Editor } from 'codemirror';
 import { debounceTime } from 'rxjs/operators';
+import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
 
 const snippets: { text: string, displayText: string }[] = [
   { text: '.logo-wrapper', displayText: 'Logo - Conteneur' },
@@ -104,15 +105,14 @@ export class ThemeComponent extends EntryContentDirective<Theme> implements OnIn
   };
 
   private rawPreview: string;
+  private safePreview: SafeHtml;
   private delay = 500;
-
-  @ViewChild('preview')
-  private iframe: ElementRef;
 
   constructor(
       private fb: FormBuilder,
       modelsResourceService: ModelsResourceService,
       private consentsResourceService: ConsentsResourceService,
+      private sanitizer: DomSanitizer,
       snackBar: MatSnackBar,
       translateService: TranslateService) {
     super(modelsResourceService, snackBar, translateService);
@@ -145,14 +145,13 @@ export class ThemeComponent extends EntryContentDirective<Theme> implements OnIn
   }
 
   refreshPreview(): void {
-    let result = this.rawPreview;
-    const style = this.form.get('css');
-    if (style && style.value) {
-      const headIndex = result.indexOf('</head>');
-      result = result.substring(0, headIndex) + `<style>${style.value}</style>` + result.substring(headIndex);
-    }
-    if (this.iframe.nativeElement?.contentDocument?.body) {
-      this.iframe.nativeElement.contentDocument.body.innerHTML = result;
+    if (this.rawPreview != null) {
+      let result = this.rawPreview;
+      const style = this.form.get('css');
+      if (style && style.value) {
+        result = result.replace('</head>', `<style>${style.value}</style></head>`);
+      }
+      this.safePreview = this.sanitizer.bypassSecurityTrustHtml(result);
     }
   }
 }

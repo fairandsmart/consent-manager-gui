@@ -53,6 +53,6 @@
     <h2 class="preview-title-wrapper">
       <span>{{'THEMES.IFRAME.TITLE' | translate}}</span>
     </h2>
-    <iframe #preview title="Preview"></iframe>
+    <iframe [srcdoc]="safePreview" title="Preview"></iframe>
   </mat-sidenav>
 </mat-sidenav-container>
