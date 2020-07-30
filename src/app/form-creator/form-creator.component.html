@@ -1,6 +1,6 @@
 <mat-sidenav-container>
   <mat-sidenav-content>
-      <mat-horizontal-stepper #stepper linear="true" labelPosition="bottom" (selectionChange)="stepChange($event)">
+      <mat-horizontal-stepper #stepper linear="true" labelPosition="bottom" [class]="'step-' + currentStep" (selectionChange)="stepChange($event)">
         <mat-step [label]="'TOKEN.STEP_ELEMENTS' | translate" [stepControl]="form.at(STEPS.ELEMENTS)">
           <ng-container *ngFor="let section of elementsLibraryConfig">
             <h4>

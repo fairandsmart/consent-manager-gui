@@ -96,7 +96,7 @@ export class FormCreatorComponent implements OnInit {
   private previousContext: ConsentContext;
   private previousOrientation: ConsentFormOrientation;
   private previousLocale: string;
-  private currentStep: FORM_CREATOR_STEP;
+  public currentStep: FORM_CREATOR_STEP;
 
   constructor(private consentsResource: ConsentsResourceService,
               private modelsResource: ModelsResourceService,

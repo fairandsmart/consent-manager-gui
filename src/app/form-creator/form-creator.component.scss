@@ -26,6 +26,18 @@
       flex-direction: column;
       justify-content: stretch;
       overflow: hidden;
+      &.step-1 ::ng-deep {
+        .mat-horizontal-content-container {
+          overflow: hidden;
+          flex: 1 1 auto;
+        }
+        #cdk-step-content-0-1 {
+          height: 100%;
+          display: flex;
+          flex-direction: column;
+          justify-content: stretch;
+        }
+      }
       ::ng-deep {
         .mat-horizontal-stepper-header-container, .mat-horizontal-content-container {
           margin: 0 auto;
@@ -119,11 +131,13 @@ mat-form-field {
 .form-preview {
   padding: 6px 6px 0 6px !important;
   margin-bottom: 1em;
+  position: relative;
+  flex: 1 1 auto;
 
   iframe {
     border: none;
     width: 100%;
-    min-height: 70vh;
+    height: 100%;
   }
 }
 
