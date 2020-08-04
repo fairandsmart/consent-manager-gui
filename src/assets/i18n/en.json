@@ -12,7 +12,8 @@
       "DELETE": "Delete",
       "CREATE": "Create",
       "EDIT": "Edit",
-      "SUBMIT": "Submit"
+      "SUBMIT": "Submit",
+      "BACK_LIST": "Go back to the list"
     },
     "ENTRY_TYPES": {
       "HEADER": "Header",
@@ -28,6 +29,9 @@
     "LANGUAGES": {
       "EN": "English",
       "FR": "French"
+    },
+    "LOCALE": {
+      "LABEL": "Language"
     }
   },
   "MATERIAL": {
@@ -62,8 +66,8 @@
       "EMPTY": "First, create a treatment..."
     },
     "conditions": {
-      "PANEL_TITLE": "Conditions",
-      "EMPTY": "First, create a conditions model..."
+      "PANEL_TITLE": "EULA",
+      "EMPTY": "First, create a EULA model..."
     },
     "footers": {
       "PANEL_TITLE": "Footer",
@@ -77,7 +81,7 @@
     "BUTTON_ADD": {
       "header": "New header",
       "treatment": "New treatment",
-      "conditions": "New conditions",
+      "conditions": "New EULA",
       "footer": "New footer",
       "theme": "New theme",
       "MULTIPLE": "Add..."
@@ -104,14 +108,14 @@
       "TITLE_NEW": {
         "HEADER": "New header",
         "TREATMENT": "New treatment",
-        "CONDITIONS": "New conditions",
+        "CONDITIONS": "New EULA",
         "FOOTER": "New footer",
         "THEME": "New theme"
       },
       "TITLE_UPDATE": {
         "HEADER": "Update header",
         "TREATMENT": "Update treatment",
-        "CONDITIONS": "Update conditions",
+        "CONDITIONS": "Update EULA",
         "FOOTER": "Update footer",
         "THEME": "Update theme"
       }
@@ -120,8 +124,19 @@
       "INFORMATION": {
         "TITLE": "Information"
       },
+      "BUTTONS": {
+        "SAVE": "Save draft",
+        "ACTIVATE": "Activate",
+        "DELETE": "Delete draft"
+      },
       "CONTENT": {
-        "TITLE": "Content",
+        "TITLE": {
+          "HEADER": "Header content",
+          "TREATMENT": "Treatment content",
+          "CONDITIONS": "EULA content",
+          "FOOTER": "Footer content",
+          "THEME": "Theme content"
+        },
         "SHOW": "Display in forms",
         "DATA_CONTROLLER": {
           "TITLE": "Data controller",
@@ -143,133 +158,150 @@
           "PHONE": {
             "LABEL": "Phone number"
           }
+        }
+      },
+      "HEADER": {
+        "SUBTITLES": {
+          "LOGO": "Logo",
+          "TEXT": "Title and body",
+          "LAW": "Legal information",
+          "POLICY": "Privacy policy"
         },
-        "HEADER": {
-          "LOGO": {
-            "PATH": {
-              "LABEL": "Logo path"
-            },
-            "ALT_TEXT": {
-              "LABEL": "Logo alt-text"
-            }
+        "LOGO": {
+          "PATH": {
+            "LABEL": "Logo path"
           },
-          "TITLE": {
-            "LABEL": "Title"
-          },
-          "BODY": {
-            "LABEL": "Header body"
-          },
-          "JURISDICTION": {
-            "LABEL": "Jurisdiction"
-          },
-          "COLLECTION_METHOD": {
-            "LABEL": "Collection method"
-          },
-          "SCOPE": {
-            "LABEL": "Scope",
-            "PLACEHOLDER": "read, update"
-          },
-          "SHORT_NOTICE": {
-            "LABEL": "Short notice link"
-          },
-          "PRIVACY_POLICY": {
-            "URL": {
-              "LABEL": "Privacy policy URL"
-            },
-            "LINK_LABEL": {
-              "LABEL": "Privacy policy link label"
-            }
+          "ALT_TEXT": {
+            "LABEL": "Logo alt-text"
           }
         },
-        "FOOTER": {
-          "BODY": {
-            "LABEL": "Footer fody"
-          },
-          "ACCEPT_ALL": {
-            "DISPLAY": {
-              "LABEL": "Display \"Accept all\" button"
-            },
-            "BUTTON_LABEL": {
-              "LABEL": "\"Accept all\" button label"
-            }
-          }
+        "TITLE": {
+          "LABEL": "Title"
         },
-        "TREATMENT": {
-          "TITLE": {
-            "LABEL": "Treatment label"
-          },
-          "DATA": {
-            "TITLE": {
-              "LABEL": "Data label"
-            },
-            "BODY": {
-              "LABEL": "Data description"
-            }
-          },
-          "RETENTION": {
-            "TITLE": {
-              "LABEL": "Retention duration label"
-            },
-            "BODY": {
-              "LABEL": "Retention duration description"
-            }
-          },
-          "USAGE": {
-            "TITLE": {
-              "LABEL": "Usage label"
-            },
-            "BODY": {
-              "LABEL": "Usage description"
-            }
-          },
-          "PURPOSE": {
-            "LABEL": "Purposes",
-            "VALUES": {
-              "CONSENT_CORE_SERVICE": "Core service",
-              "CONSENT_IMPROVED_SERVICE": "Improved service",
-              "CONSENT_MARKETING": "Marketing",
-              "CONSENT_THIRD_PART_SHARING": "Third part sharing",
-              "CONSENT_RESEARCH": "Research"
-            }
-          },
-          "SENSITIVE": {
-            "LABEL": "Contains sensitive data"
-          },
-          "MEDICAL": {
-            "LABEL": "Contains medical data"
-          },
-          "THIRD_PARTIES": {
-            "LABEL": "Third parties",
-            "NAME": "Name",
-            "VALUE": "Description",
-            "BUTTON_ADD": "Add third party",
-            "EMPTY": "There is no third party yet."
-          }
+        "BODY": {
+          "LABEL": "Header body"
         },
-        "CONDITIONS": {
-          "TITLE": {
-            "LABEL": "Label"
+        "JURISDICTION": {
+          "LABEL": "Jurisdiction"
+        },
+        "COLLECTION_METHOD": {
+          "LABEL": "Collection method"
+        },
+        "SCOPE": {
+          "LABEL": "Scope",
+          "PLACEHOLDER": "read, update"
+        },
+        "SHORT_NOTICE": {
+          "LABEL": "Short notice URL"
+        },
+        "PRIVACY_POLICY": {
+          "URL": {
+            "LABEL": "Privacy policy URL"
           },
-          "BODY": {
-            "LABEL": "EULA",
-            "HINT": "Write your custom HTML or drop a HTML file",
-            "AUTOCOMPLETE": "(toggle auto-completion with CTRL+E or CMD+E)"
-          },
-          "ACCEPT": {
-            "LABEL": "\"Accept\" button label"
-          },
-          "REJECT": {
-            "LABEL": "\"Reject\" button label"
-          },
-          "IFRAME": {
-            "TITLE": "Preview"
+          "LINK_LABEL": {
+            "LABEL": "Privacy policy link label"
           }
         }
       },
-      "BUTTONS": {
-        "SAVE": "Save draft",
-        "ACTIVATE": "Activate",
-        "DELETE": "Delete draft"
+      "FOOTER": {
+        "SUBTITLES": {
+          "TEXT": "Body",
+          "BUTTON": "\"Accept all\" button"
+        },
+        "BODY": {
+          "LABEL": "Footer fody"
+        },
+        "ACCEPT_ALL": {
+          "DISPLAY": {
+            "LABEL": "Display \"Accept all\" button"
+          },
+          "BUTTON_LABEL": {
+            "LABEL": "\"Accept all\" button label"
+          }
+        }
+      },
+      "TREATMENT": {
+        "SUBTITLES": {
+          "TITLE": "Title",
+          "DATA": "Processed data",
+          "RETENTION": "Data retention duration",
+          "USAGE": "Data usage",
+          "LAW": "Legal information"
+        },
+        "TITLE": {
+          "LABEL": "Treatment label"
+        },
+        "DATA": {
+          "TITLE": {
+            "LABEL": "Data label"
+          },
+          "BODY": {
+            "LABEL": "Data description"
+          }
+        },
+        "RETENTION": {
+          "TITLE": {
+            "LABEL": "Retention duration label"
+          },
+          "BODY": {
+            "LABEL": "Retention duration description"
+          }
+        },
+        "USAGE": {
+          "TITLE": {
+            "LABEL": "Usage label"
+          },
+          "BODY": {
+            "LABEL": "Usage description"
+          }
+        },
+        "PURPOSE": {
+          "LABEL": "Purposes",
+          "VALUES": {
+            "CONSENT_CORE_SERVICE": "Core service",
+            "CONSENT_IMPROVED_SERVICE": "Improved service",
+            "CONSENT_MARKETING": "Marketing",
+            "CONSENT_THIRD_PART_SHARING": "Third part sharing",
+            "CONSENT_RESEARCH": "Research"
+          }
+        },
+        "SENSITIVE": {
+          "LABEL": "Contains sensitive data"
+        },
+        "MEDICAL": {
+          "LABEL": "Contains medical data"
+        },
+        "THIRD_PARTIES": {
+          "LABEL": "Third parties",
+          "NAME": "Name",
+          "VALUE": "Description",
+          "BUTTON_ADD": "Add third party",
+          "EMPTY": "There is no third party yet."
+        }
+      },
+      "CONDITIONS": {
+        "SUBTITLES": {
+          "TITLE": "Page title",
+          "BODY": "Body",
+          "BUTTONS": "Buttons"
+        },
+        "TITLE": {
+          "LABEL": "Label"
+        },
+        "BODY": {
+          "LABEL": "EULA",
+          "HINT": "Write your custom HTML or drop a HTML file",
+          "AUTOCOMPLETE": "(toggle auto-completion with CTRL+E or CMD+E)"
+        },
+        "ACCEPT": {
+          "LABEL": "\"Accept\" button label"
+        },
+        "REJECT": {
+          "LABEL": "\"Reject\" button label"
+        },
+        "IFRAME": {
+          "TITLE": "Preview"
+        }
       }
     }
   },
@@ -278,6 +310,10 @@
   },
   "THEMES": {
     "TITLE": "Themes",
+    "SUBTITLES": {
+      "TYPE": "Theme type",
+      "CSS": "Stylesheet"
+    },
     "IFRAME": {
       "TITLE": "Preview"
     },
@@ -373,7 +409,7 @@
       }
     }
   },
-  "TOKEN": {
+  "FORM_CREATOR": {
     "TITLE": "Consent form",
     "STEP_ELEMENTS": "Elements",
     "STEP_OPTIONS": "Options",
@@ -423,9 +459,6 @@
           "STORE": "Store",
           "DOWNLOAD": "Download"
         }
-      },
-      "LOCALE": {
-        "LABEL": "Locale"
       },
       "THEME": {
         "LABEL": "Theme (optional)",

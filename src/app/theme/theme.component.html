@@ -2,10 +2,10 @@
   <mat-sidenav-content>
     <form *ngIf="form" [formGroup]="form">
       <mat-card>
-        <mat-card-title>{{'ENTRIES.EDITOR.CONTENT.TITLE' | translate}}</mat-card-title>
+        <mat-card-title>{{'ENTRIES.EDITOR.CONTENT.TITLE.THEME' | translate}}</mat-card-title>
         <mat-card-content>
           <mat-form-field appearance="outline">
-            <mat-label>{{'TOKEN.FORM.LOCALE.LABEL' | translate}}</mat-label>
+            <mat-label>{{'COMMON.LOCALE.LABEL' | translate}}</mat-label>
             <mat-select formControlName="locale">
               <mat-option *ngFor="let language of LANGUAGES" [value]="language">{{'COMMON.LANGUAGES.' + language.toUpperCase() | translate}}</mat-option>
             </mat-select>
@@ -18,17 +18,19 @@
 <!--            <mat-label>{{'THEMES.COMMON.PRESENTATION.LABEL' | translate}}</mat-label>-->
 <!--            <textarea matInput formControlName="presentation"></textarea>-->
 <!--          </mat-form-field>-->
+          <mat-card-subtitle>{{'THEMES.SUBTITLES.TYPE' | translate}}</mat-card-subtitle>
           <mat-form-field appearance="outline">
             <mat-label>{{'THEMES.COMMON.TARGETTYPE.LABEL' | translate}}</mat-label>
             <mat-select formControlName="targetType">
               <mat-option *ngFor="let targetType of TARGET_TYPES" [value]="targetType">{{'THEMES.COMMON.TARGETTYPE.VALUES.' + targetType.toUpperCase() | translate}}</mat-option>
             </mat-select>
           </mat-form-field>
-          <mat-form-field appearance="outline">
+          <!--<mat-form-field appearance="outline">
             <mat-label>{{'THEMES.COMMON.ICON.LABEL' | translate}}</mat-label>
             <input matInput formControlName="icon" autocomplete="off">
-          </mat-form-field>
-          <div>
+          </mat-form-field>-->
+          <mat-card-subtitle>{{'THEMES.SUBTITLES.CSS' | translate}}</mat-card-subtitle>
+          <div class="codemirror-wrapper">
             <p class="code-input-label">{{'THEMES.COMMON.CSS.LABEL' | translate}}
               <span class="mat-caption">
                 <br>{{'THEMES.COMMON.CSS.HINT' | translate}}
@@ -46,6 +48,9 @@
           </ng-container>
         </mat-card-actions>
       </mat-card>
+      <div class="back-button-wrapper">
+        <button mat-button color="primary" routerLink="../">{{'COMMON.BUTTONS.BACK_LIST' | translate}}</button>
+      </div>
     </form>
   </mat-sidenav-content>
   <mat-sidenav opened mode="side" position="end">

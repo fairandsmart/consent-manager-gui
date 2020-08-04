@@ -2,21 +2,23 @@
   <mat-sidenav-content>
     <form *ngIf="form" [formGroup]="form">
       <mat-card>
-        <mat-card-title>{{'ENTRIES.EDITOR.CONTENT.TITLE' | translate}}</mat-card-title>
+        <mat-card-title>{{'ENTRIES.EDITOR.CONTENT.TITLE.FOOTER' | translate}}</mat-card-title>
         <mat-card-content>
           <mat-form-field appearance="outline">
-            <mat-label>{{'TOKEN.FORM.LOCALE.LABEL' | translate}}</mat-label>
+            <mat-label>{{'COMMON.LOCALE.LABEL' | translate}}</mat-label>
             <mat-select formControlName="locale">
               <mat-option *ngFor="let language of LANGUAGES" [value]="language">{{'COMMON.LANGUAGES.' + language.toUpperCase() | translate}}</mat-option>
             </mat-select>
           </mat-form-field>
+          <mat-card-subtitle>{{'ENTRIES.EDITOR.FOOTER.SUBTITLES.TEXT' | translate}}</mat-card-subtitle>
           <mat-form-field appearance="outline">
-            <mat-label>{{'ENTRIES.EDITOR.CONTENT.FOOTER.BODY.LABEL' | translate}}</mat-label>
+            <mat-label>{{'ENTRIES.EDITOR.FOOTER.BODY.LABEL' | translate}}</mat-label>
             <textarea matInput formControlName="body" cdkTextareaAutosize></textarea>
           </mat-form-field>
-          <mat-checkbox formControlName="showAcceptAll">{{'ENTRIES.EDITOR.CONTENT.FOOTER.ACCEPT_ALL.DISPLAY.LABEL' | translate}}</mat-checkbox>
+          <mat-card-subtitle>{{'ENTRIES.EDITOR.FOOTER.SUBTITLES.BUTTON' | translate}}</mat-card-subtitle>
+          <mat-checkbox formControlName="showAcceptAll">{{'ENTRIES.EDITOR.FOOTER.ACCEPT_ALL.DISPLAY.LABEL' | translate}}</mat-checkbox>
           <mat-form-field appearance="outline">
-            <mat-label>{{'ENTRIES.EDITOR.CONTENT.FOOTER.ACCEPT_ALL.BUTTON_LABEL.LABEL' | translate}}</mat-label>
+            <mat-label>{{'ENTRIES.EDITOR.FOOTER.ACCEPT_ALL.BUTTON_LABEL.LABEL' | translate}}</mat-label>
             <input matInput formControlName="customAcceptAllText" autocomplete="off">
           </mat-form-field>
         </mat-card-content>
@@ -28,6 +30,9 @@
           </ng-container>
         </mat-card-actions>
       </mat-card>
+      <div class="back-button-wrapper">
+        <button mat-button color="primary" routerLink="../">{{'COMMON.BUTTONS.BACK_LIST' | translate}}</button>
+      </div>
     </form>
   </mat-sidenav-content>
   <mat-sidenav opened mode="side" position="end">

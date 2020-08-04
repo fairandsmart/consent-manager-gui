@@ -31,7 +31,7 @@ import { MatStepperModule } from '@angular/material/stepper';
 @Injectable()
 export class MatPaginatorIntlTranslated extends MatPaginatorIntl {
 
-  private rangeLabel: string;
+  private rangeLabel = 'of';
 
   constructor(private translateService: TranslateService) {
     super();

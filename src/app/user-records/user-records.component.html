@@ -73,7 +73,7 @@
     <mat-card-content>
 
       <mat-form-field appearance="outline">
-        <mat-label>{{'TOKEN.FORM.LOCALE.LABEL' | translate}}</mat-label>
+        <mat-label>{{'COMMON.LOCALE.LABEL' | translate}}</mat-label>
         <mat-select formControlName="locale">
           <mat-option *ngFor="let language of LANGUAGES" [value]="language">{{'COMMON.LANGUAGES.' + language.toUpperCase() | translate}}</mat-option>
         </mat-select>

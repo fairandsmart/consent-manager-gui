@@ -89,4 +89,9 @@ export class TreatmentComponent extends EntryContentDirective<Treatment> impleme
     this.getThirdParties().removeAt(index);
   }
 
+  purposesChange(event): void {
+    if (!event.includes('CONSENT_THIRD_PART_SHARING')) {
+      this.getThirdParties().clear();
+    }
+  }
 }

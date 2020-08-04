@@ -12,7 +12,8 @@
       "DELETE": "Supprimer",
       "CREATE": "Créer",
       "EDIT": "Modifier",
-      "SUBMIT": "Valider"
+      "SUBMIT": "Valider",
+      "BACK_LIST": "Retour à la liste"
     },
     "ENTRY_TYPES": {
       "HEADER": "En-tête",
@@ -28,6 +29,9 @@
     "LANGUAGES": {
       "EN": "Anglais",
       "FR": "Français"
+    },
+    "LOCALE": {
+      "LABEL": "Langue"
     }
   },
   "MATERIAL": {
@@ -77,7 +81,7 @@
     "BUTTON_ADD": {
       "header": "Ajouter un en-tête",
       "treatment": "Ajouter un traitement",
-      "conditions": "Ajouter un modèle de conditions",
+      "conditions": "Ajouter un modèle de CGU",
       "footer": "Ajouter un pied de page",
       "theme": "Ajouter un thème",
       "MULTIPLE": "Ajouter..."
@@ -120,8 +124,19 @@
       "INFORMATION": {
         "TITLE": "Informations"
       },
+      "BUTTONS": {
+        "SAVE": "Enregistrer brouillon",
+        "ACTIVATE": "Activer",
+        "DELETE": "Supprimer brouillon"
+      },
       "CONTENT": {
-        "TITLE": "Contenu",
+        "TITLE": {
+          "HEADER": "Contenu de l'en-tête",
+          "TREATMENT": "Contenu du traitement",
+          "CONDITIONS": "Contenu des CGU",
+          "FOOTER": "Contenu du pied de page",
+          "THEME": "Contenu du thème"
+        },
         "SHOW": "Afficher dans les formulaires",
         "DATA_CONTROLLER": {
           "TITLE": "Responsable de traitement",
@@ -143,133 +158,150 @@
           "PHONE": {
             "LABEL": "Numéro de téléphone"
           }
+        }
+      },
+      "HEADER": {
+        "SUBTITLES": {
+          "LOGO": "Logo",
+          "TEXT": "Titre et corps",
+          "LAW": "Informations juridiques",
+          "POLICY": "Politique de confidentialité"
         },
-        "HEADER": {
-          "LOGO": {
-            "PATH": {
-              "LABEL": "Chemin du logo"
-            },
-            "ALT_TEXT": {
-              "LABEL": "Texte alternatif du logo"
-            }
+        "LOGO": {
+          "PATH": {
+            "LABEL": "Chemin du logo"
           },
-          "TITLE": {
-            "LABEL": "Titre"
-          },
-          "BODY": {
-            "LABEL": "Corps de l'en-tête"
-          },
-          "JURISDICTION": {
-            "LABEL": "Pays de législation"
-          },
-          "COLLECTION_METHOD": {
-            "LABEL": "Méthode de collecte"
-          },
-          "SCOPE": {
-            "LABEL": "Opérations autorisées",
-            "PLACEHOLDER": "lecture, mise à jour"
-          },
-          "SHORT_NOTICE": {
-            "LABEL": "Lien vers la politique simplifiée"
-          },
-          "PRIVACY_POLICY": {
-            "URL": {
-              "LABEL": "URL de la politique de confidentialité"
-            },
-            "LINK_LABEL": {
-              "LABEL": "Libellé du lien vers la politique de confidentialité"
-            }
+          "ALT_TEXT": {
+            "LABEL": "Texte alternatif du logo"
           }
         },
-        "FOOTER": {
-          "BODY": {
-            "LABEL": "Corps du pied de page"
-          },
-          "ACCEPT_ALL": {
-            "DISPLAY": {
-              "LABEL": "Afficher le bouton \"Tout accepter\""
-            },
-            "BUTTON_LABEL": {
-              "LABEL": "Libellé du bouton \"Tout accepter\""
-            }
-          }
+        "TITLE": {
+          "LABEL": "Titre"
         },
-        "TREATMENT": {
-          "TITLE": {
-            "LABEL": "Libellé du traitement"
-          },
-          "DATA": {
-            "TITLE": {
-              "LABEL": "Libellé des données"
-            },
-            "BODY": {
-              "LABEL": "Description des données"
-            }
-          },
-          "RETENTION": {
-            "TITLE": {
-              "LABEL": "Libellé de la durée de rétention"
-            },
-            "BODY": {
-              "LABEL": "Description de la durée de rétention"
-            }
-          },
-          "USAGE": {
-            "TITLE": {
-              "LABEL": "Libellé de la finalité"
-            },
-            "BODY": {
-              "LABEL": "Description de la finalité"
-            }
-          },
-          "PURPOSE": {
-            "LABEL": "Base de consentement",
-            "VALUES": {
-              "CONSENT_CORE_SERVICE": "Service principal",
-              "CONSENT_IMPROVED_SERVICE": "Service amélioré",
-              "CONSENT_MARKETING": "Marketing",
-              "CONSENT_THIRD_PART_SHARING": "Partage à une tierce-partie",
-              "CONSENT_RESEARCH": "Recherche"
-            }
-          },
-          "SENSITIVE": {
-            "LABEL": "Contient des données sensibles"
-          },
-          "MEDICAL": {
-            "LABEL": "Contient des données de santé"
-          },
-          "THIRD_PARTIES": {
-            "LABEL": "Tierce-parties",
-            "NAME": "Nom",
-            "VALUE": "Description",
-            "BUTTON_ADD": "Ajouter une tierce-partie",
-            "EMPTY": "Aucune tierce-partie pour le moment."
-          }
+        "BODY": {
+          "LABEL": "Corps de l'en-tête"
         },
-        "CONDITIONS": {
-          "TITLE": {
-            "LABEL": "Libellé"
+        "JURISDICTION": {
+          "LABEL": "Pays de législation"
+        },
+        "COLLECTION_METHOD": {
+          "LABEL": "Méthode de collecte"
+        },
+        "SCOPE": {
+          "LABEL": "Opérations autorisées",
+          "PLACEHOLDER": "lecture, mise à jour"
+        },
+        "SHORT_NOTICE": {
+          "LABEL": "URL de la politique simplifiée"
+        },
+        "PRIVACY_POLICY": {
+          "URL": {
+            "LABEL": "URL de la politique de confidentialité"
           },
-          "BODY": {
-            "LABEL": "CGU/CGS",
-            "HINT": "Renseignez votre contenu HTML ou déposez un fichier HTML",
-            "AUTOCOMPLETE": "(profitez de l'auto-complétion grâce à CTRL+E ou CMD+E)"
-          },
-          "ACCEPT": {
-            "LABEL": "Libellé du bouton \"Accepter\""
-          },
-          "REJECT": {
-            "LABEL": "Libellé du bouton \"Refuser\""
-          },
-          "IFRAME": {
-            "TITLE": "Prévisualisation"
+          "LINK_LABEL": {
+            "LABEL": "Libellé du lien vers la politique de confidentialité"
           }
         }
       },
-      "BUTTONS": {
-        "SAVE": "Enregistrer brouillon",
-        "ACTIVATE": "Activer",
-        "DELETE": "Supprimer brouillon"
+      "FOOTER": {
+        "SUBTITLES": {
+          "TEXT": "Corps",
+          "BUTTON": "Bouton \"Tout accepter\""
+        },
+        "BODY": {
+          "LABEL": "Corps du pied de page"
+        },
+        "ACCEPT_ALL": {
+          "DISPLAY": {
+            "LABEL": "Afficher le bouton \"Tout accepter\""
+          },
+          "BUTTON_LABEL": {
+            "LABEL": "Libellé du bouton \"Tout accepter\""
+          }
+        }
+      },
+      "TREATMENT": {
+        "SUBTITLES": {
+          "TITLE": "Titre",
+          "DATA": "Données traitées",
+          "RETENTION": "Durée de rétention des données",
+          "USAGE": "Finalité du traitement",
+          "LAW": "Informations juridiques"
+        },
+        "TITLE": {
+          "LABEL": "Libellé du traitement"
+        },
+        "DATA": {
+          "TITLE": {
+            "LABEL": "Libellé des données"
+          },
+          "BODY": {
+            "LABEL": "Description des données"
+          }
+        },
+        "RETENTION": {
+          "TITLE": {
+            "LABEL": "Libellé de la durée de rétention"
+          },
+          "BODY": {
+            "LABEL": "Description de la durée de rétention"
+          }
+        },
+        "USAGE": {
+          "TITLE": {
+            "LABEL": "Libellé de la finalité"
+          },
+          "BODY": {
+            "LABEL": "Description de la finalité"
+          }
+        },
+        "PURPOSE": {
+          "LABEL": "Base de consentement",
+          "VALUES": {
+            "CONSENT_CORE_SERVICE": "Service principal",
+            "CONSENT_IMPROVED_SERVICE": "Service amélioré",
+            "CONSENT_MARKETING": "Marketing",
+            "CONSENT_THIRD_PART_SHARING": "Partage à une tierce-partie",
+            "CONSENT_RESEARCH": "Recherche"
+          }
+        },
+        "SENSITIVE": {
+          "LABEL": "Contient des données sensibles"
+        },
+        "MEDICAL": {
+          "LABEL": "Contient des données de santé"
+        },
+        "THIRD_PARTIES": {
+          "LABEL": "Tierce-parties",
+          "NAME": "Nom",
+          "VALUE": "Description",
+          "BUTTON_ADD": "Ajouter une tierce-partie",
+          "EMPTY": "Aucune tierce-partie pour le moment."
+        }
+      },
+      "CONDITIONS": {
+        "SUBTITLES": {
+          "TITLE": "Titre de la page",
+          "BODY": "Corps",
+          "BUTTONS": "Boutons"
+        },
+        "TITLE": {
+          "LABEL": "Libellé"
+        },
+        "BODY": {
+          "LABEL": "CGU/CGS",
+          "HINT": "Renseignez votre contenu HTML ou déposez un fichier HTML",
+          "AUTOCOMPLETE": "(profitez de l'auto-complétion grâce à CTRL+E ou CMD+E)"
+        },
+        "ACCEPT": {
+          "LABEL": "Libellé du bouton \"Accepter\""
+        },
+        "REJECT": {
+          "LABEL": "Libellé du bouton \"Refuser\""
+        },
+        "IFRAME": {
+          "TITLE": "Prévisualisation"
+        }
       }
     }
   },
@@ -278,6 +310,10 @@
   },
   "THEMES": {
     "TITLE": "Thèmes",
+    "SUBTITLES": {
+      "TYPE": "Type de thème",
+      "CSS": "Feuille de style"
+    },
     "IFRAME": {
       "TITLE": "Prévisualisation"
     },
@@ -373,7 +409,7 @@
       }
     }
   },
-  "TOKEN": {
+  "FORM_CREATOR": {
     "TITLE": "Formulaire de consentement",
     "STEP_ELEMENTS": "Éléments",
     "STEP_OPTIONS": "Options",
@@ -423,9 +459,6 @@
           "STORE": "Stocker",
           "DOWNLOAD": "Télécharger"
         }
-      },
-      "LOCALE": {
-        "LABEL": "Langue"
       },
       "THEME": {
         "LABEL": "Thème (facultatif)",

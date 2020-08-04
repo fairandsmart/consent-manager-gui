@@ -136,7 +136,7 @@ export class ThemeComponent extends EntryContentDirective<Theme> implements OnIn
       // name: ['', [Validators.required]],
       // presentation: [''],
       targetType: ['', [Validators.required]],
-      icon: [''],
+      // icon: [''],
       css: ['', [Validators.required]]
     });
     this.form.get('css').valueChanges.pipe(

@@ -32,3 +32,13 @@ mat-card + mat-card {
 mat-card-title {
   margin-bottom: 1em;
 }
+
+mat-card-subtitle {
+  font-weight: bold;
+  color: black;
+  font-size: 16px;
+}
+
+.back-button-wrapper {
+  margin-top: 1em;
+}
