@@ -137,11 +137,12 @@
           "FOOTER": "Contenu du pied de page",
           "THEME": "Contenu du thème"
         },
-        "SHOW": "Afficher dans les formulaires",
+        "SHOW": "Afficher dans les formulaires et les reçus",
+        "HIDE": "N'afficher que dans les reçus",
         "DATA_CONTROLLER": {
           "TITLE": "Responsable de traitement",
           "ACTING_BEHALF_COMPANY": {
-            "LABEL": "Agit au nom de l'entreprise"
+            "LABEL": "Ce responsable agit au nom de l'entreprise"
           },
           "COMPANY": {
             "LABEL": "Entreprise"
@@ -169,7 +170,7 @@
         },
         "LOGO": {
           "PATH": {
-            "LABEL": "Chemin du logo"
+            "LABEL": "URL du logo"
           },
           "ALT_TEXT": {
             "LABEL": "Texte alternatif du logo"

@@ -4,9 +4,10 @@
       <mat-card>
         <mat-card-title>{{'ENTRIES.EDITOR.CONTENT.TITLE.THEME' | translate}}</mat-card-title>
         <mat-card-content>
+
           <mat-form-field appearance="outline">
             <mat-label>{{'COMMON.LOCALE.LABEL' | translate}}</mat-label>
-            <mat-select formControlName="locale">
+            <mat-select formControlName="locale" matInput required>
               <mat-option *ngFor="let language of LANGUAGES" [value]="language">{{'COMMON.LANGUAGES.' + language.toUpperCase() | translate}}</mat-option>
             </mat-select>
           </mat-form-field>
@@ -18,10 +19,11 @@
 <!--            <mat-label>{{'THEMES.COMMON.PRESENTATION.LABEL' | translate}}</mat-label>-->
 <!--            <textarea matInput formControlName="presentation"></textarea>-->
 <!--          </mat-form-field>-->
+
           <mat-card-subtitle>{{'THEMES.SUBTITLES.TYPE' | translate}}</mat-card-subtitle>
           <mat-form-field appearance="outline">
             <mat-label>{{'THEMES.COMMON.TARGETTYPE.LABEL' | translate}}</mat-label>
-            <mat-select formControlName="targetType">
+            <mat-select formControlName="targetType" matInput required>
               <mat-option *ngFor="let targetType of TARGET_TYPES" [value]="targetType">{{'THEMES.COMMON.TARGETTYPE.VALUES.' + targetType.toUpperCase() | translate}}</mat-option>
             </mat-select>
           </mat-form-field>
@@ -29,9 +31,11 @@
             <mat-label>{{'THEMES.COMMON.ICON.LABEL' | translate}}</mat-label>
             <input matInput formControlName="icon" autocomplete="off">
           </mat-form-field>-->
+
           <mat-card-subtitle>{{'THEMES.SUBTITLES.CSS' | translate}}</mat-card-subtitle>
           <div class="codemirror-wrapper">
-            <p class="code-input-label">{{'THEMES.COMMON.CSS.LABEL' | translate}}
+            <p class="code-input-label">
+              <span class="required-field">{{'THEMES.COMMON.CSS.LABEL' | translate}}</span>
               <span class="mat-caption">
                 <br>{{'THEMES.COMMON.CSS.HINT' | translate}}
                 <br>{{'THEMES.COMMON.CSS.AUTOCOMPLETE' | translate}}
@@ -39,6 +43,7 @@
             </p>
             <ngx-codemirror formControlName="css" name="css" [options]="CODE_MIRROR_OPTIONS"></ngx-codemirror>
           </div>
+
         </mat-card-content>
         <mat-card-actions>
           <button mat-button type="button" color="primary" [disabled]="form.invalid" (click)="save()">{{'ENTRIES.EDITOR.BUTTONS.SAVE' | translate}}</button>

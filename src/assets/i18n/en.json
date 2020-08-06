@@ -137,11 +137,12 @@
           "FOOTER": "Footer content",
           "THEME": "Theme content"
         },
-        "SHOW": "Display in forms",
+        "SHOW": "Display in forms and receipts",
+        "HIDE": "Display only in receipts",
         "DATA_CONTROLLER": {
           "TITLE": "Data controller",
           "ACTING_BEHALF_COMPANY": {
-            "LABEL": "Acting on behalf of company"
+            "LABEL": "This controller is acting on behalf of the company"
           },
           "COMPANY": {
             "LABEL": "Company"
@@ -169,7 +170,7 @@
         },
         "LOGO": {
           "PATH": {
-            "LABEL": "Logo path"
+            "LABEL": "Logo URL"
           },
           "ALT_TEXT": {
             "LABEL": "Logo alt-text"

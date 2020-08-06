@@ -45,6 +45,7 @@ import { ConditionsPageComponent } from './conditions-page/conditions-page.compo
 import { TextOverflowDirective } from './common/text-overflow.directive';
 import { ConditionsReadOnlyComponent } from './conditions-read-only/conditions-read-only.component';
 import { FormUrlDialogComponent } from './form-url-dialog/form-url-dialog.component';
+import { MatRadioModule } from '@angular/material/radio';
 
 const keycloakService = new KeycloakService();
 
@@ -113,7 +114,8 @@ registerLocaleData(localeFr, 'fr');
     }),
     StoreModule.forRoot({}, {}),
     EffectsModule.forRoot([]),
-    ClipboardModule
+    ClipboardModule,
+    MatRadioModule
   ],
   providers: [
     {

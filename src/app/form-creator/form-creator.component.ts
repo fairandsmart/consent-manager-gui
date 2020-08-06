@@ -13,7 +13,7 @@ import {
 import { tap } from 'rxjs/operators';
 import { zip } from 'rxjs';
 import { CdkDragDrop, copyArrayItem, moveItemInArray } from '@angular/cdk/drag-drop';
-import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { FormArray, FormBuilder, Validators } from '@angular/forms';
 import { LANGUAGES } from '../common/constants';
 import { ConsentsResourceService } from '../consents-resource.service';
 import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
@@ -130,9 +130,9 @@ export class FormCreatorComponent implements OnInit {
       this.fb.group({
         // subject: ['', [Validators.required]],
         orientation: [ConsentFormOrientation.VERTICAL, [Validators.required]],
-        validity: [6, [Validators.min(1)]],
-        validityUnit: ['M'],
-        receiptDeliveryType: ['DISPLAY'],
+        validity: [6, [Validators.required, Validators.min(1)]],
+        validityUnit: ['M', [Validators.required]],
+        receiptDeliveryType: ['DISPLAY', [Validators.required]],
         locale: ['fr', [Validators.required]],
         forceDisplay: [true, [Validators.required]],
         optoutEmail: ['']

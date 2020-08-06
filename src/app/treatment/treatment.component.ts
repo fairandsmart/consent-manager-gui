@@ -54,6 +54,7 @@ export class TreatmentComponent extends EntryContentDirective<Treatment> impleme
       showDataController: [false],
       thirdParties: this.fb.array([])
     });
+    this.form.get('showDataController').disable();
   }
 
   protected loadVersion(version: ModelVersion<Treatment>, locale: string = this.version.defaultLocale): void {
@@ -61,6 +62,10 @@ export class TreatmentComponent extends EntryContentDirective<Treatment> impleme
     const localeThirdParties = localeContent.thirdParties;
     delete localeContent.thirdParties;
     this.form.patchValue(localeContent);
+
+    if (!this.isDataControllerEmpty()) {
+      this.form.get('showDataController').enable();
+    }
 
     const thirdPartiesArray = this.fb.array([]);
     localeThirdParties.forEach(party => {
@@ -93,5 +98,25 @@ export class TreatmentComponent extends EntryContentDirective<Treatment> impleme
     if (!event.includes('CONSENT_THIRD_PART_SHARING')) {
       this.getThirdParties().clear();
     }
+  }
+
+  dataControllerChange(event): void {
+    if (event.length > 0) {
+      this.form.get('showDataController').enable();
+    } else if (this.isDataControllerEmpty()) {
+      this.form.get('showDataController').setValue(false);
+      this.form.get('showDataController').disable();
+    }
+  }
+
+  private isDataControllerEmpty(): boolean {
+    const keys = ['company', 'name', 'address', 'email', 'phoneNumber'];
+    let empty = true;
+    let keyIndex = 0;
+    while (empty && keyIndex < keys.length) {
+      empty = this.form.get('dataController').get(keys[keyIndex]).value.length === 0;
+      keyIndex++;
+    }
+    return empty;
   }
 }

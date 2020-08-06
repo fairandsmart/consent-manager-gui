@@ -4,20 +4,24 @@
       <mat-card>
         <mat-card-title>{{'ENTRIES.EDITOR.CONTENT.TITLE.CONDITIONS' | translate}}</mat-card-title>
         <mat-card-content>
+
           <mat-form-field appearance="outline">
             <mat-label>{{'COMMON.LOCALE.LABEL' | translate}}</mat-label>
-            <mat-select formControlName="locale">
+            <mat-select formControlName="locale" matInput required>
               <mat-option *ngFor="let language of LANGUAGES" [value]="language">{{'COMMON.LANGUAGES.' + language.toUpperCase() | translate}}</mat-option>
             </mat-select>
           </mat-form-field>
+
           <mat-card-subtitle>{{'ENTRIES.EDITOR.CONDITIONS.SUBTITLES.TITLE' | translate}}</mat-card-subtitle>
           <mat-form-field appearance="outline">
             <mat-label>{{'ENTRIES.EDITOR.CONDITIONS.TITLE.LABEL' | translate}}</mat-label>
-            <input matInput formControlName="title" autocomplete="off">
+            <input matInput required formControlName="title" autocomplete="off">
           </mat-form-field>
+
           <mat-card-subtitle>{{'ENTRIES.EDITOR.CONDITIONS.SUBTITLES.BODY' | translate}}</mat-card-subtitle>
           <div class="codemirror-wrapper">
-            <p class="code-input-label">{{'ENTRIES.EDITOR.CONDITIONS.BODY.LABEL' | translate}}
+            <p class="code-input-label">
+              <span class="required-field">{{'ENTRIES.EDITOR.CONDITIONS.BODY.LABEL' | translate}}</span>
               <span class="mat-caption">
                 <br>{{'ENTRIES.EDITOR.CONDITIONS.BODY.HINT' | translate}}
                 <br>{{'ENTRIES.EDITOR.CONDITIONS.BODY.AUTOCOMPLETE' | translate}}
@@ -25,15 +29,17 @@
             </p>
             <ngx-codemirror formControlName="body" name="body" [options]="CODE_MIRROR_OPTIONS"></ngx-codemirror>
           </div>
+
           <mat-card-subtitle>{{'ENTRIES.EDITOR.CONDITIONS.SUBTITLES.BUTTONS' | translate}}</mat-card-subtitle>
           <mat-form-field appearance="outline">
             <mat-label>{{'ENTRIES.EDITOR.CONDITIONS.ACCEPT.LABEL' | translate}}</mat-label>
-            <input matInput formControlName="acceptLabel" autocomplete="off">
+            <input matInput required formControlName="acceptLabel" autocomplete="off">
           </mat-form-field>
           <mat-form-field appearance="outline">
             <mat-label>{{'ENTRIES.EDITOR.CONDITIONS.REJECT.LABEL' | translate}}</mat-label>
-            <input matInput formControlName="rejectLabel" autocomplete="off">
+            <input matInput required formControlName="rejectLabel" autocomplete="off">
           </mat-form-field>
+
         </mat-card-content>
         <mat-card-actions>
           <button mat-button type="button" color="primary" [disabled]="form.invalid" (click)="save()">{{'ENTRIES.EDITOR.BUTTONS.SAVE' | translate}}</button>

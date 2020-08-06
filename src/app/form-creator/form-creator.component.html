@@ -58,18 +58,18 @@
               <div class="consent-validity-wrapper">
                 <mat-form-field appearance="fill">
                   <mat-label>{{'FORM_CREATOR.FORM.VALIDITY.LABEL' | translate}}</mat-label>
-                  <input matInput type="number" min="1" formControlName="validity" autocomplete="off">
+                  <input matInput required type="number" min="1" formControlName="validity" autocomplete="off">
                 </mat-form-field>
                 <mat-form-field appearance="fill">
                   <mat-label>{{'FORM_CREATOR.FORM.VALIDITY_UNIT.LABEL' | translate}}</mat-label>
-                  <mat-select formControlName="validityUnit">
+                  <mat-select formControlName="validityUnit" matInput required>
                     <mat-option *ngFor="let unit of VALIDITY_UNITS" [value]="unit">{{'FORM_CREATOR.FORM.VALIDITY_UNIT.VALUES.' + unit | translate}}</mat-option>
                   </mat-select>
                 </mat-form-field>
               </div>
               <mat-form-field appearance="fill">
                 <mat-label>{{'FORM_CREATOR.FORM.RECEIPT.LABEL' | translate}}</mat-label>
-                <mat-select formControlName="receiptDeliveryType">
+                <mat-select formControlName="receiptDeliveryType" matInput required>
                   <mat-option *ngFor="let type of RECEIPT_TYPES" [value]="type">{{'FORM_CREATOR.FORM.RECEIPT.VALUES.' + type.toUpperCase() | translate}}</mat-option>
                 </mat-select>
               </mat-form-field>
@@ -92,13 +92,13 @@
     <ng-container *ngIf="stepper.selectedIndex === STEPS.PREVIEW" [formGroup]="form.at(STEPS.OPTIONS)">
       <mat-form-field appearance="fill">
         <mat-label>{{'FORM_CREATOR.FORM.ORIENTATION.LABEL' | translate}}</mat-label>
-        <mat-select formControlName="orientation" required>
+        <mat-select formControlName="orientation" matInput required>
           <mat-option *ngFor="let orientation of ORIENTATIONS" [value]="orientation">{{'FORM_CREATOR.FORM.ORIENTATION.VALUES.' + orientation | translate}}</mat-option>
         </mat-select>
       </mat-form-field>
       <mat-form-field appearance="fill">
         <mat-label>{{'COMMON.LOCALE.LABEL' | translate}}</mat-label>
-        <mat-select formControlName="locale" required>
+        <mat-select formControlName="locale" matInput required>
           <mat-option *ngFor="let language of LANGUAGES" [value]="language">{{'COMMON.LANGUAGES.' + language.toUpperCase() | translate}}</mat-option>
         </mat-select>
       </mat-form-field>

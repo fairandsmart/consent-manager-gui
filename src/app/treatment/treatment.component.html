@@ -7,7 +7,7 @@
 
           <mat-form-field appearance="outline">
             <mat-label>{{'COMMON.LOCALE.LABEL' | translate}}</mat-label>
-            <mat-select formControlName="locale">
+            <mat-select formControlName="locale" matInput required>
               <mat-option *ngFor="let language of LANGUAGES" [value]="language">{{'COMMON.LANGUAGES.' + language.toUpperCase() | translate}}</mat-option>
             </mat-select>
           </mat-form-field>
@@ -15,7 +15,7 @@
           <mat-card-subtitle>{{'ENTRIES.EDITOR.TREATMENT.SUBTITLES.TITLE' | translate}}</mat-card-subtitle>
           <mat-form-field appearance="outline">
             <mat-label>{{'ENTRIES.EDITOR.TREATMENT.TITLE.LABEL' | translate}}</mat-label>
-            <input matInput formControlName="treatmentTitle" autocomplete="off">
+            <input matInput required formControlName="treatmentTitle" autocomplete="off">
           </mat-form-field>
 
           <mat-card-subtitle>{{'ENTRIES.EDITOR.TREATMENT.SUBTITLES.DATA' | translate}}</mat-card-subtitle>
@@ -25,7 +25,7 @@
           </mat-form-field>
           <mat-form-field appearance="outline">
             <mat-label>{{'ENTRIES.EDITOR.TREATMENT.DATA.BODY.LABEL' | translate}}</mat-label>
-            <textarea matInput formControlName="dataBody"></textarea>
+            <textarea matInput required formControlName="dataBody"></textarea>
           </mat-form-field>
 
           <mat-card-subtitle>{{'ENTRIES.EDITOR.TREATMENT.SUBTITLES.RETENTION' | translate}}</mat-card-subtitle>
@@ -35,7 +35,7 @@
           </mat-form-field>
           <mat-form-field appearance="outline">
             <mat-label>{{'ENTRIES.EDITOR.TREATMENT.RETENTION.BODY.LABEL' | translate}}</mat-label>
-            <textarea matInput formControlName="retentionBody"></textarea>
+            <textarea matInput required formControlName="retentionBody"></textarea>
           </mat-form-field>
 
           <mat-card-subtitle>{{'ENTRIES.EDITOR.TREATMENT.SUBTITLES.USAGE' | translate}}</mat-card-subtitle>
@@ -45,13 +45,13 @@
           </mat-form-field>
           <mat-form-field appearance="outline">
             <mat-label>{{'ENTRIES.EDITOR.TREATMENT.USAGE.BODY.LABEL' | translate}}</mat-label>
-            <textarea matInput formControlName="usageBody"></textarea>
+            <textarea matInput required formControlName="usageBody"></textarea>
           </mat-form-field>
 
           <mat-card-subtitle>{{'ENTRIES.EDITOR.TREATMENT.SUBTITLES.LAW' | translate}}</mat-card-subtitle>
           <mat-form-field appearance="outline">
             <mat-label>{{'ENTRIES.EDITOR.TREATMENT.PURPOSE.LABEL' | translate}}</mat-label>
-            <mat-select formControlName="purposes" multiple="true" (ngModelChange)="purposesChange($event)">
+            <mat-select formControlName="purposes" matInput required multiple="true" (ngModelChange)="purposesChange($event)">
               <mat-option *ngFor="let purpose of PURPOSES" [value]="purpose">{{'ENTRIES.EDITOR.TREATMENT.PURPOSE.VALUES.' + purpose | translate}}</mat-option>
             </mat-select>
           </mat-form-field>
@@ -60,30 +60,32 @@
 
           <div formGroupName="dataController">
             <mat-card-subtitle>{{'ENTRIES.EDITOR.CONTENT.DATA_CONTROLLER.TITLE' | translate}}</mat-card-subtitle>
-            <mat-checkbox formControlName="actingBehalfCompany">{{'ENTRIES.EDITOR.CONTENT.DATA_CONTROLLER.ACTING_BEHALF_COMPANY.LABEL' | translate}}</mat-checkbox>
             <mat-form-field appearance="outline">
               <mat-label>{{'ENTRIES.EDITOR.CONTENT.DATA_CONTROLLER.COMPANY.LABEL' | translate}}</mat-label>
-              <input matInput formControlName="company" autocomplete="off">
+              <input matInput formControlName="company" autocomplete="off" (ngModelChange)="dataControllerChange($event)">
             </mat-form-field>
             <mat-form-field appearance="outline">
               <mat-label>{{'ENTRIES.EDITOR.CONTENT.DATA_CONTROLLER.NAME.LABEL' | translate}}</mat-label>
-              <input matInput formControlName="name" autocomplete="off">
+              <input matInput formControlName="name" autocomplete="off" (ngModelChange)="dataControllerChange($event)">
             </mat-form-field>
             <mat-form-field appearance="outline">
               <mat-label>{{'ENTRIES.EDITOR.CONTENT.DATA_CONTROLLER.ADDRESS.LABEL' | translate}}</mat-label>
-              <input matInput formControlName="address" autocomplete="off">
+              <input matInput formControlName="address" autocomplete="off" (ngModelChange)="dataControllerChange($event)">
             </mat-form-field>
             <mat-form-field appearance="outline">
               <mat-label>{{'ENTRIES.EDITOR.CONTENT.DATA_CONTROLLER.EMAIL.LABEL' | translate}}</mat-label>
-              <input matInput formControlName="email" autocomplete="off">
+              <input matInput formControlName="email" autocomplete="off" (ngModelChange)="dataControllerChange($event)">
             </mat-form-field>
             <mat-form-field appearance="outline">
               <mat-label>{{'ENTRIES.EDITOR.CONTENT.DATA_CONTROLLER.PHONE.LABEL' | translate}}</mat-label>
-              <input matInput formControlName="phoneNumber" autocomplete="off">
+              <input matInput formControlName="phoneNumber" autocomplete="off" (ngModelChange)="dataControllerChange($event)">
             </mat-form-field>
+            <mat-checkbox formControlName="actingBehalfCompany">{{'ENTRIES.EDITOR.CONTENT.DATA_CONTROLLER.ACTING_BEHALF_COMPANY.LABEL' | translate}}</mat-checkbox>
           </div>
-          <mat-checkbox formControlName="showDataController">{{'ENTRIES.EDITOR.CONTENT.SHOW' | translate}}</mat-checkbox>
-
+          <mat-radio-group formControlName="showDataController">
+            <mat-radio-button [value]="true">{{'ENTRIES.EDITOR.CONTENT.SHOW' | translate}}</mat-radio-button>
+            <mat-radio-button [value]="false">{{'ENTRIES.EDITOR.CONTENT.HIDE' | translate}}</mat-radio-button>
+          </mat-radio-group>
           <mat-card *ngIf="this.form.controls.purposes.value.includes('CONSENT_THIRD_PART_SHARING')">
             <mat-card-title>{{'ENTRIES.EDITOR.TREATMENT.THIRD_PARTIES.LABEL' | translate}}</mat-card-title>
             <mat-card-content>

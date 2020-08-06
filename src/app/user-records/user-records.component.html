@@ -74,21 +74,21 @@
 
       <mat-form-field appearance="outline">
         <mat-label>{{'COMMON.LOCALE.LABEL' | translate}}</mat-label>
-        <mat-select formControlName="locale">
+        <mat-select formControlName="locale" matInput required>
           <mat-option *ngFor="let language of LANGUAGES" [value]="language">{{'COMMON.LANGUAGES.' + language.toUpperCase() | translate}}</mat-option>
         </mat-select>
       </mat-form-field>
 
       <mat-form-field appearance="outline">
         <mat-label>{{'RECORDS.COMMON.HEADER.LABEL' | translate}}</mat-label>
-        <mat-select formControlName="headerKey">
+        <mat-select formControlName="headerKey" matInput required>
           <mat-option *ngFor="let header of headers" [value]="header.key">{{header.name}}</mat-option>
         </mat-select>
       </mat-form-field>
 
       <mat-form-field appearance="outline">
         <mat-label>{{'RECORDS.COMMON.FOOTER.LABEL' | translate}}</mat-label>
-        <mat-select formControlName="footerKey">
+        <mat-select formControlName="footerKey" matInput required>
           <mat-option *ngFor="let footer of footers" [value]="footer.key">{{footer.name}}</mat-option>
         </mat-select>
       </mat-form-field>
@@ -107,7 +107,7 @@
 
       <mat-form-field appearance="outline">
         <mat-label>{{'RECORDS.COMMON.COMMENT.LABEL' | translate}}</mat-label>
-        <input matInput formControlName="comment">
+        <input matInput required formControlName="comment">
       </mat-form-field>
 
       <mat-card-actions>

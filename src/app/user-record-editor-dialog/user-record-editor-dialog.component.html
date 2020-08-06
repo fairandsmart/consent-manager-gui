@@ -9,7 +9,7 @@
 
   <mat-form-field appearance="fill">
     <mat-label>{{'RECORDS.COMMON.VALUE.LABEL' | translate}}</mat-label>
-    <mat-select formControlName="value">
+    <mat-select formControlName="value" matInput required>
       <mat-option value="accepted">{{'RECORDS.COMMON.VALUE.ACCEPTED' | translate}}</mat-option>
       <mat-option value="refused">{{'RECORDS.COMMON.VALUE.REFUSED' | translate}}</mat-option>
     </mat-select>
