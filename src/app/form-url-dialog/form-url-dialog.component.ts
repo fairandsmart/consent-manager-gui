@@ -12,7 +12,7 @@ export interface FormUrlDialogComponentData {
 })
 export class FormUrlDialogComponent {
 
-  public subject = '';
+  // public subject = '';
 
   constructor(private dialogRef: MatDialogRef<FormUrlDialogComponent>,
               @Inject(MAT_DIALOG_DATA) public data: FormUrlDialogComponentData) { }

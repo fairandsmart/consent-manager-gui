@@ -384,7 +384,7 @@
   "RECORDS": {
     "TITLE": "Records",
     "SEARCH_BUTTON": "Search",
-    "JUMP_BUTTON": "Jump to user records",
+    "JUMP_BUTTON": "Jump to this user's records / Create new consents for this user",
     "COMMON": {
       "ID": {
         "LABEL": "Id"
@@ -524,7 +524,8 @@
       "DIALOG_TITLE": "Generate forms",
       "TITLE": "API call URL",
       "BUTTON_OK": "Done",
-      "BUTTON_VIEW": "Get API call URL"
+      "BUTTON_VIEW": "Get API call URL",
+      "HINT": "Fill the parameter \"subject\" with the id of the person giving their consent."
     }
   },
   "HEALTH": {

@@ -384,7 +384,7 @@
   "RECORDS": {
     "TITLE": "Enregistrements",
     "SEARCH_BUTTON": "Rechercher",
-    "JUMP_BUTTON": "Voir les enregistrements de cet utilisateur",
+    "JUMP_BUTTON": "Voir les enregistrements de cet utilisateur / Créer de nouveaux consentements pour lui",
     "COMMON": {
       "ID": {
         "LABEL": "Id"
@@ -524,7 +524,8 @@
       "DIALOG_TITLE": "Générer des formulaires",
       "TITLE": "URL d'appel à l'API",
       "BUTTON_OK": "Terminé",
-      "BUTTON_VIEW": "Obtenir l'URL d'appel à l'API"
+      "BUTTON_VIEW": "Obtenir l'URL d'appel à l'API",
+      "HINT": "Remplissez le paramètre \"subject\" avec l'id de la personne qui donnera son consentement."
     }
   },
   "HEALTH": {

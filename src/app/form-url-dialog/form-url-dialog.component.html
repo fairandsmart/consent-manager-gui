@@ -1,17 +1,18 @@
 <h2 mat-dialog-title>{{'FORM_CREATOR.API_URL.DIALOG_TITLE' | translate }}</h2>
 <div mat-dialog-content>
-  <mat-form-field appearance="fill">
+  <!--<mat-form-field appearance="fill">
     <mat-label>{{'FORM_CREATOR.FORM.SUBJECT.LABEL' | translate}}</mat-label>
     <input matInput [(ngModel)]="subject" autocomplete="off">
-  </mat-form-field>
+  </mat-form-field>-->
   <mat-card *ngIf="data.url">
     <mat-card-title>
       {{'FORM_CREATOR.API_URL.TITLE' | translate}}
-      <button mat-icon-button [cdkCopyToClipboard]="data.url+subject"><mat-icon>content_copy</mat-icon></button>
+      <button mat-icon-button [cdkCopyToClipboard]="data.url"><mat-icon>content_copy</mat-icon></button>
     </mat-card-title>
     <mat-card-content>
-      <code>{{data.url+subject}}</code>
+      <code>{{data.url}}</code>
     </mat-card-content>
+    <mat-card-footer><div class="hint">{{'FORM_CREATOR.API_URL.HINT' | translate}}</div></mat-card-footer>
   </mat-card>
 </div>
 <div class="btn-uppercase align-right" mat-dialog-actions>

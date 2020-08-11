@@ -48,7 +48,7 @@ export class UserRecordsComponent implements OnInit {
 
   readonly LANGUAGES = LANGUAGES;
 
-  public displayedColumns = ['bodyKey', 'value', 'collectionMethod', 'type', 'comment', 'creationTimestamp', 'expirationTimestamp', 'actions'];
+  public displayedColumns = ['bodyKey', 'type', 'value', 'collectionMethod', 'comment', 'creationTimestamp', 'expirationTimestamp', 'actions'];
 
   public pageSizeOptions = [10, 25, 50];
 
