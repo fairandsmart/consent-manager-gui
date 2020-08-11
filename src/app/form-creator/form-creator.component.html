@@ -1,6 +1,7 @@
 <mat-sidenav-container>
   <mat-sidenav-content>
       <mat-horizontal-stepper #stepper linear="true" labelPosition="bottom" [class]="'step-' + currentStep" (selectionChange)="stepChange($event)">
+
         <mat-step [label]="'FORM_CREATOR.STEP_ELEMENTS' | translate" [stepControl]="form.at(STEPS.ELEMENTS)">
           <ng-container *ngFor="let section of elementsLibraryConfig">
             <h4>
@@ -33,6 +34,7 @@
             <button mat-button color="primary" matStepperNext>{{'FORM_CREATOR.BUTTON_LABEL_NEXT_STEP' | translate}}</button>
           </div>
         </mat-step>
+
         <mat-step [label]="'FORM_CREATOR.STEP_PREVIEW' | translate">
           <mat-card *ngIf="formUrl" class="form-preview">
             <iframe [src]="formUrl"></iframe>
@@ -42,6 +44,7 @@
             <button mat-button color="primary" matStepperNext>{{'FORM_CREATOR.BUTTON_LABEL_NEXT_STEP' | translate}}</button>
           </div>
         </mat-step>
+
         <mat-step [label]="'FORM_CREATOR.STEP_OPTIONS' | translate" [stepControl]="form.at(STEPS.OPTIONS)">
           <mat-card [formGroup]="form.at(STEPS.OPTIONS)">
             <mat-card-content>
@@ -73,6 +76,10 @@
                   <mat-option *ngFor="let type of RECEIPT_TYPES" [value]="type">{{'FORM_CREATOR.FORM.RECEIPT.VALUES.' + type.toUpperCase() | translate}}</mat-option>
                 </mat-select>
               </mat-form-field>
+              <mat-form-field appearance="fill" *ngIf="form.at(STEPS.OPTIONS).get('optoutModel').value">
+                <mat-label>{{'FORM_CREATOR.FORM.OPTOUT_RECIPIENT.LABEL' | translate}}</mat-label>
+                <input type="email" matInput formControlName="optoutRecipient" autocomplete="off" email>
+              </mat-form-field>
             </mat-card-content>
           </mat-card>
           <div class="step-actions">
@@ -80,15 +87,17 @@
             <button mat-button color="primary" (click)="openApiUrlDialog()">{{'FORM_CREATOR.API_URL.BUTTON_VIEW' | translate}}</button>
           </div>
         </mat-step>
+
       </mat-horizontal-stepper>
   </mat-sidenav-content>
   <mat-sidenav opened mode="side" position="end">
     <app-entries-library
       [style]="stepper.selectedIndex !== STEPS.ELEMENTS ? 'display: none' : ''"
       [config]="elementsLibraryConfig"
-      [selected]="selectedElements" [mode]="'drag'"
+      [selected]="selectedElements"
       (selectedChange)="selectedElementsChange($event)"
       [mode]="'drag'"></app-entries-library>
+
     <ng-container *ngIf="stepper.selectedIndex === STEPS.PREVIEW" [formGroup]="form.at(STEPS.OPTIONS)">
       <mat-form-field appearance="fill">
         <mat-label>{{'FORM_CREATOR.FORM.ORIENTATION.LABEL' | translate}}</mat-label>
@@ -103,6 +112,13 @@
         </mat-select>
       </mat-form-field>
     </ng-container>
+
+    <app-entries-library
+      [style]="stepper.selectedIndex !== STEPS.OPTIONS ? 'display: none' : ''"
+      [config]="emailsLibraryConfig"
+      [selected]="selectedEmail" [mode]="'select'"
+      (selectedChange)="selectedEmailChange($event)"></app-entries-library>
+
     <app-entries-library
       [style]="stepper.selectedIndex !== STEPS.PREVIEW ? 'display: none' : ''"
       [config]="themesLibraryConfig"

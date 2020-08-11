@@ -1,4 +1,4 @@
-import { Component, HostBinding, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { catchError, mergeMap } from 'rxjs/operators';
 import { ModelEntry, ModelVersion } from '../models';

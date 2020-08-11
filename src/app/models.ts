@@ -177,11 +177,22 @@ export enum TargetType {
 
 export const TARGET_TYPES = Object.keys(TargetType);
 
-export type ModelDataType = 'header' | 'treatment' | 'conditions' | 'footer' | 'theme';
+export interface Email extends ModelData {
+  type: 'email';
+  sender: string;
+  subject: string;
+  title: string;
+  body: string;
+  buttonLabel: string;
+  footer: string;
+  signature: string;
+}
+
+export type ModelDataType = 'header' | 'treatment' | 'conditions' | 'footer' | 'theme' | 'email';
 
 export const MODEL_DATA_TYPES: ModelDataType[] = ['header', 'treatment', 'conditions', 'footer'];
 
-export const MODEL_DATA_TYPES_COMPLETE: ModelDataType[] = ['header', 'treatment', 'conditions', 'footer', 'theme'];
+export const MODEL_DATA_TYPES_COMPLETE: ModelDataType[] = ['header', 'treatment', 'conditions', 'footer', 'theme', 'email'];
 
 export type SortDirection = 'asc' | 'desc' | '';
 
@@ -215,7 +226,8 @@ export interface ConsentContext {
   receiptDeliveryType: ReceiptDeliveryType;
   userinfos: { [key: string]: string };
   attributes: { [key: string]: string };
-  optoutEmail: string;
+  optoutModel: string;
+  optoutRecipient: string;
   collectionMethod: CollectionMethod;
   author: string;
   preview: boolean;

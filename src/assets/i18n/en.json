@@ -20,7 +20,8 @@
       "FOOTER": "Footer",
       "TREATMENT": "Treatment",
       "CONDITIONS": "EULA",
-      "THEME": "Theme"
+      "THEME": "Theme",
+      "EMAIL": "Email"
     },
     "COLLECTION_METHODS": {
       "WEBFORM": "Web form",
@@ -78,12 +79,17 @@
       "PANEL_TITLE": "Themes library",
       "NO_DESCRIPTION": "No description"
     },
+    "emails": {
+      "PANEL_TITLE": "Emails",
+      "EMPTY": "First, create ae email..."
+    },
     "BUTTON_ADD": {
       "header": "New header",
       "treatment": "New treatment",
       "conditions": "New EULA",
       "footer": "New footer",
       "theme": "New theme",
+      "email": "New email",
       "MULTIPLE": "Add..."
     },
     "COMMON": {
@@ -110,14 +116,16 @@
         "TREATMENT": "New treatment",
         "CONDITIONS": "New EULA",
         "FOOTER": "New footer",
-        "THEME": "New theme"
+        "THEME": "New theme",
+        "EMAIL": "New email"
       },
       "TITLE_UPDATE": {
         "HEADER": "Update header",
         "TREATMENT": "Update treatment",
         "CONDITIONS": "Update EULA",
         "FOOTER": "Update footer",
-        "THEME": "Update theme"
+        "THEME": "Update theme",
+        "EMAIL": "Update email"
       }
     },
     "EDITOR": {
@@ -135,7 +143,8 @@
           "TREATMENT": "Treatment content",
           "CONDITIONS": "EULA content",
           "FOOTER": "Footer content",
-          "THEME": "Theme content"
+          "THEME": "Theme content",
+          "EMAIL": "Email content"
         },
         "SHOW": "Display in forms and receipts",
         "HIDE": "Display only in receipts",
@@ -303,6 +312,33 @@
         "IFRAME": {
           "TITLE": "Preview"
         }
+      },
+      "EMAIL": {
+        "SUBTITLES": {
+          "META": "Metadata",
+          "CONTENT": "Email body"
+        },
+        "SENDER": {
+          "LABEL": "Sender"
+        },
+        "SUBJECT": {
+          "LABEL": "Subject"
+        },
+        "TITLE": {
+          "LABEL": "Title"
+        },
+        "BODY": {
+          "LABEL": "Body"
+        },
+        "BUTTON_LABEL": {
+          "LABEL": "Button label"
+        },
+        "FOOTER": {
+          "LABEL": "Footer"
+        },
+        "SIGNATURE": {
+          "LABEL": "Signature"
+        }
       }
     }
   },
@@ -460,6 +496,9 @@
           "STORE": "Store",
           "DOWNLOAD": "Download"
         }
+      },
+      "OPTOUT_RECIPIENT": {
+        "LABEL": "Email recipient"
       },
       "THEME": {
         "LABEL": "Theme (optional)",

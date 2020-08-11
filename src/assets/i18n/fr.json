@@ -20,7 +20,8 @@
       "FOOTER": "Pied de page",
       "TREATMENT": "Traitement",
       "CONDITIONS": "CGU/CGS",
-      "THEME": "Thème"
+      "THEME": "Thème",
+      "EMAIL": "Emails"
     },
     "COLLECTION_METHODS": {
       "WEBFORM": "Formulaire Web",
@@ -78,12 +79,17 @@
       "PANEL_TITLE": "Bibliothèque de thèmes",
       "NO_DESCRIPTION": "Pas de description"
     },
+    "emails": {
+      "PANEL_TITLE": "Emails",
+      "EMPTY": "Commencez par ajouter un modèle d'email..."
+    },
     "BUTTON_ADD": {
       "header": "Ajouter un en-tête",
       "treatment": "Ajouter un traitement",
       "conditions": "Ajouter un modèle de CGU",
       "footer": "Ajouter un pied de page",
       "theme": "Ajouter un thème",
+      "email": "Ajouter un email",
       "MULTIPLE": "Ajouter..."
     },
     "COMMON": {
@@ -110,14 +116,16 @@
         "TREATMENT": "Nouveau traitement",
         "CONDITIONS": "Nouvelles CGU",
         "FOOTER": "Nouveau pied de page",
-        "THEME": "Nouveau thème"
+        "THEME": "Nouveau thème",
+        "EMAIL": "Nouvel email"
       },
       "TITLE_UPDATE": {
         "HEADER": "Modification de l'en-tête",
         "TREATMENT": "Modification du traitement",
         "CONDITIONS": "Modification des CGU",
         "FOOTER": "Modification du pied de page",
-        "THEME": "Modification du thème"
+        "THEME": "Modification du thème",
+        "EMAIL": "Modification de l'email"
       }
     },
     "EDITOR": {
@@ -135,7 +143,8 @@
           "TREATMENT": "Contenu du traitement",
           "CONDITIONS": "Contenu des CGU",
           "FOOTER": "Contenu du pied de page",
-          "THEME": "Contenu du thème"
+          "THEME": "Contenu du thème",
+          "EMAIL": "Contenu de l'email"
         },
         "SHOW": "Afficher dans les formulaires et les reçus",
         "HIDE": "N'afficher que dans les reçus",
@@ -303,6 +312,33 @@
         "IFRAME": {
           "TITLE": "Prévisualisation"
         }
+      },
+      "EMAIL": {
+        "SUBTITLES": {
+          "META": "Métadonnées",
+          "CONTENT": "Corps de l'email"
+        },
+        "SENDER": {
+          "LABEL": "Expéditeur"
+        },
+        "SUBJECT": {
+          "LABEL": "Sujet"
+        },
+        "TITLE": {
+          "LABEL": "Titre"
+        },
+        "BODY": {
+          "LABEL": "Corps"
+        },
+        "BUTTON_LABEL": {
+          "LABEL": "Libellé du bouton"
+        },
+        "FOOTER": {
+          "LABEL": "Pied"
+        },
+        "SIGNATURE": {
+          "LABEL": "Signature"
+        }
       }
     }
   },
@@ -460,6 +496,9 @@
           "STORE": "Stocker",
           "DOWNLOAD": "Télécharger"
         }
+      },
+      "OPTOUT_RECIPIENT": {
+        "LABEL": "Destinataire de l'email"
       },
       "THEME": {
         "LABEL": "Thème (facultatif)",

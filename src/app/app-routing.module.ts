@@ -10,6 +10,7 @@ import { EntriesPageComponent } from './entries-page/entries-page.component';
 import { ThemesPageComponent } from './themes-page/themes-page.component';
 import { ConditionsPageComponent } from './conditions-page/conditions-page.component';
 import { ConditionsReadOnlyComponent } from './conditions-read-only/conditions-read-only.component';
+import { EmailsPageComponent } from './emails-page/emails-page.component';
 
 const routes: Routes = [
   {
@@ -64,6 +65,14 @@ const routes: Routes = [
       },
       {
         path: 'conditions/:id',
+        component: EntryComponent
+      },
+      {
+        path: 'emails',
+        component: EmailsPageComponent
+      },
+      {
+        path: 'emails/:id',
         component: EntryComponent
       },
       {

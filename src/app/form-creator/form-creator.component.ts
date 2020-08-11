@@ -78,12 +78,23 @@ export class FormCreatorComponent implements OnInit {
     {
       id: 'themes',
       types: ['theme'],
-      multiple: true,
+      multiple: false,
       showSort: true
     }
   ];
 
   public selectedTheme: {[id: string]: ModelEntry[]} = {themes: []};
+
+  public emailsLibraryConfig: SectionConfig[] = [
+    {
+      id: 'emails',
+      types: ['email'],
+      multiple: false,
+      showSort: true
+    }
+  ];
+
+  public selectedEmail: {[id: string]: ModelEntry[]} = {emails: []};
 
   public form: FormArray;
   public readonly STEPS = FORM_CREATOR_STEP;
@@ -130,12 +141,13 @@ export class FormCreatorComponent implements OnInit {
       this.fb.group({
         // subject: ['', [Validators.required]],
         orientation: [ConsentFormOrientation.VERTICAL, [Validators.required]],
+        locale: ['fr', [Validators.required]],
+        forceDisplay: [true, [Validators.required]],
         validity: [6, [Validators.required, Validators.min(1)]],
         validityUnit: ['M', [Validators.required]],
         receiptDeliveryType: ['DISPLAY', [Validators.required]],
-        locale: ['fr', [Validators.required]],
-        forceDisplay: [true, [Validators.required]],
-        optoutEmail: ['']
+        optoutModel: ['', [Validators.pattern(FIELD_VALIDATORS.key.pattern)]],
+        optoutRecipient: ['']
       })
     ]);
     this.form.at(FORM_CREATOR_STEP.OPTIONS).get('orientation').valueChanges.subscribe((orientation) => {
@@ -172,6 +184,10 @@ export class FormCreatorComponent implements OnInit {
 
   selectedThemeChange(event: {[id: string]: ModelEntry[]}): void {
     this.setSelectedTheme(event);
+  }
+
+  selectedEmailChange(event: {[id: string]: ModelEntry[]}): void {
+    this.setSelectedEmail(event);
   }
 
   preview(): void {
@@ -227,7 +243,8 @@ export class FormCreatorComponent implements OnInit {
       receiptDeliveryType: formValue.receiptDeliveryType,
       userinfos: {},
       attributes: {},
-      optoutEmail: formValue.optoutEmail,
+      optoutModel: formValue.optoutModel,
+      optoutRecipient: formValue.optoutRecipient,
       collectionMethod: CollectionMethod.WEBFORM,
       author: '',
       preview: isPreview,
@@ -253,6 +270,13 @@ export class FormCreatorComponent implements OnInit {
       theme: this.selectedTheme.themes?.[0]?.key || ''
     });
     this.preview();
+  }
+
+  private setSelectedEmail(selected: {[id: string]: ModelEntry[]}): void {
+    this.selectedEmail = selected;
+    this.form.at(FORM_CREATOR_STEP.OPTIONS).patchValue({
+      optoutModel: this.selectedEmail.emails?.[0]?.key || ''
+    });
   }
 
   openApiUrlDialog(): void {
