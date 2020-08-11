@@ -27,6 +27,7 @@ import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatListModule } from '@angular/material/list';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { MatStepperModule } from '@angular/material/stepper';
+import { MatRadioModule } from '@angular/material/radio';
 
 @Injectable()
 export class MatPaginatorIntlTranslated extends MatPaginatorIntl {
@@ -97,7 +98,8 @@ const modules = [
   MatSidenavModule,
   MatListModule,
   MatSlideToggleModule,
-  MatStepperModule
+  MatStepperModule,
+  MatRadioModule
 ];
 
 @NgModule({

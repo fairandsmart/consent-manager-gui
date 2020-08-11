@@ -45,7 +45,6 @@ import { ConditionsPageComponent } from './conditions-page/conditions-page.compo
 import { TextOverflowDirective } from './common/text-overflow.directive';
 import { ConditionsReadOnlyComponent } from './conditions-read-only/conditions-read-only.component';
 import { FormUrlDialogComponent } from './form-url-dialog/form-url-dialog.component';
-import { MatRadioModule } from '@angular/material/radio';
 import { EmailsPageComponent } from './emails-page/emails-page.component';
 import { EmailComponent } from './email/email.component';
 
@@ -118,8 +117,7 @@ registerLocaleData(localeFr, 'fr');
     }),
     StoreModule.forRoot({}, {}),
     EffectsModule.forRoot([]),
-    ClipboardModule,
-    MatRadioModule
+    ClipboardModule
   ],
   providers: [
     {
