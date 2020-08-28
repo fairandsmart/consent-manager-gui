@@ -237,7 +237,7 @@ export class FormCreatorComponent implements OnInit {
       elements: formValue.elements,
       footer: formValue.footer,
       callback: '',
-      validity: formValue.validity ? `P${formValue.validity}${formValue.validityUnit}` : '',
+      validity: this.formatValidity(formValue.validity, formValue.validityUnit),
       locale: formValue.locale,
       formType: formValue.forceDisplay ? ConsentFormType.FULL : ConsentFormType.PARTIAL,
       receiptDeliveryType: formValue.receiptDeliveryType,
@@ -298,5 +298,17 @@ export class FormCreatorComponent implements OnInit {
       console.error(err);
       this.form.enable();
     });
+  }
+
+  private formatValidity(validity, validityUnit): string {
+    if (validity) {
+      if (validityUnit === 'W') {
+        const days: number = validity * 7;
+        return `P${days}D`;
+      } else {
+        return `P${validity}${validityUnit}`;
+      }
+    }
+    return '';
   }
 }

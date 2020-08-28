@@ -382,9 +382,9 @@
     }
   },
   "RECORDS": {
-    "TITLE": "Records",
+    "TITLE": "Consents",
     "SEARCH_BUTTON": "Search",
-    "JUMP_BUTTON": "Jump to this user's records / Create new consents for this user",
+    "JUMP_BUTTON": "Jump to this user's consents / Create new consents for this user",
     "COMMON": {
       "ID": {
         "LABEL": "Id"
@@ -438,7 +438,7 @@
       "TITLE_UPDATE": "Update consent record"
     },
     "INDIVIDUAL": {
-      "TITLE": "Records for",
+      "TITLE": "Consents for",
       "CREATE_BUTTON": "New consent request",
       "EDITOR": {
         "TITLE": "New consent",

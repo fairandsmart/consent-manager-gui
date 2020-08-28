@@ -382,9 +382,9 @@
     }
   },
   "RECORDS": {
-    "TITLE": "Enregistrements",
+    "TITLE": "Consentements",
     "SEARCH_BUTTON": "Rechercher",
-    "JUMP_BUTTON": "Voir les enregistrements de cet utilisateur / Créer de nouveaux consentements pour lui",
+    "JUMP_BUTTON": "Voir les consentements de cet utilisateur / Créer de nouveaux consentements pour lui",
     "COMMON": {
       "ID": {
         "LABEL": "Id"
@@ -438,7 +438,7 @@
       "TITLE_UPDATE": "Modification de la réponse"
     },
     "INDIVIDUAL": {
-      "TITLE": "Enregistrements pour",
+      "TITLE": "Consentements pour",
       "CREATE_BUTTON": "Nouveau consentement",
       "EDITOR": {
         "TITLE": "Nouveau consentement",
