@@ -22,6 +22,19 @@ Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.
 
 Run `ng e2e` to execute the end-to-end tests via [Protractor](http://www.protractortest.org/).
 
+## Building the docker image
+
+Run "docker build ."
+
+## Running the docker container
+
+Environment variables (no default) :
+* FS_AUTH_CLIENTID (default is fsconsentmgr)
+* FS_AUTH_REALM (default is FairAndSmart)
+* FS_AUTH_URI (no default, mandatory)
+* FS_MANAGER_URI (no default, mandatory) 
+* FS_THEME (default is "community-dev)
+
 ## Further help
 
 To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI README](https://github.com/angular/angular-cli/blob/master/README.md).
