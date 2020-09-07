@@ -16,7 +16,7 @@ module.exports = function (config) {
       clearContext: false // leave Jasmine Spec Runner output visible in browser
     },
     coverageIstanbulReporter: {
-      dir: require('path').join(__dirname, './coverage/gui-consent-manager'),
+      dir: require('path').join(__dirname, './coverage/consent-manager-gui'),
       reports: ['html', 'lcovonly', 'cobertura', 'clover', 'text-summary'],
       fixWebpackSourcePaths: true,
       'report-config': {

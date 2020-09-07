@@ -48,4 +48,4 @@ Thumbs.db
 # maven
 /target
 
-gui-consent-manager.iml
+consent-manager-gui.iml

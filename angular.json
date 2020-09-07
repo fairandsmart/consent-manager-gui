@@ -3,7 +3,7 @@
   "version": 1,
   "newProjectRoot": "projects",
   "projects": {
-    "gui-consent-manager": {
+    "consent-manager-gui": {
       "projectType": "application",
       "schematics": {
         "@schematics/angular:component": {
@@ -17,7 +17,7 @@
         "build": {
           "builder": "@angular-devkit/build-angular:browser",
           "options": {
-            "outputPath": "dist/gui-consent-manager",
+            "outputPath": "dist/consent-manager-gui",
             "index": "src/index.html",
             "main": "src/main.ts",
             "polyfills": "src/polyfills.ts",
@@ -124,18 +124,18 @@
         "serve": {
           "builder": "@angular-devkit/build-angular:dev-server",
           "options": {
-            "browserTarget": "gui-consent-manager:build"
+            "browserTarget": "consent-manager-gui:build"
           },
           "configurations": {
             "production": {
-              "browserTarget": "gui-consent-manager:build:production"
+              "browserTarget": "consent-manager-gui:build:production"
             }
           }
         },
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n",
           "options": {
-            "browserTarget": "gui-consent-manager:build"
+            "browserTarget": "consent-manager-gui:build"
           }
         },
         "test": {
@@ -172,16 +172,16 @@
           "builder": "@angular-devkit/build-angular:protractor",
           "options": {
             "protractorConfig": "e2e/protractor.conf.js",
-            "devServerTarget": "gui-consent-manager:serve"
+            "devServerTarget": "consent-manager-gui:serve"
           },
           "configurations": {
             "production": {
-              "devServerTarget": "gui-consent-manager:serve:production"
+              "devServerTarget": "consent-manager-gui:serve:production"
             }
           }
         }
       }
     }
   },
-  "defaultProject": "gui-consent-manager"
+  "defaultProject": "consent-manager-gui"
 }

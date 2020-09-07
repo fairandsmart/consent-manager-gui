@@ -8,7 +8,7 @@
     <includeBaseDirectory>false</includeBaseDirectory>
     <fileSets>
         <fileSet>
-            <directory>dist/gui-consent-manager</directory>
+            <directory>dist/consent-manager-gui</directory>
             <outputDirectory/>
         </fileSet>
     </fileSets>

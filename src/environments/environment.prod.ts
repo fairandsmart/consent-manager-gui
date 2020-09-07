@@ -4,7 +4,7 @@ export const environment: AppEnvironment = {
   production: true,
   authUrl: 'http://localhost:8080/auth',
   authRealm: 'FairAndSmart',
-  authClientId: 'gui-consent-manager',
+  authClientId: 'consent-manager-gui',
   managerUrl: 'http://localhost:8087',
   customization: {
     multipleHeader: false,
