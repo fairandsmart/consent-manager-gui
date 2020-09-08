@@ -28,12 +28,11 @@ Run "docker build . -t container-manager-gui"
 
 ## Running the docker container
 
-Environment variables (no default) :
+Environment variables :
 * FS_AUTH_CLIENTID (default is fsconsentmgr)
 * FS_AUTH_REALM (default is FairAndSmart)
-* FS_AUTH_URI (no default, mandatory)
-* FS_MANAGER_URI (no default, mandatory) 
-* FS_THEME (default is "community-dev)
+* FS_AUTH_URI (default is http://127.0.0.1:8080)
+* FS_MANAGER_URI (default is http://127.0.0.1:8080) 
 
 ## Further help
 
