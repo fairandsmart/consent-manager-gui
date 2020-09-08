@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { KeycloakService } from 'keycloak-angular';
 
 @Component({
   selector: 'app-config',
@@ -8,9 +7,15 @@ import { KeycloakService } from 'keycloak-angular';
 })
 export class ConfigComponent implements OnInit {
 
-  constructor(public keycloak: KeycloakService) { }
+  public showModelSubsections = false;
+
+  constructor() { }
 
   ngOnInit(): void {
+  }
+
+  toggleSection() {
+    this.showModelSubsections = !this.showModelSubsections;
   }
 
 }

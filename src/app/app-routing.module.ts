@@ -15,7 +15,7 @@ import { EmailsPageComponent } from './emails-page/emails-page.component';
 const routes: Routes = [
   {
     path: '',
-    redirectTo: 'config/entries',
+    redirectTo: '/admin/customers',
     pathMatch: 'full'
   },
   {
@@ -23,7 +23,7 @@ const routes: Routes = [
     children: [
       {
         path: '',
-        redirectTo: '/config/entries',
+        redirectTo: '/admin/customers',
         pathMatch: 'full'
       },
       {
@@ -31,7 +31,7 @@ const routes: Routes = [
         children: [
           {
             path: '',
-            redirectTo: '/config/entries',
+            redirectTo: '/admin/customers',
             pathMatch: 'full'
           },
           {
@@ -39,12 +39,11 @@ const routes: Routes = [
             component: ConditionsReadOnlyComponent
           }
         ]
-
       }
     ]
   },
   {
-    path: 'config',
+    path: 'admin',
     component: ConfigComponent,
     canActivate: [RolesGuardService],
     data: {
@@ -52,47 +51,57 @@ const routes: Routes = [
     },
     children: [
       {
-        path: 'entries',
-        component: EntriesPageComponent
+        path: 'config',
+        children: [
+          {
+            path: '',
+            redirectTo: '/admin/customers',
+            pathMatch: 'full',
+          },
+          {
+            path: 'elements',
+            component: EntriesPageComponent
+          },
+          {
+            path: 'elements/:id',
+            component: EntryComponent
+          },
+          {
+            path: 'conditions',
+            component: ConditionsPageComponent
+          },
+          {
+            path: 'conditions/:id',
+            component: EntryComponent
+          },
+          {
+            path: 'emails',
+            component: EmailsPageComponent
+          },
+          {
+            path: 'emails/:id',
+            component: EntryComponent
+          },
+          {
+            path: 'themes',
+            component: ThemesPageComponent
+          },
+          {
+            path: 'themes/:id',
+            component: EntryComponent
+          }
+        ]
       },
       {
-        path: 'entries/:id',
-        component: EntryComponent
-      },
-      {
-        path: 'conditions',
-        component: ConditionsPageComponent
-      },
-      {
-        path: 'conditions/:id',
-        component: EntryComponent
-      },
-      {
-        path: 'emails',
-        component: EmailsPageComponent
-      },
-      {
-        path: 'emails/:id',
-        component: EntryComponent
-      },
-      {
-        path: 'themes',
-        component: ThemesPageComponent
-      },
-      {
-        path: 'themes/:id',
-        component: EntryComponent
-      },
-      {
-        path: 'records',
+        path: 'customers',
         component: RecordsComponent
       },
       {
-        path: 'records/:user',
+        path: 'customers/:user',
         component: UserRecordsComponent
       },
       {
-        path: 'form',
+        path: 'forms',
         component: FormCreatorComponent
       }
     ]

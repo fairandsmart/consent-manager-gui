@@ -3,6 +3,21 @@
     "TITLE": "Gestionnaire de consentements",
     "KEYCLOAK": {
       "LOGOUT": "Déconnexion"
+    },
+    "CATEGORIES": {
+      "CUSTOMERS": {
+        "LABEL": "Clients"
+      },
+      "MODELS": {
+        "LABEL": "Modèles",
+        "ELEMENTS": "Eléments",
+        "CONDITIONS": "CGU/CGS",
+        "EMAILS": "Emails",
+        "THEMES": "Thèmes"
+      },
+      "FORMS": {
+        "LABEL": "Formulaires"
+      }
     }
   },
   "COMMON": {
@@ -21,7 +36,7 @@
       "TREATMENT": "Traitement",
       "CONDITIONS": "CGU/CGS",
       "THEME": "Thème",
-      "EMAIL": "Emails"
+      "EMAIL": "Email"
     },
     "COLLECTION_METHODS": {
       "WEBFORM": "Formulaire Web",
@@ -59,19 +74,19 @@
   "ENTRIES": {
     "TITLE": "Éléments",
     "headers": {
-      "PANEL_TITLE": "En-tête",
+      "PANEL_TITLE": "Modèle d'en-tête",
       "EMPTY": "Commencez par ajouter un en-tête..."
     },
     "treatments": {
-      "PANEL_TITLE": "Traitements",
+      "PANEL_TITLE": "Bibliothèque de modèles de traitements",
       "EMPTY": "Commencez par ajouter un traitement..."
     },
     "conditions": {
-      "PANEL_TITLE": "CGU",
+      "PANEL_TITLE": "Modèles de CGU",
       "EMPTY": "Commencez par ajouter un modèle de CGU..."
     },
     "footers": {
-      "PANEL_TITLE": "Pied de page",
+      "PANEL_TITLE": "Modèle de pied de page",
       "EMPTY": "Commencez par ajouter un pied de page...",
       "EXCLUDED": "Le formulaire ne contiendra pas de pied de page"
     },
@@ -80,7 +95,7 @@
       "NO_DESCRIPTION": "Pas de description"
     },
     "emails": {
-      "PANEL_TITLE": "Emails",
+      "PANEL_TITLE": "Bibliothèque de modèles d'emails",
       "EMPTY": "Commencez par ajouter un modèle d'email..."
     },
     "BUTTON_ADD": {
@@ -384,7 +399,7 @@
   "RECORDS": {
     "TITLE": "Consentements",
     "SEARCH_BUTTON": "Rechercher",
-    "JUMP_BUTTON": "Voir les consentements de cet utilisateur / Créer de nouveaux consentements pour lui",
+    "JUMP_BUTTON": "Voir page client",
     "COMMON": {
       "ID": {
         "LABEL": "Id"
@@ -402,7 +417,7 @@
         "LABEL": "Pied de page"
       },
       "SUBJECT": {
-        "LABEL": "Auteur du consentement"
+        "LABEL": "Identifiant client"
       },
       "TYPE": {
         "LABEL": "Type"
@@ -437,11 +452,12 @@
       "TITLE_NEW": "Nouvelle réponse",
       "TITLE_UPDATE": "Modification de la réponse"
     },
-    "INDIVIDUAL": {
-      "TITLE": "Consentements pour",
+    "OPERATOR": {
+      "TITLE": "Consentements de",
       "CREATE_BUTTON": "Nouveau consentement",
       "EDITOR": {
         "TITLE": "Nouveau consentement",
+        "VALUES": "Valeurs des consentements",
         "EMPTY": "Il n'y a aucune valeur pour le moment."
       }
     }
@@ -456,7 +472,7 @@
     "FORM": {
       "TITLE": "Génération du formulaire de consentement",
       "SUBJECT": {
-        "LABEL": "Auteur du consentement"
+        "LABEL": "Idenfifiant client"
       },
       "ORIENTATION": {
         "LABEL": "Orientation",

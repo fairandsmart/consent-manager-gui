@@ -1,25 +1,49 @@
-<mat-toolbar color="primary">
-  <span [routerLink]="'/'">{{'NAV.TITLE' | translate}}</span>
-  <nav>
-    <button mat-button [routerLink]="'./entries'"
-            [routerLinkActive]="'active-link'">{{'ENTRIES.TITLE' | translate}}</button>
-    <button mat-button [routerLink]="'./conditions'"
-            [routerLinkActive]="'active-link'">{{'COMMON.ENTRY_TYPES.CONDITIONS' | translate}}</button>
-    <button mat-button [routerLink]="'./emails'"
-            [routerLinkActive]="'active-link'">{{'COMMON.ENTRY_TYPES.EMAIL' | translate}}</button>
-    <button mat-button [routerLink]="'./themes'"
-            [routerLinkActive]="'active-link'">{{'THEMES.TITLE' | translate}}</button>
-    <button mat-button [routerLink]="'./records'"
-            [routerLinkActive]="'active-link'">{{'RECORDS.TITLE' | translate}}</button>
-    <button mat-button [routerLink]="'./form'"
-            [routerLinkActive]="'active-link'">{{'FORM_CREATOR.TITLE' | translate}}</button>
-  </nav>
-  <span class="spacer"></span>
-  <span>
-    <button mat-button [matMenuTriggerFor]="userMenu">{{keycloak.getUsername()}}</button>
-    <mat-menu #userMenu="matMenu">
-      <button mat-menu-item (click)="keycloak.logout()">{{'NAV.KEYCLOAK.LOGOUT' | translate}}</button>
-    </mat-menu>
-  </span>
-</mat-toolbar>
-<router-outlet></router-outlet>
+<app-toolbar></app-toolbar>
+
+<mat-sidenav-container>
+  <mat-sidenav mode="side" opened>
+    <mat-list>
+      <mat-list-item class="section-header">
+        <button mat-button [routerLink]="'./customers'"
+                [routerLinkActive]="'active-link'">{{'NAV.CATEGORIES.CUSTOMERS.LABEL' | translate}}</button>
+      </mat-list-item>
+    </mat-list>
+
+    <mat-list>
+      <mat-list-item class="section-header">
+        <button mat-button (click)="toggleSection()">{{'NAV.CATEGORIES.MODELS.LABEL' | translate}}</button>
+      </mat-list-item>
+      <mat-accordion>
+        <mat-expansion-panel hideToggle [expanded]="showModelSubsections">
+          <mat-list-item>
+            <button mat-button [routerLink]="'./config/elements'"
+                    [routerLinkActive]="'active-link'">{{'NAV.CATEGORIES.MODELS.ELEMENTS' | translate}}</button>
+          </mat-list-item>
+          <mat-list-item>
+            <button mat-button [routerLink]="'./config/conditions'"
+                    [routerLinkActive]="'active-link'">{{'NAV.CATEGORIES.MODELS.CONDITIONS' | translate}}</button>
+          </mat-list-item>
+          <mat-list-item>
+            <button mat-button [routerLink]="'./config/emails'"
+                    [routerLinkActive]="'active-link'">{{'NAV.CATEGORIES.MODELS.EMAILS' | translate}}</button>
+          </mat-list-item>
+          <mat-list-item>
+            <button mat-button [routerLink]="'./config/themes'"
+                    [routerLinkActive]="'active-link'">{{'NAV.CATEGORIES.MODELS.THEMES' | translate}}</button>
+          </mat-list-item>
+        </mat-expansion-panel>
+      </mat-accordion>
+    </mat-list>
+
+    <mat-list>
+      <mat-list-item class="section-header">
+        <button mat-button [routerLink]="'./forms'"
+                [routerLinkActive]="'active-link'">{{'NAV.CATEGORIES.FORMS.LABEL' | translate}}</button>
+      </mat-list-item>
+    </mat-list>
+  </mat-sidenav>
+
+  <mat-sidenav-content>
+    <router-outlet></router-outlet>
+  </mat-sidenav-content>
+</mat-sidenav-container>

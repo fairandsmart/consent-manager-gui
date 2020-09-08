@@ -1,14 +1,5 @@
 <router-outlet #appOutlet="outlet">
   <ng-container *ngIf="!appOutlet.isActivated">
-    <mat-toolbar color="primary">
-      <span [routerLink]="'/'">Consent Manager</span>
-      <span class="spacer"></span>
-      <span>
-        <button mat-button [matMenuTriggerFor]="userMenu">{{keycloak.getUsername()}}</button>
-        <mat-menu #userMenu="matMenu">
-          <button mat-menu-item (click)="keycloak.logout()">Logout</button>
-        </mat-menu>
-      </span>
-    </mat-toolbar>
+    <app-toolbar></app-toolbar>
   </ng-container>
 </router-outlet>

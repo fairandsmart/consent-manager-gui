@@ -3,6 +3,21 @@
     "TITLE": "Consent Manager",
     "KEYCLOAK": {
       "LOGOUT": "Log out"
+    },
+    "CATEGORIES": {
+      "CUSTOMERS": {
+        "LABEL": "Customers"
+      },
+      "MODELS": {
+        "LABEL": "Models",
+        "ELEMENTS": "Elements",
+        "CONDITIONS": "EULA",
+        "EMAIL": "Emails",
+        "THEME": "Themes"
+      },
+      "FORMS": {
+        "LABEL": "Forms"
+      }
     }
   },
   "COMMON": {
@@ -59,19 +74,19 @@
   "ENTRIES": {
     "TITLE": "Entries",
     "headers": {
-      "PANEL_TITLE": "Header",
+      "PANEL_TITLE": "Header model",
       "EMPTY": "First, create a header..."
     },
     "treatments": {
-      "PANEL_TITLE": "Treatments",
+      "PANEL_TITLE": "Treatments models library",
       "EMPTY": "First, create a treatment..."
     },
     "conditions": {
-      "PANEL_TITLE": "EULA",
+      "PANEL_TITLE": "EULA models library",
       "EMPTY": "First, create a EULA model..."
     },
     "footers": {
-      "PANEL_TITLE": "Footer",
+      "PANEL_TITLE": "Footer model",
       "EMPTY": "First, add a footer...",
       "EXCLUDED": "The form will not have a footer."
     },
@@ -80,7 +95,7 @@
       "NO_DESCRIPTION": "No description"
     },
     "emails": {
-      "PANEL_TITLE": "Emails",
+      "PANEL_TITLE": "Emails models library",
       "EMPTY": "First, create ae email..."
     },
     "BUTTON_ADD": {
@@ -384,7 +399,7 @@
   "RECORDS": {
     "TITLE": "Consents",
     "SEARCH_BUTTON": "Search",
-    "JUMP_BUTTON": "Jump to this user's consents / Create new consents for this user",
+    "JUMP_BUTTON": "See customer page",
     "COMMON": {
       "ID": {
         "LABEL": "Id"
@@ -402,7 +417,7 @@
         "LABEL": "Footer"
       },
       "SUBJECT": {
-        "LABEL": "Subject"
+        "LABEL": "Customer ID"
       },
       "TYPE": {
         "LABEL": "Type"
@@ -437,11 +452,12 @@
       "TITLE_NEW": "New consent record",
       "TITLE_UPDATE": "Update consent record"
     },
-    "INDIVIDUAL": {
-      "TITLE": "Consents for",
+    "OPERATOR": {
+      "TITLE": "Consents of",
       "CREATE_BUTTON": "New consent request",
       "EDITOR": {
         "TITLE": "New consent",
+        "VALUES": "Consents values",
         "EMPTY": "There is no value yet."
       }
     }
@@ -456,7 +472,7 @@
     "FORM": {
       "TITLE": "Form creator",
       "SUBJECT": {
-        "LABEL": "Subject"
+        "LABEL": "Customer ID"
       },
       "ORIENTATION": {
         "LABEL": "Orientation",

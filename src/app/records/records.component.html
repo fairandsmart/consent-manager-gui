@@ -1,14 +1,15 @@
-<form (ngSubmit)="submitSearch()">
-  <div class="search-container">
+<div class="search-container">
+  <form (ngSubmit)="submitSearch()">
     <mat-form-field appearance="fill">
       <mat-label>{{'RECORDS.COMMON.SUBJECT.LABEL' | translate}}</mat-label>
       <input matInput class="search-field" name="query" type="text" [(ngModel)]="filter.query" autocomplete="off">
     </mat-form-field>
     <div>
       <button mat-raised-button type="submit" color="primary">{{'RECORDS.SEARCH_BUTTON' | translate}}</button>
+      <button mat-raised-button color="primary" (click)="goToUserRecords()" [disabled]="filter.query.length == 0">{{'RECORDS.JUMP_BUTTON' | translate}}</button>
     </div>
-  </div>
-</form>
+  </form>
+</div>
 
 <div class="table-container mat-elevation-z6">
   <div class="progress-bar-container" *ngIf="dataSource.loading$ | async">
@@ -83,8 +84,4 @@
   </table>
   <mat-paginator [pageSizeOptions]="pageSizeOptions" [pageIndex]="filter.page" [pageSize]="this.filter.size"
                  showFirstLastButtons></mat-paginator>
-</div>
-
-<div class="operator-container">
-  <button mat-raised-button color="primary" (click)="goToUserRecords()" [disabled]="filter.query.length == 0">{{'RECORDS.JUMP_BUTTON' | translate}}</button>
 </div>

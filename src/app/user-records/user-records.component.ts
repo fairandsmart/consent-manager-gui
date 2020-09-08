@@ -241,4 +241,8 @@ export class UserRecordsComponent implements OnInit {
       });
     }
   }
+
+  cancel() {
+    this.displayOperatorForm = false;
+  }
 }
