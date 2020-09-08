@@ -24,7 +24,7 @@ Run `ng e2e` to execute the end-to-end tests via [Protractor](http://www.protrac
 
 ## Building the docker image
 
-Run "docker build ."
+Run "docker build . -t container-manager-gui"
 
 ## Running the docker container
 
