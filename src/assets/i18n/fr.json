@@ -398,6 +398,7 @@
   },
   "RECORDS": {
     "TITLE": "Consentements",
+    "LIST_TITLE": "Tous les consentements",
     "SEARCH_BUTTON": "Rechercher",
     "JUMP_BUTTON": "Voir page client",
     "COMMON": {

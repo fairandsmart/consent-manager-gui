@@ -1,5 +1,5 @@
 <mat-toolbar color="primary">
-  <button mat-button class="home" [routerLink]="'/'">{{'NAV.TITLE' | translate}}</button>
+  <button mat-button class="home" routerLink="/">{{'NAV.TITLE' | translate}}</button>
   <span class="spacer"></span>
   <span>
     <button mat-button [matMenuTriggerFor]="userMenu">{{keycloak.getUsername()}}</button>

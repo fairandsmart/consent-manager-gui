@@ -4,8 +4,9 @@
   <mat-sidenav mode="side" opened>
     <mat-list>
       <mat-list-item class="section-header">
-        <button mat-button [routerLink]="'./customers'"
-                [routerLinkActive]="'active-link'">{{'NAV.CATEGORIES.CUSTOMERS.LABEL' | translate}}</button>
+        <button mat-button routerLink="./customers" routerLinkActive="active-link">
+          {{'NAV.CATEGORIES.CUSTOMERS.LABEL' | translate}}
+        </button>
       </mat-list-item>
     </mat-list>
 
@@ -19,20 +20,20 @@
       <mat-accordion>
         <mat-expansion-panel hideToggle [expanded]="showModelSubsections">
           <mat-list-item>
-            <button mat-button #elements="routerLinkActive" [routerLink]="'./config/elements'"
-                    [routerLinkActive]="'active-link'">{{'NAV.CATEGORIES.MODELS.ELEMENTS' | translate}}</button>
+            <button mat-button #elements="routerLinkActive" routerLink="./config/elements"
+                    routerLinkActive="active-link">{{'NAV.CATEGORIES.MODELS.ELEMENTS' | translate}}</button>
           </mat-list-item>
           <mat-list-item>
-            <button mat-button #conditions="routerLinkActive" [routerLink]="'./config/conditions'"
-                    [routerLinkActive]="'active-link'">{{'NAV.CATEGORIES.MODELS.CONDITIONS' | translate}}</button>
+            <button mat-button #conditions="routerLinkActive" routerLink="./config/conditions"
+                    routerLinkActive="active-link">{{'NAV.CATEGORIES.MODELS.CONDITIONS' | translate}}</button>
           </mat-list-item>
           <mat-list-item>
-            <button mat-button #emails="routerLinkActive" [routerLink]="'./config/emails'"
-                    [routerLinkActive]="'active-link'">{{'NAV.CATEGORIES.MODELS.EMAILS' | translate}}</button>
+            <button mat-button #emails="routerLinkActive" routerLink="./config/emails"
+                    routerLinkActive="active-link">{{'NAV.CATEGORIES.MODELS.EMAILS' | translate}}</button>
           </mat-list-item>
           <mat-list-item>
-            <button mat-button #themes="routerLinkActive" [routerLink]="'./config/themes'"
-                    [routerLinkActive]="'active-link'">{{'NAV.CATEGORIES.MODELS.THEMES' | translate}}</button>
+            <button mat-button #themes="routerLinkActive" routerLink="./config/themes"
+                    routerLinkActive="active-link">{{'NAV.CATEGORIES.MODELS.THEMES' | translate}}</button>
           </mat-list-item>
         </mat-expansion-panel>
       </mat-accordion>
@@ -40,8 +41,9 @@
 
     <mat-list>
       <mat-list-item class="section-header">
-        <button mat-button [routerLink]="'./forms'"
-                [routerLinkActive]="'active-link'">{{'NAV.CATEGORIES.FORMS.LABEL' | translate}}</button>
+        <button mat-button routerLink="./forms" routerLinkActive="active-link">
+          {{'NAV.CATEGORIES.FORMS.LABEL' | translate}}
+        </button>
       </mat-list-item>
     </mat-list>
   </mat-sidenav>

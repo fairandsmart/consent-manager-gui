@@ -19,12 +19,8 @@ export class ConsentsResourceService {
     return `${environment.managerUrl}/consents?t=` + encodeURIComponent(token) + '&subject=';
   }
 
-  getForm(token: string): Observable<string> {
-    return this.http.get(`${environment.managerUrl}/consents`, {params: {t: token}, responseType: 'text'});
-  }
-
   getFormUrl(token: string): string {
-    return `${environment.managerUrl}/consents?t=` + token;
+    return `${environment.managerUrl}/consents?t=` + encodeURIComponent(token);
   }
 
   getPreviewForm(): Observable<string> {
