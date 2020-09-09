@@ -11,24 +11,27 @@
 
     <mat-list>
       <mat-list-item class="section-header">
-        <button mat-button (click)="toggleSection()">{{'NAV.CATEGORIES.MODELS.LABEL' | translate}}</button>
+        <button mat-button (click)="toggleSection()"
+                [class.active-link]="elements.isActive || conditions.isActive || emails.isActive || themes.isActive">
+          {{'NAV.CATEGORIES.MODELS.LABEL' | translate}}
+        </button>
       </mat-list-item>
       <mat-accordion>
         <mat-expansion-panel hideToggle [expanded]="showModelSubsections">
           <mat-list-item>
-            <button mat-button [routerLink]="'./config/elements'"
+            <button mat-button #elements="routerLinkActive" [routerLink]="'./config/elements'"
                     [routerLinkActive]="'active-link'">{{'NAV.CATEGORIES.MODELS.ELEMENTS' | translate}}</button>
           </mat-list-item>
           <mat-list-item>
-            <button mat-button [routerLink]="'./config/conditions'"
+            <button mat-button #conditions="routerLinkActive" [routerLink]="'./config/conditions'"
                     [routerLinkActive]="'active-link'">{{'NAV.CATEGORIES.MODELS.CONDITIONS' | translate}}</button>
           </mat-list-item>
           <mat-list-item>
-            <button mat-button [routerLink]="'./config/emails'"
+            <button mat-button #emails="routerLinkActive" [routerLink]="'./config/emails'"
                     [routerLinkActive]="'active-link'">{{'NAV.CATEGORIES.MODELS.EMAILS' | translate}}</button>
           </mat-list-item>
           <mat-list-item>
-            <button mat-button [routerLink]="'./config/themes'"
+            <button mat-button #themes="routerLinkActive" [routerLink]="'./config/themes'"
                     [routerLinkActive]="'active-link'">{{'NAV.CATEGORIES.MODELS.THEMES' | translate}}</button>
           </mat-list-item>
         </mat-expansion-panel>

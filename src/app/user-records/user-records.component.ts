@@ -198,7 +198,6 @@ export class UserRecordsComponent implements OnInit {
 
       const context: ConsentContext = {
         subject: this.filter.user,
-        owner: '', // géré côté backend
         orientation: ConsentFormOrientation.VERTICAL,
         header: formValue.headerKey,
         elements: elements,

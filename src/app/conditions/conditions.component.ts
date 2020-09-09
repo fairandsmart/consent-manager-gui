@@ -82,7 +82,6 @@ export class ConditionsComponent extends EntryContentDirective<Conditions> imple
     }
     const formValue = this.form.getRawValue();
     const context: ConsentContext = {
-      owner: '', // géré côté backend
       subject: '',
       orientation: ConsentFormOrientation.VERTICAL,
       header: '',

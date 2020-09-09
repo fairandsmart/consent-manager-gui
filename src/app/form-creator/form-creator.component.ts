@@ -41,6 +41,12 @@ enum FORM_CREATOR_STEP {
 })
 export class FormCreatorComponent implements OnInit {
 
+  constructor(private consentsResource: ConsentsResourceService,
+              private modelsResource: ModelsResourceService,
+              private fb: FormBuilder,
+              private sanitizer: DomSanitizer,
+              private dialog: MatDialog) { }
+
   public elementsLibraryConfig: (SectionConfig & {draggingDisabled: boolean, included: boolean})[] = [
     {
       id: 'headers',
@@ -109,11 +115,17 @@ export class FormCreatorComponent implements OnInit {
   private previousLocale: string;
   public currentStep: FORM_CREATOR_STEP;
 
-  constructor(private consentsResource: ConsentsResourceService,
-              private modelsResource: ModelsResourceService,
-              private fb: FormBuilder,
-              private sanitizer: DomSanitizer,
-              private dialog: MatDialog) { }
+  private static formatValidity(validity, validityUnit): string {
+    if (validity) {
+      if (validityUnit === 'W') {
+        const days: number = validity * 7;
+        return `P${days}D`;
+      } else {
+        return `P${validity}${validityUnit}`;
+      }
+    }
+    return '';
+  }
 
   ngOnInit(): void {
     zip(...this.elementsLibraryConfig.map(c => this.modelsResource.listEntries({types: c.types, size: 1}))).pipe(
@@ -230,14 +242,13 @@ export class FormCreatorComponent implements OnInit {
       ...this.form.at(FORM_CREATOR_STEP.PREVIEW).value
     };
     return {
-      owner: '', // géré côté backend
       subject: '',
       orientation: formValue.orientation,
       header: formValue.header,
       elements: formValue.elements,
       footer: formValue.footer,
       callback: '',
-      validity: this.formatValidity(formValue.validity, formValue.validityUnit),
+      validity: FormCreatorComponent.formatValidity(formValue.validity, formValue.validityUnit),
       locale: formValue.locale,
       formType: formValue.forceDisplay ? ConsentFormType.FULL : ConsentFormType.PARTIAL,
       receiptDeliveryType: formValue.receiptDeliveryType,
@@ -298,17 +309,5 @@ export class FormCreatorComponent implements OnInit {
       console.error(err);
       this.form.enable();
     });
-  }
-
-  private formatValidity(validity, validityUnit): string {
-    if (validity) {
-      if (validityUnit === 'W') {
-        const days: number = validity * 7;
-        return `P${days}D`;
-      } else {
-        return `P${validity}${validityUnit}`;
-      }
-    }
-    return '';
   }
 }

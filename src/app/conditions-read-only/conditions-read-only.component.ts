@@ -30,7 +30,6 @@ export class ConditionsReadOnlyComponent implements OnInit, OnDestroy {
       ]).pipe(
         mergeMap(([params, queryParams]) => {
           const context: ConsentContext = {
-            owner: params.get('owner'),
             subject: '',
             orientation: ConsentFormOrientation.VERTICAL,
             header: '',

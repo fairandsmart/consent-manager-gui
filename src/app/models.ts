@@ -214,7 +214,6 @@ export const FIELD_VALIDATORS = {
 
 export interface ConsentContext {
   subject: string;
-  owner: string;
   orientation: ConsentFormOrientation;
   header: string;
   elements: string[];

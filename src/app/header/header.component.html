@@ -29,13 +29,13 @@
           </mat-form-field>
           <mat-form-field appearance="outline">
             <mat-label>{{'ENTRIES.EDITOR.HEADER.BODY.LABEL' | translate}}</mat-label>
-            <textarea matInput required formControlName="body" cdkTextareaAutosize></textarea>
+            <textarea matInput required formControlName="body" cdkTextareaAutosize cdkAutosizeMinRows="5"></textarea>
           </mat-form-field>
 
           <mat-card-subtitle>{{'ENTRIES.EDITOR.HEADER.SUBTITLES.LAW' | translate}}</mat-card-subtitle>
           <mat-form-field appearance="outline">
             <mat-label>{{'ENTRIES.EDITOR.HEADER.JURISDICTION.LABEL' | translate}}</mat-label>
-            <textarea matInput formControlName="jurisdiction" cdkTextareaAutosize
+            <textarea matInput formControlName="jurisdiction" cdkTextareaAutosize cdkAutosizeMinRows="5"
                       (ngModelChange)="optionalFieldChange($event, 'showJurisdiction')"></textarea>
           </mat-form-field>
           <mat-radio-group formControlName="showJurisdiction">
@@ -44,7 +44,7 @@
           </mat-radio-group>
           <mat-form-field appearance="outline">
             <mat-label>{{'ENTRIES.EDITOR.HEADER.COLLECTION_METHOD.LABEL' | translate}}</mat-label>
-            <textarea matInput formControlName="collectionMethod" cdkTextareaAutosize
+            <textarea matInput formControlName="collectionMethod" cdkTextareaAutosize cdkAutosizeMinRows="5"
                       (ngModelChange)="optionalFieldChange($event, 'showCollectionMethod')"></textarea>
           </mat-form-field>
           <mat-radio-group formControlName="showCollectionMethod">
@@ -53,7 +53,7 @@
           </mat-radio-group>
           <mat-form-field appearance="outline">
             <mat-label>{{'ENTRIES.EDITOR.HEADER.SCOPE.LABEL' | translate}}</mat-label>
-            <textarea matInput formControlName="scope" cdkTextareaAutosize
+            <textarea matInput formControlName="scope" cdkTextareaAutosize cdkAutosizeMinRows="5"
                       (ngModelChange)="optionalFieldChange($event, 'showScope')"></textarea>
           </mat-form-field>
           <mat-radio-group formControlName="showScope">
@@ -97,7 +97,7 @@
           </mat-form-field>
           <mat-form-field appearance="outline">
             <mat-label>{{'ENTRIES.EDITOR.HEADER.PRIVACY_POLICY.LINK_LABEL.LABEL' | translate}}</mat-label>
-            <textarea matInput formControlName="customPrivacyPolicyText" cdkTextareaAutosize></textarea>
+            <textarea matInput formControlName="customPrivacyPolicyText" cdkTextareaAutosize cdkAutosizeMinRows="5"></textarea>
           </mat-form-field>
           <mat-form-field appearance="outline">
             <mat-label>{{'ENTRIES.EDITOR.HEADER.SHORT_NOTICE.LABEL' | translate}}</mat-label>
