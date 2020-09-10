@@ -1,21 +1,21 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { CollectionPage, Record, RecordFilter } from '../models';
-import { ConsentsResourceService } from '../consents-resource.service';
 import { MatPaginator } from '@angular/material/paginator';
 import { Observable } from 'rxjs';
 import { tap } from 'rxjs/operators';
 import { MatSort, Sort } from '@angular/material/sort';
 import { CollectionDatasource } from '../common/collection-datasource';
 import { ActivatedRoute, Router } from '@angular/router';
+import { RecordsResourceService } from '../records-resource.service';
 
 class RecordDataSource extends CollectionDatasource<Record, RecordFilter> {
 
-  constructor(private consentsResource: ConsentsResourceService) {
+  constructor(private recordsResource: RecordsResourceService) {
     super();
   }
 
   protected getPage(pageFilter: RecordFilter): Observable<CollectionPage<Record>> {
-    return this.consentsResource.listRecords(pageFilter);
+    return this.recordsResource.listRecords(pageFilter);
   }
 
 }
@@ -50,10 +50,10 @@ export class RecordsComponent implements OnInit {
   constructor(
       private router: Router,
       private activatedRoute: ActivatedRoute,
-      private consentsResource: ConsentsResourceService) {}
+      private recordsResource: RecordsResourceService) {}
 
   ngOnInit(): void {
-    this.dataSource = new RecordDataSource(this.consentsResource);
+    this.dataSource = new RecordDataSource(this.recordsResource);
     this.dataSource.paginator = this.paginator;
     this.sort.sortChange.subscribe((sort: Sort) => {
       this.filter.page = 0;

@@ -25,7 +25,7 @@ export abstract class EntryContentDirective<T extends ModelData> implements OnIn
   readonly STATUS = ModelVersionStatus;
 
   protected constructor(
-      private modelsResourceService: ModelsResourceService,
+      protected modelsResourceService: ModelsResourceService,
       private snackBar: MatSnackBar,
       private translateService: TranslateService) {}
 

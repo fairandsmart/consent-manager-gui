@@ -23,33 +23,4 @@ export class ConsentsResourceService {
     return `${environment.managerUrl}/consents?t=` + encodeURIComponent(token);
   }
 
-  getPreviewForm(): Observable<string> {
-    return this.http.get(`${environment.managerUrl}/consents/themes/preview`, {responseType: 'text'});
-  }
-
-  listRecords(filter: RecordFilter): Observable<CollectionPage<Record>> {
-    const safeFilter: RecordFilter = {};
-    for (const key in filter) {
-      if (filter.hasOwnProperty(key)) {
-        safeFilter[key] = filter[key];
-      }
-    }
-    safeFilter.query = encodeURIComponent(safeFilter.query);
-    return this.http.get<CollectionPage<Record>>(`${environment.managerUrl}/consents/records`, {params: safeFilter as any});
-  }
-
-  listUserRecords(filter: UserRecordFilter): Observable<CollectionPage<UserRecord>> {
-    const safeFilter: UserRecordFilter = {};
-    for (const key in filter) {
-      if (filter.hasOwnProperty(key)) {
-        safeFilter[key] = filter[key];
-      }
-    }
-    safeFilter.user = encodeURIComponent(safeFilter.user);
-    return this.http.get<CollectionPage<UserRecord>>(`${environment.managerUrl}/consents/records/user`, {params: safeFilter as any});
-  }
-
-  createOperatorRecords(dto: OperatorRecordDto): Observable<string> {
-    return this.http.post(`${environment.managerUrl}/consents/records/user`, dto, {responseType: 'text'});
-  }
 }

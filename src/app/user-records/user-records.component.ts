@@ -26,15 +26,16 @@ import { ModelsResourceService } from '../models-resource.service';
 import { KeycloakService } from 'keycloak-angular';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { LANGUAGES } from '../common/constants';
+import { RecordsResourceService } from '../records-resource.service';
 
 class UserRecordDataSource extends CollectionDatasource<UserRecord, UserRecordFilter> {
 
-  constructor(private consentsResource: ConsentsResourceService) {
+  constructor(private recordsResource: RecordsResourceService) {
     super();
   }
 
   protected getPage(pageFilter: UserRecordFilter): Observable<CollectionPage<UserRecord>> {
-    return this.consentsResource.listUserRecords(pageFilter);
+    return this.recordsResource.listUserRecords(pageFilter);
   }
 
 }
@@ -81,13 +82,14 @@ export class UserRecordsComponent implements OnInit {
     private router: Router,
     private activatedRoute: ActivatedRoute,
     private consentsResource: ConsentsResourceService,
+    private recordsResource: RecordsResourceService,
     private dialog: MatDialog,
     private modelsResource: ModelsResourceService,
     private keycloak: KeycloakService,
     private fb: FormBuilder) {}
 
   ngOnInit(): void {
-    this.dataSource = new UserRecordDataSource(this.consentsResource);
+    this.dataSource = new UserRecordDataSource(this.recordsResource);
     this.dataSource.paginator = this.paginator;
     this.activatedRoute.paramMap.subscribe(params => {
       this.filter.user = params.get('user');
@@ -227,7 +229,7 @@ export class UserRecordsComponent implements OnInit {
           comment: formValue.comment
         };
 
-        this.consentsResource.createOperatorRecords(dto).subscribe((result) => {
+        this.recordsResource.createOperatorRecords(dto).subscribe((result) => {
           console.log('Receipt : ' + result);
           this.router.navigate(['../'], { relativeTo: this.activatedRoute });
         }, (err) => {

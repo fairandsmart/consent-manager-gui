@@ -2,7 +2,6 @@ import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { UserRecordsComponent } from './user-records.component';
 import { RouterTestingModule } from '@angular/router/testing';
-import { ConsentsResourceService } from '../consents-resource.service';
 import createSpyObj = jasmine.createSpyObj;
 import SpyObj = jasmine.SpyObj;
 import { EMPTY } from 'rxjs';
@@ -12,16 +11,17 @@ import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { ModelsResourceService } from '../models-resource.service';
 import { KeycloakService } from 'keycloak-angular';
 import { TranslateModule } from '@ngx-translate/core';
+import { RecordsResourceService } from '../records-resource.service';
 
 describe('UserRecordsComponent', () => {
   let component: UserRecordsComponent;
   let fixture: ComponentFixture<UserRecordsComponent>;
-  let consentsResourceServiceSpy: SpyObj<ConsentsResourceService>;
+  let recordsResourceServiceSpy: SpyObj<RecordsResourceService>;
   let modelsResourceServiceSpy: SpyObj<ModelsResourceService>;
   let keycloakServiceSpy: SpyObj<KeycloakService>;
 
   beforeEach(async(() => {
-    consentsResourceServiceSpy =  createSpyObj<ConsentsResourceService>('ConsentsResourceService', ['listRecords', 'listUserRecords']);
+    recordsResourceServiceSpy =  createSpyObj<RecordsResourceService>('RecordsResourceService', ['listRecords', 'listUserRecords']);
     modelsResourceServiceSpy =  createSpyObj<ModelsResourceService>('ModelsResourceService', ['listEntries']);
     keycloakServiceSpy = createSpyObj('KeycloakService', ['isUserInRole']);
 
@@ -29,7 +29,7 @@ describe('UserRecordsComponent', () => {
       declarations: [ UserRecordsComponent ],
       imports: [RouterTestingModule, ReactiveFormsModule, MaterialModule, NoopAnimationsModule, TranslateModule.forRoot()],
       providers: [
-        {provide: ConsentsResourceService, useValue: consentsResourceServiceSpy},
+        {provide: RecordsResourceService, useValue: recordsResourceServiceSpy},
         {provide: ModelsResourceService, useValue: modelsResourceServiceSpy},
         {provide: KeycloakService, useValue: keycloakServiceSpy}
       ]
@@ -38,7 +38,7 @@ describe('UserRecordsComponent', () => {
   }));
 
   beforeEach(() => {
-    consentsResourceServiceSpy.listRecords.and.returnValue(EMPTY);
+    recordsResourceServiceSpy.listRecords.and.returnValue(EMPTY);
 
     fixture = TestBed.createComponent(UserRecordsComponent);
     component = fixture.componentInstance;

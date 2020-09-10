@@ -75,4 +75,8 @@ export class ModelsResourceService {
     return this.http.delete<void>(`${environment.managerUrl}/models/${id}/versions/${versionId}`);
   }
 
+  getPreviewForm(): Observable<string> {
+    return this.http.get(`${environment.managerUrl}/models/themes/preview`, {responseType: 'text'});
+  }
+
 }

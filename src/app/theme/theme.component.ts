@@ -1,9 +1,8 @@
-import { AfterViewInit, Component, ElementRef, OnInit, ViewChild } from '@angular/core';
+import { AfterViewInit, Component, OnInit } from '@angular/core';
 import { EntryContentDirective } from '../entry-content/entry-content.directive';
 import { TARGET_TYPES, Theme } from '../models';
 import { FormBuilder, Validators } from '@angular/forms';
 import { ModelsResourceService } from '../models-resource.service';
-import { ConsentsResourceService } from '../consents-resource.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { LANGUAGES } from '../common/constants';
 import { TranslateService } from '@ngx-translate/core';
@@ -111,7 +110,6 @@ export class ThemeComponent extends EntryContentDirective<Theme> implements OnIn
   constructor(
       private fb: FormBuilder,
       modelsResourceService: ModelsResourceService,
-      private consentsResourceService: ConsentsResourceService,
       private sanitizer: DomSanitizer,
       snackBar: MatSnackBar,
       translateService: TranslateService) {
@@ -123,7 +121,7 @@ export class ThemeComponent extends EntryContentDirective<Theme> implements OnIn
   }
 
   ngAfterViewInit(): void {
-    this.consentsResourceService.getPreviewForm().subscribe((content) => {
+    this.modelsResourceService.getPreviewForm().subscribe((content) => {
       this.rawPreview = content.split('/assets/').join(`${environment.managerUrl}/assets/`);
       this.refreshPreview();
     });
