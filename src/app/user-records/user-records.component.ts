@@ -4,7 +4,7 @@ import {
   CollectionPage,
   UserRecord,
   UserRecordFilter,
-  ModelEntry,
+  ModelEntryDto,
   ModelDataType,
   ModelFilter,
   OperatorRecordDto,
@@ -71,8 +71,8 @@ export class UserRecordsComponent implements OnInit {
   @ViewChild(MatSort, {static: true})
   public sort: MatSort;
 
-  public headers: ModelEntry[] = [];
-  public footers: ModelEntry[] = [];
+  public headers: ModelEntryDto[] = [];
+  public footers: ModelEntryDto[] = [];
 
   public form: FormGroup;
 
@@ -172,7 +172,7 @@ export class UserRecordsComponent implements OnInit {
     this.displayOperatorForm = true;
   }
 
-  loadEntries(entriesType: ModelDataType): Observable<CollectionPage<ModelEntry>> {
+  loadEntries(entriesType: ModelDataType): Observable<CollectionPage<ModelEntryDto>> {
     const entriesFilter: ModelFilter = {
       types: [entriesType],
       page: 0,

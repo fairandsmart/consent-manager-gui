@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { EntryContentDirective } from '../entry-content/entry-content.directive';
-import { ModelVersion, Treatment, TREATMENT_PURPOSES } from '../models';
+import { ModelVersionDto, Treatment, TREATMENT_PURPOSES } from '../models';
 import { FormArray, FormBuilder, Validators } from '@angular/forms';
 import { ModelsResourceService } from '../models-resource.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
@@ -48,7 +48,7 @@ export class TreatmentComponent extends EntryContentDirective<Treatment> impleme
         company: [''],
         name: [''],
         address: [''],
-        email: [''],
+        email: ['', Validators.email],
         phoneNumber: ['']
       }),
       showDataController: [false],
@@ -57,8 +57,8 @@ export class TreatmentComponent extends EntryContentDirective<Treatment> impleme
     this.form.get('showDataController').disable();
   }
 
-  protected loadVersion(version: ModelVersion<Treatment>, locale: string = this.version.defaultLocale): void {
-    const localeContent = version.content[locale].dataObject;
+  protected loadVersion(version: ModelVersionDto<Treatment>, locale: string = this.version.defaultLocale): void {
+    const localeContent = (version.data[locale] as Treatment);
     const localeThirdParties = localeContent.thirdParties;
     delete localeContent.thirdParties;
     this.form.patchValue(localeContent);
@@ -77,6 +77,10 @@ export class TreatmentComponent extends EntryContentDirective<Treatment> impleme
     this.form.setControl('thirdParties', thirdPartiesArray);
 
     this.initialValue = this.form.getRawValue();
+  }
+
+  protected refreshPreview(): void {
+    throw new Error('Method not implemented.'); // TODO
   }
 
   getThirdParties(): FormArray {

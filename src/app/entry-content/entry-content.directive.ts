@@ -1,11 +1,11 @@
 import { Directive, Input, OnInit } from '@angular/core';
-import { ModelData, ModelEntry, ModelVersion, ModelVersionStatus } from '../models';
+import { ModelData, ModelEntry, ModelVersionDto, ModelVersionStatus } from '../models';
 import { EMPTY, Observable } from 'rxjs';
-import { FormGroup } from '@angular/forms';
+import { FormControl, FormGroup } from '@angular/forms';
 import { ModelsResourceService } from '../models-resource.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import * as _ from 'lodash';
-import { catchError, mergeMap } from 'rxjs/operators';
+import { catchError, debounceTime, mergeMap } from 'rxjs/operators';
 import { HttpErrorResponse } from '@angular/common/http';
 import { TranslateService } from '@ngx-translate/core';
 
@@ -16,11 +16,15 @@ export abstract class EntryContentDirective<T extends ModelData> implements OnIn
   entry: ModelEntry;
 
   @Input()
-  version: ModelVersion<T>;
+  version: ModelVersionDto<T>;
 
   form: FormGroup;
 
   initialValue: T;
+
+  previewLocaleCtrl: FormControl;
+  displayedLocalesCtrl: FormControl;
+  private previewDelay = 500;
 
   readonly STATUS = ModelVersionStatus;
 
@@ -42,13 +46,28 @@ export abstract class EntryContentDirective<T extends ModelData> implements OnIn
 
   protected abstract initForm(): void;
 
-  protected loadVersion(version: ModelVersion<T>, locale: string = this.version.defaultLocale): void {
-    const localeContent = version.content[locale].dataObject;
+  protected initPreview(): void {
+    const defaultLocale = this.version.defaultLocale == null ? 'en' : this.version.defaultLocale; // TODO default value
+    const locales = this.version.availableLocales == null ? [defaultLocale] : this.version.availableLocales;
+    this.displayedLocalesCtrl = new FormControl(defaultLocale ? [defaultLocale] : locales);
+    this.previewLocaleCtrl = new FormControl(defaultLocale);
+    this.form.valueChanges.pipe(debounceTime(this.previewDelay)).subscribe(() => {
+      this.refreshPreview();
+    });
+    this.previewLocaleCtrl.valueChanges.subscribe(() => {
+      this.refreshPreview();
+    });
+  }
+
+  protected abstract refreshPreview(): void;
+
+  protected loadVersion(version: ModelVersionDto<T>, locale: string = this.version.defaultLocale): void {
+    const localeContent = version.data[locale];
     this.form.patchValue(localeContent);
     this.initialValue = this.form.getRawValue();
   }
 
-  private updateVersion(version: ModelVersion<T>): void {
+  private updateVersion(version: ModelVersionDto<T>): void {
     this.version = version;
     this.loadVersion(this.version);
   }
@@ -63,7 +82,7 @@ export abstract class EntryContentDirective<T extends ModelData> implements OnIn
       return;
     }
     if (this.form.valid) {
-      let obs: Observable<ModelVersion<T>>;
+      let obs: Observable<ModelVersionDto<T>>;
       const formValue = this.form.getRawValue();
       const locale = formValue.locale;
       delete formValue.locale;

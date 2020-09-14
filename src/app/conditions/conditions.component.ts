@@ -67,7 +67,7 @@ export class ConditionsComponent extends EntryContentDirective<Conditions> imple
     });
   }
 
-  refreshPreview(): void {
+  protected refreshPreview(): void { // TODO update
     if (this.form.get('body').value) {
       const stopLinks = '<style>a { pointer-events: none; }</style>';
       this.safePreview = this.sanitizer.bypassSecurityTrustHtml(stopLinks + this.form.get('body').value);

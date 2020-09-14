@@ -7,7 +7,7 @@ import {
   ConsentFormOrientation,
   ConsentFormType,
   FIELD_VALIDATORS,
-  ModelEntry,
+  ModelEntryDto,
   RECEIPT_DELIVERY_TYPES
 } from '../models';
 import { tap } from 'rxjs/operators';
@@ -74,7 +74,7 @@ export class FormCreatorComponent implements OnInit {
     },
   ];
 
-  public selectedElements: {[id: string]: ModelEntry[]} = {
+  public selectedElements: {[id: string]: ModelEntryDto[]} = {
     headers: [],
     treatments: [],
     footers: []
@@ -89,7 +89,7 @@ export class FormCreatorComponent implements OnInit {
     }
   ];
 
-  public selectedTheme: {[id: string]: ModelEntry[]} = {themes: []};
+  public selectedTheme: {[id: string]: ModelEntryDto[]} = {themes: []};
 
   public emailsLibraryConfig: SectionConfig[] = [
     {
@@ -100,7 +100,7 @@ export class FormCreatorComponent implements OnInit {
     }
   ];
 
-  public selectedEmail: {[id: string]: ModelEntry[]} = {emails: []};
+  public selectedEmail: {[id: string]: ModelEntryDto[]} = {emails: []};
 
   public form: FormArray;
   public readonly STEPS = FORM_CREATOR_STEP;
@@ -130,7 +130,7 @@ export class FormCreatorComponent implements OnInit {
   ngOnInit(): void {
     zip(...this.elementsLibraryConfig.map(c => this.modelsResource.listEntries({types: c.types, size: 1}))).pipe(
       tap((responses) => {
-        const selected: {[id: string]: ModelEntry[]} = {...this.selectedElements};
+        const selected: {[id: string]: ModelEntryDto[]} = {...this.selectedElements};
         responses.forEach((response, index) => {
           if (response.totalCount === 1) {
             const config = this.elementsLibraryConfig[index];
@@ -178,7 +178,7 @@ export class FormCreatorComponent implements OnInit {
     });
   }
 
-  elementDropped(event: CdkDragDrop<ModelEntry[]>): void {
+  elementDropped(event: CdkDragDrop<ModelEntryDto[]>): void {
     if (event.previousContainer === event.container) {
       moveItemInArray(event.container.data, event.previousIndex, event.currentIndex);
     } else {
@@ -190,15 +190,15 @@ export class FormCreatorComponent implements OnInit {
     this.setSelectedElements({...this.selectedElements});
   }
 
-  selectedElementsChange(event: {[id: string]: ModelEntry[]}): void {
+  selectedElementsChange(event: {[id: string]: ModelEntryDto[]}): void {
     this.setSelectedElements(event);
   }
 
-  selectedThemeChange(event: {[id: string]: ModelEntry[]}): void {
+  selectedThemeChange(event: {[id: string]: ModelEntryDto[]}): void {
     this.setSelectedTheme(event);
   }
 
-  selectedEmailChange(event: {[id: string]: ModelEntry[]}): void {
+  selectedEmailChange(event: {[id: string]: ModelEntryDto[]}): void {
     this.setSelectedEmail(event);
   }
 
@@ -265,7 +265,7 @@ export class FormCreatorComponent implements OnInit {
     };
   }
 
-  private setSelectedElements(selected: {[id: string]: ModelEntry[]}): void {
+  private setSelectedElements(selected: {[id: string]: ModelEntryDto[]}): void {
     this.selectedElements = selected;
     const footerIncluded = this.elementsLibraryConfig.find(c => c.id === 'footers').included;
     this.form.at(FORM_CREATOR_STEP.ELEMENTS).setValue({
@@ -275,7 +275,7 @@ export class FormCreatorComponent implements OnInit {
     });
   }
 
-  private setSelectedTheme(selected: {[id: string]: ModelEntry[]}): void {
+  private setSelectedTheme(selected: {[id: string]: ModelEntryDto[]}): void {
     this.selectedTheme = selected;
     this.form.at(FORM_CREATOR_STEP.PREVIEW).patchValue({
       theme: this.selectedTheme.themes?.[0]?.key || ''
@@ -283,7 +283,7 @@ export class FormCreatorComponent implements OnInit {
     this.preview();
   }
 
-  private setSelectedEmail(selected: {[id: string]: ModelEntry[]}): void {
+  private setSelectedEmail(selected: {[id: string]: ModelEntryDto[]}): void {
     this.selectedEmail = selected;
     this.form.at(FORM_CREATOR_STEP.OPTIONS).patchValue({
       optoutModel: this.selectedEmail.emails?.[0]?.key || ''

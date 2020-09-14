@@ -327,3 +327,41 @@ export interface OperatorRecordElement {
   bodyKey: string;
   value: string;
 }
+
+export interface ModelEntryDto {
+  id: string;
+  key: string;
+  name: string;
+  description: string;
+  type: ModelDataType;
+  version: ModelVersionDtoLight[];
+}
+
+export interface ModelVersionDtoLight<T extends ModelData = ModelData> {
+  id: string;
+  serial: string;
+  parent: string;
+  child: string;
+  author: string;
+  defaultLocale: string;
+  availableLocales: string;
+  status: ModelVersionStatus;
+  type: ModelVersionType;
+  creationDate: number;
+  modificationDate: number;
+}
+
+export interface ModelVersionDto<T extends ModelData = ModelData> extends ModelVersionDtoLight {
+  data: { [locale: string]: ModelData };
+}
+
+export interface PreviewDto {
+  locale: string;
+  orientation: ConsentFormOrientation;
+}
+
+export interface LivePreviewDto {
+  locale: string;
+  orientation: ConsentFormOrientation;
+  model: ModelData;
+}

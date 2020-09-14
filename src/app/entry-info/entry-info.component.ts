@@ -1,7 +1,7 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { EntryEditorDialogComponent, EntryEditorDialogComponentData } from '../entry-editor-dialog/entry-editor-dialog.component';
 import { MatDialog } from '@angular/material/dialog';
-import { ModelEntry } from '../models';
+import { ModelEntryDto } from '../models';
 
 @Component({
   selector: 'app-entry-info',
@@ -11,7 +11,7 @@ import { ModelEntry } from '../models';
 export class EntryInfoComponent implements OnInit {
 
   @Input()
-  entry: ModelEntry;
+  entry: ModelEntryDto;
 
   @Input()
   showType = true;

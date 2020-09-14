@@ -42,4 +42,8 @@ export class EmailComponent extends EntryContentDirective<Email> implements OnIn
     });
   }
 
+  protected refreshPreview(): void {
+    throw new Error('Method not implemented.'); // TODO
+  }
+
 }

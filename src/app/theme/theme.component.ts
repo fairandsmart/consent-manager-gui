@@ -120,11 +120,12 @@ export class ThemeComponent extends EntryContentDirective<Theme> implements OnIn
     super.ngOnInit();
   }
 
-  ngAfterViewInit(): void {
-    this.modelsResourceService.getPreviewForm().subscribe((content) => {
-      this.rawPreview = content.split('/assets/').join(`${environment.managerUrl}/assets/`);
-      this.refreshPreview();
-    });
+  ngAfterViewInit(): void { // TODO
+    /*this.modelsResourceService.getPreviewForm().subscribe((content) => {
+        this.rawPreview = content.split('/assets/').join(`${environment.managerUrl}/assets/`);
+        this.refreshPreview();
+      }
+    );*/
   }
 
   protected initForm(): void {
@@ -144,7 +145,7 @@ export class ThemeComponent extends EntryContentDirective<Theme> implements OnIn
     ).subscribe();
   }
 
-  refreshPreview(): void {
+  protected refreshPreview(): void { // TODO update
     if (this.rawPreview != null) {
       let result = this.rawPreview;
       const style = this.form.get('css');

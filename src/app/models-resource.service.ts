@@ -7,11 +7,14 @@ import {
   ContentDto,
   CreateModelDto,
   ModelData,
-  ModelEntry,
+  ModelEntryDto,
   ModelFilter,
-  ModelVersion,
+  ModelVersionDto,
+  ModelVersionDtoLight,
   ModelVersionStatus,
   ModelVersionType,
+  PreviewDto,
+  LivePreviewDto,
   UpdateModelDto
 } from './models';
 
@@ -20,63 +23,69 @@ import {
 })
 export class ModelsResourceService {
 
-  constructor(private http: HttpClient) { }
-
-  listEntries(filter: ModelFilter): Observable<CollectionPage<ModelEntry>> {
-    return this.http.get<CollectionPage<ModelEntry>>(`${environment.managerUrl}/models`, {params: filter as any});
+  constructor(private http: HttpClient) {
   }
 
-  createEntry(dto: CreateModelDto): Observable<ModelEntry> {
-    return this.http.post<ModelEntry>(`${environment.managerUrl}/models`, dto);
+  listEntries(filter: ModelFilter): Observable<CollectionPage<ModelEntryDto>> {
+    return this.http.get<CollectionPage<ModelEntryDto>>(`${environment.managerUrl}/models`, {params: filter as any});
   }
 
-  getEntry(id: string): Observable<ModelEntry> {
-    return this.http.get<ModelEntry>(`${environment.managerUrl}/models/${id}`);
+  createEntry(dto: CreateModelDto): Observable<ModelEntryDto> {
+    return this.http.post<ModelEntryDto>(`${environment.managerUrl}/models`, dto);
   }
 
-  updateEntry(id: string, dto: UpdateModelDto): Observable<ModelEntry> {
-    return this.http.put<ModelEntry>(`${environment.managerUrl}/models/${id}`, dto);
+  getEntry(id: string): Observable<ModelEntryDto> {
+    return this.http.get<ModelEntryDto>(`${environment.managerUrl}/models/${id}`);
   }
 
-  listVersions<T extends ModelData = ModelData>(id: string): Observable<ModelVersion<T>[]> {
-    return this.http.get<ModelVersion<T>[]>(`${environment.managerUrl}/models/${id}/versions`);
+  updateEntry(id: string, dto: UpdateModelDto): Observable<ModelEntryDto> {
+    return this.http.put<ModelEntryDto>(`${environment.managerUrl}/models/${id}`, dto);
   }
 
-  createVersion<T extends ModelData = ModelData>(id: string, dto: ContentDto<T>): Observable<ModelVersion<T>> {
-    return this.http.post<ModelVersion<T>>(`${environment.managerUrl}/models/${id}/versions`, dto);
+  listVersions<T extends ModelData = ModelData>(id: string): Observable<ModelVersionDtoLight<T>[]> {
+    return this.http.get<ModelVersionDtoLight<T>[]>(`${environment.managerUrl}/models/${id}/versions`);
   }
 
-  getLatestVersion<T extends ModelData = ModelData>(id: string): Observable<ModelVersion<T>> {
-    return this.http.get<ModelVersion<T>>(`${environment.managerUrl}/models/${id}/versions/latest`);
+  createVersion<T extends ModelData = ModelData>(id: string, dto: ContentDto<T>): Observable<ModelVersionDto<T>> {
+    return this.http.post<ModelVersionDto<T>>(`${environment.managerUrl}/models/${id}/versions`, dto);
   }
 
-  getActiveVersion<T extends ModelData = ModelData>(id: string): Observable<ModelVersion<T>> {
-    return this.http.get<ModelVersion<T>>(`${environment.managerUrl}/models/${id}/versions/active`);
+  getLatestVersion<T extends ModelData = ModelData>(id: string): Observable<ModelVersionDto<T>> {
+    return this.http.get<ModelVersionDto<T>>(`${environment.managerUrl}/models/${id}/versions/latest`);
   }
 
-  getVersion<T extends ModelData = ModelData>(id: string, versionId: string): Observable<ModelVersion<T>> {
-    return this.http.get<ModelVersion<T>>(`${environment.managerUrl}/models/${id}/versions/${versionId}`);
+  getActiveVersion<T extends ModelData = ModelData>(id: string): Observable<ModelVersionDto<T>> {
+    return this.http.get<ModelVersionDto<T>>(`${environment.managerUrl}/models/${id}/versions/active`);
   }
 
-  updateVersion<T extends ModelData = ModelData>(id: string, versionId: string, dto: ContentDto<T>): Observable<ModelVersion<T>> {
-    return this.http.put<ModelVersion<T>>(`${environment.managerUrl}/models/${id}/versions/${versionId}`, dto);
+  getVersion<T extends ModelData = ModelData>(id: string, versionId: string): Observable<ModelVersionDto<T>> {
+    return this.http.get<ModelVersionDto<T>>(`${environment.managerUrl}/models/${id}/versions/${versionId}`);
+  }
+
+  updateVersion<T extends ModelData = ModelData>(id: string, versionId: string, dto: ContentDto<T>): Observable<ModelVersionDto<T>> {
+    return this.http.put<ModelVersionDto<T>>(`${environment.managerUrl}/models/${id}/versions/${versionId}`, dto);
   }
 
   updateVersionStatus<T extends ModelData = ModelData>(id: string, versionId: string, status: ModelVersionStatus)
-    : Observable<ModelVersion<T>> {
-    return this.http.put<ModelVersion<T>>(`${environment.managerUrl}/models/${id}/versions/${versionId}/status`, status);
+    : Observable<ModelVersionDto<T>> {
+    return this.http.put<ModelVersionDto<T>>(`${environment.managerUrl}/models/${id}/versions/${versionId}/status`, status);
   }
 
-  updateVersionType<T extends ModelData = ModelData>(id: string, versionId: string, type: ModelVersionType): Observable<ModelVersion<T>> {
-    return this.http.put<ModelVersion<T>>(`${environment.managerUrl}/models/${id}/versions/${versionId}/type`, type);
+  updateVersionType<T extends ModelData = ModelData>(id: string, versionId: string, type: ModelVersionType):
+    Observable<ModelVersionDto<T>> {
+    return this.http.put<ModelVersionDto<T>>(`${environment.managerUrl}/models/${id}/versions/${versionId}/type`, type);
+  }
+
+  getVersionPreview(id: string, vid: string, dto: PreviewDto): Observable<string> {
+    return this.http.post(`${environment.managerUrl}/models/${id}/versions/${vid}/preview`, dto, {responseType: 'text'});
   }
 
   deleteVersion(id: string, versionId: string): Observable<void> {
     return this.http.delete<void>(`${environment.managerUrl}/models/${id}/versions/${versionId}`);
   }
 
-  getPreviewForm(): Observable<string> {
-    return this.http.get(`${environment.managerUrl}/models/themes/preview`, {responseType: 'text'});
+  getLivePreview(dto: LivePreviewDto): Observable<string> {
+    return this.http.post(`${environment.managerUrl}/models/preview`, dto, {responseType: 'text'});
   }
 
 }

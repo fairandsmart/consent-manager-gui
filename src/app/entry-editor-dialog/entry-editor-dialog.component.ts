@@ -2,11 +2,11 @@ import { Component, Inject, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { Observable } from 'rxjs';
-import { CreateModelDto, FIELD_VALIDATORS, ModelDataType, ModelEntry, UpdateModelDto } from '../models';
+import { CreateModelDto, FIELD_VALIDATORS, ModelDataType, ModelEntryDto, UpdateModelDto } from '../models';
 import { ModelsResourceService } from '../models-resource.service';
 
 export interface EntryEditorDialogComponentData {
-  entry: Partial<ModelEntry> & {type: ModelDataType};
+  entry: Partial<ModelEntryDto> & {type: ModelDataType};
 }
 
 @Component({
@@ -20,7 +20,7 @@ export class EntryEditorDialogComponent implements OnInit {
 
   public updating = false;
 
-  constructor(private dialogRef: MatDialogRef<EntryEditorDialogComponent, ModelEntry>,
+  constructor(private dialogRef: MatDialogRef<EntryEditorDialogComponent, ModelEntryDto>,
               @Inject(MAT_DIALOG_DATA) public data: EntryEditorDialogComponentData,
               private fb: FormBuilder,
               private modelsResourceService: ModelsResourceService) {
@@ -56,7 +56,7 @@ export class EntryEditorDialogComponent implements OnInit {
   submit(): void {
     if (this.form.valid) {
       this.form.disable();
-      let obs: Observable<ModelEntry>;
+      let obs: Observable<ModelEntryDto>;
       const formValue = this.form.getRawValue();
       if (this.data?.entry.key != null) {
         const dto: UpdateModelDto = {

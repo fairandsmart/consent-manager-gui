@@ -38,4 +38,8 @@ export class FooterComponent extends EntryContentDirective<Footer> implements On
     });
   }
 
+  protected refreshPreview(): void {
+    throw new Error('Method not implemented.'); // TODO
+  }
+
 }

@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { catchError, mergeMap } from 'rxjs/operators';
-import { ModelEntry, ModelVersion } from '../models';
+import { ModelEntryDto, ModelVersionDto } from '../models';
 import { ModelsResourceService } from '../models-resource.service';
 import { of, zip } from 'rxjs';
 
@@ -16,9 +16,9 @@ import { of, zip } from 'rxjs';
 })
 export class EntryComponent implements OnInit {
 
-  entry: ModelEntry;
+  entry: ModelEntryDto;
 
-  latest: ModelVersion;
+  latest: ModelVersionDto;
 
   constructor(private activatedRoute: ActivatedRoute, private modelsResourceService: ModelsResourceService) {
   }

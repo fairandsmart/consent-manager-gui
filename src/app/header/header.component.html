@@ -77,11 +77,11 @@
             </mat-form-field>
             <mat-form-field appearance="outline">
               <mat-label>{{'ENTRIES.EDITOR.CONTENT.DATA_CONTROLLER.EMAIL.LABEL' | translate}}</mat-label>
-              <input matInput formControlName="email" autocomplete="off" (ngModelChange)="dataControllerChange($event)">
+              <input type="email" matInput formControlName="email" autocomplete="off" (ngModelChange)="dataControllerChange($event)">
             </mat-form-field>
             <mat-form-field appearance="outline">
               <mat-label>{{'ENTRIES.EDITOR.CONTENT.DATA_CONTROLLER.PHONE.LABEL' | translate}}</mat-label>
-              <input matInput formControlName="phoneNumber" autocomplete="off" (ngModelChange)="dataControllerChange($event)">
+              <input type="tel" matInput formControlName="phoneNumber" autocomplete="off" (ngModelChange)="dataControllerChange($event)">
             </mat-form-field>
             <mat-checkbox formControlName="actingBehalfCompany">{{'ENTRIES.EDITOR.CONTENT.DATA_CONTROLLER.ACTING_BEHALF_COMPANY.LABEL' | translate}}</mat-checkbox>
           </div>
@@ -123,7 +123,17 @@
       </div>
     </form>
   </mat-sidenav-content>
+
   <mat-sidenav opened mode="side" position="end">
     <app-entry-info *ngIf="entry" [entry]="entry"></app-entry-info>
+    <h2 class="preview-title-wrapper">
+      <span>{{'THEMES.IFRAME.TITLE' | translate}}</span>
+    </h2>
+    <ng-container *ngIf="safePreview; else loadingPreview">
+      <iframe [srcdoc]="safePreview"></iframe>
+    </ng-container>
+    <ng-template #loadingPreview>
+      <mat-spinner color="primary" diameter="50"></mat-spinner>
+    </ng-template>
   </mat-sidenav>
 </mat-sidenav-container>
