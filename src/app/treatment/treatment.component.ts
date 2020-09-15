@@ -6,6 +6,7 @@ import { ModelsResourceService } from '../models-resource.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { LANGUAGES } from '../common/constants';
 import { TranslateService } from '@ngx-translate/core';
+import { DomSanitizer } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-treatment',
@@ -21,8 +22,9 @@ export class TreatmentComponent extends EntryContentDirective<Treatment> impleme
       private fb: FormBuilder,
       modelsResourceService: ModelsResourceService,
       snackBar: MatSnackBar,
-      translateService: TranslateService) {
-    super(modelsResourceService, snackBar, translateService);
+      translateService: TranslateService,
+      sanitizer: DomSanitizer) {
+    super(modelsResourceService, snackBar, translateService, sanitizer);
   }
 
   ngOnInit(): void {
@@ -55,6 +57,7 @@ export class TreatmentComponent extends EntryContentDirective<Treatment> impleme
       thirdParties: this.fb.array([])
     });
     this.form.get('showDataController').disable();
+    this.initPreview();
   }
 
   protected loadVersion(version: ModelVersionDto<Treatment>, locale: string = this.version.defaultLocale): void {
@@ -77,10 +80,6 @@ export class TreatmentComponent extends EntryContentDirective<Treatment> impleme
     this.form.setControl('thirdParties', thirdPartiesArray);
 
     this.initialValue = this.form.getRawValue();
-  }
-
-  protected refreshPreview(): void {
-    throw new Error('Method not implemented.'); // TODO
   }
 
   getThirdParties(): FormArray {

@@ -1,13 +1,14 @@
 import { Component, OnInit } from '@angular/core';
 import { EntryContentDirective } from '../entry-content/entry-content.directive';
-import { ConsentFormOrientation, Header, LivePreviewDto, ModelVersionDto, PreviewDto } from '../models';
+import { ConsentFormOrientation, Header, LivePreviewDto, ModelVersionDto } from '../models';
 import { FormBuilder, Validators } from '@angular/forms';
 import { ModelsResourceService } from '../models-resource.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { LANGUAGES } from '../common/constants';
 import { TranslateService } from '@ngx-translate/core';
-import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
+import { DomSanitizer } from '@angular/platform-browser';
 import * as _ from 'lodash';
+import { environment } from '../../environments/environment';
 
 @Component({
   selector: 'app-header',
@@ -18,15 +19,13 @@ export class HeaderComponent extends EntryContentDirective<Header> implements On
 
   readonly LANGUAGES = LANGUAGES;
 
-  public safePreview: SafeHtml;
-
   constructor(
     private fb: FormBuilder,
     modelsResourceService: ModelsResourceService,
     snackBar: MatSnackBar,
     translateService: TranslateService,
-    private sanitizer: DomSanitizer) {
-    super(modelsResourceService, snackBar, translateService);
+    sanitizer: DomSanitizer) {
+    super(modelsResourceService, snackBar, translateService, sanitizer);
   }
 
   ngOnInit(): void {
@@ -81,26 +80,12 @@ export class HeaderComponent extends EntryContentDirective<Header> implements On
     this.optionalFieldChange(this.form.get('shortNoticeLink').value, 'showShortNoticeLink');
   }
 
-  protected refreshPreview(): void {
-    const locale = this.form.get('locale').value;
-    if (locale) {
-      const dto: PreviewDto = {locale: locale, orientation: ConsentFormOrientation.VERTICAL};
-      this.modelsResourceService.getVersionPreview(this.entry.id, this.version.id, dto)
-        .subscribe((result: string) => {
-          this.safePreview = this.sanitizer.bypassSecurityTrustHtml(result);
-        });
-    } else {
-      console.log('locale not detected');
-    }
-  }
-
   protected refreshLivePreview(): void { // TODO
     const locale: string = this.previewLocaleCtrl.value;
     const model: Header = _.cloneDeep(this.form.getRawValue());
-    const dto: LivePreviewDto = { locale: locale, orientation: ConsentFormOrientation.VERTICAL, model: model };
-    this.modelsResourceService.getLivePreview(dto)
-      .subscribe((result: string) => {
-        this.safePreview = this.sanitizer.bypassSecurityTrustHtml(result);
+    const dto: LivePreviewDto = {locale: locale, orientation: ConsentFormOrientation.VERTICAL, model: model};
+    this.modelsResourceService.getLivePreview(dto).subscribe((result: string) => {
+      this.safePreview = this.sanitizer.bypassSecurityTrustHtml(result.split('/assets/').join(`${environment.managerUrl}/assets/`));
     });
   }
 

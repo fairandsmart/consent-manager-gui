@@ -59,9 +59,6 @@
   </mat-sidenav-content>
   <mat-sidenav opened mode="side" position="end">
     <app-entry-info [entry]="entry"></app-entry-info>
-    <h2 class="preview-title-wrapper">
-      <span>{{'ENTRIES.EDITOR.CONDITIONS.IFRAME.TITLE' | translate}}</span>
-    </h2>
-    <iframe *ngIf="safePreview != null" [srcdoc]="safePreview" title="Preview"></iframe>
+    <app-entry-preview [locale]="form.get('locale').value" [safePreview]="safePreview"></app-entry-preview>
   </mat-sidenav>
 </mat-sidenav-container>

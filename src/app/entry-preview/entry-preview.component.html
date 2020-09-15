@@ -1,0 +1,13 @@
+<h2>
+  {{'ENTRIES.PREVIEW.TITLE' | translate}}
+</h2>
+<ng-container *ngIf="safePreview; else loadingPreview">
+  <div class="preview-container">
+    <iframe class="preview-iframe" [srcdoc]="safePreview"></iframe>
+  </div>
+</ng-container>
+<ng-template #loadingPreview>
+  <mat-spinner *ngIf="locale" color="primary" diameter="50"></mat-spinner>
+  <div *ngIf="!locale">{{'ENTRIES.PREVIEW.NO_LOCALE' | translate}}</div>
+</ng-template>
+

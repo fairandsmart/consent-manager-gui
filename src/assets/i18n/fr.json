@@ -143,6 +143,10 @@
         "EMAIL": "Modification de l'email"
       }
     },
+    "PREVIEW": {
+      "TITLE": "Prévisualisation",
+      "NO_LOCALE": "Sélectionnez une langue pour afficher la prévisualisation."
+    },
     "EDITOR": {
       "INFORMATION": {
         "TITLE": "Informations"

@@ -6,6 +6,7 @@ import { FormBuilder, Validators } from '@angular/forms';
 import { ModelsResourceService } from '../models-resource.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { TranslateService } from '@ngx-translate/core';
+import { DomSanitizer } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-email',
@@ -20,8 +21,9 @@ export class EmailComponent extends EntryContentDirective<Email> implements OnIn
     private fb: FormBuilder,
     modelsResourceService: ModelsResourceService,
     snackBar: MatSnackBar,
-    translateService: TranslateService) {
-    super(modelsResourceService, snackBar, translateService);
+    translateService: TranslateService,
+    sanitizer: DomSanitizer) {
+    super(modelsResourceService, snackBar, translateService, sanitizer);
   }
 
   ngOnInit(): void {
@@ -40,10 +42,7 @@ export class EmailComponent extends EntryContentDirective<Email> implements OnIn
       footer: ['', [Validators.required]],
       signature: ['', [Validators.required]]
     });
-  }
-
-  protected refreshPreview(): void {
-    throw new Error('Method not implemented.'); // TODO
+    this.initPreview();
   }
 
 }

@@ -4,14 +4,12 @@ import { Observable } from 'rxjs';
 import { environment } from '../environments/environment';
 import {
   CollectionPage,
-  ContentDto,
   CreateModelDto,
   ModelData,
   ModelEntryDto,
   ModelFilter,
   ModelVersionDto,
   ModelVersionDtoLight,
-  ModelVersionStatus,
   ModelVersionType,
   PreviewDto,
   LivePreviewDto,
@@ -46,7 +44,7 @@ export class ModelsResourceService {
     return this.http.get<ModelVersionDtoLight<T>[]>(`${environment.managerUrl}/models/${id}/versions`);
   }
 
-  createVersion<T extends ModelData = ModelData>(id: string, dto: ContentDto<T>): Observable<ModelVersionDto<T>> {
+  createVersion<T extends ModelData = ModelData>(id: string, dto: ModelVersionDto<T>): Observable<ModelVersionDto<T>> {
     return this.http.post<ModelVersionDto<T>>(`${environment.managerUrl}/models/${id}/versions`, dto);
   }
 
@@ -62,13 +60,13 @@ export class ModelsResourceService {
     return this.http.get<ModelVersionDto<T>>(`${environment.managerUrl}/models/${id}/versions/${versionId}`);
   }
 
-  updateVersion<T extends ModelData = ModelData>(id: string, versionId: string, dto: ContentDto<T>): Observable<ModelVersionDto<T>> {
+  updateVersion<T extends ModelData = ModelData>(id: string, versionId: string, dto: ModelVersionDto<T>): Observable<ModelVersionDto<T>> {
     return this.http.put<ModelVersionDto<T>>(`${environment.managerUrl}/models/${id}/versions/${versionId}`, dto);
   }
 
-  updateVersionStatus<T extends ModelData = ModelData>(id: string, versionId: string, status: ModelVersionStatus)
+  updateVersionStatus<T extends ModelData = ModelData>(id: string, versionId: string, dto: ModelVersionDto<T>)
     : Observable<ModelVersionDto<T>> {
-    return this.http.put<ModelVersionDto<T>>(`${environment.managerUrl}/models/${id}/versions/${versionId}/status`, status);
+    return this.http.put<ModelVersionDto<T>>(`${environment.managerUrl}/models/${id}/versions/${versionId}/status`, dto);
   }
 
   updateVersionType<T extends ModelData = ModelData>(id: string, versionId: string, type: ModelVersionType):

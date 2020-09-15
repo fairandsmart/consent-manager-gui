@@ -6,6 +6,7 @@ import { EntryContentDirective } from '../entry-content/entry-content.directive'
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { LANGUAGES } from '../common/constants';
 import { TranslateService } from '@ngx-translate/core';
+import { DomSanitizer } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-footer',
@@ -20,8 +21,9 @@ export class FooterComponent extends EntryContentDirective<Footer> implements On
       private fb: FormBuilder,
       modelsResourceService: ModelsResourceService,
       snackBar: MatSnackBar,
-      translateService: TranslateService) {
-    super(modelsResourceService, snackBar, translateService);
+      translateService: TranslateService,
+      sanitizer: DomSanitizer) {
+    super(modelsResourceService, snackBar, translateService, sanitizer);
   }
 
   ngOnInit(): void {
@@ -36,10 +38,7 @@ export class FooterComponent extends EntryContentDirective<Footer> implements On
       showAcceptAll: [false],
       customAcceptAllText: ['']
     });
-  }
-
-  protected refreshPreview(): void {
-    throw new Error('Method not implemented.'); // TODO
+    this.initPreview();
   }
 
 }

@@ -1,7 +1,7 @@
 import { AfterViewInit, ChangeDetectorRef, Component, Input, OnInit, ViewChild } from '@angular/core';
 import { ConsentElementEntryDataSource, SectionConfig } from '../entries-library/entries-library.component';
 import { tap } from 'rxjs/operators';
-import { ModelDataType, ModelEntry } from '../../models';
+import { ModelDataType, ModelEntryDto } from '../../models';
 import { EntryEditorDialogComponent, EntryEditorDialogComponentData } from '../../entry-editor-dialog/entry-editor-dialog.component';
 import { MatPaginator } from '@angular/material/paginator';
 import { ModelsResourceService } from '../../models-resource.service';
@@ -64,7 +64,7 @@ export class EntriesListComponent implements OnInit, AfterViewInit {
     this.section.dataSource.loadPage(this.section.filter);
   }
 
-  sortBy(order: keyof ModelEntry, config: SectionConfig) {
+  sortBy(order: keyof ModelEntryDto, config: SectionConfig) {
     config.filter.order = order;
     this.loadEntriesPage();
   }

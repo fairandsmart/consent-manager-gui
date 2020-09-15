@@ -1,5 +1,5 @@
 import { ChangeDetectionStrategy, Component, forwardRef, Input, OnInit } from '@angular/core';
-import { ModelEntry } from '../../models';
+import { ModelEntryDto } from '../../models';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { EntriesListComponent } from '../entries-list/entries-list.component';
 
@@ -18,7 +18,7 @@ import { EntriesListComponent } from '../entries-list/entries-list.component';
 })
 export class EntriesListSelectComponent extends EntriesListComponent implements OnInit, ControlValueAccessor {
 
-  private selected: ModelEntry[];
+  private selected: ModelEntryDto[];
 
   @Input()
   multiple = false;
@@ -26,7 +26,7 @@ export class EntriesListSelectComponent extends EntriesListComponent implements 
   @Input()
   disabled = false;
 
-  private onChange = (value: ModelEntry[]) => {};
+  private onChange = (value: ModelEntryDto[]) => {};
 
   private onTouched = () => {};
 
@@ -46,17 +46,17 @@ export class EntriesListSelectComponent extends EntriesListComponent implements 
     this.disabled = isDisabled;
   }
 
-  writeValue(value: ModelEntry[]): void {
+  writeValue(value: ModelEntryDto[]): void {
     this.selected = value;
     this.onChange(value);
     this.ref.markForCheck();
   }
 
-  isSelected(entry: ModelEntry): boolean {
+  isSelected(entry: ModelEntryDto): boolean {
     return this.selected?.some(e => e.key === entry.key);
   }
 
-  select(entry: ModelEntry): void {
+  select(entry: ModelEntryDto): void {
     if (this.isSelected(entry)) {
       this.selected = this.selected.filter(e => e.key !== entry.key);
     } else {

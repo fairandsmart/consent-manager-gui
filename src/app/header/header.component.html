@@ -126,14 +126,6 @@
 
   <mat-sidenav opened mode="side" position="end">
     <app-entry-info *ngIf="entry" [entry]="entry"></app-entry-info>
-    <h2 class="preview-title-wrapper">
-      <span>{{'THEMES.IFRAME.TITLE' | translate}}</span>
-    </h2>
-    <ng-container *ngIf="safePreview; else loadingPreview">
-      <iframe [srcdoc]="safePreview"></iframe>
-    </ng-container>
-    <ng-template #loadingPreview>
-      <mat-spinner color="primary" diameter="50"></mat-spinner>
-    </ng-template>
+    <app-entry-preview [locale]="form.get('locale').value" [safePreview]="safePreview"></app-entry-preview>
   </mat-sidenav>
 </mat-sidenav-container>

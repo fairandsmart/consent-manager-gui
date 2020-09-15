@@ -1,5 +1,5 @@
 import { Component, HostBinding, Input, OnInit } from '@angular/core';
-import { ModelEntry } from '../models';
+import { ModelEntryDto } from '../models';
 
 @Component({
   selector: 'app-entry-card',
@@ -9,7 +9,7 @@ import { ModelEntry } from '../models';
 export class EntryCardComponent implements OnInit {
 
   @Input()
-  entry: ModelEntry;
+  entry: ModelEntryDto;
 
   @Input()
   @HostBinding('class.entry-card-selectable')

@@ -127,5 +127,6 @@
   </mat-sidenav-content>
   <mat-sidenav opened mode="side" position="end">
     <app-entry-info *ngIf="entry" [entry]="entry"></app-entry-info>
+    <app-entry-preview [locale]="form.get('locale').value" [safePreview]="safePreview"></app-entry-preview>
   </mat-sidenav>
 </mat-sidenav-container>

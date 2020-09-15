@@ -6,22 +6,20 @@ export interface CollectionPage<T> {
   totalCount: number;
 }
 
-export interface ModelEntry {
+export interface ModelEntryDto {
   id: string;
-  version: number;
-  type: ModelDataType;
   key: string;
   name: string;
   description: string;
-  owner: string;
-  branches: string;
+  type: ModelDataType;
+  version: ModelVersionDtoLight[];
 }
 
 export interface ModelFilter {
   types: ModelDataType[];
   page?: number;
   size?: number;
-  order?: keyof ModelEntry;
+  order?: keyof ModelEntryDto;
   direction?: SortDirection;
 }
 
@@ -41,6 +39,24 @@ export interface ModelData {
   type: ModelDataType;
 }
 
+export interface ModelVersionDtoLight<T extends ModelData = ModelData> {
+  id?: string;
+  serial?: string;
+  parent?: string;
+  child?: string;
+  author?: string;
+  defaultLocale?: string;
+  availableLocales?: string;
+  status?: ModelVersionStatus;
+  type?: ModelVersionType;
+  creationDate?: number;
+  modificationDate?: number;
+}
+
+export interface ModelVersionDto<T extends ModelData = ModelData> extends ModelVersionDtoLight {
+  data: { [locale: string]: ModelData };
+}
+
 export enum ModelVersionStatus {
   DRAFT = 'DRAFT',
   ACTIVE = 'ACTIVE',
@@ -50,44 +66,6 @@ export enum ModelVersionStatus {
 export enum ModelVersionType {
   MAJOR = 'MAJOR',
   MINOR = 'MINOR'
-}
-
-export interface ConsentElementIdentifier {
-  type: ModelDataType;
-  key: string;
-  serial: string;
-}
-
-export interface ModelContent<T extends ModelData> {
-  data: string;
-  dataClass: string;
-  dataObject: T;
-  author: string;
-}
-
-export interface ContentDto<T extends ModelData = ModelData> {
-  locale: string;
-  content: T;
-}
-
-export interface ModelVersion<T extends ModelData = ModelData> {
-  id: string;
-  version: number;
-  entry: ModelEntry;
-  serial: string;
-  parent: string;
-  child: string;
-  branches: string;
-  owner: string;
-  defaultLocale: string;
-  availableLocales: string;
-  status: ModelVersionStatus;
-  type: ModelVersionType;
-  counterparts: string;
-  creationDate: number;
-  modificationDate: number;
-  content: { [locale: string]: ModelContent<T> };
-  identifier: ConsentElementIdentifier;
 }
 
 export interface Header extends ModelData {
@@ -190,9 +168,16 @@ export interface Email extends ModelData {
 
 export type ModelDataType = 'header' | 'treatment' | 'conditions' | 'footer' | 'theme' | 'email';
 
-export const MODEL_DATA_TYPES: ModelDataType[] = ['header', 'treatment', 'conditions', 'footer'];
+export interface PreviewDto {
+  locale: string;
+  orientation: ConsentFormOrientation;
+}
 
-export const MODEL_DATA_TYPES_COMPLETE: ModelDataType[] = ['header', 'treatment', 'conditions', 'footer', 'theme', 'email'];
+export interface LivePreviewDto {
+  locale: string;
+  orientation: ConsentFormOrientation;
+  model: ModelData;
+}
 
 export type SortDirection = 'asc' | 'desc' | '';
 
@@ -246,8 +231,6 @@ export enum ConsentFormType {
   PARTIAL = 'PARTIAL',
   FULL = 'FULL'
 }
-
-export const CONSENT_FORM_TYPES: ConsentFormType[] = Object.keys(ConsentFormType) as ConsentFormType[];
 
 export enum CollectionMethod {
   WEBFORM = 'WEBFORM',
@@ -326,42 +309,4 @@ export interface OperatorRecordDto {
 export interface OperatorRecordElement {
   bodyKey: string;
   value: string;
-}
-
-export interface ModelEntryDto {
-  id: string;
-  key: string;
-  name: string;
-  description: string;
-  type: ModelDataType;
-  version: ModelVersionDtoLight[];
-}
-
-export interface ModelVersionDtoLight<T extends ModelData = ModelData> {
-  id: string;
-  serial: string;
-  parent: string;
-  child: string;
-  author: string;
-  defaultLocale: string;
-  availableLocales: string;
-  status: ModelVersionStatus;
-  type: ModelVersionType;
-  creationDate: number;
-  modificationDate: number;
-}
-
-export interface ModelVersionDto<T extends ModelData = ModelData> extends ModelVersionDtoLight {
-  data: { [locale: string]: ModelData };
-}
-
-export interface PreviewDto {
-  locale: string;
-  orientation: ConsentFormOrientation;
-}
-
-export interface LivePreviewDto {
-  locale: string;
-  orientation: ConsentFormOrientation;
-  model: ModelData;
 }

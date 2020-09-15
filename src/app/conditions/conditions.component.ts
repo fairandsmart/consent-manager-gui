@@ -15,7 +15,7 @@ import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
 @Component({
   selector: 'app-conditions',
   templateUrl: './conditions.component.html',
-  styleUrls: ['../entry-content/_entry-content.directive.scss', '../theme/theme.component.scss', './conditions.component.scss']
+  styleUrls: ['../entry-content/_entry-content.directive.scss', './conditions.component.scss']
 })
 export class ConditionsComponent extends EntryContentDirective<Conditions> implements OnInit {
 
@@ -44,9 +44,9 @@ export class ConditionsComponent extends EntryContentDirective<Conditions> imple
       public consentsResourceService: ConsentsResourceService,
       snackBar: MatSnackBar,
       translateService: TranslateService,
-      private sanitizer: DomSanitizer,
+      sanitizer: DomSanitizer,
       private dialog: MatDialog) {
-    super(modelsResourceService, snackBar, translateService);
+    super(modelsResourceService, snackBar, translateService, sanitizer);
   }
 
   ngOnInit(): void {
@@ -65,16 +65,17 @@ export class ConditionsComponent extends EntryContentDirective<Conditions> imple
     this.form.valueChanges.pipe(debounceTime(this.delay)).subscribe(() => {
       this.refreshPreview();
     });
+    this.initPreview();
   }
 
-  protected refreshPreview(): void { // TODO update
+  /*protected refreshPreview(): void { // TODO update
     if (this.form.get('body').value) {
       const stopLinks = '<style>a { pointer-events: none; }</style>';
       this.safePreview = this.sanitizer.bypassSecurityTrustHtml(stopLinks + this.form.get('body').value);
     } else {
       this.safePreview = null;
     }
-  }
+  }*/
 
   openApiUrlDialog(): void {
     if (this.form.invalid) {

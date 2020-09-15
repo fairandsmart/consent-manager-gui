@@ -143,6 +143,10 @@
         "EMAIL": "Update email"
       }
     },
+    "PREVIEW": {
+      "TITLE": "Preview",
+      "NO_LOCALE": "Select a language to display the preview."
+    },
     "EDITOR": {
       "INFORMATION": {
         "TITLE": "Information"

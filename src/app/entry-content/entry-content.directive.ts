@@ -1,5 +1,12 @@
 import { Directive, Input, OnInit } from '@angular/core';
-import { ModelData, ModelEntry, ModelVersionDto, ModelVersionStatus } from '../models';
+import {
+  ConsentFormOrientation,
+  ModelData,
+  ModelEntryDto,
+  ModelVersionDto,
+  ModelVersionStatus,
+  PreviewDto
+} from '../models';
 import { EMPTY, Observable } from 'rxjs';
 import { FormControl, FormGroup } from '@angular/forms';
 import { ModelsResourceService } from '../models-resource.service';
@@ -8,12 +15,14 @@ import * as _ from 'lodash';
 import { catchError, debounceTime, mergeMap } from 'rxjs/operators';
 import { HttpErrorResponse } from '@angular/common/http';
 import { TranslateService } from '@ngx-translate/core';
+import { environment } from '../../environments/environment';
+import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
 
 @Directive()
 export abstract class EntryContentDirective<T extends ModelData> implements OnInit {
 
   @Input()
-  entry: ModelEntry;
+  entry: ModelEntryDto;
 
   @Input()
   version: ModelVersionDto<T>;
@@ -25,13 +34,16 @@ export abstract class EntryContentDirective<T extends ModelData> implements OnIn
   previewLocaleCtrl: FormControl;
   displayedLocalesCtrl: FormControl;
   private previewDelay = 500;
+  public safePreview: SafeHtml;
 
   readonly STATUS = ModelVersionStatus;
 
   protected constructor(
-      protected modelsResourceService: ModelsResourceService,
-      private snackBar: MatSnackBar,
-      private translateService: TranslateService) {}
+    protected modelsResourceService: ModelsResourceService,
+    private snackBar: MatSnackBar,
+    private translateService: TranslateService,
+    protected sanitizer: DomSanitizer) {
+  }
 
   ngOnInit(): void {
     this.initForm();
@@ -47,8 +59,9 @@ export abstract class EntryContentDirective<T extends ModelData> implements OnIn
   protected abstract initForm(): void;
 
   protected initPreview(): void {
-    const defaultLocale = this.version.defaultLocale == null ? 'en' : this.version.defaultLocale; // TODO default value
-    const locales = this.version.availableLocales == null ? [defaultLocale] : this.version.availableLocales;
+    const defaultLocale = this.version == null || this.version.defaultLocale == null ? 'en' : this.version.defaultLocale;
+    // TODO default value
+    const locales = this.version == null || this.version.availableLocales == null ? [defaultLocale] : this.version.availableLocales;
     this.displayedLocalesCtrl = new FormControl(defaultLocale ? [defaultLocale] : locales);
     this.previewLocaleCtrl = new FormControl(defaultLocale);
     this.form.valueChanges.pipe(debounceTime(this.previewDelay)).subscribe(() => {
@@ -59,7 +72,16 @@ export abstract class EntryContentDirective<T extends ModelData> implements OnIn
     });
   }
 
-  protected abstract refreshPreview(): void;
+  protected refreshPreview(): void {
+    const locale = this.form.get('locale').value;
+    if (locale && this.version) {
+      const dto: PreviewDto = {locale: locale, orientation: ConsentFormOrientation.VERTICAL};
+      this.modelsResourceService.getVersionPreview(this.entry.id, this.version.id, dto)
+        .subscribe((result: string) => {
+          this.safePreview = this.sanitizer.bypassSecurityTrustHtml(result.split('/assets/').join(`${environment.managerUrl}/assets/`));
+        });
+    }
+  }
 
   protected loadVersion(version: ModelVersionDto<T>, locale: string = this.version.defaultLocale): void {
     const localeContent = version.data[locale];
@@ -83,19 +105,16 @@ export abstract class EntryContentDirective<T extends ModelData> implements OnIn
     }
     if (this.form.valid) {
       let obs: Observable<ModelVersionDto<T>>;
+      const locale = this.form.get('locale').value;
       const formValue = this.form.getRawValue();
-      const locale = formValue.locale;
       delete formValue.locale;
+      const dto: ModelVersionDto = {defaultLocale: locale, data: {}};
+      dto.data = {};
+      dto.data[locale] = formValue;
       if (this.version?.status === ModelVersionStatus.DRAFT) {
-        obs = this.modelsResourceService.updateVersion(this.entry.id, this.version.id, {
-          locale: locale,
-          content: formValue
-        });
+        obs = this.modelsResourceService.updateVersion(this.entry.id, this.version.id, dto);
       } else {
-        obs = this.modelsResourceService.createVersion(this.entry.id, {
-          locale: locale,
-          content: formValue
-        });
+        obs = this.modelsResourceService.createVersion(this.entry.id, dto);
       }
       obs.subscribe(version => {
         this.updateVersion(version);
@@ -112,7 +131,8 @@ export abstract class EntryContentDirective<T extends ModelData> implements OnIn
       this.showSnackbar('MATERIAL.SNACKBAR.UNSAVED_CHANGES');
       return;
     }
-    this.modelsResourceService.updateVersionStatus<T>(this.entry.id, this.version.id, ModelVersionStatus.ACTIVE)
+    const dto: ModelVersionDto = {data: {}, status: ModelVersionStatus.ACTIVE};
+    this.modelsResourceService.updateVersionStatus<T>(this.entry.id, this.version.id, dto)
       .subscribe(version => {
         this.updateVersion(version);
         this.showSnackbar('MATERIAL.SNACKBAR.ACTIVATION_SUCCESS');

@@ -48,6 +48,7 @@ import { FormUrlDialogComponent } from './form-url-dialog/form-url-dialog.compon
 import { EmailsPageComponent } from './emails-page/emails-page.component';
 import { EmailComponent } from './email/email.component';
 import { ToolbarComponent } from './toolbar/toolbar.component';
+import { EntryPreviewComponent } from './entry-preview/entry-preview.component';
 
 const keycloakService = new KeycloakService();
 
@@ -98,7 +99,8 @@ registerLocaleData(localeFr, 'fr');
     FormUrlDialogComponent,
     EmailsPageComponent,
     EmailComponent,
-    ToolbarComponent
+    ToolbarComponent,
+    EntryPreviewComponent
   ],
   imports: [
     BrowserModule,

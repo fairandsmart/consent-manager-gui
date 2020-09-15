@@ -6,7 +6,6 @@ import { ModelsResourceService } from '../models-resource.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { LANGUAGES } from '../common/constants';
 import { TranslateService } from '@ngx-translate/core';
-import { environment } from '../../environments/environment';
 import * as CodeMirror from 'codemirror';
 import { Editor } from 'codemirror';
 import { debounceTime, skip, tap } from 'rxjs/operators';
@@ -110,10 +109,10 @@ export class ThemeComponent extends EntryContentDirective<Theme> implements OnIn
   constructor(
       private fb: FormBuilder,
       modelsResourceService: ModelsResourceService,
-      private sanitizer: DomSanitizer,
       snackBar: MatSnackBar,
-      translateService: TranslateService) {
-    super(modelsResourceService, snackBar, translateService);
+      translateService: TranslateService,
+      sanitizer: DomSanitizer) {
+    super(modelsResourceService, snackBar, translateService, sanitizer);
   }
 
   ngOnInit(): void {
@@ -143,9 +142,10 @@ export class ThemeComponent extends EntryContentDirective<Theme> implements OnIn
       debounceTime(this.delay),
       tap(() => this.refreshPreview())
     ).subscribe();
+    this.initPreview();
   }
 
-  protected refreshPreview(): void { // TODO update
+  /*protected refreshPreview(): void { // TODO update
     if (this.rawPreview != null) {
       let result = this.rawPreview;
       const style = this.form.get('css');
@@ -154,5 +154,5 @@ export class ThemeComponent extends EntryContentDirective<Theme> implements OnIn
       }
       this.safePreview = this.sanitizer.bypassSecurityTrustHtml(result);
     }
-  }
+  }*/
 }
