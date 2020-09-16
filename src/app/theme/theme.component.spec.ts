@@ -19,7 +19,7 @@ describe('ThemeComponent', () => {
   let modelsResourceServiceSpy: SpyObj<ModelsResourceService>;
 
   beforeEach(async(() => {
-    modelsResourceServiceSpy =  createSpyObj('ModelsResourceService', ['listEntries', 'getPreviewForm']);
+    modelsResourceServiceSpy =  createSpyObj('ModelsResourceService', ['listEntries']);
 
     TestBed.configureTestingModule({
       declarations: [ ThemeComponent, EntryInfoComponent ],
@@ -32,12 +32,6 @@ describe('ThemeComponent', () => {
   }));
 
   beforeEach(() => {
-    modelsResourceServiceSpy.getPreviewForm.and.returnValue(
-      of('<html lang="fr"><div>ok</div></html>').pipe(
-        delay(10)
-      )
-    );
-
     fixture = TestBed.createComponent(ThemeComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();

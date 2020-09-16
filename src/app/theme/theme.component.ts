@@ -1,4 +1,4 @@
-import { AfterViewInit, Component, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { EntryContentDirective } from '../entry-content/entry-content.directive';
 import { TARGET_TYPES, Theme } from '../models';
 import { FormBuilder, Validators } from '@angular/forms';
@@ -26,7 +26,7 @@ const snippets: { text: string, displayText: string }[] = [
   templateUrl: './theme.component.html',
   styleUrls: ['../entry-content/_entry-content.directive.scss', './theme.component.scss']
 })
-export class ThemeComponent extends EntryContentDirective<Theme> implements OnInit, AfterViewInit {
+export class ThemeComponent extends EntryContentDirective<Theme> implements OnInit {
 
   readonly LANGUAGES = LANGUAGES;
   readonly TARGET_TYPES = TARGET_TYPES;
@@ -117,14 +117,6 @@ export class ThemeComponent extends EntryContentDirective<Theme> implements OnIn
 
   ngOnInit(): void {
     super.ngOnInit();
-  }
-
-  ngAfterViewInit(): void { // TODO
-    /*this.modelsResourceService.getPreviewForm().subscribe((content) => {
-        this.rawPreview = content.split('/assets/').join(`${environment.managerUrl}/assets/`);
-        this.refreshPreview();
-      }
-    );*/
   }
 
   protected initForm(): void {

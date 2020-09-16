@@ -12,6 +12,7 @@ import { ModelsResourceService } from '../models-resource.service';
 import { KeycloakService } from 'keycloak-angular';
 import { TranslateModule } from '@ngx-translate/core';
 import { RecordsResourceService } from '../records-resource.service';
+import { HttpClientModule } from '@angular/common/http';
 
 describe('UserRecordsComponent', () => {
   let component: UserRecordsComponent;
@@ -21,20 +22,22 @@ describe('UserRecordsComponent', () => {
   let keycloakServiceSpy: SpyObj<KeycloakService>;
 
   beforeEach(async(() => {
-    recordsResourceServiceSpy =  createSpyObj<RecordsResourceService>('RecordsResourceService', ['listRecords', 'listUserRecords']);
-    modelsResourceServiceSpy =  createSpyObj<ModelsResourceService>('ModelsResourceService', ['listEntries']);
+    recordsResourceServiceSpy = createSpyObj<RecordsResourceService>('RecordsResourceService', ['listRecords', 'listUserRecords']);
+    modelsResourceServiceSpy = createSpyObj<ModelsResourceService>('ModelsResourceService', ['listEntries']);
     keycloakServiceSpy = createSpyObj('KeycloakService', ['isUserInRole']);
 
     TestBed.configureTestingModule({
-      declarations: [ UserRecordsComponent ],
-      imports: [RouterTestingModule, ReactiveFormsModule, MaterialModule, NoopAnimationsModule, TranslateModule.forRoot()],
+      declarations: [UserRecordsComponent],
+      imports: [
+        RouterTestingModule, ReactiveFormsModule, MaterialModule, NoopAnimationsModule, HttpClientModule, TranslateModule.forRoot()
+      ],
       providers: [
         {provide: RecordsResourceService, useValue: recordsResourceServiceSpy},
         {provide: ModelsResourceService, useValue: modelsResourceServiceSpy},
         {provide: KeycloakService, useValue: keycloakServiceSpy}
       ]
     })
-    .compileComponents();
+      .compileComponents();
   }));
 
   beforeEach(() => {
