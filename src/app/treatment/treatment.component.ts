@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { EntryContentDirective } from '../entry-content/entry-content.directive';
-import { ModelVersionDto, Treatment, TREATMENT_PURPOSES } from '../models';
+import { ModelDataType, ModelVersionDto, Treatment, TREATMENT_PURPOSES } from '../models';
 import { FormArray, FormBuilder, Validators } from '@angular/forms';
 import { ModelsResourceService } from '../models-resource.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
@@ -27,13 +27,17 @@ export class TreatmentComponent extends EntryContentDirective<Treatment> impleme
     super(modelsResourceService, snackBar, translateService, sanitizer);
   }
 
+  get type(): ModelDataType {
+    return 'treatment';
+  }
+
   ngOnInit(): void {
     super.ngOnInit();
   }
 
   protected initForm(): void {
     this.form = this.fb.group({
-      type: ['treatment', [Validators.required]],
+      type: [this.type, [Validators.required]],
       locale: ['', [Validators.required]],
       treatmentTitle: ['', [Validators.required]],
       dataTitle: [''],
@@ -112,14 +116,4 @@ export class TreatmentComponent extends EntryContentDirective<Treatment> impleme
     }
   }
 
-  private isDataControllerEmpty(): boolean {
-    const keys = ['company', 'name', 'address', 'email', 'phoneNumber'];
-    let empty = true;
-    let keyIndex = 0;
-    while (empty && keyIndex < keys.length) {
-      empty = this.form.get('dataController').get(keys[keyIndex]).value.length === 0;
-      keyIndex++;
-    }
-    return empty;
-  }
 }

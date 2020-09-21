@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
-import { Footer } from '../models';
+import { Footer, ModelDataType } from '../models';
 import { ModelsResourceService } from '../models-resource.service';
 import { EntryContentDirective } from '../entry-content/entry-content.directive';
 import { MatSnackBar } from '@angular/material/snack-bar';
@@ -26,13 +26,17 @@ export class FooterComponent extends EntryContentDirective<Footer> implements On
     super(modelsResourceService, snackBar, translateService, sanitizer);
   }
 
+  get type(): ModelDataType {
+    return 'footer';
+  }
+
   ngOnInit(): void {
     super.ngOnInit();
   }
 
   protected initForm(): void {
     this.form = this.fb.group({
-      type: ['footer', [Validators.required]],
+      type: [this.type, [Validators.required]],
       locale: ['', [Validators.required]],
       body: ['', [Validators.required]],
       showAcceptAll: [false],

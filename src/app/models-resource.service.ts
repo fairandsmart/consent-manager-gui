@@ -12,7 +12,6 @@ import {
   ModelVersionDtoLight,
   ModelVersionType,
   PreviewDto,
-  LivePreviewDto,
   UpdateModelDto
 } from './models';
 
@@ -80,10 +79,6 @@ export class ModelsResourceService {
 
   deleteVersion(id: string, versionId: string): Observable<void> {
     return this.http.delete<void>(`${environment.managerUrl}/models/${id}/versions/${versionId}`);
-  }
-
-  getLivePreview(dto: LivePreviewDto): Observable<string> {
-    return this.http.post(`${environment.managerUrl}/models/preview`, dto, {responseType: 'text'});
   }
 
 }

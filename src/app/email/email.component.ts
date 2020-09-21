@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { EntryContentDirective } from '../entry-content/entry-content.directive';
-import { Email } from '../models';
+import { Email, ModelDataType } from '../models';
 import { LANGUAGES } from '../common/constants';
 import { FormBuilder, Validators } from '@angular/forms';
 import { ModelsResourceService } from '../models-resource.service';
@@ -26,13 +26,17 @@ export class EmailComponent extends EntryContentDirective<Email> implements OnIn
     super(modelsResourceService, snackBar, translateService, sanitizer);
   }
 
+  get type(): ModelDataType {
+    return 'email';
+  }
+
   ngOnInit(): void {
     super.ngOnInit();
   }
 
   protected initForm(): void {
     this.form = this.fb.group({
-      type: ['email', [Validators.required]],
+      type: [this.type, [Validators.required]],
       locale: ['', [Validators.required]],
       sender: ['', [Validators.required]],
       subject: ['', [Validators.required]],

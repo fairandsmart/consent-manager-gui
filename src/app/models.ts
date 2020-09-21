@@ -171,12 +171,7 @@ export type ModelDataType = 'header' | 'treatment' | 'conditions' | 'footer' | '
 export interface PreviewDto {
   locale: string;
   orientation: ConsentFormOrientation;
-}
-
-export interface LivePreviewDto {
-  locale: string;
-  orientation: ConsentFormOrientation;
-  model: ModelData;
+  data?: ModelData;
 }
 
 export type SortDirection = 'asc' | 'desc' | '';

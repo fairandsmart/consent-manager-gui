@@ -2,13 +2,14 @@ import { Directive, Input, OnInit } from '@angular/core';
 import {
   ConsentFormOrientation,
   ModelData,
+  ModelDataType,
   ModelEntryDto,
   ModelVersionDto,
   ModelVersionStatus,
   PreviewDto
 } from '../models';
 import { EMPTY, Observable } from 'rxjs';
-import { FormControl, FormGroup } from '@angular/forms';
+import { FormGroup } from '@angular/forms';
 import { ModelsResourceService } from '../models-resource.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import * as _ from 'lodash';
@@ -31,8 +32,6 @@ export abstract class EntryContentDirective<T extends ModelData> implements OnIn
 
   initialValue: T;
 
-  previewLocaleCtrl: FormControl;
-  displayedLocalesCtrl: FormControl;
   private previewDelay = 500;
   public safePreview: SafeHtml;
 
@@ -56,30 +55,33 @@ export abstract class EntryContentDirective<T extends ModelData> implements OnIn
     return !_.isEqual(this.initialValue, this.form.getRawValue());
   }
 
+  abstract get type(): ModelDataType;
+
   protected abstract initForm(): void;
 
   protected initPreview(): void {
-    const defaultLocale = this.version == null || this.version.defaultLocale == null ? 'en' : this.version.defaultLocale;
-    // TODO default value
-    const locales = this.version == null || this.version.availableLocales == null ? [defaultLocale] : this.version.availableLocales;
-    this.displayedLocalesCtrl = new FormControl(defaultLocale ? [defaultLocale] : locales);
-    this.previewLocaleCtrl = new FormControl(defaultLocale);
     this.form.valueChanges.pipe(debounceTime(this.previewDelay)).subscribe(() => {
-      this.refreshPreview();
-    });
-    this.previewLocaleCtrl.valueChanges.subscribe(() => {
       this.refreshPreview();
     });
   }
 
+
   protected refreshPreview(): void {
-    const locale = this.form.get('locale').value;
-    if (locale && this.version) {
-      const dto: PreviewDto = {locale: locale, orientation: ConsentFormOrientation.VERTICAL};
-      this.modelsResourceService.getVersionPreview(this.entry.id, this.version.id, dto)
+    const rawValues = this.form.getRawValue();
+    const locale: string = rawValues.locale;
+    delete rawValues.locale;
+    if (locale) {
+      const dto: PreviewDto = {
+        locale: locale,
+        orientation: ConsentFormOrientation.VERTICAL,
+        data: rawValues
+      };
+      this.modelsResourceService.getVersionPreview(this.entry.id, this.version ? this.version.id : 'new', dto)
         .subscribe((result: string) => {
           this.safePreview = this.sanitizer.bypassSecurityTrustHtml(result.split('/assets/').join(`${environment.managerUrl}/assets/`));
         });
+    } else {
+      console.log('no locale selected');
     }
   }
 
@@ -164,6 +166,20 @@ export abstract class EntryContentDirective<T extends ModelData> implements OnIn
         this.showSnackbar('MATERIAL.SNACKBAR.RELOAD_ERROR');
       }
     });
+  }
+
+  protected isDataControllerEmpty(): boolean {
+    if (this.form.contains('dataController')) {
+      const keys = ['company', 'name', 'address', 'email', 'phoneNumber'];
+      let empty = true;
+      let keyIndex = 0;
+      while (empty && keyIndex < keys.length) {
+        empty = this.form.get('dataController').get(keys[keyIndex]).value.length === 0;
+        keyIndex++;
+      }
+      return empty;
+    }
+    return true;
   }
 
 }

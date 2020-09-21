@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { EntryContentDirective } from '../entry-content/entry-content.directive';
-import { TARGET_TYPES, Theme } from '../models';
+import { ModelDataType, TARGET_TYPES, Theme } from '../models';
 import { FormBuilder, Validators } from '@angular/forms';
 import { ModelsResourceService } from '../models-resource.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
@@ -8,7 +8,6 @@ import { LANGUAGES } from '../common/constants';
 import { TranslateService } from '@ngx-translate/core';
 import * as CodeMirror from 'codemirror';
 import { Editor } from 'codemirror';
-import { debounceTime, skip, tap } from 'rxjs/operators';
 import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
 
 const snippets: { text: string, displayText: string }[] = [
@@ -102,9 +101,7 @@ export class ThemeComponent extends EntryContentDirective<Theme> implements OnIn
     }
   };
 
-  private rawPreview: string;
   public safePreview: SafeHtml;
-  private delay = 500;
 
   constructor(
       private fb: FormBuilder,
@@ -115,13 +112,17 @@ export class ThemeComponent extends EntryContentDirective<Theme> implements OnIn
     super(modelsResourceService, snackBar, translateService, sanitizer);
   }
 
+  get type(): ModelDataType {
+    return 'theme';
+  }
+
   ngOnInit(): void {
     super.ngOnInit();
   }
 
   protected initForm(): void {
     this.form = this.fb.group({
-      type: ['theme', [Validators.required]],
+      type: [this.type, [Validators.required]],
       locale: ['', [Validators.required]],
       // name: ['', [Validators.required]],
       // presentation: [''],
@@ -129,22 +130,7 @@ export class ThemeComponent extends EntryContentDirective<Theme> implements OnIn
       // icon: [''],
       css: ['', [Validators.required]]
     });
-    this.form.get('css').valueChanges.pipe(
-      skip(1),
-      debounceTime(this.delay),
-      tap(() => this.refreshPreview())
-    ).subscribe();
     this.initPreview();
   }
 
-  /*protected refreshPreview(): void { // TODO update
-    if (this.rawPreview != null) {
-      let result = this.rawPreview;
-      const style = this.form.get('css');
-      if (style && style.value) {
-        result = result.replace('</head>', `<style>${style.value}</style></head>`);
-      }
-      this.safePreview = this.sanitizer.bypassSecurityTrustHtml(result);
-    }
-  }*/
 }

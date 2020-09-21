@@ -1,12 +1,18 @@
 import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { EntryContentDirective } from '../entry-content/entry-content.directive';
-import { CollectionMethod, Conditions, ConsentContext, ConsentFormOrientation, ConsentFormType } from '../models';
+import {
+  CollectionMethod,
+  Conditions,
+  ConsentContext,
+  ConsentFormOrientation,
+  ConsentFormType,
+  ModelDataType
+} from '../models';
 import { FormBuilder, Validators } from '@angular/forms';
 import { ModelsResourceService } from '../models-resource.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { LANGUAGES } from '../common/constants';
 import { TranslateService } from '@ngx-translate/core';
-import { debounceTime } from 'rxjs/operators';
 import { FormUrlDialogComponent, FormUrlDialogComponentData } from '../form-url-dialog/form-url-dialog.component';
 import { MatDialog } from '@angular/material/dialog';
 import { ConsentsResourceService } from '../consents-resource.service';
@@ -32,7 +38,6 @@ export class ConditionsComponent extends EntryContentDirective<Conditions> imple
     }
   };
 
-  private delay = 500;
   public safePreview: SafeHtml;
 
   @ViewChild('preview')
@@ -49,33 +54,25 @@ export class ConditionsComponent extends EntryContentDirective<Conditions> imple
     super(modelsResourceService, snackBar, translateService, sanitizer);
   }
 
+  get type(): ModelDataType {
+    return 'conditions';
+  }
+
   ngOnInit(): void {
     super.ngOnInit();
   }
 
   protected initForm(): void {
     this.form = this.fb.group({
-      type: ['conditions', [Validators.required]],
+      type: [this.type, [Validators.required]],
       locale: ['', [Validators.required]],
       title: ['', [Validators.required]],
       body: ['', [Validators.required]],
       acceptLabel: ['', [Validators.required]],
       rejectLabel: ['', [Validators.required]]
     });
-    this.form.valueChanges.pipe(debounceTime(this.delay)).subscribe(() => {
-      this.refreshPreview();
-    });
     this.initPreview();
   }
-
-  /*protected refreshPreview(): void { // TODO update
-    if (this.form.get('body').value) {
-      const stopLinks = '<style>a { pointer-events: none; }</style>';
-      this.safePreview = this.sanitizer.bypassSecurityTrustHtml(stopLinks + this.form.get('body').value);
-    } else {
-      this.safePreview = null;
-    }
-  }*/
 
   openApiUrlDialog(): void {
     if (this.form.invalid) {
@@ -113,4 +110,5 @@ export class ConditionsComponent extends EntryContentDirective<Conditions> imple
       console.error(err);
     });
   }
+
 }

@@ -1,14 +1,12 @@
 import { Component, OnInit } from '@angular/core';
 import { EntryContentDirective } from '../entry-content/entry-content.directive';
-import { ConsentFormOrientation, Header, LivePreviewDto, ModelVersionDto } from '../models';
+import { Header, ModelDataType, ModelVersionDto } from '../models';
 import { FormBuilder, Validators } from '@angular/forms';
 import { ModelsResourceService } from '../models-resource.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { LANGUAGES } from '../common/constants';
 import { TranslateService } from '@ngx-translate/core';
 import { DomSanitizer } from '@angular/platform-browser';
-import * as _ from 'lodash';
-import { environment } from '../../environments/environment';
 
 @Component({
   selector: 'app-header',
@@ -28,13 +26,17 @@ export class HeaderComponent extends EntryContentDirective<Header> implements On
     super(modelsResourceService, snackBar, translateService, sanitizer);
   }
 
+  get type(): ModelDataType {
+    return 'header';
+  }
+
   ngOnInit(): void {
     super.ngOnInit();
   }
 
   protected initForm(): void {
     this.form = this.fb.group({
-      type: ['header', [Validators.required]],
+      type: [this.type, [Validators.required]],
       locale: ['', [Validators.required]],
       logoPath: [''],
       logoAltText: [''],
@@ -80,15 +82,6 @@ export class HeaderComponent extends EntryContentDirective<Header> implements On
     this.optionalFieldChange(this.form.get('shortNoticeLink').value, 'showShortNoticeLink');
   }
 
-  protected refreshLivePreview(): void { // TODO
-    const locale: string = this.previewLocaleCtrl.value;
-    const model: Header = _.cloneDeep(this.form.getRawValue());
-    const dto: LivePreviewDto = {locale: locale, orientation: ConsentFormOrientation.VERTICAL, model: model};
-    this.modelsResourceService.getLivePreview(dto).subscribe((result: string) => {
-      this.safePreview = this.sanitizer.bypassSecurityTrustHtml(result.split('/assets/').join(`${environment.managerUrl}/assets/`));
-    });
-  }
-
   optionalFieldChange(event, displayField): void {
     if (event.length > 0) {
       this.form.get(displayField).enable();
@@ -107,14 +100,4 @@ export class HeaderComponent extends EntryContentDirective<Header> implements On
     }
   }
 
-  private isDataControllerEmpty(): boolean {
-    const keys = ['company', 'name', 'address', 'email', 'phoneNumber'];
-    let empty = true;
-    let keyIndex = 0;
-    while (empty && keyIndex < keys.length) {
-      empty = this.form.get('dataController').get(keys[keyIndex]).value.length === 0;
-      keyIndex++;
-    }
-    return empty;
-  }
 }
