@@ -51,7 +51,7 @@ export class EntriesListDragAndDropComponent extends EntriesListComponent implem
   }
 
   isDisabled(entry: ModelEntryDto): boolean {
-    return this.isSelected(entry); // TODO disable if no active version
+    return this.isSelected(entry) || !entry.hasActiveVersion;
   }
 
   isSelected(entry: ModelEntryDto): boolean {

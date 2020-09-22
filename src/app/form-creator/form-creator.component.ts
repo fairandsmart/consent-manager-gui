@@ -132,7 +132,7 @@ export class FormCreatorComponent implements OnInit {
       tap((responses) => {
         const selected: {[id: string]: ModelEntryDto[]} = {...this.selectedElements};
         responses.forEach((response, index) => {
-          if (response.totalCount === 1) {
+          if (response.totalCount === 1 && response.values[0].hasActiveVersion) {
             const config = this.elementsLibraryConfig[index];
             selected[config.id] = response.values;
             config.draggingDisabled = true;

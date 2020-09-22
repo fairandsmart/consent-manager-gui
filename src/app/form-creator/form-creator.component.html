@@ -48,16 +48,6 @@
         <mat-step [label]="'FORM_CREATOR.STEP_OPTIONS' | translate" [stepControl]="form.at(STEPS.OPTIONS)">
           <mat-card [formGroup]="form.at(STEPS.OPTIONS)">
             <mat-card-content>
-              <!--<mat-form-field appearance="fill">
-                <mat-label>{{'FORM_CREATOR.FORM.SUBJECT.LABEL' | translate}}</mat-label>
-                <input matInput required formControlName="subject" autocomplete="off">
-              </mat-form-field>-->
-<!--              <mat-form-field appearance="fill">-->
-<!--                <mat-label>{{'FORM_CREATOR.FORM.ORIENTATION.LABEL' | translate}}</mat-label>-->
-<!--                <mat-select formControlName="orientation" required>-->
-<!--                  <mat-option *ngFor="let orientation of ORIENTATIONS" [value]="orientation">{{'FORM_CREATOR.FORM.ORIENTATION.VALUES.' + orientation | translate}}</mat-option>-->
-<!--                </mat-select>-->
-<!--              </mat-form-field>-->
               <div class="consent-validity-wrapper">
                 <mat-form-field appearance="fill">
                   <mat-label>{{'FORM_CREATOR.FORM.VALIDITY.LABEL' | translate}}</mat-label>

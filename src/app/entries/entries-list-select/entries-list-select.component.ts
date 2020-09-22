@@ -6,7 +6,7 @@ import { EntriesListComponent } from '../entries-list/entries-list.component';
 @Component({
   selector: 'app-entries-list-select',
   templateUrl: './entries-list-select.component.html',
-  styleUrls: ['../entries-list/entries-list.component.scss'],
+  styleUrls: ['../entries-list/entries-list.component.scss', './entries-list-select.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
   providers: [
     {
@@ -52,6 +52,10 @@ export class EntriesListSelectComponent extends EntriesListComponent implements 
     this.ref.markForCheck();
   }
 
+  isSelectable(entry: ModelEntryDto): boolean {
+    return entry.hasActiveVersion;
+  }
+
   isSelected(entry: ModelEntryDto): boolean {
     return this.selected?.some(e => e.key === entry.key);
   }
@@ -59,7 +63,7 @@ export class EntriesListSelectComponent extends EntriesListComponent implements 
   select(entry: ModelEntryDto): void {
     if (this.isSelected(entry)) {
       this.selected = this.selected.filter(e => e.key !== entry.key);
-    } else {
+    } else if (this.isSelectable(entry)) {
       if (this.multiple) {
         this.selected = this.selected.concat(entry);
       } else {
