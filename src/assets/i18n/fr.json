@@ -112,7 +112,8 @@
         "LABEL": "Id"
       },
       "key": {
-        "LABEL": "Référence"
+        "LABEL": "Référence",
+        "ALREADY_EXISTS": "Référence déjà utilisée"
       },
       "name": {
         "LABEL": "Nom"

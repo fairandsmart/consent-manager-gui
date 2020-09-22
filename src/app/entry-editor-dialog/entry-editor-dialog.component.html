@@ -7,6 +7,9 @@
   <mat-form-field appearance="fill">
     <mat-label>{{'ENTRIES.COMMON.key.LABEL' | translate}}</mat-label>
     <input matInput required formControlName="key" autocomplete="off">
+    <mat-error *ngIf="form.hasError('alreadyExists', ['key'])">
+      {{'ENTRIES.COMMON.key.ALREADY_EXISTS' | translate }}
+    </mat-error>
   </mat-form-field>
   <mat-form-field appearance="fill">
     <mat-label>{{'ENTRIES.COMMON.description.LABEL' | translate}}</mat-label>
