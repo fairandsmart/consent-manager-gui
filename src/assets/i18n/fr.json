@@ -11,6 +11,7 @@
       "MODELS": {
         "LABEL": "Modèles",
         "ELEMENTS": "Eléments",
+        "PREFERENCES": "Préférences",
         "CONDITIONS": "CGU/CGS",
         "EMAILS": "Emails",
         "THEMES": "Thèmes"
@@ -34,6 +35,7 @@
       "HEADER": "En-tête",
       "FOOTER": "Pied de page",
       "TREATMENT": "Traitement",
+      "PREFERENCE": "Préférence",
       "CONDITIONS": "CGU/CGS",
       "THEME": "Thème",
       "EMAIL": "Email"
@@ -81,6 +83,10 @@
       "PANEL_TITLE": "Bibliothèque de modèles de traitements",
       "EMPTY": "Commencez par ajouter un traitement..."
     },
+    "preferences": {
+      "PANEL_TITLE": "Bibliothèque de modèles de préférences",
+      "EMPTY": "Commencez par ajouter une préférence..."
+    },
     "conditions": {
       "PANEL_TITLE": "Modèles de CGU",
       "EMPTY": "Commencez par ajouter un modèle de CGU..."
@@ -101,6 +107,7 @@
     "BUTTON_ADD": {
       "header": "Ajouter un en-tête",
       "treatment": "Ajouter un traitement",
+      "preference": "Ajouter une préférence",
       "conditions": "Ajouter un modèle de CGU",
       "footer": "Ajouter un pied de page",
       "theme": "Ajouter un thème",
@@ -130,6 +137,7 @@
       "TITLE_NEW": {
         "HEADER": "Nouvel en-tête",
         "TREATMENT": "Nouveau traitement",
+        "PREFERENCE": "Nouvelle préférence",
         "CONDITIONS": "Nouvelles CGU",
         "FOOTER": "Nouveau pied de page",
         "THEME": "Nouveau thème",
@@ -138,6 +146,7 @@
       "TITLE_UPDATE": {
         "HEADER": "Modification de l'en-tête",
         "TREATMENT": "Modification du traitement",
+        "PREFERENCE": "Modification de la préférence",
         "CONDITIONS": "Modification des CGU",
         "FOOTER": "Modification du pied de page",
         "THEME": "Modification du thème",
@@ -161,6 +170,7 @@
         "TITLE": {
           "HEADER": "Contenu de l'en-tête",
           "TREATMENT": "Contenu du traitement",
+          "PREFERENCE": "Contenu de la préférence",
           "CONDITIONS": "Contenu des CGU",
           "FOOTER": "Contenu du pied de page",
           "THEME": "Contenu du thème",
@@ -307,6 +317,17 @@
           "VALUE": "Description",
           "BUTTON_ADD": "Ajouter une tierce-partie",
           "EMPTY": "Aucune tierce-partie pour le moment."
+        }
+      },
+      "PREFERENCE": {
+        "SUBTITLES": {
+          "CONTENT": "Contenu"
+        },
+        "TITLE": {
+          "LABEL": "Libellé"
+        },
+        "BODY": {
+          "LABEL": "Corps"
         }
       },
       "CONDITIONS": {
@@ -493,6 +514,10 @@
       "TREATMENTS": {
         "LABEL_AVAILABLE": "Traitements disponibles",
         "LABEL_DISPLAYED": "Traitements affichés"
+      },
+      "PREFERENCES": {
+        "LABEL_AVAILABLE": "Préférences disponibles",
+        "LABEL_DISPLAYED": "Préférences affichées"
       },
       "FOOTER": {
         "LABEL": "Référence de pied de page."

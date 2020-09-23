@@ -80,8 +80,6 @@ export abstract class EntryContentDirective<T extends ModelData> implements OnIn
         .subscribe((result: string) => {
           this.safePreview = this.sanitizer.bypassSecurityTrustHtml(result.split('/assets/').join(`${environment.managerUrl}/assets/`));
         });
-    } else {
-      console.log('no locale selected');
     }
   }
 

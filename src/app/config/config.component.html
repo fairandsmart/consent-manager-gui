@@ -24,6 +24,10 @@
                     routerLinkActive="active-link">{{'NAV.CATEGORIES.MODELS.ELEMENTS' | translate}}</button>
           </mat-list-item>
           <mat-list-item>
+            <button mat-button #preferences="routerLinkActive" routerLink="./config/preferences"
+                    routerLinkActive="active-link">{{'NAV.CATEGORIES.MODELS.PREFERENCES' | translate}}</button>
+          </mat-list-item>
+          <mat-list-item>
             <button mat-button #conditions="routerLinkActive" routerLink="./config/conditions"
                     routerLinkActive="active-link">{{'NAV.CATEGORIES.MODELS.CONDITIONS' | translate}}</button>
           </mat-list-item>

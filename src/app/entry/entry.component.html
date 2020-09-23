@@ -5,6 +5,9 @@
   <ng-container *ngSwitchCase="'treatment'">
     <app-treatment [entry]="entry" [version]="latest"></app-treatment>
   </ng-container>
+  <ng-container *ngSwitchCase="'preference'">
+    <app-preference [entry]="entry" [version]="latest"></app-preference>
+  </ng-container>
   <ng-container *ngSwitchCase="'conditions'">
     <app-conditions [entry]="entry" [version]="latest"></app-conditions>
   </ng-container>

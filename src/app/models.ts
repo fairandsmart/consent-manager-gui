@@ -123,6 +123,12 @@ export interface Treatment extends ModelData {
   thirdParties: { name: string, value: string }[];
 }
 
+export interface Preference extends ModelData {
+  type: 'preference';
+  title: string;
+  body: string;
+}
+
 export interface Conditions extends ModelData {
   type: 'conditions';
   title: string;
@@ -167,7 +173,7 @@ export interface Email extends ModelData {
   signature: string;
 }
 
-export type ModelDataType = 'header' | 'treatment' | 'conditions' | 'footer' | 'theme' | 'email';
+export type ModelDataType = 'header' | 'treatment' | 'conditions' | 'footer' | 'theme' | 'email' | 'preference';
 
 export interface PreviewDto {
   locale: string;

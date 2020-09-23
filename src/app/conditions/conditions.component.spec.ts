@@ -11,6 +11,7 @@ import { TranslateModule } from '@ngx-translate/core';
 import { CodemirrorModule } from '@ctrl/ngx-codemirror';
 import { EntryInfoComponent } from '../entry-info/entry-info.component';
 import { ConsentsResourceService } from '../consents-resource.service';
+import { EntryPreviewComponent } from '../entry-preview/entry-preview.component';
 
 describe('ConditionsComponent', () => {
   let component: ConditionsComponent;
@@ -23,7 +24,7 @@ describe('ConditionsComponent', () => {
     consentsResourceServiceSpy =  createSpyObj<ConsentsResourceService>('ConsentsResourceService', ['generateToken']);
 
     TestBed.configureTestingModule({
-      declarations: [ ConditionsComponent, EntryInfoComponent ],
+      declarations: [ ConditionsComponent, EntryInfoComponent, EntryPreviewComponent ],
       imports: [ ReactiveFormsModule, MaterialModule, NoopAnimationsModule, TranslateModule.forRoot(), CodemirrorModule ],
       providers: [
         {provide: ModelsResourceService, useValue: modelsResourceServiceSpy},

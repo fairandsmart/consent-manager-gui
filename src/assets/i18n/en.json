@@ -34,6 +34,7 @@
       "HEADER": "Header",
       "FOOTER": "Footer",
       "TREATMENT": "Treatment",
+      "PREFERENCE": "Preference",
       "CONDITIONS": "EULA",
       "THEME": "Theme",
       "EMAIL": "Email"
@@ -81,6 +82,10 @@
       "PANEL_TITLE": "Treatments models library",
       "EMPTY": "First, create a treatment..."
     },
+    "preferences": {
+      "PANEL_TITLE": "Preferences models library",
+      "EMPTY": "First, create a preference..."
+    },
     "conditions": {
       "PANEL_TITLE": "EULA models library",
       "EMPTY": "First, create a EULA model..."
@@ -101,6 +106,7 @@
     "BUTTON_ADD": {
       "header": "New header",
       "treatment": "New treatment",
+      "preference": "New preference",
       "conditions": "New EULA",
       "footer": "New footer",
       "theme": "New theme",
@@ -130,6 +136,7 @@
       "TITLE_NEW": {
         "HEADER": "New header",
         "TREATMENT": "New treatment",
+        "PREFERENCE": "New preference",
         "CONDITIONS": "New EULA",
         "FOOTER": "New footer",
         "THEME": "New theme",
@@ -138,6 +145,7 @@
       "TITLE_UPDATE": {
         "HEADER": "Update header",
         "TREATMENT": "Update treatment",
+        "PREFERENCE": "Update preference",
         "CONDITIONS": "Update EULA",
         "FOOTER": "Update footer",
         "THEME": "Update theme",
@@ -161,6 +169,7 @@
         "TITLE": {
           "HEADER": "Header content",
           "TREATMENT": "Treatment content",
+          "PREFERENCE": "Preference content",
           "CONDITIONS": "EULA content",
           "FOOTER": "Footer content",
           "THEME": "Theme content",
@@ -307,6 +316,17 @@
           "VALUE": "Description",
           "BUTTON_ADD": "Add third party",
           "EMPTY": "There is no third party yet."
+        }
+      },
+      "PREFERENCE": {
+        "SUBTITLES": {
+          "CONTENT": "Content"
+        },
+        "TITLE": {
+          "LABEL": "Title"
+        },
+        "BODY": {
+          "LABEL": "Body"
         }
       },
       "CONDITIONS": {
@@ -493,6 +513,10 @@
       "TREATMENTS": {
         "LABEL_AVAILABLE": "Available treatments",
         "LABEL_DISPLAYED": "Displayed treatments"
+      },
+      "PREFERENCES": {
+        "LABEL_AVAILABLE": "Available preferences",
+        "LABEL_DISPLAYED": "Displayed preferences"
       },
       "FOOTER": {
         "LABEL": "Footer reference"

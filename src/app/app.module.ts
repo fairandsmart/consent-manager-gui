@@ -49,6 +49,8 @@ import { EmailsPageComponent } from './emails-page/emails-page.component';
 import { EmailComponent } from './email/email.component';
 import { ToolbarComponent } from './toolbar/toolbar.component';
 import { EntryPreviewComponent } from './entry-preview/entry-preview.component';
+import { PreferenceComponent } from './preference/preference.component';
+import { PreferencesPageComponent } from './preferences-page/preferences-page.component';
 
 const keycloakService = new KeycloakService();
 
@@ -100,7 +102,9 @@ registerLocaleData(localeFr, 'fr');
     EmailsPageComponent,
     EmailComponent,
     ToolbarComponent,
-    EntryPreviewComponent
+    EntryPreviewComponent,
+    PreferenceComponent,
+    PreferencesPageComponent
   ],
   imports: [
     BrowserModule,

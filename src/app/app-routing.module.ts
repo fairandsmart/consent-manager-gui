@@ -11,6 +11,7 @@ import { ThemesPageComponent } from './themes-page/themes-page.component';
 import { ConditionsPageComponent } from './conditions-page/conditions-page.component';
 import { ConditionsReadOnlyComponent } from './conditions-read-only/conditions-read-only.component';
 import { EmailsPageComponent } from './emails-page/emails-page.component';
+import { PreferencesPageComponent } from './preferences-page/preferences-page.component';
 
 const routes: Routes = [
   {
@@ -64,6 +65,14 @@ const routes: Routes = [
           },
           {
             path: 'elements/:id',
+            component: EntryComponent
+          },
+          {
+            path: 'preferences',
+            component: PreferencesPageComponent
+          },
+          {
+            path: 'preferences/:id',
             component: EntryComponent
           },
           {

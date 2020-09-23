@@ -8,10 +8,9 @@ import { ModelsResourceService } from '../models-resource.service';
 import SpyObj = jasmine.SpyObj;
 import createSpyObj = jasmine.createSpyObj;
 import { TranslateModule } from '@ngx-translate/core';
-import { of } from 'rxjs';
 import { CodemirrorModule } from '@ctrl/ngx-codemirror';
 import { EntryInfoComponent } from '../entry-info/entry-info.component';
-import { delay } from 'rxjs/operators';
+import { EntryPreviewComponent } from '../entry-preview/entry-preview.component';
 
 describe('ThemeComponent', () => {
   let component: ThemeComponent;
@@ -22,7 +21,7 @@ describe('ThemeComponent', () => {
     modelsResourceServiceSpy =  createSpyObj('ModelsResourceService', ['listEntries']);
 
     TestBed.configureTestingModule({
-      declarations: [ ThemeComponent, EntryInfoComponent ],
+      declarations: [ ThemeComponent, EntryInfoComponent, EntryPreviewComponent ],
       imports: [ ReactiveFormsModule, MaterialModule, NoopAnimationsModule, TranslateModule.forRoot(), CodemirrorModule ],
       providers: [
         {provide: ModelsResourceService, useValue: modelsResourceServiceSpy}

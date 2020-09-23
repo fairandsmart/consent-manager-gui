@@ -9,6 +9,7 @@ import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { TranslateModule } from '@ngx-translate/core';
 import SpyObj = jasmine.SpyObj;
 import createSpyObj = jasmine.createSpyObj;
+import { EntryPreviewComponent } from '../entry-preview/entry-preview.component';
 
 describe('EmailComponent', () => {
   let component: EmailComponent;
@@ -19,7 +20,7 @@ describe('EmailComponent', () => {
     modelsResourceServiceSpy =  createSpyObj('ModelsResourceService', ['listEntries']);
 
     TestBed.configureTestingModule({
-      declarations: [ EmailComponent, EntryInfoComponent ],
+      declarations: [ EmailComponent, EntryInfoComponent, EntryPreviewComponent ],
       imports: [ ReactiveFormsModule, MaterialModule, NoopAnimationsModule, TranslateModule.forRoot() ],
       providers: [
         {provide: ModelsResourceService, useValue: modelsResourceServiceSpy},
