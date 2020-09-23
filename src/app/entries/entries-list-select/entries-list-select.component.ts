@@ -1,5 +1,5 @@
 import { ChangeDetectionStrategy, Component, forwardRef, Input, OnInit } from '@angular/core';
-import { ModelEntryDto } from '../../models';
+import { ModelEntryDto, ModelVersionStatus } from '../../models';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { EntriesListComponent } from '../entries-list/entries-list.component';
 
@@ -53,7 +53,7 @@ export class EntriesListSelectComponent extends EntriesListComponent implements 
   }
 
   isSelectable(entry: ModelEntryDto): boolean {
-    return entry.hasActiveVersion;
+    return entry.versions.find(v => v.status === ModelVersionStatus.ACTIVE) !== undefined;
   }
 
   isSelected(entry: ModelEntryDto): boolean {

@@ -8,12 +8,13 @@ import {
   ConsentFormType,
   FIELD_VALIDATORS,
   ModelEntryDto,
+  ModelVersionStatus,
   RECEIPT_DELIVERY_TYPES
 } from '../models';
 import { tap } from 'rxjs/operators';
 import { zip } from 'rxjs';
 import { CdkDragDrop, copyArrayItem, moveItemInArray } from '@angular/cdk/drag-drop';
-import { FormArray, FormBuilder, Validators } from '@angular/forms';
+import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { LANGUAGES } from '../common/constants';
 import { ConsentsResourceService } from '../consents-resource.service';
 import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
@@ -132,7 +133,7 @@ export class FormCreatorComponent implements OnInit {
       tap((responses) => {
         const selected: {[id: string]: ModelEntryDto[]} = {...this.selectedElements};
         responses.forEach((response, index) => {
-          if (response.totalCount === 1 && response.values[0].hasActiveVersion) {
+          if (response.totalCount === 1 && response.values[0].versions.find(v => v.status === ModelVersionStatus.ACTIVE) !== undefined) {
             const config = this.elementsLibraryConfig[index];
             selected[config.id] = response.values;
             config.draggingDisabled = true;
@@ -145,7 +146,7 @@ export class FormCreatorComponent implements OnInit {
       this.fb.group({
         header: ['', [Validators.required, Validators.pattern(FIELD_VALIDATORS.key.pattern)]],
         elements: [[], [Validators.required, Validators.pattern(FIELD_VALIDATORS.elementsKeys.pattern)]],
-        footer: ['', [Validators.pattern(FIELD_VALIDATORS.key.pattern)]]
+        footer: ['', [Validators.required, Validators.pattern(FIELD_VALIDATORS.key.pattern)]]
       }),
       this.fb.group({
         theme: ['', [Validators.pattern(FIELD_VALIDATORS.key.pattern)]],
@@ -230,9 +231,17 @@ export class FormCreatorComponent implements OnInit {
     }
   }
 
-  includedChange(): void {
+  footerIncludedChange(included): void {
     // Set selected elements to take into account included state
     this.setSelectedElements(this.selectedElements);
+    const key = 'footer';
+    const control = (this.form.controls[0] as FormGroup).controls[key];
+    if (included) {
+      control.setValidators([Validators.required, Validators.pattern(FIELD_VALIDATORS.key.pattern)]);
+    } else {
+      control.clearValidators();
+    }
+    control.updateValueAndValidity();
   }
 
   private buildContext(isPreview: boolean): ConsentContext {

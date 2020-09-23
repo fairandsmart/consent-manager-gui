@@ -12,8 +12,7 @@ export interface ModelEntryDto {
   name: string;
   description: string;
   type: ModelDataType;
-  version: ModelVersionDtoLight[];
-  hasActiveVersion: boolean;
+  versions: ModelVersionDtoLight[];
 }
 
 export interface ModelFilter {

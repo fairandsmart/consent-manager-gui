@@ -1,5 +1,5 @@
 import { ChangeDetectionStrategy, Component, forwardRef, Input, OnInit } from '@angular/core';
-import { ModelEntryDto } from '../../models';
+import { ModelEntryDto, ModelVersionStatus } from '../../models';
 import { CdkDragDrop, transferArrayItem } from '@angular/cdk/drag-drop';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { EntriesListComponent } from '../entries-list/entries-list.component';
@@ -51,7 +51,7 @@ export class EntriesListDragAndDropComponent extends EntriesListComponent implem
   }
 
   isDisabled(entry: ModelEntryDto): boolean {
-    return this.isSelected(entry) || !entry.hasActiveVersion;
+    return this.isSelected(entry) || entry.versions.find(v => v.status === ModelVersionStatus.ACTIVE) === undefined;
   }
 
   isSelected(entry: ModelEntryDto): boolean {
