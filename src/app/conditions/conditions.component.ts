@@ -1,4 +1,4 @@
-import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { EntryContentDirective } from '../entry-content/entry-content.directive';
 import {
   CollectionMethod,
@@ -39,9 +39,6 @@ export class ConditionsComponent extends EntryContentDirective<Conditions> imple
   };
 
   public safePreview: SafeHtml;
-
-  @ViewChild('preview')
-  private iframe: ElementRef;
 
   constructor(
       private fb: FormBuilder,

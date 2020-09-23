@@ -15,7 +15,7 @@ describe('EntryComponent', () => {
   let activatedRouteStub: ActivatedRouteStub;
 
   beforeEach(async(() => {
-    modelsResourceServiceSpy =  createSpyObj<ModelsResourceService>('ModelsResourceService', ['getEntry', 'getLatestVersion']);
+    modelsResourceServiceSpy =  createSpyObj<ModelsResourceService>('ModelsResourceService', ['getEntry', 'getVersion']);
     activatedRouteStub = new ActivatedRouteStub({
       params: {
         id: '123e4567-e89b-12d3-a456-426614174000'
@@ -33,8 +33,8 @@ describe('EntryComponent', () => {
   }));
 
   beforeEach(() => {
-    modelsResourceServiceSpy.getEntry.and.returnValue(of(null));
-    modelsResourceServiceSpy.getLatestVersion.and.returnValue(EMPTY);
+    modelsResourceServiceSpy.getEntry.and.returnValue(EMPTY);
+    modelsResourceServiceSpy.getVersion.and.returnValue(EMPTY);
 
     fixture = TestBed.createComponent(EntryComponent);
     component = fixture.componentInstance;

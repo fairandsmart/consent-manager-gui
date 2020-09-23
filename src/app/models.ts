@@ -46,7 +46,7 @@ export interface ModelVersionDtoLight<T extends ModelData = ModelData> {
   child?: string;
   author?: string;
   defaultLocale?: string;
-  availableLocales?: string;
+  availableLocales?: string[];
   status?: ModelVersionStatus;
   type?: ModelVersionType;
   creationDate?: number;
