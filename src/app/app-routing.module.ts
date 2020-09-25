@@ -12,6 +12,7 @@ import { ConditionsPageComponent } from './conditions-page/conditions-page.compo
 import { ConditionsReadOnlyComponent } from './conditions-read-only/conditions-read-only.component';
 import { EmailsPageComponent } from './emails-page/emails-page.component';
 import { PreferencesPageComponent } from './preferences-page/preferences-page.component';
+import { DashboardComponent } from './dashboard/dashboard.component';
 
 const routes: Routes = [
   {
@@ -103,7 +104,7 @@ const routes: Routes = [
       },
       {
         path: 'customers',
-        component: RecordsComponent
+        component: DashboardComponent
       },
       {
         path: 'customers/:user',

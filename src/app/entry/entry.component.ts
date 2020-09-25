@@ -20,11 +20,11 @@ export class EntryComponent implements OnInit {
 
   latest: ModelVersionDto;
 
-  constructor(private activatedRoute: ActivatedRoute, private modelsResourceService: ModelsResourceService) {
+  constructor(private route: ActivatedRoute, private modelsResourceService: ModelsResourceService) {
   }
 
   ngOnInit(): void {
-    this.activatedRoute.paramMap.pipe(
+    this.route.paramMap.pipe(
       mergeMap((params) => zip(
           this.modelsResourceService.getEntry(params.get('id')),
           this.modelsResourceService.getLatestVersion(params.get('id')).pipe(

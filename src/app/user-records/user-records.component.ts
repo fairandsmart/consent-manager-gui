@@ -80,7 +80,7 @@ export class UserRecordsComponent implements OnInit {
 
   constructor(
     private router: Router,
-    private activatedRoute: ActivatedRoute,
+    private route: ActivatedRoute,
     private consentsResource: ConsentsResourceService,
     private recordsResource: RecordsResourceService,
     private dialog: MatDialog,
@@ -91,7 +91,7 @@ export class UserRecordsComponent implements OnInit {
   ngOnInit(): void {
     this.dataSource = new UserRecordDataSource(this.recordsResource);
     this.dataSource.paginator = this.paginator;
-    this.activatedRoute.paramMap.subscribe(params => {
+    this.route.paramMap.subscribe(params => {
       this.filter.user = params.get('user');
       this.loadUserRecordsPage();
     });
@@ -231,7 +231,7 @@ export class UserRecordsComponent implements OnInit {
 
         this.recordsResource.createOperatorRecords(dto).subscribe((result) => {
           console.log('Receipt : ' + result);
-          this.router.navigate(['../'], { relativeTo: this.activatedRoute });
+          this.router.navigate(['../'], { relativeTo: this.route });
         }, (err) => {
           console.error(err);
           this.form.enable();

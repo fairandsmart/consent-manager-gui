@@ -8,13 +8,16 @@
   right: 0;
   bottom: 0;
   display: flex;
+
   mat-sidenav-container {
     flex: 1 1 auto;
     min-height: 500px;
     background: none;
   }
+
   mat-sidenav-content {
     overflow: hidden;
+
     mat-horizontal-stepper {
       position: absolute;
       top: 0;
@@ -26,11 +29,13 @@
       flex-direction: column;
       justify-content: stretch;
       overflow: hidden;
+
       &.step-1 ::ng-deep {
         .mat-horizontal-content-container {
           overflow: hidden;
           flex: 1 1 auto;
         }
+
         .mat-horizontal-stepper-content:nth-child(2) {
           height: 100%;
           display: flex;
@@ -38,6 +43,7 @@
           justify-content: stretch;
         }
       }
+
       ::ng-deep {
         .mat-horizontal-stepper-header-container, .mat-horizontal-content-container {
           margin: 0 auto;
@@ -45,14 +51,17 @@
           width: 100%;
           box-sizing: border-box;
         }
+
         .mat-horizontal-stepper-header-container {
           margin-top: 1em;
           margin-bottom: 1em;
           flex: 0 0 auto;
         }
+
         .mat-horizontal-content-container {
           overflow-y: auto;
         }
+
         .step-actions {
           margin-top: 1em;
           margin-bottom: 1em;
@@ -62,12 +71,15 @@
       }
     }
   }
+
   mat-sidenav {
     min-width: 400px;
     overflow: hidden;
+
     mat-form-field {
       margin: 16px;
     }
+
     app-entries-library ::ng-deep app-entries-list-drag-and-drop app-entry-card ::ng-deep mat-card {
       background-color: mat-color($mat-light-theme-background, background);
     }
@@ -80,19 +92,24 @@ mat-slide-toggle {
 
 .form-container {
   margin: 1em;
+
   &.empty {
     min-height: 80px;
     position: relative;
   }
+
   &.excluded {
     display: none;
   }
+
   app-entry-card {
     margin-bottom: 10px;
   }
+
   .excluded-hint, .empty-hint {
     color: $dark-secondary-text;
   }
+
   .empty-hint {
     position: absolute;
     top: 0;
@@ -102,6 +119,7 @@ mat-slide-toggle {
     display: flex;
     align-items: center;
   }
+
   &:not(:last-child) {
     margin-bottom: 2em;
   }
@@ -123,6 +141,7 @@ mat-slide-toggle {
 
 mat-form-field {
   display: block;
+
   + mat-form-field {
     margin-top: 1em;
   }
@@ -146,13 +165,16 @@ mat-form-field {
   flex-direction: row;
   justify-content: space-between;
   margin-top: 1em;
+
   mat-form-field {
     margin-top: 0 !important;
+
     &:first-child {
       width: 130px;
       flex: 0 0 130px;
       margin-right: 1em;
     }
+
     &:last-child {
       flex: 1 1 auto;
     }

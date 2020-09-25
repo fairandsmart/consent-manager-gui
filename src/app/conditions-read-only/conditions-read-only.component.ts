@@ -18,15 +18,15 @@ export class ConditionsReadOnlyComponent implements OnInit, OnDestroy {
   private subs: Subscription[] = [];
 
   constructor(
-    private activatedRoute: ActivatedRoute,
+    private route: ActivatedRoute,
     private consentsResource: ConsentsResourceService,
     private sanitizer: DomSanitizer) { }
 
   ngOnInit(): void {
     this.subs.push(
       combineLatest([
-        this.activatedRoute.paramMap,
-        this.activatedRoute.queryParamMap
+        this.route.paramMap,
+        this.route.queryParamMap
       ]).pipe(
         mergeMap(([params, queryParams]) => {
           const context: ConsentContext = {

@@ -37,4 +37,12 @@ export class RecordsResourceService {
     return this.http.post(`${environment.managerUrl}/records/user`, dto, {responseType: 'text'});
   }
 
+  getStats(): Observable<object[]> {
+    return this.http.get<object[]>(`${environment.managerUrl}/records/subjects`); // TODO
+  }
+
+  listSubjects(): Observable<string[]> {
+    return this.http.get<string[]>(`${environment.managerUrl}/records/subjects`);
+  }
+
 }

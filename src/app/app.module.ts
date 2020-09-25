@@ -51,6 +51,8 @@ import { ToolbarComponent } from './toolbar/toolbar.component';
 import { EntryPreviewComponent } from './entry-preview/entry-preview.component';
 import { PreferenceComponent } from './preference/preference.component';
 import { PreferencesPageComponent } from './preferences-page/preferences-page.component';
+import { DashboardComponent } from './dashboard/dashboard.component';
+import { ChartsModule } from 'ng2-charts';
 
 const keycloakService = new KeycloakService();
 
@@ -104,7 +106,8 @@ registerLocaleData(localeFr, 'fr');
     ToolbarComponent,
     EntryPreviewComponent,
     PreferenceComponent,
-    PreferencesPageComponent
+    PreferencesPageComponent,
+    DashboardComponent
   ],
   imports: [
     BrowserModule,
@@ -125,7 +128,8 @@ registerLocaleData(localeFr, 'fr');
     }),
     StoreModule.forRoot({}, {}),
     EffectsModule.forRoot([]),
-    ClipboardModule
+    ClipboardModule,
+    ChartsModule
   ],
   providers: [
     {

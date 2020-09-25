@@ -49,7 +49,7 @@ export class RecordsComponent implements OnInit {
 
   constructor(
       private router: Router,
-      private activatedRoute: ActivatedRoute,
+      private route: ActivatedRoute,
       private recordsResource: RecordsResourceService) {}
 
   ngOnInit(): void {
@@ -81,6 +81,6 @@ export class RecordsComponent implements OnInit {
   }
 
   goToUserRecords(): void {
-    this.router.navigate(['./' + this.filter.query], { relativeTo: this.activatedRoute });
+    this.router.navigate(['./' + this.filter.query], { relativeTo: this.route });
   }
 }

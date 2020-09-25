@@ -17,7 +17,7 @@ describe('RecordsComponent', () => {
   let recordsResourceServiceSpy: SpyObj<RecordsResourceService>;
 
   beforeEach(async(() => {
-    recordsResourceServiceSpy =  createSpyObj<RecordsResourceService>('ConsentsResourceService', ['listRecords']);
+    recordsResourceServiceSpy =  createSpyObj<RecordsResourceService>('RecordsResourceService', ['listRecords']);
 
     TestBed.configureTestingModule({
       declarations: [ RecordsComponent ],
