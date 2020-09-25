@@ -9,7 +9,7 @@ import { TranslateModule } from '@ngx-translate/core';
 import { ModelsResourceService } from '../../models-resource.service';
 import { ActivatedRoute } from '@angular/router';
 import { ActivatedRouteStub } from '../../testing/activated-route-stub';
-import { EMPTY, of } from 'rxjs';
+import { of } from 'rxjs';
 import createSpyObj = jasmine.createSpyObj;
 import SpyObj = jasmine.SpyObj;
 
@@ -20,7 +20,7 @@ describe('EntriesListComponent', () => {
   let activatedRouteStub: ActivatedRouteStub;
 
   beforeEach(async(() => {
-    modelsResourceServiceSpy =  createSpyObj<ModelsResourceService>('ModelsResourceService', ['listEntries', 'getLatestVersion']);
+    modelsResourceServiceSpy =  createSpyObj<ModelsResourceService>('ModelsResourceService', ['listEntries']);
     activatedRouteStub = new ActivatedRouteStub();
 
     TestBed.configureTestingModule({
@@ -42,8 +42,6 @@ describe('EntriesListComponent', () => {
       totalCount: 0,
       totalPages: 0,
     }));
-
-    modelsResourceServiceSpy.getLatestVersion.and.returnValue(EMPTY);
 
     fixture = TestBed.createComponent(EntriesListComponent);
     component = fixture.componentInstance;

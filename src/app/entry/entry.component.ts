@@ -1,9 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { catchError, mergeMap } from 'rxjs/operators';
+import { map, mergeMap } from 'rxjs/operators';
 import { ModelEntryDto, ModelVersionDto } from '../models';
 import { ModelsResourceService } from '../models-resource.service';
-import { of, zip } from 'rxjs';
+import { of } from 'rxjs';
+import * as _ from 'lodash';
 
 @Component({
   selector: 'app-entry',
@@ -25,17 +26,18 @@ export class EntryComponent implements OnInit {
 
   ngOnInit(): void {
     this.route.paramMap.pipe(
-      mergeMap((params) => zip(
-          this.modelsResourceService.getEntry(params.get('id')),
-          this.modelsResourceService.getLatestVersion(params.get('id')).pipe(
-            catchError((err) => {
-              console.error(err);
-              return of(null);
-            })
-          )
-        )
-      )
-    ).subscribe(([entry, latest]) => {
+      mergeMap((params) => this.modelsResourceService.getEntry(params.get('id'))),
+      mergeMap((entry: ModelEntryDto) => {
+        const lastVersion = _.last(entry.versions);
+        if (lastVersion) {
+          return this.modelsResourceService.getVersion(entry.id, lastVersion.id)
+            .pipe(
+              map((version) => ([entry, version]))
+            );
+        }
+        return of([entry, null]);
+      })
+    ).subscribe(([entry, latest]: [ModelEntryDto, ModelVersionDto]) => {
       this.entry = entry;
       this.latest = latest;
     });

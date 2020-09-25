@@ -42,7 +42,7 @@ grep -qr "$FS_AUTH_CLIENTID" "$WHEREMYFILESARE"
 
 # set AUTH realm
 echo Setting AUTH realm FS_AUTH_REALM
-[ -n "$" ]
+[ -n "$FS_AUTH_REALM" ]
 find "$WHEREMYFILESARE" -type f -exec sed -i "s|$FS_AUTH_ORIGINAL_REALM|$FS_AUTH_REALM|g" {} \;
 grep -qr "$FS_AUTH_REALM" "$WHEREMYFILESARE"
 
