@@ -36,17 +36,14 @@
     }
   }
 
-  .operator-container {
-    margin-top: 2em;
-  }
+  mat-sidenav {
+    min-width: 350px;
 
-  .list-content {
-    display: flex;
-    justify-content: space-between;
-    width: 100%;
-
-    .list-content-text {
-      align-self: center;
+    .list-content {
+      display: flex;
+      justify-content: space-between;
+      width: 100%;
+      align-items: center;
     }
   }
 }

@@ -28,7 +28,7 @@
       "CREATE": "Create",
       "EDIT": "Edit",
       "SUBMIT": "Submit",
-      "BACK_LIST": "Go back to the list"
+      "BACK": "Back"
     },
     "ENTRY_TYPES": {
       "HEADER": "Header",
@@ -485,6 +485,11 @@
         "TITLE": "New consent",
         "VALUES": "Consents values",
         "EMPTY": "There is no value yet."
+      },
+      "LOG": {
+        "TITLE": "Log",
+        "COMMENT": "Comment",
+        "SUBMIT": "Save changes"
       }
     }
   },

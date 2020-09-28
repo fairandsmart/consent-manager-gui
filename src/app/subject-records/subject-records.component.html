@@ -1,0 +1,103 @@
+<mat-sidenav-container>
+  <mat-sidenav-content>
+    <div class="container">
+      <div class="title-container">
+        <h2>{{'RECORDS.OPERATOR.TITLE' | translate}} {{filter.subject}}</h2>
+      </div>
+
+      <div class="table-container mat-elevation-z6">
+        <div class="progress-bar-container" *ngIf="dataSource.loading$ | async">
+          <mat-progress-bar mode="indeterminate"></mat-progress-bar>
+        </div>
+        <table mat-table [dataSource]="dataSource" [class.loading]="dataSource.loading$ | async"
+               matSort [matSortActive]="filter.order" [matSortDirection]="filter.direction" matSortDisableClear="true">
+
+          <ng-container matColumnDef="bodyKey">
+            <th mat-header-cell mat-sort-header *matHeaderCellDef>{{'RECORDS.COMMON.BODY.LABEL' | translate}}</th>
+            <td mat-cell *matCellDef="let element">{{element.bodyKey}}</td>
+          </ng-container>
+
+          <ng-container matColumnDef="type">
+            <th mat-header-cell mat-sort-header *matHeaderCellDef>{{'RECORDS.COMMON.TYPE.LABEL' | translate}}</th>
+            <td mat-cell
+                *matCellDef="let element">{{'COMMON.ENTRY_TYPES.' + element.type.toUpperCase() | translate}}</td>
+          </ng-container>
+
+          <ng-container matColumnDef="value">
+            <th mat-header-cell mat-sort-header *matHeaderCellDef>{{'RECORDS.COMMON.VALUE.LABEL' | translate}}</th>
+            <td mat-cell *matCellDef="let element">
+              <span *ngIf="element.value != 'accepted' && element.value != 'refused'">-</span>
+              <span *ngIf="element.value"><mat-icon>{{element.value == "accepted" ? 'check' : 'close'}}</mat-icon></span>
+            </td>
+          </ng-container>
+
+          <ng-container matColumnDef="collectionMethod">
+            <th mat-header-cell mat-sort-header
+                *matHeaderCellDef>{{'RECORDS.COMMON.COLLECTION_METHOD.LABEL' | translate}}</th>
+            <td mat-cell
+                *matCellDef="let element">{{element.collectionMethod ? ('COMMON.COLLECTION_METHODS.' + element.collectionMethod | translate) : '-'}}</td>
+          </ng-container>
+
+          <ng-container matColumnDef="comment">
+            <th mat-header-cell mat-sort-header *matHeaderCellDef>{{'RECORDS.COMMON.COMMENT.LABEL' | translate}}</th>
+            <td mat-cell *matCellDef="let element">{{element.comment || '-'}}</td>
+          </ng-container>
+
+          <ng-container matColumnDef="creationTimestamp">
+            <th mat-header-cell mat-sort-header *matHeaderCellDef>{{'RECORDS.COMMON.CREATION.LABEL' | translate}}</th>
+            <td mat-cell
+                *matCellDef="let element">{{element.creationTimestamp > 0 ? (element.creationTimestamp | date:'short') : '-'}}</td>
+          </ng-container>
+
+          <ng-container matColumnDef="expirationTimestamp">
+            <th mat-header-cell mat-sort-header *matHeaderCellDef>{{'RECORDS.COMMON.EXPIRATION.LABEL' | translate}}</th>
+            <td mat-cell
+                *matCellDef="let element">{{element.expirationTimestamp > 0 ? (element.expirationTimestamp | date:'short') : '-'}}</td>
+          </ng-container>
+
+          <ng-container matColumnDef="actions">
+            <th mat-header-cell *matHeaderCellDef></th>
+            <td mat-cell *matCellDef="let element">
+              <button mat-icon-button (click)="addElementToLog(element)">
+                <mat-icon>edit</mat-icon>
+              </button>
+            </td>
+          </ng-container>
+
+          <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+          <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+
+        </table>
+        <mat-paginator [pageSizeOptions]="pageSizeOptions" [pageIndex]="filter.page" [pageSize]="this.filter.size"
+                       showFirstLastButtons></mat-paginator>
+      </div>
+    </div>
+    <div class="back-button-wrapper">
+      <button mat-button color="primary" routerLink="../">{{'COMMON.BUTTONS.BACK' | translate}}</button>
+    </div>
+  </mat-sidenav-content>
+  <mat-sidenav opened mode="side" position="end">
+    <form *ngIf="form" [formGroup]="form">
+      <h2>{{'RECORDS.OPERATOR.LOG.TITLE' | translate}}</h2>
+      <mat-list *ngIf="operatorLog.length > 0">
+        <mat-list-item *ngFor="let element of operatorLog">
+          <div class="list-content">
+          <span class="list-content-text">
+            {{element.bodyKey}} : {{'RECORDS.COMMON.VALUE.' + element.value.toUpperCase() | translate}}
+          </span>
+            <button mat-icon-button (click)="removeElementFromLog(element)">
+              <mat-icon>delete</mat-icon>
+            </button>
+          </div>
+        </mat-list-item>
+      </mat-list>
+      <mat-form-field appearance="outline" *ngIf="operatorLog.length>0">
+        <mat-label>{{'RECORDS.OPERATOR.LOG.COMMENT' | translate}}</mat-label>
+        <input matInput required formControlName="comment" autocomplete="off">
+      </mat-form-field>
+      <button mat-raised-button color="primary" *ngIf="operatorLog.length>0" (click)="submitLog()">
+        {{'RECORDS.OPERATOR.LOG.SUBMIT' | translate}}
+      </button>
+    </form>
+  </mat-sidenav>
+</mat-sidenav-container>

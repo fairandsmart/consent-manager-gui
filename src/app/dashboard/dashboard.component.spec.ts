@@ -18,7 +18,7 @@ describe('DashboardComponent', () => {
   let recordsResourceServiceSpy: SpyObj<RecordsResourceService>;
 
   beforeEach(async(() => {
-    recordsResourceServiceSpy =  createSpyObj<RecordsResourceService>('RecordsResourceService', ['listSubjects']);
+    recordsResourceServiceSpy =  createSpyObj<RecordsResourceService>('RecordsResourceService', ['findSubjects', 'getStats']);
 
     TestBed.configureTestingModule({
       declarations: [ DashboardComponent ],
@@ -31,7 +31,8 @@ describe('DashboardComponent', () => {
   }));
 
   beforeEach(() => {
-    recordsResourceServiceSpy.listSubjects.and.returnValue(EMPTY);
+    recordsResourceServiceSpy.findSubjects.and.returnValue(EMPTY);
+    recordsResourceServiceSpy.getStats.and.returnValue(EMPTY);
 
     fixture = TestBed.createComponent(DashboardComponent);
     component = fixture.componentInstance;

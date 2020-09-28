@@ -29,7 +29,7 @@
       "CREATE": "Créer",
       "EDIT": "Modifier",
       "SUBMIT": "Valider",
-      "BACK_LIST": "Retour à la liste"
+      "BACK": "Retour"
     },
     "ENTRY_TYPES": {
       "HEADER": "En-tête",
@@ -486,6 +486,11 @@
         "TITLE": "Nouveau consentement",
         "VALUES": "Valeurs des consentements",
         "EMPTY": "Il n'y a aucune valeur pour le moment."
+      },
+      "LOG": {
+        "TITLE": "Log",
+        "COMMENT": "Commentaire",
+        "SUBMIT": "Enregistrer les changements"
       }
     }
   },

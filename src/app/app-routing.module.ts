@@ -1,8 +1,6 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { EntryComponent } from './entry/entry.component';
-import { RecordsComponent } from './records/records.component';
-import { UserRecordsComponent } from './user-records/user-records.component';
 import { RolesGuardService } from './guards/roles-guard.service';
 import { ConfigComponent } from './config/config.component';
 import { FormCreatorComponent } from './form-creator/form-creator.component';
@@ -13,6 +11,7 @@ import { ConditionsReadOnlyComponent } from './conditions-read-only/conditions-r
 import { EmailsPageComponent } from './emails-page/emails-page.component';
 import { PreferencesPageComponent } from './preferences-page/preferences-page.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
+import { SubjectRecordsComponent } from './subject-records/subject-records.component';
 
 const routes: Routes = [
   {
@@ -107,8 +106,8 @@ const routes: Routes = [
         component: DashboardComponent
       },
       {
-        path: 'customers/:user',
-        component: UserRecordsComponent
+        path: 'customers/:subject',
+        component: SubjectRecordsComponent
       },
       {
         path: 'forms',

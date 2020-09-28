@@ -271,43 +271,18 @@ export interface Record {
 }
 
 export interface RecordFilter {
-  query?: string;
   page?: number;
   size?: number;
-  order?: keyof Record;
-  direction?: SortDirection;
-}
-
-export interface UserRecord {
-  headerKey: string;
-  bodyKey: string;
-  footerKey: string;
-  owner: string;
-  subject: string;
-  creationTimestamp: number;
-  expirationTimestamp: number;
-  type: string;
-  value: string;
-  status: string;
-  collectionMethod: CollectionMethod;
-  comment: string;
-}
-
-export interface UserRecordFilter {
-  user?: string;
-  page?: number;
-  size?: number;
+  owner?: string;
+  subject?: string;
+  status?: RecordStatus[];
+  headers?: string[];
+  elements?: string[];
+  footers?: string[];
+  collectionMethod?: string;
+  after?: number;
+  before?: number;
+  value?: string;
   order?: string;
   direction?: SortDirection;
-}
-
-export interface OperatorRecordDto {
-  token: string;
-  values: {[key: string]: string};
-  comment: string;
-}
-
-export interface OperatorRecordElement {
-  bodyKey: string;
-  value: string;
 }

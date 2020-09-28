@@ -1,6 +1,6 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { UserRecordEditorDialogComponent } from './user-record-editor-dialog.component';
+import { SubjectRecordEditorDialogComponent } from './subject-record-editor-dialog.component';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { ReactiveFormsModule } from '@angular/forms';
 import { MaterialModule } from '../material.module';
@@ -9,16 +9,16 @@ import SpyObj = jasmine.SpyObj;
 import createSpyObj = jasmine.createSpyObj;
 import { TranslateModule } from '@ngx-translate/core';
 
-describe('UserRecordEditorDialogComponent', () => {
-  let component: UserRecordEditorDialogComponent;
-  let fixture: ComponentFixture<UserRecordEditorDialogComponent>;
-  let dialogRefSpy: SpyObj<MatDialogRef<UserRecordEditorDialogComponent>>;
+describe('SubjectRecordEditorDialogComponent', () => {
+  let component: SubjectRecordEditorDialogComponent;
+  let fixture: ComponentFixture<SubjectRecordEditorDialogComponent>;
+  let dialogRefSpy: SpyObj<MatDialogRef<SubjectRecordEditorDialogComponent>>;
 
   beforeEach(async(() => {
-    dialogRefSpy = createSpyObj<MatDialogRef<UserRecordEditorDialogComponent>>('MatDialogRef', ['close']);
+    dialogRefSpy = createSpyObj<MatDialogRef<SubjectRecordEditorDialogComponent>>('MatDialogRef', ['close']);
 
     TestBed.configureTestingModule({
-      declarations: [ UserRecordEditorDialogComponent ],
+      declarations: [ SubjectRecordEditorDialogComponent ],
       imports: [ ReactiveFormsModule, MaterialModule, NoopAnimationsModule, TranslateModule.forRoot() ],
       providers: [
         {provide: MatDialogRef, useValue: dialogRefSpy},
@@ -29,7 +29,7 @@ describe('UserRecordEditorDialogComponent', () => {
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(UserRecordEditorDialogComponent);
+    fixture = TestBed.createComponent(SubjectRecordEditorDialogComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

@@ -98,7 +98,7 @@ export class DashboardComponent implements OnInit {
 
   ngOnInit(): void {
     this.searchValue = new FormControl();
-    this.recordsService.listSubjects().subscribe((response) => this.subjects = response);
+    this.recordsService.findSubjects('').subscribe((response) => this.subjects = response);
     this.filteredSubjects = this.searchValue.valueChanges
       .pipe(
         startWith(''),

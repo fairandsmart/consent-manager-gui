@@ -16,13 +16,11 @@ import { EntryEditorDialogComponent } from './entry-editor-dialog/entry-editor-d
 import { EntryInfoComponent } from './entry-info/entry-info.component';
 import { StoreModule } from '@ngrx/store';
 import { EffectsModule } from '@ngrx/effects';
-import { RecordsComponent } from './records/records.component';
 import { HeaderComponent } from './header/header.component';
 import { ConditionsComponent } from './conditions/conditions.component';
 import { TreatmentComponent } from './treatment/treatment.component';
 import { MAT_SNACK_BAR_DEFAULT_OPTIONS } from '@angular/material/snack-bar';
-import { UserRecordsComponent } from './user-records/user-records.component';
-import { UserRecordEditorDialogComponent } from './user-record-editor-dialog/user-record-editor-dialog.component';
+import { SubjectRecordEditorDialogComponent } from './subject-record-editor-dialog/subject-record-editor-dialog.component';
 import { ConfigComponent } from './config/config.component';
 import { TranslateLoader, TranslateModule, TranslateService } from '@ngx-translate/core';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
@@ -53,6 +51,7 @@ import { PreferenceComponent } from './preference/preference.component';
 import { PreferencesPageComponent } from './preferences-page/preferences-page.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { ChartsModule } from 'ng2-charts';
+import { SubjectRecordsComponent } from './subject-records/subject-records.component';
 
 const keycloakService = new KeycloakService();
 
@@ -90,9 +89,7 @@ registerLocaleData(localeFr, 'fr');
     EntryInfoComponent,
     EntryCardComponent,
     ShortIdPipe,
-    RecordsComponent,
-    UserRecordsComponent,
-    UserRecordEditorDialogComponent,
+    SubjectRecordEditorDialogComponent,
     ThemeComponent,
     FormCreatorComponent,
     ThemesPageComponent,
@@ -107,7 +104,8 @@ registerLocaleData(localeFr, 'fr');
     EntryPreviewComponent,
     PreferenceComponent,
     PreferencesPageComponent,
-    DashboardComponent
+    DashboardComponent,
+    SubjectRecordsComponent
   ],
   imports: [
     BrowserModule,
