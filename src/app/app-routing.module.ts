@@ -4,7 +4,6 @@ import { EntryComponent } from './entry/entry.component';
 import { RolesGuardService } from './guards/roles-guard.service';
 import { ConfigComponent } from './config/config.component';
 import { FormCreatorComponent } from './form-creator/form-creator.component';
-import { EntriesPageComponent } from './entries-page/entries-page.component';
 import { ThemesPageComponent } from './themes-page/themes-page.component';
 import { ConditionsPageComponent } from './conditions-page/conditions-page.component';
 import { ConditionsReadOnlyComponent } from './conditions-read-only/conditions-read-only.component';
@@ -12,11 +11,14 @@ import { EmailsPageComponent } from './emails-page/emails-page.component';
 import { PreferencesPageComponent } from './preferences-page/preferences-page.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { SubjectRecordsComponent } from './subject-records/subject-records.component';
+import { FootersPageComponent } from './footers-page/footers-page.component';
+import { TreatmentsPageComponent } from './treatments-page/treatments-page.component';
+import { HeadersPageComponent } from './headers-page/headers-page.component';
 
 const routes: Routes = [
   {
     path: '',
-    redirectTo: '/admin/customers',
+    redirectTo: '/admin/home',
     pathMatch: 'full'
   },
   {
@@ -24,7 +26,7 @@ const routes: Routes = [
     children: [
       {
         path: '',
-        redirectTo: '/admin/customers',
+        redirectTo: '/admin/home',
         pathMatch: 'full'
       },
       {
@@ -32,7 +34,7 @@ const routes: Routes = [
         children: [
           {
             path: '',
-            redirectTo: '/admin/customers',
+            redirectTo: '/admin/home',
             pathMatch: 'full'
           },
           {
@@ -56,15 +58,31 @@ const routes: Routes = [
         children: [
           {
             path: '',
-            redirectTo: '/admin/customers',
+            redirectTo: '/admin/home',
             pathMatch: 'full',
           },
           {
-            path: 'elements',
-            component: EntriesPageComponent
+            path: 'headers',
+            component: HeadersPageComponent
           },
           {
-            path: 'elements/:id',
+            path: 'headers/:id',
+            component: EntryComponent
+          },
+          {
+            path: 'treatments',
+            component: TreatmentsPageComponent
+          },
+          {
+            path: 'treatments/:id',
+            component: EntryComponent
+          },
+          {
+            path: 'footers',
+            component: FootersPageComponent
+          },
+          {
+            path: 'footers/:id',
             component: EntryComponent
           },
           {
@@ -102,15 +120,15 @@ const routes: Routes = [
         ]
       },
       {
-        path: 'customers',
+        path: 'home',
         component: DashboardComponent
       },
       {
-        path: 'customers/:subject',
+        path: 'home/:subject',
         component: SubjectRecordsComponent
       },
       {
-        path: 'forms',
+        path: 'integration',
         component: FormCreatorComponent
       }
     ]

@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { RecordsResourceService } from '../records-resource.service';
 import { Observable } from 'rxjs';
 import { FormControl } from '@angular/forms';
-import { map, startWith } from 'rxjs/operators';
+import { map } from 'rxjs/operators';
 import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
@@ -99,16 +99,12 @@ export class DashboardComponent implements OnInit {
   ngOnInit(): void {
     this.searchValue = new FormControl();
     this.recordsService.findSubjects('').subscribe((response) => this.subjects = response);
-    this.filteredSubjects = this.searchValue.valueChanges
-      .pipe(
-        startWith(''),
-        map(value => this.filterSubjects(value))
-      );
+    this.filteredSubjects = this.searchValue.valueChanges.pipe(map((value) => this.filterSubjects(value)));
     this.recordsService.getStats().subscribe((response) => {
       // TODO
     this.numbersData = {
-        subjects: 126,
-        records: 480
+        subjects: 1,
+        records: 2
       };
     this.recordsAverageData = {
         chartLabels: ['Traitements', 'Préférences', 'CGU'],

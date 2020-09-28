@@ -310,7 +310,7 @@ export class FormCreatorComponent implements OnInit {
     }
     this.consentsResource.generateToken(context).subscribe((token) => {
       this.form.enable();
-      const url = this.consentsResource.buildSubmitConsentUrl(token);
+      const url = this.consentsResource.getFormUrl(token);
       this.dialog.open<FormUrlDialogComponent, FormUrlDialogComponentData>(FormUrlDialogComponent, {
         data: {url: url}
       });

@@ -1,14 +1,14 @@
 import { Component } from '@angular/core';
-import { environment } from '../../environments/environment';
 import { SectionConfig } from '../entries/entries-library/entries-library.component';
+import { environment } from '../../environments/environment';
 
 @Component({
-  selector: 'app-entries-page',
+  selector: 'app-headers-page',
   template: `
     <app-entries-library [config]="config"></app-entries-library>
   `
 })
-export class EntriesPageComponent {
+export class HeadersPageComponent {
 
   public config: SectionConfig[] = [
     {
@@ -16,19 +16,7 @@ export class EntriesPageComponent {
       types: ['header'],
       multiple: environment.customization.multipleHeader,
       showSort: environment.customization.multipleHeader
-    },
-    {
-      id: 'treatments',
-      types: ['treatment'],
-      multiple: true,
-      showSort: true
-    },
-    {
-      id: 'footers',
-      types: ['footer'],
-      multiple: environment.customization.multipleFooter,
-      showSort: environment.customization.multipleFooter
-    },
+    }
   ];
 
   constructor() { }

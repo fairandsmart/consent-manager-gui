@@ -4,8 +4,8 @@
   <mat-sidenav mode="side" opened>
     <mat-list>
       <mat-list-item class="section-header">
-        <button mat-button routerLink="./customers" routerLinkActive="active-link">
-          {{'NAV.CATEGORIES.CUSTOMERS.LABEL' | translate}}
+        <button mat-button routerLink="./home" routerLinkActive="active-link">
+          {{'NAV.CATEGORIES.HOME.LABEL' | translate}}
         </button>
       </mat-list-item>
     </mat-list>
@@ -20,8 +20,16 @@
       <mat-accordion>
         <mat-expansion-panel hideToggle [expanded]="showModelSubsections">
           <mat-list-item>
-            <button mat-button #elements="routerLinkActive" routerLink="./config/elements"
-                    routerLinkActive="active-link">{{'NAV.CATEGORIES.MODELS.ELEMENTS' | translate}}</button>
+            <button mat-button #elements="routerLinkActive" routerLink="./config/headers"
+                    routerLinkActive="active-link">{{'NAV.CATEGORIES.MODELS.HEADERS' | translate}}</button>
+          </mat-list-item>
+          <mat-list-item>
+            <button mat-button #elements="routerLinkActive" routerLink="./config/treatments"
+                    routerLinkActive="active-link">{{'NAV.CATEGORIES.MODELS.TREATMENTS' | translate}}</button>
+          </mat-list-item>
+          <mat-list-item>
+            <button mat-button #elements="routerLinkActive" routerLink="./config/footers"
+                    routerLinkActive="active-link">{{'NAV.CATEGORIES.MODELS.FOOTERS' | translate}}</button>
           </mat-list-item>
           <mat-list-item>
             <button mat-button #preferences="routerLinkActive" routerLink="./config/preferences"
@@ -45,8 +53,8 @@
 
     <mat-list>
       <mat-list-item class="section-header">
-        <button mat-button routerLink="./forms" routerLinkActive="active-link">
-          {{'NAV.CATEGORIES.FORMS.LABEL' | translate}}
+        <button mat-button routerLink="./integration" routerLinkActive="active-link">
+          {{'NAV.CATEGORIES.INTEGRATION.LABEL' | translate}}
         </button>
       </mat-list-item>
     </mat-list>

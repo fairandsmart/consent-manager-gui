@@ -5,19 +5,21 @@
       "LOGOUT": "Déconnexion"
     },
     "CATEGORIES": {
-      "CUSTOMERS": {
-        "LABEL": "Clients"
+      "HOME": {
+        "LABEL": "Accueil"
       },
       "MODELS": {
-        "LABEL": "Modèles",
-        "ELEMENTS": "Eléments",
+        "LABEL": "Configuration",
+        "HEADERS": "En-têtes",
+        "TREATMENTS": "Traitements",
+        "FOOTERS": "Pieds de page",
         "PREFERENCES": "Préférences",
         "CONDITIONS": "CGU/CGS",
         "EMAILS": "Emails",
         "THEMES": "Thèmes"
       },
-      "FORMS": {
-        "LABEL": "Formulaires"
+      "INTEGRATION": {
+        "LABEL": "Intégration"
       }
     }
   },
@@ -76,39 +78,40 @@
   "ENTRIES": {
     "TITLE": "Éléments",
     "headers": {
-      "PANEL_TITLE": "Modèle d'en-tête",
+      "PANEL_TITLE": "Bibliothèque d'en-têtes",
       "EMPTY": "Commencez par ajouter un en-tête..."
     },
     "treatments": {
-      "PANEL_TITLE": "Bibliothèque de modèles de traitements",
+      "PANEL_TITLE": "Bibliothèque de traitements",
       "EMPTY": "Commencez par ajouter un traitement..."
     },
     "preferences": {
-      "PANEL_TITLE": "Bibliothèque de modèles de préférences",
+      "PANEL_TITLE": "Bibliothèque de préférences",
       "EMPTY": "Commencez par ajouter une préférence..."
     },
     "conditions": {
-      "PANEL_TITLE": "Modèles de CGU",
-      "EMPTY": "Commencez par ajouter un modèle de CGU..."
+      "PANEL_TITLE": "Bibliothèque de CGU",
+      "EMPTY": "Commencez par ajouter des CGU..."
     },
     "footers": {
-      "PANEL_TITLE": "Modèle de pied de page",
+      "PANEL_TITLE": "Bibliothèque de pieds de page",
       "EMPTY": "Commencez par ajouter un pied de page...",
       "EXCLUDED": "Le formulaire ne contiendra pas de pied de page"
     },
     "themes": {
       "PANEL_TITLE": "Bibliothèque de thèmes",
+      "EMPTY": "Commencez par ajouter un thème...",
       "NO_DESCRIPTION": "Pas de description"
     },
     "emails": {
-      "PANEL_TITLE": "Bibliothèque de modèles d'emails",
-      "EMPTY": "Commencez par ajouter un modèle d'email..."
+      "PANEL_TITLE": "Bibliothèque d'emails",
+      "EMPTY": "Commencez par ajouter un email..."
     },
     "BUTTON_ADD": {
       "header": "Ajouter un en-tête",
       "treatment": "Ajouter un traitement",
       "preference": "Ajouter une préférence",
-      "conditions": "Ajouter un modèle de CGU",
+      "conditions": "Ajouter des CGU",
       "footer": "Ajouter un pied de page",
       "theme": "Ajouter un thème",
       "email": "Ajouter un email",
@@ -576,8 +579,7 @@
       "DIALOG_TITLE": "Générer des formulaires",
       "TITLE": "URL d'appel à l'API",
       "BUTTON_OK": "Terminé",
-      "BUTTON_VIEW": "Obtenir l'URL d'appel à l'API",
-      "HINT": "Remplissez le paramètre \"subject\" avec l'id de la personne qui donnera son consentement."
+      "BUTTON_VIEW": "Obtenir l'URL d'appel à l'API"
     }
   },
   "HEALTH": {

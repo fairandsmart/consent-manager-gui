@@ -1,3 +1,23 @@
+/* Common */
+
+export type SortDirection = 'asc' | 'desc' | '';
+
+export const FIELD_VALIDATORS = {
+  key: {
+    pattern: '^[0-9a-zA-Z-_.]{2,255}$'
+  },
+  name: {
+    min: 2,
+    max: 255
+  },
+  description: {
+    max: 2500
+  },
+  elementsKeys: {
+    pattern: '^([0-9a-zA-Z-_.]{2,255},)*[0-9a-zA-Z-_.]{2,255}$'
+  }
+};
+
 export interface CollectionPage<T> {
   values: T[];
   page: number;
@@ -6,6 +26,8 @@ export interface CollectionPage<T> {
   totalCount: number;
 }
 
+/* Models */
+
 export interface ModelEntryDto {
   id: string;
   key: string;
@@ -13,14 +35,6 @@ export interface ModelEntryDto {
   description: string;
   type: ModelDataType;
   versions: ModelVersionDtoLight[];
-}
-
-export interface ModelFilter {
-  types: ModelDataType[];
-  page?: number;
-  size?: number;
-  order?: keyof ModelEntryDto;
-  direction?: SortDirection;
 }
 
 export interface CreateModelDto {
@@ -66,6 +80,15 @@ export enum ModelVersionStatus {
 export enum ModelVersionType {
   MAJOR = 'MAJOR',
   MINOR = 'MINOR'
+}
+
+export interface Controller {
+  actingBehalfCompany: boolean;
+  company: string;
+  name: string;
+  address: string;
+  email: string;
+  phoneNumber: string;
 }
 
 export interface Header extends ModelData {
@@ -136,15 +159,6 @@ export interface Conditions extends ModelData {
   rejectLabel: string;
 }
 
-export interface Controller {
-  actingBehalfCompany: boolean;
-  company: string;
-  name: string;
-  address: string;
-  email: string;
-  phoneNumber: string;
-}
-
 export interface Theme extends ModelData {
   type: 'theme';
   name: string;
@@ -180,23 +194,15 @@ export interface PreviewDto {
   data?: ModelData;
 }
 
-export type SortDirection = 'asc' | 'desc' | '';
+export interface ModelFilter {
+  types: ModelDataType[];
+  page?: number;
+  size?: number;
+  order?: keyof ModelEntryDto;
+  direction?: SortDirection;
+}
 
-export const FIELD_VALIDATORS = {
-  key: {
-    pattern: '^[0-9a-zA-Z-_.]{2,255}$'
-  },
-  name: {
-    min: 2,
-    max: 255
-  },
-  description: {
-    max: 2500
-  },
-  elementsKeys: {
-    pattern: '^([0-9a-zA-Z-_.]{2,255},)*[0-9a-zA-Z-_.]{2,255}$'
-  }
-};
+/* Consents */
 
 export interface ConsentContext {
   subject: string;
@@ -241,6 +247,8 @@ export enum CollectionMethod {
 export type ReceiptDeliveryType = 'NONE' | 'GENERATE' | 'DISPLAY' | 'STORE' | 'DOWNLOAD';
 
 export const RECEIPT_DELIVERY_TYPES: ReceiptDeliveryType[] = ['NONE', 'GENERATE', 'DISPLAY', 'STORE', 'DOWNLOAD'];
+
+/* Records */
 
 export enum RecordStatus {
   PENDING = 'PENDING',

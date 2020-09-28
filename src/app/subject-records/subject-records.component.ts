@@ -7,10 +7,10 @@ import { MatPaginator } from '@angular/material/paginator';
 import { MatSort, Sort } from '@angular/material/sort';
 import { tap } from 'rxjs/operators';
 import { ActivatedRoute, Router } from '@angular/router';
-import { ConsentsResourceService } from '../consents-resource.service';
 import { MatDialog } from '@angular/material/dialog';
 import { SubjectRecordEditorDialogComponent } from '../subject-record-editor-dialog/subject-record-editor-dialog.component';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { ModelsResourceService } from '../models-resource.service';
 
 class SubjectRecordDataSource extends CollectionDatasource<Record, RecordFilter> {
 
@@ -60,7 +60,7 @@ export class SubjectRecordsComponent implements OnInit {
   constructor(
     private router: Router,
     private route: ActivatedRoute,
-    private consentsResource: ConsentsResourceService,
+    private modelsResource: ModelsResourceService,
     private recordsResource: RecordsResourceService,
     private dialog: MatDialog,
     private fb: FormBuilder) {}
@@ -122,9 +122,14 @@ export class SubjectRecordsComponent implements OnInit {
   }
 
   submitLog(): void {
+    console.log('TODO : enregistrer les changements choisis par l\'opérateur');
     if (this.form.valid) {
       this.form.disable();
       const formValue = this.form.getRawValue();
+      // TODO
+      this.operatorLog = [];
+      this.form.get('comment').setValue('');
+      this.form.enable();
     }
   }
 

@@ -29,7 +29,6 @@ import localeFr from '@angular/common/locales/fr';
 import { ThemeComponent } from './theme/theme.component';
 import { EntryCardComponent } from './entry-card/entry-card.component';
 import { FormCreatorComponent } from './form-creator/form-creator.component';
-import { EntriesPageComponent } from './entries-page/entries-page.component';
 import { ThemesPageComponent } from './themes-page/themes-page.component';
 import { HealthInterceptor } from './interceptors/health.interceptor';
 import { HealthErrorComponent } from './interceptors/health-error.component';
@@ -52,6 +51,9 @@ import { PreferencesPageComponent } from './preferences-page/preferences-page.co
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { ChartsModule } from 'ng2-charts';
 import { SubjectRecordsComponent } from './subject-records/subject-records.component';
+import { HeadersPageComponent } from './headers-page/headers-page.component';
+import { FootersPageComponent } from './footers-page/footers-page.component';
+import { TreatmentsPageComponent } from './treatments-page/treatments-page.component';
 
 const keycloakService = new KeycloakService();
 
@@ -75,7 +77,6 @@ registerLocaleData(localeFr, 'fr');
   declarations: [
     AppComponent,
     ConfigComponent,
-    EntriesPageComponent,
     EntriesLibraryComponent,
     EntriesListComponent,
     EntriesListDragAndDropComponent,
@@ -105,7 +106,10 @@ registerLocaleData(localeFr, 'fr');
     PreferenceComponent,
     PreferencesPageComponent,
     DashboardComponent,
-    SubjectRecordsComponent
+    SubjectRecordsComponent,
+    HeadersPageComponent,
+    FootersPageComponent,
+    TreatmentsPageComponent
   ],
   imports: [
     BrowserModule,

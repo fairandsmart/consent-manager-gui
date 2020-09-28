@@ -99,7 +99,7 @@ export class ConditionsComponent extends EntryContentDirective<Conditions> imple
       theme: ''
     };
     this.consentsResourceService.generateToken(context).subscribe((token) => {
-      const url = this.consentsResourceService.buildSubmitConsentUrl(token);
+      const url = this.consentsResourceService.getFormUrl(token);
       this.dialog.open<FormUrlDialogComponent, FormUrlDialogComponentData>(FormUrlDialogComponent, {
         data: {url: url}
       });

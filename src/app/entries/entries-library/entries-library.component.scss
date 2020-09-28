@@ -2,6 +2,9 @@
 
 :host {
   display: block;
+  max-width: 1000px;
+  margin: auto;
+
   mat-expansion-panel {
     box-shadow: none !important;
     background: none !important;

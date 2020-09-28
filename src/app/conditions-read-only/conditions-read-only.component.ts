@@ -56,8 +56,8 @@ export class ConditionsReadOnlyComponent implements OnInit, OnDestroy {
         tap((token) => {
           this.conditionsUrl = this.sanitizer.bypassSecurityTrustResourceUrl(this.consentsResource.getFormUrl(token));
         }),
-        catchError((error) => {
-          console.error(error);
+        catchError((err) => {
+          console.error(err);
           return EMPTY;
         })
       ).subscribe()

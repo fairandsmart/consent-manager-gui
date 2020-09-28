@@ -1,22 +1,22 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { EntriesPageComponent } from './entries-page.component';
+import { FootersPageComponent } from './footers-page.component';
 import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 
-describe('EntriesPageComponent', () => {
-  let component: EntriesPageComponent;
-  let fixture: ComponentFixture<EntriesPageComponent>;
+describe('FootersPageComponent', () => {
+  let component: FootersPageComponent;
+  let fixture: ComponentFixture<FootersPageComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [EntriesPageComponent],
+      declarations: [ FootersPageComponent ],
       schemas: [CUSTOM_ELEMENTS_SCHEMA]
     })
       .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(EntriesPageComponent);
+    fixture = TestBed.createComponent(FootersPageComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

@@ -15,10 +15,6 @@ export class ConsentsResourceService {
     return this.http.post(`${environment.managerUrl}/consents/token`, ctx, {responseType: 'text'});
   }
 
-  buildSubmitConsentUrl(token: string): string {
-    return `${environment.managerUrl}/consents?t=` + encodeURIComponent(token) + '&subject=';
-  }
-
   getFormUrl(token: string): string {
     return `${environment.managerUrl}/consents?t=` + encodeURIComponent(token);
   }

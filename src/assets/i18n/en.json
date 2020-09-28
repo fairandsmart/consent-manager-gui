@@ -5,18 +5,20 @@
       "LOGOUT": "Log out"
     },
     "CATEGORIES": {
-      "CUSTOMERS": {
-        "LABEL": "Customers"
+      "HOME": {
+        "LABEL": "Home"
       },
       "MODELS": {
-        "LABEL": "Models",
-        "ELEMENTS": "Elements",
+        "LABEL": "Configuration",
+        "HEADERS": "Headers",
+        "TREATMENTS": "Treatments",
+        "FOOTERS": "Footers",
         "CONDITIONS": "EULA",
         "EMAIL": "Emails",
         "THEME": "Themes"
       },
-      "FORMS": {
-        "LABEL": "Forms"
+      "INTEGRATION": {
+        "LABEL": "Integration"
       }
     }
   },
@@ -75,33 +77,34 @@
   "ENTRIES": {
     "TITLE": "Entries",
     "headers": {
-      "PANEL_TITLE": "Header model",
+      "PANEL_TITLE": "Headers library",
       "EMPTY": "First, create a header..."
     },
     "treatments": {
-      "PANEL_TITLE": "Treatments models library",
+      "PANEL_TITLE": "Treatments library",
       "EMPTY": "First, create a treatment..."
     },
     "preferences": {
-      "PANEL_TITLE": "Preferences models library",
+      "PANEL_TITLE": "Preferences library",
       "EMPTY": "First, create a preference..."
     },
     "conditions": {
-      "PANEL_TITLE": "EULA models library",
+      "PANEL_TITLE": "EULA library",
       "EMPTY": "First, create a EULA model..."
     },
     "footers": {
-      "PANEL_TITLE": "Footer model",
+      "PANEL_TITLE": "Footers library",
       "EMPTY": "First, add a footer...",
       "EXCLUDED": "The form will not have a footer."
     },
     "themes": {
       "PANEL_TITLE": "Themes library",
+      "EMPTY": "First, create a theme...",
       "NO_DESCRIPTION": "No description"
     },
     "emails": {
-      "PANEL_TITLE": "Emails models library",
-      "EMPTY": "First, create ae email..."
+      "PANEL_TITLE": "Emails library",
+      "EMPTY": "First, create an email..."
     },
     "BUTTON_ADD": {
       "header": "New header",
@@ -575,8 +578,7 @@
       "DIALOG_TITLE": "Generate forms",
       "TITLE": "API call URL",
       "BUTTON_OK": "Done",
-      "BUTTON_VIEW": "Get API call URL",
-      "HINT": "Fill the parameter \"subject\" with the id of the person giving their consent."
+      "BUTTON_VIEW": "Get API call URL"
     }
   },
   "HEALTH": {
