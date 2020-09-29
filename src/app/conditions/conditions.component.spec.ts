@@ -2,7 +2,7 @@ import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { ConditionsComponent } from './conditions.component';
 import { ReactiveFormsModule } from '@angular/forms';
-import { ModelsResourceService } from '../models-resource.service';
+import { ModelsResourceService } from '../services/models-resource.service';
 import { MaterialModule } from '../material.module';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import SpyObj = jasmine.SpyObj;
@@ -10,7 +10,7 @@ import createSpyObj = jasmine.createSpyObj;
 import { TranslateModule } from '@ngx-translate/core';
 import { CodemirrorModule } from '@ctrl/ngx-codemirror';
 import { EntryInfoComponent } from '../entry-info/entry-info.component';
-import { ConsentsResourceService } from '../consents-resource.service';
+import { ConsentsResourceService } from '../services/consents-resource.service';
 import { EntryPreviewComponent } from '../entry-preview/entry-preview.component';
 
 describe('ConditionsComponent', () => {

@@ -4,7 +4,7 @@ import { tap } from 'rxjs/operators';
 import { ModelDataType, ModelEntryDto } from '../../models';
 import { EntryEditorDialogComponent, EntryEditorDialogComponentData } from '../../entry-editor-dialog/entry-editor-dialog.component';
 import { MatPaginator } from '@angular/material/paginator';
-import { ModelsResourceService } from '../../models-resource.service';
+import { ModelsResourceService } from '../../services/models-resource.service';
 import { MatDialog } from '@angular/material/dialog';
 import { ActivatedRoute, Router } from '@angular/router';
 

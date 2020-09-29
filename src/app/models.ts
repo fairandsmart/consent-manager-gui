@@ -256,7 +256,7 @@ export enum RecordStatus {
   EXPIRED = 'EXPIRED'
 }
 
-export interface Record {
+export interface RecordDto {
   id: string;
   version: number;
   creationTimestamp: number;

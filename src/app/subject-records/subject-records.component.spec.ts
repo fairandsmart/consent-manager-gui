@@ -6,7 +6,7 @@ import { MaterialModule } from '../material.module';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { TranslateModule } from '@ngx-translate/core';
 import { RouterTestingModule } from '@angular/router/testing';
-import { RecordsResourceService } from '../records-resource.service';
+import { RecordsResourceService } from '../services/records-resource.service';
 import SpyObj = jasmine.SpyObj;
 import createSpyObj = jasmine.createSpyObj;
 import { EMPTY } from 'rxjs';

@@ -1,9 +1,10 @@
 import { Component, OnInit } from '@angular/core';
-import { RecordsResourceService } from '../records-resource.service';
+import { RecordsResourceService } from '../services/records-resource.service';
 import { Observable } from 'rxjs';
 import { FormControl } from '@angular/forms';
 import { map } from 'rxjs/operators';
 import { ActivatedRoute, Router } from '@angular/router';
+import { SubjectsResourceService } from '../services/subjects-resource.service';
 
 @Component({
   selector: 'app-dashboard',
@@ -92,13 +93,14 @@ export class DashboardComponent implements OnInit {
 
   constructor(
     public recordsService: RecordsResourceService,
+    public subjectsService: SubjectsResourceService,
     private route: ActivatedRoute,
     private router: Router) {
   }
 
   ngOnInit(): void {
     this.searchValue = new FormControl();
-    this.recordsService.findSubjects('').subscribe((response) => this.subjects = response);
+    this.subjectsService.listSubjects('').subscribe((response) => this.subjects = response);
     this.filteredSubjects = this.searchValue.valueChanges.pipe(map((value) => this.filterSubjects(value)));
     this.recordsService.getStats().subscribe((response) => {
       // TODO

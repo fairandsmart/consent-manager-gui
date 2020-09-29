@@ -10,7 +10,7 @@ import {
 } from '../models';
 import { EMPTY, Observable, of } from 'rxjs';
 import { FormGroup } from '@angular/forms';
-import { ModelsResourceService } from '../models-resource.service';
+import { ModelsResourceService } from '../services/models-resource.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import * as _ from 'lodash';
 import { catchError, debounceTime, mergeMap, startWith } from 'rxjs/operators';

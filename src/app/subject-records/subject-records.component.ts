@@ -1,7 +1,7 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { CollectionDatasource } from '../common/collection-datasource';
-import { CollectionPage, Record, RecordFilter } from '../models';
-import { RecordsResourceService } from '../records-resource.service';
+import { CollectionPage, RecordDto, RecordFilter } from '../models';
+import { RecordsResourceService } from '../services/records-resource.service';
 import { Observable } from 'rxjs';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort, Sort } from '@angular/material/sort';
@@ -10,15 +10,15 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { MatDialog } from '@angular/material/dialog';
 import { SubjectRecordEditorDialogComponent } from '../subject-record-editor-dialog/subject-record-editor-dialog.component';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { ModelsResourceService } from '../models-resource.service';
+import { ModelsResourceService } from '../services/models-resource.service';
 
-class SubjectRecordDataSource extends CollectionDatasource<Record, RecordFilter> {
+class SubjectRecordDataSource extends CollectionDatasource<RecordDto, RecordFilter> {
 
   constructor(private recordsResource: RecordsResourceService) {
     super();
   }
 
-  protected getPage(pageFilter: RecordFilter): Observable<CollectionPage<Record>> {
+  protected getPage(pageFilter: RecordFilter): Observable<CollectionPage<RecordDto>> {
     return this.recordsResource.listRecords(pageFilter);
   }
 
@@ -53,7 +53,7 @@ export class SubjectRecordsComponent implements OnInit {
   @ViewChild(MatSort, {static: true})
   public sort: MatSort;
 
-  public operatorLog: Record[] = [];
+  public operatorLog: RecordDto[] = [];
 
   public form: FormGroup;
 
@@ -100,7 +100,7 @@ export class SubjectRecordsComponent implements OnInit {
   }
 
   addElementToLog(element): void {
-    this.dialog.open<SubjectRecordEditorDialogComponent, Record>(SubjectRecordEditorDialogComponent, {
+    this.dialog.open<SubjectRecordEditorDialogComponent, RecordDto>(SubjectRecordEditorDialogComponent, {
       data: element
     }).afterClosed().subscribe((result) => {
       if (result) {

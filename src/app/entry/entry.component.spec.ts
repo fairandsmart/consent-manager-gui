@@ -4,7 +4,7 @@ import { EntryComponent } from './entry.component';
 import { ActivatedRoute } from '@angular/router';
 import { ActivatedRouteStub } from '../testing/activated-route-stub';
 import { EMPTY, of } from 'rxjs';
-import { ModelsResourceService } from '../models-resource.service';
+import { ModelsResourceService } from '../services/models-resource.service';
 import SpyObj = jasmine.SpyObj;
 import createSpyObj = jasmine.createSpyObj;
 
