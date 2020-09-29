@@ -10,7 +10,7 @@ RUN npm install
 RUN npm run maven-build
 
 FROM nginx:1.19.2-alpine AS run
-COPY --from=build-front /usr/src/app/dist /usr/share/nginx/html
+COPY --from=build-front /usr/src/app/dist/consent-manager-gui /usr/share/nginx/html
 COPY fs /
 EXPOSE 80
 ENTRYPOINT ["/scripts/docker-entrypoint.sh"]
