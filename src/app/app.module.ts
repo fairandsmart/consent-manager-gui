@@ -54,6 +54,7 @@ import { SubjectRecordsComponent } from './subject-records/subject-records.compo
 import { HeadersPageComponent } from './headers-page/headers-page.component';
 import { FootersPageComponent } from './footers-page/footers-page.component';
 import { TreatmentsPageComponent } from './treatments-page/treatments-page.component';
+import { KeysComponent } from './keys/keys.component';
 
 const keycloakService = new KeycloakService();
 
@@ -109,7 +110,8 @@ registerLocaleData(localeFr, 'fr');
     SubjectRecordsComponent,
     HeadersPageComponent,
     FootersPageComponent,
-    TreatmentsPageComponent
+    TreatmentsPageComponent,
+    KeysComponent
   ],
   imports: [
     BrowserModule,

@@ -14,6 +14,7 @@ import { SubjectRecordsComponent } from './subject-records/subject-records.compo
 import { FootersPageComponent } from './footers-page/footers-page.component';
 import { TreatmentsPageComponent } from './treatments-page/treatments-page.component';
 import { HeadersPageComponent } from './headers-page/headers-page.component';
+import { KeysComponent } from './keys/keys.component';
 
 const routes: Routes = [
   {
@@ -101,6 +102,10 @@ const routes: Routes = [
       {
         path: 'integration',
         component: FormCreatorComponent
+      },
+      {
+        path: 'api',
+        component: KeysComponent
       }
     ]
   },
