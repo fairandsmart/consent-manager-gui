@@ -1,10 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { EntryContentDirective } from '../entry-content/entry-content.directive';
-import { ModelDataType, ModelVersionDto, Treatment, TREATMENT_PURPOSES } from '../models';
+import { Controller, ModelDataType, ModelVersionDto, Treatment, TREATMENT_PURPOSES, TreatmentPurpose } from '../models';
 import { FormArray, FormBuilder, Validators } from '@angular/forms';
 import { ModelsResourceService } from '../models-resource.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
-import { LANGUAGES } from '../common/constants';
 import { TranslateService } from '@ngx-translate/core';
 import { DomSanitizer } from '@angular/platform-browser';
 
@@ -16,7 +15,6 @@ import { DomSanitizer } from '@angular/platform-browser';
 export class TreatmentComponent extends EntryContentDirective<Treatment> implements OnInit {
 
   readonly PURPOSES = TREATMENT_PURPOSES;
-  readonly LANGUAGES = LANGUAGES;
 
   constructor(
       private fb: FormBuilder,
@@ -38,7 +36,6 @@ export class TreatmentComponent extends EntryContentDirective<Treatment> impleme
   protected initForm(): void {
     this.form = this.fb.group({
       type: [this.type, [Validators.required]],
-      locale: ['', [Validators.required]],
       treatmentTitle: ['', [Validators.required]],
       dataTitle: [''],
       dataBody: ['', [Validators.required]],
@@ -57,33 +54,19 @@ export class TreatmentComponent extends EntryContentDirective<Treatment> impleme
         email: ['', Validators.email],
         phoneNumber: ['']
       }),
-      showDataController: [false],
+      showDataController: [{value: false, disabled: true}],
       thirdParties: this.fb.array([])
     });
-    this.form.get('showDataController').disable();
+
+    this.form.get('dataController').valueChanges.subscribe(v => this.dataControllerChange(v));
+
     this.initPreview();
   }
 
-  protected loadVersion(version: ModelVersionDto<Treatment>, locale: string = this.version.defaultLocale): void {
-    const localeContent = (version.data[locale] as Treatment);
-    const localeThirdParties = localeContent.thirdParties;
-    delete localeContent.thirdParties;
-    this.form.patchValue(localeContent);
-
-    if (!this.isDataControllerEmpty()) {
-      this.form.get('showDataController').enable();
-    }
-
-    const thirdPartiesArray = this.fb.array([]);
-    localeThirdParties.forEach(party => {
-      thirdPartiesArray.push(this.fb.group({
-        name: [party.name, [Validators.required]],
-        value: [party.value, [Validators.required]]
-      }));
-    });
-    this.form.setControl('thirdParties', thirdPartiesArray);
-
-    this.initialValue = this.form.getRawValue();
+  protected setVersion(version: ModelVersionDto<Treatment>, locale: string = this.version.defaultLocale): void {
+    this.form.setControl('thirdParties', this.fb.array([]));
+    version.data[locale].thirdParties.forEach(tp => this.addThirdParty());
+    super.setVersion(version, locale);
   }
 
   getThirdParties(): FormArray {
@@ -97,23 +80,31 @@ export class TreatmentComponent extends EntryContentDirective<Treatment> impleme
     }));
   }
 
-  removeThirdParty(index): void {
+  removeThirdParty(index: number): void {
     this.getThirdParties().removeAt(index);
   }
 
-  purposesChange(event): void {
-    if (!event.includes('CONSENT_THIRD_PART_SHARING')) {
+  purposesChange(purposes: TreatmentPurpose[]): void {
+    if (!purposes.includes(TreatmentPurpose.CONSENT_THIRD_PART_SHARING)) {
       this.getThirdParties().clear();
     }
   }
 
-  dataControllerChange(event): void {
-    if (event.length > 0) {
-      this.form.get('showDataController').enable();
-    } else if (this.isDataControllerEmpty()) {
+  private dataControllerChange(dataController: Controller): void {
+    if (this.isDataControllerEmpty(dataController)) {
       this.form.get('showDataController').setValue(false);
       this.form.get('showDataController').disable();
+    } else {
+      this.form.get('showDataController').enable();
     }
+  }
+
+  private isDataControllerEmpty(dataController: Controller): boolean {
+    if (this.form.contains('dataController')) {
+      return !['company', 'name', 'address', 'email', 'phoneNumber']
+        .some(k => dataController[k].length > 0);
+    }
+    return true;
   }
 
 }

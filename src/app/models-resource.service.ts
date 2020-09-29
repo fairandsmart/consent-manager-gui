@@ -10,6 +10,7 @@ import {
   ModelFilter,
   ModelVersionDto,
   ModelVersionDtoLight,
+  ModelVersionStatus,
   ModelVersionType,
   PreviewDto,
   UpdateModelDto
@@ -63,14 +64,14 @@ export class ModelsResourceService {
     return this.http.put<ModelVersionDto<T>>(`${environment.managerUrl}/models/${id}/versions/${versionId}`, dto);
   }
 
-  updateVersionStatus<T extends ModelData = ModelData>(id: string, versionId: string, dto: ModelVersionDto<T>)
+  updateVersionStatus<T extends ModelData = ModelData>(id: string, versionId: string, status: ModelVersionStatus)
     : Observable<ModelVersionDto<T>> {
-    return this.http.put<ModelVersionDto<T>>(`${environment.managerUrl}/models/${id}/versions/${versionId}/status`, dto);
+    return this.http.put<ModelVersionDto<T>>(`${environment.managerUrl}/models/${id}/versions/${versionId}/status`, {status});
   }
 
   updateVersionType<T extends ModelData = ModelData>(id: string, versionId: string, type: ModelVersionType):
     Observable<ModelVersionDto<T>> {
-    return this.http.put<ModelVersionDto<T>>(`${environment.managerUrl}/models/${id}/versions/${versionId}/type`, type);
+    return this.http.put<ModelVersionDto<T>>(`${environment.managerUrl}/models/${id}/versions/${versionId}/type`, {type});
   }
 
   getVersionPreview(id: string, vid: string, dto: PreviewDto): Observable<string> {

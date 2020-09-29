@@ -52,6 +52,9 @@
     },
     "LOCALE": {
       "LABEL": "Langue"
+    },
+    "DEFAULT_LOCALE": {
+      "LABEL": "Langue par défaut"
     }
   },
   "MATERIAL": {
@@ -117,6 +120,11 @@
       "email": "Ajouter un email",
       "MULTIPLE": "Ajouter..."
     },
+    "STATUS": {
+      "ACTIVE": "Active",
+      "DRAFT": "Brouillon",
+      "ARCHIVED": "Archivée"
+    },
     "COMMON": {
       "id": {
         "LABEL": "Id"
@@ -133,6 +141,9 @@
       },
       "type": {
         "LABEL": "Type"
+      },
+      "version": {
+        "LABEL": "Version"
       }
     },
     "CREATE_BUTTON": "Nouvel élément",
@@ -408,11 +419,11 @@
       "PRESENTATION": {
         "LABEL": "Présentation"
       },
-      "TARGETTYPE": {
+      "TARGET_TYPE": {
         "LABEL": "Catégorie",
         "VALUES": {
           "FORM": "Formulaire de consentement",
-          "EMAIL_OPT_OUT": "Email de confirmation"
+          "EMAIL": "Email de confirmation"
         }
       },
       "ICON": {

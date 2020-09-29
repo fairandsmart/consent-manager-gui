@@ -6,7 +6,6 @@ import { ModelsResourceService } from '../models-resource.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { TranslateService } from '@ngx-translate/core';
 import { DomSanitizer } from '@angular/platform-browser';
-import { LANGUAGES } from '../common/constants';
 
 @Component({
   selector: 'app-preference',
@@ -14,8 +13,6 @@ import { LANGUAGES } from '../common/constants';
   styleUrls: ['../entry-content/_entry-content.directive.scss', './preference.component.scss']
 })
 export class PreferenceComponent extends EntryContentDirective<Preference> implements OnInit {
-
-  readonly LANGUAGES = LANGUAGES;
 
   constructor(
     private fb: FormBuilder,
@@ -37,7 +34,6 @@ export class PreferenceComponent extends EntryContentDirective<Preference> imple
   protected initForm(): void {
     this.form = this.fb.group({
       type: [this.type, [Validators.required]],
-      locale: ['', [Validators.required]],
       title: ['', [Validators.required]],
       body: ['', [Validators.required]]
     });

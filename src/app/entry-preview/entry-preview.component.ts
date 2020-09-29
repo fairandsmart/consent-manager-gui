@@ -1,5 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { SafeHtml } from '@angular/platform-browser';
+import { environment } from '../../environments/environment';
 
 @Component({
   selector: 'app-entry-preview',
@@ -9,7 +10,7 @@ import { SafeHtml } from '@angular/platform-browser';
 export class EntryPreviewComponent implements OnInit {
 
   @Input()
-  locale: string;
+  locale: string = environment.customization.defaultLocale;
 
   @Input()
   safePreview: SafeHtml;

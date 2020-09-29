@@ -15,7 +15,6 @@ import { tap } from 'rxjs/operators';
 import { zip } from 'rxjs';
 import { CdkDragDrop, copyArrayItem, moveItemInArray } from '@angular/cdk/drag-drop';
 import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { LANGUAGES } from '../common/constants';
 import { ConsentsResourceService } from '../consents-resource.service';
 import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
 import { StepperSelectionEvent } from '@angular/cdk/stepper';
@@ -107,7 +106,6 @@ export class FormCreatorComponent implements OnInit {
   public readonly STEPS = FORM_CREATOR_STEP;
   public readonly ORIENTATIONS = CONSENT_FORM_ORIENTATIONS;
   public readonly RECEIPT_TYPES = RECEIPT_DELIVERY_TYPES;
-  public readonly LANGUAGES = LANGUAGES;
   public readonly VALIDITY_UNITS = ['D', 'W', 'M', 'Y'];
 
   public formUrl: SafeResourceUrl;
@@ -115,6 +113,8 @@ export class FormCreatorComponent implements OnInit {
   private previousOrientation: ConsentFormOrientation;
   private previousLocale: string;
   public currentStep: FORM_CREATOR_STEP;
+
+  private readonly defaultLocale = environment.customization.defaultLocale;
 
   private static formatValidity(validity, validityUnit): string {
     if (validity) {
@@ -152,9 +152,9 @@ export class FormCreatorComponent implements OnInit {
         theme: ['', [Validators.pattern(FIELD_VALIDATORS.key.pattern)]],
       }),
       this.fb.group({
-        // subject: ['', [Validators.required]],
+        subject: ['', [Validators.required]],
         orientation: [ConsentFormOrientation.VERTICAL, [Validators.required]],
-        locale: ['fr', [Validators.required]],
+        locale: [this.defaultLocale, [Validators.required]],
         forceDisplay: [true, [Validators.required]],
         validity: [6, [Validators.required, Validators.min(1)]],
         validityUnit: ['M', [Validators.required]],

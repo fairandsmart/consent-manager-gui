@@ -4,7 +4,6 @@ import { ModelDataType, TARGET_TYPES, Theme } from '../models';
 import { FormBuilder, Validators } from '@angular/forms';
 import { ModelsResourceService } from '../models-resource.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
-import { LANGUAGES } from '../common/constants';
 import { TranslateService } from '@ngx-translate/core';
 import * as CodeMirror from 'codemirror';
 import { Editor } from 'codemirror';
@@ -27,7 +26,6 @@ const snippets: { text: string, displayText: string }[] = [
 })
 export class ThemeComponent extends EntryContentDirective<Theme> implements OnInit {
 
-  readonly LANGUAGES = LANGUAGES;
   readonly TARGET_TYPES = TARGET_TYPES;
   readonly CODE_MIRROR_OPTIONS = {
     lineNumbers: true,
@@ -123,9 +121,6 @@ export class ThemeComponent extends EntryContentDirective<Theme> implements OnIn
   protected initForm(): void {
     this.form = this.fb.group({
       type: [this.type, [Validators.required]],
-      locale: ['', [Validators.required]],
-      // name: ['', [Validators.required]],
-      // presentation: [''],
       targetType: ['', [Validators.required]],
       // icon: [''],
       css: ['', [Validators.required]]
@@ -133,4 +128,13 @@ export class ThemeComponent extends EntryContentDirective<Theme> implements OnIn
     this.initPreview();
   }
 
+
+  protected refreshPreview() {
+    if (this.form.get('targetType').invalid) {
+      // avoid server error when targetType not set
+      this.safePreview = null;
+      return;
+    }
+    super.refreshPreview();
+  }
 }

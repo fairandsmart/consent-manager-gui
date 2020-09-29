@@ -1,17 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { EntryContentDirective } from '../entry-content/entry-content.directive';
-import {
-  CollectionMethod,
-  Conditions,
-  ConsentContext,
-  ConsentFormOrientation,
-  ConsentFormType,
-  ModelDataType
-} from '../models';
+import { CollectionMethod, Conditions, ConsentContext, ConsentFormOrientation, ConsentFormType, ModelDataType } from '../models';
 import { FormBuilder, Validators } from '@angular/forms';
 import { ModelsResourceService } from '../models-resource.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
-import { LANGUAGES } from '../common/constants';
 import { TranslateService } from '@ngx-translate/core';
 import { FormUrlDialogComponent, FormUrlDialogComponentData } from '../form-url-dialog/form-url-dialog.component';
 import { MatDialog } from '@angular/material/dialog';
@@ -25,7 +17,6 @@ import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
 })
 export class ConditionsComponent extends EntryContentDirective<Conditions> implements OnInit {
 
-  readonly LANGUAGES = LANGUAGES;
   readonly CODE_MIRROR_OPTIONS = {
     lineNumbers: true,
     mode: 'htmlmixed',
@@ -62,7 +53,6 @@ export class ConditionsComponent extends EntryContentDirective<Conditions> imple
   protected initForm(): void {
     this.form = this.fb.group({
       type: [this.type, [Validators.required]],
-      locale: ['', [Validators.required]],
       title: ['', [Validators.required]],
       body: ['', [Validators.required]],
       acceptLabel: ['', [Validators.required]],

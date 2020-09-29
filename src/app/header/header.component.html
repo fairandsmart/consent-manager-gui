@@ -5,13 +5,6 @@
         <mat-card-title>{{'ENTRIES.EDITOR.CONTENT.TITLE.HEADER' | translate}}</mat-card-title>
         <mat-card-content>
 
-          <mat-form-field appearance="outline">
-            <mat-label>{{'COMMON.LOCALE.LABEL' | translate}}</mat-label>
-            <mat-select formControlName="locale" matInput required>
-              <mat-option *ngFor="let language of LANGUAGES" [value]="language">{{'COMMON.LANGUAGES.' + language.toUpperCase() | translate}}</mat-option>
-            </mat-select>
-          </mat-form-field>
-
           <mat-card-subtitle>{{'ENTRIES.EDITOR.HEADER.SUBTITLES.LOGO' | translate}}</mat-card-subtitle>
           <mat-form-field appearance="outline">
             <mat-label>{{'ENTRIES.EDITOR.HEADER.LOGO.PATH.LABEL' | translate}}</mat-label>
@@ -35,8 +28,7 @@
           <mat-card-subtitle>{{'ENTRIES.EDITOR.HEADER.SUBTITLES.LAW' | translate}}</mat-card-subtitle>
           <mat-form-field appearance="outline">
             <mat-label>{{'ENTRIES.EDITOR.HEADER.JURISDICTION.LABEL' | translate}}</mat-label>
-            <textarea matInput formControlName="jurisdiction" cdkTextareaAutosize cdkAutosizeMinRows="5"
-                      (ngModelChange)="optionalFieldChange($event, 'showJurisdiction')"></textarea>
+            <input matInput formControlName="jurisdiction"/>
           </mat-form-field>
           <mat-radio-group formControlName="showJurisdiction">
             <mat-radio-button [value]="true">{{'ENTRIES.EDITOR.CONTENT.SHOW' | translate}}</mat-radio-button>
@@ -44,8 +36,7 @@
           </mat-radio-group>
           <mat-form-field appearance="outline">
             <mat-label>{{'ENTRIES.EDITOR.HEADER.COLLECTION_METHOD.LABEL' | translate}}</mat-label>
-            <textarea matInput formControlName="collectionMethod" cdkTextareaAutosize cdkAutosizeMinRows="5"
-                      (ngModelChange)="optionalFieldChange($event, 'showCollectionMethod')"></textarea>
+            <textarea matInput formControlName="collectionMethod" cdkTextareaAutosize cdkAutosizeMinRows="5"></textarea>
           </mat-form-field>
           <mat-radio-group formControlName="showCollectionMethod">
             <mat-radio-button [value]="true">{{'ENTRIES.EDITOR.CONTENT.SHOW' | translate}}</mat-radio-button>
@@ -53,8 +44,7 @@
           </mat-radio-group>
           <mat-form-field appearance="outline">
             <mat-label>{{'ENTRIES.EDITOR.HEADER.SCOPE.LABEL' | translate}}</mat-label>
-            <textarea matInput formControlName="scope" cdkTextareaAutosize cdkAutosizeMinRows="5"
-                      (ngModelChange)="optionalFieldChange($event, 'showScope')"></textarea>
+            <textarea matInput formControlName="scope" cdkTextareaAutosize cdkAutosizeMinRows="5"></textarea>
           </mat-form-field>
           <mat-radio-group formControlName="showScope">
             <mat-radio-button [value]="true">{{'ENTRIES.EDITOR.CONTENT.SHOW' | translate}}</mat-radio-button>
@@ -65,23 +55,23 @@
             <mat-card-subtitle>{{'ENTRIES.EDITOR.CONTENT.DATA_CONTROLLER.TITLE' | translate}}</mat-card-subtitle>
             <mat-form-field appearance="outline">
               <mat-label>{{'ENTRIES.EDITOR.CONTENT.DATA_CONTROLLER.COMPANY.LABEL' | translate}}</mat-label>
-              <input matInput formControlName="company" autocomplete="off" (ngModelChange)="dataControllerChange($event)">
+              <input matInput formControlName="company" autocomplete="off">
             </mat-form-field>
             <mat-form-field appearance="outline">
               <mat-label>{{'ENTRIES.EDITOR.CONTENT.DATA_CONTROLLER.NAME.LABEL' | translate}}</mat-label>
-              <input matInput formControlName="name" autocomplete="off" (ngModelChange)="dataControllerChange($event)">
+              <input matInput formControlName="name" autocomplete="off">
             </mat-form-field>
             <mat-form-field appearance="outline">
               <mat-label>{{'ENTRIES.EDITOR.CONTENT.DATA_CONTROLLER.ADDRESS.LABEL' | translate}}</mat-label>
-              <input matInput formControlName="address" autocomplete="off" (ngModelChange)="dataControllerChange($event)">
+              <input matInput formControlName="address" autocomplete="off">
             </mat-form-field>
             <mat-form-field appearance="outline">
               <mat-label>{{'ENTRIES.EDITOR.CONTENT.DATA_CONTROLLER.EMAIL.LABEL' | translate}}</mat-label>
-              <input type="email" matInput formControlName="email" autocomplete="off" (ngModelChange)="dataControllerChange($event)">
+              <input type="email" matInput formControlName="email" autocomplete="off">
             </mat-form-field>
             <mat-form-field appearance="outline">
               <mat-label>{{'ENTRIES.EDITOR.CONTENT.DATA_CONTROLLER.PHONE.LABEL' | translate}}</mat-label>
-              <input type="tel" matInput formControlName="phoneNumber" autocomplete="off" (ngModelChange)="dataControllerChange($event)">
+              <input type="tel" matInput formControlName="phoneNumber" autocomplete="off">
             </mat-form-field>
             <mat-checkbox formControlName="actingBehalfCompany">{{'ENTRIES.EDITOR.CONTENT.DATA_CONTROLLER.ACTING_BEHALF_COMPANY.LABEL' | translate}}</mat-checkbox>
           </div>
@@ -97,12 +87,11 @@
           </mat-form-field>
           <mat-form-field appearance="outline">
             <mat-label>{{'ENTRIES.EDITOR.HEADER.PRIVACY_POLICY.LINK_LABEL.LABEL' | translate}}</mat-label>
-            <textarea matInput formControlName="customPrivacyPolicyText" cdkTextareaAutosize cdkAutosizeMinRows="5"></textarea>
+            <input matInput formControlName="customPrivacyPolicyText">
           </mat-form-field>
           <mat-form-field appearance="outline">
             <mat-label>{{'ENTRIES.EDITOR.HEADER.SHORT_NOTICE.LABEL' | translate}}</mat-label>
-            <input matInput formControlName="shortNoticeLink" autocomplete="off"
-                   (ngModelChange)="optionalFieldChange($event, 'showShortNoticeLink')">
+            <input matInput formControlName="shortNoticeLink" autocomplete="off">
           </mat-form-field>
           <mat-radio-group formControlName="showShortNoticeLink">
             <mat-radio-button [value]="true">{{'ENTRIES.EDITOR.CONTENT.SHOW' | translate}}</mat-radio-button>
@@ -110,7 +99,7 @@
           </mat-radio-group>
 
         </mat-card-content>
-        <mat-card-actions>
+        <mat-card-actions *ngIf="isLatestVersion()">
           <button mat-button type="button" color="primary" [disabled]="form.invalid" (click)="save()">{{'ENTRIES.EDITOR.BUTTONS.SAVE' | translate}}</button>
           <ng-container *ngIf="version != null">
             <button mat-button type="button" color="primary" [disabled]="version.status === STATUS.ACTIVE" (click)="activate()">{{'ENTRIES.EDITOR.BUTTONS.ACTIVATE' | translate}}</button>
@@ -125,7 +114,7 @@
   </mat-sidenav-content>
 
   <mat-sidenav opened mode="side" position="end">
-    <app-entry-info *ngIf="entry" [entry]="entry"></app-entry-info>
-    <app-entry-preview [locale]="form.get('locale').value" [safePreview]="safePreview"></app-entry-preview>
+    <app-entry-info *ngIf="entry" [entry]="entry" [version]="version" (selectVersion)="selectVersion($event)"></app-entry-info>
+    <app-entry-preview [safePreview]="safePreview"></app-entry-preview>
   </mat-sidenav>
 </mat-sidenav-container>

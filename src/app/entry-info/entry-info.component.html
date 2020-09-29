@@ -1,6 +1,8 @@
 <h2>
-  <span>{{'ENTRIES.EDITOR.INFORMATION.TITLE' | translate}}</span>
-  <button mat-icon-button (click)="edit()"><mat-icon>edit</mat-icon></button>
+  <span class="title">{{'ENTRIES.EDITOR.INFORMATION.TITLE' | translate}}</span>
+  <span>
+    <button mat-icon-button (click)="edit()"><mat-icon>edit</mat-icon></button>
+  </span>
 </h2>
 <dl *ngIf="entry">
   <dt>{{'ENTRIES.COMMON.name.LABEL' | translate}}</dt>
@@ -13,4 +15,15 @@
   </ng-container>
   <dt>{{'ENTRIES.COMMON.key.LABEL' | translate}}</dt>
   <dd>{{entry.key}}</dd>
+  <ng-container *ngIf="version">
+    <dt>{{'ENTRIES.COMMON.version.LABEL' | translate}}</dt>
+    <dd>v{{versionIndex()}} ({{'ENTRIES.STATUS.' + version.status | translate}}) <button *ngIf="version" mat-icon-button [matMenuTriggerFor]="historyMenu"><mat-icon>history</mat-icon></button></dd>
+  </ng-container>
 </dl>
+<mat-menu #historyMenu>
+  <ng-template matMenuContent>
+    <button mat-menu-item *ngFor="let v of entry?.versions; index as i"
+            (click)="selectVersion.emit(v)"
+            [disabled]="version?.id === v.id">v{{i+1}} ({{'ENTRIES.STATUS.' + v.status | translate}})</button>
+  </ng-template>
+</mat-menu>

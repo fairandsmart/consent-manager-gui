@@ -4,16 +4,16 @@ import {
   ModelData,
   ModelDataType,
   ModelEntryDto,
-  ModelVersionDto,
+  ModelVersionDto, ModelVersionDtoLight,
   ModelVersionStatus,
   PreviewDto
 } from '../models';
-import { EMPTY, Observable } from 'rxjs';
+import { EMPTY, Observable, of } from 'rxjs';
 import { FormGroup } from '@angular/forms';
 import { ModelsResourceService } from '../models-resource.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import * as _ from 'lodash';
-import { catchError, debounceTime, mergeMap } from 'rxjs/operators';
+import { catchError, debounceTime, mergeMap, startWith } from 'rxjs/operators';
 import { HttpErrorResponse } from '@angular/common/http';
 import { TranslateService } from '@ngx-translate/core';
 import { environment } from '../../environments/environment';
@@ -37,6 +37,8 @@ export abstract class EntryContentDirective<T extends ModelData> implements OnIn
 
   readonly STATUS = ModelVersionStatus;
 
+  private readonly defaultLocale = environment.customization.defaultLocale;
+
   protected constructor(
     protected modelsResourceService: ModelsResourceService,
     private snackBar: MatSnackBar,
@@ -47,7 +49,7 @@ export abstract class EntryContentDirective<T extends ModelData> implements OnIn
   ngOnInit(): void {
     this.initForm();
     if (this.version) {
-      this.loadVersion(this.version);
+      this.setVersion(this.version);
     }
   }
 
@@ -60,16 +62,18 @@ export abstract class EntryContentDirective<T extends ModelData> implements OnIn
   protected abstract initForm(): void;
 
   protected initPreview(): void {
-    this.form.valueChanges.pipe(debounceTime(this.previewDelay)).subscribe(() => {
+    this.form.valueChanges.pipe(
+      startWith(this.form.getRawValue() as T),
+      debounceTime(this.previewDelay)
+    ).subscribe(() => {
       this.refreshPreview();
     });
   }
 
 
   protected refreshPreview(): void {
-    const rawValues = this.form.getRawValue();
-    const locale: string = rawValues.locale;
-    delete rawValues.locale;
+    const rawValues: T = this.form.getRawValue();
+    const locale = this.defaultLocale;
     if (locale) {
       const dto: PreviewDto = {
         locale: locale,
@@ -78,24 +82,31 @@ export abstract class EntryContentDirective<T extends ModelData> implements OnIn
       };
       this.modelsResourceService.getVersionPreview(this.entry.id, this.version ? this.version.id : 'new', dto)
         .subscribe((result: string) => {
-          this.safePreview = this.sanitizer.bypassSecurityTrustHtml(result.split('/assets/').join(`${environment.managerUrl}/assets/`));
+          result = result.replace(/\/assets\//g, `${environment.managerUrl}/assets/`);
+          this.safePreview = this.sanitizer.bypassSecurityTrustHtml(result);
         });
     }
   }
 
-  protected loadVersion(version: ModelVersionDto<T>, locale: string = this.version.defaultLocale): void {
-    const localeContent = version.data[locale];
-    this.form.patchValue(localeContent);
+  public selectVersion(version: ModelVersionDtoLight, locale: string = this.version.defaultLocale): void {
+    this.modelsResourceService.getVersion<T>(this.entry.id, version.id).subscribe(v => this.setVersion(v, locale));
+  }
+
+  protected setVersion(version: ModelVersionDto<T>, locale: string = this.version.defaultLocale): void {
+    this.version = version;
+    if (this.isLatestVersion()) {
+      this.form.enable();
+    } else {
+      this.form.disable();
+    }
+    this.form.patchValue(this.version.data[locale]);
     this.initialValue = this.form.getRawValue();
   }
 
   private updateVersion(version: ModelVersionDto<T>): void {
     this.version = version;
-    this.loadVersion(this.version);
-  }
-
-  private showSnackbar(messageKey) {
-    this.translateService.get(messageKey).subscribe(translation => this.snackBar.open(translation));
+    this.modelsResourceService.getEntry(this.entry.id).subscribe(e => this.entry = e);
+    this.setVersion(this.version);
   }
 
   save(): void {
@@ -105,16 +116,16 @@ export abstract class EntryContentDirective<T extends ModelData> implements OnIn
     }
     if (this.form.valid) {
       let obs: Observable<ModelVersionDto<T>>;
-      const locale = this.form.get('locale').value;
-      const formValue = this.form.getRawValue();
-      delete formValue.locale;
-      const dto: ModelVersionDto = {defaultLocale: locale, data: {}};
-      dto.data = {};
-      dto.data[locale] = formValue;
+      const data: T = this.form.getRawValue();
+      const dto: ModelVersionDto<T> = {
+        defaultLocale: this.defaultLocale,
+        availableLocales: [this.defaultLocale],
+        data: {[this.defaultLocale]: data}
+      };
       if (this.version?.status === ModelVersionStatus.DRAFT) {
-        obs = this.modelsResourceService.updateVersion(this.entry.id, this.version.id, dto);
+        obs = this.modelsResourceService.updateVersion<T>(this.entry.id, this.version.id, dto);
       } else {
-        obs = this.modelsResourceService.createVersion(this.entry.id, dto);
+        obs = this.modelsResourceService.createVersion<T>(this.entry.id, dto);
       }
       obs.subscribe(version => {
         this.updateVersion(version);
@@ -131,8 +142,7 @@ export abstract class EntryContentDirective<T extends ModelData> implements OnIn
       this.showSnackbar('MATERIAL.SNACKBAR.UNSAVED_CHANGES');
       return;
     }
-    const dto: ModelVersionDto = {data: {}, status: ModelVersionStatus.ACTIVE};
-    this.modelsResourceService.updateVersionStatus<T>(this.entry.id, this.version.id, dto)
+    this.modelsResourceService.updateVersionStatus<T>(this.entry.id, this.version.id, ModelVersionStatus.ACTIVE)
       .subscribe(version => {
         this.updateVersion(version);
         this.showSnackbar('MATERIAL.SNACKBAR.ACTIVATION_SUCCESS');
@@ -151,7 +161,10 @@ export abstract class EntryContentDirective<T extends ModelData> implements OnIn
       }),
       mergeMap(() => {
         this.showSnackbar('MATERIAL.SNACKBAR.DELETION_SUCCESS');
-        return this.modelsResourceService.getLatestVersion<T>(this.entry.id);
+        if (this.entry.versions.length > 2) {
+          return this.modelsResourceService.getVersion(this.entry.id, this.entry.versions[this.entry.versions.length - 2].id);
+        }
+        return of(null);
       })
     ).subscribe(version => {
       this.updateVersion(version);
@@ -166,18 +179,12 @@ export abstract class EntryContentDirective<T extends ModelData> implements OnIn
     });
   }
 
-  protected isDataControllerEmpty(): boolean {
-    if (this.form.contains('dataController')) {
-      const keys = ['company', 'name', 'address', 'email', 'phoneNumber'];
-      let empty = true;
-      let keyIndex = 0;
-      while (empty && keyIndex < keys.length) {
-        empty = this.form.get('dataController').get(keys[keyIndex]).value.length === 0;
-        keyIndex++;
-      }
-      return empty;
-    }
-    return true;
+  isLatestVersion(): boolean {
+    return this.entry && (this.entry.versions.length < 2 || _.last(this.entry.versions).id === this.version.id);
+  }
+
+  private showSnackbar(messageKey: string): void {
+    this.translateService.get(messageKey).subscribe(translation => this.snackBar.open(translation));
   }
 
 }

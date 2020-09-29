@@ -10,4 +10,5 @@ export interface AppEnvironment {
 export interface AppCustomization {
   multipleHeader: boolean;
   multipleFooter: boolean;
+  defaultLocale: string;
 }

@@ -1,7 +1,7 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { EntryEditorDialogComponent, EntryEditorDialogComponentData } from '../entry-editor-dialog/entry-editor-dialog.component';
 import { MatDialog } from '@angular/material/dialog';
-import { ModelEntryDto } from '../models';
+import { ModelEntryDto, ModelVersionDto, ModelVersionDtoLight } from '../models';
 
 @Component({
   selector: 'app-entry-info',
@@ -12,6 +12,12 @@ export class EntryInfoComponent implements OnInit {
 
   @Input()
   entry: ModelEntryDto;
+
+  @Input()
+  version: ModelVersionDto;
+
+  @Output()
+  selectVersion = new EventEmitter<ModelVersionDtoLight>();
 
   @Input()
   showType = true;
@@ -30,6 +36,10 @@ export class EntryInfoComponent implements OnInit {
         this.entry = updatedEntry;
       }
     });
+  }
+
+  versionIndex(): number {
+    return this.entry.versions.findIndex(v => v.id === this.version.id) + 1;
   }
 
 }

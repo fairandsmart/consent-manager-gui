@@ -1,6 +1,4 @@
-<h2>
-  {{'ENTRIES.PREVIEW.TITLE' | translate}}
-</h2>
+<h2>{{'ENTRIES.PREVIEW.TITLE' | translate}}</h2>
 <ng-container *ngIf="safePreview; else loadingPreview">
   <div class="preview-container">
     <iframe class="preview-iframe" [srcdoc]="safePreview"></iframe>

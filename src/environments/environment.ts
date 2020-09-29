@@ -12,7 +12,8 @@ export const environment: AppEnvironment = {
   managerUrl: 'http://localhost:8087',
   customization: {
     multipleHeader: false,
-    multipleFooter: false
+    multipleFooter: false,
+    defaultLocale: 'fr'
   }
 };
 

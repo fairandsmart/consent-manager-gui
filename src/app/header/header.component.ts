@@ -1,10 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { EntryContentDirective } from '../entry-content/entry-content.directive';
-import { Header, ModelDataType, ModelVersionDto } from '../models';
+import { Controller, Header, ModelDataType } from '../models';
 import { FormBuilder, Validators } from '@angular/forms';
 import { ModelsResourceService } from '../models-resource.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
-import { LANGUAGES } from '../common/constants';
 import { TranslateService } from '@ngx-translate/core';
 import { DomSanitizer } from '@angular/platform-browser';
 
@@ -14,8 +13,6 @@ import { DomSanitizer } from '@angular/platform-browser';
   styleUrls: ['../entry-content/_entry-content.directive.scss', './header.component.scss']
 })
 export class HeaderComponent extends EntryContentDirective<Header> implements OnInit {
-
-  readonly LANGUAGES = LANGUAGES;
 
   constructor(
     private fb: FormBuilder,
@@ -37,15 +34,14 @@ export class HeaderComponent extends EntryContentDirective<Header> implements On
   protected initForm(): void {
     this.form = this.fb.group({
       type: [this.type, [Validators.required]],
-      locale: ['', [Validators.required]],
       logoPath: [''],
       logoAltText: [''],
       title: ['', [Validators.required]],
       body: ['', [Validators.required]],
       jurisdiction: [''],
-      showJurisdiction: [false],
+      showJurisdiction: [{value: false, disabled: true}],
       collectionMethod: [''],
-      showCollectionMethod: [false],
+      showCollectionMethod: [{value: false, disabled: true}],
       dataController: this.fb.group({
         actingBehalfCompany: [false],
         company: [''],
@@ -54,50 +50,48 @@ export class HeaderComponent extends EntryContentDirective<Header> implements On
         email: ['', [Validators.email]],
         phoneNumber: ['']
       }),
-      showDataController: [false],
+      showDataController: [{value: false, disabled: true}],
       scope: [''],
-      showScope: [false],
+      showScope: [{value: false, disabled: true}],
       shortNoticeLink: [''],
-      showShortNoticeLink: [false],
+      showShortNoticeLink: [{value: false, disabled: true}],
       privacyPolicyUrl: ['', [Validators.required]],
       customPrivacyPolicyText: ['']
     });
-    this.form.get('showDataController').disable();
-    this.form.get('showJurisdiction').disable();
-    this.form.get('showCollectionMethod').disable();
-    this.form.get('showScope').disable();
-    this.form.get('showShortNoticeLink').disable();
+
+    this.form.get('jurisdiction').valueChanges.subscribe(v => this.optionalFieldChange(v, 'showJurisdiction'));
+    this.form.get('collectionMethod').valueChanges.subscribe(v => this.optionalFieldChange(v, 'showCollectionMethod'));
+    this.form.get('scope').valueChanges.subscribe(v => this.optionalFieldChange(v, 'showScope'));
+    this.form.get('shortNoticeLink').valueChanges.subscribe(v => this.optionalFieldChange(v, 'showShortNoticeLink'));
+    this.form.get('dataController').valueChanges.subscribe(v => this.dataControllerChange(v));
+
     this.initPreview();
   }
 
-  protected loadVersion(version: ModelVersionDto<Header>, locale: string = this.version.defaultLocale): void {
-    super.loadVersion(version, locale);
-
-    if (!this.isDataControllerEmpty()) {
-      this.form.get('showDataController').enable();
-    }
-    this.optionalFieldChange(this.form.get('jurisdiction').value, 'showJurisdiction');
-    this.optionalFieldChange(this.form.get('collectionMethod').value, 'showCollectionMethod');
-    this.optionalFieldChange(this.form.get('scope').value, 'showScope');
-    this.optionalFieldChange(this.form.get('shortNoticeLink').value, 'showShortNoticeLink');
-  }
-
-  optionalFieldChange(event, displayField): void {
-    if (event.length > 0) {
-      this.form.get(displayField).enable();
+  private optionalFieldChange(value: string, linkedControllerName: keyof Header): void {
+    if (value.length > 0) {
+      this.form.get(linkedControllerName).enable();
     } else {
-      this.form.get(displayField).setValue(false);
-      this.form.get(displayField).disable();
+      this.form.get(linkedControllerName).setValue(false);
+      this.form.get(linkedControllerName).disable();
     }
   }
 
-  dataControllerChange(event): void {
-    if (event.length > 0) {
-      this.form.get('showDataController').enable();
-    } else if (this.isDataControllerEmpty()) {
+  private dataControllerChange(dataController: Controller): void {
+    if (this.isDataControllerEmpty(dataController)) {
       this.form.get('showDataController').setValue(false);
       this.form.get('showDataController').disable();
+    } else {
+      this.form.get('showDataController').enable();
     }
+  }
+
+  private isDataControllerEmpty(dataController: Controller): boolean {
+    if (this.form.contains('dataController')) {
+      return !['company', 'name', 'address', 'email', 'phoneNumber']
+        .some(k => dataController[k].length > 0);
+    }
+    return true;
   }
 
 }

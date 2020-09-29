@@ -22,30 +22,6 @@ const routes: Routes = [
     pathMatch: 'full'
   },
   {
-    path: 'conditions',
-    children: [
-      {
-        path: '',
-        redirectTo: '/admin/home',
-        pathMatch: 'full'
-      },
-      {
-        path: ':owner',
-        children: [
-          {
-            path: '',
-            redirectTo: '/admin/home',
-            pathMatch: 'full'
-          },
-          {
-            path: ':key',
-            component: ConditionsReadOnlyComponent
-          }
-        ]
-      }
-    ]
-  },
-  {
     path: 'admin',
     component: ConfigComponent,
     canActivate: [RolesGuardService],
@@ -56,11 +32,6 @@ const routes: Routes = [
       {
         path: 'config',
         children: [
-          {
-            path: '',
-            redirectTo: '/admin/home',
-            pathMatch: 'full',
-          },
           {
             path: 'headers',
             component: HeadersPageComponent
@@ -132,6 +103,10 @@ const routes: Routes = [
         component: FormCreatorComponent
       }
     ]
+  },
+  {
+    path: 'conditions/:owner/:key',
+    component: ConditionsReadOnlyComponent
   }
 ];
 

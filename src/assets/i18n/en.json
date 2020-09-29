@@ -51,6 +51,9 @@
     },
     "LOCALE": {
       "LABEL": "Language"
+    },
+    "DEFAULT_LOCALE": {
+      "LABEL": "Default language"
     }
   },
   "MATERIAL": {
@@ -116,6 +119,11 @@
       "email": "New email",
       "MULTIPLE": "Add..."
     },
+    "STATUS": {
+      "ACTIVE": "Active",
+      "DRAFT": "Draft",
+      "ARCHIVED": "Archived"
+    },
     "COMMON": {
       "id": {
         "LABEL": "Id"
@@ -132,6 +140,9 @@
       },
       "type": {
         "LABEL": "Type"
+      },
+      "version": {
+        "LABEL": "Version"
       }
     },
     "CREATE_BUTTON": "New entry",
@@ -407,11 +418,11 @@
       "PRESENTATION": {
         "LABEL": "Presentation"
       },
-      "TARGETTYPE": {
+      "TARGET_TYPE": {
         "LABEL": "Category",
         "VALUES": {
           "FORM": "Consent form",
-          "EMAIL_OPT_OUT": "Opt-out email"
+          "EMAIL": "Opt-out email"
         }
       },
       "ICON": {

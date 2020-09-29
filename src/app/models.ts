@@ -68,7 +68,7 @@ export interface ModelVersionDtoLight<T extends ModelData = ModelData> {
 }
 
 export interface ModelVersionDto<T extends ModelData = ModelData> extends ModelVersionDtoLight {
-  data: { [locale: string]: ModelData };
+  data: { [locale: string]: T };
 }
 
 export enum ModelVersionStatus {
@@ -170,7 +170,7 @@ export interface Theme extends ModelData {
 
 export enum TargetType {
   FORM = 'FORM',
-  EMAIL_OPT_OUT = 'EMAIL_OPT_OUT'
+  EMAIL = 'EMAIL'
 }
 
 export const TARGET_TYPES = Object.keys(TargetType);
