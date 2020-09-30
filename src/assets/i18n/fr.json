@@ -20,6 +20,9 @@
       },
       "INTEGRATION": {
         "LABEL": "Intégration"
+      },
+      "API": {
+        "LABEL": "API"
       }
     }
   },
@@ -580,5 +583,22 @@
     "TITLE": "Serveur indisponible",
     "CONTENT": "Impossible de contacter le serveur. Veuillez réessayez ultérieurement.",
     "RELOAD": "Recharger la page"
+  },
+  "API": {
+    "KEYS": {
+      "TITLE": "Gestion des clés d'accès à l'API",
+      "NAME": {
+        "LABEL": "Nom"
+      },
+      "KEY": {
+        "LABEL": "Clé"
+      },
+      "CREATION_DATE": {
+        "LABEL": "Créé le"
+      },
+      "LAST_ACCESS_DATE": {
+        "LABEL": "Dernier accès le"
+      }
+    }
   }
 }

@@ -20,6 +20,9 @@
       },
       "INTEGRATION": {
         "LABEL": "Integration"
+      },
+      "API": {
+        "LABEL": "API"
       }
     }
   },
@@ -580,5 +583,21 @@
     "TITLE": "Server unavailable",
     "CONTENT": "Unable to contact the server. Please try again later.",
     "RELOAD": "Reload the page"
-  }
+  },
+  "API": {
+    "KEYS": {
+      "TITLE": "API Acces key management",
+      "NAME": {
+        "LABEL": "Name"
+      },
+      "KEY": {
+        "LABEL": "Key"
+      },
+      "CREATION_DATE": {
+        "LABEL": "Created on"
+      },
+      "LAST_ACCESS_DATE": {
+        "LABEL": "Last accessed on"
+      }
+    }
 }
