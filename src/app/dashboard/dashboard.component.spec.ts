@@ -28,6 +28,7 @@ describe('DashboardComponent', () => {
       imports: [ ReactiveFormsModule, MaterialModule, NoopAnimationsModule, TranslateModule.forRoot(), ChartsModule, RouterTestingModule ],
       providers: [
         {provide: RecordsResourceService, useValue: recordsResourceServiceSpy},
+        {provide: SubjectsResourceService, useValue: subjectsResourceServiceSpy},
       ]
     })
       .compileComponents();
