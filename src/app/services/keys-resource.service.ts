@@ -1,8 +1,8 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { environment } from '../environments/environment';
-import { Key } from './models';
+import { environment } from '../../environments/environment';
+import { Key } from '../models';
 
 @Injectable({
   providedIn: 'root'
@@ -17,7 +17,7 @@ export class KeysResourceService {
   }
 
   createKey(name: string): Observable<Key> {
-    return this.http.post<Key>(`${environment.managerUrl}/keys`, {'name': name});
+    return this.http.post<Key>(`${environment.managerUrl}/keys`, {name: name});
   }
 
   deleteKey(id: string): Observable<void> {

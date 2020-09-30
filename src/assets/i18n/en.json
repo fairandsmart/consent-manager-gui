@@ -76,18 +76,22 @@
       "PREVIOUS_PAGE": "Previous page",
       "ITEMS_PER_PAGE": "Items per page:",
       "RANGE": "of"
-    },
-    "SNACKBAR": {
-      "NO_CHANGE": "No change",
-      "UNSAVED_CHANGES": "Unsaved changes, cannot activate draft",
-      "SAVE_SUCCESS": "Content saved!",
-      "SAVE_ERROR": "Cannot save content...",
-      "ACTIVATION_SUCCESS": "Version activated!",
-      "ACTIVATION_ERROR": "Cannot activate draft...",
-      "DELETION_SUCCESS": "Draft deleted!",
-      "DELETION_ERROR": "Cannot delete draft...",
-      "RELOAD_ERROR": "Cannot reload latest version..."
     }
+  },
+  "ALERT": {
+    "NO_CHANGE": "No change",
+    "UNSAVED_CHANGES": "Unsaved changes, cannot activate draft",
+    "SAVE_SUCCESS": "Content saved!",
+    "SAVE_ERROR": "Cannot save content...",
+    "ACTIVATION_SUCCESS": "Version activated!",
+    "ACTIVATION_ERROR": "Cannot activate draft...",
+    "DELETION_SUCCESS": "Draft deleted!",
+    "DELETION_ERROR": "Cannot delete draft...",
+    "RELOAD_ERROR": "Cannot reload latest version..."
+  },
+  "CONFIRM_DIALOG": {
+    "CONFIRM": "Confirm",
+    "CANCEL": "Cancel"
   },
   "ENTRIES": {
     "TITLE": "Entries",

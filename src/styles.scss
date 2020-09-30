@@ -16,3 +16,13 @@ body {
     text-transform: uppercase;
   }
 }
+
+.mat-snack-bar-error {
+  background-color: mat-color($mat-red, 700);
+  color: white;
+}
+
+.mat-snack-bar-warning {
+  background-color: mat-color($mat-deep-orange, 700);
+  color: white;
+}

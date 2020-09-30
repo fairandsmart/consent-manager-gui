@@ -76,18 +76,22 @@
       "PREVIOUS_PAGE": "Page précédente",
       "ITEMS_PER_PAGE": "Éléments par page :",
       "RANGE": "sur"
-    },
-    "SNACKBAR": {
-      "NO_CHANGE": "Aucune modification",
-      "UNSAVED_CHANGES": "Il y a des modifications non enregistrées, impossible d'activer le brouillon",
-      "SAVE_SUCCESS": "Modifications enregistrées !",
-      "SAVE_ERROR": "Impossible d'enregistrer les modifications...",
-      "ACTIVATION_SUCCESS": "Version activée !",
-      "ACTIVATION_ERROR": "Impossible d'activer le brouillon...",
-      "DELETION_SUCCESS": "Brouillon supprimé !",
-      "DELETION_ERROR": "Impossible de supprimer le brouillon...",
-      "RELOAD_ERROR": "Impossible de recharger la version la plus récente..."
     }
+  },
+  "ALERT": {
+    "NO_CHANGE": "Aucune modification",
+    "UNSAVED_CHANGES": "Il y a des modifications non enregistrées, impossible d'activer le brouillon",
+    "SAVE_SUCCESS": "Modifications enregistrées !",
+    "SAVE_ERROR": "Impossible d'enregistrer les modifications...",
+    "ACTIVATION_SUCCESS": "Version activée !",
+    "ACTIVATION_ERROR": "Impossible d'activer le brouillon...",
+    "DELETION_SUCCESS": "Brouillon supprimé !",
+    "DELETION_ERROR": "Impossible de supprimer le brouillon...",
+    "RELOAD_ERROR": "Impossible de recharger la version la plus récente..."
+  },
+  "CONFIRM_DIALOG": {
+    "CONFIRM": "Confirmer",
+    "CANCEL": "Annuler"
   },
   "ENTRIES": {
     "TITLE": "Éléments",

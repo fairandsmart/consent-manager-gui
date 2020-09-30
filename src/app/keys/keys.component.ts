@@ -1,12 +1,11 @@
 import { AfterViewInit, ChangeDetectorRef, Component, OnInit } from '@angular/core';
-import { MatDialog } from '@angular/material/dialog';
-import { ActivatedRoute, Router } from '@angular/router';
-import { KeysResourceService } from '../keys-resource.service';
-import { CollectionPage, Key } from '../models';
+import { KeysResourceService } from '../services/keys-resource.service';
+import { Key } from '../models';
 import { CollectionViewer, DataSource } from '@angular/cdk/collections';
 import { BehaviorSubject, Observable, of } from 'rxjs';
 import { catchError, filter, skip, takeUntil } from 'rxjs/operators';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { AlertService } from '../services/alert.service';
 
 class KeysDataSource implements DataSource<Key> {
 
@@ -48,7 +47,7 @@ class KeysDataSource implements DataSource<Key> {
 }
 
 @Component({
-  selector: 'keys',
+  selector: 'app-keys',
   templateUrl: './keys.component.html',
   styleUrls: ['./keys.component.scss']
 })
@@ -62,7 +61,7 @@ export class KeysComponent implements OnInit, AfterViewInit {
 
   constructor(
     private keysResource: KeysResourceService,
-    private dialog: MatDialog,
+    private alertService: AlertService,
     protected ref: ChangeDetectorRef,
     private fb: FormBuilder) {}
 
@@ -70,11 +69,8 @@ export class KeysComponent implements OnInit, AfterViewInit {
     this.dataSource = new KeysDataSource(this.keysResource);
     this.loadKeys();
     this.form = this.fb.group({
-      name: ['', [
-        Validators.required
-      ]]
+      name: ['', [Validators.required]]
     });
-    this.form.enable();
   }
 
   ngAfterViewInit(): void {
@@ -86,7 +82,7 @@ export class KeysComponent implements OnInit, AfterViewInit {
   }
 
   dropKey(key: Key): void {
-    console.log("Dropping key " + key.id);
+    console.log('Dropping key ' + key.id);
   }
 
 }

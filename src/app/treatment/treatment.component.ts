@@ -3,9 +3,8 @@ import { EntryContentDirective } from '../entry-content/entry-content.directive'
 import { Controller, ModelDataType, ModelVersionDto, Treatment, TREATMENT_PURPOSES, TreatmentPurpose } from '../models';
 import { FormArray, FormBuilder, Validators } from '@angular/forms';
 import { ModelsResourceService } from '../services/models-resource.service';
-import { MatSnackBar } from '@angular/material/snack-bar';
-import { TranslateService } from '@ngx-translate/core';
 import { DomSanitizer } from '@angular/platform-browser';
+import { AlertService } from '../services/alert.service';
 
 @Component({
   selector: 'app-treatment',
@@ -19,10 +18,9 @@ export class TreatmentComponent extends EntryContentDirective<Treatment> impleme
   constructor(
       private fb: FormBuilder,
       modelsResourceService: ModelsResourceService,
-      snackBar: MatSnackBar,
-      translateService: TranslateService,
+      alertService: AlertService,
       sanitizer: DomSanitizer) {
-    super(modelsResourceService, snackBar, translateService, sanitizer);
+    super(modelsResourceService, alertService, sanitizer);
   }
 
   get type(): ModelDataType {
