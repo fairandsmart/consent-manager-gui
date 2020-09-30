@@ -12,9 +12,14 @@
         <table mat-table [dataSource]="dataSource" [class.loading]="dataSource.loading$ | async"
                matSort [matSortActive]="filter.order" [matSortDirection]="filter.direction" matSortDisableClear="true">
 
-          <ng-container matColumnDef="bodyKey">
-            <th mat-header-cell mat-sort-header *matHeaderCellDef>{{'RECORDS.COMMON.BODY.LABEL' | translate}}</th>
-            <td mat-cell *matCellDef="let element">{{element.bodyKey}}</td>
+          <ng-container matColumnDef="key">
+            <th mat-header-cell mat-sort-header *matHeaderCellDef>{{'RECORDS.COMMON.KEY.LABEL' | translate}}</th>
+            <td mat-cell *matCellDef="let element">{{element.key}}</td>
+          </ng-container>
+
+          <ng-container matColumnDef="name">
+            <th mat-header-cell mat-sort-header *matHeaderCellDef>{{'RECORDS.COMMON.NAME.LABEL' | translate}}</th>
+            <td mat-cell *matCellDef="let element">{{element.name}}</td>
           </ng-container>
 
           <ng-container matColumnDef="type">
@@ -24,7 +29,7 @@
           </ng-container>
 
           <ng-container matColumnDef="value">
-            <th mat-header-cell mat-sort-header *matHeaderCellDef>{{'RECORDS.COMMON.VALUE.LABEL' | translate}}</th>
+            <th mat-header-cell *matHeaderCellDef>{{'RECORDS.COMMON.VALUE.LABEL' | translate}}</th>
             <td mat-cell *matCellDef="let element">
               <span *ngIf="element.value != 'accepted' && element.value != 'refused'">-</span>
               <span *ngIf="element.value"><mat-icon>{{element.value == "accepted" ? 'check' : 'close'}}</mat-icon></span>
@@ -32,27 +37,32 @@
           </ng-container>
 
           <ng-container matColumnDef="collectionMethod">
-            <th mat-header-cell mat-sort-header
-                *matHeaderCellDef>{{'RECORDS.COMMON.COLLECTION_METHOD.LABEL' | translate}}</th>
+            <th mat-header-cell *matHeaderCellDef>{{'RECORDS.COMMON.COLLECTION_METHOD.LABEL' | translate}}</th>
             <td mat-cell
                 *matCellDef="let element">{{element.collectionMethod ? ('COMMON.COLLECTION_METHODS.' + element.collectionMethod | translate) : '-'}}</td>
           </ng-container>
 
           <ng-container matColumnDef="comment">
-            <th mat-header-cell mat-sort-header *matHeaderCellDef>{{'RECORDS.COMMON.COMMENT.LABEL' | translate}}</th>
+            <th mat-header-cell *matHeaderCellDef>{{'RECORDS.COMMON.COMMENT.LABEL' | translate}}</th>
             <td mat-cell *matCellDef="let element">{{element.comment || '-'}}</td>
           </ng-container>
 
-          <ng-container matColumnDef="creationTimestamp">
-            <th mat-header-cell mat-sort-header *matHeaderCellDef>{{'RECORDS.COMMON.CREATION.LABEL' | translate}}</th>
+          <ng-container matColumnDef="status">
+            <th mat-header-cell *matHeaderCellDef>{{'RECORDS.COMMON.STATUS.LABEL' | translate}}</th>
             <td mat-cell
-                *matCellDef="let element">{{element.creationTimestamp > 0 ? (element.creationTimestamp | date:'short') : '-'}}</td>
+                *matCellDef="let element">{{element.status ? ('COMMON.RECORD_STATUS.' + element.status | translate) : '-'}}</td>
           </ng-container>
 
-          <ng-container matColumnDef="expirationTimestamp">
-            <th mat-header-cell mat-sort-header *matHeaderCellDef>{{'RECORDS.COMMON.EXPIRATION.LABEL' | translate}}</th>
+          <ng-container matColumnDef="recordCreation">
+            <th mat-header-cell *matHeaderCellDef>{{'RECORDS.COMMON.CREATION.LABEL' | translate}}</th>
             <td mat-cell
-                *matCellDef="let element">{{element.expirationTimestamp > 0 ? (element.expirationTimestamp | date:'short') : '-'}}</td>
+                *matCellDef="let element">{{element.recordCreation > 0 ? (element.recordCreation | date:'short') : '-'}}</td>
+          </ng-container>
+
+          <ng-container matColumnDef="recordExpiration">
+            <th mat-header-cell *matHeaderCellDef>{{'RECORDS.COMMON.EXPIRATION.LABEL' | translate}}</th>
+            <td mat-cell
+                *matCellDef="let element">{{element.recordExpiration > 0 ? (element.recordExpiration | date:'short') : '-'}}</td>
           </ng-container>
 
           <ng-container matColumnDef="actions">
@@ -79,23 +89,28 @@
   <mat-sidenav opened mode="side" position="end">
     <form *ngIf="form" [formGroup]="form">
       <h2>{{'RECORDS.OPERATOR.LOG.TITLE' | translate}}</h2>
-      <mat-list *ngIf="operatorLog.length > 0">
-        <mat-list-item *ngFor="let element of operatorLog">
-          <div class="list-content">
+      <ng-container *ngIf="operatorLog.length > 0; else emptyLogTemplate">
+        <mat-list>
+          <mat-list-item *ngFor="let element of operatorLog">
+            <div class="list-content">
           <span class="list-content-text">
-            {{element.bodyKey}} : {{'RECORDS.COMMON.VALUE.' + element.value.toUpperCase() | translate}}
+            {{element.key}} : {{'RECORDS.COMMON.VALUE.' + element.value.toUpperCase() | translate}}
           </span>
-            <button mat-icon-button (click)="removeElementFromLog(element)">
-              <mat-icon>delete</mat-icon>
-            </button>
-          </div>
-        </mat-list-item>
-      </mat-list>
-      <mat-form-field appearance="outline" *ngIf="operatorLog.length>0">
+              <button mat-icon-button (click)="removeElementFromLog(element)">
+                <mat-icon>delete</mat-icon>
+              </button>
+            </div>
+          </mat-list-item>
+        </mat-list>
+      </ng-container>
+      <ng-template #emptyLogTemplate>
+        <div class="empty-log">{{'RECORDS.OPERATOR.LOG.EMPTY' | translate}}</div>
+      </ng-template>
+      <mat-form-field appearance="outline">
         <mat-label>{{'RECORDS.OPERATOR.LOG.COMMENT' | translate}}</mat-label>
         <input matInput required formControlName="comment" autocomplete="off">
       </mat-form-field>
-      <button mat-raised-button color="primary" *ngIf="operatorLog.length>0" (click)="submitLog()">
+      <button mat-raised-button color="primary" (click)="submitLog()" [disabled]="operatorLog.length == 0">
         {{'RECORDS.OPERATOR.LOG.SUBMIT' | translate}}
       </button>
     </form>

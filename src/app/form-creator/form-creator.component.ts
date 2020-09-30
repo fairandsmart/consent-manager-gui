@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ModelsResourceService } from '../models-resource.service';
+import { ModelsResourceService } from '../services/models-resource.service';
 import {
   CollectionMethod,
   CONSENT_FORM_ORIENTATIONS,
@@ -15,7 +15,7 @@ import { tap } from 'rxjs/operators';
 import { zip } from 'rxjs';
 import { CdkDragDrop, copyArrayItem, moveItemInArray } from '@angular/cdk/drag-drop';
 import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { ConsentsResourceService } from '../consents-resource.service';
+import { ConsentsResourceService } from '../services/consents-resource.service';
 import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
 import { StepperSelectionEvent } from '@angular/cdk/stepper';
 import { SectionConfig } from '../entries/entries-library/entries-library.component';
@@ -251,7 +251,7 @@ export class FormCreatorComponent implements OnInit {
       ...this.form.at(FORM_CREATOR_STEP.PREVIEW).value
     };
     return {
-      subject: '',
+      subject: formValue.subject,
       orientation: formValue.orientation,
       header: formValue.header,
       elements: formValue.elements,

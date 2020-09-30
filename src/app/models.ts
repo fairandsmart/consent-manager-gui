@@ -65,6 +65,7 @@ export interface ModelVersionDtoLight<T extends ModelData = ModelData> {
   type?: ModelVersionType;
   creationDate?: number;
   modificationDate?: number;
+  identifier?: string;
 }
 
 export interface ModelVersionDto<T extends ModelData = ModelData> extends ModelVersionDtoLight {
@@ -198,7 +199,7 @@ export interface ModelFilter {
   types: ModelDataType[];
   page?: number;
   size?: number;
-  order?: keyof ModelEntryDto;
+  order?: string;
   direction?: SortDirection;
 }
 
@@ -253,29 +254,25 @@ export const RECEIPT_DELIVERY_TYPES: ReceiptDeliveryType[] = ['NONE', 'GENERATE'
 export enum RecordStatus {
   PENDING = 'PENDING',
   COMMITTED = 'COMMITTED',
-  EXPIRED = 'EXPIRED'
+  DELETED = 'DELETED',
+  VALID = 'VALID',
+  OBSOLETE = 'OBSOLETE',
+  IRRELEVANT = 'IRRELEVANT'
 }
 
 export interface RecordDto {
-  id: string;
-  version: number;
+  serial: string;
+  headerKey?: string;
+  bodyKey: string;
+  footerKey?: string;
+  subject: string;
   creationTimestamp: number;
   expirationTimestamp: number;
-  owner: string;
-  subject: string;
-  transaction: string;
-  parent: string;
-  serial: string;
   type: string;
-  headSerial: string;
-  bodySerial: string;
-  footSerial: string;
-  headKey: string;
-  bodyKey: string;
-  footKey: string;
   value: string;
   status: RecordStatus;
-  attributes: {[key: string]: string};
+  collectionMethod: CollectionMethod;
+  comment: string;
 }
 
 export interface RecordFilter {

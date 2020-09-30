@@ -18,8 +18,8 @@ export class SubjectsResourceService {
     return this.http.get<string[]>(`${this.ROOT}`, {params: {name: name}});
   }
 
-  listCustomerRecords(subject: string): Observable<{[key: string]: RecordDto[]}> {
-    return this.http.get<{[key: string]: RecordDto[]}>(`${this.ROOT}/${subject}/records`);
+  listCustomerRecords(subject: string): Observable<{ [key: string]: RecordDto[] }> {
+    return this.http.get<{ [key: string]: RecordDto[] }>(`${this.ROOT}/${subject}/records`);
   }
 
 }

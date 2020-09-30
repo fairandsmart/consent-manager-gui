@@ -55,6 +55,14 @@
     },
     "DEFAULT_LOCALE": {
       "LABEL": "Langue par défaut"
+    },
+    "RECORD_STATUS": {
+      "PENDING": "En attente",
+      "COMMITTED": "Validé",
+      "DELETED": "Supprimé",
+      "VALID": "Valide",
+      "OBSOLETE": "Obsolète",
+      "IRRELEVANT": "Hors sujet"
     }
   },
   "MATERIAL": {
@@ -438,27 +446,12 @@
   },
   "RECORDS": {
     "TITLE": "Consentements",
-    "LIST_TITLE": "Tous les consentements",
-    "SEARCH_BUTTON": "Rechercher",
-    "JUMP_BUTTON": "Voir page client",
     "COMMON": {
-      "ID": {
-        "LABEL": "Id"
+      "KEY": {
+        "LABEL": "Référence"
       },
-      "SERIAL": {
-        "LABEL": "Numéro de série"
-      },
-      "HEADER": {
-        "LABEL": "En-tête"
-      },
-      "BODY": {
-        "LABEL": "Elément"
-      },
-      "FOOTER": {
-        "LABEL": "Pied de page"
-      },
-      "SUBJECT": {
-        "LABEL": "Identifiant client"
+      "NAME": {
+        "LABEL": "Nom"
       },
       "TYPE": {
         "LABEL": "Type"
@@ -471,22 +464,17 @@
       "COLLECTION_METHOD": {
         "LABEL": "Méthode de collecte"
       },
+      "COMMENT": {
+        "LABEL": "Commentaire"
+      },
       "STATUS": {
-        "LABEL": "Statut",
-        "VALUES": {
-          "PENDING": "En attente",
-          "COMMITTED": "Validé",
-          "EXPIRED": "Expiré"
-        }
+        "LABEL": "Statut"
       },
       "CREATION": {
         "LABEL": "Date de création"
       },
       "EXPIRATION": {
         "LABEL": "Date d'expiration"
-      },
-      "COMMENT": {
-        "LABEL": "Commentaire"
       }
     },
     "DIALOG": {
@@ -495,14 +483,9 @@
     },
     "OPERATOR": {
       "TITLE": "Consentements de",
-      "CREATE_BUTTON": "Nouveau consentement",
-      "EDITOR": {
-        "TITLE": "Nouveau consentement",
-        "VALUES": "Valeurs des consentements",
-        "EMPTY": "Il n'y a aucune valeur pour le moment."
-      },
       "LOG": {
         "TITLE": "Log",
+        "EMPTY": "Le log est vide.",
         "COMMENT": "Commentaire",
         "SUBMIT": "Enregistrer les changements"
       }
