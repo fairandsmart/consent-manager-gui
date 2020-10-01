@@ -26,3 +26,36 @@ body {
   background-color: mat-color($mat-deep-orange, 700);
   color: white;
 }
+
+.badge {
+  display: inline-block;
+  padding: .25em .4em;
+  font-size: mat-font-size($typography, caption);
+  font-weight: 500;
+  line-height: 1;
+  text-align: center;
+  white-space: nowrap;
+  vertical-align: baseline;
+  border-radius: 4px;
+  background-color: mat-color($mat-gray, 600);
+  color: mat-contrast($mat-gray, 600);
+  + .badge {
+    margin-left: 6px;
+  }
+  &.badge-primary {
+    background-color: mat-color($app-primary, 500);
+    color: mat-contrast($app-primary, 500);
+  }
+  &.badge-accent {
+    background-color: mat-color($app-accent, 500);
+    color: mat-contrast($app-accent, 500);
+  }
+  &.badge-success {
+    background-color: mat-color($mat-green, 600);
+    color: mat-contrast($mat-green, 600);
+  }
+  &.badge-warning {
+    background-color: mat-color($mat-red, 500);
+    color: mat-contrast($mat-red, 500);
+  }
+}

@@ -413,7 +413,9 @@
     }
   },
   "ENTRY_CARD": {
-    "LABEL_NO_DESCRIPTION": "No description"
+    "LABEL_NO_DESCRIPTION": "No description",
+    "ACTIVE_VERSION": "Active",
+    "LANGUAGES_TOOLTIP": "Language(s)"
   },
   "THEMES": {
     "TITLE": "Themes",
@@ -604,4 +606,5 @@
         "LABEL": "Last accessed on"
       }
     }
+  }
 }

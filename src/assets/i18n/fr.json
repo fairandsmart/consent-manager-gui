@@ -413,7 +413,9 @@
     }
   },
   "ENTRY_CARD": {
-    "LABEL_NO_DESCRIPTION": "Pas de description"
+    "LABEL_NO_DESCRIPTION": "Pas de description",
+    "ACTIVE_VERSION": "Actif",
+    "LANGUAGES_TOOLTIP": "Langue(s)"
   },
   "THEMES": {
     "TITLE": "Thèmes",
