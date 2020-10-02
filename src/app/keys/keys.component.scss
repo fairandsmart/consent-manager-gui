@@ -1,0 +1,51 @@
+:host {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  display: block;
+
+  .container {
+    margin: 2em;
+  }
+
+  .table-container {
+    position: relative;
+    margin-top: 1em;
+
+    .progress-bar-container {
+      position: absolute;
+      left: 0;
+      right: 0;
+      top: 0;
+    }
+
+    table {
+      width: 100%;
+
+      &.loading {
+        ::ng-deep tbody tr {
+          opacity: 0.5;
+        }
+      }
+
+      td {
+        max-width: 20em;
+      }
+
+      .mat-footer-cell {
+        padding-top: 1em;
+      }
+
+      .generate-field {
+        width: 35%;
+      }
+
+      .generate-button {
+        margin-left: 10px
+      }
+    }
+  }
+
+}

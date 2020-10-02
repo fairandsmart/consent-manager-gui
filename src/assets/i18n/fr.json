@@ -610,11 +610,27 @@
       "KEY": {
         "LABEL": "Clé"
       },
+      "SECRET": {
+        "LABEL": "Partie secrète de la clé"
+      },
       "CREATION_DATE": {
         "LABEL": "Créé le"
       },
       "LAST_ACCESS_DATE": {
         "LABEL": "Dernier accès le"
+      },
+      "GENERATE": {
+        "LABEL": "Générer une nouvelle clé",
+        "PLACEHOLDER": "Nom de la clé",
+        "BUTTON": "Générer"
+      },
+      "GENERATED": {
+        "TITLE": "Nouvelle clé d'accès générée",
+        "KEY": "Votre clé d'accès à l'API",
+        "HOW_TO": {
+          "TITLE": "Comment l'utiliser",
+          "EXPLAIN": "Cette clé est à utiliser comme un mot de passe Http Basic classique dans les entêtes des requêtes faites à l'application"
+        }
       }
     }
   }

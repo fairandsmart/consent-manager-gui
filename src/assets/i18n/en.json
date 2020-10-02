@@ -609,11 +609,28 @@
       "KEY": {
         "LABEL": "Key"
       },
+      "SECRET": {
+        "LABEL": "Secret key part"
+      },
       "CREATION_DATE": {
         "LABEL": "Created on"
       },
       "LAST_ACCESS_DATE": {
         "LABEL": "Last accessed on"
+      },
+      "GENERATE": {
+        "LABEL": "Generate new key",
+        "PLACEHOLDER": "Key name",
+        "BUTTON": "Generate"
+      },
+      "GENERATED": {
+        "TITLE": "New access key generated",
+        "KEY": "Your API access key",
+        "HOW_TO": {
+          "TITLE": "How to use it",
+          "EXPLAIN": "This key cna be used in Http request headers of API request as any kind of classic Http Basic password"
+        }
       }
     }
+  }
 }

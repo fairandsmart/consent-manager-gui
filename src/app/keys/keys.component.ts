@@ -1,8 +1,7 @@
-import { AfterViewInit, ChangeDetectorRef, Component, OnInit } from '@angular/core';
-import { MatDialog } from '@angular/material/dialog';
-import { ActivatedRoute, Router } from '@angular/router';
+import { AfterViewInit, ChangeDetectorRef, Component, Inject, OnInit } from '@angular/core';
+import { MAT_DIALOG_DATA, MatDialog } from '@angular/material/dialog';
 import { KeysResourceService } from '../keys-resource.service';
-import { CollectionPage, Key } from '../models';
+import { Key } from '../models';
 import { CollectionViewer, DataSource } from '@angular/cdk/collections';
 import { BehaviorSubject, Observable, of } from 'rxjs';
 import { catchError, filter, skip, takeUntil } from 'rxjs/operators';
@@ -87,6 +86,28 @@ export class KeysComponent implements OnInit, AfterViewInit {
 
   dropKey(key: Key): void {
     console.log("Dropping key " + key.id);
+    this.keysResource.deleteKey(key.id).subscribe(
+      response => {
+          this.loadKeys();
+      });
   }
 
+  generateKey(): void {
+    console.log("Generating new key for name " + this.form.get('name').value);
+    //this.keysResource.createKey(this.form.get('name').value).subscribe(
+    //  response => {
+    //    this.dialog.open(GeneratedKeyDialog, { data: response });
+    //    this.loadKeys();
+    //  }
+    //)
+  }
+
+}
+
+@Component({
+  selector: 'generated-key-dialog',
+  templateUrl: 'generated-key-dialog.html',
+})
+export class GeneratedKeyDialog {
+  constructor(@Inject(MAT_DIALOG_DATA) public data: Key) {}
 }
