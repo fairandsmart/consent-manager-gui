@@ -5,12 +5,12 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MaterialModule } from '../material.module';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { TranslateModule } from '@ngx-translate/core';
-import { ModelsResourceService } from '../models-resource.service';
+import { ModelsResourceService } from '../services/models-resource.service';
 import { EMPTY } from 'rxjs';
 import { NO_ERRORS_SCHEMA } from '@angular/core';
 import SpyObj = jasmine.SpyObj;
 import createSpyObj = jasmine.createSpyObj;
-import { ConsentsResourceService } from '../consents-resource.service';
+import { ConsentsResourceService } from '../services/consents-resource.service';
 
 describe('FormCreatorComponent', () => {
   let component: FormCreatorComponent;

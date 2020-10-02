@@ -6,7 +6,7 @@ import { FormsModule } from '@angular/forms';
 import { MaterialModule } from '../../material.module';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { TranslateModule } from '@ngx-translate/core';
-import { ModelsResourceService } from '../../models-resource.service';
+import { ModelsResourceService } from '../../services/models-resource.service';
 import { ActivatedRoute } from '@angular/router';
 import { ActivatedRouteStub } from '../../testing/activated-route-stub';
 import { of } from 'rxjs';

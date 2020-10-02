@@ -2,13 +2,12 @@ import { Component, OnInit } from '@angular/core';
 import { EntryContentDirective } from '../entry-content/entry-content.directive';
 import { CollectionMethod, Conditions, ConsentContext, ConsentFormOrientation, ConsentFormType, ModelDataType } from '../models';
 import { FormBuilder, Validators } from '@angular/forms';
-import { ModelsResourceService } from '../models-resource.service';
-import { MatSnackBar } from '@angular/material/snack-bar';
-import { TranslateService } from '@ngx-translate/core';
+import { ModelsResourceService } from '../services/models-resource.service';
 import { FormUrlDialogComponent, FormUrlDialogComponentData } from '../form-url-dialog/form-url-dialog.component';
 import { MatDialog } from '@angular/material/dialog';
-import { ConsentsResourceService } from '../consents-resource.service';
+import { ConsentsResourceService } from '../services/consents-resource.service';
 import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
+import { AlertService } from '../services/alert.service';
 
 @Component({
   selector: 'app-conditions',
@@ -35,11 +34,10 @@ export class ConditionsComponent extends EntryContentDirective<Conditions> imple
       private fb: FormBuilder,
       modelsResourceService: ModelsResourceService,
       public consentsResourceService: ConsentsResourceService,
-      snackBar: MatSnackBar,
-      translateService: TranslateService,
+      alertService: AlertService,
       sanitizer: DomSanitizer,
       private dialog: MatDialog) {
-    super(modelsResourceService, snackBar, translateService, sanitizer);
+    super(modelsResourceService, alertService, sanitizer);
   }
 
   get type(): ModelDataType {

@@ -15,6 +15,9 @@ export const FIELD_VALIDATORS = {
   },
   elementsKeys: {
     pattern: '^([0-9a-zA-Z-_.]{2,255},)*[0-9a-zA-Z-_.]{2,255}$'
+  },
+  phone: {
+    pattern: '^\\+?[0-9]+$'
   }
 };
 
@@ -65,6 +68,7 @@ export interface ModelVersionDtoLight<T extends ModelData = ModelData> {
   type?: ModelVersionType;
   creationDate?: number;
   modificationDate?: number;
+  identifier?: string;
 }
 
 export interface ModelVersionDto<T extends ModelData = ModelData> extends ModelVersionDtoLight {
@@ -198,7 +202,7 @@ export interface ModelFilter {
   types: ModelDataType[];
   page?: number;
   size?: number;
-  order?: keyof ModelEntryDto;
+  order?: string;
   direction?: SortDirection;
 }
 
@@ -253,29 +257,25 @@ export const RECEIPT_DELIVERY_TYPES: ReceiptDeliveryType[] = ['NONE', 'GENERATE'
 export enum RecordStatus {
   PENDING = 'PENDING',
   COMMITTED = 'COMMITTED',
-  EXPIRED = 'EXPIRED'
+  DELETED = 'DELETED',
+  VALID = 'VALID',
+  OBSOLETE = 'OBSOLETE',
+  IRRELEVANT = 'IRRELEVANT'
 }
 
-export interface Record {
-  id: string;
-  version: number;
+export interface RecordDto {
+  serial: string;
+  headerKey?: string;
+  bodyKey: string;
+  footerKey?: string;
+  subject: string;
   creationTimestamp: number;
   expirationTimestamp: number;
-  owner: string;
-  subject: string;
-  transaction: string;
-  parent: string;
-  serial: string;
   type: string;
-  headSerial: string;
-  bodySerial: string;
-  footSerial: string;
-  headKey: string;
-  bodyKey: string;
-  footKey: string;
   value: string;
   status: RecordStatus;
-  attributes: {[key: string]: string};
+  collectionMethod: CollectionMethod;
+  comment: string;
 }
 
 export interface RecordFilter {
@@ -302,4 +302,25 @@ export interface Key {
   password?: string;
   creationDate?: number;
   lastAccessDate?: number;
+}
+
+export interface EntryRecord {
+  key: string;
+  type: string;
+  name: string;
+  identifier: string;
+  value?: string;
+  recordCreation?: number;
+  recordExpiration?: number;
+  comment?: string;
+  collectionMethod?: CollectionMethod;
+  status?: RecordStatus;
+  active: boolean;
+}
+
+export interface EntryRecordFilter extends ModelFilter {
+  order: string;
+  subject: string;
+  before?: number;
+  after?: number;
 }

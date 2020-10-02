@@ -3,7 +3,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { Observable } from 'rxjs';
 import { CreateModelDto, FIELD_VALIDATORS, ModelDataType, ModelEntryDto, UpdateModelDto } from '../models';
-import { ModelsResourceService } from '../models-resource.service';
+import { ModelsResourceService } from '../services/models-resource.service';
 import { HttpErrorResponse } from '@angular/common/http';
 
 export interface EntryEditorDialogComponentData {

@@ -7,7 +7,7 @@ import createSpyObj = jasmine.createSpyObj;
 import { ReactiveFormsModule } from '@angular/forms';
 import { MaterialModule } from '../material.module';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
-import { ModelsResourceService } from '../models-resource.service';
+import { ModelsResourceService } from '../services/models-resource.service';
 import { TranslateModule } from '@ngx-translate/core';
 
 describe('EntryEditorDialogComponent', () => {

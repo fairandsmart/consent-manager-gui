@@ -4,7 +4,7 @@ COPY angular.json /usr/src/app
 COPY package.json /usr/src/app
 COPY package-lock.json /usr/src/app
 COPY tsconfig.app.json /usr/src/app
-COPY tsconfig.base.json /usr/src/app
+COPY tsconfig.json /usr/src/app
 WORKDIR /usr/src/app
 RUN npm install
 RUN npm run maven-build

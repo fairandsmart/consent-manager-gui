@@ -58,6 +58,14 @@
     },
     "DEFAULT_LOCALE": {
       "LABEL": "Langue par défaut"
+    },
+    "RECORD_STATUS": {
+      "PENDING": "En attente",
+      "COMMITTED": "Validé",
+      "DELETED": "Supprimé",
+      "VALID": "Valide",
+      "OBSOLETE": "Obsolète",
+      "IRRELEVANT": "Hors sujet"
     }
   },
   "MATERIAL": {
@@ -68,18 +76,22 @@
       "PREVIOUS_PAGE": "Page précédente",
       "ITEMS_PER_PAGE": "Éléments par page :",
       "RANGE": "sur"
-    },
-    "SNACKBAR": {
-      "NO_CHANGE": "Aucune modification",
-      "UNSAVED_CHANGES": "Il y a des modifications non enregistrées, impossible d'activer le brouillon",
-      "SAVE_SUCCESS": "Modifications enregistrées !",
-      "SAVE_ERROR": "Impossible d'enregistrer les modifications...",
-      "ACTIVATION_SUCCESS": "Version activée !",
-      "ACTIVATION_ERROR": "Impossible d'activer le brouillon...",
-      "DELETION_SUCCESS": "Brouillon supprimé !",
-      "DELETION_ERROR": "Impossible de supprimer le brouillon...",
-      "RELOAD_ERROR": "Impossible de recharger la version la plus récente..."
     }
+  },
+  "ALERT": {
+    "NO_CHANGE": "Aucune modification",
+    "UNSAVED_CHANGES": "Il y a des modifications non enregistrées, impossible d'activer le brouillon",
+    "SAVE_SUCCESS": "Modifications enregistrées !",
+    "SAVE_ERROR": "Impossible d'enregistrer les modifications...",
+    "ACTIVATION_SUCCESS": "Version activée !",
+    "ACTIVATION_ERROR": "Impossible d'activer le brouillon...",
+    "DELETION_SUCCESS": "Brouillon supprimé !",
+    "DELETION_ERROR": "Impossible de supprimer le brouillon...",
+    "RELOAD_ERROR": "Impossible de recharger la version la plus récente..."
+  },
+  "CONFIRM_DIALOG": {
+    "CONFIRM": "Confirmer",
+    "CANCEL": "Annuler"
   },
   "ENTRIES": {
     "TITLE": "Éléments",
@@ -401,7 +413,9 @@
     }
   },
   "ENTRY_CARD": {
-    "LABEL_NO_DESCRIPTION": "Pas de description"
+    "LABEL_NO_DESCRIPTION": "Pas de description",
+    "ACTIVE_VERSION": "Actif",
+    "LANGUAGES_TOOLTIP": "Langue(s)"
   },
   "THEMES": {
     "TITLE": "Thèmes",
@@ -441,27 +455,12 @@
   },
   "RECORDS": {
     "TITLE": "Consentements",
-    "LIST_TITLE": "Tous les consentements",
-    "SEARCH_BUTTON": "Rechercher",
-    "JUMP_BUTTON": "Voir page client",
     "COMMON": {
-      "ID": {
-        "LABEL": "Id"
+      "KEY": {
+        "LABEL": "Référence"
       },
-      "SERIAL": {
-        "LABEL": "Numéro de série"
-      },
-      "HEADER": {
-        "LABEL": "En-tête"
-      },
-      "BODY": {
-        "LABEL": "Elément"
-      },
-      "FOOTER": {
-        "LABEL": "Pied de page"
-      },
-      "SUBJECT": {
-        "LABEL": "Identifiant client"
+      "NAME": {
+        "LABEL": "Nom"
       },
       "TYPE": {
         "LABEL": "Type"
@@ -474,22 +473,17 @@
       "COLLECTION_METHOD": {
         "LABEL": "Méthode de collecte"
       },
+      "COMMENT": {
+        "LABEL": "Commentaire"
+      },
       "STATUS": {
-        "LABEL": "Statut",
-        "VALUES": {
-          "PENDING": "En attente",
-          "COMMITTED": "Validé",
-          "EXPIRED": "Expiré"
-        }
+        "LABEL": "Statut"
       },
       "CREATION": {
         "LABEL": "Date de création"
       },
       "EXPIRATION": {
         "LABEL": "Date d'expiration"
-      },
-      "COMMENT": {
-        "LABEL": "Commentaire"
       }
     },
     "DIALOG": {
@@ -498,14 +492,9 @@
     },
     "OPERATOR": {
       "TITLE": "Consentements de",
-      "CREATE_BUTTON": "Nouveau consentement",
-      "EDITOR": {
-        "TITLE": "Nouveau consentement",
-        "VALUES": "Valeurs des consentements",
-        "EMPTY": "Il n'y a aucune valeur pour le moment."
-      },
       "LOG": {
         "TITLE": "Log",
+        "EMPTY": "Le log est vide.",
         "COMMENT": "Commentaire",
         "SUBMIT": "Enregistrer les changements"
       }

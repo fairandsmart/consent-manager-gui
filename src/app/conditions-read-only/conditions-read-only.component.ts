@@ -1,5 +1,5 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { ConsentsResourceService } from '../consents-resource.service';
+import { ConsentsResourceService } from '../services/consents-resource.service';
 import { ActivatedRoute } from '@angular/router';
 import { CollectionMethod, ConsentContext, ConsentFormOrientation, ConsentFormType } from '../models';
 import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';

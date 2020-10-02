@@ -13,9 +13,10 @@
         "HEADERS": "Headers",
         "TREATMENTS": "Treatments",
         "FOOTERS": "Footers",
+        "PREFERENCES": "Preferences",
         "CONDITIONS": "EULA",
-        "EMAIL": "Emails",
-        "THEME": "Themes"
+        "EMAILS": "Emails",
+        "THEMES": "Themes"
       },
       "INTEGRATION": {
         "LABEL": "Integration"
@@ -57,6 +58,14 @@
     },
     "DEFAULT_LOCALE": {
       "LABEL": "Default language"
+    },
+    "RECORD_STATUS": {
+      "PENDING": "Pending",
+      "COMMITTED": "Committed",
+      "DELETED": "Deleted",
+      "VALID": "Valid",
+      "OBSOLETE": "Obsolete",
+      "IRRELEVANT": "Irrelevant"
     }
   },
   "MATERIAL": {
@@ -67,18 +76,22 @@
       "PREVIOUS_PAGE": "Previous page",
       "ITEMS_PER_PAGE": "Items per page:",
       "RANGE": "of"
-    },
-    "SNACKBAR": {
-      "NO_CHANGE": "No change",
-      "UNSAVED_CHANGES": "Unsaved changes, cannot activate draft",
-      "SAVE_SUCCESS": "Content saved!",
-      "SAVE_ERROR": "Cannot save content...",
-      "ACTIVATION_SUCCESS": "Version activated!",
-      "ACTIVATION_ERROR": "Cannot activate draft...",
-      "DELETION_SUCCESS": "Draft deleted!",
-      "DELETION_ERROR": "Cannot delete draft...",
-      "RELOAD_ERROR": "Cannot reload latest version..."
     }
+  },
+  "ALERT": {
+    "NO_CHANGE": "No change",
+    "UNSAVED_CHANGES": "Unsaved changes, cannot activate draft",
+    "SAVE_SUCCESS": "Content saved!",
+    "SAVE_ERROR": "Cannot save content...",
+    "ACTIVATION_SUCCESS": "Version activated!",
+    "ACTIVATION_ERROR": "Cannot activate draft...",
+    "DELETION_SUCCESS": "Draft deleted!",
+    "DELETION_ERROR": "Cannot delete draft...",
+    "RELOAD_ERROR": "Cannot reload latest version..."
+  },
+  "CONFIRM_DIALOG": {
+    "CONFIRM": "Confirm",
+    "CANCEL": "Cancel"
   },
   "ENTRIES": {
     "TITLE": "Entries",
@@ -400,7 +413,9 @@
     }
   },
   "ENTRY_CARD": {
-    "LABEL_NO_DESCRIPTION": "No description"
+    "LABEL_NO_DESCRIPTION": "No description",
+    "ACTIVE_VERSION": "Active",
+    "LANGUAGES_TOOLTIP": "Language(s)"
   },
   "THEMES": {
     "TITLE": "Themes",
@@ -440,27 +455,12 @@
   },
   "RECORDS": {
     "TITLE": "Consents",
-    "LIST_TITLE": "All the consents",
-    "SEARCH_BUTTON": "Search",
-    "JUMP_BUTTON": "See customer page",
     "COMMON": {
-      "ID": {
-        "LABEL": "Id"
+      "KEY": {
+        "LABEL": "Reference"
       },
-      "SERIAL": {
-        "LABEL": "Serial"
-      },
-      "HEADER": {
-        "LABEL": "Header"
-      },
-      "BODY": {
-        "LABEL": "Body"
-      },
-      "FOOTER": {
-        "LABEL": "Footer"
-      },
-      "SUBJECT": {
-        "LABEL": "Customer ID"
+      "NAME": {
+        "LABEL": "Name"
       },
       "TYPE": {
         "LABEL": "Type"
@@ -473,22 +473,17 @@
       "COLLECTION_METHOD": {
         "LABEL": "Collection method"
       },
+      "COMMENT": {
+        "LABEL": "Comment"
+      },
       "STATUS": {
-        "LABEL": "Status",
-        "VALUES": {
-          "PENDING": "Pending",
-          "COMMITTED": "Committed",
-          "EXPIRED": "Expired"
-        }
+        "LABEL": "Status"
       },
       "CREATION": {
         "LABEL": "Creation date"
       },
       "EXPIRATION": {
         "LABEL": "Expiration date"
-      },
-      "COMMENT": {
-        "LABEL": "Comment"
       }
     },
     "DIALOG": {
@@ -497,14 +492,9 @@
     },
     "OPERATOR": {
       "TITLE": "Consents of",
-      "CREATE_BUTTON": "New consent request",
-      "EDITOR": {
-        "TITLE": "New consent",
-        "VALUES": "Consents values",
-        "EMPTY": "There is no value yet."
-      },
       "LOG": {
         "TITLE": "Log",
+        "EMPTY": "The log is empty.",
         "COMMENT": "Comment",
         "SUBMIT": "Save changes"
       }

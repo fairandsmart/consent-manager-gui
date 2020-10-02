@@ -2,12 +2,11 @@ import { Component, OnInit } from '@angular/core';
 import { EntryContentDirective } from '../entry-content/entry-content.directive';
 import { ModelDataType, TARGET_TYPES, Theme } from '../models';
 import { FormBuilder, Validators } from '@angular/forms';
-import { ModelsResourceService } from '../models-resource.service';
-import { MatSnackBar } from '@angular/material/snack-bar';
-import { TranslateService } from '@ngx-translate/core';
+import { ModelsResourceService } from '../services/models-resource.service';
 import * as CodeMirror from 'codemirror';
 import { Editor } from 'codemirror';
 import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
+import { AlertService } from '../services/alert.service';
 
 const snippets: { text: string, displayText: string }[] = [
   { text: '.logo-wrapper', displayText: 'Logo - Conteneur' },
@@ -104,10 +103,9 @@ export class ThemeComponent extends EntryContentDirective<Theme> implements OnIn
   constructor(
       private fb: FormBuilder,
       modelsResourceService: ModelsResourceService,
-      snackBar: MatSnackBar,
-      translateService: TranslateService,
+      alertService: AlertService,
       sanitizer: DomSanitizer) {
-    super(modelsResourceService, snackBar, translateService, sanitizer);
+    super(modelsResourceService, alertService, sanitizer);
   }
 
   get type(): ModelDataType {

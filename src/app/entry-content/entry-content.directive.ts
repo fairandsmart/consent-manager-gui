@@ -4,20 +4,20 @@ import {
   ModelData,
   ModelDataType,
   ModelEntryDto,
-  ModelVersionDto, ModelVersionDtoLight,
+  ModelVersionDto,
+  ModelVersionDtoLight,
   ModelVersionStatus,
   PreviewDto
 } from '../models';
 import { EMPTY, Observable, of } from 'rxjs';
 import { FormGroup } from '@angular/forms';
-import { ModelsResourceService } from '../models-resource.service';
-import { MatSnackBar } from '@angular/material/snack-bar';
+import { ModelsResourceService } from '../services/models-resource.service';
 import * as _ from 'lodash';
 import { catchError, debounceTime, mergeMap, startWith } from 'rxjs/operators';
 import { HttpErrorResponse } from '@angular/common/http';
-import { TranslateService } from '@ngx-translate/core';
 import { environment } from '../../environments/environment';
 import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
+import { AlertService } from '../services/alert.service';
 
 @Directive()
 export abstract class EntryContentDirective<T extends ModelData> implements OnInit {
@@ -41,8 +41,7 @@ export abstract class EntryContentDirective<T extends ModelData> implements OnIn
 
   protected constructor(
     protected modelsResourceService: ModelsResourceService,
-    private snackBar: MatSnackBar,
-    private translateService: TranslateService,
+    protected alertService: AlertService,
     protected sanitizer: DomSanitizer) {
   }
 
@@ -111,7 +110,7 @@ export abstract class EntryContentDirective<T extends ModelData> implements OnIn
 
   save(): void {
     if (!this.hasChanges) {
-      this.showSnackbar('MATERIAL.SNACKBAR.NO_CHANGE');
+      this.alertService.info('ALERT.NO_CHANGE');
       return;
     }
     if (this.form.valid) {
@@ -129,38 +128,35 @@ export abstract class EntryContentDirective<T extends ModelData> implements OnIn
       }
       obs.subscribe(version => {
         this.updateVersion(version);
-        this.showSnackbar('MATERIAL.SNACKBAR.SAVE_SUCCESS');
+        this.alertService.success('ALERT.SAVE_SUCCESS');
       }, err => {
-        this.showSnackbar('MATERIAL.SNACKBAR.SAVE_ERROR');
-        console.error(err);
+        this.alertService.error('ALERT.SAVE_ERROR', err);
       });
     }
   }
 
   activate(): void {
     if (this.hasChanges) {
-      this.showSnackbar('MATERIAL.SNACKBAR.UNSAVED_CHANGES');
+      this.alertService.info('ALERT.UNSAVED_CHANGES');
       return;
     }
     this.modelsResourceService.updateVersionStatus<T>(this.entry.id, this.version.id, ModelVersionStatus.ACTIVE)
       .subscribe(version => {
         this.updateVersion(version);
-        this.showSnackbar('MATERIAL.SNACKBAR.ACTIVATION_SUCCESS');
+        this.alertService.success('ALERT.ACTIVATION_SUCCESS');
       }, err => {
-        this.showSnackbar('MATERIAL.SNACKBAR.ACTIVATION_ERROR');
-        console.error(err);
+        this.alertService.error('ALERT.ACTIVATION_ERROR', err);
       });
   }
 
   delete(): void {
     this.modelsResourceService.deleteVersion(this.entry.id, this.version.id).pipe(
       catchError((err) => {
-        this.showSnackbar('MATERIAL.SNACKBAR.DELETION_ERROR');
-        console.error(err);
+        this.alertService.error('ALERT.DELETION_ERROR', err);
         return EMPTY;
       }),
       mergeMap(() => {
-        this.showSnackbar('MATERIAL.SNACKBAR.DELETION_SUCCESS');
+        this.alertService.success('ALERT.DELETION_SUCCESS');
         if (this.entry.versions.length > 2) {
           return this.modelsResourceService.getVersion(this.entry.id, this.entry.versions[this.entry.versions.length - 2].id);
         }
@@ -173,18 +169,13 @@ export abstract class EntryContentDirective<T extends ModelData> implements OnIn
         this.version = null;
         this.initForm();
       } else {
-        console.error(err);
-        this.showSnackbar('MATERIAL.SNACKBAR.RELOAD_ERROR');
+        this.alertService.error('ALERT.RELOAD_ERROR', err);
       }
     });
   }
 
   isLatestVersion(): boolean {
     return this.entry && (this.entry.versions.length < 2 || _.last(this.entry.versions).id === this.version.id);
-  }
-
-  private showSnackbar(messageKey: string): void {
-    this.translateService.get(messageKey).subscribe(translation => this.snackBar.open(translation));
   }
 
 }

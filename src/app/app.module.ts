@@ -55,6 +55,7 @@ import { HeadersPageComponent } from './headers-page/headers-page.component';
 import { FootersPageComponent } from './footers-page/footers-page.component';
 import { TreatmentsPageComponent } from './treatments-page/treatments-page.component';
 import { KeysComponent } from './keys/keys.component';
+import { ConfirmDialogComponent } from './common/confirm-dialog/confirm-dialog.component';
 
 const keycloakService = new KeycloakService();
 
@@ -111,7 +112,8 @@ registerLocaleData(localeFr, 'fr');
     HeadersPageComponent,
     FootersPageComponent,
     TreatmentsPageComponent,
-    KeysComponent
+    KeysComponent,
+    ConfirmDialogComponent
   ],
   imports: [
     BrowserModule,

@@ -2,7 +2,7 @@ import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { ConditionsReadOnlyComponent } from './conditions-read-only.component';
 import { ActivatedRouteStub } from '../testing/activated-route-stub';
-import { ConsentsResourceService } from '../consents-resource.service';
+import { ConsentsResourceService } from '../services/consents-resource.service';
 import SpyObj = jasmine.SpyObj;
 import { ActivatedRoute } from '@angular/router';
 import createSpyObj = jasmine.createSpyObj;

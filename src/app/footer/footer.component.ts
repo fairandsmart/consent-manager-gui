@@ -1,11 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
 import { Footer, ModelDataType } from '../models';
-import { ModelsResourceService } from '../models-resource.service';
+import { ModelsResourceService } from '../services/models-resource.service';
 import { EntryContentDirective } from '../entry-content/entry-content.directive';
-import { MatSnackBar } from '@angular/material/snack-bar';
 import { TranslateService } from '@ngx-translate/core';
 import { DomSanitizer } from '@angular/platform-browser';
+import { AlertService } from '../services/alert.service';
 
 @Component({
   selector: 'app-footer',
@@ -17,10 +17,10 @@ export class FooterComponent extends EntryContentDirective<Footer> implements On
   constructor(
       private fb: FormBuilder,
       modelsResourceService: ModelsResourceService,
-      snackBar: MatSnackBar,
+      alertService: AlertService,
       translateService: TranslateService,
       sanitizer: DomSanitizer) {
-    super(modelsResourceService, snackBar, translateService, sanitizer);
+    super(modelsResourceService, alertService, sanitizer);
   }
 
   get type(): ModelDataType {

@@ -1,7 +1,7 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { EmailComponent } from './email.component';
-import { ModelsResourceService } from '../models-resource.service';
+import { ModelsResourceService } from '../services/models-resource.service';
 import { EntryInfoComponent } from '../entry-info/entry-info.component';
 import { ReactiveFormsModule } from '@angular/forms';
 import { MaterialModule } from '../material.module';

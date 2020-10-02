@@ -7,16 +7,6 @@
 // Be sure that you only ever include this mixin once!
 @include mat-core();
 
-// Create the theme object. A theme consists of configurations for individual
-// theming systems such as `color` or `typography`.
-$app-theme: mat-light-theme((
-  color: (
-    primary: $app-primary,
-    accent: $app-accent,
-    warn: $app-warn,
-  )
-));
-
 // Include theme styles for core and each component used in your app.
 // Alternatively, you can import and @include the theme mixins for each component
 // that you are using.

@@ -1,14 +1,14 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { ActivatedRouteStub } from '../testing/activated-route-stub';
 import { RouterTestingModule } from '@angular/router/testing';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MaterialModule } from '../material.module';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { TranslateModule } from '@ngx-translate/core';
 import { ActivatedRoute } from '@angular/router';
 import { of } from 'rxjs';
 import { KeysComponent } from './keys.component';
-import { KeysResourceService } from '../keys-resource.service';
+import { KeysResourceService } from '../services/keys-resource.service';
 import { Key } from '../models';
 import SpyObj = jasmine.SpyObj;
 import createSpyObj = jasmine.createSpyObj;
@@ -25,7 +25,7 @@ describe('KeysComponent', () => {
 
     TestBed.configureTestingModule({
       declarations: [ KeysComponent ],
-      imports: [ RouterTestingModule, FormsModule, MaterialModule, NoopAnimationsModule, TranslateModule.forRoot() ],
+      imports: [ RouterTestingModule, ReactiveFormsModule, FormsModule, MaterialModule, NoopAnimationsModule, TranslateModule.forRoot() ],
       providers: [
         {provide: KeysResourceService, useValue: keysResourceServiceSpy},
         {provide: ActivatedRoute, useValue: activatedRouteStub}
@@ -35,7 +35,7 @@ describe('KeysComponent', () => {
   }));
 
   beforeEach(() => {
-    let keys : Key[] = [];
+    const keys: Key[] = [];
     keysResourceServiceSpy.listKeys.and.returnValue(of(keys));
 
     fixture = TestBed.createComponent(KeysComponent);

@@ -6,7 +6,7 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { MaterialModule } from '../material.module';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { TranslateModule } from '@ngx-translate/core';
-import { ModelsResourceService } from '../models-resource.service';
+import { ModelsResourceService } from '../services/models-resource.service';
 import SpyObj = jasmine.SpyObj;
 import createSpyObj = jasmine.createSpyObj;
 import { EntryPreviewComponent } from '../entry-preview/entry-preview.component';

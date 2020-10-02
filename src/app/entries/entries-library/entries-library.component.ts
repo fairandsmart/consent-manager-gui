@@ -1,7 +1,7 @@
 import { ChangeDetectionStrategy, Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { Observable } from 'rxjs';
 import { CollectionPage, ModelDataType, ModelEntryDto, ModelFilter } from '../../models';
-import { ModelsResourceService } from '../../models-resource.service';
+import { ModelsResourceService } from '../../services/models-resource.service';
 import { CollectionDatasource } from '../../common/collection-datasource';
 
 export class ConsentElementEntryDataSource extends CollectionDatasource<ModelEntryDto, ModelFilter> {

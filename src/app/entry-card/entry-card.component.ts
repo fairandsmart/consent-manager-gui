@@ -1,10 +1,12 @@
-import { Component, HostBinding, Input, OnInit } from '@angular/core';
-import { ModelEntryDto } from '../models';
+import { ChangeDetectionStrategy, Component, HostBinding, Input, OnInit } from '@angular/core';
+import { ModelEntryDto, ModelVersionStatus } from '../models';
+import * as _ from 'lodash';
 
 @Component({
   selector: 'app-entry-card',
   templateUrl: './entry-card.component.html',
-  styleUrls: ['./entry-card.component.scss']
+  styleUrls: ['./entry-card.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class EntryCardComponent implements OnInit {
 
@@ -19,9 +21,20 @@ export class EntryCardComponent implements OnInit {
   @HostBinding('class.entry-card-selected')
   selected: boolean;
 
+  @Input()
+  showDetail = false;
+
   constructor() { }
 
   ngOnInit(): void {
+  }
+
+  hasActiveVersion(): boolean {
+    return this.entry.versions.some(v => v.status === ModelVersionStatus.ACTIVE);
+  }
+
+  languages(): string {
+    return _.last(this.entry.versions)?.availableLocales.join(' | ');
   }
 
 }
