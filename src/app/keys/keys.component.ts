@@ -1,12 +1,11 @@
 import { AfterViewInit, ChangeDetectorRef, Component, Inject, OnInit } from '@angular/core';
 import { MAT_DIALOG_DATA, MatDialog } from '@angular/material/dialog';
-import { KeysResourceService } from '../keys-resource.service';
 import { Key } from '../models';
 import { CollectionViewer, DataSource } from '@angular/cdk/collections';
 import { BehaviorSubject, Observable, of } from 'rxjs';
 import { catchError, filter, skip, takeUntil } from 'rxjs/operators';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { AlertService } from '../services/alert.service';
+import { KeysResourceService } from '../services/keys-resource.service';
 
 class KeysDataSource implements DataSource<Key> {
 
