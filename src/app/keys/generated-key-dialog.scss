@@ -1,0 +1,9 @@
+@import 'node_modules/@angular/material/theming';
+
+code {
+  background-color: mat-color($mat-light-theme-background, background);
+  border: 1px solid $dark-dividers;
+  padding: 6px;
+  border-radius: 4px;
+  display: inline-block;
+}

@@ -34,7 +34,8 @@
       "CREATE": "Créer",
       "EDIT": "Modifier",
       "SUBMIT": "Valider",
-      "BACK": "Retour"
+      "BACK": "Retour",
+      "CLOSE": "Fermer"
     },
     "ENTRY_TYPES": {
       "HEADER": "En-tête",

@@ -40,11 +40,13 @@
 
       <ng-container matColumnDef="create-form">
         <td mat-footer-cell *matFooterCellDef colspan="3">
-          <mat-form-field class="generate-field">
-            <mat-label>{{'API.KEYS.GENERATE.LABEL' | translate}}</mat-label>
-            <input formControlName="name" matInput placeholder="{{'API.KEYS.GENERATE.PLACEHOLDER' | translate}}">
-          </mat-form-field>
-          <button mat-flat-button color="primary" class="generate-button" (click)="generateKey()  ">{{'API.KEYS.GENERATE.BUTTON' | translate}}</button>
+          <form (ngSubmit)="generateKey()" [formGroup]="form">
+            <mat-form-field class="generate-field">
+              <mat-label>{{'API.KEYS.GENERATE.LABEL' | translate}}</mat-label>
+              <input formControlName="name" matInput placeholder="{{'API.KEYS.GENERATE.PLACEHOLDER' | translate}}" autocomplete="off">
+            </mat-form-field>
+            <button mat-flat-button type="submit" [disabled]="form.disabled" color="primary" class="generate-button">{{'API.KEYS.GENERATE.BUTTON' | translate}}</button>
+          </form>
         </td>
       </ng-container>
 

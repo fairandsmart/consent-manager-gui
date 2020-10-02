@@ -54,7 +54,7 @@ import { SubjectRecordsComponent } from './subject-records/subject-records.compo
 import { HeadersPageComponent } from './headers-page/headers-page.component';
 import { FootersPageComponent } from './footers-page/footers-page.component';
 import { TreatmentsPageComponent } from './treatments-page/treatments-page.component';
-import { KeysComponent } from './keys/keys.component';
+import { GeneratedKeyDialogComponent, KeysComponent } from './keys/keys.component';
 import { ConfirmDialogComponent } from './common/confirm-dialog/confirm-dialog.component';
 
 const keycloakService = new KeycloakService();
@@ -113,6 +113,7 @@ registerLocaleData(localeFr, 'fr');
     FootersPageComponent,
     TreatmentsPageComponent,
     KeysComponent,
+    GeneratedKeyDialogComponent,
     ConfirmDialogComponent
   ],
   imports: [

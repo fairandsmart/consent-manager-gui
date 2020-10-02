@@ -34,7 +34,8 @@
       "CREATE": "Create",
       "EDIT": "Edit",
       "SUBMIT": "Submit",
-      "BACK": "Back"
+      "BACK": "Back",
+      "CLOSE": "Close"
     },
     "ENTRY_TYPES": {
       "HEADER": "Header",

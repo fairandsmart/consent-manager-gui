@@ -63,7 +63,8 @@ export class KeysComponent implements OnInit, AfterViewInit {
     private keysResource: KeysResourceService,
     private dialog: MatDialog,
     protected ref: ChangeDetectorRef,
-    private fb: FormBuilder) {}
+    private fb: FormBuilder) {
+  }
 
   ngOnInit(): void {
     this.dataSource = new KeysDataSource(this.keysResource);
@@ -82,29 +83,33 @@ export class KeysComponent implements OnInit, AfterViewInit {
   }
 
   dropKey(key: Key): void {
-    console.log("Dropping key " + key.id);
-    this.keysResource.deleteKey(key.id).subscribe(
-      response => {
-          this.loadKeys();
-      });
+    console.log('Dropping key ' + key.id);
+    this.keysResource.deleteKey(key.id).subscribe(response => {
+      this.loadKeys();
+    });
   }
 
   generateKey(): void {
-    console.log("Generating new key for name " + this.form.get('name').value);
-    //this.keysResource.createKey(this.form.get('name').value).subscribe(
-    //  response => {
-    //    this.dialog.open(GeneratedKeyDialog, { data: response });
-    //    this.loadKeys();
-    //  }
-    //)
+    if (this.form.valid) {
+      this.form.disable();
+      const name = this.form.get('name').value;
+      this.keysResource.createKey(name).subscribe(response => {
+        this.dialog.open(GeneratedKeyDialogComponent, {data: response});
+        this.loadKeys();
+        this.form.enable();
+        this.form.reset({name: ''});
+      });
+    }
   }
 
 }
 
 @Component({
-  selector: 'generated-key-dialog',
+  selector: 'app-generated-key-dialog',
   templateUrl: 'generated-key-dialog.html',
+  styleUrls: ['./generated-key-dialog.scss']
 })
-export class GeneratedKeyDialog {
-  constructor(@Inject(MAT_DIALOG_DATA) public data: Key) {}
+export class GeneratedKeyDialogComponent {
+  constructor(@Inject(MAT_DIALOG_DATA) public data: Key) {
+  }
 }

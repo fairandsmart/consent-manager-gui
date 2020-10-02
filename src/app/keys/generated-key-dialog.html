@@ -1,15 +1,10 @@
-<h1 mat-dialog-title>{{'API.KEYS.GENERATED.TITLE' | translate}}</h1>
+<h2 mat-dialog-title>{{'API.KEYS.GENERATED.TITLE' | translate}}</h2>
 <div mat-dialog-content>
-  <div class="title">
-    {{'API.KEYS.GENERATED.KEY' | translate}}
-  </div>
-  <div class="key-value">
-    {{data.key}}:{{data.password}}
-  </div>
-  <div class="title">
-    {{'API.KEYS.GENERATED.HOW_TO.TITLE' | translate}}
-  </div>
-  <div>
-    {{'API.KEYS.GENERATED.HOW_TO.EXPLAIN' | translate}}
-  </div>
+  <h3>{{'API.KEYS.GENERATED.KEY' | translate}}</h3>
+  <p><code>{{data.key}}:{{data.password}}</code></p>
+  <h3>{{'API.KEYS.GENERATED.HOW_TO.TITLE' | translate}}</h3>
+  <p>{{'API.KEYS.GENERATED.HOW_TO.EXPLAIN' | translate}}</p>
 </div>
+<mat-dialog-actions class="btn-uppercase align-right">
+  <button mat-button color="primary" [mat-dialog-close]="undefined">{{'COMMON.BUTTONS.CLOSE' | translate}}</button>
+</mat-dialog-actions>
