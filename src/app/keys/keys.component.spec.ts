@@ -8,7 +8,7 @@ import { TranslateModule } from '@ngx-translate/core';
 import { ActivatedRoute } from '@angular/router';
 import { of } from 'rxjs';
 import { KeysComponent } from './keys.component';
-import { KeysResourceService } from '../keys-resource.service';
+import { KeysResourceService } from '../services/keys-resource.service';
 import { Key } from '../models';
 import SpyObj = jasmine.SpyObj;
 import createSpyObj = jasmine.createSpyObj;
