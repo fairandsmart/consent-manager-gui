@@ -621,6 +621,12 @@
           "TITLE": "Comment l'utiliser",
           "EXPLAIN": "Cette clé est à utiliser comme un mot de passe Http Basic classique dans les entêtes des requêtes faites à l'application"
         }
+      },
+      "DROP": {
+        "CONFIRM_TITLE": "Supprimer la clé ?",
+        "CONFIRM_CONTENT": "Cette opération est irréversible. Êtes-vous sûr de vouloir supprimer cette clé ?",
+        "CONFIRM_BUTTON": "Supprimer",
+        "SUCCESS": "La clé a été supprimée"
       }
     }
   }

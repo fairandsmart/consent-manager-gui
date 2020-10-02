@@ -6,6 +6,7 @@ import { BehaviorSubject, Observable, of } from 'rxjs';
 import { catchError, filter, skip, takeUntil } from 'rxjs/operators';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { KeysResourceService } from '../services/keys-resource.service';
+import { AlertService } from '../services/alert.service';
 
 class KeysDataSource implements DataSource<Key> {
 
@@ -63,6 +64,7 @@ export class KeysComponent implements OnInit, AfterViewInit {
     private keysResource: KeysResourceService,
     private dialog: MatDialog,
     protected ref: ChangeDetectorRef,
+    private alertService: AlertService,
     private fb: FormBuilder) {
   }
 
@@ -83,9 +85,19 @@ export class KeysComponent implements OnInit, AfterViewInit {
   }
 
   dropKey(key: Key): void {
-    console.log('Dropping key ' + key.id);
-    this.keysResource.deleteKey(key.id).subscribe(response => {
-      this.loadKeys();
+    this.alertService.confirm({
+      data: {
+        title: 'API.KEYS.DROP.CONFIRM_TITLE',
+        content: 'API.KEYS.DROP.CONFIRM_CONTENT',
+        confirm: 'API.KEYS.DROP.CONFIRM_BUTTON'
+      }
+    }).afterClosed().subscribe(confirmed => {
+      if (confirmed) {
+        this.keysResource.deleteKey(key.id).subscribe(() => {
+          this.alertService.success('API.KEYS.DROP.SUCCESS');
+          this.loadKeys();
+        });
+      }
     });
   }
 

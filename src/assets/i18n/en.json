@@ -621,6 +621,9 @@
           "TITLE": "How to use it",
           "EXPLAIN": "This key cna be used in Http request headers of API request as any kind of classic Http Basic password"
         }
+      },
+      "DROP": {
+        "SUCCESS": "The API key has been deleted"
       }
     }
   }
