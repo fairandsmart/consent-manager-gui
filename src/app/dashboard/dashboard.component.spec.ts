@@ -20,14 +20,17 @@ describe('DashboardComponent', () => {
   let subjectsResourceServiceSpy: SpyObj<SubjectsResourceService>;
 
   beforeEach(async(() => {
-    recordsResourceServiceSpy =  createSpyObj<RecordsResourceService>('RecordsResourceService', ['getStats']);
-    subjectsResourceServiceSpy =  createSpyObj<SubjectsResourceService>('SubjectsResourceService', ['listSubjects']);
+    recordsResourceServiceSpy = createSpyObj<RecordsResourceService>('RecordsResourceService', ['getStats']);
+    subjectsResourceServiceSpy = createSpyObj<SubjectsResourceService>('SubjectsResourceService', ['listSubjects']);
 
     TestBed.configureTestingModule({
-      declarations: [ DashboardComponent ],
-      imports: [ ReactiveFormsModule, MaterialModule, NoopAnimationsModule, TranslateModule.forRoot(), ChartsModule, RouterTestingModule ],
+      declarations: [DashboardComponent],
+      imports: [
+        ReactiveFormsModule, MaterialModule, NoopAnimationsModule, TranslateModule.forRoot(), ChartsModule, RouterTestingModule
+      ],
       providers: [
         {provide: RecordsResourceService, useValue: recordsResourceServiceSpy},
+        {provide: SubjectsResourceService, useValue: subjectsResourceServiceSpy}
       ]
     })
       .compileComponents();

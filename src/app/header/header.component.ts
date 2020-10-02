@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { EntryContentDirective } from '../entry-content/entry-content.directive';
-import { Controller, Header, ModelDataType } from '../models';
+import { Controller, FIELD_VALIDATORS, Header, ModelDataType } from '../models';
 import { FormBuilder, Validators } from '@angular/forms';
 import { ModelsResourceService } from '../services/models-resource.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
@@ -48,7 +48,7 @@ export class HeaderComponent extends EntryContentDirective<Header> implements On
         name: [''],
         address: [''],
         email: ['', [Validators.email]],
-        phoneNumber: ['']
+        phoneNumber: ['', Validators.pattern(FIELD_VALIDATORS.phone.pattern)]
       }),
       showDataController: [{value: false, disabled: true}],
       scope: [''],

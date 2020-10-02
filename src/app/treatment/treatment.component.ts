@@ -1,6 +1,14 @@
 import { Component, OnInit } from '@angular/core';
 import { EntryContentDirective } from '../entry-content/entry-content.directive';
-import { Controller, ModelDataType, ModelVersionDto, Treatment, TREATMENT_PURPOSES, TreatmentPurpose } from '../models';
+import {
+  Controller,
+  FIELD_VALIDATORS,
+  ModelDataType,
+  ModelVersionDto,
+  Treatment,
+  TREATMENT_PURPOSES,
+  TreatmentPurpose
+} from '../models';
 import { FormArray, FormBuilder, Validators } from '@angular/forms';
 import { ModelsResourceService } from '../services/models-resource.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
@@ -52,7 +60,7 @@ export class TreatmentComponent extends EntryContentDirective<Treatment> impleme
         name: [''],
         address: [''],
         email: ['', Validators.email],
-        phoneNumber: ['']
+        phoneNumber: ['', Validators.pattern(FIELD_VALIDATORS.phone.pattern)]
       }),
       showDataController: [{value: false, disabled: true}],
       thirdParties: this.fb.array([])

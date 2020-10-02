@@ -5,9 +5,11 @@ import {
   CollectionPage,
   ConsentContext,
   ConsentFormOrientation,
-  ConsentFormType,
+  ConsentFormType, EntryRecord, EntryRecordFilter,
   ModelEntryDto,
-  ModelFilter, RecordDto, RecordStatus
+  ModelVersionDtoLight,
+  ModelVersionStatus,
+  RecordDto
 } from '../models';
 import { combineLatest, Observable } from 'rxjs';
 import { MatPaginator } from '@angular/material/paginator';
@@ -23,26 +25,6 @@ import { ConsentsResourceService } from '../services/consents-resource.service';
 import { SubjectsResourceService } from '../services/subjects-resource.service';
 import { HttpParams } from '@angular/common/http';
 
-interface EntryRecord {
-  key: string;
-  type: string;
-  name: string;
-  identifier: string;
-  value?: string;
-  recordCreation?: number;
-  recordExpiration?: number;
-  comment?: string;
-  collectionMethod?: CollectionMethod;
-  status?: RecordStatus;
-}
-
-interface EntryRecordFilter extends ModelFilter {
-  order: string;
-  subject: string;
-  before?: number;
-  after?: number;
-}
-
 class SubjectRecordDataSource extends CollectionDatasource<EntryRecord, EntryRecordFilter> {
 
   constructor(private modelsResource: ModelsResourceService, private subjectsResource: SubjectsResourceService) {
@@ -57,15 +39,13 @@ class SubjectRecordDataSource extends CollectionDatasource<EntryRecord, EntryRec
       map(([entries, records]: [CollectionPage<ModelEntryDto>, { [key: string]: RecordDto[] }]) => {
         const values = [];
         entries.values.forEach((entry) => {
-          const lastVersion = entry.versions.length > 0 ? entry.versions[entry.versions.length - 1] : undefined;
-          // TODO handle case of entries without versions - the operator should absolutely not be able to submit a consent for those
-          // (especially given that they don't have any identifier)
-          // TODO should an operator be allowed to submit a consent for an inactive entry ?
+          const activeVersion: ModelVersionDtoLight = entry.versions.find(v => v.status === ModelVersionStatus.ACTIVE);
           const result: EntryRecord = {
-            identifier: lastVersion?.identifier,
+            identifier: activeVersion?.identifier,
             key: entry.key,
             name: entry.name,
-            type: entry.type
+            type: entry.type,
+            active: activeVersion !== undefined
           };
           const recordsList = records[entry.key];
           if (recordsList && recordsList.length > 0) {

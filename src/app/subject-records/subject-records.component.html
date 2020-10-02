@@ -68,7 +68,7 @@
           <ng-container matColumnDef="actions">
             <th mat-header-cell *matHeaderCellDef></th>
             <td mat-cell *matCellDef="let element">
-              <button mat-icon-button (click)="addElementToLog(element)">
+              <button mat-icon-button (click)="addElementToLog(element)" [disabled]="!element.active">
                 <mat-icon>edit</mat-icon>
               </button>
             </td>

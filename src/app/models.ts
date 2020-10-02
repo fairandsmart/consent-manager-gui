@@ -15,6 +15,9 @@ export const FIELD_VALIDATORS = {
   },
   elementsKeys: {
     pattern: '^([0-9a-zA-Z-_.]{2,255},)*[0-9a-zA-Z-_.]{2,255}$'
+  },
+  phone: {
+    pattern: '^\\+?[0-9]+$'
   }
 };
 
@@ -299,4 +302,25 @@ export interface Key {
   password?: string;
   creationDate?: number;
   lastAccessDate?: number;
+}
+
+export interface EntryRecord {
+  key: string;
+  type: string;
+  name: string;
+  identifier: string;
+  value?: string;
+  recordCreation?: number;
+  recordExpiration?: number;
+  comment?: string;
+  collectionMethod?: CollectionMethod;
+  status?: RecordStatus;
+  active: boolean;
+}
+
+export interface EntryRecordFilter extends ModelFilter {
+  order: string;
+  subject: string;
+  before?: number;
+  after?: number;
 }
