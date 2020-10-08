@@ -1,0 +1,26 @@
+@import 'node_modules/@angular/material/theming';
+
+:host {
+  display: block;
+  max-width: 1000px;
+  margin: auto;
+
+  mat-expansion-panel {
+    box-shadow: none !important;
+    background: none !important;
+
+    .mat-expansion-panel-header {
+      background: none !important;
+
+      &[aria-disabled=true] {
+        color: $dark-primary-text;
+      }
+
+      .mat-progress-bar {
+        align-self: center;
+        width: 32px;
+        margin-left: 10px;
+      }
+    }
+  }
+}

@@ -1,0 +1,16 @@
+@import 'node_modules/@angular/material/theming';
+
+:host {
+  display: block;
+}
+
+.preview-container {
+  //width: 440px;
+  height: 520px;
+}
+
+.preview-iframe {
+  border: 1px solid $dark-dividers;
+  width: 100%;
+  min-height: 100%;
+}

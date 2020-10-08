@@ -19,10 +19,9 @@
         "THEMES": "Thèmes"
       },
       "INTEGRATION": {
-        "LABEL": "Intégration"
-      },
-      "API": {
-        "LABEL": "API"
+        "LABEL": "Intégration",
+        "FORM_CREATOR": "Formulaire",
+        "API": "API"
       }
     }
   },
@@ -147,10 +146,12 @@
       },
       "key": {
         "LABEL": "Référence",
+        "REQUIRED": "Vous devez préciser une référence",
         "ALREADY_EXISTS": "Référence déjà utilisée"
       },
       "name": {
-        "LABEL": "Nom"
+        "LABEL": "Nom",
+        "REQUIRED": "Vous devez préciser un nom"
       },
       "description": {
         "LABEL": "Description"
@@ -160,27 +161,28 @@
       },
       "version": {
         "LABEL": "Version"
-      }
+      },
+      "EMPTY_LIST": "Aucun élément"
     },
     "CREATE_BUTTON": "Nouvel élément",
     "DIALOG": {
       "TITLE_NEW": {
-        "HEADER": "Nouvel en-tête",
-        "TREATMENT": "Nouveau traitement",
-        "PREFERENCE": "Nouvelle préférence",
-        "CONDITIONS": "Nouvelles CGU",
-        "FOOTER": "Nouveau pied de page",
-        "THEME": "Nouveau thème",
-        "EMAIL": "Nouvel email"
+        "header": "Nouvel en-tête",
+        "treatment": "Nouveau traitement",
+        "preference": "Nouvelle préférence",
+        "conditions": "Nouvelles CGU",
+        "footer": "Nouveau pied de page",
+        "theme": "Nouveau thème",
+        "email": "Nouvel email"
       },
       "TITLE_UPDATE": {
-        "HEADER": "Modification de l'en-tête",
-        "TREATMENT": "Modification du traitement",
-        "PREFERENCE": "Modification de la préférence",
-        "CONDITIONS": "Modification des CGU",
-        "FOOTER": "Modification du pied de page",
-        "THEME": "Modification du thème",
-        "EMAIL": "Modification de l'email"
+        "header": "Modification de l'en-tête",
+        "treatment": "Modification du traitement",
+        "preference": "Modification de la préférence",
+        "conditions": "Modification des CGU",
+        "footer": "Modification du pied de page",
+        "theme": "Modification du thème",
+        "email": "Modification de l'email"
       }
     },
     "PREVIEW": {

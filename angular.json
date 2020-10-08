@@ -59,7 +59,8 @@
               "codemirror/mode/css/css",
               "codemirror/addon/lint/lint",
               "codemirror/addon/lint/css-lint",
-              "@ctrl/ngx-codemirror"
+              "@ctrl/ngx-codemirror",
+              "chart.js"
             ]
           },
           "configurations": {

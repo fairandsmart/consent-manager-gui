@@ -1,0 +1,32 @@
+<ng-container *ngIf="(section.dataSource.connect() | async) as entries">
+  <div class="section-toolbar">
+    <div></div>
+    <div *ngIf="section.showSort && entries.length > 0 && section.orderingOptions.length > 0" class="sort-actions">
+      <button mat-button
+              [matMenuTriggerFor]="orderMenu">{{'ENTRIES.COMMON.' + section.filter.order + '.LABEL' | translate}}</button>
+      <mat-menu #orderMenu>
+        <ng-template matMenuContent>
+          <button mat-menu-item *ngFor="let option of section.orderingOptions"
+                  [disabled]="section.filter.order === option"
+                  (click)="sortBy(option, section)">{{'ENTRIES.COMMON.' + option + '.LABEL' | translate}}</button>
+        </ng-template>
+      </mat-menu>
+      <button (click)="toggleDirection(section)" mat-icon-button>
+        <mat-icon>{{section.filter.direction === 'asc' ? 'arrow_upward' : 'arrow_downward'}}</mat-icon>
+      </button>
+    </div>
+  </div>
+  <mat-grid-list *ngIf="entries.length > 0" cols="2" gutterSize="10" rowHeight="80"
+                 [class.loading]="section.dataSource.loading$ | async">
+    <mat-grid-tile *ngFor="let entry of entries">
+      <app-entry-card (click)="select(entry)"
+                      [selectable]="isSelectable(entry)"
+                      [selected]="isSelected(entry)"
+                      [entry]="entry"></app-entry-card>
+    </mat-grid-tile>
+  </mat-grid-list>
+  <p *ngIf="entries.length === 0" class="empty-hint">{{'ENTRIES.COMMON.EMPTY_LIST' | translate}}</p>
+</ng-container>
+<mat-paginator [class.single-page]="paginator.pageIndex === 0 && !paginator.hasNextPage()"
+               #paginator="matPaginator" [hidePageSize]="true" [pageIndex]="section.filter.page"
+               [pageSize]="section.filter.size"></mat-paginator>

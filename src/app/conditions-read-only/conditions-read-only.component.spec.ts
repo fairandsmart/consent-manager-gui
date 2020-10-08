@@ -1,22 +1,22 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 
 import { ConditionsReadOnlyComponent } from './conditions-read-only.component';
-import { ActivatedRouteStub } from '../testing/activated-route-stub';
-import { ConsentsResourceService } from '../services/consents-resource.service';
-import SpyObj = jasmine.SpyObj;
+import { ActivatedRouteStubSpec } from '../testing/activated-route-stub.spec';
+import { ConsentsResourceService } from '../core/http/consents-resource.service';
 import { ActivatedRoute } from '@angular/router';
-import createSpyObj = jasmine.createSpyObj;
 import { of } from 'rxjs';
+import SpyObj = jasmine.SpyObj;
+import createSpyObj = jasmine.createSpyObj;
 
 describe('ConditionsReadOnlyComponent', () => {
   let component: ConditionsReadOnlyComponent;
   let fixture: ComponentFixture<ConditionsReadOnlyComponent>;
   let consentsResourceServiceSpy: SpyObj<ConsentsResourceService>;
-  let activatedRouteStub: ActivatedRouteStub;
+  let activatedRouteStub: ActivatedRouteStubSpec;
 
-  beforeEach(async(() => {
+  beforeEach(waitForAsync(() => {
     consentsResourceServiceSpy =  createSpyObj<ConsentsResourceService>('ConsentsResourceService', ['generateToken', 'getFormUrl']);
-    activatedRouteStub = new ActivatedRouteStub({
+    activatedRouteStub = new ActivatedRouteStubSpec({
       params: {
         key: 'key',
         owner: 'owner'

@@ -1,0 +1,14 @@
+@import "src/variables";
+
+.mat-list {
+
+  .mat-button {
+    width: 100%;
+    text-align: left;
+  }
+
+  .active-link {
+    background-color: mat-color($app-primary);
+    color: white;
+  }
+}

@@ -19,10 +19,9 @@
         "THEMES": "Themes"
       },
       "INTEGRATION": {
-        "LABEL": "Integration"
-      },
-      "API": {
-        "LABEL": "API"
+        "LABEL": "Integration",
+        "FORM_CREATOR": "Form",
+        "API": "API"
       }
     }
   },

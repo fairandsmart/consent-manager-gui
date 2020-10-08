@@ -1,0 +1,22 @@
+<mat-list>
+  <ng-container *ngFor="let section of SECTIONS">
+    <ng-container *ngIf="!section.sub">
+      <mat-list-item class="section-header">
+        <button mat-button [routerLink]="section.link" routerLinkActive="active-link">
+          {{section.title | translate}}
+        </button>
+      </mat-list-item>
+    </ng-container>
+    <ng-container *ngIf="section.sub">
+      <mat-list-item class="section-header">
+        <button mat-button [class.active-link]="section.subActive" (click)="section.expanded = !section.expanded">{{section.title | translate}}</button>
+      </mat-list-item>
+      <mat-expansion-panel hideToggle [expanded]="section.expanded" class="mat-elevation-z0">
+        <mat-list-item *ngFor="let subSection of section.sub">
+          <button mat-button [routerLink]="subSection.link"
+                  routerLinkActive="active-link">{{subSection.title | translate}}</button>
+        </mat-list-item>
+      </mat-expansion-panel>
+    </ng-container>
+  </ng-container>
+</mat-list>

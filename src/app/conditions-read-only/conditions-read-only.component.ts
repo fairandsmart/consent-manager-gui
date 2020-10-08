@@ -1,7 +1,7 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { ConsentsResourceService } from '../services/consents-resource.service';
+import { ConsentsResourceService } from '../core/http/consents-resource.service';
 import { ActivatedRoute } from '@angular/router';
-import { CollectionMethod, ConsentContext, ConsentFormOrientation, ConsentFormType } from '../models';
+import { CollectionMethod, ConsentContext, ConsentFormOrientation, ConsentFormType } from '../core/models/models';
 import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
 import { combineLatest, EMPTY, Subscription } from 'rxjs';
 import { catchError, mergeMap, tap } from 'rxjs/operators';

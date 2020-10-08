@@ -49,7 +49,7 @@ export class MatPaginatorIntlTranslated extends MatPaginatorIntl {
     return `${startIndex + 1} - ${endIndex} ${this.rangeLabel} ${length}`;
   });
 
-  getTranslations() {
+  getTranslations(): void {
     this.translateService.get([
       'MATERIAL.PAGINATOR.FIRST_PAGE',
       'MATERIAL.PAGINATOR.LAST_PAGE',

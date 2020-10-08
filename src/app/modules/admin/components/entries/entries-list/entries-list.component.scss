@@ -1,0 +1,39 @@
+@import 'node_modules/@angular/material/theming';
+
+.section-toolbar {
+  margin-bottom: 1em;
+  display: flex;
+  justify-content: space-between;
+}
+
+.sort-actions button {
+  color: $dark-secondary-text;
+  &[mat-icon-button]:hover {
+    background-color: mat-color($mat-light-theme-background, hover);
+  }
+}
+
+.mat-grid-list {
+  &.loading {
+    .mat-grid-tile {
+      opacity: 0.4;
+      user-select: none;
+    }
+  }
+
+  .mat-grid-tile {
+    overflow: visible !important;
+  }
+}
+
+.mat-paginator {
+  background: none;
+  &.single-page {
+    display: none;
+  }
+}
+
+app-entry-card {
+  width: 100%;
+  height: 100%;
+}
