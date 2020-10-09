@@ -185,7 +185,7 @@ export class SubjectRecordsComponent implements OnInit {
         callback: '',
         locale: this.translateService.currentLang,
         formType: ConsentFormType.FULL,
-        receiptDeliveryType: 'NONE',
+        receiptDeliveryType: 'STORE',
         userinfos: {},
         attributes: {},
         optoutModel: '',
