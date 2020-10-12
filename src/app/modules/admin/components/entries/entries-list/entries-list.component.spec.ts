@@ -44,8 +44,8 @@ describe('EntriesListComponent', () => {
     fixture = TestBed.createComponent(EntriesListComponent);
     component = fixture.componentInstance;
     component.section = {
-      id: 'headers',
-      types: ['header'],
+      id: 'infos',
+      types: ['basicinfo'],
       multiple: true,
       showSort: true
     };
