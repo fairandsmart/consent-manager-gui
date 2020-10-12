@@ -7,10 +7,9 @@ import { EntriesListComponent } from './components/entries/entries-list/entries-
 import { EntriesListDragAndDropComponent } from './components/entries/entries-list-drag-and-drop/entries-list-drag-and-drop.component';
 import { EntriesListSelectComponent } from './components/entries/entries-list-select/entries-list-select.component';
 import { EntryPageComponent } from './pages/entry-page/entry-page.component';
-import { HeaderComponent } from './components/entry/header/header.component';
+import { BasicinfoComponent } from './components/entry/basicinfo/basicinfo.component';
 import { TreatmentComponent } from './components/entry/treatment/treatment.component';
 import { ConditionsComponent } from './components/entry/conditions/conditions.component';
-import { FooterComponent } from './components/entry/footer/footer.component';
 import { EntryEditorDialogComponent } from './components/entry/entry-editor-dialog/entry-editor-dialog.component';
 import { EntryInfoComponent } from './components/entry/entry-info/entry-info.component';
 import { EntryCardComponent } from './components/entry/entry-card/entry-card.component';
@@ -25,8 +24,7 @@ import { PreferenceComponent } from './components/entry/preference/preference.co
 import { PreferencesPageComponent } from './pages/entries-page/preferences-page.component';
 import { DashboardComponent } from './pages/dashboard/dashboard.component';
 import { ConditionsPageComponent } from './pages/entries-page/conditions-page.component';
-import { HeadersPageComponent } from './pages/entries-page/headers-page.component';
-import { FootersPageComponent } from './pages/entries-page/footers-page.component';
+import { BasicinfoPageComponent } from './pages/entries-page/basicinfo-page.component';
 import { TreatmentsPageComponent } from './pages/entries-page/treatments-page.component';
 import { GeneratedKeyDialogComponent, KeysComponent } from './pages/keys/keys.component';
 import { SubjectRecordsComponent } from './pages/subject-records/subject-records.component';
@@ -46,10 +44,9 @@ import { AdminRoutingModule } from './admin-routing.module';
     EntriesListDragAndDropComponent,
     EntriesListSelectComponent,
     EntryPageComponent,
-    HeaderComponent,
+    BasicinfoComponent,
     TreatmentComponent,
     ConditionsComponent,
-    FooterComponent,
     EntryEditorDialogComponent,
     EntryInfoComponent,
     EntryCardComponent,
@@ -64,8 +61,7 @@ import { AdminRoutingModule } from './admin-routing.module';
     PreferencesPageComponent,
     DashboardComponent,
     ConditionsPageComponent,
-    HeadersPageComponent,
-    FootersPageComponent,
+    BasicinfoPageComponent,
     TreatmentsPageComponent,
     KeysComponent,
     GeneratedKeyDialogComponent,

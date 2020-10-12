@@ -33,16 +33,12 @@ export class SideNavComponent implements OnInit {
       expanded: false,
       sub: [
         {
-          title: 'NAV.CATEGORIES.MODELS.HEADERS',
-          link: '/admin/config/headers'
+          title: 'NAV.CATEGORIES.MODELS.INFO',
+          link: '/admin/config/basicinfo'
         },
         {
           title: 'NAV.CATEGORIES.MODELS.TREATMENTS',
           link: '/admin/config/treatments'
-        },
-        {
-          title: 'NAV.CATEGORIES.MODELS.FOOTERS',
-          link: '/admin/config/footers'
         },
         {
           title: 'NAV.CATEGORIES.MODELS.PREFERENCES',

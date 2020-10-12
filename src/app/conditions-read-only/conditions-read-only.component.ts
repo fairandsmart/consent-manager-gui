@@ -32,9 +32,8 @@ export class ConditionsReadOnlyComponent implements OnInit, OnDestroy {
           const context: ConsentContext = {
             subject: '',
             orientation: ConsentFormOrientation.VERTICAL,
-            header: '',
+            info: '',
             elements: [params.get('key')],
-            footer: '',
             callback: '',
             validity: '',
             locale: queryParams.get('lang') ? queryParams.get('lang') : 'en',

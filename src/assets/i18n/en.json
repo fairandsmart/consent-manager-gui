@@ -10,9 +10,8 @@
       },
       "MODELS": {
         "LABEL": "Configuration",
-        "HEADERS": "Headers",
+        "INFO": "Basic Information",
         "TREATMENTS": "Treatments",
-        "FOOTERS": "Footers",
         "PREFERENCES": "Preferences",
         "CONDITIONS": "EULA",
         "EMAILS": "Emails",
@@ -37,8 +36,7 @@
       "CLOSE": "Close"
     },
     "ENTRY_TYPES": {
-      "HEADER": "Header",
-      "FOOTER": "Footer",
+      "BASICINFO": "Basic Info",
       "TREATMENT": "Treatment",
       "PREFERENCE": "Preference",
       "CONDITIONS": "EULA",
@@ -95,9 +93,9 @@
   },
   "ENTRIES": {
     "TITLE": "Entries",
-    "headers": {
-      "PANEL_TITLE": "Headers library",
-      "EMPTY": "First, create a header..."
+    "basicinfo": {
+      "PANEL_TITLE": "Basic Info library",
+      "EMPTY": "First, create basic info..."
     },
     "treatments": {
       "PANEL_TITLE": "Treatments library",
@@ -111,11 +109,6 @@
       "PANEL_TITLE": "EULA library",
       "EMPTY": "First, create a EULA model..."
     },
-    "footers": {
-      "PANEL_TITLE": "Footers library",
-      "EMPTY": "First, add a footer...",
-      "EXCLUDED": "The form will not have a footer."
-    },
     "themes": {
       "PANEL_TITLE": "Themes library",
       "EMPTY": "First, create a theme...",
@@ -126,11 +119,10 @@
       "EMPTY": "First, create an email..."
     },
     "BUTTON_ADD": {
-      "header": "New header",
+      "basicinfo": "New Basic Info",
       "treatment": "New treatment",
       "preference": "New preference",
       "conditions": "New EULA",
-      "footer": "New footer",
       "theme": "New theme",
       "email": "New email",
       "MULTIPLE": "Add..."
@@ -146,10 +138,12 @@
       },
       "key": {
         "LABEL": "Reference",
+        "REQUIRED": "Reference is mandatory",
         "ALREADY_EXISTS": "Reference already in use"
       },
       "name": {
-        "LABEL": "Name"
+        "LABEL": "Name",
+        "REQUIRED": "Name is mandatory"
       },
       "description": {
         "LABEL": "Description"
@@ -159,27 +153,26 @@
       },
       "version": {
         "LABEL": "Version"
-      }
+      },
+      "EMPTY_LIST": "Nothing to display"
     },
     "CREATE_BUTTON": "New entry",
     "DIALOG": {
       "TITLE_NEW": {
-        "HEADER": "New header",
-        "TREATMENT": "New treatment",
-        "PREFERENCE": "New preference",
-        "CONDITIONS": "New EULA",
-        "FOOTER": "New footer",
-        "THEME": "New theme",
-        "EMAIL": "New email"
+        "basicinfo": "New basic info",
+        "treatment": "New treatment",
+        "preference": "New preference",
+        "consitions": "New EULA",
+        "theme": "New theme",
+        "email": "New email"
       },
       "TITLE_UPDATE": {
-        "HEADER": "Update header",
-        "TREATMENT": "Update treatment",
-        "PREFERENCE": "Update preference",
-        "CONDITIONS": "Update EULA",
-        "FOOTER": "Update footer",
-        "THEME": "Update theme",
-        "EMAIL": "Update email"
+        "basicinfo": "Update basic info",
+        "treatment": "Update treatment",
+        "preference": "Update preference",
+        "conditions": "Update EULA",
+        "theme": "Update theme",
+        "email": "Update email"
       }
     },
     "PREVIEW": {
@@ -197,11 +190,10 @@
       },
       "CONTENT": {
         "TITLE": {
-          "HEADER": "Header content",
+          "BASICINFO": "Basic Info content",
           "TREATMENT": "Treatment content",
           "PREFERENCE": "Preference content",
           "CONDITIONS": "EULA content",
-          "FOOTER": "Footer content",
           "THEME": "Theme content",
           "EMAIL": "Email content"
         },
@@ -229,12 +221,13 @@
           }
         }
       },
-      "HEADER": {
+      "BASICINFO": {
         "SUBTITLES": {
           "LOGO": "Logo",
-          "TEXT": "Title and body",
+          "TEXT": "Title, body and footer",
           "LAW": "Legal information",
-          "POLICY": "Privacy policy"
+          "POLICY": "Privacy policy",
+          "BUTTON": "Button \"Accept all\""
         },
         "LOGO": {
           "PATH": {
@@ -247,8 +240,11 @@
         "TITLE": {
           "LABEL": "Title"
         },
-        "BODY": {
-          "LABEL": "Header body"
+        "HEADER": {
+          "LABEL": "Header content"
+        },
+        "FOOTER": {
+          "LABEL": "Footer content"
         },
         "JURISDICTION": {
           "LABEL": "Jurisdiction"
@@ -270,15 +266,6 @@
           "LINK_LABEL": {
             "LABEL": "Privacy policy link label"
           }
-        }
-      },
-      "FOOTER": {
-        "SUBTITLES": {
-          "TEXT": "Body",
-          "BUTTON": "\"Accept all\" button"
-        },
-        "BODY": {
-          "LABEL": "Footer fody"
         },
         "ACCEPT_ALL": {
           "DISPLAY": {
@@ -519,8 +506,8 @@
           "HORIZONTAL": "Horizontal"
         }
       },
-      "HEADER": {
-        "LABEL": "Header reference"
+      "BASICINFO": {
+        "LABEL": "Basic info reference"
       },
       "TREATMENTS": {
         "LABEL_AVAILABLE": "Available treatments",
@@ -529,9 +516,6 @@
       "PREFERENCES": {
         "LABEL_AVAILABLE": "Available preferences",
         "LABEL_DISPLAYED": "Displayed preferences"
-      },
-      "FOOTER": {
-        "LABEL": "Footer reference"
       },
       "VALIDITY": {
         "LABEL": "Validity"

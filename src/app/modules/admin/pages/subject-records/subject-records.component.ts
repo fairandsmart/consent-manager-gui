@@ -179,9 +179,8 @@ export class SubjectRecordsComponent implements OnInit {
       const ctx: ConsentContext = {
         subject: this.filter.subject,
         orientation: ConsentFormOrientation.VERTICAL,
-        header: '',
+        info: '',
         elements: this.operatorLog.map(e => e.identifier),
-        footer: '',
         callback: '',
         locale: this.translateService.currentLang,
         formType: ConsentFormType.FULL,

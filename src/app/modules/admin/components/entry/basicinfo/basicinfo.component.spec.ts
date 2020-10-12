@@ -1,6 +1,6 @@
 import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 
-import { HeaderComponent } from './header.component';
+import { BasicinfoComponent } from './header.component';
 import { ReactiveFormsModule } from '@angular/forms';
 import { ModelsResourceService } from '../../../../../core/http/models-resource.service';
 import { EntryInfoComponent } from '../entry-info/entry-info.component';
@@ -10,15 +10,15 @@ import SpyObj = jasmine.SpyObj;
 import createSpyObj = jasmine.createSpyObj;
 
 describe('HeaderComponent', () => {
-  let component: HeaderComponent;
-  let fixture: ComponentFixture<HeaderComponent>;
+  let component: BasicinfoComponent;
+  let fixture: ComponentFixture<BasicinfoComponent>;
   let modelsResourceServiceSpy: SpyObj<ModelsResourceService>;
 
   beforeEach(waitForAsync(() => {
     modelsResourceServiceSpy =  createSpyObj<ModelsResourceService>('ModelsResourceService', ['listEntries']);
 
     TestBed.configureTestingModule({
-      declarations: [ HeaderComponent, EntryInfoComponent, EntryPreviewComponent ],
+      declarations: [ BasicinfoComponent, EntryInfoComponent, EntryPreviewComponent ],
       imports: [ CoreTestingModule, ReactiveFormsModule ],
       providers: [
         {provide: ModelsResourceService, useValue: modelsResourceServiceSpy},
@@ -28,7 +28,7 @@ describe('HeaderComponent', () => {
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(HeaderComponent);
+    fixture = TestBed.createComponent(BasicinfoComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

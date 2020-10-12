@@ -1,17 +1,17 @@
 import { Component, OnInit } from '@angular/core';
 import { EntryContentDirective } from '../entry-content/entry-content.directive';
-import { Controller, FIELD_VALIDATORS, Header, ModelDataType } from '../../../../../core/models/models';
+import { Controller, FIELD_VALIDATORS, BasicInfo, ModelDataType } from '../../../../../core/models/models';
 import { FormBuilder, Validators } from '@angular/forms';
 import { ModelsResourceService } from '../../../../../core/http/models-resource.service';
 import { DomSanitizer } from '@angular/platform-browser';
 import { AlertService } from '../../../../../core/services/alert.service';
 
 @Component({
-  selector: 'app-header',
-  templateUrl: './header.component.html',
-  styleUrls: ['../entry-content/_entry-content.directive.scss', './header.component.scss']
+  selector: 'app-basicinfo',
+  templateUrl: './basicinfo.component.html',
+  styleUrls: ['../entry-content/_entry-content.directive.scss', './basicinfo.component.scss']
 })
-export class HeaderComponent extends EntryContentDirective<Header> implements OnInit {
+export class BasicinfoComponent extends EntryContentDirective<BasicInfo> implements OnInit {
 
   constructor(
     private fb: FormBuilder,
@@ -22,7 +22,7 @@ export class HeaderComponent extends EntryContentDirective<Header> implements On
   }
 
   get type(): ModelDataType {
-    return 'header';
+    return 'basicinfo';
   }
 
   ngOnInit(): void {
@@ -35,7 +35,8 @@ export class HeaderComponent extends EntryContentDirective<Header> implements On
       logoPath: [''],
       logoAltText: [''],
       title: ['', [Validators.required]],
-      body: ['', [Validators.required]],
+      header: [''],
+      footer: [''],
       jurisdiction: [''],
       showJurisdiction: [{value: false, disabled: true}],
       collectionMethod: [''],
@@ -54,7 +55,9 @@ export class HeaderComponent extends EntryContentDirective<Header> implements On
       shortNoticeLink: [''],
       showShortNoticeLink: [{value: false, disabled: true}],
       privacyPolicyUrl: ['', [Validators.required]],
-      customPrivacyPolicyText: ['']
+      customPrivacyPolicyText: [''],
+      showAcceptAll: [false],
+      customAcceptAllText: ['']
     });
 
     this.form.get('jurisdiction').valueChanges.subscribe(v => this.optionalFieldChange(v, 'showJurisdiction'));
@@ -66,7 +69,7 @@ export class HeaderComponent extends EntryContentDirective<Header> implements On
     this.initPreview();
   }
 
-  private optionalFieldChange(value: string, linkedControllerName: keyof Header): void {
+  private optionalFieldChange(value: string, linkedControllerName: keyof BasicInfo): void {
     if (value.length > 0) {
       this.form.get(linkedControllerName).enable();
     } else {

@@ -3,19 +3,19 @@ import { SectionConfig } from '../../components/entries/entries-library/entries-
 import { environment } from '../../../../../environments/environment';
 
 @Component({
-  selector: 'app-footers-page',
+  selector: 'app-basicinfo-page',
   template: `
     <app-entries-library [config]="config" [expandable]="false"></app-entries-library>
   `
 })
-export class FootersPageComponent {
+export class BasicinfoPageComponent {
 
   public config: SectionConfig[] = [
     {
-      id: 'footers',
-      types: ['footer'],
-      multiple: environment.customization.multipleFooter,
-      showSort: environment.customization.multipleFooter
+      id: 'basicinfo',
+      types: ['basicinfo'],
+      multiple: environment.customization.multipleInfo,
+      showSort: environment.customization.multipleInfo
     }
   ];
 

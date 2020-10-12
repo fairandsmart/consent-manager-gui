@@ -7,8 +7,7 @@ export const environment: AppEnvironment = {
   authClientId: 'consent-manager-gui',
   managerUrl: 'http://localhost:8087',
   customization: {
-    multipleHeader: false,
-    multipleFooter: false,
+    multipleInfo: false,
     defaultLocale: 'fr'
   }
 };

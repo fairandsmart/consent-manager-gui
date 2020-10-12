@@ -8,7 +8,6 @@ export interface AppEnvironment {
 }
 
 export interface AppCustomization {
-  multipleHeader: boolean;
-  multipleFooter: boolean;
+  multipleInfo: boolean;
   defaultLocale: string;
 }

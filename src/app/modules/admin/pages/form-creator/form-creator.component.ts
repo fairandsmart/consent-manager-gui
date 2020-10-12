@@ -49,10 +49,10 @@ export class FormCreatorComponent implements OnInit {
 
   public elementsLibraryConfig: (SectionConfig & {draggingDisabled: boolean, included: boolean})[] = [
     {
-      id: 'headers',
-      types: ['header'],
-      multiple: environment.customization.multipleHeader,
-      showSort: environment.customization.multipleHeader,
+      id: 'infos',
+      types: ['basicinfo'],
+      multiple: environment.customization.multipleInfo,
+      showSort: environment.customization.multipleInfo,
       draggingDisabled: false,
       included: true
     },
@@ -61,14 +61,6 @@ export class FormCreatorComponent implements OnInit {
       types: ['treatment'],
       multiple: true,
       showSort: true,
-      draggingDisabled: false,
-      included: true
-    },
-    {
-      id: 'footers',
-      types: ['footer'],
-      multiple: environment.customization.multipleFooter,
-      showSort: environment.customization.multipleFooter,
       draggingDisabled: false,
       included: true
     },
@@ -253,9 +245,8 @@ export class FormCreatorComponent implements OnInit {
     return {
       subject: formValue.subject,
       orientation: formValue.orientation,
-      header: formValue.header,
+      info: formValue.info,
       elements: formValue.elements,
-      footer: formValue.footer,
       callback: '',
       validity: FormCreatorComponent.formatValidity(formValue.validity, formValue.validityUnit),
       locale: formValue.locale,

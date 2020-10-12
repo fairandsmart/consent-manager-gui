@@ -1,6 +1,6 @@
 <ng-container [ngSwitch]="entry?.type">
-  <ng-container *ngSwitchCase="'header'">
-    <app-header [entry]="entry" [version]="latest"></app-header>
+  <ng-container *ngSwitchCase="'basicinfo'">
+    <app-basicinfo [entry]="entry" [version]="latest"></app-basicinfo>
   </ng-container>
   <ng-container *ngSwitchCase="'treatment'">
     <app-treatment [entry]="entry" [version]="latest"></app-treatment>
@@ -10,9 +10,6 @@
   </ng-container>
   <ng-container *ngSwitchCase="'conditions'">
     <app-conditions [entry]="entry" [version]="latest"></app-conditions>
-  </ng-container>
-  <ng-container *ngSwitchCase="'footer'">
-    <app-footer [entry]="entry" [version]="latest"></app-footer>
   </ng-container>
   <ng-container *ngSwitchCase="'theme'">
     <app-theme [entry]="entry" [version]="latest"></app-theme>

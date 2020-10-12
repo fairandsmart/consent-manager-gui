@@ -1,13 +1,11 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { AdminPageComponent } from './pages/admin-page/admin-page.component';
-import { RolesGuardService } from '../../core/guards/roles-guard.service';
 import { DashboardComponent } from './pages/dashboard/dashboard.component';
 import { SubjectRecordsComponent } from './pages/subject-records/subject-records.component';
 import { EntryPageComponent } from './pages/entry-page/entry-page.component';
-import { HeadersPageComponent } from './pages/entries-page/headers-page.component';
 import { TreatmentsPageComponent } from './pages/entries-page/treatments-page.component';
-import { FootersPageComponent } from './pages/entries-page/footers-page.component';
+import { BasicinfoPageComponent } from './pages/entries-page/basicinfo-page.component';
 import { PreferencesPageComponent } from './pages/entries-page/preferences-page.component';
 import { ConditionsPageComponent } from './pages/entries-page/conditions-page.component';
 import { EmailsPageComponent } from './pages/entries-page/emails-page.component';
@@ -36,16 +34,12 @@ const routes: Routes = [
             component: EntryPageComponent
           },
           {
-            path: 'headers',
-            component: HeadersPageComponent
+            path: 'basicinfo',
+            component: BasicinfoPageComponent
           },
           {
             path: 'treatments',
             component: TreatmentsPageComponent
-          },
-          {
-            path: 'footers',
-            component: FootersPageComponent
           },
           {
             path: 'preferences',

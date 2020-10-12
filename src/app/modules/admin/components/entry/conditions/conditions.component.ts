@@ -65,9 +65,8 @@ export class ConditionsComponent extends EntryContentDirective<Conditions> imple
     const context: ConsentContext = {
       subject: '',
       orientation: ConsentFormOrientation.VERTICAL,
-      header: '',
+      info: '',
       elements: [this.entry.key],
-      footer: '',
       callback: '',
       validity: '',
       locale: formValue.locale,

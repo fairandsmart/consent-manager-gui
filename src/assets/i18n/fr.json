@@ -10,9 +10,8 @@
       },
       "MODELS": {
         "LABEL": "Configuration",
-        "HEADERS": "En-têtes",
+        "INFO": "Informations",
         "TREATMENTS": "Traitements",
-        "FOOTERS": "Pieds de page",
         "PREFERENCES": "Préférences",
         "CONDITIONS": "CGU/CGS",
         "EMAILS": "Emails",
@@ -37,8 +36,7 @@
       "CLOSE": "Fermer"
     },
     "ENTRY_TYPES": {
-      "HEADER": "En-tête",
-      "FOOTER": "Pied de page",
+      "BASICINFO": "Informations",
       "TREATMENT": "Traitement",
       "PREFERENCE": "Préférence",
       "CONDITIONS": "CGU/CGS",
@@ -95,9 +93,9 @@
   },
   "ENTRIES": {
     "TITLE": "Éléments",
-    "headers": {
-      "PANEL_TITLE": "Bibliothèque d'en-têtes",
-      "EMPTY": "Commencez par ajouter un en-tête..."
+    "basicinfo": {
+      "PANEL_TITLE": "Informations générales",
+      "EMPTY": "Commencez par spécifier les informations générales..."
     },
     "treatments": {
       "PANEL_TITLE": "Bibliothèque de traitements",
@@ -111,11 +109,6 @@
       "PANEL_TITLE": "Bibliothèque de CGU",
       "EMPTY": "Commencez par ajouter des CGU..."
     },
-    "footers": {
-      "PANEL_TITLE": "Bibliothèque de pieds de page",
-      "EMPTY": "Commencez par ajouter un pied de page...",
-      "EXCLUDED": "Le formulaire ne contiendra pas de pied de page"
-    },
     "themes": {
       "PANEL_TITLE": "Bibliothèque de thèmes",
       "EMPTY": "Commencez par ajouter un thème...",
@@ -126,11 +119,10 @@
       "EMPTY": "Commencez par ajouter un email..."
     },
     "BUTTON_ADD": {
-      "header": "Ajouter un en-tête",
+      "basicinfo": "Ajouter les informations de base",
       "treatment": "Ajouter un traitement",
       "preference": "Ajouter une préférence",
       "conditions": "Ajouter des CGU",
-      "footer": "Ajouter un pied de page",
       "theme": "Ajouter un thème",
       "email": "Ajouter un email",
       "MULTIPLE": "Ajouter..."
@@ -167,20 +159,18 @@
     "CREATE_BUTTON": "Nouvel élément",
     "DIALOG": {
       "TITLE_NEW": {
-        "header": "Nouvel en-tête",
+        "basicinfo": "Nouvelles informations de base",
         "treatment": "Nouveau traitement",
         "preference": "Nouvelle préférence",
         "conditions": "Nouvelles CGU",
-        "footer": "Nouveau pied de page",
         "theme": "Nouveau thème",
         "email": "Nouvel email"
       },
       "TITLE_UPDATE": {
-        "header": "Modification de l'en-tête",
+        "basicinfo": "Modification des informations de base",
         "treatment": "Modification du traitement",
         "preference": "Modification de la préférence",
         "conditions": "Modification des CGU",
-        "footer": "Modification du pied de page",
         "theme": "Modification du thème",
         "email": "Modification de l'email"
       }
@@ -200,11 +190,10 @@
       },
       "CONTENT": {
         "TITLE": {
-          "HEADER": "Contenu de l'en-tête",
+          "BASICINFO": "Contenu des informations de base",
           "TREATMENT": "Contenu du traitement",
           "PREFERENCE": "Contenu de la préférence",
           "CONDITIONS": "Contenu des CGU",
-          "FOOTER": "Contenu du pied de page",
           "THEME": "Contenu du thème",
           "EMAIL": "Contenu de l'email"
         },
@@ -232,12 +221,13 @@
           }
         }
       },
-      "HEADER": {
+      "BASICINFO": {
         "SUBTITLES": {
           "LOGO": "Logo",
-          "TEXT": "Titre et corps",
+          "TEXT": "Titre, corps et pied de page",
           "LAW": "Informations juridiques",
-          "POLICY": "Politique de confidentialité"
+          "POLICY": "Politique de confidentialité",
+          "BUTTON": "Bouton \"Tout accepter\""
         },
         "LOGO": {
           "PATH": {
@@ -250,8 +240,11 @@
         "TITLE": {
           "LABEL": "Titre"
         },
-        "BODY": {
+        "HEADER": {
           "LABEL": "Corps de l'en-tête"
+        },
+        "FOOTER": {
+          "LABEL": "Corps du pied de page"
         },
         "JURISDICTION": {
           "LABEL": "Pays de législation"
@@ -273,15 +266,6 @@
           "LINK_LABEL": {
             "LABEL": "Libellé du lien vers la politique de confidentialité"
           }
-        }
-      },
-      "FOOTER": {
-        "SUBTITLES": {
-          "TEXT": "Corps",
-          "BUTTON": "Bouton \"Tout accepter\""
-        },
-        "BODY": {
-          "LABEL": "Corps du pied de page"
         },
         "ACCEPT_ALL": {
           "DISPLAY": {
@@ -522,8 +506,8 @@
           "HORIZONTAL": "Horizontale"
         }
       },
-      "HEADER": {
-        "LABEL": "Référence d'en-tête"
+      "BASICINFO": {
+        "LABEL": "Référence des informations de base"
       },
       "TREATMENTS": {
         "LABEL_AVAILABLE": "Traitements disponibles",
@@ -532,9 +516,6 @@
       "PREFERENCES": {
         "LABEL_AVAILABLE": "Préférences disponibles",
         "LABEL_DISPLAYED": "Préférences affichées"
-      },
-      "FOOTER": {
-        "LABEL": "Référence de pied de page."
       },
       "VALIDITY": {
         "LABEL": "Durée de validité"

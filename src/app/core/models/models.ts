@@ -95,12 +95,13 @@ export interface Controller {
   phoneNumber: string;
 }
 
-export interface Header extends ModelData {
-  type: 'header';
+export interface BasicInfo extends ModelData {
+  type: 'basicinfo';
   logoPath: string;
   logoAltText: string;
   title: string;
-  body: string;
+  header: string;
+  footer: string;
   jurisdiction: string;
   showJurisdiction: boolean;
   collectionMethod: string;
@@ -113,11 +114,6 @@ export interface Header extends ModelData {
   showShortNoticeLink: boolean;
   privacyPolicyUrl: string;
   customPrivacyPolicyText: string;
-}
-
-export interface Footer extends ModelData {
-  type: 'footer';
-  body: string;
   showAcceptAll: boolean;
   customAcceptAllText: string;
 }
@@ -190,7 +186,7 @@ export interface Email extends ModelData {
   signature: string;
 }
 
-export type ModelDataType = 'header' | 'treatment' | 'conditions' | 'footer' | 'theme' | 'email' | 'preference';
+export type ModelDataType = 'basicinfo' | 'treatment' | 'conditions' | 'theme' | 'email' | 'preference';
 
 export interface PreviewDto {
   locale: string;
@@ -211,9 +207,8 @@ export interface ModelFilter {
 export interface ConsentContext {
   subject: string;
   orientation: ConsentFormOrientation;
-  header: string;
+  info: string;
   elements: string[];
-  footer: string;
   callback: string;
   locale: string;
   validity?: string;
@@ -265,9 +260,8 @@ export enum RecordStatus {
 
 export interface RecordDto {
   serial: string;
-  headerKey?: string;
+  infoKey?: string;
   bodyKey: string;
-  footerKey?: string;
   subject: string;
   creationTimestamp: number;
   expirationTimestamp: number;
@@ -284,9 +278,8 @@ export interface RecordFilter {
   owner?: string;
   subject?: string;
   status?: RecordStatus[];
-  headers?: string[];
+  infos?: string[];
   elements?: string[];
-  footers?: string[];
   collectionMethod?: string;
   after?: number;
   before?: number;
