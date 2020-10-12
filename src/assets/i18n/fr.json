@@ -93,7 +93,7 @@
   },
   "ENTRIES": {
     "TITLE": "Éléments",
-    "basicinfo": {
+    "infos": {
       "PANEL_TITLE": "Informations générales",
       "EMPTY": "Commencez par spécifier les informations générales..."
     },

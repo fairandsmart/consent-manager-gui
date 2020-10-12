@@ -67,9 +67,8 @@ export class FormCreatorComponent implements OnInit {
   ];
 
   public selectedElements: {[id: string]: ModelEntryDto[]} = {
-    headers: [],
-    treatments: [],
-    footers: []
+    infos: [],
+    treatments: []
   };
 
   public themesLibraryConfig: SectionConfig[] = [
@@ -136,9 +135,8 @@ export class FormCreatorComponent implements OnInit {
     ).subscribe();
     this.form = this.fb.array([
       this.fb.group({
-        header: ['', [Validators.required, Validators.pattern(FIELD_VALIDATORS.key.pattern)]],
-        elements: [[], [Validators.required, Validators.pattern(FIELD_VALIDATORS.elementsKeys.pattern)]],
-        footer: ['', [Validators.required, Validators.pattern(FIELD_VALIDATORS.key.pattern)]]
+        info: ['', [Validators.required, Validators.pattern(FIELD_VALIDATORS.key.pattern)]],
+        elements: [[], [Validators.required, Validators.pattern(FIELD_VALIDATORS.elementsKeys.pattern)]]
       }),
       this.fb.group({
         theme: ['', [Validators.pattern(FIELD_VALIDATORS.key.pattern)]],
@@ -223,19 +221,6 @@ export class FormCreatorComponent implements OnInit {
     }
   }
 
-  footerIncludedChange(included): void {
-    // Set selected elements to take into account included state
-    this.setSelectedElements(this.selectedElements);
-    const key = 'footer';
-    const control = (this.form.controls[0] as FormGroup).controls[key];
-    if (included) {
-      control.setValidators([Validators.required, Validators.pattern(FIELD_VALIDATORS.key.pattern)]);
-    } else {
-      control.clearValidators();
-    }
-    control.updateValueAndValidity();
-  }
-
   private buildContext(isPreview: boolean): ConsentContext {
     const formValue: Partial<ConsentContext & {forceDisplay: boolean, validityUnit: string}> = {
       ...this.form.at(FORM_CREATOR_STEP.OPTIONS).value,
@@ -267,11 +252,9 @@ export class FormCreatorComponent implements OnInit {
 
   private setSelectedElements(selected: {[id: string]: ModelEntryDto[]}): void {
     this.selectedElements = selected;
-    const footerIncluded = this.elementsLibraryConfig.find(c => c.id === 'footers').included;
     this.form.at(FORM_CREATOR_STEP.ELEMENTS).setValue({
-      header: this.selectedElements.headers.map(e => e.key)?.[0] || '',
-      elements: this.selectedElements.treatments.map(e => e.key),
-      footer: footerIncluded ? this.selectedElements.footers.map(e => e.key)?.[0] || '' : ''
+      info: this.selectedElements.infos.map(e => e.key)?.[0] || '',
+      elements: this.selectedElements.treatments.map(e => e.key)
     });
   }
 

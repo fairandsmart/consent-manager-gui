@@ -6,7 +6,6 @@
           <ng-container *ngFor="let section of elementsLibraryConfig">
             <h4>
               <span>{{'ENTRIES.' + section.id + '.PANEL_TITLE' | translate}}</span>
-              <mat-slide-toggle *ngIf="section.id === 'footers'" [(ngModel)]="section.included" (ngModelChange)="footerIncludedChange($event)"></mat-slide-toggle>
             </h4>
             <div class="form-container"
                  [class.excluded]="!section.included"

@@ -93,7 +93,7 @@
   },
   "ENTRIES": {
     "TITLE": "Entries",
-    "basicinfo": {
+    "infos": {
       "PANEL_TITLE": "Basic Info library",
       "EMPTY": "First, create basic info..."
     },
