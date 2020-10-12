@@ -1,6 +1,6 @@
 import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 
-import { BasicinfoComponent } from './header.component';
+import { BasicinfoComponent } from './basicinfo.component';
 import { ReactiveFormsModule } from '@angular/forms';
 import { ModelsResourceService } from '../../../../../core/http/models-resource.service';
 import { EntryInfoComponent } from '../entry-info/entry-info.component';
