@@ -12,7 +12,7 @@ export class BasicinfoPageComponent {
 
   public config: SectionConfig[] = [
     {
-      id: 'basicinfo',
+      id: 'infos',
       types: ['basicinfo'],
       multiple: environment.customization.multipleInfo,
       showSort: environment.customization.multipleInfo
