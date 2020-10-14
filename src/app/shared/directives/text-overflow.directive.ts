@@ -1,8 +1,8 @@
 import { Directive, ElementRef, HostListener } from '@angular/core';
 
 @Directive({
-  selector: '[appTextOverflow]',
-  exportAs: 'appTextOverflow'
+  selector: '[cmTextOverflow]',
+  exportAs: 'cmTextOverflow'
 })
 export class TextOverflowDirective {
 

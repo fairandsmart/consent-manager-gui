@@ -3,9 +3,9 @@ import { SectionConfig } from '../../components/entries/entries-library/entries-
 import { environment } from '../../../../../environments/environment';
 
 @Component({
-  selector: 'app-basicinfo-page',
+  selector: 'cm-basicinfo-page',
   template: `
-    <app-entries-library [config]="config" [expandable]="false"></app-entries-library>
+    <cm-entries-library [config]="config" [expandable]="false"></cm-entries-library>
   `
 })
 export class BasicinfoPageComponent {

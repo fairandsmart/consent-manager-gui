@@ -7,7 +7,7 @@ import { DomSanitizer } from '@angular/platform-browser';
 import { AlertService } from '../../../../../core/services/alert.service';
 
 @Component({
-  selector: 'app-email',
+  selector: 'cm-email',
   templateUrl: './email.component.html',
   styleUrls: ['../entry-content/_entry-content.directive.scss', './email.component.scss']
 })

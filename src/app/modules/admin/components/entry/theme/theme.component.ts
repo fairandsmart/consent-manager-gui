@@ -5,7 +5,7 @@ import { FormBuilder, Validators } from '@angular/forms';
 import { ModelsResourceService } from '../../../../../core/http/models-resource.service';
 import * as CodeMirror from 'codemirror';
 import { Editor } from 'codemirror';
-import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
+import { DomSanitizer } from '@angular/platform-browser';
 import { AlertService } from '../../../../../core/services/alert.service';
 
 const snippets: { text: string, displayText: string }[] = [
@@ -19,7 +19,7 @@ const snippets: { text: string, displayText: string }[] = [
 ];
 
 @Component({
-  selector: 'app-theme',
+  selector: 'cm-theme',
   templateUrl: './theme.component.html',
   styleUrls: ['../entry-content/_entry-content.directive.scss', './theme.component.scss']
 })

@@ -7,7 +7,7 @@ import { of } from 'rxjs';
 import * as _ from 'lodash';
 
 @Component({
-  selector: 'app-entry-page',
+  selector: 'cm-entry-page',
   templateUrl: './entry-page.component.html',
   styleUrls: ['./entry-page.component.scss'],
   // tslint:disable-next-line:no-host-metadata-property

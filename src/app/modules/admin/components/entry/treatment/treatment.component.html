@@ -44,7 +44,7 @@
           <mat-card-subtitle>{{'ENTRIES.EDITOR.TREATMENT.SUBTITLES.LAW' | translate}}</mat-card-subtitle>
           <mat-form-field appearance="outline">
             <mat-label>{{'ENTRIES.EDITOR.TREATMENT.PURPOSE.LABEL' | translate}}</mat-label>
-            <mat-select formControlName="purposes" matInput required multiple="true" (ngModelChange)="purposesChange($event)">
+            <mat-select formControlName="purposes" required multiple="true" (ngModelChange)="purposesChange($event)">
               <mat-option *ngFor="let purpose of PURPOSES" [value]="purpose">{{'ENTRIES.EDITOR.TREATMENT.PURPOSE.VALUES.' + purpose | translate}}</mat-option>
             </mat-select>
           </mat-form-field>
@@ -119,7 +119,7 @@
     </form>
   </mat-sidenav-content>
   <mat-sidenav opened mode="side" position="end">
-    <app-entry-info *ngIf="entry" [entry]="entry" [version]="version" (selectVersion)="selectVersion($event)"></app-entry-info>
-    <app-entry-preview [safePreview]="safePreview"></app-entry-preview>
+    <cm-entry-info *ngIf="entry" [entry]="entry" [version]="version" (selectVersion)="selectVersion($event)"></cm-entry-info>
+    <cm-entry-preview [safePreview]="safePreview"></cm-entry-preview>
   </mat-sidenav>
 </mat-sidenav-container>

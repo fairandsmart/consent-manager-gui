@@ -8,9 +8,9 @@
     </mat-expansion-panel-header>
     <div>
       <ng-container [ngSwitch]="mode">
-        <app-entries-list *ngSwitchCase="'view'" [config]="section"></app-entries-list>
-        <app-entries-list-drag-and-drop *ngSwitchCase="'drag'" [ngModel]="selected[section.id]" (ngModelChange)="selectedEntriesChange(section, $event)" [config]="section"></app-entries-list-drag-and-drop>
-        <app-entries-list-select *ngSwitchCase="'select'" [ngModel]="selected[section.id]" (ngModelChange)="selectedEntriesChange(section, $event)" [config]="section"></app-entries-list-select>
+        <cm-entries-list *ngSwitchCase="'view'" [config]="section"></cm-entries-list>
+        <cm-entries-list-drag-and-drop *ngSwitchCase="'drag'" [ngModel]="selected[section.id]" (ngModelChange)="selectedEntriesChange(section, $event)" [config]="section"></cm-entries-list-drag-and-drop>
+        <cm-entries-list-select *ngSwitchCase="'select'" [ngModel]="selected[section.id]" (ngModelChange)="selectedEntriesChange(section, $event)" [config]="section"></cm-entries-list-select>
       </ng-container>
     </div>
   </mat-expansion-panel>

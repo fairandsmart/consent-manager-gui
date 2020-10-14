@@ -5,7 +5,7 @@ import { EntryRecord } from '../../../../core/models/models';
 import * as _ from 'lodash';
 
 @Component({
-  selector: 'app-subject-record-editor-dialog',
+  selector: 'cm-subject-record-editor-dialog',
   templateUrl: './subject-record-editor-dialog.component.html',
   styleUrls: ['./subject-record-editor-dialog.component.scss']
 })

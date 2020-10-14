@@ -12,7 +12,7 @@ export interface ConfirmDialogData {
 }
 
 @Component({
-  selector: 'app-confirm-dialog',
+  selector: 'cm-confirm-dialog',
   templateUrl: './confirm-dialog.component.html',
 })
 export class ConfirmDialogComponent {

@@ -5,7 +5,7 @@ import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { EntriesListComponent } from '../entries-list/entries-list.component';
 
 @Component({
-  selector: 'app-entries-list-drag-and-drop',
+  selector: 'cm-entries-list-drag-and-drop',
   templateUrl: './entries-list-drag-and-drop.component.html',
   styleUrls: ['../entries-list/entries-list.component.scss', './entries-list-drag-and-drop.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,

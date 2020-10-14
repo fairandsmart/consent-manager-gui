@@ -19,10 +19,10 @@
   <mat-grid-list *ngIf="entries.length > 0" cols="2" gutterSize="10" rowHeight="80"
                  [class.loading]="section.dataSource.loading$ | async">
     <mat-grid-tile *ngFor="let entry of entries">
-      <app-entry-card (click)="select(entry)"
+      <cm-entry-card (click)="select(entry)"
                       [selectable]="isSelectable(entry)"
                       [selected]="isSelected(entry)"
-                      [entry]="entry"></app-entry-card>
+                      [entry]="entry"></cm-entry-card>
     </mat-grid-tile>
   </mat-grid-list>
   <p *ngIf="entries.length === 0" class="empty-hint">{{'ENTRIES.COMMON.EMPTY_LIST' | translate}}</p>

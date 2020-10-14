@@ -6,6 +6,7 @@ import { EntryInfoComponent } from '../entry-info/entry-info.component';
 import { ReactiveFormsModule } from '@angular/forms';
 import { EntryPreviewComponent } from '../entry-preview/entry-preview.component';
 import { CoreTestingModule } from '../../../../../testing/core-testing-module.spec';
+import { RouterTestingModule } from '@angular/router/testing';
 import SpyObj = jasmine.SpyObj;
 import createSpyObj = jasmine.createSpyObj;
 
@@ -19,7 +20,7 @@ describe('EmailComponent', () => {
 
     TestBed.configureTestingModule({
       declarations: [ EmailComponent, EntryInfoComponent, EntryPreviewComponent ],
-      imports: [ CoreTestingModule, ReactiveFormsModule ],
+      imports: [ CoreTestingModule, RouterTestingModule, ReactiveFormsModule ],
       providers: [
         {provide: ModelsResourceService, useValue: modelsResourceServiceSpy},
       ]

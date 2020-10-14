@@ -80,7 +80,7 @@
       margin: 16px;
     }
 
-    app-entries-library ::ng-deep app-entries-list-drag-and-drop app-entry-card ::ng-deep mat-card {
+    cm-entries-library ::ng-deep cm-entries-list-drag-and-drop cm-entry-card ::ng-deep mat-card {
       background-color: mat-color($mat-light-theme-background, background);
     }
   }
@@ -102,7 +102,7 @@ mat-slide-toggle {
     display: none;
   }
 
-  app-entry-card {
+  cm-entry-card {
     margin-bottom: 10px;
   }
 
@@ -126,7 +126,7 @@ mat-slide-toggle {
 }
 
 .cdk-drop-list-disabled {
-  app-entry-card.cdk-drag ::ng-deep mat-card {
+  cm-entry-card.cdk-drag ::ng-deep mat-card {
     cursor: not-allowed !important;
   }
 }

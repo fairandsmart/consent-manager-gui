@@ -1,6 +1,6 @@
 @import 'node_modules/@angular/material/theming';
 
-app-entry-card:not(.entry-card-selectable) {
+cm-entry-card:not(.entry-card-selectable) {
   ::ng-deep mat-card {
     background-color: mat-color($mat-light-theme-background, disabled-button) !important;
   }

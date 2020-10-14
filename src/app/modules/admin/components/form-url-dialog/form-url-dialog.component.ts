@@ -6,7 +6,7 @@ export interface FormUrlDialogComponentData {
 }
 
 @Component({
-  selector: 'app-form-url-dialog',
+  selector: 'cm-form-url-dialog',
   templateUrl: './form-url-dialog.component.html',
   styleUrls: ['./form-url-dialog.component.scss']
 })

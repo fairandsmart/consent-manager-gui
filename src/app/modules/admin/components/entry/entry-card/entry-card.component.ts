@@ -3,7 +3,7 @@ import { ModelEntryDto, ModelVersionStatus } from '../../../../../core/models/mo
 import * as _ from 'lodash';
 
 @Component({
-  selector: 'app-entry-card',
+  selector: 'cm-entry-card',
   templateUrl: './entry-card.component.html',
   styleUrls: ['./entry-card.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush

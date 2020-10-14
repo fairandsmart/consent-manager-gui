@@ -18,11 +18,11 @@
               <mat-card *ngIf="selectedElements[section.id].length === 0" class="empty-hint">
                 <span>{{'ENTRIES.' + section.id + '.EMPTY' | translate}}</span>
               </mat-card>
-              <app-entry-card *ngFor="let entry of selectedElements[section.id]"
+              <cm-entry-card *ngFor="let entry of selectedElements[section.id]"
                               cdkDrag
                               [selectable]="!section.draggingDisabled"
                               [cdkDragData]="entry"
-                              [entry]="entry"></app-entry-card>
+                              [entry]="entry"></cm-entry-card>
             </div>
             <div *ngIf="!section.included" class="form-container">
               <mat-card class="excluded-hint">{{'ENTRIES.' + section.id + '.EXCLUDED' | translate}}</mat-card>
@@ -58,14 +58,14 @@
                 </mat-form-field>
                 <mat-form-field appearance="fill">
                   <mat-label>{{'FORM_CREATOR.FORM.VALIDITY_UNIT.LABEL' | translate}}</mat-label>
-                  <mat-select formControlName="validityUnit" matInput required>
+                  <mat-select formControlName="validityUnit" required>
                     <mat-option *ngFor="let unit of VALIDITY_UNITS" [value]="unit">{{'FORM_CREATOR.FORM.VALIDITY_UNIT.VALUES.' + unit | translate}}</mat-option>
                   </mat-select>
                 </mat-form-field>
               </div>
               <mat-form-field appearance="fill">
                 <mat-label>{{'FORM_CREATOR.FORM.RECEIPT.LABEL' | translate}}</mat-label>
-                <mat-select formControlName="receiptDeliveryType" matInput required>
+                <mat-select formControlName="receiptDeliveryType" required>
                   <mat-option *ngFor="let type of RECEIPT_TYPES" [value]="type">{{'FORM_CREATOR.FORM.RECEIPT.VALUES.' + type.toUpperCase() | translate}}</mat-option>
                 </mat-select>
               </mat-form-field>
@@ -84,32 +84,32 @@
       </mat-horizontal-stepper>
   </mat-sidenav-content>
   <mat-sidenav opened mode="side" position="end">
-    <app-entries-library
+    <cm-entries-library
       [style]="stepper.selectedIndex !== STEPS.ELEMENTS ? 'display: none' : ''"
       [config]="elementsLibraryConfig"
       [selected]="selectedElements"
       (selectedChange)="selectedElementsChange($event)"
-      [mode]="'drag'"></app-entries-library>
+      [mode]="'drag'"></cm-entries-library>
 
     <ng-container *ngIf="stepper.selectedIndex === STEPS.PREVIEW" [formGroup]="form.at(STEPS.OPTIONS)">
       <mat-form-field appearance="fill">
         <mat-label>{{'FORM_CREATOR.FORM.ORIENTATION.LABEL' | translate}}</mat-label>
-        <mat-select formControlName="orientation" matInput required>
+        <mat-select formControlName="orientation" required>
           <mat-option *ngFor="let orientation of ORIENTATIONS" [value]="orientation">{{'FORM_CREATOR.FORM.ORIENTATION.VALUES.' + orientation | translate}}</mat-option>
         </mat-select>
       </mat-form-field>
     </ng-container>
 
-    <app-entries-library
+    <cm-entries-library
       [style]="stepper.selectedIndex !== STEPS.OPTIONS ? 'display: none' : ''"
       [config]="emailsLibraryConfig"
       [selected]="selectedEmail" [mode]="'select'"
-      (selectedChange)="selectedEmailChange($event)"></app-entries-library>
+      (selectedChange)="selectedEmailChange($event)"></cm-entries-library>
 
-    <app-entries-library
+    <cm-entries-library
       [style]="stepper.selectedIndex !== STEPS.PREVIEW ? 'display: none' : ''"
       [config]="themesLibraryConfig"
       [selected]="selectedTheme" [mode]="'select'"
-      (selectedChange)="selectedThemeChange($event)"></app-entries-library>
+      (selectedChange)="selectedThemeChange($event)"></cm-entries-library>
   </mat-sidenav>
 </mat-sidenav-container>

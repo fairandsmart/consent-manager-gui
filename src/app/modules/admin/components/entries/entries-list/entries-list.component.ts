@@ -9,7 +9,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
-  selector: 'app-entries-list',
+  selector: 'cm-entries-list',
   templateUrl: './entries-list.component.html',
   styleUrls: ['./entries-list.component.scss']
 })

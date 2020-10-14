@@ -1,6 +1,6 @@
 <mat-card *ngIf="entry">
   <mat-card-title>
-    <span class="entry-name" appTextOverflow #name="appTextOverflow"
+    <span class="entry-name" cmTextOverflow #name="cmTextOverflow"
           [matTooltip]="entry.name" matTooltipShowDelay="666"
           [matTooltipDisabled]="!name.overflowing">{{entry.name}}</span>
     <span class="entry-info">
@@ -9,7 +9,7 @@
   </mat-card-title>
   <mat-card-content>
     <div class="entry-description" matTooltipShowDelay="666"
-         appTextOverflow #description="appTextOverflow"
+         cmTextOverflow #description="cmTextOverflow"
          [matTooltipDisabled]="!description.overflowing"
          [matTooltip]="entry.description">{{entry.description || ('ENTRY_CARD.LABEL_NO_DESCRIPTION' | translate)}}</div>
     <div *ngIf="showDetail" class="entry-detail">

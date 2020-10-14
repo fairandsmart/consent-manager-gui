@@ -3,7 +3,7 @@ import { TranslateService } from '@ngx-translate/core';
 import { I18N_DEFAULT_LANGUAGE, I18N_LANGUAGES } from './core/constants/i18n';
 
 @Component({
-  selector: 'app-root',
+  selector: 'cm-root',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss']
 })

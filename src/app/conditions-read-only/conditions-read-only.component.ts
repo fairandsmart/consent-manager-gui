@@ -7,7 +7,7 @@ import { combineLatest, EMPTY, Subscription } from 'rxjs';
 import { catchError, mergeMap, tap } from 'rxjs/operators';
 
 @Component({
-  selector: 'app-conditions-read-only',
+  selector: 'cm-conditions-read-only',
   templateUrl: './conditions-read-only.component.html',
   styleUrls: ['./conditions-read-only.component.scss']
 })

@@ -7,6 +7,7 @@ import { CodemirrorModule } from '@ctrl/ngx-codemirror';
 import { EntryInfoComponent } from '../entry-info/entry-info.component';
 import { EntryPreviewComponent } from '../entry-preview/entry-preview.component';
 import { CoreTestingModule } from '../../../../../testing/core-testing-module.spec';
+import { RouterTestingModule } from '@angular/router/testing';
 import SpyObj = jasmine.SpyObj;
 import createSpyObj = jasmine.createSpyObj;
 
@@ -20,7 +21,7 @@ describe('ThemeComponent', () => {
 
     TestBed.configureTestingModule({
       declarations: [ ThemeComponent, EntryInfoComponent, EntryPreviewComponent ],
-      imports: [ CoreTestingModule, ReactiveFormsModule, CodemirrorModule ],
+      imports: [ CoreTestingModule, RouterTestingModule, ReactiveFormsModule, CodemirrorModule ],
       providers: [
         {provide: ModelsResourceService, useValue: modelsResourceServiceSpy}
       ]

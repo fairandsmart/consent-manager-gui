@@ -1,20 +1,20 @@
 <ng-container [ngSwitch]="entry?.type">
   <ng-container *ngSwitchCase="'basicinfo'">
-    <app-basicinfo [entry]="entry" [version]="latest"></app-basicinfo>
+    <cm-basicinfo [entry]="entry" [version]="latest"></cm-basicinfo>
   </ng-container>
   <ng-container *ngSwitchCase="'treatment'">
-    <app-treatment [entry]="entry" [version]="latest"></app-treatment>
+    <cm-treatment [entry]="entry" [version]="latest"></cm-treatment>
   </ng-container>
   <ng-container *ngSwitchCase="'preference'">
-    <app-preference [entry]="entry" [version]="latest"></app-preference>
+    <cm-preference [entry]="entry" [version]="latest"></cm-preference>
   </ng-container>
   <ng-container *ngSwitchCase="'conditions'">
-    <app-conditions [entry]="entry" [version]="latest"></app-conditions>
+    <cm-conditions [entry]="entry" [version]="latest"></cm-conditions>
   </ng-container>
   <ng-container *ngSwitchCase="'theme'">
-    <app-theme [entry]="entry" [version]="latest"></app-theme>
+    <cm-theme [entry]="entry" [version]="latest"></cm-theme>
   </ng-container>
   <ng-container *ngSwitchCase="'email'">
-    <app-email [entry]="entry" [version]="latest"></app-email>
+    <cm-email [entry]="entry" [version]="latest"></cm-email>
   </ng-container>
 </ng-container>

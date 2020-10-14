@@ -4,7 +4,7 @@ import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { EntriesListComponent } from '../entries-list/entries-list.component';
 
 @Component({
-  selector: 'app-entries-list-select',
+  selector: 'cm-entries-list-select',
   templateUrl: './entries-list-select.component.html',
   styleUrls: ['../entries-list/entries-list.component.scss', './entries-list-select.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,

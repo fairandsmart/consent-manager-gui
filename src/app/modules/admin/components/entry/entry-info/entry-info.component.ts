@@ -4,7 +4,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { ModelEntryDto, ModelVersionDto, ModelVersionDtoLight } from '../../../../../core/models/models';
 
 @Component({
-  selector: 'app-entry-info',
+  selector: 'cm-entry-info',
   templateUrl: './entry-info.component.html',
   styleUrls: ['./entry-info.component.scss']
 })

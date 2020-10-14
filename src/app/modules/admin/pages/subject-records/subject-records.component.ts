@@ -5,7 +5,9 @@ import {
   CollectionPage,
   ConsentContext,
   ConsentFormOrientation,
-  ConsentFormType, EntryRecord, EntryRecordFilter,
+  ConsentFormType,
+  EntryRecord,
+  EntryRecordFilter,
   ModelEntryDto,
   ModelVersionDtoLight,
   ModelVersionStatus,
@@ -74,7 +76,7 @@ class SubjectRecordDataSource extends CollectionDatasource<EntryRecord, EntryRec
 }
 
 @Component({
-  selector: 'app-subject-records',
+  selector: 'cm-subject-records',
   templateUrl: './subject-records.component.html',
   styleUrls: ['../../components/entry/entry-content/_entry-content.directive.scss', './subject-records.component.scss']
 })

@@ -23,7 +23,7 @@
   </div>
   <mat-grid-list *ngIf="entries.length > 0" cols="3" gutterSize="10" rowHeight="110" [class.loading]="section.dataSource.loading$ | async">
     <mat-grid-tile *ngFor="let entry of entries">
-      <app-entry-card [routerLink]="'./' + entry.id" [entry]="entry" [showDetail]="true"></app-entry-card>
+      <cm-entry-card [routerLink]="'./' + entry.id" [entry]="entry" [showDetail]="true"></cm-entry-card>
     </mat-grid-tile>
   </mat-grid-list>
 </ng-container>

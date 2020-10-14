@@ -51,7 +51,7 @@
     </form>
   </mat-sidenav-content>
   <mat-sidenav opened mode="side" position="end">
-    <app-entry-info *ngIf="entry" [entry]="entry" [version]="version" (selectVersion)="selectVersion($event)"></app-entry-info>
-    <app-entry-preview [safePreview]="safePreview"></app-entry-preview>
+    <cm-entry-info *ngIf="entry" [entry]="entry" [version]="version" (selectVersion)="selectVersion($event)"></cm-entry-info>
+    <cm-entry-preview [safePreview]="safePreview"></cm-entry-preview>
   </mat-sidenav>
 </mat-sidenav-container>

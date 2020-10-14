@@ -2,9 +2,9 @@ import { Component } from '@angular/core';
 import { SectionConfig } from '../../components/entries/entries-library/entries-library.component';
 
 @Component({
-  selector: 'app-preferences-page',
+  selector: 'cm-preferences-page',
   template: `
-    <app-entries-library [config]="config" [expandable]="false"></app-entries-library>
+    <cm-entries-library [config]="config" [expandable]="false"></cm-entries-library>
   `
 })
 export class PreferencesPageComponent {

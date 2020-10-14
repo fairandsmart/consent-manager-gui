@@ -48,7 +48,7 @@ class KeysDataSource implements DataSource<Key> {
 }
 
 @Component({
-  selector: 'app-keys',
+  selector: 'cm-keys',
   templateUrl: './keys.component.html',
   styleUrls: ['./keys.component.scss']
 })
@@ -117,7 +117,7 @@ export class KeysComponent implements OnInit, AfterViewInit {
 }
 
 @Component({
-  selector: 'app-generated-key-dialog',
+  selector: 'cm-generated-key-dialog',
   templateUrl: 'generated-key-dialog.html',
   styleUrls: ['./generated-key-dialog.scss']
 })

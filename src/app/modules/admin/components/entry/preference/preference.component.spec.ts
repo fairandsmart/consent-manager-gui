@@ -6,6 +6,7 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { ModelsResourceService } from '../../../../../core/http/models-resource.service';
 import { EntryPreviewComponent } from '../entry-preview/entry-preview.component';
 import { CoreTestingModule } from '../../../../../testing/core-testing-module.spec';
+import { RouterTestingModule } from '@angular/router/testing';
 import SpyObj = jasmine.SpyObj;
 import createSpyObj = jasmine.createSpyObj;
 
@@ -19,7 +20,7 @@ describe('PreferenceComponent', () => {
 
     TestBed.configureTestingModule({
       declarations: [ PreferenceComponent, EntryInfoComponent, EntryPreviewComponent ],
-      imports: [ CoreTestingModule, ReactiveFormsModule ],
+      imports: [ CoreTestingModule, RouterTestingModule, ReactiveFormsModule ],
       providers: [
         {provide: ModelsResourceService, useValue: modelsResourceServiceSpy},
       ]

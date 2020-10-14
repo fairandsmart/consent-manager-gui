@@ -1,13 +1,13 @@
 import { Component, OnInit } from '@angular/core';
 import { EntryContentDirective } from '../entry-content/entry-content.directive';
-import { Controller, FIELD_VALIDATORS, BasicInfo, ModelDataType } from '../../../../../core/models/models';
+import { BasicInfo, Controller, FIELD_VALIDATORS, ModelDataType } from '../../../../../core/models/models';
 import { FormBuilder, Validators } from '@angular/forms';
 import { ModelsResourceService } from '../../../../../core/http/models-resource.service';
 import { DomSanitizer } from '@angular/platform-browser';
 import { AlertService } from '../../../../../core/services/alert.service';
 
 @Component({
-  selector: 'app-basicinfo',
+  selector: 'cm-basicinfo',
   templateUrl: './basicinfo.component.html',
   styleUrls: ['../entry-content/_entry-content.directive.scss', './basicinfo.component.scss']
 })

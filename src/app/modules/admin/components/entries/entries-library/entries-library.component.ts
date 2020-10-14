@@ -27,7 +27,7 @@ export interface SectionConfig {
 }
 
 @Component({
-  selector: 'app-entries-library',
+  selector: 'cm-entries-library',
   templateUrl: './entries-library.component.html',
   styleUrls: ['./entries-library.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush

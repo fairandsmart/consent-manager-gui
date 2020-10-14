@@ -14,7 +14,7 @@ import {
 import { tap } from 'rxjs/operators';
 import { zip } from 'rxjs';
 import { CdkDragDrop, copyArrayItem, moveItemInArray } from '@angular/cdk/drag-drop';
-import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { FormArray, FormBuilder, Validators } from '@angular/forms';
 import { ConsentsResourceService } from '../../../../core/http/consents-resource.service';
 import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
 import { StepperSelectionEvent } from '@angular/cdk/stepper';
@@ -31,7 +31,7 @@ enum FORM_CREATOR_STEP {
 }
 
 @Component({
-  selector: 'app-form-creator',
+  selector: 'cm-form-creator',
   templateUrl: './form-creator.component.html',
   styleUrls: ['./form-creator.component.scss'],
   // tslint:disable-next-line:no-host-metadata-property

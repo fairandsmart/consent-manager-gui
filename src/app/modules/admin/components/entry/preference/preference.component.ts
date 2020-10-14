@@ -7,7 +7,7 @@ import { DomSanitizer } from '@angular/platform-browser';
 import { AlertService } from '../../../../../core/services/alert.service';
 
 @Component({
-  selector: 'app-preference',
+  selector: 'cm-preference',
   templateUrl: './preference.component.html',
   styleUrls: ['../entry-content/_entry-content.directive.scss', './preference.component.scss']
 })

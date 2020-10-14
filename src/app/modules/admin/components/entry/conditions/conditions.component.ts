@@ -1,16 +1,23 @@
 import { Component, OnInit } from '@angular/core';
 import { EntryContentDirective } from '../entry-content/entry-content.directive';
-import { CollectionMethod, Conditions, ConsentContext, ConsentFormOrientation, ConsentFormType, ModelDataType } from '../../../../../core/models/models';
+import {
+  CollectionMethod,
+  Conditions,
+  ConsentContext,
+  ConsentFormOrientation,
+  ConsentFormType,
+  ModelDataType
+} from '../../../../../core/models/models';
 import { FormBuilder, Validators } from '@angular/forms';
 import { ModelsResourceService } from '../../../../../core/http/models-resource.service';
 import { FormUrlDialogComponent, FormUrlDialogComponentData } from '../../form-url-dialog/form-url-dialog.component';
 import { MatDialog } from '@angular/material/dialog';
 import { ConsentsResourceService } from '../../../../../core/http/consents-resource.service';
-import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
+import { DomSanitizer } from '@angular/platform-browser';
 import { AlertService } from '../../../../../core/services/alert.service';
 
 @Component({
-  selector: 'app-conditions',
+  selector: 'cm-conditions',
   templateUrl: './conditions.component.html',
   styleUrls: ['../entry-content/_entry-content.directive.scss', './conditions.component.scss']
 })

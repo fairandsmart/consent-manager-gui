@@ -2,8 +2,8 @@ import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 
 import { HeaderNavComponent } from './header-nav.component';
 import { KeycloakService } from 'keycloak-angular';
-import { TranslateModule } from '@ngx-translate/core';
-import { MaterialModule } from '../../../material.module';
+import { CoreTestingModule } from '../../../testing/core-testing-module.spec';
+import { RouterTestingModule } from '@angular/router/testing';
 import SpyObj = jasmine.SpyObj;
 import createSpyObj = jasmine.createSpyObj;
 
@@ -17,7 +17,7 @@ describe('HeaderNavComponent', () => {
 
     TestBed.configureTestingModule({
       declarations: [ HeaderNavComponent ],
-      imports: [ TranslateModule.forRoot(), MaterialModule ],
+      imports: [ CoreTestingModule, RouterTestingModule ],
       providers: [
         {provide: KeycloakService, useValue: keycloakServiceSpy}
       ]

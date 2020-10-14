@@ -16,7 +16,7 @@ interface SideNavSubSection {
 }
 
 @Component({
-  selector: 'app-side-nav',
+  selector: 'cm-side-nav',
   templateUrl: './side-nav.component.html',
   styleUrls: ['./side-nav.component.scss']
 })

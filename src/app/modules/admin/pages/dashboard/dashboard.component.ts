@@ -7,7 +7,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { SubjectsResourceService } from '../../../../core/http/subjects-resource.service';
 
 @Component({
-  selector: 'app-dashboard',
+  selector: 'cm-dashboard',
   templateUrl: './dashboard.component.html',
   styleUrls: ['./dashboard.component.scss']
 })

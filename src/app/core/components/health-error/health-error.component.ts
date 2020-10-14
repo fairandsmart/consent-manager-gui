@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 
 @Component({
-  selector: 'app-health-error',
+  selector: 'cm-health-error',
   template: `
     <h2 mat-dialog-title>{{'HEALTH.TITLE' | translate}}</h2>
     <mat-dialog-content>{{'HEALTH.CONTENT' | translate}}</mat-dialog-content>

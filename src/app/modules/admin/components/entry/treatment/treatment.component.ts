@@ -15,7 +15,7 @@ import { DomSanitizer } from '@angular/platform-browser';
 import { AlertService } from '../../../../../core/services/alert.service';
 
 @Component({
-  selector: 'app-treatment',
+  selector: 'cm-treatment',
   templateUrl: './treatment.component.html',
   styleUrls: ['../entry-content/_entry-content.directive.scss', './treatment.component.scss']
 })

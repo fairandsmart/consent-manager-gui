@@ -6,6 +6,7 @@ import { ModelsResourceService } from '../../../../../core/http/models-resource.
 import { EntryInfoComponent } from '../entry-info/entry-info.component';
 import { EntryPreviewComponent } from '../entry-preview/entry-preview.component';
 import { CoreTestingModule } from '../../../../../testing/core-testing-module.spec';
+import { RouterTestingModule } from '@angular/router/testing';
 import SpyObj = jasmine.SpyObj;
 import createSpyObj = jasmine.createSpyObj;
 
@@ -19,7 +20,7 @@ describe('TreatmentComponent', () => {
 
     TestBed.configureTestingModule({
       declarations: [ TreatmentComponent, EntryInfoComponent, EntryPreviewComponent ],
-      imports: [ CoreTestingModule, ReactiveFormsModule ],
+      imports: [ CoreTestingModule, RouterTestingModule, ReactiveFormsModule ],
       providers: [
         {provide: ModelsResourceService, useValue: modelsResourceServiceSpy},
       ]
