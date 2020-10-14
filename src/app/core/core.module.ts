@@ -16,6 +16,7 @@ import { SubjectsResourceService } from './http/subjects-resource.service';
 import { CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HeaderNavComponent } from './components/header-nav/header-nav.component';
+import { RouterModule } from '@angular/router';
 
 @NgModule({
   declarations: [
@@ -25,6 +26,7 @@ import { HeaderNavComponent } from './components/header-nav/header-nav.component
   ],
   imports: [
     CommonModule,
+    RouterModule,
     FormsModule,
     ReactiveFormsModule,
     MaterialModule,
@@ -32,6 +34,7 @@ import { HeaderNavComponent } from './components/header-nav/header-nav.component
   ],
   exports: [
     CommonModule,
+    RouterModule,
     FormsModule,
     ReactiveFormsModule,
     MaterialModule,

@@ -1,7 +1,29 @@
+@import '~src/variables';
+
 .spacer {
   flex: 1 1 auto;
 }
 
 .home {
   font-size: large;
+}
+
+.active-link {
+  border-bottom: 2px solid #ffffff;
+  border-radius: 0;
+}
+
+form {
+  display: inline-block;
+  margin-right: 1em;
+  @include mat-typography-level-to-styles($typography, 'body-1');
+  mat-form-field {
+    margin-top: 1.34375em;
+    ::ng-deep {
+      .mat-form-field-flex {
+        background: #ffffff;
+        color: $dark-primary-text;
+      }
+    }
+  }
 }

@@ -13,29 +13,6 @@
       width: 100%;
       box-sizing: border-box;
 
-      .search-container {
-        margin-top: 2em;
-        display: flex;
-        flex-direction: row;
-        justify-content: center;
-
-        .search-bar {
-          width: 100%;
-          max-width: 500px;
-          margin-left: 2em;
-
-          .search-field {
-            width: 100%;
-          }
-        }
-
-        .search-button {
-          display: flex;
-          justify-content: center;
-          margin: 0.25em 1em 1.75em 1em;
-        }
-      }
-
       .graphs {
         display: flex;
         flex-direction: row;

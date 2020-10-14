@@ -1,8 +1,8 @@
-<cm-header-nav></cm-header-nav>
+<cm-header-nav #mainNav></cm-header-nav>
 
 <mat-sidenav-container>
-  <mat-sidenav mode="side" opened>
-    <cm-side-nav></cm-side-nav>
+  <mat-sidenav mode="side" [opened]="mainNav.active?.sub != null">
+    <cm-side-nav [section]="mainNav.active"></cm-side-nav>
   </mat-sidenav>
 
   <mat-sidenav-content>

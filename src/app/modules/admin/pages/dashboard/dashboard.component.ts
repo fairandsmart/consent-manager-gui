@@ -1,10 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { RecordsResourceService } from '../../../../core/http/records-resource.service';
-import { Observable } from 'rxjs';
-import { FormControl } from '@angular/forms';
-import { map } from 'rxjs/operators';
-import { ActivatedRoute, Router } from '@angular/router';
-import { SubjectsResourceService } from '../../../../core/http/subjects-resource.service';
 
 @Component({
   selector: 'cm-dashboard',
@@ -87,21 +82,12 @@ export class DashboardComponent implements OnInit {
   public recordsWeekData: {chartData: object, chartLabels: object};
   public answersWeekData: {chartData: object, chartLabels: object};
 
-  public subjects: string[] = [];
-  public filteredSubjects: Observable<string[]>;
-  public searchValue: FormControl;
-
   constructor(
-    public recordsService: RecordsResourceService,
-    public subjectsService: SubjectsResourceService,
-    private route: ActivatedRoute,
-    private router: Router) {
+    public recordsService: RecordsResourceService
+  ) {
   }
 
   ngOnInit(): void {
-    this.searchValue = new FormControl();
-    this.subjectsService.listSubjects('').subscribe((response) => this.subjects = response);
-    this.filteredSubjects = this.searchValue.valueChanges.pipe(map((value) => this.filterSubjects(value)));
     this.recordsService.getStats().subscribe((response) => {
       // TODO
     this.numbersData = {
@@ -152,18 +138,6 @@ export class DashboardComponent implements OnInit {
         ]
       };
     });
-  }
-
-  private filterSubjects(value: string): string[] {
-    const filterValue = value.toLowerCase();
-    return this.subjects.filter(subject => subject.toLowerCase().includes(filterValue));
-  }
-
-  goToPage(): void {
-    const subject = this.searchValue.value == null ? '' : this.searchValue.value.trim();
-    if (subject) {
-      this.router.navigate(['..', 'subjects', subject], {relativeTo: this.route});
-    }
   }
 
 }
