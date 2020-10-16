@@ -337,13 +337,38 @@
       },
       "PREFERENCE": {
         "SUBTITLES": {
-          "CONTENT": "Contenu"
+          "CONTENT": "Contenu",
+          "OPTIONS": "Options"
         },
         "TITLE": {
           "LABEL": "Libellé"
         },
         "BODY": {
           "LABEL": "Corps"
+        },
+        "CONTENT_TYPE_OPTIONS": {
+          "LABEL": "Types de contenu",
+          "PLACEHOLDER": "Entrez ici vos types de contenu"
+        },
+        "CONTENT_THEME_OPTIONS": {
+          "LABEL": "Thèmes de contenu",
+          "PLACEHOLDER": "Entrez ici vos thèmes de contenu"
+        },
+        "CHANNEL_OPTIONS": {
+          "LABEL": "Canaux",
+          "PLACEHOLDER": "Entrez ici vos canaux"
+        },
+        "FORMAT_OPTIONS": {
+          "LABEL": "Formats",
+          "PLACEHOLDER": "Entrez ici vos formats"
+        },
+        "FREQUENCY_OPTIONS": {
+          "LABEL": "Fréquences",
+          "PLACEHOLDER": "Entrez ici vos fréquences"
+        },
+        "LOCALE_OPTIONS": {
+          "LABEL": "Langues",
+          "PLACEHOLDER": "Entrez ici vos langues"
         }
       },
       "CONDITIONS": {
@@ -612,5 +637,12 @@
         "SUCCESS": "La clé a été supprimée"
       }
     }
+  },
+  "USER": {
+    "TITLE": "Mes consentements",
+    "DETAILS": "Détails",
+    "ANSWER": "Ma réponse :",
+    "ACCEPT": "J'accepte",
+    "REFUSE": "Je refuse"
   }
 }

@@ -8,6 +8,8 @@ export const environment: AppEnvironment = {
   managerUrl: 'http://localhost:8087',
   customization: {
     multipleInfo: false,
-    defaultLocale: 'fr'
+    defaultLocale: 'fr',
+    displayUserPage: false,
+    userPageElementsOrder: ''
   }
 };

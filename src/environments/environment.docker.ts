@@ -8,6 +8,8 @@ export const environment: AppEnvironment = {
   managerUrl: 'PUT_MANAGER_URI_HERE',
   customization: {
     multipleInfo: 'PUT_MULTIPLE_HEADER_HERE' as any,
-    defaultLocale: 'PUT_DEFAULT_LANGUAGE_HERE'
+    defaultLocale: 'PUT_DEFAULT_LANGUAGE_HERE',
+    displayUserPage: 'PUT_USER_PAGE_HERE' as any,
+    userPageElementsOrder: 'PUT_KEYS_SEPARATED_WITH_COMMAS_HERE'
   }
 };

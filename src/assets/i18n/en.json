@@ -337,13 +337,38 @@
       },
       "PREFERENCE": {
         "SUBTITLES": {
-          "CONTENT": "Content"
+          "CONTENT": "Content",
+          "OPTIONS": "Options"
         },
         "TITLE": {
           "LABEL": "Title"
         },
         "BODY": {
           "LABEL": "Body"
+        },
+        "CONTENT_TYPE_OPTIONS": {
+          "LABEL": "Content types",
+          "PLACEHOLDER": "Enter here your content types"
+        },
+        "CONTENT_THEME_OPTIONS": {
+          "LABEL": "Content themes",
+          "PLACEHOLDER": "Enter here your content themes"
+        },
+        "CHANNEL_OPTIONS": {
+          "LABEL": "Channels",
+          "PLACEHOLDER": "Enter here your channels"
+        },
+        "FORMAT_OPTIONS": {
+          "LABEL": "Formats",
+          "PLACEHOLDER": "Enter here your formats"
+        },
+        "FREQUENCY_OPTIONS": {
+          "LABEL": "Frequencies",
+          "PLACEHOLDER": "Enter here your frequencies"
+        },
+        "LOCALE_OPTIONS": {
+          "LABEL": "Locales",
+          "PLACEHOLDER": "Enter here your locales"
         }
       },
       "CONDITIONS": {
@@ -609,5 +634,12 @@
         "SUCCESS": "The API key has been deleted"
       }
     }
+  },
+  "USER": {
+    "TITLE": "My consents",
+    "DETAILS": "Details",
+    "ANSWER": "My answer:",
+    "ACCEPT": "I accept",
+    "REFUSE": "I refuse"
   }
 }

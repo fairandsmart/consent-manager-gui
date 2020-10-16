@@ -1,0 +1,52 @@
+<mat-card>
+  <mat-card-title>{{version.data[translate.currentLang]?.treatmentTitle}}</mat-card-title>
+
+  <mat-card-content>
+    <mat-accordion>
+      <mat-expansion-panel>
+
+        <mat-expansion-panel-header>
+          <mat-panel-title>
+            {{'USER.DETAILS' | translate}}
+          </mat-panel-title>
+        </mat-expansion-panel-header>
+
+        <div>
+          <h2 *ngIf="version.data[translate.currentLang]?.dataTitle">
+            {{version.data[translate.currentLang]?.dataTitle}}
+          </h2>
+          <div>
+            {{version.data[translate.currentLang]?.dataBody}}
+          </div>
+        </div>
+        <div>
+          <h2 *ngIf="version.data[translate.currentLang]?.retentionTitle">
+            {{version.data[translate.currentLang]?.retentionTitle}}
+          </h2>
+          <div>
+            {{version.data[translate.currentLang]?.retentionBody}}
+          </div>
+        </div>
+        <div>
+          <h2 *ngIf="version.data[translate.currentLang]?.usageTitle">
+            {{version.data[translate.currentLang]?.usageTitle}}
+          </h2>
+          <div>
+            {{version.data[translate.currentLang]?.usageBody}}
+          </div>
+        </div>
+
+      </mat-expansion-panel>
+    </mat-accordion>
+
+    <div class="answer-container">
+      <label class="answer-label">{{'USER.ANSWER' | translate}}</label>
+      <div class="user-input">
+        <label>{{'USER.REFUSE' | translate}}</label>
+        <mat-slide-toggle (change)="toggle($event)"></mat-slide-toggle>
+        <label>{{'USER.ACCEPT' | translate}}</label>
+      </div>
+    </div>
+
+  </mat-card-content>
+</mat-card>

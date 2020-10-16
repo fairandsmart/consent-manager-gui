@@ -24,7 +24,7 @@ export class RecordsResourceService {
   }
 
   getStats(): Observable<object[]> {
-    return this.http.get<object[]>(`${environment.managerUrl}/subjects`, {params: {name: 'jack'}}); // TODO
+    return this.http.get<object[]>(`${environment.managerUrl}`); // TODO stats
   }
 
 }

@@ -103,7 +103,7 @@ export class DashboardComponent implements OnInit {
     this.subjectsService.listSubjects('').subscribe((response) => this.subjects = response);
     this.filteredSubjects = this.searchValue.valueChanges.pipe(map((value) => this.filterSubjects(value)));
     this.recordsService.getStats().subscribe((response) => {
-      // TODO
+      // TODO stats
     this.numbersData = {
         subjects: 1,
         records: 2

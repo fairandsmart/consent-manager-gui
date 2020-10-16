@@ -10,4 +10,6 @@ export interface AppEnvironment {
 export interface AppCustomization {
   multipleInfo: boolean;
   defaultLocale: string;
+  displayUserPage: boolean;
+  userPageElementsOrder: string;
 }
