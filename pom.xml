@@ -4,7 +4,7 @@
     <modelVersion>4.0.0</modelVersion>
     <groupId>com.fairandsmart</groupId>
     <artifactId>consent-manager-gui</artifactId>
-    <version>1.0.0-SNAPSHOT</version>
+    <version>0.0.0-SNAPSHOT</version>
     <packaging>pom</packaging>
     <name>FairAndSmart Consent Manager Frontend</name>
     <properties>
@@ -12,6 +12,7 @@
         <project.inceptionYear>2020</project.inceptionYear>
         <version.dependency-check-maven>5.3.2</version.dependency-check-maven>
         <version.frontend-maven-plugin>1.10.0</version.frontend-maven-plugin>
+        <version.gitflow-maven-plugin>1.14.0</version.gitflow-maven-plugin>
         <version.maven>3.6.3</version.maven>
         <version.maven-assembly-plugin>3.3.0</version.maven-assembly-plugin>
         <version.maven-clean-plugin>3.1.0</version.maven-clean-plugin>
@@ -250,6 +251,31 @@
                                 <phase>verify</phase>
                             </execution>
                         </executions>
+                    </plugin>
+                    <plugin>
+                        <groupId>com.amashchenko.maven.plugin</groupId>
+                        <artifactId>gitflow-maven-plugin</artifactId>
+                        <version>${version.gitflow-maven-plugin}</version>
+                        <configuration>
+                            <gitFlowConfig>
+                                <productionBranch>production</productionBranch>
+                                <developmentBranch>master</developmentBranch>
+                                <origin>origin</origin>
+                            </gitFlowConfig>
+                            <commitMessages>
+                                <releaseStartMessage>[BUILD] set version to @{version}</releaseStartMessage>
+                                <releaseFinishMessage>[BUILD] set version to @{version}</releaseFinishMessage>
+                                <releaseFinishMergeMessage>[BUILD] merged changes from version @{version} in production branch</releaseFinishMergeMessage>
+                                <releaseFinishDevMergeMessage>[BUILD] merged fixes for version @{version} in master branch</releaseFinishDevMergeMessage>
+                                <hotfixStartMessage>[BUILD] set version to @{version}</hotfixStartMessage>
+                                <hotfixFinishMessage>[BUILD] set version to @{version}</hotfixFinishMessage>
+                                <hotfixFinishMergeMessage>[BUILD] merged changes from version @{version} in production branch</hotfixFinishMergeMessage>
+                                <hotfixFinishDevMergeMessage>[BUILD] merged fixes for version @{version} in master branch</hotfixFinishDevMergeMessage>
+                                <hotfixFinishSupportMergeMessage>[BUILD] merged fixes for version @{version} in support branch</hotfixFinishSupportMergeMessage>
+                            </commitMessages>
+                            <useSnapshotInRelease>true</useSnapshotInRelease>
+                            <useSnapshotInHotfix>true</useSnapshotInHotfix>
+                        </configuration>
                     </plugin>
                 </plugins>
             </build>
