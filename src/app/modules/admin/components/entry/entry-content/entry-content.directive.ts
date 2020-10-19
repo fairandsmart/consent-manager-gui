@@ -100,7 +100,7 @@ export abstract class EntryContentDirective<T extends ModelData> implements OnIn
       this.form.disable();
     }
     this.form.patchValue(this.version.data[locale]);
-    this.initialValue = this.form.getRawValue();
+    this.initialValue = _.cloneDeep(this.form.getRawValue());
   }
 
   private updateVersion(version: ModelVersionDto<T>): void {

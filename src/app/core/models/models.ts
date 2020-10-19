@@ -149,6 +149,12 @@ export interface Preference extends ModelData {
   type: 'preference';
   title: string;
   body: string;
+  contentTypeOptions: string[];
+  contentThemeOptions: string[];
+  channelOptions: string[];
+  formatOptions: string[];
+  frequencyOptions: string[];
+  localeOptions: string[];
 }
 
 export interface Conditions extends ModelData {

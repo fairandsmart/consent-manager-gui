@@ -17,9 +17,9 @@ export class PreferenceComponent extends EntryCardContentDirective<Preference> i
   ngOnInit(): void {
   }
 
-  toggle(e): void {
+  update(e): void {
     console.log(e);
-    // TODO user : submit e.checked
+    // TODO user : submit e.value (string[])
   }
 
 }

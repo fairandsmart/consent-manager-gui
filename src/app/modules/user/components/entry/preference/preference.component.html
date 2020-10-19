@@ -19,11 +19,73 @@
     </mat-accordion>
 
     <div class="answer-container">
-      <label class="answer-label">{{'USER.ANSWER' | translate}}</label>
-      <div class="user-input">
-        <label>{{'USER.REFUSE' | translate}}</label>
-        <mat-slide-toggle (change)="toggle($event)"></mat-slide-toggle>
-        <label>{{'USER.ACCEPT' | translate}}</label>
+      <label class="answer-label">{{'USER.ANSWERS' | translate}}</label>
+
+      <div>
+        <mat-form-field appearance="outline">
+          <mat-label>{{'ENTRIES.EDITOR.PREFERENCE.CONTENT_TYPE_OPTIONS.LABEL' | translate}}</mat-label>
+          <mat-select multiple (selectionChange)="update($event)">
+            <mat-option *ngFor="let option of version.data[translate.currentLang]?.contentTypeOptions" [value]="option">
+              {{option}}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+      </div>
+
+      <div>
+        <mat-form-field appearance="outline">
+          <mat-label>{{'ENTRIES.EDITOR.PREFERENCE.CONTENT_THEME_OPTIONS.LABEL' | translate}}</mat-label>
+          <mat-select multiple (selectionChange)="update($event)">
+            <mat-option *ngFor="let option of version.data[translate.currentLang]?.contentThemeOptions"
+                        [value]="option">
+              {{option}}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+      </div>
+
+      <div>
+        <mat-form-field appearance="outline">
+          <mat-label>{{'ENTRIES.EDITOR.PREFERENCE.CHANNEL_OPTIONS.LABEL' | translate}}</mat-label>
+          <mat-select multiple (selectionChange)="update($event)">
+            <mat-option *ngFor="let option of version.data[translate.currentLang]?.channelOptions" [value]="option">
+              {{option}}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+      </div>
+
+      <div>
+        <mat-form-field appearance="outline">
+          <mat-label>{{'ENTRIES.EDITOR.PREFERENCE.FORMAT_OPTIONS.LABEL' | translate}}</mat-label>
+          <mat-select multiple (selectionChange)="update($event)">
+            <mat-option *ngFor="let option of version.data[translate.currentLang]?.formatOptions" [value]="option">
+              {{option}}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+      </div>
+
+      <div>
+        <mat-form-field appearance="outline">
+          <mat-label>{{'ENTRIES.EDITOR.PREFERENCE.FREQUENCY_OPTIONS.LABEL' | translate}}</mat-label>
+          <mat-select multiple (selectionChange)="update($event)">
+            <mat-option *ngFor="let option of version.data[translate.currentLang]?.frequencyOptions" [value]="option">
+              {{option}}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+      </div>
+
+      <div>
+        <mat-form-field appearance="outline">
+          <mat-label>{{'ENTRIES.EDITOR.PREFERENCE.LOCALE_OPTIONS.LABEL' | translate}}</mat-label>
+          <mat-select multiple (selectionChange)="update($event)">
+            <mat-option *ngFor="let option of version.data[translate.currentLang]?.localeOptions" [value]="option">
+              {{option}}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
       </div>
     </div>
 
