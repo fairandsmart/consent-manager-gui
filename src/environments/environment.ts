@@ -14,7 +14,7 @@ export const environment: AppEnvironment = {
     multipleInfo: false,
     defaultLocale: 'fr',
     displayUserPage: true,
-    userPageElementsOrder: 'cbcfd77d-89fb-42d7-b030-221ca600271e,ecbd3161-e805-4c81-9779-cc7f455a525a,18bbbf26-4f45-44cb-9e91-8139f54dcc5c,329ce5d6-de03-4996-89e8-af2f984d8342'
+    userPageElementsOrder: ''
   }
 };
 

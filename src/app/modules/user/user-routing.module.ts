@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { UserPageComponent } from './pages/user-page/user-page.component';
 import { EntriesPageComponent } from './pages/entries-page/entries-page.component';
+import { UserGuardService } from '../../core/guards/user-guard.service';
 
 const routes: Routes = [
   {
@@ -10,7 +11,8 @@ const routes: Routes = [
     children: [
       {
         path: ':subject/me',
-        component: EntriesPageComponent
+        component: EntriesPageComponent,
+        canActivate: [UserGuardService]
       }
     ]
   }

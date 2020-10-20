@@ -1,5 +1,5 @@
 import { Directive, Input } from '@angular/core';
-import { ModelData, ModelEntryDto, ModelVersionDto } from '../../../../../core/models/models';
+import { ModelData, ModelEntryDto, ModelVersionDto, RecordDto } from '../../../../../core/models/models';
 import { TranslateService } from '@ngx-translate/core';
 
 @Directive()
@@ -10,6 +10,9 @@ export abstract class EntryCardContentDirective<T extends ModelData> {
 
   @Input()
   version: ModelVersionDto<T>;
+
+  @Input()
+  record: RecordDto;
 
   protected constructor(
     protected translate: TranslateService) { }

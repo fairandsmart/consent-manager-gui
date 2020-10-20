@@ -22,7 +22,7 @@
       <label class="answer-label">{{'USER.ANSWER' | translate}}</label>
       <div class="user-input">
         <label>{{'USER.REFUSE' | translate}}</label>
-        <mat-slide-toggle (change)="toggle($event)"></mat-slide-toggle>
+        <mat-slide-toggle [(ngModel)]="value" [disabled]="value" (change)="toggle($event)"></mat-slide-toggle>
         <label>{{'USER.ACCEPT' | translate}}</label>
       </div>
     </div>

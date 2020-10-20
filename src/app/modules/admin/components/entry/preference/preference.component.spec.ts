@@ -22,7 +22,7 @@ describe('PreferenceComponent', () => {
       declarations: [ PreferenceComponent, EntryInfoComponent, EntryPreviewComponent ],
       imports: [ CoreTestingModule, RouterTestingModule, ReactiveFormsModule ],
       providers: [
-        {provide: ModelsResourceService, useValue: modelsResourceServiceSpy},
+        {provide: ModelsResourceService, useValue: modelsResourceServiceSpy}
       ]
     })
     .compileComponents();

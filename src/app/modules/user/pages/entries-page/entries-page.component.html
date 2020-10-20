@@ -1,5 +1,5 @@
 <h1>{{'USER.TITLE' | translate}}</h1>
 
-<div *ngFor="let key of elementsKeys">
-  <cm-entry-card [key]="key"></cm-entry-card>
+<div *ngFor="let card of data">
+  <cm-entry-card [entry]="card.entry" [record]="card.record"></cm-entry-card>
 </div>

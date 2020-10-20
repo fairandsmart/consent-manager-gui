@@ -11,7 +11,7 @@
           </mat-panel-title>
         </mat-expansion-panel-header>
 
-        <div>
+        <div class="paragraph">
           <h2 *ngIf="version.data[translate.currentLang]?.dataTitle">
             {{version.data[translate.currentLang]?.dataTitle}}
           </h2>
@@ -19,7 +19,7 @@
             {{version.data[translate.currentLang]?.dataBody}}
           </div>
         </div>
-        <div>
+        <div class="paragraph">
           <h2 *ngIf="version.data[translate.currentLang]?.retentionTitle">
             {{version.data[translate.currentLang]?.retentionTitle}}
           </h2>
@@ -27,7 +27,7 @@
             {{version.data[translate.currentLang]?.retentionBody}}
           </div>
         </div>
-        <div>
+        <div class="paragraph">
           <h2 *ngIf="version.data[translate.currentLang]?.usageTitle">
             {{version.data[translate.currentLang]?.usageTitle}}
           </h2>
@@ -43,7 +43,7 @@
       <label class="answer-label">{{'USER.ANSWER' | translate}}</label>
       <div class="user-input">
         <label>{{'USER.REFUSE' | translate}}</label>
-        <mat-slide-toggle (change)="toggle($event)"></mat-slide-toggle>
+        <mat-slide-toggle [(ngModel)]="value" (change)="toggle($event)"></mat-slide-toggle>
         <label>{{'USER.ACCEPT' | translate}}</label>
       </div>
     </div>

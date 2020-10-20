@@ -40,6 +40,10 @@ export class ModelsResourceService {
     return this.http.put<ModelEntryDto>(`${this.ROOT}/${id}`, dto);
   }
 
+  listEntriesByKeys(keys: string[]): Observable<ModelEntryDto[]> {
+    return this.http.get<ModelEntryDto[]>(`${this.ROOT}/keys`, {params: {keys: keys}});
+  }
+
   listVersions<T extends ModelData = ModelData>(id: string): Observable<ModelVersionDtoLight<T>[]> {
     return this.http.get<ModelVersionDtoLight<T>[]>(`${this.ROOT}/${id}/versions`);
   }

@@ -26,6 +26,7 @@ import { TranslateService } from '@ngx-translate/core';
 import { ConsentsResourceService } from '../../../../core/http/consents-resource.service';
 import { SubjectsResourceService } from '../../../../core/http/subjects-resource.service';
 import { HttpParams } from '@angular/common/http';
+import * as _ from 'lodash';
 
 class SubjectRecordDataSource extends CollectionDatasource<EntryRecord, EntryRecordFilter> {
 
@@ -51,7 +52,7 @@ class SubjectRecordDataSource extends CollectionDatasource<EntryRecord, EntryRec
           };
           const recordsList = records[entry.key];
           if (recordsList && recordsList.length > 0) {
-            const record = recordsList.pop();
+            const record = _.last(recordsList);
             result.value = record.value;
             result.recordCreation = record.creationTimestamp;
             result.recordExpiration = record.expirationTimestamp;

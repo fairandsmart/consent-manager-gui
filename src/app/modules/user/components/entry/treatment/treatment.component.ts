@@ -10,11 +10,16 @@ import { TranslateService } from '@ngx-translate/core';
 })
 export class TreatmentComponent extends EntryCardContentDirective<Treatment> implements OnInit {
 
+  value: boolean;
+
   constructor(public translate: TranslateService) {
     super(translate);
   }
 
   ngOnInit(): void {
+    if (this.record) {
+      this.value = this.record.value === 'accepted';
+    }
   }
 
   toggle(e): void {
