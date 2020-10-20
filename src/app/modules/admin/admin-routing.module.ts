@@ -27,7 +27,7 @@ const routes: Routes = [
         component: SubjectRecordsComponent
       },
       {
-        path: 'config',
+        path: 'configuration',
         children: [
           {
             path: ':type/:id',

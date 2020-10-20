@@ -1,26 +1,6 @@
 <div class="dashboard">
 
-  <form class="search-container" (ngSubmit)="goToPage()">
-    <div class="search-bar">
-      <mat-form-field class="search-field" appearance="outline">
-        <mat-label>Utilisateur</mat-label>
-        <input matInput [formControl]="searchValue" [matAutocomplete]="auto">
-      </mat-form-field>
-    </div>
-    <div class="search-button">
-      <button type="submit" mat-raised-button color="primary">
-        Voir la page de cet utilisateur
-      </button>
-    </div>
-  </form>
-  <mat-autocomplete #auto="matAutocomplete">
-    <mat-option *ngFor="let subject of filteredSubjects | async" [value]="subject">
-      {{ subject }}
-    </mat-option>
-  </mat-autocomplete>
-
   <div class="graphs">
-
     <div class="card-container">
       <mat-card>
         <mat-card-title>Nombre de consentements (cumulés)</mat-card-title>
