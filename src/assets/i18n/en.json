@@ -34,7 +34,8 @@
       "EDIT": "Edit",
       "SUBMIT": "Submit",
       "BACK": "Back",
-      "CLOSE": "Close"
+      "CLOSE": "Close",
+      "COPY": "Copy"
     },
     "ENTRY_TYPES": {
       "BASICINFO": "Basic Info",
@@ -522,8 +523,13 @@
     "BUTTON_LABEL_PREVIOUS_STEP": "Previous",
     "FORM": {
       "TITLE": "Form creator",
+      "ELEMENTS_PANEL_TITLE": {
+        "infos": "Basic info",
+        "treatments": "Displayed treatments"
+      },
       "SUBJECT": {
-        "LABEL": "Customer ID"
+        "LABEL": "Customer ID",
+        "REQUIRED": "A customer ID is mandatory"
       },
       "ORIENTATION": {
         "LABEL": "Orientation",
@@ -531,17 +537,6 @@
           "VERTICAL": "Vertical",
           "HORIZONTAL": "Horizontal"
         }
-      },
-      "BASICINFO": {
-        "LABEL": "Basic info reference"
-      },
-      "TREATMENTS": {
-        "LABEL_AVAILABLE": "Available treatments",
-        "LABEL_DISPLAYED": "Displayed treatments"
-      },
-      "PREFERENCES": {
-        "LABEL_AVAILABLE": "Available preferences",
-        "LABEL_DISPLAYED": "Displayed preferences"
       },
       "VALIDITY": {
         "LABEL": "Validity"
@@ -589,9 +584,21 @@
       "TITLE": "Result"
     },
     "API_URL": {
-      "DIALOG_TITLE": "Generate forms",
-      "TITLE": "API call URL",
-      "BUTTON_OK": "Done",
+      "DIALOG_TITLE": "Form integration",
+      "SNIPPET_PHP": {
+        "TITLE": "PHP example",
+        "HINT": "Example of PHP code generating a token and displaying the form in an iframe :"
+      },
+      "SNIPPET_CURL": {
+        "TITLE": "cURL",
+        "HINT": "cURL call to get a token for this form :",
+        "HINT_2": "After obtaining the token, the URL of the form will be :"
+      },
+      "URL": {
+        "TITLE": "Direct URL to the form",
+        "BUTTON_COPY": "Copy the form url",
+        "BUTTON_OPEN": "Open the form"
+      },
       "BUTTON_VIEW": "Get API call URL"
     }
   },

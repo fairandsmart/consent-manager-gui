@@ -21,7 +21,13 @@ describe('FormUrlDialogComponent', () => {
       imports: [ CoreTestingModule, ReactiveFormsModule, ClipboardModule ],
       providers: [
         {provide: MatDialogRef, useValue: dialogRefSpy},
-        {provide: MAT_DIALOG_DATA, useValue: {url: 'http://foo.bar'}}
+        {provide: MAT_DIALOG_DATA, useValue: {
+          url: 'http://foo.bar',
+            context: {
+              elements: []
+            }
+          }
+        }
       ]
     })
     .compileComponents();

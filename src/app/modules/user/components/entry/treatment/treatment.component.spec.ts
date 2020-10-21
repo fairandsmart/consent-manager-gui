@@ -1,6 +1,7 @@
 import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 
 import { TreatmentComponent } from './treatment.component';
+import { CoreTestingModule } from '../../../../../testing/core-testing-module.spec';
 
 describe('TreatmentComponent', () => {
   let component: TreatmentComponent;
@@ -8,7 +9,8 @@ describe('TreatmentComponent', () => {
 
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-      declarations: [ TreatmentComponent ]
+      declarations: [ TreatmentComponent ],
+      imports: [ CoreTestingModule ]
     })
     .compileComponents();
   }));
@@ -16,7 +18,7 @@ describe('TreatmentComponent', () => {
   beforeEach(() => {
     fixture = TestBed.createComponent(TreatmentComponent);
     component = fixture.componentInstance;
-    fixture.detectChanges();
+    // fixture.detectChanges();
   });
 
   it('should create', () => {

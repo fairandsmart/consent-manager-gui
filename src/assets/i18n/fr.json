@@ -34,7 +34,8 @@
       "EDIT": "Modifier",
       "SUBMIT": "Valider",
       "BACK": "Retour",
-      "CLOSE": "Fermer"
+      "CLOSE": "Fermer",
+      "COPY": "Copier"
     },
     "ENTRY_TYPES": {
       "BASICINFO": "Informations",
@@ -522,8 +523,13 @@
     "BUTTON_LABEL_PREVIOUS_STEP": "Précédent",
     "FORM": {
       "TITLE": "Génération du formulaire de consentement",
+      "ELEMENTS_PANEL_TITLE": {
+        "infos": "Informations générales",
+        "treatments": "Traitements affichés"
+      },
       "SUBJECT": {
-        "LABEL": "Idenfifiant client"
+        "LABEL": "Idenfifiant client",
+        "REQUIRED": "Vous devez préciser un identifiant"
       },
       "ORIENTATION": {
         "LABEL": "Orientation",
@@ -531,17 +537,6 @@
           "VERTICAL": "Verticale",
           "HORIZONTAL": "Horizontale"
         }
-      },
-      "BASICINFO": {
-        "LABEL": "Référence des informations de base"
-      },
-      "TREATMENTS": {
-        "LABEL_AVAILABLE": "Traitements disponibles",
-        "LABEL_DISPLAYED": "Traitements affichés"
-      },
-      "PREFERENCES": {
-        "LABEL_AVAILABLE": "Préférences disponibles",
-        "LABEL_DISPLAYED": "Préférences affichées"
       },
       "VALIDITY": {
         "LABEL": "Durée de validité"
@@ -589,9 +584,21 @@
       "TITLE": "Résultat"
     },
     "API_URL": {
-      "DIALOG_TITLE": "Générer des formulaires",
-      "TITLE": "URL d'appel à l'API",
-      "BUTTON_OK": "Terminé",
+      "DIALOG_TITLE": "Intégration du formulaire",
+      "SNIPPET_PHP": {
+        "TITLE": "Exemple d'intégration PHP",
+        "HINT": "Exemple de code PHP générant un token et affichant le formulaire dans une iframe :"
+      },
+      "SNIPPET_CURL": {
+        "TITLE": "cURL",
+        "HINT": "Appel cURL pour obtenir un jeton pour ce formulaire :",
+        "HINT_2": "Après obtention du jeton, l'URL du formulaire sera :"
+      },
+      "URL": {
+        "TITLE": "URL directe vers le formulaire",
+        "BUTTON_COPY": "Copier l'url du formulaire",
+        "BUTTON_OPEN": "Ouvrir le formulaire"
+      },
       "BUTTON_VIEW": "Obtenir l'URL d'appel à l'API"
     }
   },

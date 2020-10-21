@@ -15,6 +15,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { ConsentsResourceService } from '../../../../../core/http/consents-resource.service';
 import { DomSanitizer } from '@angular/platform-browser';
 import { AlertService } from '../../../../../core/services/alert.service';
+import { environment } from '../../../../../../environments/environment';
 
 @Component({
   selector: 'cm-conditions',
@@ -76,7 +77,7 @@ export class ConditionsComponent extends EntryContentDirective<Conditions> imple
       elements: [this.entry.key],
       callback: '',
       validity: '',
-      locale: formValue.locale,
+      locale: environment.customization.defaultLocale,
       formType: ConsentFormType.FULL,
       receiptDeliveryType: 'NONE',
       userinfos: {},
@@ -93,7 +94,11 @@ export class ConditionsComponent extends EntryContentDirective<Conditions> imple
     this.consentsResourceService.generateToken(context).subscribe((token) => {
       const url = this.consentsResourceService.getFormUrl(token);
       this.dialog.open<FormUrlDialogComponent, FormUrlDialogComponentData>(FormUrlDialogComponent, {
-        data: {url: url}
+        width: '800px',
+        data: {
+          url: url,
+          context: context
+        }
       });
     }, (err) => {
       console.error(err);
