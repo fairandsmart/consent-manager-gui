@@ -1,6 +1,7 @@
 import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 
 import { ConditionsComponent } from './conditions.component';
+import { CoreTestingModule } from '../../../../../testing/core-testing-module.spec';
 
 describe('ConditionsComponent', () => {
   let component: ConditionsComponent;
@@ -8,7 +9,8 @@ describe('ConditionsComponent', () => {
 
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-      declarations: [ ConditionsComponent ]
+      declarations: [ ConditionsComponent ],
+      imports: [ CoreTestingModule ]
     })
     .compileComponents();
   }));
@@ -16,7 +18,7 @@ describe('ConditionsComponent', () => {
   beforeEach(() => {
     fixture = TestBed.createComponent(ConditionsComponent);
     component = fixture.componentInstance;
-    fixture.detectChanges();
+    // fixture.detectChanges();
   });
 
   it('should create', () => {

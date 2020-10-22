@@ -29,6 +29,7 @@ import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { MatStepperModule } from '@angular/material/stepper';
 import { MatRadioModule } from '@angular/material/radio';
 import { MatChipsModule } from '@angular/material/chips';
+import { MatTabsModule } from '@angular/material/tabs';
 
 @Injectable()
 export class MatPaginatorIntlTranslated extends MatPaginatorIntl {
@@ -52,6 +53,7 @@ export class MatPaginatorIntlTranslated extends MatPaginatorIntl {
   });
 
   getTranslations(): void {
+    console.log('getTranslations');
     this.translateService.get([
       'MATERIAL.PAGINATOR.FIRST_PAGE',
       'MATERIAL.PAGINATOR.LAST_PAGE',
@@ -102,6 +104,7 @@ const modules = [
   MatSlideToggleModule,
   MatStepperModule,
   MatRadioModule,
+  MatTabsModule,
   MatChipsModule
 ];
 

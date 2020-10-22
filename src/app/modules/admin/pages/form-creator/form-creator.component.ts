@@ -275,6 +275,7 @@ export class FormCreatorComponent implements OnInit {
 
   openApiUrlDialog(): void {
     if (this.form.invalid) {
+      this.form.markAllAsTouched();
       return;
     }
     this.form.disable();
@@ -286,7 +287,11 @@ export class FormCreatorComponent implements OnInit {
       this.form.enable();
       const url = this.consentsResource.getFormUrl(token);
       this.dialog.open<FormUrlDialogComponent, FormUrlDialogComponentData>(FormUrlDialogComponent, {
-        data: {url: url}
+        width: '800px',
+        data: {
+          url: url,
+          context: context
+        }
       });
     }, (err) => {
       console.error(err);
