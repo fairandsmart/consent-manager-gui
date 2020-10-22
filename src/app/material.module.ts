@@ -53,7 +53,6 @@ export class MatPaginatorIntlTranslated extends MatPaginatorIntl {
   });
 
   getTranslations(): void {
-    console.log('getTranslations');
     this.translateService.get([
       'MATERIAL.PAGINATOR.FIRST_PAGE',
       'MATERIAL.PAGINATOR.LAST_PAGE',

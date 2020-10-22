@@ -23,8 +23,6 @@ export class PreferenceComponent extends EntryContentDirective<Preference> imple
 
   separatorKeysCodes: number[] = [ENTER, COMMA];
   optionsInputCtrl: FormControl;
-  labelNoInputCtrl: FormControl;
-  labelYesInputCtrl: FormControl;
 
   constructor(
     private fb: FormBuilder,
@@ -40,8 +38,6 @@ export class PreferenceComponent extends EntryContentDirective<Preference> imple
 
   ngOnInit(): void {
     this.optionsInputCtrl = new FormControl('', Validators.required);
-    this.labelNoInputCtrl = new FormControl('', Validators.required);
-    this.labelYesInputCtrl = new FormControl('', Validators.required);
     super.ngOnInit();
   }
 
@@ -54,17 +50,14 @@ export class PreferenceComponent extends EntryContentDirective<Preference> imple
       options: [[]]
     });
     this.form.get('valueType').valueChanges.subscribe(v => {
-      if (v !== 'TOGGLE') {
-        this.labelNoInputCtrl.setValue('');
-        this.labelYesInputCtrl.setValue('');
-      }
-      if (v === 'NONE' || v === 'FREE_TEXT' || v === 'TOGGLE') {
-        if (v !== 'TOGGLE') {
-          this.form.get('options').setValue([]);
-        }
+      if (v === 'NONE' || v === 'FREE_TEXT') {
+        this.form.get('options').setValue([]);
         this.form.get('options').clearValidators();
       } else {
         const validators = [Validators.required, Validators.minLength(v === 'CHECKBOXES' ? 1 : 2)];
+        if (v === 'TOGGLE') {
+          validators.push(Validators.maxLength(2));
+        }
         this.form.get('options').setValidators(validators);
       }
       this.form.get('options').updateValueAndValidity();
@@ -94,25 +87,7 @@ export class PreferenceComponent extends EntryContentDirective<Preference> imple
     this.form.get('options').setValue(values.filter(t => t !== value));
   }
 
-  isValid(): boolean {
-    if (this.form.get('valueType').value === 'TOGGLE') {
-      return this.form.valid && this.labelNoInputCtrl.valid && this.labelYesInputCtrl.valid;
-    }
-    return this.form.valid;
-  }
-
-  save(): void {
-    if (this.form.get('valueType').value === 'TOGGLE') {
-      this.form.get('options').setValue([this.labelNoInputCtrl.value, this.labelYesInputCtrl.value]);
-    }
-    super.save();
-  }
-
   protected setVersion(version: ModelVersionDto<Preference>, locale: string = this.version.defaultLocale): void {
     super.setVersion(version, locale);
-    if (this.form.get('valueType').value === 'TOGGLE') {
-      this.labelNoInputCtrl.patchValue(this.form.get('options').value[0]);
-      this.labelYesInputCtrl.patchValue(this.form.get('options').value[1]);
-    }
   }
 }

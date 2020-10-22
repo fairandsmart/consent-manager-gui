@@ -2,25 +2,11 @@
   <mat-card-title>{{getData()?.label}}</mat-card-title>
 
   <mat-card-content>
-    <mat-accordion *ngIf="getData().description">
-      <mat-expansion-panel>
-
-        <mat-expansion-panel-header>
-          <mat-panel-title>
-            {{'USER.DETAILS' | translate}}
-          </mat-panel-title>
-        </mat-expansion-panel-header>
-
-        <div>
-          {{getData().description}}
-        </div>
-
-      </mat-expansion-panel>
-    </mat-accordion>
+    <div *ngIf="getData().description">
+      {{getData().description}}
+    </div>
 
     <form *ngIf="getData().valueType !== 'NONE'" class="answer-container" [formGroup]="form">
-      <label class="answer-label">{{'USER.ANSWERS' | translate}}</label>
-
       <div *ngIf="getData().valueType === 'TOGGLE'">
         <div class="user-input">
           <label>{{getData().options[0]}}</label>

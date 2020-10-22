@@ -29,19 +29,7 @@
           <div *ngIf="form.get('valueType').value && form.get('valueType').value !== 'NONE' && form.get('valueType').value !== 'FREE_TEXT'">
             <mat-card-subtitle>{{'ENTRIES.EDITOR.PREFERENCE.SUBTITLES.OPTIONS' | translate}}</mat-card-subtitle>
 
-            <div *ngIf="form.get('valueType').value === 'TOGGLE'">
-              <mat-form-field appearance="outline">
-                <mat-label>{{'ENTRIES.EDITOR.PREFERENCE.OPTIONS.LABEL_NO' | translate}}</mat-label>
-                <input [formControl]="labelNoInputCtrl" matInput required autocomplete="off">
-              </mat-form-field>
-
-              <mat-form-field appearance="outline">
-                <mat-label>{{'ENTRIES.EDITOR.PREFERENCE.OPTIONS.LABEL_YES' | translate}}</mat-label>
-                <input [formControl]="labelYesInputCtrl" matInput required autocomplete="off">
-              </mat-form-field>
-            </div>
-
-            <div *ngIf="form.get('valueType').value !== 'TOGGLE'">
+            <div>
               <mat-form-field appearance="outline">
                 <mat-label>{{'ENTRIES.EDITOR.PREFERENCE.OPTIONS.LABEL' | translate}}</mat-label>
                 <mat-chip-list #optionsChipList required>
@@ -64,7 +52,7 @@
 
         </mat-card-content>
         <mat-card-actions *ngIf="isLatestVersion()">
-          <button mat-button type="button" color="primary" [disabled]="!isValid()"
+          <button mat-button type="button" color="primary" [disabled]="form.invalid"
                   (click)="save()">{{'ENTRIES.EDITOR.BUTTONS.SAVE' | translate}}</button>
           <ng-container *ngIf="version != null">
             <button mat-button type="button" color="primary" [disabled]="version.status === STATUS.ACTIVE"

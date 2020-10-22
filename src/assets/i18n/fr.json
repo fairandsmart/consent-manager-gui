@@ -626,11 +626,17 @@
     }
   },
   "USER": {
-    "TITLE": "Mes consentements",
     "DETAILS": "Détails",
-    "ANSWER": "Ma réponse :",
-    "ANSWERS": "Mes réponses :",
     "ACCEPT": "J'accepte",
     "REFUSE": "Je refuse"
+  },
+  "DASHBOARD": {
+    "TITLE1": "Consentements collectés",
+    "TITLE2": "Consentements par semaine (moyenne)",
+    "TITLE3": "Réponses",
+    "TITLE4": "Quelques nombres",
+    "USERS": "Utilisateurs :",
+    "CONSENTS": "Consentements collectés :",
+    "EMPTY": "Aucune donnée à afficher sur cette période"
   }
 }

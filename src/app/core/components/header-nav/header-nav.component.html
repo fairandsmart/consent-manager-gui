@@ -1,17 +1,21 @@
 <mat-toolbar color="primary">
   <button mat-button class="home" routerLink="/">{{'NAV.TITLE' | translate}}</button>
-  <ng-container *ngFor="let section of SECTIONS">
-    <button mat-button [routerLink]="section.sub ? section.sub[0].link : section.link"
-            [class.active-link]="section === active">{{section.title | translate}}</button>
+  <ng-container *ngIf="displaySections">
+    <ng-container *ngFor="let section of SECTIONS">
+      <button mat-button [routerLink]="section.sub ? section.sub[0].link : section.link"
+              [class.active-link]="section === active">{{section.title | translate}}</button>
+    </ng-container>
   </ng-container>
   <span class="spacer"></span>
-  <form (ngSubmit)="search()">
-    <mat-form-field appearance="fill" #searchFormField>
-      <mat-icon matPrefix>search</mat-icon>
-      <mat-label>{{'NAV.SEARCH_LABEL' | translate}}</mat-label>
-      <input #searchInput matInput [formControl]="searchCtrl" [matAutocomplete]="subjectsAuto" name="search" type="text" autocomplete="off">
-    </mat-form-field>
-  </form>
+  <ng-container *ngIf="displaySearchBar">
+    <form (ngSubmit)="search()">
+      <mat-form-field appearance="fill">
+        <mat-icon matPrefix>search</mat-icon>
+        <mat-label>{{'NAV.SEARCH_LABEL' | translate}}</mat-label>
+        <input matInput [formControl]="searchCtrl" [matAutocomplete]="subjectsAuto" name="search" type="text" autocomplete="off">
+      </mat-form-field>
+    </form>
+  </ng-container>
   <span>
     <button mat-button [matMenuTriggerFor]="userMenu"><mat-icon>account_circle</mat-icon> {{keycloak.getUsername()}}</button>
     <mat-menu #userMenu="matMenu">

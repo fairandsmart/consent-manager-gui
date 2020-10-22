@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { KeycloakService } from 'keycloak-angular';
 import { NavigationEnd, Router } from '@angular/router';
 import { debounceTime, filter, mergeMap } from 'rxjs/operators';
@@ -23,6 +23,12 @@ export interface SideNavSubSection {
   styleUrls: ['./header-nav.component.scss']
 })
 export class HeaderNavComponent implements OnInit {
+
+  @Input()
+  displaySections = false;
+
+  @Input()
+  displaySearchBar = false;
 
   readonly SECTIONS: NavSection[] = [
     {
