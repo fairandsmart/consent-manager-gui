@@ -37,10 +37,10 @@ export class EntriesPageComponent implements OnInit, OnDestroy {
         this.subjectsResourceService.listCustomerRecords(this.keycloakService.getUsername())
       ]).pipe(
         map(([entries, records]: [ModelEntryDto[], { [key: string]: RecordDto[] }]) => {
-          entries.forEach((entry) => {
+          this.elementsKeys.forEach((key) => {
             this.data.push({
-              entry: entry,
-              record: _.last(records[entry.key])
+              entry: entries.find(entry => entry.key === key),
+              record: _.last(records[key])
             });
           });
         })

@@ -1,5 +1,5 @@
 <mat-card>
-  <mat-card-title>{{version.data[translate.currentLang]?.title}}</mat-card-title>
+  <mat-card-title>{{getData()?.title}}</mat-card-title>
 
   <mat-card-content>
     <mat-accordion>
@@ -12,7 +12,7 @@
         </mat-expansion-panel-header>
 
         <div>
-          {{version.data[translate.currentLang]?.body}}
+          {{getData()?.body}}
         </div>
 
       </mat-expansion-panel>

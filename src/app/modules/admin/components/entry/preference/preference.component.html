@@ -8,149 +8,69 @@
           <mat-card-subtitle>{{'ENTRIES.EDITOR.PREFERENCE.SUBTITLES.CONTENT' | translate}}</mat-card-subtitle>
 
           <mat-form-field appearance="outline">
-            <mat-label>{{'ENTRIES.EDITOR.PREFERENCE.TITLE.LABEL' | translate}}</mat-label>
-            <input matInput required formControlName="title" autocomplete="off">
+            <mat-label>{{'ENTRIES.EDITOR.PREFERENCE.LABEL.LABEL' | translate}}</mat-label>
+            <input matInput required formControlName="label" autocomplete="off">
           </mat-form-field>
 
           <mat-form-field appearance="outline">
-            <mat-label>{{'ENTRIES.EDITOR.PREFERENCE.BODY.LABEL' | translate}}</mat-label>
-            <textarea matInput required formControlName="body" cdkTextareaAutosize cdkAutosizeMinRows="5"></textarea>
+            <mat-label>{{'ENTRIES.EDITOR.PREFERENCE.DESCRIPTION.LABEL' | translate}}</mat-label>
+            <textarea matInput formControlName="description" cdkTextareaAutosize cdkAutosizeMinRows="5"></textarea>
           </mat-form-field>
 
-          <mat-card-subtitle>{{'ENTRIES.EDITOR.PREFERENCE.SUBTITLES.OPTIONS' | translate}}</mat-card-subtitle>
+          <mat-form-field appearance="outline">
+            <mat-label>{{'ENTRIES.EDITOR.PREFERENCE.VALUE_TYPE.LABEL' | translate}}</mat-label>
+            <mat-select formControlName="valueType" required>
+              <mat-option *ngFor="let type of VALUE_TYPES" [value]="type">
+                {{'ENTRIES.EDITOR.PREFERENCE.VALUE_TYPE.VALUES.' + type | translate}}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
 
-          <div>
-            <mat-form-field appearance="outline">
-              <mat-label>{{'ENTRIES.EDITOR.PREFERENCE.CONTENT_TYPE_OPTIONS.LABEL' | translate}}</mat-label>
-              <mat-chip-list #contentTypesChipList required>
-                <mat-chip *ngFor="let option of form.get('contentTypeOptions').value" [selectable]="true"
-                          [removable]="true" (removed)="removeOption(option, 'contentTypeOptions')">
-                  {{option}}
-                  <mat-icon matChipRemove>cancel</mat-icon>
-                </mat-chip>
-                <input
-                  [placeholder]="'ENTRIES.EDITOR.PREFERENCE.CONTENT_TYPE_OPTIONS.PLACEHOLDER' | translate"
-                  #contentTypeInput
-                  [formControl]="inputCtrl.contentTypeOptions"
-                  [matChipInputFor]="contentTypesChipList"
-                  [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
-                  [matChipInputAddOnBlur]="false"
-                  (matChipInputTokenEnd)="addOption($event, 'contentTypeOptions')">
-              </mat-chip-list>
-            </mat-form-field>
-          </div>
+          <div *ngIf="form.get('valueType').value && form.get('valueType').value !== 'NONE' && form.get('valueType').value !== 'FREE_TEXT'">
+            <mat-card-subtitle>{{'ENTRIES.EDITOR.PREFERENCE.SUBTITLES.OPTIONS' | translate}}</mat-card-subtitle>
 
-          <div>
-            <mat-form-field appearance="outline">
-              <mat-label>{{'ENTRIES.EDITOR.PREFERENCE.CONTENT_THEME_OPTIONS.LABEL' | translate}}</mat-label>
-              <mat-chip-list #contentThemesChipList required>
-                <mat-chip *ngFor="let option of form.get('contentThemeOptions').value" [selectable]="true"
-                          [removable]="true" (removed)="removeOption(option, 'contentThemeOptions')">
-                  {{option}}
-                  <mat-icon matChipRemove>cancel</mat-icon>
-                </mat-chip>
-                <input
-                  [placeholder]="'ENTRIES.EDITOR.PREFERENCE.CONTENT_THEME_OPTIONS.PLACEHOLDER' | translate"
-                  #contentThemeInput
-                  [formControl]="inputCtrl.contentThemeOptions"
-                  [matChipInputFor]="contentThemesChipList"
-                  [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
-                  [matChipInputAddOnBlur]="false"
-                  (matChipInputTokenEnd)="addOption($event, 'contentThemeOptions')">
-              </mat-chip-list>
-            </mat-form-field>
-          </div>
+            <div *ngIf="form.get('valueType').value === 'TOGGLE'">
+              <mat-form-field appearance="outline">
+                <mat-label>{{'ENTRIES.EDITOR.PREFERENCE.OPTIONS.LABEL_NO' | translate}}</mat-label>
+                <input [formControl]="labelNoInputCtrl" matInput required autocomplete="off">
+              </mat-form-field>
 
-          <div>
-            <mat-form-field appearance="outline">
-              <mat-label>{{'ENTRIES.EDITOR.PREFERENCE.CHANNEL_OPTIONS.LABEL' | translate}}</mat-label>
-              <mat-chip-list #channelsChipList required>
-                <mat-chip *ngFor="let option of form.get('channelOptions').value" [selectable]="true"
-                          [removable]="true" (removed)="removeOption(option, 'channelOptions')">
-                  {{option}}
-                  <mat-icon matChipRemove>cancel</mat-icon>
-                </mat-chip>
-                <input
-                  [placeholder]="'ENTRIES.EDITOR.PREFERENCE.CHANNEL_OPTIONS.PLACEHOLDER' | translate"
-                  #channelInput
-                  [formControl]="inputCtrl.channelOptions"
-                  [matChipInputFor]="channelsChipList"
-                  [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
-                  [matChipInputAddOnBlur]="false"
-                  (matChipInputTokenEnd)="addOption($event, 'channelOptions')">
-              </mat-chip-list>
-            </mat-form-field>
-          </div>
+              <mat-form-field appearance="outline">
+                <mat-label>{{'ENTRIES.EDITOR.PREFERENCE.OPTIONS.LABEL_YES' | translate}}</mat-label>
+                <input [formControl]="labelYesInputCtrl" matInput required autocomplete="off">
+              </mat-form-field>
+            </div>
 
-          <div>
-            <mat-form-field appearance="outline">
-              <mat-label>{{'ENTRIES.EDITOR.PREFERENCE.FORMAT_OPTIONS.LABEL' | translate}}</mat-label>
-              <mat-chip-list #formatsChipList required>
-                <mat-chip *ngFor="let option of form.get('formatOptions').value" [selectable]="true"
-                          [removable]="true" (removed)="removeOption(option, 'formatOptions')">
-                  {{option}}
-                  <mat-icon matChipRemove>cancel</mat-icon>
-                </mat-chip>
-                <input
-                  [placeholder]="'ENTRIES.EDITOR.PREFERENCE.FORMAT_OPTIONS.PLACEHOLDER' | translate"
-                  #formatInput
-                  [formControl]="inputCtrl.formatOptions"
-                  [matChipInputFor]="formatsChipList"
-                  [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
-                  [matChipInputAddOnBlur]="false"
-                  (matChipInputTokenEnd)="addOption($event, 'formatOptions')">
-              </mat-chip-list>
-            </mat-form-field>
-          </div>
-
-          <div>
-            <mat-form-field appearance="outline">
-              <mat-label>{{'ENTRIES.EDITOR.PREFERENCE.FREQUENCY_OPTIONS.LABEL' | translate}}</mat-label>
-              <mat-chip-list #frequenciesChipList required>
-                <mat-chip *ngFor="let option of form.get('frequencyOptions').value" [selectable]="true"
-                          [removable]="true" (removed)="removeOption(option, 'frequencyOptions')">
-                  {{option}}
-                  <mat-icon matChipRemove>cancel</mat-icon>
-                </mat-chip>
-                <input
-                  [placeholder]="'ENTRIES.EDITOR.PREFERENCE.FREQUENCY_OPTIONS.PLACEHOLDER' | translate"
-                  #frequencyInput
-                  [formControl]="inputCtrl.frequencyOptions"
-                  [matChipInputFor]="frequenciesChipList"
-                  [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
-                  [matChipInputAddOnBlur]="false"
-                  (matChipInputTokenEnd)="addOption($event, 'frequencyOptions')">
-              </mat-chip-list>
-            </mat-form-field>
-          </div>
-
-          <div class="option-field-wrapper">
-            <mat-form-field appearance="outline">
-              <mat-label>{{'ENTRIES.EDITOR.PREFERENCE.LOCALE_OPTIONS.LABEL' | translate}}</mat-label>
-              <mat-chip-list #localesChipList required>
-                <mat-chip *ngFor="let option of form.get('localeOptions').value" [selectable]="true"
-                          [removable]="true" (removed)="removeOption(option, 'localeOptions')">
-                  {{option}}
-                  <mat-icon matChipRemove>cancel</mat-icon>
-                </mat-chip>
-                <input
-                  [placeholder]="'ENTRIES.EDITOR.PREFERENCE.LOCALE_OPTIONS.PLACEHOLDER' | translate"
-                  #localeInput
-                  [formControl]="inputCtrl.localeOptions"
-                  [matChipInputFor]="localesChipList"
-                  [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
-                  [matChipInputAddOnBlur]="false"
-                  (matChipInputTokenEnd)="addOption($event, 'localeOptions')">
-              </mat-chip-list>
-            </mat-form-field>
+            <div *ngIf="form.get('valueType').value !== 'TOGGLE'">
+              <mat-form-field appearance="outline">
+                <mat-label>{{'ENTRIES.EDITOR.PREFERENCE.OPTIONS.LABEL' | translate}}</mat-label>
+                <mat-chip-list #optionsChipList required>
+                  <mat-chip *ngFor="let option of form.get('options').value" [selectable]="true"
+                            [removable]="true" (removed)="removeOption(option)">
+                    {{option}}
+                    <mat-icon matChipRemove>cancel</mat-icon>
+                  </mat-chip>
+                  <input
+                    [placeholder]="'ENTRIES.EDITOR.PREFERENCE.OPTIONS.PLACEHOLDER' | translate"
+                    [formControl]="optionsInputCtrl"
+                    [matChipInputFor]="optionsChipList"
+                    [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
+                    [matChipInputAddOnBlur]="false"
+                    (matChipInputTokenEnd)="addOption($event)">
+                </mat-chip-list>
+              </mat-form-field>
+            </div>
           </div>
 
         </mat-card-content>
         <mat-card-actions *ngIf="isLatestVersion()">
-          <button mat-button type="button" color="primary" [disabled]="form.invalid" (click)="save()">{{'ENTRIES.EDITOR.BUTTONS.SAVE' | translate}}</button>
+          <button mat-button type="button" color="primary" [disabled]="!isValid()"
+                  (click)="save()">{{'ENTRIES.EDITOR.BUTTONS.SAVE' | translate}}</button>
           <ng-container *ngIf="version != null">
-            <button mat-button type="button" color="primary" [disabled]="version.status === STATUS.ACTIVE" (click)="activate()">{{'ENTRIES.EDITOR.BUTTONS.ACTIVATE' | translate}}</button>
-            <button mat-button type="button" color="warn" [disabled]="version.status !== STATUS.DRAFT" (click)="delete()">{{'ENTRIES.EDITOR.BUTTONS.DELETE' | translate}}</button>
+            <button mat-button type="button" color="primary" [disabled]="version.status === STATUS.ACTIVE"
+                    (click)="activate()">{{'ENTRIES.EDITOR.BUTTONS.ACTIVATE' | translate}}</button>
+            <button mat-button type="button" color="warn" [disabled]="version.status !== STATUS.DRAFT"
+                    (click)="delete()">{{'ENTRIES.EDITOR.BUTTONS.DELETE' | translate}}</button>
           </ng-container>
         </mat-card-actions>
       </mat-card>
@@ -160,7 +80,8 @@
     </form>
   </mat-sidenav-content>
   <mat-sidenav opened mode="side" position="end">
-    <cm-entry-info *ngIf="entry" [entry]="entry" [version]="version" (selectVersion)="selectVersion($event)"></cm-entry-info>
+    <cm-entry-info *ngIf="entry" [entry]="entry" [version]="version"
+                   (selectVersion)="selectVersion($event)"></cm-entry-info>
     <cm-entry-preview [safePreview]="safePreview"></cm-entry-preview>
   </mat-sidenav>
 </mat-sidenav-container>

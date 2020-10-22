@@ -1,6 +1,10 @@
-import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { EntryContentDirective } from '../entry-content/entry-content.directive';
-import { ModelDataType, Preference } from '../../../../../core/models/models';
+import {
+  ModelDataType, ModelVersionDto,
+  Preference,
+  PREFERENCE_VALUE_TYPES
+} from '../../../../../core/models/models';
 import { FormBuilder, FormControl, Validators } from '@angular/forms';
 import { ModelsResourceService } from '../../../../../core/http/models-resource.service';
 import { DomSanitizer } from '@angular/platform-browser';
@@ -15,14 +19,12 @@ import { COMMA, ENTER } from '@angular/cdk/keycodes';
 })
 export class PreferenceComponent extends EntryContentDirective<Preference> implements OnInit {
 
+  public readonly VALUE_TYPES = PREFERENCE_VALUE_TYPES;
+
   separatorKeysCodes: number[] = [ENTER, COMMA];
-  inputCtrl: {[key: string]: FormControl};
-  @ViewChild('contentTypeInput') contentTypeInput: ElementRef<HTMLInputElement>;
-  @ViewChild('contentThemeInput') contentThemeInput: ElementRef<HTMLInputElement>;
-  @ViewChild('channelInput') channelInput: ElementRef<HTMLInputElement>;
-  @ViewChild('formatInput') formatInput: ElementRef<HTMLInputElement>;
-  @ViewChild('frequencyInput') frequencyInput: ElementRef<HTMLInputElement>;
-  @ViewChild('localeInput') localeInput: ElementRef<HTMLInputElement>;
+  optionsInputCtrl: FormControl;
+  labelNoInputCtrl: FormControl;
+  labelYesInputCtrl: FormControl;
 
   constructor(
     private fb: FormBuilder,
@@ -37,52 +39,80 @@ export class PreferenceComponent extends EntryContentDirective<Preference> imple
   }
 
   ngOnInit(): void {
-    this.inputCtrl = {
-      contentTypeOptions: new FormControl(''),
-      contentThemeOptions: new FormControl(''),
-      channelOptions: new FormControl(''),
-      formatOptions: new FormControl(''),
-      frequencyOptions: new FormControl(''),
-      localeOptions: new FormControl('')
-    };
+    this.optionsInputCtrl = new FormControl('', Validators.required);
+    this.labelNoInputCtrl = new FormControl('', Validators.required);
+    this.labelYesInputCtrl = new FormControl('', Validators.required);
     super.ngOnInit();
   }
 
   protected initForm(): void {
     this.form = this.fb.group({
       type: [this.type, [Validators.required]],
-      title: ['', [Validators.required]],
-      body: ['', [Validators.required]],
-      contentTypeOptions: [[], [Validators.required]],
-      contentThemeOptions: [[], [Validators.required]],
-      channelOptions: [[], [Validators.required]],
-      formatOptions: [[], [Validators.required]],
-      frequencyOptions: [[], [Validators.required]],
-      localeOptions: [[], [Validators.required]]
+      label: ['', [Validators.required]],
+      description: [''],
+      valueType: ['NONE', [Validators.required]],
+      options: [[]]
+    });
+    this.form.get('valueType').valueChanges.subscribe(v => {
+      if (v !== 'TOGGLE') {
+        this.labelNoInputCtrl.setValue('');
+        this.labelYesInputCtrl.setValue('');
+      }
+      if (v === 'NONE' || v === 'FREE_TEXT' || v === 'TOGGLE') {
+        if (v !== 'TOGGLE') {
+          this.form.get('options').setValue([]);
+        }
+        this.form.get('options').clearValidators();
+      } else {
+        const validators = [Validators.required, Validators.minLength(v === 'CHECKBOXES' ? 1 : 2)];
+        this.form.get('options').setValidators(validators);
+      }
+      this.form.get('options').updateValueAndValidity();
     });
     this.initPreview();
   }
 
-  addOption($event: MatChipInputEvent, option: string): void {
+  addOption($event: MatChipInputEvent): void {
     const input = $event.input;
     const value = ($event.value || '').trim().toLowerCase();
     if (value) {
-      const values: string[] = this.form.get(option).value || [];
+      const values: string[] = this.form.get('options').value || [];
       if (value.length > 0 && values.indexOf(value) === -1) {
         values.push(value);
-        this.form.get(option).setValue(values);
+        this.form.get('options').setValue(values);
       }
     }
     // Reset the input value
     if (input) {
       input.value = '';
     }
-    this.inputCtrl[option].setValue('');
+    this.optionsInputCtrl.setValue('');
   }
 
-  removeOption(value: string, option: string): void {
-    const values: string[] = this.form.get(option).value || [];
-    this.form.get(option).setValue(values.filter(t => t !== value));
+  removeOption(value: string): void {
+    const values: string[] = this.form.get('options').value || [];
+    this.form.get('options').setValue(values.filter(t => t !== value));
   }
 
+  isValid(): boolean {
+    if (this.form.get('valueType').value === 'TOGGLE') {
+      return this.form.valid && this.labelNoInputCtrl.valid && this.labelYesInputCtrl.valid;
+    }
+    return this.form.valid;
+  }
+
+  save(): void {
+    if (this.form.get('valueType').value === 'TOGGLE') {
+      this.form.get('options').setValue([this.labelNoInputCtrl.value, this.labelYesInputCtrl.value]);
+    }
+    super.save();
+  }
+
+  protected setVersion(version: ModelVersionDto<Preference>, locale: string = this.version.defaultLocale): void {
+    super.setVersion(version, locale);
+    if (this.form.get('valueType').value === 'TOGGLE') {
+      this.labelNoInputCtrl.patchValue(this.form.get('options').value[0]);
+      this.labelYesInputCtrl.patchValue(this.form.get('options').value[1]);
+    }
+  }
 }

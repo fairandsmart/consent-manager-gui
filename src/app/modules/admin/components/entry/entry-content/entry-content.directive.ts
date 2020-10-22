@@ -70,7 +70,6 @@ export abstract class EntryContentDirective<T extends ModelData> implements OnIn
     });
   }
 
-
   protected refreshPreview(): void {
     const rawValues: T = this.form.getRawValue();
     const locale = this.defaultLocale;

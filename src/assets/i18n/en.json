@@ -341,35 +341,29 @@
           "CONTENT": "Content",
           "OPTIONS": "Options"
         },
-        "TITLE": {
-          "LABEL": "Title"
+        "LABEL": {
+          "LABEL": "Label"
         },
-        "BODY": {
-          "LABEL": "Body"
+        "DESCRIPTION": {
+          "LABEL": "Description"
         },
-        "CONTENT_TYPE_OPTIONS": {
-          "LABEL": "Content types",
-          "PLACEHOLDER": "Enter here your content types"
+        "VALUE_TYPE": {
+          "LABEL": "Answer type",
+          "VALUES": {
+            "NONE": "None",
+            "TOGGLE": "Toggle switch",
+            "CHECKBOXES": "Checkboxes",
+            "RADIO_BUTTONS": "Radio buttons",
+            "LIST_SINGLE": "Single choice list",
+            "LIST_MULTI": "Multiple choice list",
+            "FREE_TEXT": "Free text"
+          }
         },
-        "CONTENT_THEME_OPTIONS": {
-          "LABEL": "Content themes",
-          "PLACEHOLDER": "Enter here your content themes"
-        },
-        "CHANNEL_OPTIONS": {
-          "LABEL": "Channels",
-          "PLACEHOLDER": "Enter here your channels"
-        },
-        "FORMAT_OPTIONS": {
-          "LABEL": "Formats",
-          "PLACEHOLDER": "Enter here your formats"
-        },
-        "FREQUENCY_OPTIONS": {
-          "LABEL": "Frequencies",
-          "PLACEHOLDER": "Enter here your frequencies"
-        },
-        "LOCALE_OPTIONS": {
-          "LABEL": "Locales",
-          "PLACEHOLDER": "Enter here your locales"
+        "OPTIONS": {
+          "LABEL": "Options",
+          "PLACEHOLDER": "Enter here your options",
+          "LABEL_NO": "Negative answer label",
+          "LABEL_YES": "Positive answer label"
         }
       },
       "CONDITIONS": {
@@ -422,6 +416,27 @@
         "SIGNATURE": {
           "LABEL": "Signature"
         }
+      },
+      "THEMES": {
+        "SUBTITLES": {
+          "TYPE": "Theme type",
+          "CSS": "Stylesheet"
+        },
+        "IFRAME": {
+          "TITLE": "Preview"
+        },
+        "TARGET_TYPE": {
+          "LABEL": "Category",
+          "VALUES": {
+            "FORM": "Consent form",
+            "EMAIL": "Opt-out email"
+          }
+        },
+        "CSS": {
+          "LABEL": "Style",
+          "HINT": "Write your custom CSS or drop a CSS file",
+          "AUTOCOMPLETE": "(toggle auto-completion with CTRL+E or CMD+E to help you stylize the form elements)"
+        }
       }
     }
   },
@@ -429,42 +444,6 @@
     "LABEL_NO_DESCRIPTION": "No description",
     "ACTIVE_VERSION": "Active",
     "LANGUAGES_TOOLTIP": "Language(s)"
-  },
-  "THEMES": {
-    "TITLE": "Themes",
-    "SUBTITLES": {
-      "TYPE": "Theme type",
-      "CSS": "Stylesheet"
-    },
-    "IFRAME": {
-      "TITLE": "Preview"
-    },
-    "COMMON": {
-      "KEY": {
-        "LABEL": "Reference"
-      },
-      "NAME": {
-        "LABEL": "Name"
-      },
-      "PRESENTATION": {
-        "LABEL": "Presentation"
-      },
-      "TARGET_TYPE": {
-        "LABEL": "Category",
-        "VALUES": {
-          "FORM": "Consent form",
-          "EMAIL": "Opt-out email"
-        }
-      },
-      "ICON": {
-        "LABEL": "Icon"
-      },
-      "CSS": {
-        "LABEL": "Style",
-        "HINT": "Write your custom CSS or drop a CSS file",
-        "AUTOCOMPLETE": "(toggle auto-completion with CTRL+E or CMD+E to help you stylize the form elements)"
-      }
-    }
   },
   "RECORDS": {
     "TITLE": "Consents",

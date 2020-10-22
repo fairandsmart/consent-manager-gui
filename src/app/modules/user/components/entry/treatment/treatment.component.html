@@ -1,5 +1,5 @@
 <mat-card>
-  <mat-card-title>{{version.data[translate.currentLang]?.treatmentTitle}}</mat-card-title>
+  <mat-card-title>{{getData()?.treatmentTitle}}</mat-card-title>
 
   <mat-card-content>
     <mat-accordion>
@@ -12,27 +12,27 @@
         </mat-expansion-panel-header>
 
         <div class="paragraph">
-          <h2 *ngIf="version.data[translate.currentLang]?.dataTitle">
-            {{version.data[translate.currentLang]?.dataTitle}}
+          <h2 *ngIf="getData()?.dataTitle">
+            {{getData()?.dataTitle}}
           </h2>
           <div>
-            {{version.data[translate.currentLang]?.dataBody}}
+            {{getData()?.dataBody}}
           </div>
         </div>
         <div class="paragraph">
-          <h2 *ngIf="version.data[translate.currentLang]?.retentionTitle">
-            {{version.data[translate.currentLang]?.retentionTitle}}
+          <h2 *ngIf="getData()?.retentionTitle">
+            {{getData()?.retentionTitle}}
           </h2>
           <div>
-            {{version.data[translate.currentLang]?.retentionBody}}
+            {{getData()?.retentionBody}}
           </div>
         </div>
         <div class="paragraph">
-          <h2 *ngIf="version.data[translate.currentLang]?.usageTitle">
-            {{version.data[translate.currentLang]?.usageTitle}}
+          <h2 *ngIf="getData()?.usageTitle">
+            {{getData()?.usageTitle}}
           </h2>
           <div>
-            {{version.data[translate.currentLang]?.usageBody}}
+            {{getData()?.usageBody}}
           </div>
         </div>
 

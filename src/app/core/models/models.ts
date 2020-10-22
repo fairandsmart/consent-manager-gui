@@ -145,16 +145,24 @@ export interface Treatment extends ModelData {
   thirdParties: { name: string, value: string }[];
 }
 
+export enum PreferenceValueType {
+  NONE = 'NONE',
+  TOGGLE = 'TOGGLE',
+  CHECKBOXES = 'CHECKBOXES',
+  RADIO_BUTTONS = 'RADIO_BUTTONS',
+  LIST_SINGLE = 'LIST_SINGLE',
+  LIST_MULTI = 'LIST_MULTI',
+  FREE_TEXT = 'FREE_TEXT'
+}
+
+export const PREFERENCE_VALUE_TYPES: PreferenceValueType[] = Object.keys(PreferenceValueType) as PreferenceValueType[];
+
 export interface Preference extends ModelData {
   type: 'preference';
-  title: string;
-  body: string;
-  contentTypeOptions: string[];
-  contentThemeOptions: string[];
-  channelOptions: string[];
-  formatOptions: string[];
-  frequencyOptions: string[];
-  localeOptions: string[];
+  label: string;
+  description: string;
+  options: string[];
+  valueType: PreferenceValueType;
 }
 
 export interface Conditions extends ModelData {

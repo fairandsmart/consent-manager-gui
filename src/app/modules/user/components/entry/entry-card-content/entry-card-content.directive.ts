@@ -14,7 +14,10 @@ export abstract class EntryCardContentDirective<T extends ModelData> {
   @Input()
   record: RecordDto;
 
-  protected constructor(
-    protected translate: TranslateService) { }
+  protected constructor(protected translate: TranslateService) { }
+
+  getData(): T {
+    return this.version.data[this.translate.currentLang];
+  }
 
 }
