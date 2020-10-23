@@ -1,12 +1,14 @@
 <div class="user-page">
   <div class="user-details">
-    <img src="" alt="User picture">
+    <mat-icon>account_circle</mat-icon>
+    <h3>{{username}}</h3>
     <!-- CGU here -->
   </div>
   <div class="user-treatments">
     <mat-card>
       <h2>Consentements</h2>
       <p>Gérez et modifiez vos consentements depuis cette page</p>
+      <cm-entry-card [entry]="card.entry" [record]="card.record" *ngFor="let card of filterCards(data, 'conditions')"></cm-entry-card>
       <cm-entry-card [entry]="card.entry" [record]="card.record" *ngFor="let card of filterCards(data, 'treatment')"></cm-entry-card>
     </mat-card>
   </div>

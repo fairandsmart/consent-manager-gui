@@ -24,6 +24,10 @@ export class EntriesPageComponent implements OnInit, OnDestroy {
   public data: CardData[] = [];
   private subs: Subscription[] = [];
 
+  get username(): string {
+    return this.keycloakService.getUsername();
+  }
+
   constructor(public keycloakService: KeycloakService,
               public modelsResourceService: ModelsResourceService,
               public subjectsResourceService: SubjectsResourceService) {
@@ -52,7 +56,7 @@ export class EntriesPageComponent implements OnInit, OnDestroy {
     this.subs?.forEach(s => s.unsubscribe());
   }
 
-  filterCards(cards: CardData[], category: ModelDataType) {
+  filterCards(cards: CardData[], category: ModelDataType): CardData[] {
     return cards.filter((card) => card.entry?.type === category);
   }
 

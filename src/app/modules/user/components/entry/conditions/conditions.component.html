@@ -1,31 +1,28 @@
-<mat-card>
-  <mat-card-title>{{getData()?.title}}</mat-card-title>
-
-  <mat-card-content>
-    <mat-accordion>
-      <mat-expansion-panel>
-
-        <mat-expansion-panel-header>
-          <mat-panel-title>
-            {{'USER.DETAILS' | translate}}
-          </mat-panel-title>
-        </mat-expansion-panel-header>
-
-        <div>
-          {{getData()?.body}}
-        </div>
-
-      </mat-expansion-panel>
-    </mat-accordion>
-
-    <div class="answer-container">
-      <label class="answer-label">{{'USER.ANSWER' | translate}}</label>
-      <div class="user-input">
-        <label>{{'USER.REFUSE' | translate}}</label>
-        <mat-slide-toggle [(ngModel)]="value" [disabled]="value" (change)="toggle($event)"></mat-slide-toggle>
-        <label>{{'USER.ACCEPT' | translate}}</label>
-      </div>
+<div class="model-entry">
+  <div class="model-name">
+    <mat-icon (click)="showDetails = !showDetails">help_outline</mat-icon>
+    {{getData()?.title}}
+  </div>
+  <div class="model-action">
+    <div class="user-input">
+      <label>{{'USER.REFUSE' | translate}}</label>
+      <mat-slide-toggle [disabled]="loading || value" [(ngModel)]="value" (change)="toggle($event)"></mat-slide-toggle>
+      <label>{{'USER.ACCEPT' | translate}}</label>
     </div>
+  </div>
+</div>
 
-  </mat-card-content>
-</mat-card>
+<mat-accordion>
+  <mat-expansion-panel [expanded]="showDetails">
+
+    <mat-expansion-panel-header>
+      <mat-panel-title>
+        {{'USER.DETAILS' | translate}}
+      </mat-panel-title>
+    </mat-expansion-panel-header>
+
+    <div [innerHTML]="body" class="conditions-body"></div>
+
+  </mat-expansion-panel>
+</mat-accordion>
+

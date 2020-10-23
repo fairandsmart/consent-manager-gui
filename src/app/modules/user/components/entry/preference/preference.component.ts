@@ -65,14 +65,12 @@ export class PreferenceComponent extends EntryCardContentDirective<Preference, F
       skip(1),
       debounceTime(this.saveDelay)
     ).subscribe((changes) => {
-      console.log(changes);
-      console.log('should save', this.entry.key);
       this.value.disable(); // triggers valueChanges, hence distinctUntilChanged
       this.saveChanges();
     });
   }
 
-  saved(err: Error) {
+  saved(err: Error): void {
     this.value.enable();
     if (err) {
       this.initSaves();
@@ -112,7 +110,6 @@ export class PreferenceComponent extends EntryCardContentDirective<Preference, F
       }
       value = valuesList.join(',');
     }
-    console.log(value);
     return value;
   }
 

@@ -15,24 +15,25 @@
         </div>
       </div>
 
-      <div *ngIf="getData()?.valueType === 'CHECKBOXES'">
-        <mat-form-field appearance="outline">
-          <mat-label>Selection</mat-label>
-          <mat-select formControlName="answersList" multiple>
-            <mat-option *ngFor="let option of getData()?.options" [value]="option">{{option}}</mat-option>
-          </mat-select>
-        </mat-form-field>
 
+      <div *ngIf="getData()?.valueType === 'CHECKBOXES'">
+        <ul formArrayName="answersArray">
+          <li *ngFor="let option of getData().options; index as index">
+            <mat-checkbox [formControlName]="index">{{option}}</mat-checkbox>
+          </li>
+        </ul>
       </div>
 
       <div *ngIf="getData()?.valueType === 'RADIO_BUTTONS'">
-        <mat-form-field appearance="outline">
-          <mat-label>Selection</mat-label>
-          <mat-select formControlName="answer">
-            <mat-option *ngFor="let option of getData()?.options" [value]="option">{{option}}</mat-option>
-          </mat-select>
-        </mat-form-field>
+        <mat-radio-group formControlName="answer">
+          <ul>
+            <li *ngFor="let option of getData().options">
+              <mat-radio-button [value]="option">{{option}}</mat-radio-button>
+            </li>
+          </ul>
+        </mat-radio-group>
       </div>
+
 
       <div *ngIf="getData()?.valueType === 'LIST_SINGLE' || getData()?.valueType === 'LIST_MULTI'">
         <mat-form-field appearance="outline">

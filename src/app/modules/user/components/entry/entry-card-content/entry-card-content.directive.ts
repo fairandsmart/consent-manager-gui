@@ -36,7 +36,7 @@ export abstract class EntryCardContentDirective<T extends ModelData, U = string>
     protected consentsResourceService: ConsentsResourceService
   ) {}
 
-  ngOnInit() {
+  ngOnInit(): void {
     if (this.record) {
       this.value = this.parseValue();
     }
@@ -50,7 +50,7 @@ export abstract class EntryCardContentDirective<T extends ModelData, U = string>
     return this.version.data[this.translate.currentLang];
   }
 
-  saveChanges() {
+  saveChanges(): void {
     this.loading = true;
     if (this.record) {
       this.remoteValue = this.record.value;
@@ -66,7 +66,7 @@ export abstract class EntryCardContentDirective<T extends ModelData, U = string>
       validity: '',
       locale: this.translate.currentLang,
       formType: ConsentFormType.FULL,
-      receiptDeliveryType: 'NONE',
+      receiptDeliveryType: 'STORE', // TODO revert to 'NONE',
       userinfos: {},
       attributes: {},
       optoutModel: '',
