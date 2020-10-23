@@ -14,7 +14,7 @@ export const environment: AppEnvironment = {
     multipleInfo: false,
     defaultLocale: 'fr',
     displayUserPage: true,
-    userPageElementsOrder: ''
+    userPageElementsOrder: 'Core.1,Market.1,Channel.1,Frequency.1,Mode.1,Username.1,cgu.1'
   }
 };
 

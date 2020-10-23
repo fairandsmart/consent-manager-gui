@@ -1,13 +1,7 @@
 <div *ngIf="active">
   <ng-container [ngSwitch]="entry?.type">
-    <ng-container *ngSwitchCase="'treatment'">
-      <cm-treatment [entry]="entry" [version]="active" [record]="record"></cm-treatment>
-    </ng-container>
-    <ng-container *ngSwitchCase="'preference'">
-      <cm-preference [entry]="entry" [version]="active" [record]="record"></cm-preference>
-    </ng-container>
-    <ng-container *ngSwitchCase="'conditions'">
-      <cm-conditions [entry]="entry" [version]="active" [record]="record"></cm-conditions>
-    </ng-container>
+    <cm-treatment [entry]="entry" [version]="active" [record]="record" *ngSwitchCase="'treatment'"> </cm-treatment>
+    <cm-preference [entry]="entry" [version]="active" [record]="record" *ngSwitchCase="'preference'"></cm-preference>
+    <cm-conditions [entry]="entry" [version]="active" [record]="record" *ngSwitchCase="'conditions'"></cm-conditions>
   </ng-container>
 </div>

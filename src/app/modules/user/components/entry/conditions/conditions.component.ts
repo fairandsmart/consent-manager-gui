@@ -2,29 +2,37 @@ import { Component, OnInit } from '@angular/core';
 import { EntryCardContentDirective } from '../entry-card-content/entry-card-content.directive';
 import { Conditions } from '../../../../../core/models/models';
 import { TranslateService } from '@ngx-translate/core';
+import { KeycloakService } from 'keycloak-angular';
+import { ConsentsResourceService } from '../../../../../core/http/consents-resource.service';
 
 @Component({
   selector: 'cm-conditions',
   templateUrl: './conditions.component.html',
   styleUrls: ['../entry-card/entry-card.component.scss', './conditions.component.scss']
 })
-export class ConditionsComponent extends EntryCardContentDirective<Conditions> implements OnInit {
+export class ConditionsComponent extends EntryCardContentDirective<Conditions, boolean> implements OnInit {
 
-  value: boolean;
 
-  constructor(public translate: TranslateService) {
-    super(translate);
+  constructor(public translate: TranslateService,
+              protected keycloakService: KeycloakService,
+              protected consentsResourceService: ConsentsResourceService) {
+    super(translate, keycloakService, consentsResourceService);
   }
 
   ngOnInit(): void {
-    if (this.record) {
-      this.value = this.record.value === 'accepted';
-    }
+    super.ngOnInit();
+  }
+
+  parseValue(): boolean {
+    return this.record.value === 'accepted';
+  }
+
+  serializeValue(): string {
+    return this.record.value ? 'accepted' : 'refused';
   }
 
   toggle(e): void {
-    console.log(e);
-    // TODO user : submit e.checked
+    this.saveChanges();
   }
 
 }

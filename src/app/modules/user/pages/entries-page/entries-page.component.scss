@@ -3,7 +3,31 @@
   max-width: 1000px;
   margin: auto;
 
-  h1 {
-    margin: 1em;
-  }
+}
+
+.user-page {
+  display: grid;
+  grid-template-areas: 'details details' 'treatments preferences';
+  grid-template-columns: 50% 50%;
+  grid-gap: 1.5em;
+}
+
+.user-details {
+  grid-area: details;
+}
+
+.user-treatments {
+  grid-area: treatments;
+}
+
+.user-preferences {
+  grid-area: preferences;
+}
+
+h2 {
+  margin-bottom: 0
+}
+p {
+  font-size: .9em;
+  opacity: .8;
 }

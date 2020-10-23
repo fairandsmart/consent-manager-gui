@@ -1,5 +1,20 @@
-<h1>{{'USER.TITLE' | translate}}</h1>
-
-<div *ngFor="let card of data">
-  <cm-entry-card [entry]="card.entry" [record]="card.record"></cm-entry-card>
+<div class="user-page">
+  <div class="user-details">
+    <img src="" alt="User picture">
+    <!-- CGU here -->
+  </div>
+  <div class="user-treatments">
+    <mat-card>
+      <h2>Consentements</h2>
+      <p>Gérez et modifiez vos consentements depuis cette page</p>
+      <cm-entry-card [entry]="card.entry" [record]="card.record" *ngFor="let card of filterCards(data, 'treatment')"></cm-entry-card>
+    </mat-card>
+  </div>
+  <div class="user-preferences">
+    <mat-card>
+      <h2>Préférences</h2>
+      <p>Gérez et modifiez vos préférences depuis cette page</p>
+      <cm-entry-card [entry]="card.entry" [record]="card.record" *ngFor="let card of filterCards(data, 'preference')"></cm-entry-card>
+    </mat-card>
+  </div>
 </div>
