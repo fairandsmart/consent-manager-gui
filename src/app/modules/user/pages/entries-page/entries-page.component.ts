@@ -3,7 +3,7 @@ import { environment } from '../../../../../environments/environment';
 import { ModelsResourceService } from '../../../../core/http/models-resource.service';
 import { SubjectsResourceService } from '../../../../core/http/subjects-resource.service';
 import { KeycloakService } from 'keycloak-angular';
-import { ModelEntryDto, RecordDto } from '../../../../core/models/models';
+import { ModelDataType, ModelEntryDto, RecordDto } from '../../../../core/models/models';
 import { combineLatest, Subscription } from 'rxjs';
 import { map } from 'rxjs/operators';
 import * as _ from 'lodash';
@@ -23,6 +23,10 @@ export class EntriesPageComponent implements OnInit, OnDestroy {
   public elementsKeys: string[];
   public data: CardData[] = [];
   private subs: Subscription[] = [];
+
+  get username(): string {
+    return this.keycloakService.getUsername();
+  }
 
   constructor(public keycloakService: KeycloakService,
               public modelsResourceService: ModelsResourceService,
@@ -50,6 +54,10 @@ export class EntriesPageComponent implements OnInit, OnDestroy {
 
   ngOnDestroy(): void {
     this.subs?.forEach(s => s.unsubscribe());
+  }
+
+  filterCards(cards: CardData[], category: ModelDataType): CardData[] {
+    return cards.filter((card) => card.entry?.type === category);
   }
 
 }

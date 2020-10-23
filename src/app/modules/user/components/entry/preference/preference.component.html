@@ -1,21 +1,22 @@
-<mat-card>
-  <mat-card-title>{{getData()?.label}}</mat-card-title>
+<div class="model-entry">
+  <div class="model-name vertical">
+    {{getData()?.label}}
+    <small *ngIf="getData()?.description">{{getData().description}}</small>
+  </div>
+  <div class="model-action" *ngIf="value">
 
-  <mat-card-content>
-    <div *ngIf="getData().description">
-      {{getData().description}}
-    </div>
+    <form *ngIf="getData()?.valueType !== 'NONE'" class="answer-container" [formGroup]="value">
 
-    <form *ngIf="getData().valueType !== 'NONE'" class="answer-container" [formGroup]="form">
-      <div *ngIf="getData().valueType === 'TOGGLE'">
+      <div *ngIf="getData()?.valueType === 'TOGGLE'">
         <div class="user-input">
           <label>{{getData().options[0]}}</label>
-          <mat-slide-toggle formControlName="answer"></mat-slide-toggle>
+          <mat-slide-toggle formControlName="answer" ></mat-slide-toggle>
           <label>{{getData().options[1]}}</label>
         </div>
       </div>
 
-      <div *ngIf="getData().valueType === 'CHECKBOXES'">
+
+      <div *ngIf="getData()?.valueType === 'CHECKBOXES'">
         <ul formArrayName="answersArray">
           <li *ngFor="let option of getData().options; index as index">
             <mat-checkbox [formControlName]="index">{{option}}</mat-checkbox>
@@ -23,7 +24,7 @@
         </ul>
       </div>
 
-      <div *ngIf="getData().valueType === 'RADIO_BUTTONS'">
+      <div *ngIf="getData()?.valueType === 'RADIO_BUTTONS'">
         <mat-radio-group formControlName="answer">
           <ul>
             <li *ngFor="let option of getData().options">
@@ -33,7 +34,8 @@
         </mat-radio-group>
       </div>
 
-      <div *ngIf="getData().valueType === 'LIST_SINGLE' || getData().valueType === 'LIST_MULTI'">
+
+      <div *ngIf="getData()?.valueType === 'LIST_SINGLE' || getData()?.valueType === 'LIST_MULTI'">
         <mat-form-field appearance="outline">
           <mat-label>{{'ENTRIES.EDITOR.PREFERENCE.OPTIONS.LABEL' | translate}}</mat-label>
           <mat-select [multiple]="getData().valueType === 'LIST_MULTI'"
@@ -45,13 +47,13 @@
         </mat-form-field>
       </div>
 
-      <div *ngIf="getData().valueType === 'FREE_TEXT'">
+      <div *ngIf="getData()?.valueType === 'FREE_TEXT'">
         <mat-form-field appearance="outline">
           <mat-label>{{'ENTRIES.EDITOR.PREFERENCE.OPTIONS.LABEL' | translate}}</mat-label>
           <input formControlName="answer" matInput autocomplete="off">
         </mat-form-field>
       </div>
     </form>
+  </div>
+</div>
 
-  </mat-card-content>
-</mat-card>

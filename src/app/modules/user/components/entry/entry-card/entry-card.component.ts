@@ -1,5 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { ModelEntryDto, ModelVersionDto, RecordDto } from '../../../../../core/models/models';
+import { ModelData, ModelEntryDto, ModelVersionDto, RecordDto } from '../../../../../core/models/models';
 import { ModelsResourceService } from '../../../../../core/http/models-resource.service';
 
 @Component({

@@ -1,51 +1,51 @@
-<mat-card>
-  <mat-card-title>{{getData()?.treatmentTitle}}</mat-card-title>
+<div class="model-entry">
+  <div class="model-name">
+    <mat-icon (click)="showDetails = !showDetails">help_outline</mat-icon>
+    {{getData()?.treatmentTitle}}
+  </div>
+  <div class="model-action">
+    <div class="user-input">
+      <label>{{'USER.REFUSE' | translate}}</label>
+      <mat-slide-toggle [disabled]="loading" [(ngModel)]="value" (change)="toggle($event)"></mat-slide-toggle>
+      <label>{{'USER.ACCEPT' | translate}}</label>
+    </div>
+  </div>
+</div>
 
-  <mat-card-content>
-    <mat-accordion>
-      <mat-expansion-panel>
+<mat-accordion>
+  <mat-expansion-panel [expanded]="showDetails">
 
-        <mat-expansion-panel-header>
-          <mat-panel-title>
-            {{'USER.DETAILS' | translate}}
-          </mat-panel-title>
-        </mat-expansion-panel-header>
+    <mat-expansion-panel-header>
+      <mat-panel-title>
+        {{'USER.DETAILS' | translate}}
+      </mat-panel-title>
+    </mat-expansion-panel-header>
 
-        <div class="paragraph">
-          <h2 *ngIf="getData()?.dataTitle">
-            {{getData()?.dataTitle}}
-          </h2>
-          <div>
-            {{getData()?.dataBody}}
-          </div>
-        </div>
-        <div class="paragraph">
-          <h2 *ngIf="getData()?.retentionTitle">
-            {{getData()?.retentionTitle}}
-          </h2>
-          <div>
-            {{getData()?.retentionBody}}
-          </div>
-        </div>
-        <div class="paragraph">
-          <h2 *ngIf="getData()?.usageTitle">
-            {{getData()?.usageTitle}}
-          </h2>
-          <div>
-            {{getData()?.usageBody}}
-          </div>
-        </div>
-
-      </mat-expansion-panel>
-    </mat-accordion>
-
-    <div class="answer-container">
-      <div class="user-input">
-        <label>{{'USER.REFUSE' | translate}}</label>
-        <mat-slide-toggle [(ngModel)]="value" (change)="toggle($event)"></mat-slide-toggle>
-        <label>{{'USER.ACCEPT' | translate}}</label>
+    <div class="paragraph">
+      <h2 *ngIf="getData()?.dataTitle">
+        {{getData()?.dataTitle}}
+      </h2>
+      <div>
+        {{getData()?.dataBody}}
+      </div>
+    </div>
+    <div class="paragraph">
+      <h2 *ngIf="getData()?.retentionTitle">
+        {{getData()?.retentionTitle}}
+      </h2>
+      <div>
+        {{getData()?.retentionBody}}
+      </div>
+    </div>
+    <div class="paragraph">
+      <h2 *ngIf="getData()?.usageTitle">
+        {{getData()?.usageTitle}}
+      </h2>
+      <div>
+        {{getData()?.usageBody}}
       </div>
     </div>
 
-  </mat-card-content>
-</mat-card>
+  </mat-expansion-panel>
+</mat-accordion>
+
