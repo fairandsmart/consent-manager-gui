@@ -6,7 +6,7 @@
   <div class="model-action">
     <div class="user-input">
       <label>{{'USER.REFUSE' | translate}}</label>
-      <mat-slide-toggle [disabled]="loading || value" [(ngModel)]="value" (change)="toggle($event)"></mat-slide-toggle>
+      <mat-slide-toggle [formControl]="control"></mat-slide-toggle>
       <label>{{'USER.ACCEPT' | translate}}</label>
     </div>
   </div>
@@ -14,15 +14,12 @@
 
 <mat-accordion>
   <mat-expansion-panel [expanded]="showDetails">
-
     <mat-expansion-panel-header>
       <mat-panel-title>
         {{'USER.DETAILS' | translate}}
       </mat-panel-title>
     </mat-expansion-panel-header>
-
     <div [innerHTML]="body" class="conditions-body"></div>
-
   </mat-expansion-panel>
 </mat-accordion>
 

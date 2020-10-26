@@ -1,7 +1,9 @@
 import { Directive, Input, OnInit } from '@angular/core';
 import {
   CollectionMethod,
-  ConsentContext, ConsentFormOrientation, ConsentFormType,
+  ConsentContext,
+  ConsentFormOrientation,
+  ConsentFormType,
   ModelData,
   ModelEntryDto,
   ModelVersionDto,
@@ -10,12 +12,14 @@ import {
 import { TranslateService } from '@ngx-translate/core';
 import { catchError, mergeMap, tap } from 'rxjs/operators';
 import { HttpParams } from '@angular/common/http';
-import { throwError } from 'rxjs';
+import { EMPTY } from 'rxjs';
 import { KeycloakService } from 'keycloak-angular';
 import { ConsentsResourceService } from '../../../../../core/http/consents-resource.service';
+import { AlertService } from '../../../../../core/services/alert.service';
+import { FormControl } from '@angular/forms';
 
 @Directive()
-export abstract class EntryCardContentDirective<T extends ModelData, U = string> implements OnInit {
+export abstract class EntryCardContentDirective<T extends ModelData> implements OnInit {
 
   @Input()
   entry: ModelEntryDto;
@@ -27,35 +31,46 @@ export abstract class EntryCardContentDirective<T extends ModelData, U = string>
   record: RecordDto;
 
   remoteValue: string;
-  value: U;
-  loading: boolean;
+
+  control: FormControl;
 
   protected constructor(
     protected translate: TranslateService,
     protected keycloakService: KeycloakService,
-    protected consentsResourceService: ConsentsResourceService
+    protected consentsResourceService: ConsentsResourceService,
+    protected alertService: AlertService
   ) {}
 
   ngOnInit(): void {
-    if (this.record) {
-      this.value = this.parseValue();
-    }
+    this.remoteValue = this.record?.value;
+    const state = this.parseValue();
+    this.control = new FormControl(state);
+    this.control.valueChanges.subscribe(e => {
+      this.saveChanges();
+    });
   }
 
-  abstract parseValue(): U;
+  abstract parseValue(): any;
   abstract serializeValue(): string;
-  saved(err?: Error): void {};
 
   getData(): T {
     return this.version.data[this.translate.currentLang];
   }
 
-  saveChanges(): void {
-    this.loading = true;
-    if (this.record) {
-      this.remoteValue = this.record.value;
-    }
+  protected enableControl(): void {
+    this.control.enable({emitEvent: false});
+  }
+
+  protected disableControl(): void {
+    this.control.disable({emitEvent: false});
+  }
+
+  protected saveChanges(): void {
     const newValue = this.serializeValue();
+    if (this.remoteValue === newValue) {
+      return;
+    }
+    this.disableControl();
     const element = `element/${this.entry.type}/${this.entry.key}/${this.entry.versions[this.entry.versions.length - 1].serial}`;
     const context: ConsentContext = {
       subject: this.keycloakService.getUsername(),
@@ -87,16 +102,14 @@ export abstract class EntryCardContentDirective<T extends ModelData, U = string>
       }),
       tap(() => {
         // Success
-        this.loading = false;
+        this.alertService.success('USER.SAVE.SUCCESS');
         this.remoteValue = newValue;
-        if (!!this.saved) { this.saved(); }
+        this.enableControl();
       }),
       catchError((err) => {
-        // TODO display alert, revert to visual initial state
-        this.value = this.parseValue();
-        this.loading = false;
-        if (!!this.saved) { this.saved(err); }
-        return throwError(err);
+        this.alertService.error('USER.SAVE.ERROR', err);
+        // TODO revert to remoteValue state
+        return EMPTY;
       })
     ).subscribe();
   }

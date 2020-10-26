@@ -1,115 +1,92 @@
-import { Component, OnInit, SimpleChanges } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { EntryCardContentDirective } from '../entry-card-content/entry-card-content.directive';
-import {
-  CollectionMethod,
-  ConsentContext,
-  ConsentFormOrientation, ConsentFormType,
-  Preference,
-  PreferenceValueType
-} from '../../../../../core/models/models';
+import { Preference, PreferenceValueType } from '../../../../../core/models/models';
 import { TranslateService } from '@ngx-translate/core';
-import { FormArray, FormBuilder, FormGroup } from '@angular/forms';
-import { debounceTime, distinctUntilChanged, filter, skip, startWith } from 'rxjs/operators';
+import { FormControl, FormGroup } from '@angular/forms';
+import { debounceTime } from 'rxjs/operators';
 import { KeycloakService } from 'keycloak-angular';
 import { ConsentsResourceService } from '../../../../../core/http/consents-resource.service';
+import { AlertService } from '../../../../../core/services/alert.service';
 
 @Component({
   selector: 'cm-preference',
   templateUrl: './preference.component.html',
   styleUrls: ['../entry-card/entry-card.component.scss', './preference.component.scss']
 })
-export class PreferenceComponent extends EntryCardContentDirective<Preference, FormGroup> implements OnInit {
+export class PreferenceComponent extends EntryCardContentDirective<Preference> implements OnInit {
 
   private saveDelay = 500;
 
-  constructor(private fb: FormBuilder, public translate: TranslateService,
-              protected keycloakService: KeycloakService,
-              protected consentsResourceService: ConsentsResourceService) {
-    super(translate, keycloakService, consentsResourceService);
+  readonly TYPES = PreferenceValueType;
+
+  checkboxesGroup: FormGroup;
+
+  constructor(
+    translate: TranslateService,
+    keycloakService: KeycloakService,
+    consentsResourceService: ConsentsResourceService,
+    alertService: AlertService
+  ) {
+    super(translate, keycloakService, consentsResourceService, alertService);
   }
 
   ngOnInit(): void {
-    this.value = this.parseValue();
-    this.initSaves();
-    this.patchValues();
-  }
-
-  patchValues(): void {
-    if (this.record) {
-      const valueType: PreferenceValueType = this.getData().valueType;
-      if (valueType === 'FREE_TEXT' || valueType === 'RADIO_BUTTONS' || valueType === 'LIST_SINGLE') {
-        this.value.get('answer').patchValue(this.record.value);
-      } else if (valueType === 'LIST_MULTI') {
-        this.value.get('answersList').patchValue(this.record.value.split(','));
-      } else if (valueType === 'TOGGLE') {
-        if (this.record.value === this.getData().options[1]) {
-          this.value.get('answer').patchValue(this.getData().options[1]);
-        } else {
-          this.value.get('answer').patchValue(this.getData().options[0]);
-        }
-      } else if (valueType === 'CHECKBOXES') {
-        const valuesList = this.record.value.split(',');
-        const answersArray = this.value.get('answersArray') as FormArray;
-        const options = this.getData().options;
-        for (let index = 0; index < options.length; index++) {
-          answersArray.at(index).patchValue(valuesList.includes(options[index]));
-        }
-      }
+    this.remoteValue = this.record?.value;
+    const state = this.parseValue();
+    if (this.getData().valueType === PreferenceValueType.CHECKBOXES) {
+      this.checkboxesGroup = new FormGroup({});
+      this.getData().options.forEach(o => {
+        this.checkboxesGroup.addControl(o, new FormControl(state.indexOf(o) !== -1));
+      });
+      this.checkboxesGroup.valueChanges.subscribe(v => {
+        const checkedValues = Object.keys(v).filter(o => v[o]);
+        this.control.setValue(checkedValues);
+      });
     }
-  }
-
-  initSaves(): void {
-    this.value.valueChanges.pipe(
-      distinctUntilChanged((a, b) => JSON.stringify(a) === JSON.stringify(b)),
-      skip(1),
+    this.control = new FormControl(state);
+    this.control.valueChanges.pipe(
       debounceTime(this.saveDelay)
-    ).subscribe((changes) => {
-      this.value.disable(); // triggers valueChanges, hence distinctUntilChanged
+    ).subscribe(e => {
       this.saveChanges();
     });
   }
 
-  saved(err: Error): void {
-    this.value.enable();
-    if (err) {
-      this.initSaves();
-    }
+  enableControl(): void {
+    super.enableControl();
+    this.checkboxesGroup?.enable({emitEvent: false});
   }
 
-  parseValue(): FormGroup {
-    const form = this.fb.group({
-      answer: [''],
-      answersList: [[]],
-      answersArray: this.fb.array([])
-    });
-    if (this.getData().valueType === 'CHECKBOXES') {
-      const answersArray = form.get('answersArray') as FormArray;
-      this.getData().options.forEach(() => answersArray.push(this.fb.control(false)));
+  disableControl(): void {
+    super.disableControl();
+    this.checkboxesGroup?.disable({emitEvent: false});
+  }
+
+  parseValue(): any {
+    switch (this.getData().valueType) {
+      case PreferenceValueType.FREE_TEXT:
+      case PreferenceValueType.RADIO_BUTTONS:
+      case PreferenceValueType.LIST_SINGLE:
+        return this.record?.value;
+      case PreferenceValueType.LIST_MULTI:
+      case PreferenceValueType.CHECKBOXES:
+        return this.record?.value.split(',') ?? [];
+      case PreferenceValueType.TOGGLE:
+        return this.record?.value === this.getData().options[1];
     }
-    return form;
   }
 
   serializeValue(): string {
-    const rawValues = this.value.getRawValue();
-    const valueType: PreferenceValueType = this.getData().valueType;
-    const options = this.getData().options;
-    let value;
-    if (valueType === 'FREE_TEXT' || valueType === 'RADIO_BUTTONS' || valueType === 'LIST_SINGLE') {
-      value = rawValues.answer;
-    } else if (valueType === 'LIST_MULTI') {
-      value = rawValues.answersList.join(',');
-    } else if (valueType === 'TOGGLE') {
-      value = rawValues.answer ? options[1] : options[0];
-    } else if (valueType === 'CHECKBOXES') {
-      const valuesList = [];
-      for (let index = 0; index < options.length; index++) {
-        if (rawValues.answersArray[index]) {
-          valuesList.push(options[index]);
-        }
-      }
-      value = valuesList.join(',');
+    switch (this.getData().valueType) {
+      case PreferenceValueType.FREE_TEXT:
+      case PreferenceValueType.RADIO_BUTTONS:
+      case PreferenceValueType.LIST_SINGLE:
+        return this.control.value;
+      case PreferenceValueType.LIST_MULTI:
+      case PreferenceValueType.CHECKBOXES:
+        return this.control.value.join(',');
+      case PreferenceValueType.TOGGLE:
+        return this.control.value ? this.getData().options[1] : this.getData().options[0];
     }
-    return value;
   }
 
 }

@@ -637,7 +637,11 @@
     },
     "DETAILS": "Détails",
     "ACCEPT": "J'accepte",
-    "REFUSE": "Je refuse"
+    "REFUSE": "Je refuse",
+    "SAVE": {
+      "SUCCESS": "Modifications sauvegardées",
+      "ERROR": "Une erreur inattendue est survenue"
+    }
   },
   "DASHBOARD": {
     "TITLE1": "Consentements collectés",

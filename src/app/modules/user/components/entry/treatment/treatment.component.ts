@@ -1,24 +1,27 @@
 import { Component, OnInit } from '@angular/core';
 import { EntryCardContentDirective } from '../entry-card-content/entry-card-content.directive';
-import { Treatment  } from '../../../../../core/models/models';
+import { Treatment } from '../../../../../core/models/models';
 import { TranslateService } from '@ngx-translate/core';
 import { ConsentsResourceService } from '../../../../../core/http/consents-resource.service';
 import { KeycloakService } from 'keycloak-angular';
+import { AlertService } from '../../../../../core/services/alert.service';
+
 @Component({
   selector: 'cm-treatment',
   templateUrl: './treatment.component.html',
   styleUrls: ['../entry-card/entry-card.component.scss', './treatment.component.scss']
 })
-export class TreatmentComponent extends EntryCardContentDirective<Treatment, boolean> implements OnInit {
+export class TreatmentComponent extends EntryCardContentDirective<Treatment> implements OnInit {
 
   showDetails: boolean;
 
   constructor(
-    public translate: TranslateService,
-    protected keycloakService: KeycloakService,
-    protected consentsResourceService: ConsentsResourceService,
+    translate: TranslateService,
+    keycloakService: KeycloakService,
+    consentsResourceService: ConsentsResourceService,
+    alertService: AlertService
   ) {
-    super(translate, keycloakService, consentsResourceService);
+    super(translate, keycloakService, consentsResourceService, alertService);
   }
 
   ngOnInit(): void {
@@ -30,11 +33,7 @@ export class TreatmentComponent extends EntryCardContentDirective<Treatment, boo
   }
 
   serializeValue(): string {
-    return this.value ? 'accepted' : 'refused';
-  }
-
-  toggle(e): void {
-    this.saveChanges();
+    return this.control.value ? 'accepted' : 'refused';
   }
 
 }

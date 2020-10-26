@@ -634,7 +634,11 @@
     },
     "DETAILS": "Details",
     "ACCEPT": "I accept",
-    "REFUSE": "I refuse"
+    "REFUSE": "I refuse",
+    "SAVE": {
+      "SUCCESS": "Changes saved",
+      "ERROR": "An unexpected error occurred"
+    }
   },
   "DASHBOARD": {
     "TITLE1": "Collected consents",

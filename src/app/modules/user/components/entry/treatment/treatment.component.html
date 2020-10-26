@@ -6,7 +6,7 @@
   <div class="model-action">
     <div class="user-input">
       <label>{{'USER.REFUSE' | translate}}</label>
-      <mat-slide-toggle [disabled]="loading" [(ngModel)]="value" (change)="toggle($event)"></mat-slide-toggle>
+      <mat-slide-toggle [formControl]="control"></mat-slide-toggle>
       <label>{{'USER.ACCEPT' | translate}}</label>
     </div>
   </div>
