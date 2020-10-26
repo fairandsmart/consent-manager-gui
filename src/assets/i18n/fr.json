@@ -65,6 +65,7 @@
       "DELETED": "Supprimé",
       "VALID": "Valide",
       "OBSOLETE": "Obsolète",
+      "EXPIRED": "Expiré",
       "IRRELEVANT": "Hors sujet"
     }
   },
@@ -614,7 +615,7 @@
         "KEY": "Votre clé d'accès à l'API",
         "HOW_TO": {
           "TITLE": "Comment l'utiliser",
-          "EXPLAIN": "Cette clé est à utiliser comme un mot de passe Http Basic classique dans les entêtes des requêtes faites à l'application"
+          "EXPLAIN": "Cette clé est à utiliser comme un mot de passe Http Basic classique dans les entêtes des requêtes faites à l'application."
         }
       },
       "DROP": {
@@ -626,6 +627,14 @@
     }
   },
   "USER": {
+    "CONSENTS": {
+      "TITLE": "Consentements",
+      "HINT": "Gérez et modifiez vos consentements depuis cette page."
+    },
+    "PREFERENCES": {
+      "TITLE": "Préférences",
+      "HINT": "Gérez et modifiez vos préférences depuis cette page."
+    },
     "DETAILS": "Détails",
     "ACCEPT": "J'accepte",
     "REFUSE": "Je refuse"

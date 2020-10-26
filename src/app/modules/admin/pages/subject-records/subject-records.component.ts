@@ -213,4 +213,10 @@ export class SubjectRecordsComponent implements OnInit {
     }
   }
 
+  formatPreferenceValue(value): string {
+    if (value) {
+      return value.split(',').join(' ;<br>');
+    }
+    return value;
+  }
 }

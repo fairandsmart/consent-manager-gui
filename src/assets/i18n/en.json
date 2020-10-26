@@ -65,6 +65,7 @@
       "DELETED": "Deleted",
       "VALID": "Valid",
       "OBSOLETE": "Obsolete",
+      "EXPIRED": "Expired",
       "IRRELEVANT": "Irrelevant"
     }
   },
@@ -614,7 +615,7 @@
         "KEY": "Your API access key",
         "HOW_TO": {
           "TITLE": "How to use it",
-          "EXPLAIN": "This key cna be used in Http request headers of API request as any kind of classic Http Basic password"
+          "EXPLAIN": "This key cna be used in Http request headers of API request as any kind of classic Http Basic password."
         }
       },
       "DROP": {
@@ -623,6 +624,14 @@
     }
   },
   "USER": {
+    "CONSENTS": {
+      "TITLE": "Consents",
+      "HINT": "Manage and update your consents on this page."
+    },
+    "PREFERENCES": {
+      "TITLE": "Preferences",
+      "HINT": "Manage and update your preferences on this page."
+    },
     "DETAILS": "Details",
     "ACCEPT": "I accept",
     "REFUSE": "I refuse"

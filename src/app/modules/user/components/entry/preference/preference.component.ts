@@ -20,7 +20,6 @@ import { ConsentsResourceService } from '../../../../../core/http/consents-resou
 })
 export class PreferenceComponent extends EntryCardContentDirective<Preference, FormGroup> implements OnInit {
 
-  showDetails: boolean;
   private saveDelay = 500;
 
   constructor(private fb: FormBuilder, public translate: TranslateService,
@@ -112,6 +111,5 @@ export class PreferenceComponent extends EntryCardContentDirective<Preference, F
     }
     return value;
   }
-
 
 }
