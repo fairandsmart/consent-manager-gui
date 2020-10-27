@@ -19,6 +19,7 @@ import { COMMA, ENTER } from '@angular/cdk/keycodes';
 })
 export class PreferenceComponent extends EntryContentDirective<Preference> implements OnInit {
 
+  static CONTEXT = 'preference';
   public readonly VALUE_TYPES = PREFERENCE_VALUE_TYPES;
 
   separatorKeysCodes: number[] = [ENTER, COMMA];
@@ -29,7 +30,7 @@ export class PreferenceComponent extends EntryContentDirective<Preference> imple
     modelsResourceService: ModelsResourceService,
     alertService: AlertService,
     sanitizer: DomSanitizer) {
-    super(modelsResourceService, alertService, sanitizer);
+    super(PreferenceComponent.CONTEXT, modelsResourceService, alertService, sanitizer);
   }
 
   get type(): ModelDataType {
@@ -49,6 +50,10 @@ export class PreferenceComponent extends EntryContentDirective<Preference> imple
       valueType: ['NONE', [Validators.required]],
       options: [[]]
     });
+    this.checkFormState();
+  }
+
+  registerFormChanges(): void {
     this.form.get('valueType').valueChanges.subscribe(v => {
       if (v === 'NONE' || v === 'FREE_TEXT') {
         this.form.get('options').setValue([]);
@@ -62,7 +67,7 @@ export class PreferenceComponent extends EntryContentDirective<Preference> imple
       }
       this.form.get('options').updateValueAndValidity();
     });
-    this.initPreview();
+    super.registerFormChanges();
   }
 
   addOption($event: MatChipInputEvent): void {

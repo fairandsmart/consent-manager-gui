@@ -157,6 +157,12 @@
       "version": {
         "LABEL": "Version"
       },
+      "saveState": {
+        "title": "You left the page",
+        "content": "You left the page without saving last time. Do you wish to restore the form you left ?",
+        "accept": "Yes",
+        "refuse": "No"
+      },
       "EMPTY_LIST": "Nothing to display"
     },
     "CREATE_BUTTON": "New entry",

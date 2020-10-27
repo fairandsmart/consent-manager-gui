@@ -157,6 +157,12 @@
       "version": {
         "LABEL": "Version"
       },
+      "saveState": {
+        "title": "Formulaire abandonné",
+        "content": "Vous avez quitté la page sans sauvegarder les changements. Voulez-vous les restaurer ?",
+        "accept": "Oui",
+        "refuse": "Non"
+      },
       "EMPTY_LIST": "Aucun élément"
     },
     "CREATE_BUTTON": "Nouvel élément",

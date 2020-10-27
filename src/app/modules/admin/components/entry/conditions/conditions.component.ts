@@ -24,6 +24,7 @@ import { environment } from '../../../../../../environments/environment';
 })
 export class ConditionsComponent extends EntryContentDirective<Conditions> implements OnInit {
 
+  static CONTEXT = 'conditions';
   readonly CODE_MIRROR_OPTIONS = {
     lineNumbers: true,
     mode: 'htmlmixed',
@@ -43,7 +44,7 @@ export class ConditionsComponent extends EntryContentDirective<Conditions> imple
       alertService: AlertService,
       sanitizer: DomSanitizer,
       private dialog: MatDialog) {
-    super(modelsResourceService, alertService, sanitizer);
+    super(ConditionsComponent.CONTEXT, modelsResourceService, alertService, sanitizer);
   }
 
   get type(): ModelDataType {
@@ -62,7 +63,7 @@ export class ConditionsComponent extends EntryContentDirective<Conditions> imple
       acceptLabel: ['', [Validators.required]],
       rejectLabel: ['', [Validators.required]]
     });
-    this.initPreview();
+    this.checkFormState();
   }
 
   openApiUrlDialog(): void {

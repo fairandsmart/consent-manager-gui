@@ -21,6 +21,7 @@ import { AlertService } from '../../../../../core/services/alert.service';
 })
 export class TreatmentComponent extends EntryContentDirective<Treatment> implements OnInit {
 
+  static CONTEXT = 'treatment-form';
   readonly PURPOSES = TREATMENT_PURPOSES;
 
   constructor(
@@ -28,7 +29,7 @@ export class TreatmentComponent extends EntryContentDirective<Treatment> impleme
       modelsResourceService: ModelsResourceService,
       alertService: AlertService,
       sanitizer: DomSanitizer) {
-    super(modelsResourceService, alertService, sanitizer);
+    super(TreatmentComponent.CONTEXT, modelsResourceService, alertService, sanitizer);
   }
 
   get type(): ModelDataType {
@@ -63,16 +64,25 @@ export class TreatmentComponent extends EntryContentDirective<Treatment> impleme
       showDataController: [{value: false, disabled: true}],
       thirdParties: this.fb.array([])
     });
+    this.checkFormState();
+  }
 
+  registerFormChanges(): void {
     this.form.get('dataController').valueChanges.subscribe(v => this.dataControllerChange(v));
-
-    this.initPreview();
+    super.registerFormChanges();
   }
 
   protected setVersion(version: ModelVersionDto<Treatment>, locale: string = this.version.defaultLocale): void {
     this.form.setControl('thirdParties', this.fb.array([]));
     version.data[locale].thirdParties.forEach(tp => this.addThirdParty());
     super.setVersion(version, locale);
+  }
+
+  restoreFormArray(controlName: string, state: any[]): void {
+    if (controlName === 'thirdParties') {
+      state.forEach(() => this.addThirdParty());
+      this.getThirdParties().setValue(state);
+    }
   }
 
   getThirdParties(): FormArray {

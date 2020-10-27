@@ -25,6 +25,7 @@ const snippets: { text: string, displayText: string }[] = [
 })
 export class ThemeComponent extends EntryContentDirective<Theme> implements OnInit {
 
+  static CONTEXT = 'theme';
   readonly TARGET_TYPES = TARGET_TYPES;
   readonly CODE_MIRROR_OPTIONS = {
     lineNumbers: true,
@@ -103,7 +104,7 @@ export class ThemeComponent extends EntryContentDirective<Theme> implements OnIn
       modelsResourceService: ModelsResourceService,
       alertService: AlertService,
       sanitizer: DomSanitizer) {
-    super(modelsResourceService, alertService, sanitizer);
+    super(ThemeComponent.CONTEXT, modelsResourceService, alertService, sanitizer);
   }
 
   get type(): ModelDataType {
@@ -120,7 +121,7 @@ export class ThemeComponent extends EntryContentDirective<Theme> implements OnIn
       targetType: ['', [Validators.required]],
       css: ['', [Validators.required]]
     });
-    this.initPreview();
+    this.checkFormState();
   }
 
 

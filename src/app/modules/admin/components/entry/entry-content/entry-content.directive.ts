@@ -18,18 +18,16 @@ import { HttpErrorResponse } from '@angular/common/http';
 import { environment } from '../../../../../../environments/environment';
 import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
 import { AlertService } from '../../../../../core/services/alert.service';
+import {FormStateSaver} from '../../../utils/form-state-saver';
 
 @Directive()
-export abstract class EntryContentDirective<T extends ModelData> implements OnInit {
+export abstract class EntryContentDirective<T extends ModelData> extends FormStateSaver implements OnInit {
 
   @Input()
   entry: ModelEntryDto;
 
   @Input()
   version: ModelVersionDto<T>;
-
-  form: FormGroup;
-
   initialValue: T;
 
   private previewDelay = 500;
@@ -41,9 +39,11 @@ export abstract class EntryContentDirective<T extends ModelData> implements OnIn
   private readonly defaultLocale = environment.customization.defaultLocale;
 
   protected constructor(
+    context: string,
     protected modelsResourceService: ModelsResourceService,
     protected alertService: AlertService,
     protected sanitizer: DomSanitizer) {
+    super(context);
   }
 
   ngOnInit(): void {
@@ -61,11 +61,30 @@ export abstract class EntryContentDirective<T extends ModelData> implements OnIn
 
   protected abstract initForm(): void;
 
+  notifyExistingFormState(): void {
+    this.alertService.confirm({
+      data: {
+        title: 'ENTRIES.COMMON.saveState.title',
+        content: 'ENTRIES.COMMON.saveState.content',
+        confirm: 'ENTRIES.COMMON.saveState.accept',
+        cancel: 'ENTRIES.COMMON.saveState.refuse'
+      }
+    }).afterClosed().subscribe((restore) => {
+      this.registerFormChanges();
+      if (restore) {
+        this.restoreFormState();
+      } else {
+        this.clearSavedState();
+      }
+    });
+  }
+
   protected initPreview(): void {
     this.form.valueChanges.pipe(
       startWith(this.form.getRawValue() as T),
       debounceTime(this.previewDelay)
     ).subscribe(() => {
+      this.formStateChanged();
       this.refreshPreview();
     });
   }
@@ -128,6 +147,7 @@ export abstract class EntryContentDirective<T extends ModelData> implements OnIn
       }
       obs.subscribe(version => {
         this.updateVersion(version);
+        this.clearSavedState();
         this.alertService.success('ALERT.SAVE_SUCCESS');
       }, err => {
         this.alertService.error('ALERT.SAVE_ERROR', err);
@@ -176,6 +196,14 @@ export abstract class EntryContentDirective<T extends ModelData> implements OnIn
 
   isLatestVersion(): boolean {
     return this.entry && (this.entry.versions.length < 2 || _.last(this.entry.versions).id === this.version.id);
+  }
+
+  registerFormChanges(): void {
+    this.initPreview();
+  }
+
+  restoreFormArray(controlName: string, state: any[]): void {
+    return;
   }
 
 }
