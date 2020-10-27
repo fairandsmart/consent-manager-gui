@@ -51,12 +51,22 @@ export class PreferenceComponent extends EntryCardContentDirective<Preference> i
     });
   }
 
-  enableControl(): void {
+  protected resetState(): void {
+    const state = this.parseValue();
+    this.control.setValue(state, {emitEvent: false});
+    if (this.getData().valueType === PreferenceValueType.CHECKBOXES) {
+      this.getData().options.forEach(o => {
+        this.checkboxesGroup.get(o).setValue(state.indexOf(o) !== -1);
+      });
+    }
+  }
+
+  protected enableControl(): void {
     super.enableControl();
     this.checkboxesGroup?.enable({emitEvent: false});
   }
 
-  disableControl(): void {
+  protected disableControl(): void {
     super.disableControl();
     this.checkboxesGroup?.disable({emitEvent: false});
   }
@@ -66,12 +76,12 @@ export class PreferenceComponent extends EntryCardContentDirective<Preference> i
       case PreferenceValueType.FREE_TEXT:
       case PreferenceValueType.RADIO_BUTTONS:
       case PreferenceValueType.LIST_SINGLE:
-        return this.record?.value;
+        return this.remoteValue;
       case PreferenceValueType.LIST_MULTI:
       case PreferenceValueType.CHECKBOXES:
-        return this.record?.value.split(',') ?? [];
+        return this.remoteValue?.split(',') ?? [];
       case PreferenceValueType.TOGGLE:
-        return this.record?.value === this.getData().options[1];
+        return this.remoteValue === this.getData().options[1];
     }
   }
 

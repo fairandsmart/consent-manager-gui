@@ -29,7 +29,7 @@ export class TreatmentComponent extends EntryCardContentDirective<Treatment> imp
   }
 
   parseValue(): boolean {
-    return this.record && this.record.value === 'accepted';
+    return this.remoteValue === 'accepted';
   }
 
   serializeValue(): string {

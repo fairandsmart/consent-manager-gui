@@ -45,7 +45,7 @@ export abstract class EntryCardContentDirective<T extends ModelData> implements 
     this.remoteValue = this.record?.value;
     const state = this.parseValue();
     this.control = new FormControl(state);
-    this.control.valueChanges.subscribe(e => {
+    this.control.valueChanges.subscribe(() => {
       this.saveChanges();
     });
   }
@@ -55,6 +55,11 @@ export abstract class EntryCardContentDirective<T extends ModelData> implements 
 
   getData(): T {
     return this.version.data[this.translate.currentLang];
+  }
+
+  protected resetState(): void {
+    const state = this.parseValue();
+    this.control.setValue(state, {emitEvent: false});
   }
 
   protected enableControl(): void {
@@ -108,7 +113,8 @@ export abstract class EntryCardContentDirective<T extends ModelData> implements 
       }),
       catchError((err) => {
         this.alertService.error('USER.SAVE.ERROR', err);
-        // TODO revert to remoteValue state
+        this.resetState();
+        this.enableControl();
         return EMPTY;
       })
     ).subscribe();
