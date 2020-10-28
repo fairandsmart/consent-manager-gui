@@ -12,7 +12,7 @@
       "MODELS": {
         "LABEL": "Configuration",
         "INFO": "Basic Information",
-        "TREATMENTS": "Processing",
+        "PROCESSING": "Processing",
         "PREFERENCES": "Preferences",
         "CONDITIONS": "EULA",
         "EMAILS": "Emails",
@@ -39,7 +39,7 @@
     },
     "ENTRY_TYPES": {
       "BASICINFO": "Basic Info",
-      "TREATMENT": "Processing",
+      "PROCESSING": "Processing",
       "PREFERENCE": "Preference",
       "CONDITIONS": "EULA",
       "THEME": "Theme",
@@ -101,7 +101,7 @@
       "PANEL_DESCRIPTION_HTML": "<div>Here are the information you created.</div><div>This is meant to inform your users about your privacy policy, for example.</div><div>You can only create one information entry.</div>",
       "EMPTY": "First, create basic info..."
     },
-    "treatments": {
+    "processing": {
       "PANEL_TITLE": "Processing library",
       "PANEL_DESCRIPTION_HTML": "<div>Here are the processing you created.</div><div>This is meant to ask your users for their consent.</div><div>You can create more at any time by clicking on \"+\".</div>",
       "EMPTY": "First, create a processing..."
@@ -128,7 +128,7 @@
     },
     "BUTTON_ADD": {
       "basicinfo": "New Basic Info",
-      "treatment": "New processing",
+      "processing": "New processing",
       "preference": "New preference",
       "conditions": "New EULA",
       "theme": "New theme",
@@ -151,10 +151,12 @@
       },
       "name": {
         "LABEL": "Name",
-        "REQUIRED": "Name is mandatory"
+        "REQUIRED": "Name is mandatory",
+        "HINT": "Reference for internal use only, never displayed to the end user"
       },
       "description": {
-        "LABEL": "Description"
+        "LABEL": "Description",
+        "HINT": "Description for internal use only, never displayed to the end user"
       },
       "type": {
         "LABEL": "Type"
@@ -174,7 +176,7 @@
     "DIALOG": {
       "TITLE_NEW": {
         "basicinfo": "New basic info",
-        "treatment": "New processing",
+        "processing": "New processing",
         "preference": "New preference",
         "consitions": "New EULA",
         "theme": "New theme",
@@ -182,7 +184,7 @@
       },
       "TITLE_UPDATE": {
         "basicinfo": "Update basic info",
-        "treatment": "Update processing",
+        "processing": "Update processing",
         "preference": "Update preference",
         "conditions": "Update EULA",
         "theme": "Update theme",
@@ -205,7 +207,7 @@
       "CONTENT": {
         "TITLE": {
           "BASICINFO": "Basic Info content",
-          "TREATMENT": "Processing content",
+          "PROCESSING": "Processing content",
           "PREFERENCE": "Preference content",
           "CONDITIONS": "EULA content",
           "THEME": "Theme content",
@@ -290,7 +292,7 @@
           }
         }
       },
-      "TREATMENT": {
+      "PROCESSING": {
         "SUBTITLES": {
           "TITLE": "Title",
           "DATA": "Processed data",
@@ -360,7 +362,7 @@
         "ASSOCIATE": {
           "LABEL": "This preference is associated with one or more processing"
         },
-        "ASSOCIATED_TREATMENTS": {
+        "ASSOCIATED_PROCESSING": {
           "LABEL": "Associated processing"
         },
         "DESCRIPTION": {
@@ -521,7 +523,7 @@
       "TITLE": "Form creator",
       "ELEMENTS_PANEL_TITLE": {
         "infos": "Basic info",
-        "treatments": "Displayed processing"
+        "processing": "Displayed processing"
       },
       "SUBJECT": {
         "LABEL": "Customer ID",
@@ -556,7 +558,7 @@
           "DOWNLOAD": "Download"
         }
       },
-      "OPTOUT_RECIPIENT": {
+      "NOTIFICATION_RECIPIENT": {
         "LABEL": "Email recipient"
       },
       "THEME": {

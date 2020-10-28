@@ -4,7 +4,7 @@ import { UserPageComponent } from './pages/user-page/user-page.component';
 import { CoreModule } from '../../core/core.module';
 import { EntriesPageComponent } from './pages/entries-page/entries-page.component';
 import { EntryCardComponent } from './components/entry/entry-card/entry-card.component';
-import { TreatmentComponent } from './components/entry/treatment/treatment.component';
+import { ProcessingComponent } from './components/entry/processing/processing.component';
 import { SharedModule } from '../../shared/shared.module';
 import { PreferenceComponent } from './components/entry/preference/preference.component';
 import { ConditionsComponent } from './components/entry/conditions/conditions.component';
@@ -14,7 +14,7 @@ import { ConditionsComponent } from './components/entry/conditions/conditions.co
     UserPageComponent,
     EntriesPageComponent,
     EntryCardComponent,
-    TreatmentComponent,
+    ProcessingComponent,
     PreferenceComponent,
     ConditionsComponent
   ],

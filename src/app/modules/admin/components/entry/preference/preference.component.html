@@ -12,12 +12,12 @@
             <input matInput required formControlName="label" autocomplete="off">
           </mat-form-field>
 
-          <mat-checkbox formControlName="associatedWithTreatments">{{'ENTRIES.EDITOR.PREFERENCE.ASSOCIATE.LABEL' | translate}}</mat-checkbox>
+          <mat-checkbox formControlName="associatedWithProcessing">{{'ENTRIES.EDITOR.PREFERENCE.ASSOCIATE.LABEL' | translate}}</mat-checkbox>
 
-          <mat-form-field appearance="outline" *ngIf="form.get('associatedWithTreatments').value">
-            <mat-label>{{'ENTRIES.EDITOR.PREFERENCE.ASSOCIATED_TREATMENTS.LABEL' | translate}}</mat-label>
-            <mat-select multiple formControlName="associatedTreatments">
-              <mat-option *ngFor="let entry of availableTreatments" [value]="entry.key">
+          <mat-form-field appearance="outline" *ngIf="form.get('associatedWithProcessing').value">
+            <mat-label>{{'ENTRIES.EDITOR.PREFERENCE.ASSOCIATED_PROCESSING.LABEL' | translate}}</mat-label>
+            <mat-select multiple formControlName="associatedProcessing">
+              <mat-option *ngFor="let entry of availableProcessing" [value]="entry.key">
                 ({{entry.key}}) {{entry.name}}
               </mat-option>
             </mat-select>

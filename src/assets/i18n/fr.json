@@ -12,7 +12,7 @@
       "MODELS": {
         "LABEL": "Configuration",
         "INFO": "Informations",
-        "TREATMENTS": "Traitements",
+        "PROCESSING": "Traitements",
         "PREFERENCES": "Préférences",
         "CONDITIONS": "CGU/CGS",
         "EMAILS": "Emails",
@@ -39,7 +39,7 @@
     },
     "ENTRY_TYPES": {
       "BASICINFO": "Informations",
-      "TREATMENT": "Traitement",
+      "PROCESSING": "Traitement",
       "PREFERENCE": "Préférence",
       "CONDITIONS": "CGU/CGS",
       "THEME": "Thème",
@@ -101,7 +101,7 @@
       "PANEL_DESCRIPTION_HTML": "<div>Voici les informations générales que vous avez paramétrées.</div><div>Cela permet d'informer vos utilisateurs de votre politique de confidentialité, par exemple.</div><div>Vous ne pouvez en créer qu'un seul ensemble.</div>",
       "EMPTY": "Commencez par spécifier les informations générales..."
     },
-    "treatments": {
+    "processing": {
       "PANEL_TITLE": "Bibliothèque de traitements",
       "PANEL_DESCRIPTION_HTML": "<div>Voici les traitements que vous avez paramétrés.</div><div>Cela permet de demander leur consentement à vos utilisateurs.</div><div>Vous pouvez en créer de nouveaux à tout moment en cliquant sur \"+\".</div>",
       "EMPTY": "Commencez par ajouter un traitement..."
@@ -128,7 +128,7 @@
     },
     "BUTTON_ADD": {
       "basicinfo": "Ajouter les informations de base",
-      "treatment": "Ajouter un traitement",
+      "processing": "Ajouter un traitement",
       "preference": "Ajouter une préférence",
       "conditions": "Ajouter des CGU",
       "theme": "Ajouter un thème",
@@ -151,10 +151,12 @@
       },
       "name": {
         "LABEL": "Nom",
-        "REQUIRED": "Vous devez préciser un nom"
+        "REQUIRED": "Vous devez préciser un nom",
+        "HINT": "Référence interne jamais affichée au client"
       },
       "description": {
-        "LABEL": "Description"
+        "LABEL": "Description",
+        "HINT": "Description interne jamais affichée au client"
       },
       "type": {
         "LABEL": "Type"
@@ -174,7 +176,7 @@
     "DIALOG": {
       "TITLE_NEW": {
         "basicinfo": "Nouvelles informations de base",
-        "treatment": "Nouveau traitement",
+        "processing": "Nouveau traitement",
         "preference": "Nouvelle préférence",
         "conditions": "Nouvelles CGU",
         "theme": "Nouveau thème",
@@ -182,7 +184,7 @@
       },
       "TITLE_UPDATE": {
         "basicinfo": "Modification des informations de base",
-        "treatment": "Modification du traitement",
+        "processing": "Modification du traitement",
         "preference": "Modification de la préférence",
         "conditions": "Modification des CGU",
         "theme": "Modification du thème",
@@ -205,7 +207,7 @@
       "CONTENT": {
         "TITLE": {
           "BASICINFO": "Contenu des informations de base",
-          "TREATMENT": "Contenu du traitement",
+          "PROCESSING": "Contenu du traitement",
           "PREFERENCE": "Contenu de la préférence",
           "CONDITIONS": "Contenu des CGU",
           "THEME": "Contenu du thème",
@@ -290,7 +292,7 @@
           }
         }
       },
-      "TREATMENT": {
+      "PROCESSING": {
         "SUBTITLES": {
           "TITLE": "Titre",
           "DATA": "Données traitées",
@@ -360,7 +362,7 @@
         "ASSOCIATE": {
           "LABEL": "Cette préférence est associée à un ou plusieurs traitements"
         },
-        "ASSOCIATED_TREATMENTS": {
+        "ASSOCIATED_PROCESSING": {
           "LABEL": "Traitements associés"
         },
         "DESCRIPTION": {
@@ -521,7 +523,7 @@
       "TITLE": "Génération du formulaire de consentement",
       "ELEMENTS_PANEL_TITLE": {
         "infos": "Informations générales",
-        "treatments": "Traitements affichés"
+        "processing": "Traitements affichés"
       },
       "SUBJECT": {
         "LABEL": "Identifiant client",
@@ -556,7 +558,7 @@
           "DOWNLOAD": "Télécharger"
         }
       },
-      "OPTOUT_RECIPIENT": {
+      "NOTIFICATION_RECIPIENT": {
         "LABEL": "Destinataire de l'email"
       },
       "THEME": {

@@ -31,7 +31,7 @@
           <ng-container matColumnDef="value">
             <th mat-header-cell *matHeaderCellDef>{{'RECORDS.COMMON.VALUE.LABEL' | translate}}</th>
             <td mat-cell *matCellDef="let element">
-              <ng-container *ngIf="element.type == 'treatment' || element.type == 'conditions'">
+              <ng-container *ngIf="element.type == 'processing' || element.type == 'conditions'">
                 <span *ngIf="element.value != 'accepted' && element.value != 'refused'">-</span>
                 <span *ngIf="element.value"><mat-icon>{{element.value == "accepted" ? 'check' : 'close'}}</mat-icon></span>
               </ng-container>

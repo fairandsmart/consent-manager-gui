@@ -3,20 +3,20 @@ import { SectionConfig } from '../../components/entries/entries-library/entries-
 import { Icons } from '../../../../core/models/models';
 
 @Component({
-  selector: 'cm-treatments-page',
+  selector: 'cm-processing-page',
   template: `
     <cm-entries-library [config]="config" [expandable]="false"></cm-entries-library>
   `
 })
-export class TreatmentsPageComponent {
+export class ProcessingPageComponent {
 
   public config: SectionConfig[] = [
     {
-      id: 'treatments',
-      types: ['treatment'],
+      id: 'processing',
+      types: ['processing'],
       multiple: true,
       showSort: true,
-      icon: Icons.treatment,
+      icon: Icons.processing,
       displayDescription: true
     }
   ];

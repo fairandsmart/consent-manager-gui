@@ -25,7 +25,7 @@ export class PreferenceComponent extends EntryContentDirective<Preference> imple
   public readonly VALUE_TYPES = PREFERENCE_VALUE_TYPES;
 
   separatorKeysCodes: number[] = [ENTER, COMMA];
-  availableTreatments: ModelEntryDto[];
+  availableProcessing: ModelEntryDto[];
   optionsInputCtrl: FormControl;
 
   constructor(
@@ -43,15 +43,16 @@ export class PreferenceComponent extends EntryContentDirective<Preference> imple
   ngOnInit(): void {
     this.optionsInputCtrl = new FormControl('', Validators.required);
     super.ngOnInit();
-    this.modelsResourceService.listEntriesByType('treatment').subscribe((entries) => this.availableTreatments = entries);
+    this.modelsResourceService.listEntriesByType('processing')
+      .subscribe((entries) => this.availableProcessing = entries);
   }
 
   protected initForm(): void {
     this.form = this.fb.group({
       type: [this.type, [Validators.required]],
       label: ['', [Validators.required]],
-      associatedWithTreatments: [false, [Validators.required]],
-      associatedTreatments: [[]],
+      associatedWithProcessing: [false, [Validators.required]],
+      associatedProcessing: [[]],
       description: [''],
       valueType: ['NONE', [Validators.required]],
       options: [[]]
@@ -73,12 +74,12 @@ export class PreferenceComponent extends EntryContentDirective<Preference> imple
       }
       this.form.get('options').updateValueAndValidity();
     });
-    this.form.get('associatedWithTreatments').valueChanges.subscribe(v => {
+    this.form.get('associatedWithProcessing').valueChanges.subscribe(v => {
       if (v) {
-        this.form.get('associatedTreatments').setValidators([Validators.required]);
+        this.form.get('associatedProcessing').setValidators([Validators.required]);
       } else {
-        this.form.get('associatedTreatments').clearValidators();
-        this.form.get('associatedTreatments').setValue([]);
+        this.form.get('associatedProcessing').clearValidators();
+        this.form.get('associatedProcessing').setValue([]);
       }
     });
     super.registerFormChanges();

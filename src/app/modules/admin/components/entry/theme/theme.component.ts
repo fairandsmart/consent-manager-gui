@@ -15,7 +15,7 @@ const snippets: { text: string, displayText: string }[] = [
   { text: '.header h2', displayText: 'En-tête - Titre' },
   { text: '.header .header-body', displayText: 'En-tête - Corps' },
   { text: '.header .privacy-policy-link-wrapper a', displayText: 'En-tête - Lien vers la politique de confidentialité' },
-  { text: '.treatments', displayText: 'Traitements - Conteneur' },
+  { text: '.processing', displayText: 'Traitements - Conteneur' },
 ];
 
 @Component({

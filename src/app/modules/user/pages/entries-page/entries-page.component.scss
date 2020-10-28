@@ -6,7 +6,7 @@
 
 .user-page {
   display: grid;
-  grid-template-areas: 'details details' 'treatments preferences';
+  grid-template-areas: 'details details' 'processing preferences';
   grid-template-columns: 50% 50%;
   grid-gap: 1.5em;
 }
@@ -31,8 +31,8 @@
   }
 }
 
-.user-treatments {
-  grid-area: treatments;
+.user-processing {
+  grid-area: processing;
 }
 
 .user-preferences {

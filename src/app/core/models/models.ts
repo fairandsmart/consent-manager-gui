@@ -31,7 +31,7 @@ export interface CollectionPage<T> {
 
 export enum Icons {
   basicinfo = 'info',
-  treatment = 'check_box',
+  processing = 'check_box',
   preference = 'favorite',
   conditions = 'filter_none',
   email = 'mail_outline',
@@ -128,7 +128,7 @@ export interface BasicInfo extends ModelData {
   customAcceptAllText: string;
 }
 
-export enum TreatmentPurpose {
+export enum ProcessingPurpose {
   CONSENT_CORE_SERVICE = 'CONSENT_CORE_SERVICE',
   CONSENT_IMPROVED_SERVICE = 'CONSENT_IMPROVED_SERVICE',
   CONSENT_MARKETING = 'CONSENT_MARKETING',
@@ -136,18 +136,18 @@ export enum TreatmentPurpose {
   CONSENT_RESEARCH = 'CONSENT_RESEARCH'
 }
 
-export const TREATMENT_PURPOSES = Object.keys(TreatmentPurpose);
+export const PROCESSING_PURPOSES = Object.keys(ProcessingPurpose);
 
-export interface Treatment extends ModelData {
-  type: 'treatment';
-  treatmentTitle: string;
+export interface Processing extends ModelData {
+  type: 'processing';
+  processingTitle: string;
   dataTitle: string;
   dataBody: string;
   retentionTitle: string;
   retentionBody: string;
   usageTitle: string;
   usageBody: string;
-  purposes: TreatmentPurpose[];
+  purposes: ProcessingPurpose[];
   containsSensitiveData: boolean;
   containsMedicalData: boolean;
   dataController: Controller;
@@ -170,8 +170,8 @@ export const PREFERENCE_VALUE_TYPES: PreferenceValueType[] = Object.keys(Prefere
 export interface Preference extends ModelData {
   type: 'preference';
   label: string;
-  associatedWithTreatments: boolean;
-  associatedTreatments: string[];
+  associatedWithProcessing: boolean;
+  associatedProcessing: string[];
   description: string;
   options: string[];
   valueType: PreferenceValueType;
@@ -212,7 +212,7 @@ export interface Email extends ModelData {
   signature: string;
 }
 
-export type ModelDataType = 'basicinfo' | 'treatment' | 'conditions' | 'theme' | 'email' | 'preference';
+export type ModelDataType = 'basicinfo' | 'processing' | 'conditions' | 'theme' | 'email' | 'preference';
 
 export interface PreviewDto {
   locale: string;
@@ -242,8 +242,8 @@ export interface ConsentContext {
   receiptDeliveryType: ReceiptDeliveryType;
   userinfos: { [key: string]: string };
   attributes: { [key: string]: string };
-  optoutModel: string;
-  optoutRecipient: string;
+  notificationModel: string;
+  notificationRecipient: string;
   collectionMethod: CollectionMethod;
   author: string;
   preview: boolean;

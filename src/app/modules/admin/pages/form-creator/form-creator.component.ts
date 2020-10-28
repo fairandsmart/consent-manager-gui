@@ -63,20 +63,20 @@ export class FormCreatorComponent implements OnInit {
       displayDescription: false
     },
     {
-      id: 'treatments',
-      types: ['treatment'],
+      id: 'processing',
+      types: ['processing'],
       multiple: true,
       showSort: true,
       draggingDisabled: false,
       included: true,
-      icon: Icons.treatment,
+      icon: Icons.processing,
       displayDescription: false
     },
   ];
 
   public selectedElements: {[id: string]: ModelEntryDto[]} = {
     infos: [],
-    treatments: []
+    processing: []
   };
 
   public themesLibraryConfig: SectionConfig[] = [
@@ -161,8 +161,8 @@ export class FormCreatorComponent implements OnInit {
         validity: [6, [Validators.required, Validators.min(1)]],
         validityUnit: ['M', [Validators.required]],
         receiptDeliveryType: ['DISPLAY', [Validators.required]],
-        optoutModel: ['', [Validators.pattern(FIELD_VALIDATORS.key.pattern)]],
-        optoutRecipient: ['']
+        notificationModel: ['', [Validators.pattern(FIELD_VALIDATORS.key.pattern)]],
+        notificationRecipient: ['']
       })
     ]);
     this.form.at(FORM_CREATOR_STEP.OPTIONS).get('orientation').valueChanges.subscribe((orientation) => {
@@ -251,8 +251,8 @@ export class FormCreatorComponent implements OnInit {
       receiptDeliveryType: formValue.receiptDeliveryType,
       userinfos: {},
       attributes: {},
-      optoutModel: formValue.optoutModel,
-      optoutRecipient: formValue.optoutRecipient,
+      notificationModel: formValue.notificationModel,
+      notificationRecipient: formValue.notificationRecipient,
       collectionMethod: CollectionMethod.WEBFORM,
       author: '',
       preview: isPreview,
@@ -266,7 +266,7 @@ export class FormCreatorComponent implements OnInit {
     this.selectedElements = selected;
     this.form.at(FORM_CREATOR_STEP.ELEMENTS).setValue({
       info: this.selectedElements.infos.map(e => e.key)?.[0] || '',
-      elements: this.selectedElements.treatments.map(e => e.key)
+      elements: this.selectedElements.processing.map(e => e.key)
     });
   }
 
@@ -281,7 +281,7 @@ export class FormCreatorComponent implements OnInit {
   private setSelectedEmail(selected: {[id: string]: ModelEntryDto[]}): void {
     this.selectedEmail = selected;
     this.form.at(FORM_CREATOR_STEP.OPTIONS).patchValue({
-      optoutModel: this.selectedEmail.emails?.[0]?.key || ''
+      notificationModel: this.selectedEmail.emails?.[0]?.key || ''
     });
   }
 

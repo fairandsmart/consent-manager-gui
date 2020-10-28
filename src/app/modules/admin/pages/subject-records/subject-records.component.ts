@@ -19,7 +19,7 @@ import { MatSort, Sort } from '@angular/material/sort';
 import { map, tap } from 'rxjs/operators';
 import { ActivatedRoute, Router } from '@angular/router';
 import { MatDialog } from '@angular/material/dialog';
-import { SubjectRecordEditorDialogComponent } from '../../components/subject-record-editor-dialog/subject-record-editor-dialog.component';
+import { SubjectRecordEditorDialogComponent } from '../../components/operator/subject-record-editor-dialog/subject-record-editor-dialog.component';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ModelsResourceService } from '../../../../core/http/models-resource.service';
 import { TranslateService } from '@ngx-translate/core';
@@ -99,7 +99,7 @@ export class SubjectRecordsComponent implements OnInit {
     after: -1,
     order: 'key',
     direction: 'asc',
-    types: ['treatment', 'preference', 'conditions']
+    types: ['processing', 'preference', 'conditions']
   };
 
   @ViewChild(MatPaginator, {static: true})
@@ -190,8 +190,8 @@ export class SubjectRecordsComponent implements OnInit {
         receiptDeliveryType: 'STORE',
         userinfos: {},
         attributes: {},
-        optoutModel: '',
-        optoutRecipient: '',
+        notificationModel: '',
+        notificationRecipient: '',
         collectionMethod: CollectionMethod.OPERATOR,
         author: '',
         preview: false,

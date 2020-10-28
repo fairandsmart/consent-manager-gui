@@ -1,6 +1,6 @@
 import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 
-import { TreatmentComponent } from './treatment.component';
+import { ProcessingComponent } from './processing.component';
 import { ReactiveFormsModule } from '@angular/forms';
 import { ModelsResourceService } from '../../../../../core/http/models-resource.service';
 import { EntryInfoComponent } from '../entry-info/entry-info.component';
@@ -12,9 +12,9 @@ import SpyObj = jasmine.SpyObj;
 import createSpyObj = jasmine.createSpyObj;
 import { KeycloakService } from 'keycloak-angular';
 
-describe('TreatmentComponent', () => {
-  let component: TreatmentComponent;
-  let fixture: ComponentFixture<TreatmentComponent>;
+describe('ProcessingComponent', () => {
+  let component: ProcessingComponent;
+  let fixture: ComponentFixture<ProcessingComponent>;
   let modelsResourceServiceSpy: SpyObj<ModelsResourceService>;
   let keycloakServiceSpy: SpyObj<KeycloakService>;
   let alertServiceSpy: SpyObj<AlertService>;
@@ -25,7 +25,7 @@ describe('TreatmentComponent', () => {
     keycloakServiceSpy =  createSpyObj<KeycloakService>('KeycloakService', ['getUsername']);
 
     TestBed.configureTestingModule({
-      declarations: [ TreatmentComponent, EntryInfoComponent, EntryPreviewComponent ],
+      declarations: [ ProcessingComponent, EntryInfoComponent, EntryPreviewComponent ],
       imports: [ CoreTestingModule, RouterTestingModule, ReactiveFormsModule ],
       providers: [
         {provide: ModelsResourceService, useValue: modelsResourceServiceSpy},
@@ -37,7 +37,7 @@ describe('TreatmentComponent', () => {
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(TreatmentComponent);
+    fixture = TestBed.createComponent(ProcessingComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

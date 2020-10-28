@@ -9,13 +9,13 @@
             </h4>
             <div class="form-container"
                  [class.excluded]="!section.included"
-                 [class.empty]="selectedElements[section.id].length === 0"
+                 [class.empty]="selectedElements[section.id]?.length === 0"
                  cdkDropList [id]="'selected-' + section.id"
                  [cdkDropListDisabled]="section.draggingDisabled"
                  [cdkDropListData]="selectedElements[section.id]"
                  [cdkDropListConnectedTo]="['available-' + section.id]"
                  (cdkDropListDropped)="elementDropped($event)">
-              <mat-card *ngIf="selectedElements[section.id].length === 0" class="empty-hint">
+              <mat-card *ngIf="selectedElements[section.id]?.length === 0" class="empty-hint">
                 <span>{{'ENTRIES.' + section.id + '.EMPTY' | translate}}</span>
               </mat-card>
               <cm-entry-card *ngFor="let entry of selectedElements[section.id]"
@@ -72,9 +72,9 @@
                   <mat-option *ngFor="let type of RECEIPT_TYPES" [value]="type">{{'FORM_CREATOR.FORM.RECEIPT.VALUES.' + type.toUpperCase() | translate}}</mat-option>
                 </mat-select>
               </mat-form-field>
-              <mat-form-field appearance="fill" *ngIf="form.at(STEPS.OPTIONS).get('optoutModel').value">
-                <mat-label>{{'FORM_CREATOR.FORM.OPTOUT_RECIPIENT.LABEL' | translate}}</mat-label>
-                <input type="email" matInput formControlName="optoutRecipient" autocomplete="off" email>
+              <mat-form-field appearance="fill" *ngIf="form.at(STEPS.OPTIONS).get('notificationModel').value">
+                <mat-label>{{'FORM_CREATOR.FORM.NOTIFICATION_RECIPIENT.LABEL' | translate}}</mat-label>
+                <input type="email" matInput formControlName="notificationRecipient" autocomplete="off" email>
               </mat-form-field>
             </mat-card-content>
           </mat-card>
