@@ -9,13 +9,13 @@
             </h4>
             <div class="form-container"
                  [class.excluded]="!section.included"
-                 [class.empty]="selectedElements[section.id].length === 0"
+                 [class.empty]="selectedElements[section.id]?.length === 0"
                  cdkDropList [id]="'selected-' + section.id"
                  [cdkDropListDisabled]="section.draggingDisabled"
                  [cdkDropListData]="selectedElements[section.id]"
                  [cdkDropListConnectedTo]="['available-' + section.id]"
                  (cdkDropListDropped)="elementDropped($event)">
-              <mat-card *ngIf="selectedElements[section.id].length === 0" class="empty-hint">
+              <mat-card *ngIf="selectedElements[section.id]?.length === 0" class="empty-hint">
                 <span>{{'ENTRIES.' + section.id + '.EMPTY' | translate}}</span>
               </mat-card>
               <cm-entry-card *ngFor="let entry of selectedElements[section.id]"
