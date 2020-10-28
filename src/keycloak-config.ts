@@ -9,7 +9,7 @@ export const KEYCLOAK_CONFIG: KeycloakOptions = {
   },
   initOptions: {
     onLoad: 'login-required',
-    checkLoginIframe: false
+    checkLoginIframe: true
   },
   loadUserProfileAtStartUp: true,
   enableBearerInterceptor: true,
