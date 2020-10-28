@@ -548,7 +548,7 @@
           "DOWNLOAD": "Download"
         }
       },
-      "OPTOUT_RECIPIENT": {
+      "NOTIFICATION_RECIPIENT": {
         "LABEL": "Email recipient"
       },
       "THEME": {

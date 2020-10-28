@@ -548,7 +548,7 @@
           "DOWNLOAD": "Télécharger"
         }
       },
-      "OPTOUT_RECIPIENT": {
+      "NOTIFICATION_RECIPIENT": {
         "LABEL": "Destinataire de l'email"
       },
       "THEME": {
