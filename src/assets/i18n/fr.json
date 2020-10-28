@@ -12,7 +12,7 @@
       "MODELS": {
         "LABEL": "Configuration",
         "INFO": "Informations",
-        "TREATMENTS": "Traitements",
+        "PROCESSING": "Traitements",
         "PREFERENCES": "Préférences",
         "CONDITIONS": "CGU/CGS",
         "EMAILS": "Emails",
@@ -39,7 +39,7 @@
     },
     "ENTRY_TYPES": {
       "BASICINFO": "Informations",
-      "TREATMENT": "Traitement",
+      "PROCESSING": "Traitement",
       "PREFERENCE": "Préférence",
       "CONDITIONS": "CGU/CGS",
       "THEME": "Thème",
@@ -100,7 +100,7 @@
       "PANEL_TITLE": "Informations générales",
       "EMPTY": "Commencez par spécifier les informations générales..."
     },
-    "treatments": {
+    "processing": {
       "PANEL_TITLE": "Bibliothèque de traitements",
       "EMPTY": "Commencez par ajouter un traitement..."
     },
@@ -123,7 +123,7 @@
     },
     "BUTTON_ADD": {
       "basicinfo": "Ajouter les informations de base",
-      "treatment": "Ajouter un traitement",
+      "processing": "Ajouter un traitement",
       "preference": "Ajouter une préférence",
       "conditions": "Ajouter des CGU",
       "theme": "Ajouter un thème",
@@ -146,10 +146,12 @@
       },
       "name": {
         "LABEL": "Nom",
-        "REQUIRED": "Vous devez préciser un nom"
+        "REQUIRED": "Vous devez préciser un nom",
+        "HINT": "Référence interne jamais affichée au client"
       },
       "description": {
-        "LABEL": "Description"
+        "LABEL": "Description",
+        "HINT": "Description interne jamais affichée au client"
       },
       "type": {
         "LABEL": "Type"
@@ -169,7 +171,7 @@
     "DIALOG": {
       "TITLE_NEW": {
         "basicinfo": "Nouvelles informations de base",
-        "treatment": "Nouveau traitement",
+        "processing": "Nouveau traitement",
         "preference": "Nouvelle préférence",
         "conditions": "Nouvelles CGU",
         "theme": "Nouveau thème",
@@ -177,7 +179,7 @@
       },
       "TITLE_UPDATE": {
         "basicinfo": "Modification des informations de base",
-        "treatment": "Modification du traitement",
+        "processing": "Modification du traitement",
         "preference": "Modification de la préférence",
         "conditions": "Modification des CGU",
         "theme": "Modification du thème",
@@ -511,7 +513,7 @@
       "TITLE": "Génération du formulaire de consentement",
       "ELEMENTS_PANEL_TITLE": {
         "infos": "Informations générales",
-        "treatments": "Traitements affichés"
+        "processings": "Traitements affichés"
       },
       "SUBJECT": {
         "LABEL": "Identifiant client",

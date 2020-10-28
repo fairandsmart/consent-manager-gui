@@ -2,17 +2,17 @@ import { Component } from '@angular/core';
 import { SectionConfig } from '../../components/entries/entries-library/entries-library.component';
 
 @Component({
-  selector: 'cm-treatments-page',
+  selector: 'cm-processings-page',
   template: `
     <cm-entries-library [config]="config" [expandable]="false"></cm-entries-library>
   `
 })
-export class TreatmentsPageComponent {
+export class ProcessingPageComponent {
 
   public config: SectionConfig[] = [
     {
-      id: 'treatments',
-      types: ['treatment'],
+      id: 'processing',
+      types: ['processing'],
       multiple: true,
       showSort: true
     }

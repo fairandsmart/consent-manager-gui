@@ -1,6 +1,6 @@
 <div *ngIf="active">
   <ng-container [ngSwitch]="entry?.type">
-    <cm-treatment [entry]="entry" [version]="active" [record]="record" *ngSwitchCase="'treatment'"> </cm-treatment>
+    <cm-processing [entry]="entry" [version]="active" [record]="record" *ngSwitchCase="'processing'"> </cm-processing>
     <cm-preference [entry]="entry" [version]="active" [record]="record" *ngSwitchCase="'preference'"></cm-preference>
     <cm-conditions [entry]="entry" [version]="active" [record]="record" *ngSwitchCase="'conditions'"></cm-conditions>
   </ng-container>

@@ -23,7 +23,7 @@ describe('EntryEditorDialogComponent', () => {
       imports: [ CoreTestingModule, ReactiveFormsModule ],
       providers: [
         {provide: MatDialogRef, useValue: dialogRefSpy},
-        {provide: MAT_DIALOG_DATA, useValue: {entry: {type: 'treatment'}}},
+        {provide: MAT_DIALOG_DATA, useValue: {entry: {type: 'processing'}}},
         {provide: ModelsResourceService, useValue: modelsResourceServiceSpy},
       ]
     })

@@ -47,6 +47,7 @@ export abstract class EntryContentDirective<T extends ModelData> extends FormSta
   }
 
   ngOnInit(): void {
+    this.setContextId(this.entry.key); // disambiguation of the context to avoid cross-entry form state saving
     this.initForm();
     if (this.version) {
       this.setVersion(this.version);

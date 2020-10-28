@@ -9,7 +9,7 @@
       <h2>{{'USER.CONSENTS.TITLE' | translate}}</h2>
       <p>{{'USER.CONSENTS.HINT' | translate}}</p>
       <cm-entry-card [entry]="card.entry" [record]="card.record" *ngFor="let card of filterCards(data, 'conditions')"></cm-entry-card>
-      <cm-entry-card [entry]="card.entry" [record]="card.record" *ngFor="let card of filterCards(data, 'treatment')"></cm-entry-card>
+      <cm-entry-card [entry]="card.entry" [record]="card.record" *ngFor="let card of filterCards(data, 'processing')"></cm-entry-card>
     </mat-card>
   </div>
   <div class="user-preferences">

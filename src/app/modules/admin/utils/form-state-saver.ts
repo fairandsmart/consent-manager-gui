@@ -18,6 +18,10 @@ export abstract class FormStateSaver {
   abstract notifyExistingFormState(): void;
   abstract registerFormChanges(): void;
 
+  setContextId(id: string): void {
+    this.context += '.' + id;
+  }
+
   formStateChanged(): void {
     if (this.form.dirty) {
       const item: FormState = {

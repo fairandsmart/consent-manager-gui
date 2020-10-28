@@ -118,7 +118,7 @@ export interface BasicInfo extends ModelData {
   customAcceptAllText: string;
 }
 
-export enum TreatmentPurpose {
+export enum ProcessingPurpose {
   CONSENT_CORE_SERVICE = 'CONSENT_CORE_SERVICE',
   CONSENT_IMPROVED_SERVICE = 'CONSENT_IMPROVED_SERVICE',
   CONSENT_MARKETING = 'CONSENT_MARKETING',
@@ -126,18 +126,18 @@ export enum TreatmentPurpose {
   CONSENT_RESEARCH = 'CONSENT_RESEARCH'
 }
 
-export const TREATMENT_PURPOSES = Object.keys(TreatmentPurpose);
+export const PROCESSING_PURPOSES = Object.keys(ProcessingPurpose);
 
-export interface Treatment extends ModelData {
-  type: 'treatment';
-  treatmentTitle: string;
+export interface Processing extends ModelData {
+  type: 'processing';
+  processingTitle: string;
   dataTitle: string;
   dataBody: string;
   retentionTitle: string;
   retentionBody: string;
   usageTitle: string;
   usageBody: string;
-  purposes: TreatmentPurpose[];
+  purposes: ProcessingPurpose[];
   containsSensitiveData: boolean;
   containsMedicalData: boolean;
   dataController: Controller;
@@ -200,7 +200,7 @@ export interface Email extends ModelData {
   signature: string;
 }
 
-export type ModelDataType = 'basicinfo' | 'treatment' | 'conditions' | 'theme' | 'email' | 'preference';
+export type ModelDataType = 'basicinfo' | 'processing' | 'conditions' | 'theme' | 'email' | 'preference';
 
 export interface PreviewDto {
   locale: string;

@@ -12,7 +12,7 @@
       "MODELS": {
         "LABEL": "Configuration",
         "INFO": "Basic Information",
-        "TREATMENTS": "Processing",
+        "PROCESSING": "Processing",
         "PREFERENCES": "Preferences",
         "CONDITIONS": "EULA",
         "EMAILS": "Emails",
@@ -39,7 +39,7 @@
     },
     "ENTRY_TYPES": {
       "BASICINFO": "Basic Info",
-      "TREATMENT": "Processing",
+      "PROCESSING": "Processing",
       "PREFERENCE": "Preference",
       "CONDITIONS": "EULA",
       "THEME": "Theme",
@@ -100,7 +100,7 @@
       "PANEL_TITLE": "Basic Info library",
       "EMPTY": "First, create basic info..."
     },
-    "treatments": {
+    "processing": {
       "PANEL_TITLE": "Processing library",
       "EMPTY": "First, create a processing..."
     },
@@ -123,7 +123,7 @@
     },
     "BUTTON_ADD": {
       "basicinfo": "New Basic Info",
-      "treatment": "New processing",
+      "processing": "New processing",
       "preference": "New preference",
       "conditions": "New EULA",
       "theme": "New theme",
@@ -146,10 +146,12 @@
       },
       "name": {
         "LABEL": "Name",
-        "REQUIRED": "Name is mandatory"
+        "REQUIRED": "Name is mandatory",
+        "HINT": "Reference for internal use only, never displayed to the end user"
       },
       "description": {
-        "LABEL": "Description"
+        "LABEL": "Description",
+        "HINT": "Description for internal use only, never displayed to the end user"
       },
       "type": {
         "LABEL": "Type"
@@ -169,7 +171,7 @@
     "DIALOG": {
       "TITLE_NEW": {
         "basicinfo": "New basic info",
-        "treatment": "New processing",
+        "processing": "New processing",
         "preference": "New preference",
         "consitions": "New EULA",
         "theme": "New theme",
@@ -177,7 +179,7 @@
       },
       "TITLE_UPDATE": {
         "basicinfo": "Update basic info",
-        "treatment": "Update processing",
+        "processing": "Update processing",
         "preference": "Update preference",
         "conditions": "Update EULA",
         "theme": "Update theme",
@@ -511,7 +513,7 @@
       "TITLE": "Form creator",
       "ELEMENTS_PANEL_TITLE": {
         "infos": "Basic info",
-        "treatments": "Displayed processing"
+        "processing": "Displayed processing"
       },
       "SUBJECT": {
         "LABEL": "Customer ID",

@@ -6,7 +6,7 @@ import {
   ConsentContext,
   ConsentFormOrientation,
   ConsentFormType,
-  FIELD_VALIDATORS,
+  FIELD_VALIDATORS, ModelDataType,
   ModelEntryDto,
   ModelVersionStatus,
   RECEIPT_DELIVERY_TYPES
@@ -57,8 +57,8 @@ export class FormCreatorComponent implements OnInit {
       included: true
     },
     {
-      id: 'treatments',
-      types: ['treatment'],
+      id: 'processing',
+      types: ['processing'],
       multiple: true,
       showSort: true,
       draggingDisabled: false,
@@ -68,7 +68,7 @@ export class FormCreatorComponent implements OnInit {
 
   public selectedElements: {[id: string]: ModelEntryDto[]} = {
     infos: [],
-    treatments: []
+    processings: []
   };
 
   public themesLibraryConfig: SectionConfig[] = [
@@ -254,7 +254,7 @@ export class FormCreatorComponent implements OnInit {
     this.selectedElements = selected;
     this.form.at(FORM_CREATOR_STEP.ELEMENTS).setValue({
       info: this.selectedElements.infos.map(e => e.key)?.[0] || '',
-      elements: this.selectedElements.treatments.map(e => e.key)
+      elements: this.selectedElements.processings.map(e => e.key)
     });
   }
 

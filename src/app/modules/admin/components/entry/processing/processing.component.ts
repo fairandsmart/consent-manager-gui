@@ -5,9 +5,9 @@ import {
   FIELD_VALIDATORS,
   ModelDataType,
   ModelVersionDto,
-  Treatment,
-  TREATMENT_PURPOSES,
-  TreatmentPurpose
+  Processing,
+  PROCESSING_PURPOSES,
+  ProcessingPurpose
 } from '../../../../../core/models/models';
 import { FormArray, FormBuilder, Validators } from '@angular/forms';
 import { ModelsResourceService } from '../../../../../core/http/models-resource.service';
@@ -15,25 +15,25 @@ import { DomSanitizer } from '@angular/platform-browser';
 import { AlertService } from '../../../../../core/services/alert.service';
 
 @Component({
-  selector: 'cm-treatment',
-  templateUrl: './treatment.component.html',
-  styleUrls: ['../entry-content/_entry-content.directive.scss', './treatment.component.scss']
+  selector: 'cm-processing',
+  templateUrl: './processing.component.html',
+  styleUrls: ['../entry-content/_entry-content.directive.scss', './processing.component.scss']
 })
-export class TreatmentComponent extends EntryContentDirective<Treatment> implements OnInit {
+export class ProcessingComponent extends EntryContentDirective<Processing> implements OnInit {
 
-  static CONTEXT = 'treatment-form';
-  readonly PURPOSES = TREATMENT_PURPOSES;
+  static CONTEXT = 'processing-form';
+  readonly PURPOSES = PROCESSING_PURPOSES;
 
   constructor(
       private fb: FormBuilder,
       modelsResourceService: ModelsResourceService,
       alertService: AlertService,
       sanitizer: DomSanitizer) {
-    super(TreatmentComponent.CONTEXT, modelsResourceService, alertService, sanitizer);
+    super(ProcessingComponent.CONTEXT, modelsResourceService, alertService, sanitizer);
   }
 
   get type(): ModelDataType {
-    return 'treatment';
+    return 'processing';
   }
 
   ngOnInit(): void {
@@ -43,7 +43,7 @@ export class TreatmentComponent extends EntryContentDirective<Treatment> impleme
   protected initForm(): void {
     this.form = this.fb.group({
       type: [this.type, [Validators.required]],
-      treatmentTitle: ['', [Validators.required]],
+      processingTitle: ['', [Validators.required]],
       dataTitle: [''],
       dataBody: ['', [Validators.required]],
       retentionTitle: [''],
@@ -72,7 +72,7 @@ export class TreatmentComponent extends EntryContentDirective<Treatment> impleme
     super.registerFormChanges();
   }
 
-  protected setVersion(version: ModelVersionDto<Treatment>, locale: string = this.version.defaultLocale): void {
+  protected setVersion(version: ModelVersionDto<Processing>, locale: string = this.version.defaultLocale): void {
     this.form.setControl('thirdParties', this.fb.array([]));
     version.data[locale].thirdParties.forEach(tp => this.addThirdParty());
     super.setVersion(version, locale);
@@ -100,8 +100,8 @@ export class TreatmentComponent extends EntryContentDirective<Treatment> impleme
     this.getThirdParties().removeAt(index);
   }
 
-  purposesChange(purposes: TreatmentPurpose[]): void {
-    if (!purposes.includes(TreatmentPurpose.CONSENT_THIRD_PART_SHARING)) {
+  purposesChange(purposes: ProcessingPurpose[]): void {
+    if (!purposes.includes(ProcessingPurpose.CONSENT_THIRD_PART_SHARING)) {
       this.getThirdParties().clear();
     }
   }

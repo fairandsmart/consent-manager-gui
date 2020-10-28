@@ -99,7 +99,7 @@ export class SubjectRecordsComponent implements OnInit {
     after: -1,
     order: 'key',
     direction: 'asc',
-    types: ['treatment', 'preference', 'conditions']
+    types: ['processing', 'preference', 'conditions']
   };
 
   @ViewChild(MatPaginator, {static: true})

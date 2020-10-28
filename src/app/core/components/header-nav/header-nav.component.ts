@@ -43,8 +43,8 @@ export class HeaderNavComponent implements OnInit {
           link: '/admin/configuration/basicinfo'
         },
         {
-          title: 'NAV.CATEGORIES.MODELS.TREATMENTS',
-          link: '/admin/configuration/treatments'
+          title: 'NAV.CATEGORIES.MODELS.PROCESSING',
+          link: '/admin/configuration/processing'
         },
         {
           title: 'NAV.CATEGORIES.MODELS.PREFERENCES',
