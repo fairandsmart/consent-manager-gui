@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { SectionConfig } from '../../components/entries/entries-library/entries-library.component';
 import { environment } from '../../../../../environments/environment';
+import { Icons } from '../../../../core/models/models';
 
 @Component({
   selector: 'cm-basicinfo-page',
@@ -15,7 +16,9 @@ export class BasicinfoPageComponent {
       id: 'infos',
       types: ['basicinfo'],
       multiple: environment.customization.multipleInfo,
-      showSort: environment.customization.multipleInfo
+      showSort: environment.customization.multipleInfo,
+      icon: Icons.basicinfo,
+      displayDescription: true
     }
   ];
 

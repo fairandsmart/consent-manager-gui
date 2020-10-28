@@ -2,7 +2,6 @@
 
 :host {
   display: block;
-  max-width: 1000px;
   margin: auto;
 
   mat-expansion-panel {
@@ -16,11 +15,24 @@
         color: $dark-primary-text;
       }
 
+      .library-title {
+        font-size: large;
+        display: flex;
+      }
+
+      .mat-icon {
+        margin-right: 8px;
+      }
+
       .mat-progress-bar {
         align-self: center;
         width: 32px;
         margin-left: 10px;
       }
+    }
+
+    .panel-description {
+      margin: 0 0 32px 32px;
     }
   }
 }

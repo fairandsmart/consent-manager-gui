@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { SectionConfig } from '../../components/entries/entries-library/entries-library.component';
+import { Icons } from '../../../../core/models/models';
 
 @Component({
   selector: 'cm-treatments-page',
@@ -14,7 +15,9 @@ export class TreatmentsPageComponent {
       id: 'treatments',
       types: ['treatment'],
       multiple: true,
-      showSort: true
+      showSort: true,
+      icon: Icons.treatment,
+      displayDescription: true
     }
   ];
 

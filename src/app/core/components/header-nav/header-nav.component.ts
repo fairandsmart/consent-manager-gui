@@ -5,6 +5,7 @@ import { debounceTime, filter, mergeMap } from 'rxjs/operators';
 import { SubjectsResourceService } from '../../http/subjects-resource.service';
 import { FormControl } from '@angular/forms';
 import { Observable, of } from 'rxjs';
+import { Icons } from '../../models/models';
 
 export interface NavSection {
   title: string;
@@ -15,6 +16,7 @@ export interface NavSection {
 export interface SideNavSubSection {
   title: string;
   link: string;
+  icon?: Icons;
 }
 
 @Component({
@@ -40,27 +42,33 @@ export class HeaderNavComponent implements OnInit {
       sub: [
         {
           title: 'NAV.CATEGORIES.MODELS.INFO',
-          link: '/admin/configuration/basicinfo'
+          link: '/admin/configuration/basicinfo',
+          icon: Icons.basicinfo
         },
         {
           title: 'NAV.CATEGORIES.MODELS.TREATMENTS',
-          link: '/admin/configuration/treatments'
+          link: '/admin/configuration/treatments',
+          icon: Icons.treatment
         },
         {
           title: 'NAV.CATEGORIES.MODELS.PREFERENCES',
-          link: '/admin/configuration/preferences'
+          link: '/admin/configuration/preferences',
+          icon: Icons.preference
         },
         {
           title: 'NAV.CATEGORIES.MODELS.CONDITIONS',
-          link: '/admin/configuration/conditions'
+          link: '/admin/configuration/conditions',
+          icon: Icons.conditions
         },
         {
           title: 'NAV.CATEGORIES.MODELS.EMAILS',
-          link: '/admin/configuration/emails'
+          link: '/admin/configuration/emails',
+          icon: Icons.email
         },
         {
           title: 'NAV.CATEGORIES.MODELS.THEMES',
-          link: '/admin/configuration/themes'
+          link: '/admin/configuration/themes',
+          icon: Icons.theme
         },
       ]
     },

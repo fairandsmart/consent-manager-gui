@@ -7,6 +7,7 @@ import {
   ConsentFormOrientation,
   ConsentFormType,
   FIELD_VALIDATORS,
+  Icons,
   ModelEntryDto,
   ModelVersionStatus,
   RECEIPT_DELIVERY_TYPES
@@ -22,7 +23,10 @@ import { SectionConfig } from '../../components/entries/entries-library/entries-
 import { environment } from '../../../../../environments/environment';
 import * as _ from 'lodash';
 import { MatDialog } from '@angular/material/dialog';
-import { FormUrlDialogComponent, FormUrlDialogComponentData } from '../../components/form-url-dialog/form-url-dialog.component';
+import {
+  FormUrlDialogComponent,
+  FormUrlDialogComponentData
+} from '../../components/form-url-dialog/form-url-dialog.component';
 
 enum FORM_CREATOR_STEP {
   ELEMENTS,
@@ -54,7 +58,9 @@ export class FormCreatorComponent implements OnInit {
       multiple: environment.customization.multipleInfo,
       showSort: environment.customization.multipleInfo,
       draggingDisabled: false,
-      included: true
+      included: true,
+      icon: Icons.basicinfo,
+      displayDescription: false
     },
     {
       id: 'treatments',
@@ -62,7 +68,9 @@ export class FormCreatorComponent implements OnInit {
       multiple: true,
       showSort: true,
       draggingDisabled: false,
-      included: true
+      included: true,
+      icon: Icons.treatment,
+      displayDescription: false
     },
   ];
 
@@ -76,7 +84,9 @@ export class FormCreatorComponent implements OnInit {
       id: 'themes',
       types: ['theme'],
       multiple: false,
-      showSort: true
+      showSort: true,
+      icon: Icons.theme,
+      displayDescription: false
     }
   ];
 
@@ -87,7 +97,9 @@ export class FormCreatorComponent implements OnInit {
       id: 'emails',
       types: ['email'],
       multiple: false,
-      showSort: true
+      showSort: true,
+      icon: Icons.email,
+      displayDescription: false
     }
   ];
 

@@ -91,7 +91,7 @@ export class DashboardComponent implements OnInit {
 
   ngOnInit(): void {
     this.recordsService.getStats().subscribe((response) => {
-      // TODO stats
+    // TODO stats
     const labels = {
       fr: {
         types: ['Traitements', 'Préférences', 'CGU'],

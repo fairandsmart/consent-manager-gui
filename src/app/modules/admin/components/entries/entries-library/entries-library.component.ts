@@ -1,6 +1,6 @@
 import { ChangeDetectionStrategy, Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { Observable } from 'rxjs';
-import { CollectionPage, ModelDataType, ModelEntryDto, ModelFilter } from '../../../../../core/models/models';
+import { CollectionPage, Icons, ModelDataType, ModelEntryDto, ModelFilter } from '../../../../../core/models/models';
 import { ModelsResourceService } from '../../../../../core/http/models-resource.service';
 import { CollectionDatasource } from '../../../utils/collection-datasource';
 
@@ -24,6 +24,8 @@ export interface SectionConfig {
   filter?: ModelFilter;
   dataSource?: ConsentElementEntryDataSource;
   orderingOptions?: (keyof ModelEntryDto)[];
+  icon?: Icons;
+  displayDescription: boolean;
 }
 
 @Component({

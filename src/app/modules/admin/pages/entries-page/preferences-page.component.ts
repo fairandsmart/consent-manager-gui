@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { SectionConfig } from '../../components/entries/entries-library/entries-library.component';
+import { Icons } from '../../../../core/models/models';
 
 @Component({
   selector: 'cm-preferences-page',
@@ -14,7 +15,9 @@ export class PreferencesPageComponent {
       id: 'preferences',
       types: ['preference'],
       multiple: true,
-      showSort: true
+      showSort: true,
+      icon: Icons.preference,
+      displayDescription: true
     }
   ];
 

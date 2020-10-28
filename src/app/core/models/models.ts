@@ -29,6 +29,16 @@ export interface CollectionPage<T> {
   totalCount: number;
 }
 
+export enum Icons {
+  basicinfo = 'info',
+  treatment = 'check_box',
+  preference = 'favorite',
+  conditions = 'filter_none',
+  email = 'mail_outline',
+  theme = 'palette',
+  cookies = 'local_offer'
+}
+
 /* Models */
 
 export interface ModelEntryDto {
