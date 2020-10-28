@@ -350,7 +350,13 @@
           "OPTIONS": "Options"
         },
         "LABEL": {
-          "LABEL": "Label"
+          "LABEL": "Preference label"
+        },
+        "ASSOCIATE": {
+          "LABEL": "This preference is associated with one or more processing"
+        },
+        "ASSOCIATED_TREATMENTS": {
+          "LABEL": "Associated processing"
         },
         "DESCRIPTION": {
           "LABEL": "Description"
@@ -370,8 +376,7 @@
         "OPTIONS": {
           "LABEL": "Options",
           "PLACEHOLDER": "Enter here your options",
-          "LABEL_NO": "Negative answer label",
-          "LABEL_YES": "Positive answer label"
+          "TOGGLE_HINT": "Enter a first value for the position \"refuse\", and a second one for the position \"accept\"."
         }
       },
       "CONDITIONS": {
@@ -381,7 +386,7 @@
           "BUTTONS": "Buttons"
         },
         "TITLE": {
-          "LABEL": "Label"
+          "LABEL": "EULA label"
         },
         "BODY": {
           "LABEL": "EULA",

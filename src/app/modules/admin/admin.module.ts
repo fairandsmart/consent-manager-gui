@@ -28,7 +28,7 @@ import { BasicinfoPageComponent } from './pages/entries-page/basicinfo-page.comp
 import { TreatmentsPageComponent } from './pages/entries-page/treatments-page.component';
 import { GeneratedKeyDialogComponent, KeysComponent } from './pages/keys/keys.component';
 import { SubjectRecordsComponent } from './pages/subject-records/subject-records.component';
-import { SubjectRecordEditorDialogComponent } from './components/subject-record-editor-dialog/subject-record-editor-dialog.component';
+import { SubjectRecordEditorDialogComponent } from './components/operator/subject-record-editor-dialog/subject-record-editor-dialog.component';
 import { CoreModule } from '../../core/core.module';
 import { ClipboardModule } from '@angular/cdk/clipboard';
 import { ChartsModule } from 'ng2-charts';

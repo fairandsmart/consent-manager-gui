@@ -44,6 +44,10 @@ export class ModelsResourceService {
     return this.http.get<ModelEntryDto[]>(`${this.ROOT}/keys`, {params: {keys: keys}});
   }
 
+  listEntriesByType(type: string): Observable<ModelEntryDto[]> {
+    return this.http.get<ModelEntryDto[]>(`${this.ROOT}/type`, {params: {type: type}});
+  }
+
   listVersions<T extends ModelData = ModelData>(id: string): Observable<ModelVersionDtoLight<T>[]> {
     return this.http.get<ModelVersionDtoLight<T>[]>(`${this.ROOT}/${id}/versions`);
   }

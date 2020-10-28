@@ -3,7 +3,7 @@ import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { SubjectRecordEditorDialogComponent } from './subject-record-editor-dialog.component';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { ReactiveFormsModule } from '@angular/forms';
-import { CoreTestingModule } from '../../../../testing/core-testing-module.spec';
+import { CoreTestingModule } from '../../../../../testing/core-testing-module.spec';
 import SpyObj = jasmine.SpyObj;
 import createSpyObj = jasmine.createSpyObj;
 

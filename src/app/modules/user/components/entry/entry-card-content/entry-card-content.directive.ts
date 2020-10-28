@@ -76,7 +76,7 @@ export abstract class EntryCardContentDirective<T extends ModelData> implements 
       return;
     }
     this.disableControl();
-    const element = `element/${this.entry.type}/${this.entry.key}/${this.entry.versions[this.entry.versions.length - 1].serial}`;
+    const element = this.entry.versions[this.entry.versions.length - 1].identifier;
     const context: ConsentContext = {
       subject: this.keycloakService.getUsername(),
       orientation: ConsentFormOrientation.VERTICAL,

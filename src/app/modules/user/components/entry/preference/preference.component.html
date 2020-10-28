@@ -15,7 +15,6 @@
         </div>
       </div>
 
-
       <div *ngIf="getData()?.valueType === TYPES.CHECKBOXES">
         <ul [formGroup]="checkboxesGroup">
           <li *ngFor="let option of getData().options; index as index">
@@ -34,7 +33,6 @@
         </mat-radio-group>
       </div>
 
-
       <div *ngIf="getData()?.valueType === TYPES.LIST_SINGLE || getData()?.valueType === TYPES.LIST_MULTI">
         <mat-form-field appearance="outline">
           <mat-label>{{'ENTRIES.EDITOR.PREFERENCE.OPTIONS.LABEL' | translate}}</mat-label>
@@ -52,7 +50,9 @@
           <input [formControl]="control" matInput autocomplete="off">
         </mat-form-field>
       </div>
+
     </form>
+
   </div>
 </div>
 

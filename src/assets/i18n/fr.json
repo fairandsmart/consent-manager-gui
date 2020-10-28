@@ -350,7 +350,13 @@
           "OPTIONS": "Options"
         },
         "LABEL": {
-          "LABEL": "Libellé"
+          "LABEL": "Libellé des préférences"
+        },
+        "ASSOCIATE": {
+          "LABEL": "Cette préférence est associée à un ou plusieurs traitements"
+        },
+        "ASSOCIATED_TREATMENTS": {
+          "LABEL": "Traitements associés"
         },
         "DESCRIPTION": {
           "LABEL": "Description"
@@ -370,8 +376,7 @@
         "OPTIONS": {
           "LABEL": "Options",
           "PLACEHOLDER": "Entrez ici vos options",
-          "LABEL_NO": "Libellé de la réponse négative",
-          "LABEL_YES": "Libellé de la réponse positive"
+          "TOGGLE_HINT": "Entrez une première valeur pour la position \"refuser\", et une seconde pour la position \"accepter\"."
         }
       },
       "CONDITIONS": {
@@ -381,7 +386,7 @@
           "BUTTONS": "Boutons"
         },
         "TITLE": {
-          "LABEL": "Libellé"
+          "LABEL": "Libellé des CGU"
         },
         "BODY": {
           "LABEL": "CGU/CGS",

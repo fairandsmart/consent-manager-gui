@@ -160,6 +160,8 @@ export const PREFERENCE_VALUE_TYPES: PreferenceValueType[] = Object.keys(Prefere
 export interface Preference extends ModelData {
   type: 'preference';
   label: string;
+  associatedWithTreatments: boolean;
+  associatedTreatments: string[];
   description: string;
   options: string[];
   valueType: PreferenceValueType;
