@@ -230,8 +230,8 @@ export interface ConsentContext {
   receiptDeliveryType: ReceiptDeliveryType;
   userinfos: { [key: string]: string };
   attributes: { [key: string]: string };
-  optoutModel: string;
-  optoutRecipient: string;
+  notificationModel: string;
+  notificationRecipient: string;
   collectionMethod: CollectionMethod;
   author: string;
   preview: boolean;
