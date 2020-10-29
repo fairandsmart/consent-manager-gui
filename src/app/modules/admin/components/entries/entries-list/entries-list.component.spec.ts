@@ -10,6 +10,7 @@ import { of } from 'rxjs';
 import { CoreTestingModule } from '../../../../../testing/core-testing-module.spec';
 import createSpyObj = jasmine.createSpyObj;
 import SpyObj = jasmine.SpyObj;
+import { ModelDataType, ModelVersionDtoLight } from '../../../../../core/models/models';
 
 describe('EntriesListComponent', () => {
   let component: EntriesListComponent;
@@ -18,7 +19,7 @@ describe('EntriesListComponent', () => {
   let activatedRouteStub: ActivatedRouteStubSpec;
 
   beforeEach(waitForAsync(() => {
-    modelsResourceServiceSpy =  createSpyObj<ModelsResourceService>('ModelsResourceService', ['listEntries']);
+    modelsResourceServiceSpy =  createSpyObj<ModelsResourceService>('ModelsResourceService', ['listEntriesByType']);
     activatedRouteStub = new ActivatedRouteStubSpec();
 
     TestBed.configureTestingModule({
@@ -33,13 +34,7 @@ describe('EntriesListComponent', () => {
   }));
 
   beforeEach(() => {
-    modelsResourceServiceSpy.listEntries.and.returnValue(of({
-      values: [],
-      page: 0,
-      pageSize: 0,
-      totalCount: 0,
-      totalPages: 0,
-    }));
+    modelsResourceServiceSpy.listEntriesByType.and.returnValue(of([]));
 
     fixture = TestBed.createComponent(EntriesListComponent);
     component = fixture.componentInstance;
@@ -47,7 +42,8 @@ describe('EntriesListComponent', () => {
       id: 'infos',
       types: ['basicinfo'],
       multiple: true,
-      showSort: true
+      showSort: true,
+      displayDescription: false,
     };
 
     // fixture.detectChanges();
