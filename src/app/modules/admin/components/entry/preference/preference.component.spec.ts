@@ -9,8 +9,7 @@ import { CoreTestingModule } from '../../../../../testing/core-testing-module.sp
 import { RouterTestingModule } from '@angular/router/testing';
 import SpyObj = jasmine.SpyObj;
 import createSpyObj = jasmine.createSpyObj;
-import { of } from 'rxjs';
-import { EntriesListComponent } from '../../entries/entries-list/entries-list.component';
+import { EMPTY } from 'rxjs';
 
 describe('PreferenceComponent', () => {
   let component: PreferenceComponent;
@@ -18,7 +17,7 @@ describe('PreferenceComponent', () => {
   let modelsResourceServiceSpy: SpyObj<ModelsResourceService>;
 
   beforeEach(waitForAsync(() => {
-    modelsResourceServiceSpy =  createSpyObj('ModelsResourceService', ['listEntriesByType']);
+    modelsResourceServiceSpy =  createSpyObj('ModelsResourceService', ['listEntries']);
 
     TestBed.configureTestingModule({
       declarations: [ PreferenceComponent, EntryInfoComponent, EntryPreviewComponent ],
@@ -31,7 +30,7 @@ describe('PreferenceComponent', () => {
   }));
 
   beforeEach(() => {
-    modelsResourceServiceSpy.listEntriesByType.and.returnValue(of([]));
+    modelsResourceServiceSpy.listEntries.and.returnValue(EMPTY);
     fixture = TestBed.createComponent(PreferenceComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();

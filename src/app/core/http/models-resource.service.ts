@@ -20,6 +20,7 @@ import {
 export class ModelsResourceService {
 
   readonly ROOT = `${environment.managerUrl}/models`;
+  readonly NEW_VERSION_UUID = '11111111-9999-1111-9999-111111111111';
 
   constructor(private http: HttpClient) {
   }
@@ -38,14 +39,6 @@ export class ModelsResourceService {
 
   updateEntry(id: string, dto: UpdateModelDto): Observable<ModelEntryDto> {
     return this.http.put<ModelEntryDto>(`${this.ROOT}/${id}`, dto);
-  }
-
-  listEntriesByKeys(keys: string[]): Observable<ModelEntryDto[]> {
-    return this.http.get<ModelEntryDto[]>(`${this.ROOT}/keys`, {params: {keys: keys}});
-  }
-
-  listEntriesByType(type: string): Observable<ModelEntryDto[]> {
-    return this.http.get<ModelEntryDto[]>(`${this.ROOT}/type`, {params: {type: type}});
   }
 
   listVersions<T extends ModelData = ModelData>(id: string): Observable<ModelVersionDtoLight<T>[]> {
