@@ -35,6 +35,10 @@ import { ClipboardModule } from '@angular/cdk/clipboard';
 import { ChartsModule } from 'ng2-charts';
 import { CodemirrorModule } from '@ctrl/ngx-codemirror';
 import { AdminRoutingModule } from './admin-routing.module';
+import { OperatorProcessingComponent } from './components/operator/operator-processing/operator-processing.component';
+import { OperatorConditionsComponent } from './components/operator/operator-conditions/operator-conditions.component';
+import { OperatorPreferencesComponent } from './components/operator/operator-preferences/operator-preferences.component';
+import { OperatorSubjectPageComponent } from './pages/operator-subject-page/operator-subject-page.component';
 
 @NgModule({
   declarations: [
@@ -68,7 +72,11 @@ import { AdminRoutingModule } from './admin-routing.module';
     GeneratedKeyDialogComponent,
     SubjectRecordsComponent,
     SubjectRecordEditorDialogComponent,
-    SubjectRecordApplyChangesDialogComponent
+    SubjectRecordApplyChangesDialogComponent,
+    OperatorProcessingComponent,
+    OperatorConditionsComponent,
+    OperatorPreferencesComponent,
+    OperatorSubjectPageComponent
   ],
   imports: [
     AdminRoutingModule,

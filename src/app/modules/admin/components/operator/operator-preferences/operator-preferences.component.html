@@ -1,0 +1,94 @@
+<div class="container">
+  <div class="title-container">
+    <h2>{{'RECORDS.OPERATOR.SUBTITLES.' + type | translate}} {{subject}}</h2>
+  </div>
+
+  <div class="table-container mat-elevation-z6">
+    <div class="progress-bar-container" *ngIf="dataSource.loading$ | async">
+      <mat-progress-bar mode="indeterminate"></mat-progress-bar>
+    </div>
+    <table mat-table [dataSource]="dataSource"
+           [class.loading]="dataSource.loading$ | async"
+           matSort [matSortActive]="filter.order"
+           [matSortDirection]="filter.direction"
+           matSortDisableClear="true">
+
+      <ng-container matColumnDef="key">
+        <th mat-header-cell mat-sort-header *matHeaderCellDef>{{'RECORDS.COMMON.KEY.LABEL' | translate}}</th>
+        <td mat-cell *matCellDef="let element">{{element.key}}</td>
+      </ng-container>
+
+      <ng-container matColumnDef="name">
+        <th mat-header-cell mat-sort-header *matHeaderCellDef>{{'RECORDS.COMMON.NAME.LABEL' | translate}}</th>
+        <td mat-cell *matCellDef="let element">{{element.name}}</td>
+      </ng-container>
+
+      <ng-container matColumnDef="type">
+        <th mat-header-cell mat-sort-header *matHeaderCellDef>{{'RECORDS.COMMON.TYPE.LABEL' | translate}}</th>
+        <td mat-cell *matCellDef="let element">
+          <mat-icon [matTooltip]="'COMMON.ENTRY_TYPES.' + element.type.toUpperCase() | translate">
+            {{ICONS[element.type]}}
+          </mat-icon>
+        </td>
+      </ng-container>
+
+      <ng-container matColumnDef="value">
+        <th mat-header-cell *matHeaderCellDef>{{'RECORDS.COMMON.VALUE.LABEL' | translate}}</th>
+        <td mat-cell *matCellDef="let element">
+          <span *ngIf="element.value != 'accepted' && element.value != 'refused'">-</span>
+          <span *ngIf="element.value"><mat-icon>{{element.value == "accepted" ? 'check' : 'close'}}</mat-icon></span>
+        </td>
+      </ng-container>
+
+      <ng-container matColumnDef="collectionMethod">
+        <th mat-header-cell *matHeaderCellDef>{{'RECORDS.COMMON.COLLECTION_METHOD.LABEL' | translate}}</th>
+        <td mat-cell *matCellDef="let element">
+          {{element.collectionMethod ? ('COMMON.COLLECTION_METHODS.' + element.collectionMethod | translate) : '-'}}
+        </td>
+      </ng-container>
+
+      <ng-container matColumnDef="comment">
+        <th mat-header-cell *matHeaderCellDef>{{'RECORDS.COMMON.COMMENT.LABEL' | translate}}</th>
+        <td mat-cell *matCellDef="let element">{{element.comment || '-'}}</td>
+      </ng-container>
+
+      <ng-container matColumnDef="status">
+        <th mat-header-cell *matHeaderCellDef>{{'RECORDS.COMMON.STATUS.LABEL' | translate}}</th>
+        <td mat-cell *matCellDef="let element">
+          {{element.status ? ('COMMON.RECORD_STATUS.' + element.status | translate) : '-'}}
+        </td>
+      </ng-container>
+
+      <ng-container matColumnDef="recordCreation">
+        <th mat-header-cell *matHeaderCellDef>{{'RECORDS.COMMON.CREATION.LABEL' | translate}}</th>
+        <td mat-cell *matCellDef="let element">
+          {{element.recordCreation > 0 ? (element.recordCreation | date:'shortDate') : '-'}}
+        </td>
+      </ng-container>
+
+      <ng-container matColumnDef="recordExpiration">
+        <th mat-header-cell *matHeaderCellDef>{{'RECORDS.COMMON.EXPIRATION.LABEL' | translate}}</th>
+        <td mat-cell *matCellDef="let element">
+          {{element.recordExpiration > 0 ? (element.recordExpiration | date:'shortDate') : '-'}}
+        </td>
+      </ng-container>
+
+      <ng-container matColumnDef="actions">
+        <th mat-header-cell *matHeaderCellDef></th>
+        <td mat-cell *matCellDef="let element">
+          <button mat-icon-button (click)="action(element)" [disabled]="!element.active">
+            <mat-icon>edit</mat-icon>
+          </button>
+        </td>
+      </ng-container>
+
+      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+      <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+
+    </table>
+    <mat-paginator [pageSizeOptions]="pageSizeOptions"
+                   [pageIndex]="filter.page"
+                   [pageSize]="this.filter.size"
+                   showFirstLastButtons></mat-paginator>
+  </div>
+</div>

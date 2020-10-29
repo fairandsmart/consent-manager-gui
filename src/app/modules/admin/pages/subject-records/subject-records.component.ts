@@ -8,6 +8,7 @@ import {
   ConsentFormType,
   EntryRecord,
   EntryRecordFilter,
+  Icons,
   ModelEntryDto,
   ModelVersionDtoLight,
   RecordDto
@@ -31,7 +32,7 @@ import {
 } from '../../components/operator/subject-record-apply-changes-dialog/subject-record-apply-changes-dialog.component';
 import { getActiveVersion } from '../../../../core/utils/model-entry.utils';
 
-class SubjectRecordDataSource extends CollectionDatasource<EntryRecord, EntryRecordFilter> {
+export class SubjectRecordDataSource extends CollectionDatasource<EntryRecord, EntryRecordFilter> {
 
   constructor(private modelsResource: ModelsResourceService, private subjectsResource: SubjectsResourceService) {
     super();
@@ -86,15 +87,16 @@ class SubjectRecordDataSource extends CollectionDatasource<EntryRecord, EntryRec
 })
 export class SubjectRecordsComponent implements OnInit {
 
+  readonly ICONS = Icons;
   public displayedColumns = [
     'key', 'name', 'type', 'value', 'collectionMethod', 'comment', 'status', 'recordCreation', 'recordExpiration', 'actions'
   ];
-
   public pageSizeOptions = [10, 25, 50];
 
-  public dataSource: SubjectRecordDataSource;
+  public subject: string;
+  public consentsDataSource: SubjectRecordDataSource;
 
-  public filter: EntryRecordFilter = {
+  public consentsFilter: EntryRecordFilter = {
     page: 0,
     size: 10,
     subject: undefined,
@@ -102,7 +104,18 @@ export class SubjectRecordsComponent implements OnInit {
     after: -1,
     order: 'key',
     direction: 'asc',
-    types: ['processing', 'preference', 'conditions']
+    types: ['conditions', 'processing']
+  };
+
+  public preferencesFilter: EntryRecordFilter = {
+    page: 0,
+    size: 10,
+    subject: undefined,
+    before: -1,
+    after: -1,
+    order: 'key',
+    direction: 'asc',
+    types: ['preference']
   };
 
   @ViewChild(MatPaginator, {static: true})
@@ -124,53 +137,52 @@ export class SubjectRecordsComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.dataSource = new SubjectRecordDataSource(this.modelsResource, this.subjectsResource);
-    this.dataSource.paginator = this.paginator;
+    this.consentsDataSource = new SubjectRecordDataSource(this.modelsResource, this.subjectsResource);
+    this.consentsDataSource.paginator = this.paginator;
     this.route.paramMap.subscribe(params => {
-      this.filter.subject = params.get('subject');
+      this.subject = params.get('subject');
+      this.consentsFilter.subject = this.subject;
+      this.preferencesFilter.subject = this.subject;
       this.reloadRecords();
     });
     this.sort.sortChange.subscribe((sort: Sort) => {
-      this.filter.page = 0;
-      this.filter.order = sort.active;
-      this.filter.direction = sort.direction;
+      this.consentsFilter.page = 0;
+      this.consentsFilter.order = sort.active;
+      this.consentsFilter.direction = sort.direction;
       this.reloadRecords();
     });
     this.paginator.page.pipe(
       tap((e) => {
-        this.filter.size = e.pageSize;
-        this.filter.page = e.pageIndex;
+        this.consentsFilter.size = e.pageSize;
+        this.consentsFilter.page = e.pageIndex;
         this.reloadRecords();
       })
     ).subscribe();
   }
 
   reloadRecords(): void {
-    if (this.filter.subject) {
-      this.dataSource.loadPage(this.filter);
+    if (this.consentsFilter.subject) {
+      this.consentsDataSource.loadPage(this.consentsFilter);
     }
   }
 
   addElementToLog(element): void {
     this.dialog.open<SubjectRecordEditorDialogComponent, EntryRecord>(SubjectRecordEditorDialogComponent, {
       data: element
-    }).afterClosed().subscribe((result) => {
+    }).afterClosed().subscribe((result: EntryRecord) => {
       if (result) {
-        const previousIndex = this.operatorLog.findIndex(e => e.key === result.key);
-        if (previousIndex < 0) {
+        const index = this.operatorLog.findIndex(e => e.key === result.key);
+        if (index < 0) {
           this.operatorLog.push(result);
         } else {
-          this.operatorLog[previousIndex] = result;
+          this.operatorLog[index] = result;
         }
       }
     });
   }
 
-  removeElementFromLog(element): void {
-    const index = this.operatorLog.findIndex(e => e.key === element.key);
-    if (index >= 0) {
-      this.operatorLog.splice(index, 1);
-    }
+  removeElementFromLog(index): void {
+    this.operatorLog.splice(index, 1);
   }
 
   submitLog(): void {
@@ -180,7 +192,7 @@ export class SubjectRecordsComponent implements OnInit {
       .afterClosed().subscribe((result) => {
       if (result) {
         const ctx: ConsentContext = {
-          subject: this.filter.subject,
+          subject: this.consentsFilter.subject,
           orientation: ConsentFormOrientation.VERTICAL,
           info: '',
           elements: this.operatorLog.map(e => e.identifier),
@@ -211,10 +223,4 @@ export class SubjectRecordsComponent implements OnInit {
     });
   }
 
-  formatPreferenceValue(value): string {
-    if (value) {
-      return value.split(',').join(' ;<br>');
-    }
-    return value;
-  }
 }

@@ -12,6 +12,7 @@ import { EmailsPageComponent } from './pages/entries-page/emails-page.component'
 import { ThemesPageComponent } from './pages/entries-page/themes-page.component';
 import { FormCreatorComponent } from './pages/form-creator/form-creator.component';
 import { KeysComponent } from './pages/keys/keys.component';
+import { OperatorSubjectPageComponent } from './pages/operator-subject-page/operator-subject-page.component';
 
 const routes: Routes = [
   {
@@ -24,7 +25,7 @@ const routes: Routes = [
       },
       {
         path: 'subjects/:subject',
-        component: SubjectRecordsComponent
+        component: OperatorSubjectPageComponent
       },
       {
         path: 'configuration',

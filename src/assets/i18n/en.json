@@ -515,7 +515,11 @@
       "TITLE_APPLY": "Apply modifications"
     },
     "OPERATOR": {
-      "TITLE": "Consents of",
+      "SUBTITLES": {
+        "processing": "Consents of ",
+        "preference": "Preferences of ",
+        "conditions": "End user license agreements of "
+      },
       "LOG": {
         "TITLE": "Log",
         "EMPTY": "The log is empty.",

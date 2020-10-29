@@ -515,7 +515,11 @@
       "TITLE_APPLY": "Appliquer les modifications"
     },
     "OPERATOR": {
-      "TITLE": "Consentements de",
+      "SUBTITLES": {
+        "processing": "Consentements de ",
+        "preference": "Préférences de ",
+        "conditions": "Conditions générales d'utilisation de "
+      },
       "LOG": {
         "TITLE": "Log",
         "EMPTY": "Le log est vide.",

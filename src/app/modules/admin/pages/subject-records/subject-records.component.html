@@ -2,15 +2,18 @@
   <mat-sidenav-content>
     <div class="container">
       <div class="title-container">
-        <h2>{{'RECORDS.OPERATOR.TITLE' | translate}} {{filter.subject}}</h2>
+        <h2>{{'RECORDS.OPERATOR.TITLE' | translate}} {{consentsFilter.subject}}</h2>
       </div>
 
       <div class="table-container mat-elevation-z6">
-        <div class="progress-bar-container" *ngIf="dataSource.loading$ | async">
+        <div class="progress-bar-container" *ngIf="consentsDataSource.loading$ | async">
           <mat-progress-bar mode="indeterminate"></mat-progress-bar>
         </div>
-        <table mat-table [dataSource]="dataSource" [class.loading]="dataSource.loading$ | async"
-               matSort [matSortActive]="filter.order" [matSortDirection]="filter.direction" matSortDisableClear="true">
+        <table mat-table [dataSource]="consentsDataSource"
+               [class.loading]="consentsDataSource.loading$ | async"
+               matSort [matSortActive]="consentsFilter.order"
+               [matSortDirection]="consentsFilter.direction"
+               matSortDisableClear="true">
 
           <ng-container matColumnDef="key">
             <th mat-header-cell mat-sort-header *matHeaderCellDef>{{'RECORDS.COMMON.KEY.LABEL' | translate}}</th>
@@ -24,13 +27,16 @@
 
           <ng-container matColumnDef="type">
             <th mat-header-cell mat-sort-header *matHeaderCellDef>{{'RECORDS.COMMON.TYPE.LABEL' | translate}}</th>
-            <td mat-cell
-                *matCellDef="let element">{{'COMMON.ENTRY_TYPES.' + element.type.toUpperCase() | translate}}</td>
+            <td mat-cell *matCellDef="let element">
+              <mat-icon [matTooltip]="'COMMON.ENTRY_TYPES.' + element.type.toUpperCase() | translate">
+                {{ICONS[element.type]}}
+              </mat-icon>
+            </td>
           </ng-container>
 
           <ng-container matColumnDef="value">
             <th mat-header-cell *matHeaderCellDef>{{'RECORDS.COMMON.VALUE.LABEL' | translate}}</th>
-            <td mat-cell *matCellDef="let element">
+            <!--<td mat-cell *matCellDef="let element">
               <ng-container *ngIf="element.type == 'processing' || element.type == 'conditions'">
                 <span *ngIf="element.value != 'accepted' && element.value != 'refused'">-</span>
                 <span *ngIf="element.value"><mat-icon>{{element.value == "accepted" ? 'check' : 'close'}}</mat-icon></span>
@@ -39,13 +45,18 @@
                 <div *ngIf="element.value" style="margin: 4px 0;" [innerHTML]="formatPreferenceValue(element.value)"></div>
                 <span *ngIf="!element.value">-</span>
               </ng-container>
+            </td>-->
+            <td mat-cell *matCellDef="let element">
+              <span *ngIf="element.value != 'accepted' && element.value != 'refused'">-</span>
+              <span *ngIf="element.value"><mat-icon>{{element.value == "accepted" ? 'check' : 'close'}}</mat-icon></span>
             </td>
           </ng-container>
 
           <ng-container matColumnDef="collectionMethod">
             <th mat-header-cell *matHeaderCellDef>{{'RECORDS.COMMON.COLLECTION_METHOD.LABEL' | translate}}</th>
-            <td mat-cell
-                *matCellDef="let element">{{element.collectionMethod ? ('COMMON.COLLECTION_METHODS.' + element.collectionMethod | translate) : '-'}}</td>
+            <td mat-cell *matCellDef="let element">
+              {{element.collectionMethod ? ('COMMON.COLLECTION_METHODS.' + element.collectionMethod | translate) : '-'}}
+            </td>
           </ng-container>
 
           <ng-container matColumnDef="comment">
@@ -55,20 +66,23 @@
 
           <ng-container matColumnDef="status">
             <th mat-header-cell *matHeaderCellDef>{{'RECORDS.COMMON.STATUS.LABEL' | translate}}</th>
-            <td mat-cell
-                *matCellDef="let element">{{element.status ? ('COMMON.RECORD_STATUS.' + element.status | translate) : '-'}}</td>
+            <td mat-cell *matCellDef="let element">
+              {{element.status ? ('COMMON.RECORD_STATUS.' + element.status | translate) : '-'}}
+            </td>
           </ng-container>
 
           <ng-container matColumnDef="recordCreation">
             <th mat-header-cell *matHeaderCellDef>{{'RECORDS.COMMON.CREATION.LABEL' | translate}}</th>
-            <td mat-cell
-                *matCellDef="let element">{{element.recordCreation > 0 ? (element.recordCreation | date:'short') : '-'}}</td>
+            <td mat-cell *matCellDef="let element">
+              {{element.recordCreation > 0 ? (element.recordCreation | date:'shortDate') : '-'}}
+            </td>
           </ng-container>
 
           <ng-container matColumnDef="recordExpiration">
             <th mat-header-cell *matHeaderCellDef>{{'RECORDS.COMMON.EXPIRATION.LABEL' | translate}}</th>
-            <td mat-cell
-                *matCellDef="let element">{{element.recordExpiration > 0 ? (element.recordExpiration | date:'short') : '-'}}</td>
+            <td mat-cell *matCellDef="let element">
+              {{element.recordExpiration > 0 ? (element.recordExpiration | date:'shortDate') : '-'}}
+            </td>
           </ng-container>
 
           <ng-container matColumnDef="actions">
@@ -84,12 +98,11 @@
           <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
 
         </table>
-        <mat-paginator [pageSizeOptions]="pageSizeOptions" [pageIndex]="filter.page" [pageSize]="this.filter.size"
+        <mat-paginator [pageSizeOptions]="pageSizeOptions"
+                       [pageIndex]="consentsFilter.page"
+                       [pageSize]="this.consentsFilter.size"
                        showFirstLastButtons></mat-paginator>
       </div>
-<!--      <div class="back-button-wrapper">-->
-<!--        <button mat-button color="primary" routerLink="../">{{'COMMON.BUTTONS.BACK' | translate}}</button>-->
-<!--      </div>-->
     </div>
   </mat-sidenav-content>
   <mat-sidenav [opened]="operatorLog.length > 0" mode="side" position="end">

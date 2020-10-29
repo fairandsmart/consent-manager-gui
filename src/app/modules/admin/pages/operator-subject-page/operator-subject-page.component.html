@@ -1,0 +1,24 @@
+<mat-sidenav-container>
+  <mat-sidenav-content>
+    <div class="container" *ngIf="subject">
+
+      <div>TODO : cartouche user {{subject}}</div>
+
+      <cm-operator-processing [subject]="subject"
+                              (operatorAction)="operatorActionProcessing($event)"></cm-operator-processing>
+
+      <cm-operator-preferences [subject]="subject"
+                               (operatorAction)="operatorActionPreferences($event)"></cm-operator-preferences>
+
+      <cm-operator-conditions [subject]="subject"
+                              (operatorAction)="operatorActionConditions($event)"></cm-operator-conditions>
+
+    </div>
+  </mat-sidenav-content>
+
+  <mat-sidenav [opened]="true" mode="side" position="end">
+    <div>
+      TODO : log
+    </div>
+  </mat-sidenav>
+</mat-sidenav-container>
