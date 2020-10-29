@@ -496,11 +496,18 @@
       },
       "EXPIRATION": {
         "LABEL": "Date d'expiration"
+      },
+      "RECIPIENT": {
+        "LABEL": "Adresse email de notification"
+      },
+      "MODEL": {
+        "LABEL": "Modèle d'email de notification"
       }
     },
     "DIALOG": {
       "TITLE_NEW": "Nouvelle réponse",
-      "TITLE_UPDATE": "Modification de la réponse"
+      "TITLE_UPDATE": "Modification de la réponse",
+      "TITLE_APPLY": "Appliquer les modifications"
     },
     "OPERATOR": {
       "TITLE": "Consentements de",

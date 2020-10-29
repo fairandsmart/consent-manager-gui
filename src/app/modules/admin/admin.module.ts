@@ -29,6 +29,7 @@ import { ProcessingPageComponent } from './pages/entries-page/processing-page.co
 import { GeneratedKeyDialogComponent, KeysComponent } from './pages/keys/keys.component';
 import { SubjectRecordsComponent } from './pages/subject-records/subject-records.component';
 import { SubjectRecordEditorDialogComponent } from './components/operator/subject-record-editor-dialog/subject-record-editor-dialog.component';
+import { SubjectRecordApplyChangesDialogComponent } from './components/operator/subject-record-apply-changes-dialog/subject-record-apply-changes-dialog.component';
 import { CoreModule } from '../../core/core.module';
 import { ClipboardModule } from '@angular/cdk/clipboard';
 import { ChartsModule } from 'ng2-charts';
@@ -67,6 +68,7 @@ import { AdminRoutingModule } from './admin-routing.module';
     GeneratedKeyDialogComponent,
     SubjectRecordsComponent,
     SubjectRecordEditorDialogComponent,
+    SubjectRecordApplyChangesDialogComponent
   ],
   imports: [
     AdminRoutingModule,

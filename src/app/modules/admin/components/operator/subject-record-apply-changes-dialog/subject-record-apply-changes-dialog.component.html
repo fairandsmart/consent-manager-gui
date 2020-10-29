@@ -1,0 +1,33 @@
+<h2 mat-dialog-title>
+  {{'RECORDS.DIALOG.TITLE_APPLY' | translate}}
+</h2>
+
+<div mat-dialog-content *ngIf="form" [formGroup]="form">
+
+  <mat-form-field appearance="fill">
+    <mat-label>{{'RECORDS.COMMON.COMMENT.LABEL' | translate}}</mat-label>
+    <input matInput formControlName="comment" autocomplete="off">
+  </mat-form-field>
+
+  <mat-form-field appearance="fill">
+    <mat-label>{{'RECORDS.COMMON.RECIPIENT.LABEL' | translate}}</mat-label>
+    <input matInput [value]="data.recipient">
+  </mat-form-field>
+
+  <mat-form-field appearance="fill">
+    <mat-label>{{'RECORDS.COMMON.MODEL.LABEL' | translate}}</mat-label>
+    <select matNativeControl>
+      <mat-option *ngFor="let model of models" [value]="model.key">{{model.name}}</mat-option>
+    </select>
+  </mat-form-field>
+
+</div>
+
+<div class="btn-uppercase align-right" mat-dialog-actions>
+  <button mat-button color="primary" [disabled]="form.disabled" [mat-dialog-close]="null">
+    {{'COMMON.BUTTONS.CANCEL' | translate}}
+  </button>
+  <button mat-button color="primary" [disabled]="form.disabled" (click)="submit()">
+    {{'COMMON.BUTTONS.SAVE' | translate}}
+  </button>
+</div>

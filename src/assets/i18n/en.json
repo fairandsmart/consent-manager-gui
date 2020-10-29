@@ -496,11 +496,18 @@
       },
       "EXPIRATION": {
         "LABEL": "Expiration date"
+      },
+      "RECIPIENT": {
+        "LABEL": "Notification email address"
+      },
+      "MODEL": {
+        "LABEL": "Email Notification model"
       }
     },
     "DIALOG": {
       "TITLE_NEW": "New consent record",
-      "TITLE_UPDATE": "Update consent record"
+      "TITLE_UPDATE": "Update consent record",
+      "TITLE_APPLY": "Apply modifications"
     },
     "OPERATOR": {
       "TITLE": "Consents of",
