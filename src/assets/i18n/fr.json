@@ -498,10 +498,15 @@
         "LABEL": "Date d'expiration"
       },
       "RECIPIENT": {
-        "LABEL": "Adresse email de notification"
+        "LABEL": "Adresse email de notification",
+        "REQUIRED": "Vous devez préciser l'adresse email",
+        "EMAIL_INVALID": "Vous devez préciser une adresse email valide",
+        "NOTIFY": "Notifier l'utilisateur par email",
+        "NO_MODELS_HINT": "Pour pouvoir envoyer une notification par email vous devez avoir défini au moins un modèle d'email."
       },
       "MODEL": {
-        "LABEL": "Modèle d'email de notification"
+        "LABEL": "Modèle d'email de notification",
+        "REQUIRED": "Vous devez préciser le modèle"
       }
     },
     "DIALOG": {

@@ -6,20 +6,37 @@
 
   <mat-form-field appearance="fill">
     <mat-label>{{'RECORDS.COMMON.COMMENT.LABEL' | translate}}</mat-label>
-    <input matInput formControlName="comment" autocomplete="off">
+    <textarea matInput formControlName="comment" cdkTextareaAutosize cdkAutosizeMinRows="3"></textarea>
   </mat-form-field>
 
-  <mat-form-field appearance="fill">
-    <mat-label>{{'RECORDS.COMMON.RECIPIENT.LABEL' | translate}}</mat-label>
-    <input matInput formControlName="recipient" >
-  </mat-form-field>
+  <div class="checkbox-wrapper">
+    <mat-checkbox formControlName="notify">{{'RECORDS.COMMON.RECIPIENT.NOTIFY' | translate}}</mat-checkbox>
+  </div>
 
-  <mat-form-field appearance="fill">
-    <mat-label>{{'RECORDS.COMMON.MODEL.LABEL' | translate}}</mat-label>
-    <select matNativeControl formControlName="model">
-      <mat-option *ngFor="let model of models" [value]="model.key">{{model.name}}</mat-option>
-    </select>
-  </mat-form-field>
+  <ng-container *ngIf="form.get('notify').value">
+    <p *ngIf="models.length === 0">{{'RECORDS.COMMON.RECIPIENT.NO_MODELS_HINT' | translate}}</p>
+
+    <mat-form-field appearance="fill">
+      <mat-label>{{'RECORDS.COMMON.RECIPIENT.LABEL' | translate}}</mat-label>
+      <input matInput type="email" required formControlName="recipient" >
+      <mat-error *ngIf="form.hasError('required', ['recipient'])">
+        {{'RECORDS.COMMON.RECIPIENT.REQUIRED' | translate }}
+      </mat-error>
+      <mat-error *ngIf="form.hasError('email', ['recipient'])">
+        {{'RECORDS.COMMON.RECIPIENT.EMAIL_INVALID' | translate }}
+      </mat-error>
+    </mat-form-field>
+
+    <mat-form-field appearance="fill">
+      <mat-label>{{'RECORDS.COMMON.MODEL.LABEL' | translate}}</mat-label>
+      <mat-select formControlName="model" required>
+        <mat-option *ngFor="let model of models" [value]="model.key">{{model.name}}</mat-option>
+      </mat-select>
+      <mat-error *ngIf="form.hasError('required', ['model'])">
+        {{'RECORDS.COMMON.MODEL.REQUIRED' | translate }}
+      </mat-error>
+    </mat-form-field>
+  </ng-container>
 
 </div>
 

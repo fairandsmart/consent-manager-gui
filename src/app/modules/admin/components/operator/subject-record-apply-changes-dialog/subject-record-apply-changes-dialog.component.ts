@@ -3,8 +3,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import * as _ from 'lodash';
 import { ModelsResourceService } from '../../../../../core/http/models-resource.service';
-import { Email, ModelEntryDto } from '../../../../../core/models/models';
-import { filter } from 'rxjs/operators';
+import { ModelEntryDto } from '../../../../../core/models/models';
 
 export interface SubjectRecordApplyChangesDialogData {
   recipient: string;
@@ -30,23 +29,43 @@ export class SubjectRecordApplyChangesDialogComponent implements OnInit {
   ngOnInit(): void {
     this.modelsService.listEntries({types : ['email']}).subscribe( (result) => {
       this.models = result.values;
+      if (result.totalCount === 0) {
+        this.form.get('recipient').disable();
+        this.form.get('model').disable();
+      }
     });
     this.form = this.fb.group({
       comment: [''],
+      notify: [false],
       recipient: [''],
       model: ['']
+    });
+    this.form.get('notify').valueChanges.subscribe(notify => {
+      if (notify) {
+        this.form.get('recipient').setValidators([Validators.email, Validators.required]);
+        this.form.get('model').setValidators(Validators.required);
+      } else {
+        this.form.get('recipient').clearValidators();
+        this.form.get('recipient').updateValueAndValidity();
+        this.form.get('model').clearValidators();
+        this.form.get('model').updateValueAndValidity();
+      }
     });
     this.form.patchValue(this.data);
     this.form.enable();
   }
 
   submit(): void {
-    if (this.form.valid) {
-      this.form.disable();
-      const result = _.cloneDeep(this.data);
-      result.recipient = this.form.getRawValue().recipient;
-      result.model = this.form.getRawValue().model;
-      this.dialogRef.close(result);
+    if (this.form.invalid) {
+      this.form.markAllAsTouched();
+      return;
     }
+    this.form.disable();
+    const result = _.cloneDeep(this.data);
+    if (this.form.get('notify').value) {
+      result.recipient = this.form.get('recipient').value.trim();
+      result.model = this.form.get('model').value;
+    }
+    this.dialogRef.close(result);
   }
 }

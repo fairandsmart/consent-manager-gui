@@ -498,10 +498,15 @@
         "LABEL": "Expiration date"
       },
       "RECIPIENT": {
-        "LABEL": "Notification email address"
+        "LABEL": "Notification email address",
+        "REQUIRED": "Please specify the email address",
+        "EMAIL_INVALID": "Please specify a valid email address",
+        "NOTIFY": "Notify the user by email",
+        "NO_MODELS_HINT": "To be able to send an email notification you must have defined at least one email model."
       },
       "MODEL": {
-        "LABEL": "Email Notification model"
+        "LABEL": "Email Notification model",
+        "REQUIRED": "Please specify a model"
       }
     },
     "DIALOG": {
