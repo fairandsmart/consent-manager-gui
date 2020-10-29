@@ -221,7 +221,8 @@ export interface PreviewDto {
 }
 
 export interface ModelFilter {
-  types: ModelDataType[];
+  types?: ModelDataType[];
+  keys?: string[];
   page?: number;
   size?: number;
   order?: string;

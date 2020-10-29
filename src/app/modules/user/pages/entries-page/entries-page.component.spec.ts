@@ -20,7 +20,7 @@ describe('EntriesPageComponent', () => {
 
   beforeEach(waitForAsync(() => {
     keycloakServiceSpy = createSpyObj<KeycloakService>('KeycloakService', ['getUsername']);
-    modelsResourceServiceSpy =  createSpyObj('ModelsResourceService', ['listEntriesByKeys']);
+    modelsResourceServiceSpy =  createSpyObj('ModelsResourceService', ['listEntries']);
     subjectsResourceServiceSpy =  createSpyObj('SubjectsResourceService', ['listCustomerRecords']);
     alertServiceSpy =  createSpyObj('AlertService', ['error']);
 
@@ -39,7 +39,7 @@ describe('EntriesPageComponent', () => {
 
   beforeEach(() => {
     keycloakServiceSpy.getUsername.and.returnValue('FOO BAR');
-    modelsResourceServiceSpy.listEntriesByKeys.and.returnValue(EMPTY);
+    modelsResourceServiceSpy.listEntries.and.returnValue(EMPTY);
     subjectsResourceServiceSpy.listCustomerRecords.and.returnValue(EMPTY);
 
     fixture = TestBed.createComponent(EntriesPageComponent);

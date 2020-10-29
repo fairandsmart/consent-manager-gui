@@ -6,11 +6,10 @@ import { FormsModule } from '@angular/forms';
 import { ModelsResourceService } from '../../../../../core/http/models-resource.service';
 import { ActivatedRoute } from '@angular/router';
 import { ActivatedRouteStubSpec } from '../../../../../testing/activated-route-stub.spec';
-import { of } from 'rxjs';
+import { EMPTY } from 'rxjs';
 import { CoreTestingModule } from '../../../../../testing/core-testing-module.spec';
 import createSpyObj = jasmine.createSpyObj;
 import SpyObj = jasmine.SpyObj;
-import { ModelDataType, ModelVersionDtoLight } from '../../../../../core/models/models';
 
 describe('EntriesListComponent', () => {
   let component: EntriesListComponent;
@@ -19,7 +18,7 @@ describe('EntriesListComponent', () => {
   let activatedRouteStub: ActivatedRouteStubSpec;
 
   beforeEach(waitForAsync(() => {
-    modelsResourceServiceSpy =  createSpyObj<ModelsResourceService>('ModelsResourceService', ['listEntriesByType']);
+    modelsResourceServiceSpy =  createSpyObj<ModelsResourceService>('ModelsResourceService', ['listEntries']);
     activatedRouteStub = new ActivatedRouteStubSpec();
 
     TestBed.configureTestingModule({
@@ -34,7 +33,7 @@ describe('EntriesListComponent', () => {
   }));
 
   beforeEach(() => {
-    modelsResourceServiceSpy.listEntriesByType.and.returnValue(of([]));
+    modelsResourceServiceSpy.listEntries.and.returnValue(EMPTY);
 
     fixture = TestBed.createComponent(EntriesListComponent);
     component = fixture.componentInstance;
