@@ -125,6 +125,7 @@ export abstract class EntryContentDirective<T extends ModelData> extends FormSta
   private updateVersion(version: ModelVersionDto<T>): void {
     this.version = version;
     this.modelsResourceService.getEntry(this.entry.id).subscribe(e => this.entry = e);
+    this.form.markAsPristine();
     this.setVersion(this.version);
   }
 
