@@ -4,6 +4,7 @@ import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import * as _ from 'lodash';
 import { ModelsResourceService } from '../../../../../core/http/models-resource.service';
 import { Email, ModelEntryDto } from '../../../../../core/models/models';
+import { filter } from 'rxjs/operators';
 
 export interface SubjectRecordApplyChangesDialogData {
   recipient: string;
@@ -27,8 +28,8 @@ export class SubjectRecordApplyChangesDialogComponent implements OnInit {
               private modelsService: ModelsResourceService) {}
 
   ngOnInit(): void {
-    this.modelsService.listEntriesByType('email').subscribe( (entries) => {
-      this.models = entries;
+    this.modelsService.listEntries({types : ['email']}).subscribe( (result) => {
+      this.models = result.values;
     });
     this.form = this.fb.group({
       comment: [''],
