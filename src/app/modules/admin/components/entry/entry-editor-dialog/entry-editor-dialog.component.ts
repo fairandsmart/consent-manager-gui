@@ -2,13 +2,19 @@ import { Component, Inject, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { Observable, Subject } from 'rxjs';
-import { CreateModelDto, FIELD_VALIDATORS, ModelDataType, ModelEntryDto, UpdateModelDto } from '../../../../../core/models/models';
+import {
+  CreateModelDto,
+  FIELD_VALIDATORS,
+  ModelDataType,
+  ModelEntryDto,
+  UpdateModelDto
+} from '../../../../../core/models/models';
 import { ModelsResourceService } from '../../../../../core/http/models-resource.service';
 import { HttpErrorResponse } from '@angular/common/http';
 import { mergeMap } from 'rxjs/operators';
 
 export interface EntryEditorDialogComponentData {
-  entry: Partial<ModelEntryDto> & {type: ModelDataType};
+  entry: Partial<ModelEntryDto> & { type: ModelDataType };
 }
 
 @Component({
@@ -54,13 +60,16 @@ export class EntryEditorDialogComponent implements OnInit {
   generateKey(): Observable<string> {
     return new Observable((observer) => {
       const rootKey = this.form.get('type').value;
-      this.modelsResourceService.listEntriesByType(rootKey).subscribe((entries) => {
-        let increment = entries.length + 1;
+      this.modelsResourceService.listEntries({ keys: [rootKey], size: -1 }).subscribe((entries) => {
+        let increment = entries.values.length + 1;
         const keyCheck$ = new Subject<void>();
         keyCheck$.pipe(
-          mergeMap(() => this.modelsResourceService.listEntriesByKeys([rootKey + '.' + increment])),
+          mergeMap(() => this.modelsResourceService.listEntries({
+            keys: [rootKey + '.' + increment],
+            size: -1
+          })),
         ).subscribe((result) => {
-          if (!result || result.length === 0) {
+          if (!result || result.values.length === 0) {
             observer.next(rootKey + '.' + increment);
             observer.complete();
           } else {

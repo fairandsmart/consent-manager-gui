@@ -43,8 +43,10 @@ export class PreferenceComponent extends EntryContentDirective<Preference> imple
   ngOnInit(): void {
     this.optionsInputCtrl = new FormControl('', Validators.required);
     super.ngOnInit();
-    this.modelsResourceService.listEntriesByType('processing')
-      .subscribe((entries) => this.availableProcessing = entries);
+    this.modelsResourceService.listEntries({
+      types: ['processing'],
+      size: -1
+    }).subscribe((entries) => this.availableProcessing = entries.values);
   }
 
   protected initForm(): void {

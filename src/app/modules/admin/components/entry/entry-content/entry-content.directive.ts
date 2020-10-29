@@ -10,7 +10,6 @@ import {
   PreviewDto
 } from '../../../../../core/models/models';
 import { EMPTY, Observable, of } from 'rxjs';
-import { FormGroup } from '@angular/forms';
 import { ModelsResourceService } from '../../../../../core/http/models-resource.service';
 import * as _ from 'lodash';
 import { catchError, debounceTime, mergeMap, startWith } from 'rxjs/operators';
@@ -18,7 +17,7 @@ import { HttpErrorResponse } from '@angular/common/http';
 import { environment } from '../../../../../../environments/environment';
 import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
 import { AlertService } from '../../../../../core/services/alert.service';
-import {FormStateSaver} from '../../../utils/form-state-saver';
+import { FormStateSaver } from '../../../utils/form-state-saver';
 
 @Directive()
 export abstract class EntryContentDirective<T extends ModelData> extends FormStateSaver implements OnInit {
@@ -99,7 +98,8 @@ export abstract class EntryContentDirective<T extends ModelData> extends FormSta
         orientation: ConsentFormOrientation.VERTICAL,
         data: rawValues
       };
-      this.modelsResourceService.getVersionPreview(this.entry.id, this.version ? this.version.id : 'new', dto)
+      const versionId = this.version ? this.version.id : this.modelsResourceService.NEW_VERSION_UUID;
+      this.modelsResourceService.getVersionPreview(this.entry.id, versionId, dto)
         .subscribe((result: string) => {
           result = result.replace(/\/assets\//g, `${environment.managerUrl}/assets/`);
           this.safePreview = this.sanitizer.bypassSecurityTrustHtml(result);
