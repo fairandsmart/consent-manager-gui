@@ -2,16 +2,21 @@
   <mat-sidenav-content>
     <div class="container" *ngIf="subject">
 
-      <div>TODO : cartouche user {{subject}}</div>
+      <div class="subcontainer">TODO : cartouche user {{subject}}</div>
 
-      <cm-operator-processing [subject]="subject"
-                              (operatorAction)="operatorActionProcessing($event)"></cm-operator-processing>
+      <div class="subcontainer">
+        <cm-operator-processing [subject]="subject"
+                                (operatorAction)="operatorActionProcessing($event)"></cm-operator-processing>
+      </div>
 
-      <cm-operator-preferences [subject]="subject"
-                               (operatorAction)="operatorActionPreferences($event)"></cm-operator-preferences>
+      <div class="subcontainer">
+        <cm-operator-preferences [subject]="subject"
+                                 (operatorAction)="operatorActionPreferences($event)"></cm-operator-preferences>
+      </div>
 
-      <cm-operator-conditions [subject]="subject"
-                              (operatorAction)="operatorActionConditions($event)"></cm-operator-conditions>
+      <div class="subcontainer">
+        <cm-operator-conditions [subject]="subject"></cm-operator-conditions>
+      </div>
 
     </div>
   </mat-sidenav-content>

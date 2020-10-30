@@ -1,6 +1,8 @@
 <div class="container">
   <div class="title-container">
-    <h2>{{'RECORDS.OPERATOR.SUBTITLES.' + type | translate}} {{subject}}</h2>
+    <h2>
+      <mat-icon>{{ICONS[type]}}</mat-icon> {{'RECORDS.OPERATOR.SUBTITLES.' + type | translate}} {{subject}}
+    </h2>
   </div>
 
   <div class="table-container mat-elevation-z6">
@@ -23,40 +25,16 @@
         <td mat-cell *matCellDef="let element">{{element.name}}</td>
       </ng-container>
 
-      <ng-container matColumnDef="type">
-        <th mat-header-cell mat-sort-header *matHeaderCellDef>{{'RECORDS.COMMON.TYPE.LABEL' | translate}}</th>
+      <ng-container matColumnDef="subtype">
+        <th mat-header-cell mat-sort-header *matHeaderCellDef>{{'RECORDS.COMMON.SUBTYPE.LABEL' | translate}}</th>
         <td mat-cell *matCellDef="let element">
-          <mat-icon [matTooltip]="'COMMON.ENTRY_TYPES.' + element.type.toUpperCase() | translate">
-            {{ICONS[element.type]}}
-          </mat-icon>
+          TODO {{'COMMON.ENTRY_TYPES.' + element.type.toUpperCase() | translate}}
         </td>
       </ng-container>
 
-      <ng-container matColumnDef="value">
-        <th mat-header-cell *matHeaderCellDef>{{'RECORDS.COMMON.VALUE.LABEL' | translate}}</th>
-        <td mat-cell *matCellDef="let element">
-          <span *ngIf="element.value != 'accepted' && element.value != 'refused'">-</span>
-          <span *ngIf="element.value"><mat-icon>{{element.value == "accepted" ? 'check' : 'close'}}</mat-icon></span>
-        </td>
-      </ng-container>
-
-      <ng-container matColumnDef="collectionMethod">
-        <th mat-header-cell *matHeaderCellDef>{{'RECORDS.COMMON.COLLECTION_METHOD.LABEL' | translate}}</th>
-        <td mat-cell *matCellDef="let element">
-          {{element.collectionMethod ? ('COMMON.COLLECTION_METHODS.' + element.collectionMethod | translate) : '-'}}
-        </td>
-      </ng-container>
-
-      <ng-container matColumnDef="comment">
-        <th mat-header-cell *matHeaderCellDef>{{'RECORDS.COMMON.COMMENT.LABEL' | translate}}</th>
-        <td mat-cell *matCellDef="let element">{{element.comment || '-'}}</td>
-      </ng-container>
-
-      <ng-container matColumnDef="status">
-        <th mat-header-cell *matHeaderCellDef>{{'RECORDS.COMMON.STATUS.LABEL' | translate}}</th>
-        <td mat-cell *matCellDef="let element">
-          {{element.status ? ('COMMON.RECORD_STATUS.' + element.status | translate) : '-'}}
-        </td>
+      <ng-container matColumnDef="version">
+        <th mat-header-cell *matHeaderCellDef>{{'RECORDS.COMMON.VERSION.LABEL' | translate}}</th>
+        <td mat-cell *matCellDef="let element">{{getVersion(element)}}</td>
       </ng-container>
 
       <ng-container matColumnDef="recordCreation">
@@ -66,20 +44,9 @@
         </td>
       </ng-container>
 
-      <ng-container matColumnDef="recordExpiration">
-        <th mat-header-cell *matHeaderCellDef>{{'RECORDS.COMMON.EXPIRATION.LABEL' | translate}}</th>
-        <td mat-cell *matCellDef="let element">
-          {{element.recordExpiration > 0 ? (element.recordExpiration | date:'shortDate') : '-'}}
-        </td>
-      </ng-container>
-
-      <ng-container matColumnDef="actions">
-        <th mat-header-cell *matHeaderCellDef></th>
-        <td mat-cell *matCellDef="let element">
-          <button mat-icon-button (click)="action(element)" [disabled]="!element.active">
-            <mat-icon>edit</mat-icon>
-          </button>
-        </td>
+      <ng-container matColumnDef="status">
+        <th mat-header-cell *matHeaderCellDef>{{'RECORDS.COMMON.STATUS.LABEL' | translate}}</th>
+        <td mat-cell *matCellDef="let element">{{getRecordStatus(element)}}</td>
       </ng-container>
 
       <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>

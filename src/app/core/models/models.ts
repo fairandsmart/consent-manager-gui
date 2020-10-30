@@ -33,7 +33,7 @@ export enum Icons {
   basicinfo = 'info',
   processing = 'check_box',
   preference = 'favorite',
-  conditions = 'filter_none',
+  conditions = 'text_snippet',
   email = 'mail_outline',
   theme = 'palette',
   cookies = 'local_offer'
@@ -336,6 +336,7 @@ export interface EntryRecord {
   collectionMethod?: CollectionMethod;
   status?: RecordStatus;
   active: boolean;
+  versionIndex: number;
 }
 
 export interface EntryRecordFilter extends ModelFilter {

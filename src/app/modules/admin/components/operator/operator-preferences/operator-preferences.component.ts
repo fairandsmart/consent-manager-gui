@@ -29,8 +29,8 @@ export class OperatorPreferencesComponent extends OperatorConsentListDirective i
     super.ngOnInit();
   }
 
-  action(v): void {
-    this.operatorAction.emit(v);
+  action(element): void {
+    this.operatorAction.emit(element);
   }
 
 }

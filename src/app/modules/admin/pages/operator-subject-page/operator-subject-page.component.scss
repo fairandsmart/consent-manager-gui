@@ -8,5 +8,22 @@
 
   .container {
     margin: 2em;
+
+    .subcontainer {
+      margin: 2em 0;
+
+      ::ng-deep table {
+        width: 100%;
+      }
+
+      ::ng-deep h2 {
+        display: flex;
+        align-items: center;
+
+        mat-icon {
+          margin-right: 8px;
+        }
+      }
+    }
   }
 }

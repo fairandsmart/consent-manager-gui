@@ -31,9 +31,4 @@ export class OperatorSubjectPageComponent implements OnInit {
     console.log(event);
   }
 
-  operatorActionConditions(event): void {
-    console.log('operator action: conditions');
-    console.log(event);
-  }
-
 }

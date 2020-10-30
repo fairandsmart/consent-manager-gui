@@ -80,6 +80,7 @@ export class SubjectRecordDataSource extends CollectionDatasource<EntryRecord, E
 
 }
 
+// TODO delete component
 @Component({
   selector: 'cm-subject-records',
   templateUrl: './subject-records.component.html',

@@ -1,6 +1,8 @@
 <div class="container">
   <div class="title-container">
-    <h2>{{'RECORDS.OPERATOR.SUBTITLES.' + type | translate}} {{subject}}</h2>
+    <h2>
+      <mat-icon>{{ICONS[type]}}</mat-icon> {{'RECORDS.OPERATOR.SUBTITLES.' + type | translate}} {{subject}}
+    </h2>
   </div>
 
   <div class="table-container mat-elevation-z6">

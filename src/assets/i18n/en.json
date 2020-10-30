@@ -474,25 +474,23 @@
       "NAME": {
         "LABEL": "Name"
       },
-      "TYPE": {
+      "SUBTYPE": {
         "LABEL": "Type"
       },
-      "VALUE": {
-        "LABEL": "Answer",
-        "ACCEPTED": "Accepted",
-        "REFUSED": "Refused"
+      "Version": {
+        "LABEL": "Version"
       },
       "COLLECTION_METHOD": {
         "LABEL": "Collection method"
       },
-      "COMMENT": {
-        "LABEL": "Comment"
+      "HISTORY": {
+        "LABEL": "See all the records"
       },
       "STATUS": {
         "LABEL": "Status"
       },
       "CREATION": {
-        "LABEL": "Creation date"
+        "LABEL": "Collection date"
       },
       "EXPIRATION": {
         "LABEL": "Expiration date"

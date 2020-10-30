@@ -474,25 +474,23 @@
       "NAME": {
         "LABEL": "Nom"
       },
-      "TYPE": {
+      "SUBTYPE": {
         "LABEL": "Type"
       },
-      "VALUE": {
-        "LABEL": "Réponse",
-        "ACCEPTED": "Accepté",
-        "REFUSED": "Refusé"
+      "VERSION": {
+        "LABEL": "Version"
       },
       "COLLECTION_METHOD": {
         "LABEL": "Méthode de collecte"
       },
-      "COMMENT": {
-        "LABEL": "Commentaire"
+      "HISTORY": {
+        "LABEL": "Voir tous les enregistrements"
       },
       "STATUS": {
         "LABEL": "Statut"
       },
       "CREATION": {
-        "LABEL": "Date de création"
+        "LABEL": "Date de collecte"
       },
       "EXPIRATION": {
         "LABEL": "Date d'expiration"
@@ -518,7 +516,7 @@
       "SUBTITLES": {
         "processing": "Consentements de ",
         "preference": "Préférences de ",
-        "conditions": "Conditions générales d'utilisation de "
+        "conditions": "Conditions générales de "
       },
       "LOG": {
         "TITLE": "Log",

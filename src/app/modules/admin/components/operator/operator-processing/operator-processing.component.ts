@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ModelsResourceService } from '../../../../../core/http/models-resource.service';
 import { SubjectsResourceService } from '../../../../../core/http/subjects-resource.service';
 import { OperatorConsentListDirective } from '../operator-consent-list/operator-consent-list.directive';
-import { Icons } from '../../../../../core/models/models';
+import { Icons, ModelVersionStatus } from '../../../../../core/models/models';
 
 @Component({
   selector: 'cm-operator-processing',
@@ -13,7 +13,7 @@ export class OperatorProcessingComponent extends OperatorConsentListDirective im
 
   readonly ICONS = Icons;
   public displayedColumns = [
-    'key', 'name', 'type', 'value', 'collectionMethod', 'comment', 'status', 'recordCreation', 'recordExpiration', 'actions'
+    'key', 'name', 'collectionMethod', 'recordExpiration', 'history', 'status', 'actions'
   ];
   public pageSizeOptions = [10, 25, 50];
 
@@ -29,8 +29,21 @@ export class OperatorProcessingComponent extends OperatorConsentListDirective im
     super.ngOnInit();
   }
 
-  action(v): void {
-    this.operatorAction.emit(v);
+  action(value, element): void {
+    console.log('value', value);
+    this.operatorAction.emit(element);
+  }
+
+  showHistory(element): void {
+    console.log('history ' + element.key);
+  }
+
+  getRecordStatus(element): string {
+    if (element.status === ModelVersionStatus.ACTIVE && element.value === 'accepted') {
+      return 'TODO: feu vert';
+    } else {
+      return 'TODO: feu rouge';
+    }
   }
 
 }
