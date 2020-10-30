@@ -4,6 +4,7 @@ import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import * as _ from 'lodash';
 import { ModelsResourceService } from '../../../../../core/http/models-resource.service';
 import { ModelEntryDto } from '../../../../../core/models/models';
+import { getActiveVersion, hasActiveVersion } from '../../../../../core/utils/model-entry.utils';
 
 export interface SubjectRecordApplyChangesDialogData {
   recipient: string;
@@ -28,7 +29,7 @@ export class SubjectRecordApplyChangesDialogComponent implements OnInit {
 
   ngOnInit(): void {
     this.modelsService.listEntries({types : ['email']}).subscribe( (result) => {
-      this.models = result.values;
+      this.models = result.values.filter(value => hasActiveVersion(value));
       if (result.totalCount === 0) {
         this.form.get('recipient').disable();
         this.form.get('model').disable();
@@ -64,7 +65,7 @@ export class SubjectRecordApplyChangesDialogComponent implements OnInit {
     const result = _.cloneDeep(this.data);
     if (this.form.get('notify').value) {
       result.recipient = this.form.get('recipient').value.trim();
-      result.model = this.form.get('model').value;
+      result.model = getActiveVersion(this.form.get('model').value).identifier;
     }
     this.dialogRef.close(result);
   }

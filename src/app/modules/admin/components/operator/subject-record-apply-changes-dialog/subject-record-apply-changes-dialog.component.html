@@ -30,7 +30,7 @@
     <mat-form-field appearance="fill">
       <mat-label>{{'RECORDS.COMMON.MODEL.LABEL' | translate}}</mat-label>
       <mat-select formControlName="model" required>
-        <mat-option *ngFor="let model of models" [value]="model.key">{{model.name}}</mat-option>
+        <mat-option *ngFor="let model of models" [value]="model">{{model.name}}</mat-option>
       </mat-select>
       <mat-error *ngIf="form.hasError('required', ['model'])">
         {{'RECORDS.COMMON.MODEL.REQUIRED' | translate }}
