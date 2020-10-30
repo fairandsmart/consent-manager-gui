@@ -60,7 +60,7 @@ export class EntryEditorDialogComponent implements OnInit {
   generateKey(): Observable<string> {
     return new Observable((observer) => {
       const rootKey = this.form.get('type').value;
-      this.modelsResourceService.listEntries({ keys: [rootKey], size: -1 }).subscribe((entries) => {
+      this.modelsResourceService.listEntries({ types: [rootKey], size: -1 }).subscribe((entries) => {
         let increment = entries.values.length + 1;
         const keyCheck$ = new Subject<void>();
         keyCheck$.pipe(
