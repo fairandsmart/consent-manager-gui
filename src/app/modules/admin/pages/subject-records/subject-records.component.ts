@@ -10,7 +10,6 @@ import {
   EntryRecordFilter,
   ModelEntryDto,
   ModelVersionDtoLight,
-  ModelVersionStatus,
   RecordDto
 } from '../../../../core/models/models';
 import { combineLatest, Observable } from 'rxjs';
@@ -30,6 +29,7 @@ import {
   SubjectRecordApplyChangesDialogComponent,
   SubjectRecordApplyChangesDialogData
 } from '../../components/operator/subject-record-apply-changes-dialog/subject-record-apply-changes-dialog.component';
+import { getActiveVersion } from '../../../../core/utils/model-entry.utils';
 
 class SubjectRecordDataSource extends CollectionDatasource<EntryRecord, EntryRecordFilter> {
 
@@ -45,7 +45,7 @@ class SubjectRecordDataSource extends CollectionDatasource<EntryRecord, EntryRec
       map(([entries, records]: [CollectionPage<ModelEntryDto>, { [key: string]: RecordDto[] }]) => {
         const values = [];
         entries.values.forEach((entry) => {
-          const activeVersion: ModelVersionDtoLight = entry.versions.find(v => v.status === ModelVersionStatus.ACTIVE);
+          const activeVersion: ModelVersionDtoLight = getActiveVersion(entry);
           const result: EntryRecord = {
             identifier: activeVersion?.identifier,
             key: entry.key,
@@ -174,9 +174,10 @@ export class SubjectRecordsComponent implements OnInit {
   }
 
   submitLog(): void {
-    this.dialog.open<SubjectRecordApplyChangesDialogComponent, SubjectRecordApplyChangesDialogData>(SubjectRecordApplyChangesDialogComponent, {
-      data: { recipient: "", model: "", comment: ""}
-    }).afterClosed().subscribe((result) => {
+    this.dialog.open<SubjectRecordApplyChangesDialogComponent, SubjectRecordApplyChangesDialogData>(
+      SubjectRecordApplyChangesDialogComponent,
+      {data: {recipient: '', model: '', comment: ''}})
+      .afterClosed().subscribe((result) => {
       if (result) {
         const ctx: ConsentContext = {
           subject: this.filter.subject,
