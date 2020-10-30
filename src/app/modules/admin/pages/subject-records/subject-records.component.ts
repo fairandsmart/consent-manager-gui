@@ -10,7 +10,6 @@ import {
   EntryRecordFilter,
   ModelEntryDto,
   ModelVersionDtoLight,
-  ModelVersionStatus,
   RecordDto
 } from '../../../../core/models/models';
 import { combineLatest, Observable } from 'rxjs';
@@ -20,13 +19,17 @@ import { map, tap } from 'rxjs/operators';
 import { ActivatedRoute, Router } from '@angular/router';
 import { MatDialog } from '@angular/material/dialog';
 import { SubjectRecordEditorDialogComponent } from '../../components/operator/subject-record-editor-dialog/subject-record-editor-dialog.component';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ModelsResourceService } from '../../../../core/http/models-resource.service';
 import { TranslateService } from '@ngx-translate/core';
 import { ConsentsResourceService } from '../../../../core/http/consents-resource.service';
 import { SubjectsResourceService } from '../../../../core/http/subjects-resource.service';
 import { HttpParams } from '@angular/common/http';
 import * as _ from 'lodash';
+import {
+  SubjectRecordApplyChangesDialogComponent,
+  SubjectRecordApplyChangesDialogData
+} from '../../components/operator/subject-record-apply-changes-dialog/subject-record-apply-changes-dialog.component';
+import { getActiveVersion } from '../../../../core/utils/model-entry.utils';
 
 class SubjectRecordDataSource extends CollectionDatasource<EntryRecord, EntryRecordFilter> {
 
@@ -42,7 +45,7 @@ class SubjectRecordDataSource extends CollectionDatasource<EntryRecord, EntryRec
       map(([entries, records]: [CollectionPage<ModelEntryDto>, { [key: string]: RecordDto[] }]) => {
         const values = [];
         entries.values.forEach((entry) => {
-          const activeVersion: ModelVersionDtoLight = entry.versions.find(v => v.status === ModelVersionStatus.ACTIVE);
+          const activeVersion: ModelVersionDtoLight = getActiveVersion(entry);
           const result: EntryRecord = {
             identifier: activeVersion?.identifier,
             key: entry.key,
@@ -110,8 +113,6 @@ export class SubjectRecordsComponent implements OnInit {
 
   public operatorLog: EntryRecord[] = [];
 
-  public form: FormGroup;
-
   constructor(
     private router: Router,
     private route: ActivatedRoute,
@@ -119,7 +120,6 @@ export class SubjectRecordsComponent implements OnInit {
     private subjectsResource: SubjectsResourceService,
     private consentsResource: ConsentsResourceService,
     private dialog: MatDialog,
-    private fb: FormBuilder,
     private translateService: TranslateService) {
   }
 
@@ -143,8 +143,6 @@ export class SubjectRecordsComponent implements OnInit {
         this.reloadRecords();
       })
     ).subscribe();
-    this.form = this.fb.group({comment: ['', [Validators.required]]});
-    this.form.enable();
   }
 
   reloadRecords(): void {
@@ -176,41 +174,41 @@ export class SubjectRecordsComponent implements OnInit {
   }
 
   submitLog(): void {
-    if (this.form.valid) {
-      this.form.disable();
+    this.dialog.open<SubjectRecordApplyChangesDialogComponent, SubjectRecordApplyChangesDialogData>(
+      SubjectRecordApplyChangesDialogComponent,
+      {data: {recipient: '', model: '', comment: ''}})
+      .afterClosed().subscribe((result) => {
+      if (result) {
+        const ctx: ConsentContext = {
+          subject: this.filter.subject,
+          orientation: ConsentFormOrientation.VERTICAL,
+          info: '',
+          elements: this.operatorLog.map(e => e.identifier),
+          callback: '',
+          locale: this.translateService.currentLang,
+          formType: ConsentFormType.FULL,
+          receiptDeliveryType: 'DOWNLOAD',
+          userinfos: {},
+          attributes: {},
+          notificationModel: result.model,
+          notificationRecipient: result.recipient,
+          collectionMethod: CollectionMethod.OPERATOR,
+          author: '',
+          preview: false,
+          iframe: true
+        };
 
-      const ctx: ConsentContext = {
-        subject: this.filter.subject,
-        orientation: ConsentFormOrientation.VERTICAL,
-        info: '',
-        elements: this.operatorLog.map(e => e.identifier),
-        callback: '',
-        locale: this.translateService.currentLang,
-        formType: ConsentFormType.FULL,
-        receiptDeliveryType: 'STORE',
-        userinfos: {},
-        attributes: {},
-        notificationModel: '',
-        notificationRecipient: '',
-        collectionMethod: CollectionMethod.OPERATOR,
-        author: '',
-        preview: false,
-        iframe: true
-      };
+        this.consentsResource.generateToken(ctx).subscribe((token) => {
+          let values: HttpParams = new HttpParams().append('token', token).append('comment', result.comment);
+          this.operatorLog.forEach(element => values = values.append(element.identifier, element.value));
 
-      this.consentsResource.generateToken(ctx).subscribe((token) => {
-        const formValue = this.form.getRawValue();
-        let values: HttpParams = new HttpParams().append('token', token).append('comment', formValue.comment);
-        this.operatorLog.forEach(element => values = values.append(element.identifier, element.value));
-
-        this.consentsResource.postConsent(values).subscribe((receipt) => {
-          this.operatorLog = [];
-          this.form.get('comment').setValue('');
-          this.form.enable();
-          this.reloadRecords();
+          this.consentsResource.postConsent(values).subscribe((receipt) => {
+            this.operatorLog = [];
+            this.reloadRecords();
+          });
         });
-      });
-    }
+      }
+    });
   }
 
   formatPreferenceValue(value): string {

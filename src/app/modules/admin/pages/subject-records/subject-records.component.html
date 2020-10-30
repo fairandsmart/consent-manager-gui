@@ -93,32 +93,26 @@
     </div>
   </mat-sidenav-content>
   <mat-sidenav [opened]="operatorLog.length > 0" mode="side" position="end">
-    <form *ngIf="form" [formGroup]="form">
-      <h2>{{'RECORDS.OPERATOR.LOG.TITLE' | translate}}</h2>
-      <ng-container *ngIf="operatorLog.length > 0; else emptyLogTemplate">
-        <mat-list>
-          <mat-list-item *ngFor="let element of operatorLog">
-            <div class="list-content">
-          <span class="list-content-text">
-            {{element.key}} : {{'RECORDS.COMMON.VALUE.' + element.value.toUpperCase() | translate}}
-          </span>
-              <button mat-icon-button (click)="removeElementFromLog(element)">
-                <mat-icon>delete</mat-icon>
-              </button>
-            </div>
-          </mat-list-item>
-        </mat-list>
-      </ng-container>
-      <ng-template #emptyLogTemplate>
-        <div class="empty-log">{{'RECORDS.OPERATOR.LOG.EMPTY' | translate}}</div>
-      </ng-template>
-      <mat-form-field appearance="outline">
-        <mat-label>{{'RECORDS.OPERATOR.LOG.COMMENT' | translate}}</mat-label>
-        <input matInput required formControlName="comment" autocomplete="off">
-      </mat-form-field>
-      <button mat-raised-button color="primary" (click)="submitLog()" [disabled]="operatorLog.length == 0">
-        {{'RECORDS.OPERATOR.LOG.SUBMIT' | translate}}
-      </button>
-    </form>
+    <h2>{{'RECORDS.OPERATOR.LOG.TITLE' | translate}}</h2>
+    <ng-container *ngIf="operatorLog.length > 0; else emptyLogTemplate">
+      <mat-list>
+        <mat-list-item *ngFor="let element of operatorLog">
+          <div class="list-content">
+        <span class="list-content-text">
+          {{element.key}} : {{'RECORDS.COMMON.VALUE.' + element.value.toUpperCase() | translate}}
+        </span>
+            <button mat-icon-button (click)="removeElementFromLog(element)">
+              <mat-icon>delete</mat-icon>
+            </button>
+          </div>
+        </mat-list-item>
+      </mat-list>
+    </ng-container>
+    <ng-template #emptyLogTemplate>
+      <div class="empty-log">{{'RECORDS.OPERATOR.LOG.EMPTY' | translate}}</div>
+    </ng-template>
+    <button mat-raised-button color="primary" (click)="submitLog()" [disabled]="operatorLog.length == 0">
+      {{'RECORDS.OPERATOR.LOG.SUBMIT' | translate}}
+    </button>
   </mat-sidenav>
 </mat-sidenav-container>

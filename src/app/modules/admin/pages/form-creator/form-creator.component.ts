@@ -9,7 +9,6 @@ import {
   FIELD_VALIDATORS,
   Icons,
   ModelEntryDto,
-  ModelVersionStatus,
   RECEIPT_DELIVERY_TYPES
 } from '../../../../core/models/models';
 import { tap } from 'rxjs/operators';
@@ -23,10 +22,8 @@ import { SectionConfig } from '../../components/entries/entries-library/entries-
 import { environment } from '../../../../../environments/environment';
 import * as _ from 'lodash';
 import { MatDialog } from '@angular/material/dialog';
-import {
-  FormUrlDialogComponent,
-  FormUrlDialogComponentData
-} from '../../components/form-url-dialog/form-url-dialog.component';
+import { FormUrlDialogComponent, FormUrlDialogComponentData } from '../../components/form-url-dialog/form-url-dialog.component';
+import { hasActiveVersion } from '../../../../core/utils/model-entry.utils';
 
 enum FORM_CREATOR_STEP {
   ELEMENTS,
@@ -136,7 +133,7 @@ export class FormCreatorComponent implements OnInit {
       tap((responses) => {
         const selected: {[id: string]: ModelEntryDto[]} = {...this.selectedElements};
         responses.forEach((response, index) => {
-          if (response.totalCount === 1 && response.values[0].versions.find(v => v.status === ModelVersionStatus.ACTIVE) !== undefined) {
+          if (response.totalCount === 1 && hasActiveVersion(response.values[0])) {
             const config = this.elementsLibraryConfig[index];
             selected[config.id] = response.values;
             config.draggingDisabled = true;
