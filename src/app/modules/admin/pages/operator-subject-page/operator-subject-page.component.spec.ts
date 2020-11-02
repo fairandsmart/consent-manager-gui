@@ -1,6 +1,9 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { OperatorSubjectPageComponent } from './operator-subject-page.component';
+import { RouterTestingModule } from '@angular/router/testing';
+import { CoreTestingModule } from '../../../../testing/core-testing-module.spec';
+import { HttpClientModule } from '@angular/common/http';
 
 describe('OperatorSubjectPageComponent', () => {
   let component: OperatorSubjectPageComponent;
@@ -8,7 +11,8 @@ describe('OperatorSubjectPageComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ OperatorSubjectPageComponent ]
+      declarations: [ OperatorSubjectPageComponent ],
+      imports: [ CoreTestingModule, RouterTestingModule, HttpClientModule ]
     })
     .compileComponents();
   });

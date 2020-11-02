@@ -20,7 +20,7 @@ describe('SubjectRecordEditorDialogComponent', () => {
       imports: [ CoreTestingModule, ReactiveFormsModule ],
       providers: [
         {provide: MatDialogRef, useValue: dialogRefSpy},
-        {provide: MAT_DIALOG_DATA, useValue: {value: 'foobar'}}
+        {provide: MAT_DIALOG_DATA, useValue: { record: {}, options: ['foo', 'bar'] }}
       ]
     })
     .compileComponents();
