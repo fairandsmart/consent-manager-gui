@@ -53,6 +53,11 @@
       "EN": "English",
       "FR": "French"
     },
+    "UI_LANGUAGES": {
+      "SWITCH_BUTTON_TOOLTIP": "Language",
+      "en": "English",
+      "fr": "Français"
+    },
     "LOCALE": {
       "LABEL": "Language"
     },

@@ -17,6 +17,18 @@
     </form>
   </ng-container>
   <span>
+    <button mat-icon-button [matTooltip]="'COMMON.UI_LANGUAGES.SWITCH_BUTTON_TOOLTIP' | translate"
+            [matMenuTriggerFor]="languagesMenu">
+      <mat-icon>language</mat-icon>
+    </button>
+    <mat-menu #languagesMenu>
+      <ng-template matMenuContent>
+        <button mat-menu-item *ngFor="let language of LANGUAGES" [disabled]="language === translate.currentLang"
+                (click)="translate.use(language)">
+          {{'COMMON.UI_LANGUAGES.' + language | translate}}
+        </button>
+      </ng-template>
+    </mat-menu>
     <button mat-button [matMenuTriggerFor]="userMenu"><mat-icon>account_circle</mat-icon> {{keycloak.getUsername()}}</button>
     <mat-menu #userMenu="matMenu">
       <button mat-menu-item (click)="keycloak.logout()">{{'NAV.KEYCLOAK.LOGOUT' | translate}}</button>

@@ -6,6 +6,8 @@ import { SubjectsResourceService } from '../../http/subjects-resource.service';
 import { FormControl } from '@angular/forms';
 import { Observable, of } from 'rxjs';
 import { Icons } from '../../models/models';
+import { I18N_LANGUAGES } from '../../constants/i18n';
+import { TranslateService } from '@ngx-translate/core';
 
 export interface NavSection {
   title: string;
@@ -93,10 +95,13 @@ export class HeaderNavComponent implements OnInit {
 
   filteredSubjects: Observable<string[]>;
 
+  readonly LANGUAGES = I18N_LANGUAGES;
+
   constructor(
     public keycloak: KeycloakService,
     private router: Router,
     private subjectsService: SubjectsResourceService,
+    public translate: TranslateService
   ) { }
 
   ngOnInit(): void {
