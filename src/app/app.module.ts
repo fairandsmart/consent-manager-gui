@@ -11,7 +11,6 @@ import { TranslateLoader, TranslateModule, TranslateService } from '@ngx-transla
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 import { registerLocaleData } from '@angular/common';
 import localeFr from '@angular/common/locales/fr';
-import { ConditionsReadOnlyComponent } from './conditions-read-only/conditions-read-only.component';
 import { CoreModule } from './core/core.module';
 
 const keycloakService = new KeycloakService();
@@ -34,8 +33,7 @@ registerLocaleData(localeFr, 'fr');
 
 @NgModule({
   declarations: [
-    AppComponent,
-    ConditionsReadOnlyComponent,
+    AppComponent
   ],
   imports: [
     CoreModule,

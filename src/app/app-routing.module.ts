@@ -1,6 +1,5 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { ConditionsReadOnlyComponent } from './conditions-read-only/conditions-read-only.component';
 import { RolesGuardService } from './core/guards/roles-guard.service';
 import { EnablingGuardService } from './core/guards/enabling-guard.service';
 import { environment } from '../environments/environment';
@@ -26,10 +25,6 @@ const routes: Routes = [
     data: {
       enabled: environment.customization.displayUserPage
     }
-  },
-  {
-    path: 'conditions/:owner/:key',
-    component: ConditionsReadOnlyComponent
   }
 ];
 

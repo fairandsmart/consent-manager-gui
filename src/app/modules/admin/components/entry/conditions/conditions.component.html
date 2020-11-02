@@ -40,9 +40,6 @@
             <button mat-button type="button" color="primary" [disabled]="version.status === STATUS.ACTIVE" (click)="activate()">{{'ENTRIES.EDITOR.BUTTONS.ACTIVATE' | translate}}</button>
             <button mat-button type="button" color="warn" [disabled]="version.status !== STATUS.DRAFT" (click)="delete()">{{'ENTRIES.EDITOR.BUTTONS.DELETE' | translate}}</button>
           </ng-container>
-          <ng-container *ngIf="version != null && this.form.valid">
-            <button mat-button color="primary" (click)="openApiUrlDialog()">{{'FORM_CREATOR.API_URL.BUTTON_VIEW' | translate}}</button>
-          </ng-container>
         </mat-card-actions>
       </mat-card>
       <div class="back-button-wrapper">

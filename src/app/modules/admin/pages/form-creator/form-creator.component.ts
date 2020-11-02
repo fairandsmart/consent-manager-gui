@@ -254,7 +254,6 @@ export class FormCreatorComponent implements OnInit {
       author: '',
       preview: isPreview,
       iframe: true,
-      conditions: false,
       theme: formValue.theme
     };
   }

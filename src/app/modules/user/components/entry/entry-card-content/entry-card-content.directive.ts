@@ -95,7 +95,6 @@ export abstract class EntryCardContentDirective<T extends ModelData> implements 
       author: this.keycloakService.getUsername(),
       preview: false,
       iframe: true,
-      conditions: true,
       theme: ''
     };
     this.consentsResourceService.generateToken(context).pipe(
