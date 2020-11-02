@@ -88,7 +88,7 @@
   </mat-sidenav-content>
   <mat-sidenav opened mode="side" position="end">
     <cm-entries-library
-      [style]="stepper.selectedIndex !== STEPS.ELEMENTS ? 'display: none' : ''"
+      [style.display]="stepper.selectedIndex !== STEPS.ELEMENTS ? 'none' : undefined"
       [config]="elementsLibraryConfig"
       [selected]="selectedElements"
       (selectedChange)="selectedElementsChange($event)"
@@ -104,13 +104,13 @@
     </ng-container>
 
     <cm-entries-library
-      [style]="stepper.selectedIndex !== STEPS.OPTIONS ? 'display: none' : ''"
+      [style.display]="stepper.selectedIndex !== STEPS.OPTIONS ? 'none' : undefined"
       [config]="emailsLibraryConfig"
       [selected]="selectedEmail" [mode]="'select'"
       (selectedChange)="selectedEmailChange($event)"></cm-entries-library>
 
     <cm-entries-library
-      [style]="stepper.selectedIndex !== STEPS.PREVIEW ? 'display: none' : ''"
+      [style.display]="stepper.selectedIndex !== STEPS.PREVIEW ? 'none' : undefined"
       [config]="themesLibraryConfig"
       [selected]="selectedTheme" [mode]="'select'"
       (selectedChange)="selectedThemeChange($event)"></cm-entries-library>

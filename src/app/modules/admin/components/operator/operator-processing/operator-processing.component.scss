@@ -1,0 +1,10 @@
+@import 'src/theme';
+
+td.mat-column-status {
+  color: mat-color($mat-red, 500);
+  &[record-status="VALID"] {
+    &[record-value="accepted"] {
+      color: mat-color($mat-green, 500);
+    }
+  }
+}
