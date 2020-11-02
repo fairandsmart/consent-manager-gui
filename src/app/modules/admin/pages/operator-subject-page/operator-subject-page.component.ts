@@ -1,5 +1,22 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
+import {
+  CollectionMethod,
+  ConsentContext,
+  ConsentFormOrientation,
+  ConsentFormType, OperatorLogElement
+} from '../../../../core/models/models';
+import {
+  SubjectRecordApplyChangesDialogComponent,
+  SubjectRecordApplyChangesDialogData
+} from '../../components/operator/subject-record-apply-changes-dialog/subject-record-apply-changes-dialog.component';
+import { HttpParams } from '@angular/common/http';
+import { MatDialog } from '@angular/material/dialog';
+import { TranslateService } from '@ngx-translate/core';
+import { ConsentsResourceService } from '../../../../core/http/consents-resource.service';
+import { OperatorProcessingComponent } from '../../components/operator/operator-processing/operator-processing.component';
+import { OperatorPreferencesComponent } from '../../components/operator/operator-preferences/operator-preferences.component';
+import { OperatorConditionsComponent } from '../../components/operator/operator-conditions/operator-conditions.component';
 
 @Component({
   selector: 'cm-operator-subject-page',
@@ -9,10 +26,23 @@ import { ActivatedRoute, Router } from '@angular/router';
 export class OperatorSubjectPageComponent implements OnInit {
 
   public subject: string;
+  public operatorLog: OperatorLogElement[] = [];
+
+  @ViewChild('processing')
+  processingComponent: OperatorProcessingComponent;
+
+  @ViewChild('preferences')
+  preferencesComponent: OperatorPreferencesComponent;
+
+  @ViewChild('conditions')
+  conditionsComponent: OperatorConditionsComponent;
 
   constructor(
     private router: Router,
-    private route: ActivatedRoute) {
+    private route: ActivatedRoute,
+    private dialog: MatDialog,
+    private translate: TranslateService,
+    private consentsResource: ConsentsResourceService) {
   }
 
   ngOnInit(): void {
@@ -21,14 +51,69 @@ export class OperatorSubjectPageComponent implements OnInit {
     });
   }
 
-  operatorActionProcessing(event): void {
-    console.log('operator action: processing');
-    console.log(event);
+  addElementToLog(element): void {
+    if (element) {
+      const previous = this.operatorLog.find(e => e.identifier === element.identifier);
+      if (previous) {
+        this.operatorLog[this.operatorLog.indexOf(previous)] = element;
+      } else {
+        this.operatorLog.push(element);
+      }
+    }
   }
 
-  operatorActionPreferences(event): void {
-    console.log('operator action: preferences');
-    console.log(event);
+  removeElementFromLog(index): void {
+    this.operatorLog.splice(index, 1);
+  }
+
+  formatPreferenceValue(value): string {
+    return value !== undefined ? value.split(',').join(' ; ') : '-';
+  }
+
+  reloadRecords(): void {
+    if (this.subject) {
+      this.processingComponent.reloadRecords();
+      this.preferencesComponent.reloadRecords();
+      this.conditionsComponent.reloadRecords();
+    }
+  }
+
+  submitLog(): void {
+    this.dialog.open<SubjectRecordApplyChangesDialogComponent, SubjectRecordApplyChangesDialogData>(
+      SubjectRecordApplyChangesDialogComponent,
+      {data: {recipient: '', model: '', comment: ''}})
+      .afterClosed().subscribe((result) => {
+      if (result) {
+        const ctx: ConsentContext = {
+          subject: this.subject,
+          orientation: ConsentFormOrientation.VERTICAL,
+          info: '',
+          elements: this.operatorLog.map(e => e.identifier),
+          callback: '',
+          locale: this.translate.currentLang,
+          formType: ConsentFormType.FULL,
+          receiptDeliveryType: 'DOWNLOAD',
+          userinfos: {},
+          attributes: {},
+          notificationModel: result.model,
+          notificationRecipient: result.recipient,
+          collectionMethod: CollectionMethod.OPERATOR,
+          author: '',
+          preview: false,
+          iframe: true
+        };
+
+        this.consentsResource.generateToken(ctx).subscribe((token) => {
+          let values: HttpParams = new HttpParams().append('token', token).append('comment', result.comment);
+          this.operatorLog.forEach(element => values = values.append(element.identifier, element.value));
+
+          this.consentsResource.postConsent(values).subscribe((receipt) => {
+            this.operatorLog = [];
+            this.reloadRecords();
+          });
+        });
+      }
+    });
   }
 
 }

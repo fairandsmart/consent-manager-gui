@@ -4,7 +4,7 @@ import {
   EntryRecord,
   EntryRecordFilter,
   ModelDataType,
-  ModelEntryDto, ModelVersionDtoLight, ModelVersionStatus, RecordDto
+  ModelEntryDto, ModelVersionDtoLight, ModelVersionStatus, OperatorLogElement, RecordDto
 } from '../../../../../core/models/models';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort, Sort } from '@angular/material/sort';
@@ -31,10 +31,11 @@ class SubjectRecordDataSource extends CollectionDatasource<EntryRecord, EntryRec
         entries.values.forEach((entry) => {
           const activeVersion: ModelVersionDtoLight = entry.versions.find(v => v.status === ModelVersionStatus.ACTIVE);
           const result: EntryRecord = {
-            identifier: activeVersion?.identifier,
+            id: entry.id,
             key: entry.key,
-            name: entry.name,
             type: entry.type,
+            name: entry.name,
+            identifier: activeVersion?.identifier,
             active: activeVersion !== undefined,
             versionIndex: activeVersion !== undefined ? entry.versions.indexOf(activeVersion) + 1 : undefined
           };
@@ -94,7 +95,7 @@ export abstract class OperatorConsentListDirective implements OnInit {
   public sort: MatSort;
 
   @Output()
-  operatorAction = new EventEmitter<{identifier: string; value: string}>();
+  operatorAction = new EventEmitter<OperatorLogElement>();
 
   protected constructor(
     protected modelsResource: ModelsResourceService,

@@ -489,11 +489,22 @@
       "STATUS": {
         "LABEL": "Statut"
       },
-      "CREATION": {
-        "LABEL": "Date de collecte"
+      "VALUE": {
+        "LABEL": "Valeur actuelle",
+        "accepted": "Accepter",
+        "refused": "Refuser"
       },
-      "EXPIRATION": {
+      "PROCESSING_DATE": {
         "LABEL": "Date d'expiration"
+      },
+      "PREFERENCE_DATE": {
+        "LABEL": "Date de dernière modification"
+      },
+      "CONDITIONS_DATE": {
+        "LABEL": "Date de réponse"
+      },
+      "COMMENT": {
+        "LABEL": "Commentaire"
       },
       "RECIPIENT": {
         "LABEL": "Adresse email de notification",
@@ -522,7 +533,7 @@
         "TITLE": "Log",
         "EMPTY": "Le log est vide.",
         "COMMENT": "Commentaire",
-        "SUBMIT": "Enregistrer les changements"
+        "SUBMIT": "Valider mes modifications"
       }
     }
   },

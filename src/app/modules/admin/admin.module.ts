@@ -27,7 +27,6 @@ import { ConditionsPageComponent } from './pages/entries-page/conditions-page.co
 import { BasicinfoPageComponent } from './pages/entries-page/basicinfo-page.component';
 import { ProcessingPageComponent } from './pages/entries-page/processing-page.component';
 import { GeneratedKeyDialogComponent, KeysComponent } from './pages/keys/keys.component';
-import { SubjectRecordsComponent } from './pages/subject-records/subject-records.component';
 import { SubjectRecordEditorDialogComponent } from './components/operator/subject-record-editor-dialog/subject-record-editor-dialog.component';
 import { SubjectRecordApplyChangesDialogComponent } from './components/operator/subject-record-apply-changes-dialog/subject-record-apply-changes-dialog.component';
 import { CoreModule } from '../../core/core.module';
@@ -70,7 +69,6 @@ import { OperatorSubjectPageComponent } from './pages/operator-subject-page/oper
     ProcessingPageComponent,
     KeysComponent,
     GeneratedKeyDialogComponent,
-    SubjectRecordsComponent,
     SubjectRecordEditorDialogComponent,
     SubjectRecordApplyChangesDialogComponent,
     OperatorProcessingComponent,

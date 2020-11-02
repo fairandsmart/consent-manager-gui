@@ -1,8 +1,13 @@
 import { Component, Inject, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { FormControl } from '@angular/forms';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
-import { EntryRecord } from '../../../../../core/models/models';
-import * as _ from 'lodash';
+import { EntryRecord, OperatorLogElement, PreferenceValueType } from '../../../../../core/models/models';
+
+export interface SubjectRecordEditorDialogData {
+  record: EntryRecord;
+  valueType?: PreferenceValueType;
+  options: string[];
+}
 
 @Component({
   selector: 'cm-subject-record-editor-dialog',
@@ -11,28 +16,57 @@ import * as _ from 'lodash';
 })
 export class SubjectRecordEditorDialogComponent implements OnInit {
 
-  public form: FormGroup;
+  readonly TYPES = PreferenceValueType;
 
-  constructor(private dialogRef: MatDialogRef<SubjectRecordEditorDialogComponent, EntryRecord>,
-              @Inject(MAT_DIALOG_DATA) public data: EntryRecord,
-              private fb: FormBuilder) {}
+  control: FormControl;
+
+  constructor(private dialogRef: MatDialogRef<SubjectRecordEditorDialogComponent, OperatorLogElement>,
+              @Inject(MAT_DIALOG_DATA) public data: SubjectRecordEditorDialogData) {
+  }
 
   ngOnInit(): void {
-    this.form = this.fb.group({
-      value: ['', [
-        Validators.required
-      ]]
-    });
-    this.form.patchValue(this.data);
-    this.form.enable();
+    const state = this.parseValue();
+    this.control = new FormControl(state);
+  }
+
+  parseValue(): any {
+    switch (this.data.valueType) {
+      case PreferenceValueType.LIST_MULTI:
+      case PreferenceValueType.CHECKBOXES:
+        return this.data.record.value?.split(',') ?? [];
+      case PreferenceValueType.FREE_TEXT:
+      case PreferenceValueType.RADIO_BUTTONS:
+      case PreferenceValueType.LIST_SINGLE:
+      case PreferenceValueType.TOGGLE:
+      default:
+        return this.data.record.value;
+    }
+  }
+
+  serializeValue(): string {
+    switch (this.data.valueType) {
+      case PreferenceValueType.LIST_MULTI:
+      case PreferenceValueType.CHECKBOXES:
+        return this.control.value.join(',');
+      case PreferenceValueType.FREE_TEXT:
+      case PreferenceValueType.RADIO_BUTTONS:
+      case PreferenceValueType.LIST_SINGLE:
+      case PreferenceValueType.TOGGLE:
+      default:
+        return this.control.value;
+    }
+  }
+
+  isMultipleChoice(): boolean {
+    return this.data.valueType === this.TYPES.CHECKBOXES || this.data.valueType === this.TYPES.LIST_MULTI;
   }
 
   submit(): void {
-    if (this.form.valid) {
-      this.form.disable();
-      const result = _.cloneDeep(this.data);
-      result.value = this.form.getRawValue().value;
-      this.dialogRef.close(result);
-    }
+    this.dialogRef.close({
+      type: this.data.record.type,
+      key: this.data.record.key,
+      identifier: this.data.record.identifier,
+      value: this.serializeValue()
+    });
   }
 }

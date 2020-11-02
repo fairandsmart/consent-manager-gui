@@ -2,7 +2,12 @@ import { Component, OnInit } from '@angular/core';
 import { ModelsResourceService } from '../../../../../core/http/models-resource.service';
 import { SubjectsResourceService } from '../../../../../core/http/subjects-resource.service';
 import { OperatorConsentListDirective } from '../operator-consent-list/operator-consent-list.directive';
-import { Icons, ModelVersionStatus } from '../../../../../core/models/models';
+import { EntryRecord, Icons, RecordStatus } from '../../../../../core/models/models';
+import {
+  SubjectRecordEditorDialogComponent,
+  SubjectRecordEditorDialogData
+} from '../subject-record-editor-dialog/subject-record-editor-dialog.component';
+import { MatDialog } from '@angular/material/dialog';
 
 @Component({
   selector: 'cm-operator-processing',
@@ -19,7 +24,8 @@ export class OperatorProcessingComponent extends OperatorConsentListDirective im
 
   constructor(
     protected modelsResource: ModelsResourceService,
-    protected subjectsResource: SubjectsResourceService
+    protected subjectsResource: SubjectsResourceService,
+    private dialog: MatDialog
   ) {
     super(modelsResource, subjectsResource);
   }
@@ -29,20 +35,26 @@ export class OperatorProcessingComponent extends OperatorConsentListDirective im
     super.ngOnInit();
   }
 
-  action(value, element): void {
-    console.log('value', value);
-    this.operatorAction.emit(element);
+  action(element: EntryRecord): void {
+    this.dialog.open<SubjectRecordEditorDialogComponent, SubjectRecordEditorDialogData>(SubjectRecordEditorDialogComponent, {
+      data: {
+        record: element,
+        options: ['refused', 'accepted']
+      }
+    }).afterClosed().subscribe((result) => {
+      this.operatorAction.emit(result);
+    });
   }
 
   showHistory(element): void {
     console.log('history ' + element.key);
   }
 
-  getRecordStatus(element): string {
-    if (element.status === ModelVersionStatus.ACTIVE && element.value === 'accepted') {
-      return 'TODO: feu vert';
+  getRecordStatusColor(element: EntryRecord): string {
+    if (element.status === RecordStatus.VALID && element.value === 'accepted') {
+      return 'lightgreen';
     } else {
-      return 'TODO: feu rouge';
+      return 'red';
     }
   }
 

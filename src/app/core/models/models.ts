@@ -325,6 +325,7 @@ export interface Key {
 }
 
 export interface EntryRecord {
+  id: string;
   key: string;
   type: string;
   name: string;
@@ -344,4 +345,11 @@ export interface EntryRecordFilter extends ModelFilter {
   subject: string;
   before?: number;
   after?: number;
+}
+
+export interface OperatorLogElement {
+  type: string;
+  key: string;
+  identifier: string;
+  value: string;
 }
