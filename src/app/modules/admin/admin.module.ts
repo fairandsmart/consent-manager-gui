@@ -38,6 +38,7 @@ import { OperatorProcessingComponent } from './components/operator/operator-proc
 import { OperatorConditionsComponent } from './components/operator/operator-conditions/operator-conditions.component';
 import { OperatorPreferencesComponent } from './components/operator/operator-preferences/operator-preferences.component';
 import { OperatorSubjectPageComponent } from './pages/operator-subject-page/operator-subject-page.component';
+import { SubjectRecordsHistoryComponent } from './components/operator/subject-records-history/subject-records-history.component';
 
 @NgModule({
   declarations: [
@@ -74,7 +75,8 @@ import { OperatorSubjectPageComponent } from './pages/operator-subject-page/oper
     OperatorProcessingComponent,
     OperatorConditionsComponent,
     OperatorPreferencesComponent,
-    OperatorSubjectPageComponent
+    OperatorSubjectPageComponent,
+    SubjectRecordsHistoryComponent
   ],
   imports: [
     AdminRoutingModule,

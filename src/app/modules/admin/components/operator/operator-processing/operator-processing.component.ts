@@ -8,6 +8,7 @@ import {
   SubjectRecordEditorDialogData
 } from '../subject-record-editor-dialog/subject-record-editor-dialog.component';
 import { MatDialog } from '@angular/material/dialog';
+import { SubjectRecordsHistoryComponent } from '../subject-records-history/subject-records-history.component';
 
 @Component({
   selector: 'cm-operator-processing',
@@ -47,7 +48,9 @@ export class OperatorProcessingComponent extends OperatorConsentListDirective im
   }
 
   showHistory(element): void {
-    console.log('history ' + element.key);
+    this.dialog.open<SubjectRecordsHistoryComponent>(SubjectRecordsHistoryComponent, {
+      data: this.records[element.key].reverse()
+    });
   }
 
 }

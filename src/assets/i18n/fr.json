@@ -503,6 +503,12 @@
       "CONDITIONS_DATE": {
         "LABEL": "Date de réponse"
       },
+      "HISTORY_DATE": {
+        "LABEL": "Date de collecte"
+      },
+      "HISTORY_VALUE": {
+        "LABEL": "Réponse"
+      },
       "COMMENT": {
         "LABEL": "Commentaire"
       },
@@ -521,7 +527,8 @@
     "DIALOG": {
       "TITLE_NEW": "Nouvelle réponse",
       "TITLE_UPDATE": "Modification de la réponse",
-      "TITLE_APPLY": "Appliquer les modifications"
+      "TITLE_APPLY": "Appliquer les modifications",
+      "TITLE_HISTORY": "Historique des consentements"
     },
     "OPERATOR": {
       "SUBTITLES": {
@@ -530,8 +537,8 @@
         "conditions": "Conditions générales de "
       },
       "LOG": {
-        "TITLE": "Log",
-        "EMPTY": "Le log est vide.",
+        "TITLE": "Modifications effectuées",
+        "EMPTY": "Aucune modification en cours.",
         "COMMENT": "Commentaire",
         "SUBMIT": "Valider mes modifications"
       }

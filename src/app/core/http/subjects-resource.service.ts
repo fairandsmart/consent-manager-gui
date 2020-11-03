@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { environment } from '../../../environments/environment';
 import { HttpClient } from '@angular/common/http';
-import { RecordDto } from '../models/models';
+import { RecordsMap } from '../models/models';
 
 @Injectable()
 export class SubjectsResourceService {
@@ -16,8 +16,8 @@ export class SubjectsResourceService {
     return this.http.get<string[]>(`${this.ROOT}`, {params: {name: name}});
   }
 
-  listCustomerRecords(subject: string): Observable<{ [key: string]: RecordDto[] }> {
-    return this.http.get<{ [key: string]: RecordDto[] }>(`${this.ROOT}/${subject}/records`);
+  listCustomerRecords(subject: string): Observable<RecordsMap> {
+    return this.http.get<RecordsMap>(`${this.ROOT}/${subject}/records`);
   }
 
 }

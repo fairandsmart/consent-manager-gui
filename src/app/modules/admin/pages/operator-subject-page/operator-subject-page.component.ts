@@ -4,7 +4,9 @@ import {
   CollectionMethod,
   ConsentContext,
   ConsentFormOrientation,
-  ConsentFormType, OperatorLogElement
+  ConsentFormType,
+  OperatorLogElement,
+  RecordsMap
 } from '../../../../core/models/models';
 import {
   SubjectRecordApplyChangesDialogComponent,
@@ -17,6 +19,7 @@ import { ConsentsResourceService } from '../../../../core/http/consents-resource
 import { OperatorProcessingComponent } from '../../components/operator/operator-processing/operator-processing.component';
 import { OperatorPreferencesComponent } from '../../components/operator/operator-preferences/operator-preferences.component';
 import { OperatorConditionsComponent } from '../../components/operator/operator-conditions/operator-conditions.component';
+import { SubjectsResourceService } from '../../../../core/http/subjects-resource.service';
 
 @Component({
   selector: 'cm-operator-subject-page',
@@ -26,6 +29,7 @@ import { OperatorConditionsComponent } from '../../components/operator/operator-
 export class OperatorSubjectPageComponent implements OnInit {
 
   public subject: string;
+  public records: RecordsMap;
   public operatorLog: OperatorLogElement[] = [];
 
   @ViewChild('processing')
@@ -42,13 +46,15 @@ export class OperatorSubjectPageComponent implements OnInit {
     private route: ActivatedRoute,
     private dialog: MatDialog,
     private translate: TranslateService,
-    private consentsResource: ConsentsResourceService) {
+    private consentsResource: ConsentsResourceService,
+    private subjectsResource: SubjectsResourceService) {
   }
 
   ngOnInit(): void {
     this.route.paramMap.subscribe(params => {
       this.subject = params.get('subject');
     });
+    this.reloadRecords();
   }
 
   addElementToLog(element): void {
@@ -71,11 +77,12 @@ export class OperatorSubjectPageComponent implements OnInit {
   }
 
   reloadRecords(): void {
-    if (this.subject) {
-      this.processingComponent.reloadRecords();
-      this.preferencesComponent.reloadRecords();
-      this.conditionsComponent.reloadRecords();
-    }
+    this.subjectsResource.listCustomerRecords(this.subject).subscribe((records) => {
+      this.records = records;
+      this.processingComponent.updateRecords(records);
+      this.preferencesComponent.updateRecords(records);
+      this.conditionsComponent.updateRecords(records);
+    });
   }
 
   submitLog(): void {

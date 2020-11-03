@@ -314,6 +314,10 @@ export interface RecordFilter {
   direction?: SortDirection;
 }
 
+export interface RecordsMap {
+  [key: string]: RecordDto[];
+}
+
 export interface Key {
   id?: string;
   name: string;

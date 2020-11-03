@@ -4,7 +4,11 @@ import {
   EntryRecord,
   EntryRecordFilter,
   ModelDataType,
-  ModelEntryDto, ModelVersionDtoLight, ModelVersionStatus, OperatorLogElement, RecordDto
+  ModelEntryDto,
+  ModelVersionDtoLight,
+  ModelVersionStatus,
+  OperatorLogElement,
+  RecordsMap
 } from '../../../../../core/models/models';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort, Sort } from '@angular/material/sort';
@@ -12,21 +16,20 @@ import { ModelsResourceService } from '../../../../../core/http/models-resource.
 import { SubjectsResourceService } from '../../../../../core/http/subjects-resource.service';
 import { map, tap } from 'rxjs/operators';
 import { CollectionDatasource } from '../../../utils/collection-datasource';
-import { combineLatest, Observable } from 'rxjs';
+import { Observable, Subject } from 'rxjs';
 import * as _ from 'lodash';
 
 class SubjectRecordDataSource extends CollectionDatasource<EntryRecord, EntryRecordFilter> {
 
-  constructor(private modelsResource: ModelsResourceService, private subjectsResource: SubjectsResourceService) {
+  public records: RecordsMap = {};
+
+  constructor(private modelsResource: ModelsResourceService) {
     super();
   }
 
   protected getPage(pageFilter: EntryRecordFilter): Observable<CollectionPage<EntryRecord>> {
-    return combineLatest([
-      this.modelsResource.listEntries(pageFilter),
-      this.subjectsResource.listCustomerRecords(pageFilter.subject)
-    ]).pipe(
-      map(([entries, records]: [CollectionPage<ModelEntryDto>, { [key: string]: RecordDto[] }]) => {
+    return this.modelsResource.listEntries(pageFilter).pipe(
+      map((entries: CollectionPage<ModelEntryDto>) => {
         const values = [];
         entries.values.forEach((entry) => {
           const activeVersion: ModelVersionDtoLight = entry.versions.find(v => v.status === ModelVersionStatus.ACTIVE);
@@ -39,7 +42,7 @@ class SubjectRecordDataSource extends CollectionDatasource<EntryRecord, EntryRec
             active: activeVersion !== undefined,
             versionIndex: activeVersion !== undefined ? entry.versions.indexOf(activeVersion) + 1 : undefined
           };
-          const recordsList = records[entry.key];
+          const recordsList = this.records[entry.key];
           if (recordsList && recordsList.length > 0) {
             const record = _.last(recordsList);
             result.value = record.value;
@@ -75,6 +78,10 @@ export abstract class OperatorConsentListDirective implements OnInit {
   @Input()
   public subject: string;
 
+  public records: RecordsMap = {};
+  public recordsSubject: Subject<RecordsMap> = new Subject<RecordsMap>();
+  public recordsObservable: Observable<RecordsMap> = this.recordsSubject.asObservable();
+
   public filter: EntryRecordFilter = {
     page: 0,
     size: 10,
@@ -105,26 +112,35 @@ export abstract class OperatorConsentListDirective implements OnInit {
   ngOnInit(): void {
     this.filter.subject = this.subject;
     this.filter.types.push(this.type);
-    this.dataSource = new SubjectRecordDataSource(this.modelsResource, this.subjectsResource);
+    this.dataSource = new SubjectRecordDataSource(this.modelsResource);
     this.dataSource.paginator = this.paginator;
+    this.recordsObservable.subscribe((newRecords) => {
+      this.dataSource.records = newRecords;
+    });
     this.sort.sortChange.subscribe((sort: Sort) => {
       this.filter.page = 0;
       this.filter.order = sort.active;
       this.filter.direction = sort.direction;
-      this.reloadRecords();
+      this.reloadData();
     });
     this.paginator.page.pipe(
       tap((e) => {
         this.filter.size = e.pageSize;
         this.filter.page = e.pageIndex;
-        this.reloadRecords();
+        this.reloadData();
       })
     ).subscribe();
-    this.reloadRecords();
+    this.reloadData();
   }
 
-  reloadRecords(): void {
+  reloadData(): void {
     this.dataSource.loadPage(this.filter);
+  }
+
+  updateRecords(records: RecordsMap): void {
+    this.records = records;
+    this.recordsSubject.next(records);
+    this.reloadData();
   }
 
 }

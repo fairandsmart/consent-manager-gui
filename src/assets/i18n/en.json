@@ -503,6 +503,12 @@
       "CONDITIONS_DATE": {
         "LABEL": "Answer date"
       },
+      "HISTORY_DATE": {
+        "LABEL": "Collect date"
+      },
+      "HISTORY_VALUE": {
+        "LABEL": "Answer"
+      },
       "COMMENT": {
         "LABEL": "Comment"
       },
@@ -521,7 +527,8 @@
     "DIALOG": {
       "TITLE_NEW": "New consent record",
       "TITLE_UPDATE": "Update consent record",
-      "TITLE_APPLY": "Apply modifications"
+      "TITLE_APPLY": "Apply modifications",
+      "TITLE_HISTORY": "Consent history"
     },
     "OPERATOR": {
       "SUBTITLES": {
@@ -530,8 +537,8 @@
         "conditions": "End user license agreements of "
       },
       "LOG": {
-        "TITLE": "Log",
-        "EMPTY": "The log is empty.",
+        "TITLE": "Pending changes",
+        "EMPTY": "No pending change.",
         "COMMENT": "Comment",
         "SUBMIT": "Save my changes"
       }
