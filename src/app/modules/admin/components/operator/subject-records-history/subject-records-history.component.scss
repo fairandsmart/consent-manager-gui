@@ -1,0 +1,20 @@
+.progress-bar-container {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 0;
+}
+
+table {
+  width: 100%;
+
+  &.loading {
+    ::ng-deep tbody tr {
+      opacity: 0.5;
+    }
+  }
+
+  td {
+    max-width: 20em;
+  }
+}

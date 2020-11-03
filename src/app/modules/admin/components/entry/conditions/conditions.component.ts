@@ -1,21 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { EntryContentDirective } from '../entry-content/entry-content.directive';
-import {
-  CollectionMethod,
-  Conditions,
-  ConsentContext,
-  ConsentFormOrientation,
-  ConsentFormType,
-  ModelDataType
-} from '../../../../../core/models/models';
+import { Conditions, ModelDataType } from '../../../../../core/models/models';
 import { FormBuilder, Validators } from '@angular/forms';
 import { ModelsResourceService } from '../../../../../core/http/models-resource.service';
-import { FormUrlDialogComponent, FormUrlDialogComponentData } from '../../form-url-dialog/form-url-dialog.component';
-import { MatDialog } from '@angular/material/dialog';
-import { ConsentsResourceService } from '../../../../../core/http/consents-resource.service';
 import { DomSanitizer } from '@angular/platform-browser';
 import { AlertService } from '../../../../../core/services/alert.service';
-import { environment } from '../../../../../../environments/environment';
 
 @Component({
   selector: 'cm-conditions',
@@ -40,10 +29,8 @@ export class ConditionsComponent extends EntryContentDirective<Conditions> imple
   constructor(
       private fb: FormBuilder,
       modelsResourceService: ModelsResourceService,
-      public consentsResourceService: ConsentsResourceService,
       alertService: AlertService,
-      sanitizer: DomSanitizer,
-      private dialog: MatDialog) {
+      sanitizer: DomSanitizer) {
     super(ConditionsComponent.CONTEXT, modelsResourceService, alertService, sanitizer);
   }
 
@@ -64,46 +51,6 @@ export class ConditionsComponent extends EntryContentDirective<Conditions> imple
       rejectLabel: ['', [Validators.required]]
     });
     this.checkFormState();
-  }
-
-  openApiUrlDialog(): void {
-    if (this.form.invalid) {
-      return;
-    }
-    const formValue = this.form.getRawValue();
-    const context: ConsentContext = {
-      subject: '',
-      orientation: ConsentFormOrientation.VERTICAL,
-      info: '',
-      elements: [this.entry.key],
-      callback: '',
-      validity: '',
-      locale: environment.customization.defaultLocale,
-      formType: ConsentFormType.FULL,
-      receiptDeliveryType: 'NONE',
-      userinfos: {},
-      attributes: {},
-      notificationModel: '',
-      notificationRecipient: '',
-      collectionMethod: CollectionMethod.WEBFORM,
-      author: '',
-      preview: false,
-      iframe: true,
-      conditions: true,
-      theme: ''
-    };
-    this.consentsResourceService.generateToken(context).subscribe((token) => {
-      const url = this.consentsResourceService.getFormUrl(token);
-      this.dialog.open<FormUrlDialogComponent, FormUrlDialogComponentData>(FormUrlDialogComponent, {
-        width: '800px',
-        data: {
-          url: url,
-          context: context
-        }
-      });
-    }, (err) => {
-      console.error(err);
-    });
   }
 
 }

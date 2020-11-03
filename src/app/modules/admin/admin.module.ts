@@ -27,7 +27,6 @@ import { ConditionsPageComponent } from './pages/entries-page/conditions-page.co
 import { BasicinfoPageComponent } from './pages/entries-page/basicinfo-page.component';
 import { ProcessingPageComponent } from './pages/entries-page/processing-page.component';
 import { GeneratedKeyDialogComponent, KeysComponent } from './pages/keys/keys.component';
-import { SubjectRecordsComponent } from './pages/subject-records/subject-records.component';
 import { SubjectRecordEditorDialogComponent } from './components/operator/subject-record-editor-dialog/subject-record-editor-dialog.component';
 import { SubjectRecordApplyChangesDialogComponent } from './components/operator/subject-record-apply-changes-dialog/subject-record-apply-changes-dialog.component';
 import { CoreModule } from '../../core/core.module';
@@ -35,6 +34,11 @@ import { ClipboardModule } from '@angular/cdk/clipboard';
 import { ChartsModule } from 'ng2-charts';
 import { CodemirrorModule } from '@ctrl/ngx-codemirror';
 import { AdminRoutingModule } from './admin-routing.module';
+import { OperatorProcessingComponent } from './components/operator/operator-processing/operator-processing.component';
+import { OperatorConditionsComponent } from './components/operator/operator-conditions/operator-conditions.component';
+import { OperatorPreferencesComponent } from './components/operator/operator-preferences/operator-preferences.component';
+import { OperatorSubjectPageComponent } from './pages/operator-subject-page/operator-subject-page.component';
+import { SubjectRecordsHistoryComponent } from './components/operator/subject-records-history/subject-records-history.component';
 
 @NgModule({
   declarations: [
@@ -66,9 +70,13 @@ import { AdminRoutingModule } from './admin-routing.module';
     ProcessingPageComponent,
     KeysComponent,
     GeneratedKeyDialogComponent,
-    SubjectRecordsComponent,
     SubjectRecordEditorDialogComponent,
-    SubjectRecordApplyChangesDialogComponent
+    SubjectRecordApplyChangesDialogComponent,
+    OperatorProcessingComponent,
+    OperatorConditionsComponent,
+    OperatorPreferencesComponent,
+    OperatorSubjectPageComponent,
+    SubjectRecordsHistoryComponent
   ],
   imports: [
     AdminRoutingModule,

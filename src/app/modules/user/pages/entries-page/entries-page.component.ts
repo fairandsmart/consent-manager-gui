@@ -3,7 +3,7 @@ import { environment } from '../../../../../environments/environment';
 import { ModelsResourceService } from '../../../../core/http/models-resource.service';
 import { SubjectsResourceService } from '../../../../core/http/subjects-resource.service';
 import { KeycloakService } from 'keycloak-angular';
-import { CollectionPage, ModelDataType, ModelEntryDto, RecordDto } from '../../../../core/models/models';
+import { CollectionPage, ModelDataType, ModelEntryDto, RecordDto, RecordsMap } from '../../../../core/models/models';
 import { combineLatest, Subscription } from 'rxjs';
 import { map } from 'rxjs/operators';
 import * as _ from 'lodash';
@@ -43,7 +43,7 @@ export class EntriesPageComponent implements OnInit, OnDestroy {
         }),
         this.subjectsResourceService.listCustomerRecords(this.keycloakService.getUsername())
       ]).pipe(
-        map(([entries, records]: [CollectionPage<ModelEntryDto>, { [key: string]: RecordDto[] }]) => {
+        map(([entries, records]: [CollectionPage<ModelEntryDto>, RecordsMap]) => {
           this.elementsKeys.forEach((key) => {
             this.data.push({
               entry: entries.values.find(entry => entry.key === key),

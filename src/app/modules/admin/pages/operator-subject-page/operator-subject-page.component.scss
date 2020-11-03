@@ -1,0 +1,102 @@
+:host {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  display: block;
+
+  .container {
+    margin: 2em;
+
+    .subcontainer {
+      margin: 2em 0;
+
+      .user-details {
+        display: flex;
+        flex-direction: row;
+
+        .user-id {
+          font-size: 32px;
+          padding-top: 16px;
+        }
+
+        mat-icon {
+          height: 96px;
+          width: 96px;
+          font-size: 96px;
+          color: #3F3F3F;
+          margin-right: 16px;
+        }
+      }
+
+      ::ng-deep h2 {
+        display: flex;
+        align-items: center;
+
+        mat-icon {
+          margin-right: 8px;
+        }
+      }
+
+      ::ng-deep .table-container {
+        position: relative;
+        margin-top: 1em;
+
+        .progress-bar-container {
+          position: absolute;
+          left: 0;
+          right: 0;
+          top: 0;
+        }
+
+        table {
+          width: 100%;
+
+          &.loading {
+            ::ng-deep tbody tr {
+              opacity: 0.5;
+            }
+          }
+
+          td {
+            max-width: 20em;
+          }
+        }
+      }
+    }
+  }
+
+  mat-sidenav {
+    width: 350px;
+    padding: 2em;
+
+    .list-content {
+      display: flex;
+      justify-content: space-between;
+      width: 100%;
+      align-items: center;
+
+      .list-content-text {
+        display: flex;
+
+        .list-content-key {
+          font-weight: bold;
+        }
+
+        mat-icon {
+          margin-left: 8px;
+        }
+      }
+    }
+
+    .empty-log {
+      padding: 1em;
+      font-style: italic;
+    }
+
+    .log-button-container {
+      margin-top: 2em;
+    }
+  }
+}

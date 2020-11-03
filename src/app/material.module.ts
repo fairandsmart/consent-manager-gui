@@ -36,9 +36,9 @@ export class MatPaginatorIntlTranslated extends MatPaginatorIntl {
 
   private rangeLabel = 'of';
 
-  constructor(private translateService: TranslateService) {
+  constructor(private translate: TranslateService) {
     super();
-    this.translateService.onLangChange.subscribe(() => this.getTranslations());
+    this.translate.onLangChange.subscribe(() => this.getTranslations());
     this.getTranslations();
   }
 
@@ -53,7 +53,7 @@ export class MatPaginatorIntlTranslated extends MatPaginatorIntl {
   });
 
   getTranslations(): void {
-    this.translateService.get([
+    this.translate.get([
       'MATERIAL.PAGINATOR.FIRST_PAGE',
       'MATERIAL.PAGINATOR.LAST_PAGE',
       'MATERIAL.PAGINATOR.ITEMS_PER_PAGE',

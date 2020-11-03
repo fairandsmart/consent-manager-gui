@@ -479,28 +479,43 @@
       "NAME": {
         "LABEL": "Name"
       },
-      "TYPE": {
+      "SUBTYPE": {
         "LABEL": "Type"
       },
-      "VALUE": {
-        "LABEL": "Answer",
-        "ACCEPTED": "Accepted",
-        "REFUSED": "Refused"
+      "VERSION": {
+        "LABEL": "Version"
       },
       "COLLECTION_METHOD": {
         "LABEL": "Collection method"
       },
-      "COMMENT": {
-        "LABEL": "Comment"
+      "HISTORY": {
+        "LABEL": "See all the records"
       },
       "STATUS": {
         "LABEL": "Status"
       },
-      "CREATION": {
-        "LABEL": "Creation date"
+      "VALUE": {
+        "LABEL": "Current value",
+        "accepted": "Accept",
+        "refused": "Refuse"
       },
-      "EXPIRATION": {
+      "PROCESSING_DATE": {
         "LABEL": "Expiration date"
+      },
+      "PREFERENCE_DATE": {
+        "LABEL": "Last modification date"
+      },
+      "CONDITIONS_DATE": {
+        "LABEL": "Answer date"
+      },
+      "HISTORY_DATE": {
+        "LABEL": "Collect date"
+      },
+      "HISTORY_VALUE": {
+        "LABEL": "Answer"
+      },
+      "COMMENT": {
+        "LABEL": "Comment"
       },
       "RECIPIENT": {
         "LABEL": "Notification email address",
@@ -517,15 +532,20 @@
     "DIALOG": {
       "TITLE_NEW": "New consent record",
       "TITLE_UPDATE": "Update consent record",
-      "TITLE_APPLY": "Apply modifications"
+      "TITLE_APPLY": "Apply modifications",
+      "TITLE_HISTORY": "Consent history"
     },
     "OPERATOR": {
-      "TITLE": "Consents of",
+      "SUBTITLES": {
+        "processing": "Consents of ",
+        "preference": "Preferences of ",
+        "conditions": "End user license agreements of "
+      },
       "LOG": {
-        "TITLE": "Log",
-        "EMPTY": "The log is empty.",
+        "TITLE": "Pending changes",
+        "EMPTY": "No pending change.",
         "COMMENT": "Comment",
-        "SUBMIT": "Save changes"
+        "SUBMIT": "Save my changes"
       }
     }
   },

@@ -33,7 +33,7 @@ export enum Icons {
   basicinfo = 'info',
   processing = 'check_box',
   preference = 'favorite',
-  conditions = 'filter_none',
+  conditions = 'text_snippet',
   email = 'mail_outline',
   theme = 'palette',
   cookies = 'local_offer'
@@ -249,7 +249,6 @@ export interface ConsentContext {
   author: string;
   preview: boolean;
   iframe: boolean;
-  conditions?: boolean;
   theme?: string;
 }
 
@@ -315,6 +314,10 @@ export interface RecordFilter {
   direction?: SortDirection;
 }
 
+export interface RecordsMap {
+  [key: string]: RecordDto[];
+}
+
 export interface Key {
   id?: string;
   name: string;
@@ -325,6 +328,7 @@ export interface Key {
 }
 
 export interface EntryRecord {
+  id: string;
   key: string;
   type: string;
   name: string;
@@ -336,6 +340,7 @@ export interface EntryRecord {
   collectionMethod?: CollectionMethod;
   status?: RecordStatus;
   active: boolean;
+  versionIndex: number;
 }
 
 export interface EntryRecordFilter extends ModelFilter {
@@ -343,4 +348,11 @@ export interface EntryRecordFilter extends ModelFilter {
   subject: string;
   before?: number;
   after?: number;
+}
+
+export interface OperatorLogElement {
+  type: string;
+  key: string;
+  identifier: string;
+  value: string;
 }

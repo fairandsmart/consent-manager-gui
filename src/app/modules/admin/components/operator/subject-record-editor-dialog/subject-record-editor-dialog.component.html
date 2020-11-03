@@ -1,29 +1,37 @@
-<h2 mat-dialog-title>
-  {{data.value ? ('RECORDS.DIALOG.TITLE_UPDATE' | translate) : ('RECORDS.DIALOG.TITLE_NEW' | translate)}}
-</h2>
+<h2 mat-dialog-title>{{data.record.name}}</h2>
 
-<div mat-dialog-content *ngIf="form" [formGroup]="form">
+<div mat-dialog-content>
+  <div *ngIf="!data.valueType || (data.valueType !== TYPES.NONE && data.valueType !== TYPES.FREE_TEXT)">
+    <mat-form-field appearance="outline">
+      <mat-label>{{'ENTRIES.EDITOR.PREFERENCE.OPTIONS.LABEL' | translate}}</mat-label>
+      <mat-select [multiple]="isMultipleChoice()" [formControl]="control">
+        <ng-container *ngIf="data.valueType">
+          <mat-option *ngFor="let option of data.options" [value]="option">
+            {{option}}
+          </mat-option>
+        </ng-container>
+        <ng-container *ngIf="!data.valueType">
+          <mat-option *ngFor="let option of data.options" [value]="option">
+            {{'RECORDS.COMMON.VALUE.' + option | translate}}
+          </mat-option>
+        </ng-container>
+      </mat-select>
+    </mat-form-field>
+  </div>
 
-  <mat-form-field appearance="fill">
-    <mat-label>{{'RECORDS.COMMON.KEY.LABEL' | translate}}</mat-label>
-    <input matInput disabled [value]="data.key">
-  </mat-form-field>
-
-  <mat-form-field appearance="fill">
-    <mat-label>{{'RECORDS.COMMON.VALUE.LABEL' | translate}}</mat-label>
-    <mat-select formControlName="value" matInput required>
-      <mat-option value="accepted">{{'RECORDS.COMMON.VALUE.ACCEPTED' | translate}}</mat-option>
-      <mat-option value="refused">{{'RECORDS.COMMON.VALUE.REFUSED' | translate}}</mat-option>
-    </mat-select>
-  </mat-form-field>
-
+  <div *ngIf="data.valueType === TYPES.FREE_TEXT">
+    <mat-form-field appearance="outline">
+      <mat-label>{{'ENTRIES.EDITOR.PREFERENCE.OPTIONS.LABEL' | translate}}</mat-label>
+      <input [formControl]="control" matInput autocomplete="off">
+    </mat-form-field>
+  </div>
 </div>
 
 <div class="btn-uppercase align-right" mat-dialog-actions>
-  <button mat-button color="primary" [disabled]="form.disabled" [mat-dialog-close]="null">
+  <button mat-button color="primary" [mat-dialog-close]="null">
     {{'COMMON.BUTTONS.CANCEL' | translate}}
   </button>
-  <button mat-button color="primary" [disabled]="form.disabled" (click)="submit()">
+  <button mat-button color="primary" [disabled]="control.invalid" (click)="submit()">
     {{'COMMON.BUTTONS.SAVE' | translate}}
   </button>
 </div>

@@ -17,9 +17,12 @@ import { KeycloakService } from 'keycloak-angular';
 import { ConsentsResourceService } from '../../../../../core/http/consents-resource.service';
 import { AlertService } from '../../../../../core/services/alert.service';
 import { FormControl } from '@angular/forms';
+import { environment } from '../../../../../../environments/environment';
 
 @Directive()
 export abstract class EntryCardContentDirective<T extends ModelData> implements OnInit {
+
+  private readonly defaultLocale = environment.customization.defaultLocale;
 
   @Input()
   entry: ModelEntryDto;
@@ -54,7 +57,11 @@ export abstract class EntryCardContentDirective<T extends ModelData> implements 
   abstract serializeValue(): string;
 
   getData(): T {
-    return this.version.data[this.translate.currentLang];
+    if (this.version.data[this.translate.currentLang]) {
+      return this.version.data[this.translate.currentLang];
+    } else {
+      return this.version.data[this.defaultLocale];
+    }
   }
 
   protected resetState(): void {
@@ -84,7 +91,7 @@ export abstract class EntryCardContentDirective<T extends ModelData> implements 
       elements: [element],
       callback: '',
       validity: '',
-      locale: this.translate.currentLang,
+      locale: this.defaultLocale,
       formType: ConsentFormType.FULL,
       receiptDeliveryType: 'STORE', // TODO revert to 'NONE',
       userinfos: {},
@@ -95,7 +102,6 @@ export abstract class EntryCardContentDirective<T extends ModelData> implements 
       author: this.keycloakService.getUsername(),
       preview: false,
       iframe: true,
-      conditions: true,
       theme: ''
     };
     this.consentsResourceService.generateToken(context).pipe(
