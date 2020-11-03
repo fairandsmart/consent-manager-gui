@@ -20,6 +20,7 @@ import { OperatorProcessingComponent } from '../../components/operator/operator-
 import { OperatorPreferencesComponent } from '../../components/operator/operator-preferences/operator-preferences.component';
 import { OperatorConditionsComponent } from '../../components/operator/operator-conditions/operator-conditions.component';
 import { SubjectsResourceService } from '../../../../core/http/subjects-resource.service';
+import { environment } from '../../../../../environments/environment';
 
 @Component({
   selector: 'cm-operator-subject-page',
@@ -27,6 +28,8 @@ import { SubjectsResourceService } from '../../../../core/http/subjects-resource
   styleUrls: ['./operator-subject-page.component.scss']
 })
 export class OperatorSubjectPageComponent implements OnInit {
+
+  private readonly defaultLocale = environment.customization.defaultLocale;
 
   public subject: string;
   public records: RecordsMap;
@@ -97,7 +100,7 @@ export class OperatorSubjectPageComponent implements OnInit {
           info: '',
           elements: this.operatorLog.map(e => e.identifier),
           callback: '',
-          locale: this.translate.currentLang,
+          locale: this.defaultLocale,
           formType: ConsentFormType.FULL,
           receiptDeliveryType: 'DOWNLOAD',
           userinfos: {},

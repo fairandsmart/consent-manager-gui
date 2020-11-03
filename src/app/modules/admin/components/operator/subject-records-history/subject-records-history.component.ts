@@ -19,14 +19,25 @@ class SubjectRecordsHistoryDataSource extends CollectionDatasource<RecordDto, Re
   }
 
   protected getPage(pageFilter: RecordFilter): Observable<CollectionPage<RecordDto>> {
-    const startIndex = pageFilter.size * pageFilter.page;
-    const page: CollectionPage<RecordDto> = {
-      values: this.records.slice(startIndex, Math.min(startIndex + pageFilter.size, this.records.length)),
-      page: pageFilter.page,
-      pageSize: pageFilter.size,
-      totalPages: Math.ceil(this.records.length / pageFilter.size),
-      totalCount: this.records.length
-    };
+    let page: CollectionPage<RecordDto>;
+    if (this.records !== undefined) {
+      const startIndex = Math.min(pageFilter.size * pageFilter.page, this.records.length);
+      page = {
+        values: this.records.slice(startIndex, Math.min(startIndex + pageFilter.size, this.records.length)),
+        page: pageFilter.page,
+        pageSize: pageFilter.size,
+        totalPages: Math.ceil(this.records.length / pageFilter.size),
+        totalCount: this.records.length
+      };
+    } else {
+      page = {
+        values: [],
+        page: 0,
+        pageSize: 10,
+        totalPages: 0,
+        totalCount: 0
+      };
+    }
     return of(page);
   }
 

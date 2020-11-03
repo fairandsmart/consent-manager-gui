@@ -20,12 +20,12 @@ export function createTranslateLoader(http: HttpClient): TranslateHttpLoader {
 }
 
 export class DynamicLocaleId extends String {
-  constructor(protected service: TranslateService) {
+  constructor(protected translate: TranslateService) {
     super();
   }
 
   toString(): string {
-    return this.service.currentLang;
+    return this.translate.currentLang;
   }
 }
 

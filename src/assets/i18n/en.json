@@ -477,7 +477,7 @@
       "SUBTYPE": {
         "LABEL": "Type"
       },
-      "Version": {
+      "VERSION": {
         "LABEL": "Version"
       },
       "COLLECTION_METHOD": {

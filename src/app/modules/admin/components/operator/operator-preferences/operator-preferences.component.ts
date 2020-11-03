@@ -9,6 +9,7 @@ import {
 } from '../subject-record-editor-dialog/subject-record-editor-dialog.component';
 import { MatDialog } from '@angular/material/dialog';
 import { TranslateService } from '@ngx-translate/core';
+import { environment } from '../../../../../../environments/environment';
 
 @Component({
   selector: 'cm-operator-preferences',
@@ -18,6 +19,8 @@ import { TranslateService } from '@ngx-translate/core';
 export class OperatorPreferencesComponent extends OperatorConsentListDirective implements OnInit {
 
   readonly ICONS = Icons;
+  private readonly defaultLocale = environment.customization.defaultLocale;
+
   public displayedColumns = ['key', 'name', 'value', 'actions', 'recordCreation'];
   public pageSizeOptions = [10, 25, 50];
 
@@ -37,7 +40,12 @@ export class OperatorPreferencesComponent extends OperatorConsentListDirective i
 
   action(element): void {
     this.modelsResource.getActiveVersion(element.id).subscribe((version) => {
-      const versionDto: Preference = version.data[this.translate.currentLang] as Preference;
+      let versionDto: Preference;
+      if (version.data[this.translate.currentLang]) {
+        versionDto = version.data[this.translate.currentLang] as Preference;
+      } else {
+        versionDto = version.data[this.defaultLocale] as Preference;
+      }
       this.dialog.open<SubjectRecordEditorDialogComponent, SubjectRecordEditorDialogData>(SubjectRecordEditorDialogComponent, {
         data: {
           record: element,

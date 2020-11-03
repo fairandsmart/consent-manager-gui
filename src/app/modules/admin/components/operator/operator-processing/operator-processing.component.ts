@@ -49,7 +49,7 @@ export class OperatorProcessingComponent extends OperatorConsentListDirective im
 
   showHistory(element): void {
     this.dialog.open<SubjectRecordsHistoryComponent>(SubjectRecordsHistoryComponent, {
-      data: this.records[element.key].reverse()
+      data: this.records[element.key]?.reverse()
     });
   }
 
