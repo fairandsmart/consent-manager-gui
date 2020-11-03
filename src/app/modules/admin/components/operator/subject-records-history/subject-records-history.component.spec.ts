@@ -1,14 +1,26 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { SubjectRecordsHistoryComponent } from './subject-records-history.component';
+import { CoreTestingModule } from '../../../../../testing/core-testing-module.spec';
+import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
+import SpyObj = jasmine.SpyObj;
+import createSpyObj = jasmine.createSpyObj;
 
 describe('SubjectRecordsHistoryComponent', () => {
   let component: SubjectRecordsHistoryComponent;
   let fixture: ComponentFixture<SubjectRecordsHistoryComponent>;
+  let dialogRefSpy: SpyObj<MatDialogRef<SubjectRecordsHistoryComponent>>;
 
   beforeEach(async () => {
+    dialogRefSpy = createSpyObj<MatDialogRef<SubjectRecordsHistoryComponent>>('MatDialogRef', ['close']);
+
     await TestBed.configureTestingModule({
-      declarations: [ SubjectRecordsHistoryComponent ]
+      declarations: [ SubjectRecordsHistoryComponent ],
+      imports: [ CoreTestingModule ],
+      providers: [
+        {provide: MatDialogRef, useValue: dialogRefSpy},
+        {provide: MAT_DIALOG_DATA, useValue: []},
+      ]
     })
     .compileComponents();
   });
