@@ -1,10 +1,14 @@
 @import '~src/variables';
 
-td.mat-column-status {
-  color: mat-color($mat-red, 500);
+td.mat-column-status span {
+  padding: 4px;
+  border-radius: 4px;
+  border: 1px solid mat-color($mat-red, 800);
+  background-color: mat-color($mat-red, 500);
   &[record-status="VALID"] {
     &[record-value="accepted"] {
-      color: mat-color($mat-green, 500);
+      border: 1px solid mat-color($mat-green, 800);
+      background-color: mat-color($mat-green, 500);
     }
   }
 }

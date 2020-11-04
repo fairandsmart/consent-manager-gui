@@ -492,7 +492,9 @@
         "LABEL": "See all the records"
       },
       "STATUS": {
-        "LABEL": "Status"
+        "LABEL": "Status",
+        "VALID": "Valid",
+        "INVALID": "Invalid"
       },
       "VALUE": {
         "LABEL": "Current value",

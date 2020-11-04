@@ -492,7 +492,9 @@
         "LABEL": "Voir tous les enregistrements"
       },
       "STATUS": {
-        "LABEL": "Statut"
+        "LABEL": "Statut",
+        "VALID": "Valide",
+        "INVALID": "Non valide"
       },
       "VALUE": {
         "LABEL": "Valeur actuelle",

@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { OperatorConsentListDirective } from '../operator-consent-list/operator-consent-list.directive';
 import { ModelsResourceService } from '../../../../../core/http/models-resource.service';
 import { SubjectsResourceService } from '../../../../../core/http/subjects-resource.service';
-import { Icons } from '../../../../../core/models/models';
+import { Icons, RecordStatus } from '../../../../../core/models/models';
 
 @Component({
   selector: 'cm-operator-conditions',
@@ -35,6 +35,10 @@ export class OperatorConditionsComponent extends OperatorConsentListDirective im
     } else {
       return '-';
     }
+  }
+
+  getRecordStatus(element): string {
+    return element.status === RecordStatus.VALID && element.value === 'accepted' ? 'VALID' : 'INVALID';
   }
 
 }

@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ModelsResourceService } from '../../../../../core/http/models-resource.service';
 import { SubjectsResourceService } from '../../../../../core/http/subjects-resource.service';
 import { OperatorConsentListDirective } from '../operator-consent-list/operator-consent-list.directive';
-import { EntryRecord, Icons } from '../../../../../core/models/models';
+import { EntryRecord, Icons, RecordStatus } from '../../../../../core/models/models';
 import {
   SubjectRecordEditorDialogComponent,
   SubjectRecordEditorDialogData
@@ -49,8 +49,12 @@ export class OperatorProcessingComponent extends OperatorConsentListDirective im
 
   showHistory(element): void {
     this.dialog.open<SubjectRecordsHistoryComponent>(SubjectRecordsHistoryComponent, {
-      data: this.records[element.key]?.reverse()
+      data: this.records[element.key]?.slice().reverse()
     });
+  }
+
+  getRecordStatus(element): string {
+    return element.status === RecordStatus.VALID && element.value === 'accepted' ? 'VALID' : 'INVALID';
   }
 
 }
