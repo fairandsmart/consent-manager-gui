@@ -26,7 +26,7 @@
     </div>
   </mat-sidenav-content>
 
-  <mat-sidenav [opened]="true" mode="side" position="end">
+  <mat-sidenav [opened]="operatorLog.length > 0" mode="side" position="end">
     <h2>{{'RECORDS.OPERATOR.LOG.TITLE' | translate}}</h2>
     <ng-container *ngIf="operatorLog.length > 0; else emptyLogTemplate">
       <mat-list>
