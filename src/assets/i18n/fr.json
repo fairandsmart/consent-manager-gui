@@ -58,10 +58,10 @@
       "en": "English",
       "fr": "Français"
     },
-    "LOCALE": {
+    "LANGUAGE": {
       "LABEL": "Langue"
     },
-    "DEFAULT_LOCALE": {
+    "DEFAULT_LANGUAGE": {
       "LABEL": "Langue par défaut"
     },
     "RECORD_STATUS": {
@@ -198,7 +198,7 @@
     },
     "PREVIEW": {
       "TITLE": "Prévisualisation",
-      "NO_LOCALE": "Sélectionnez une langue pour afficher la prévisualisation."
+      "NO_LANGUAGE": "Sélectionnez une langue pour afficher la prévisualisation."
     },
     "EDITOR": {
       "INFORMATION": {

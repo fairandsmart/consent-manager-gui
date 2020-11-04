@@ -72,8 +72,8 @@ export interface ModelVersionDtoLight<T extends ModelData = ModelData> {
   parent?: string;
   child?: string;
   author?: string;
-  defaultLocale?: string;
-  availableLocales?: string[];
+  defaultLanguage?: string;
+  availableLanguages?: string[];
   status?: ModelVersionStatus;
   type?: ModelVersionType;
   creationDate?: number;
@@ -82,7 +82,7 @@ export interface ModelVersionDtoLight<T extends ModelData = ModelData> {
 }
 
 export interface ModelVersionDto<T extends ModelData = ModelData> extends ModelVersionDtoLight {
-  data: { [locale: string]: T };
+  data: { [language: string]: T };
 }
 
 export enum ModelVersionStatus {
@@ -215,7 +215,7 @@ export interface Email extends ModelData {
 export type ModelDataType = 'basicinfo' | 'processing' | 'conditions' | 'theme' | 'email' | 'preference';
 
 export interface PreviewDto {
-  locale: string;
+  language: string;
   orientation: ConsentFormOrientation;
   data?: ModelData;
 }
@@ -237,7 +237,7 @@ export interface ConsentContext {
   info: string;
   elements: string[];
   callback: string;
-  locale: string;
+  language: string;
   validity?: string;
   formType: ConsentFormType;
   receiptDeliveryType: ReceiptDeliveryType;
