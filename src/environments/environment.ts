@@ -12,7 +12,7 @@ export const environment: AppEnvironment = {
   managerUrl: 'http://localhost:8087',
   customization: {
     multipleInfo: false,
-    defaultLocale: 'fr',
+    defaultLanguage: 'fr',
     displayUserPage: true,
     userPageElementsOrder: 'Core.1,Market.1,Channel.1,Frequency.1,Mode.1,Username.1,cgu.1'
   }

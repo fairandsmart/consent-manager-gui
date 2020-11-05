@@ -35,7 +35,7 @@ export abstract class EntryContentDirective<T extends ModelData> extends FormSta
 
   readonly STATUS = ModelVersionStatus;
 
-  private readonly defaultLocale = environment.customization.defaultLocale;
+  private readonly defaultLanguage = environment.customization.defaultLanguage;
 
   protected constructor(
     context: string,
@@ -91,10 +91,10 @@ export abstract class EntryContentDirective<T extends ModelData> extends FormSta
 
   protected refreshPreview(): void {
     const rawValues: T = this.form.getRawValue();
-    const locale = this.defaultLocale;
-    if (locale) {
+    const language = this.defaultLanguage;
+    if (language) {
       const dto: PreviewDto = {
-        locale: locale,
+        language: language,
         orientation: ConsentFormOrientation.VERTICAL,
         data: rawValues
       };
@@ -107,18 +107,18 @@ export abstract class EntryContentDirective<T extends ModelData> extends FormSta
     }
   }
 
-  public selectVersion(version: ModelVersionDtoLight, locale: string = this.version.defaultLocale): void {
-    this.modelsResourceService.getVersion<T>(this.entry.id, version.id).subscribe(v => this.setVersion(v, locale));
+  public selectVersion(version: ModelVersionDtoLight, language: string = this.version.defaultLanguage): void {
+    this.modelsResourceService.getVersion<T>(this.entry.id, version.id).subscribe(v => this.setVersion(v, language));
   }
 
-  protected setVersion(version: ModelVersionDto<T>, locale: string = this.version.defaultLocale): void {
+  protected setVersion(version: ModelVersionDto<T>, language: string = this.version.defaultLanguage): void {
     this.version = version;
     if (this.isLatestVersion()) {
       this.form.enable();
     } else {
       this.form.disable();
     }
-    this.form.patchValue(this.version.data[locale]);
+    this.form.patchValue(this.version.data[language]);
     this.initialValue = _.cloneDeep(this.form.getRawValue());
   }
 
@@ -138,9 +138,9 @@ export abstract class EntryContentDirective<T extends ModelData> extends FormSta
       let obs: Observable<ModelVersionDto<T>>;
       const data: T = this.form.getRawValue();
       const dto: ModelVersionDto<T> = {
-        defaultLocale: this.defaultLocale,
-        availableLocales: [this.defaultLocale],
-        data: {[this.defaultLocale]: data}
+        defaultLanguage: this.defaultLanguage,
+        availableLanguages: [this.defaultLanguage],
+        data: {[this.defaultLanguage]: data}
       };
       if (this.version?.status === ModelVersionStatus.DRAFT) {
         obs = this.modelsResourceService.updateVersion<T>(this.entry.id, this.version.id, dto);

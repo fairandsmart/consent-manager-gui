@@ -35,7 +35,7 @@ export class EntryCardComponent implements OnInit {
   }
 
   languages(): string {
-    return _.last(this.entry.versions)?.availableLocales.join(' | ');
+    return _.last(this.entry.versions)?.availableLanguages.join(' | ');
   }
 
 }

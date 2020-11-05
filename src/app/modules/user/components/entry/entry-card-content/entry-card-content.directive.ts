@@ -22,13 +22,15 @@ import { environment } from '../../../../../../environments/environment';
 @Directive()
 export abstract class EntryCardContentDirective<T extends ModelData> implements OnInit {
 
-  private readonly defaultLocale = environment.customization.defaultLocale;
+  private readonly defaultLanguage = environment.customization.defaultLanguage;
 
   @Input()
   entry: ModelEntryDto;
 
   @Input()
   version: ModelVersionDto<T>;
+
+
 
   @Input()
   record: RecordDto;
@@ -60,7 +62,7 @@ export abstract class EntryCardContentDirective<T extends ModelData> implements 
     if (this.version.data[this.translate.currentLang]) {
       return this.version.data[this.translate.currentLang];
     } else {
-      return this.version.data[this.defaultLocale];
+      return this.version.data[this.defaultLanguage];
     }
   }
 
@@ -91,7 +93,7 @@ export abstract class EntryCardContentDirective<T extends ModelData> implements 
       elements: [element],
       callback: '',
       validity: '',
-      locale: this.defaultLocale,
+      language: this.defaultLanguage,
       formType: ConsentFormType.FULL,
       receiptDeliveryType: 'STORE', // TODO revert to 'NONE',
       userinfos: {},

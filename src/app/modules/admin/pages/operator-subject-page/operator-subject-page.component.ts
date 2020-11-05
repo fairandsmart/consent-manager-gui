@@ -29,7 +29,7 @@ import { environment } from '../../../../../environments/environment';
 })
 export class OperatorSubjectPageComponent implements OnInit {
 
-  private readonly defaultLocale = environment.customization.defaultLocale;
+  private readonly defaultLanguage = environment.customization.defaultLanguage;
 
   public subject: string;
   public records: RecordsMap;
@@ -101,7 +101,7 @@ export class OperatorSubjectPageComponent implements OnInit {
           info: '',
           elements: this.operatorLog.map(e => e.identifier),
           callback: '',
-          locale: this.defaultLocale,
+          language: this.defaultLanguage,
           formType: ConsentFormType.FULL,
           receiptDeliveryType: 'DOWNLOAD',
           userinfos: {},

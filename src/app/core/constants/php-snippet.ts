@@ -12,7 +12,7 @@ function getFormUrl() {
         "info" => "$$INFO$$",
         "elements" => array($$ELEMENTS$$),
         "callback" => "$$CALLBACK$$",
-        "locale" => "$$LOCALE$$",
+        "language" => "$$LANGUAGE$$",
         "validity" => "$$VALIDITY$$",
         "formType" => "$$FORM_TYPE$$",
         "receiptDeliveryType" => "$$RECEIPT_DELIVERY_TYPE$$",
@@ -69,7 +69,7 @@ export function getPhpSnippetFromContext(context: ConsentContext): string {
     .replace('$$INFO$$', context.info)
     .replace('$$ELEMENTS$$', `"${context.elements.join('","')}"`)
     .replace('$$CALLBACK$$', context.callback)
-    .replace('$$LOCALE$$', context.locale)
+    .replace('$$LANGUAGE$$', context.language)
     .replace('$$VALIDITY$$', context.validity)
     .replace('$$FORM_TYPE$$', context.formType)
     .replace('$$RECEIPT_DELIVERY_TYPE$$', context.receiptDeliveryType)
