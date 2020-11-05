@@ -19,6 +19,7 @@ form {
   @include mat-typography-level-to-styles($typography, 'body-1');
   mat-form-field {
     margin-top: 1.34375em;
+    width: 300px;
     ::ng-deep {
       .mat-form-field-flex {
         background: #ffffff;

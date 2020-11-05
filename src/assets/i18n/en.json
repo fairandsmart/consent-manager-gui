@@ -1,7 +1,7 @@
 {
   "NAV": {
     "TITLE": "Consent Manager",
-    "SEARCH_LABEL": "Search",
+    "SEARCH_LABEL": "Search for a user",
     "KEYCLOAK": {
       "LOGOUT": "Log out"
     },

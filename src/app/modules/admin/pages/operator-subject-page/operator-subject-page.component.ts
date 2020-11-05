@@ -56,6 +56,7 @@ export class OperatorSubjectPageComponent implements OnInit {
   ngOnInit(): void {
     this.route.paramMap.subscribe(params => {
       this.subject = params.get('subject');
+      this.reloadRecords();
     });
     this.reloadRecords();
   }

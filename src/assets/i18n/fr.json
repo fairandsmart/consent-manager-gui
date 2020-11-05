@@ -1,7 +1,7 @@
 {
   "NAV": {
     "TITLE": "Gestionnaire de consentements",
-    "SEARCH_LABEL": "Recherche",
+    "SEARCH_LABEL": "Rechercher un utilisateur",
     "KEYCLOAK": {
       "LOGOUT": "Déconnexion"
     },
