@@ -111,10 +111,10 @@ export class FormCreatorComponent implements OnInit {
   public formUrl: SafeResourceUrl;
   private previousContext: ConsentContext;
   private previousOrientation: ConsentFormOrientation;
-  private previousLocale: string;
+  private previousLanguage: string;
   public currentStep: FORM_CREATOR_STEP;
 
-  private readonly defaultLocale = environment.customization.defaultLocale;
+  private readonly defaultLanguage = environment.customization.defaultLanguage;
 
   private static formatValidity(validity, validityUnit): string {
     if (validity) {
@@ -153,7 +153,7 @@ export class FormCreatorComponent implements OnInit {
       this.fb.group({
         subject: ['', [Validators.required]],
         orientation: [ConsentFormOrientation.VERTICAL, [Validators.required]],
-        locale: [this.defaultLocale, [Validators.required]],
+        language: [this.defaultLanguage, [Validators.required]],
         forceDisplay: [true, [Validators.required]],
         validity: [6, [Validators.required, Validators.min(1)]],
         validityUnit: ['M', [Validators.required]],
@@ -169,10 +169,10 @@ export class FormCreatorComponent implements OnInit {
         this.preview();
       }
     });
-    this.form.at(FORM_CREATOR_STEP.OPTIONS).get('locale').valueChanges.subscribe((locale) => {
-      if (this.currentStep === FORM_CREATOR_STEP.PREVIEW && this.previousLocale !== locale
-        && this.previousContext != null && this.previousContext.locale !== locale) {
-        this.previousLocale = locale;
+    this.form.at(FORM_CREATOR_STEP.OPTIONS).get('language').valueChanges.subscribe((language) => {
+      if (this.currentStep === FORM_CREATOR_STEP.PREVIEW && this.previousLanguage !== language
+        && this.previousContext != null && this.previousContext.language !== language) {
+        this.previousLanguage = language;
         this.preview();
       }
     });
@@ -243,7 +243,7 @@ export class FormCreatorComponent implements OnInit {
       elements: formValue.elements,
       callback: '',
       validity: FormCreatorComponent.formatValidity(formValue.validity, formValue.validityUnit),
-      locale: formValue.locale,
+      language: formValue.language,
       formType: formValue.forceDisplay ? ConsentFormType.FULL : ConsentFormType.PARTIAL,
       receiptDeliveryType: formValue.receiptDeliveryType,
       userinfos: {},

@@ -58,10 +58,10 @@
       "en": "English",
       "fr": "Français"
     },
-    "LOCALE": {
+    "LANGUAGE": {
       "LABEL": "Language"
     },
-    "DEFAULT_LOCALE": {
+    "DEFAULT_LANGUAGE": {
       "LABEL": "Default language"
     },
     "RECORD_STATUS": {
@@ -102,9 +102,9 @@
   "ENTRIES": {
     "TITLE": "Entries",
     "infos": {
-      "PANEL_TITLE": "Basic Info library",
+      "PANEL_TITLE": "Basic informations",
       "PANEL_DESCRIPTION_HTML": "<div>Here are the information you created.</div><div>This is meant to inform your users about your privacy policy, for example.</div><div>You can only create one information entry.</div>",
-      "EMPTY": "First, create basic info..."
+      "EMPTY": "First, create basic informations..."
     },
     "processing": {
       "PANEL_TITLE": "Processing library",
@@ -198,7 +198,7 @@
     },
     "PREVIEW": {
       "TITLE": "Preview",
-      "NO_LOCALE": "Select a language to display the preview."
+      "NO_LANGUAGE": "Select a language to display the preview."
     },
     "EDITOR": {
       "INFORMATION": {

@@ -109,7 +109,7 @@ export class PreferenceComponent extends EntryContentDirective<Preference> imple
     this.form.get('options').setValue(values.filter(t => t !== value));
   }
 
-  protected setVersion(version: ModelVersionDto<Preference>, locale: string = this.version.defaultLocale): void {
-    super.setVersion(version, locale);
+  protected setVersion(version: ModelVersionDto<Preference>, language: string = this.version.defaultLanguage): void {
+    super.setVersion(version, language);
   }
 }

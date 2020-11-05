@@ -19,7 +19,7 @@ import { environment } from '../../../../../../environments/environment';
 export class OperatorPreferencesComponent extends OperatorConsentListDirective implements OnInit {
 
   readonly ICONS = Icons;
-  private readonly defaultLocale = environment.customization.defaultLocale;
+  private readonly defaultLanguage = environment.customization.defaultLanguage;
 
   public displayedColumns = ['key', 'name', 'value', 'actions', 'recordCreation'];
   public pageSizeOptions = [10, 25, 50];
@@ -44,7 +44,7 @@ export class OperatorPreferencesComponent extends OperatorConsentListDirective i
       if (version.data[this.translate.currentLang]) {
         versionDto = version.data[this.translate.currentLang] as Preference;
       } else {
-        versionDto = version.data[this.defaultLocale] as Preference;
+        versionDto = version.data[this.defaultLanguage] as Preference;
       }
       this.dialog.open<SubjectRecordEditorDialogComponent, SubjectRecordEditorDialogData>(SubjectRecordEditorDialogComponent, {
         data: {

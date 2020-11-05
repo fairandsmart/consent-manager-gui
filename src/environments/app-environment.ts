@@ -9,7 +9,7 @@ export interface AppEnvironment {
 
 export interface AppCustomization {
   multipleInfo: boolean;
-  defaultLocale: string;
+  defaultLanguage: string;
   displayUserPage: boolean;
   userPageElementsOrder: string;
 }
