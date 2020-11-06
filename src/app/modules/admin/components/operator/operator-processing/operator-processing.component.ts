@@ -13,7 +13,7 @@ import { SubjectRecordsHistoryComponent } from '../subject-records-history/subje
 @Component({
   selector: 'cm-operator-processing',
   templateUrl: './operator-processing.component.html',
-  styleUrls: ['./operator-processing.component.scss']
+  styleUrls: ['../operator-consent-list/_operator-consent-list.directive.scss', './operator-processing.component.scss']
 })
 export class OperatorProcessingComponent extends OperatorConsentListDirective implements OnInit {
 

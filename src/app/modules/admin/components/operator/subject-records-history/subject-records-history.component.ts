@@ -46,7 +46,7 @@ class SubjectRecordsHistoryDataSource extends CollectionDatasource<RecordDto, Re
 @Component({
   selector: 'cm-subject-records-history',
   templateUrl: './subject-records-history.component.html',
-  styleUrls: ['./subject-records-history.component.scss']
+  styleUrls: ['../operator-consent-list/_operator-consent-list.directive.scss', './subject-records-history.component.scss']
 })
 export class SubjectRecordsHistoryComponent implements OnInit {
 

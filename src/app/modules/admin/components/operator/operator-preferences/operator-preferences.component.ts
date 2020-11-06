@@ -14,7 +14,7 @@ import { environment } from '../../../../../../environments/environment';
 @Component({
   selector: 'cm-operator-preferences',
   templateUrl: './operator-preferences.component.html',
-  styleUrls: ['./operator-preferences.component.scss']
+  styleUrls: ['../operator-consent-list/_operator-consent-list.directive.scss', './operator-preferences.component.scss']
 })
 export class OperatorPreferencesComponent extends OperatorConsentListDirective implements OnInit {
 
