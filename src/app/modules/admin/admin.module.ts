@@ -39,6 +39,7 @@ import { OperatorConditionsComponent } from './components/operator/operator-cond
 import { OperatorPreferencesComponent } from './components/operator/operator-preferences/operator-preferences.component';
 import { OperatorSubjectPageComponent } from './pages/operator-subject-page/operator-subject-page.component';
 import { SubjectRecordsHistoryComponent } from './components/operator/subject-records-history/subject-records-history.component';
+import { SubjectInfosEditorDialogComponent } from './components/operator/subject-infos-editor-dialog/subject-infos-editor-dialog.component';
 
 @NgModule({
   declarations: [
@@ -76,7 +77,8 @@ import { SubjectRecordsHistoryComponent } from './components/operator/subject-re
     OperatorConditionsComponent,
     OperatorPreferencesComponent,
     OperatorSubjectPageComponent,
-    SubjectRecordsHistoryComponent
+    SubjectRecordsHistoryComponent,
+    SubjectInfosEditorDialogComponent
   ],
   imports: [
     AdminRoutingModule,

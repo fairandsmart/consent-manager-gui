@@ -543,6 +543,17 @@
         "preference": "Preferences of ",
         "conditions": "End user license agreements of "
       },
+      "SUBJECT": {
+        "NEW_SUBJECT": "This user does not exist. If you save changes on this page, they will be created.",
+        "ACTIVE_SINCE": "Active since",
+        "NO_EMAIL": "No known email address",
+        "EDITOR": {
+          "TITLE": "Edit informations",
+          "EMAIL": {
+            "LABEL": "Adresse email"
+          }
+        }
+      },
       "LOG": {
         "TITLE": "Pending changes",
         "EMPTY": "No pending change.",

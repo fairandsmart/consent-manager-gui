@@ -6,7 +6,8 @@ import {
   ConsentFormOrientation,
   ConsentFormType,
   OperatorLogElement,
-  RecordsMap
+  RecordsMap,
+  SubjectDto
 } from '../../../../core/models/models';
 import {
   SubjectRecordApplyChangesDialogComponent,
@@ -21,6 +22,8 @@ import { OperatorPreferencesComponent } from '../../components/operator/operator
 import { OperatorConditionsComponent } from '../../components/operator/operator-conditions/operator-conditions.component';
 import { SubjectsResourceService } from '../../../../core/http/subjects-resource.service';
 import { environment } from '../../../../../environments/environment';
+import { mergeMap } from 'rxjs/operators';
+import { SubjectInfosEditorDialogComponent } from '../../components/operator/subject-infos-editor-dialog/subject-infos-editor-dialog.component';
 
 @Component({
   selector: 'cm-operator-subject-page',
@@ -31,7 +34,7 @@ export class OperatorSubjectPageComponent implements OnInit {
 
   private readonly defaultLanguage = environment.customization.defaultLanguage;
 
-  public subject: string;
+  public subject: SubjectDto;
   public records: RecordsMap;
   public operatorLog: OperatorLogElement[] = [];
 
@@ -54,11 +57,16 @@ export class OperatorSubjectPageComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.route.paramMap.subscribe(params => {
-      this.subject = params.get('subject');
+    this.route.paramMap.pipe(
+      mergeMap((params) => {
+        return this.subjectsResource.getSubject(params.get('subject'));
+      }),
+    ).subscribe((subject) => {
+      this.subject = subject;
+      this.records = {};
+      this.operatorLog = [];
       this.reloadRecords();
     });
-    this.reloadRecords();
   }
 
   addElementToLog(element): void {
@@ -81,7 +89,7 @@ export class OperatorSubjectPageComponent implements OnInit {
   }
 
   reloadRecords(): void {
-    this.subjectsResource.listCustomerRecords(this.subject).subscribe((records) => {
+    this.subjectsResource.listCustomerRecords(this.subject.name).subscribe((records) => {
       this.records = records;
       this.processingComponent.updateRecords(records);
       this.preferencesComponent.updateRecords(records);
@@ -89,14 +97,27 @@ export class OperatorSubjectPageComponent implements OnInit {
     });
   }
 
+  editSubject(): void {
+    this.dialog.open<SubjectInfosEditorDialogComponent, SubjectDto>(SubjectInfosEditorDialogComponent, {data: this.subject})
+      .afterClosed().pipe(
+      mergeMap((subject) => {
+        if (subject.id) {
+          return this.subjectsResource.updateSubject(subject);
+        } else {
+          return this.subjectsResource.createSubject(subject);
+        }
+      })
+    ).subscribe((subject) => this.subject = subject);
+  }
+
   submitLog(): void {
     this.dialog.open<SubjectRecordApplyChangesDialogComponent, SubjectRecordApplyChangesDialogData>(
       SubjectRecordApplyChangesDialogComponent,
-      {data: {recipient: '', model: '', comment: ''}})
+      {data: {recipient: this.subject.emailAddress, model: '', comment: ''}})
       .afterClosed().subscribe((result) => {
       if (result) {
         const ctx: ConsentContext = {
-          subject: this.subject,
+          subject: this.subject.name,
           orientation: ConsentFormOrientation.VERTICAL,
           info: '',
           elements: this.operatorLog.map(e => e.identifier),
@@ -114,14 +135,19 @@ export class OperatorSubjectPageComponent implements OnInit {
           iframe: true
         };
 
-        this.consentsResource.generateToken(ctx).subscribe((token) => {
-          let values: HttpParams = new HttpParams().append('token', token).append('comment', result.comment);
-          this.operatorLog.forEach(element => values = values.append(element.identifier, element.value));
+        this.consentsResource.generateToken(ctx).pipe(
+          mergeMap((token) => {
+            let values: HttpParams = new HttpParams().append('token', token).append('comment', result.comment);
+            this.operatorLog.forEach(element => values = values.append(element.identifier, element.value));
+            return this.consentsResource.postConsent(values);
+          })
+        ).subscribe((receipt) => {
+          this.operatorLog = [];
+          this.reloadRecords();
 
-          this.consentsResource.postConsent(values).subscribe((receipt) => {
-            this.operatorLog = [];
-            this.reloadRecords();
-          });
+          if (this.subject.creationTimestamp <= 0) {
+            this.subjectsResource.getSubject(this.subject.name).subscribe((subject) => this.subject = subject);
+          }
         });
       }
     });

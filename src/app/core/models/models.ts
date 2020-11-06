@@ -356,3 +356,12 @@ export interface OperatorLogElement {
   identifier: string;
   value: string;
 }
+
+/* Subjects */
+
+export interface SubjectDto {
+  id: string;
+  name: string;
+  emailAddress: string;
+  creationTimestamp: number;
+}

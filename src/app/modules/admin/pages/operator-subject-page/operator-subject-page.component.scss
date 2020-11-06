@@ -12,67 +12,42 @@
     .subcontainer {
       margin: 2em 0;
 
-      .user-details {
+      .subject {
         display: flex;
         flex-direction: row;
 
-        .user-id {
-          font-size: 32px;
-          padding-top: 16px;
-        }
-
-        mat-icon {
+        .subject-icon {
           height: 96px;
           width: 96px;
           font-size: 96px;
           color: #3F3F3F;
           margin-right: 16px;
         }
-      }
 
-      ::ng-deep h2 {
-        display: flex;
-        align-items: center;
+        .subject-details {
+          display: flex;
+          flex-direction: column;
 
-        mat-icon {
-          margin-right: 8px;
-        }
-      }
-
-      ::ng-deep .table-container {
-        position: relative;
-        margin-top: 1em;
-
-        .progress-bar-container {
-          position: absolute;
-          left: 0;
-          right: 0;
-          top: 0;
+          .subject-name {
+            font-size: 32px;
+            padding: 16px 0;
+          }
         }
 
-        table {
-          width: 100%;
+        .subject-date {
+          padding: 16px 0 0 32px;
+        }
 
-          &.loading {
-            ::ng-deep tbody tr {
-              opacity: 0.5;
-            }
+        .subject-info {
+          display: flex;
+          align-items: center;
+
+          .subject-info-icon {
+            margin-right: 8px;
           }
 
-          td {
-            max-width: 20em;
-          }
-
-          th.mat-header-cell, td.mat-cell {
-            padding: 0 6px;
-          }
-
-          th.mat-header-cell:first-of-type, td.mat-cell:first-of-type {
-            padding-left: 24px;
-          }
-
-          th.mat-header-cell:last-of-type, td.mat-cell:last-of-type {
-            padding-right: 24px;
+          button {
+            margin-left: 8px;
           }
         }
       }

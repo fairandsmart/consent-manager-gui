@@ -543,6 +543,17 @@
         "preference": "Préférences de ",
         "conditions": "Conditions générales de "
       },
+      "SUBJECT": {
+        "NEW_SUBJECT": "Cet utilisateur n'existe pas. Si vous enregistrez des modifications sur cette page, il sera créé.",
+        "ACTIVE_SINCE": "Actif depuis le",
+        "NO_EMAIL": "Pas d'adresse email connue",
+        "EDITOR": {
+          "TITLE": "Modifier les informations",
+          "EMAIL": {
+            "LABEL": "Adresse email"
+          }
+        }
+      },
       "LOG": {
         "TITLE": "Modifications effectuées",
         "EMPTY": "Aucune modification en cours.",
