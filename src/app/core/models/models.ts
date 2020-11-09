@@ -266,7 +266,8 @@ export enum ConsentFormType {
 
 export enum CollectionMethod {
   WEBFORM = 'WEBFORM',
-  OPERATOR = 'OPERATOR'
+  OPERATOR = 'OPERATOR',
+  EMAIL = 'EMAIL'
 }
 
 export type ReceiptDeliveryType = 'NONE' | 'GENERATE' | 'DISPLAY' | 'STORE' | 'DOWNLOAD';

@@ -47,7 +47,8 @@
     },
     "COLLECTION_METHODS": {
       "WEBFORM": "Web form",
-      "OPERATOR": "Operator"
+      "OPERATOR": "Operator",
+      "EMAIL": "Email"
     },
     "LANGUAGES": {
       "EN": "English",
