@@ -276,12 +276,11 @@ export const RECEIPT_DELIVERY_TYPES: ReceiptDeliveryType[] = ['NONE', 'GENERATE'
 /* Records */
 
 export enum RecordStatus {
-  PENDING = 'PENDING',
-  COMMITTED = 'COMMITTED',
-  DELETED = 'DELETED',
   VALID = 'VALID',
   OBSOLETE = 'OBSOLETE',
-  IRRELEVANT = 'IRRELEVANT'
+  EXPIRED = 'EXPIRED',
+  IRRELEVANT = 'IRRELEVANT',
+  UNKNOWN = 'UNKNOWN'
 }
 
 export interface RecordDto {

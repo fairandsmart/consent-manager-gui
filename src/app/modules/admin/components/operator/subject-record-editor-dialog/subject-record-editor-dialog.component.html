@@ -12,7 +12,7 @@
         </ng-container>
         <ng-container *ngIf="!data.valueType">
           <mat-option *ngFor="let option of data.options" [value]="option">
-            {{'RECORDS.COMMON.VALUE.' + option | translate}}
+            {{'RECORDS.COMMON.PROCESSING_VALUE.' + option | translate}}
           </mat-option>
         </ng-container>
       </mat-select>

@@ -1,4 +1,4 @@
-import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 
 import { SubjectRecordsHistoryComponent } from './subject-records-history.component';
 import { CoreTestingModule } from '../../../../../testing/core-testing-module.spec';
@@ -11,10 +11,10 @@ describe('SubjectRecordsHistoryComponent', () => {
   let fixture: ComponentFixture<SubjectRecordsHistoryComponent>;
   let dialogRefSpy: SpyObj<MatDialogRef<SubjectRecordsHistoryComponent>>;
 
-  beforeEach(async () => {
+  beforeEach(waitForAsync(() => {
     dialogRefSpy = createSpyObj<MatDialogRef<SubjectRecordsHistoryComponent>>('MatDialogRef', ['close']);
 
-    await TestBed.configureTestingModule({
+    TestBed.configureTestingModule({
       declarations: [ SubjectRecordsHistoryComponent ],
       imports: [ CoreTestingModule ],
       providers: [
@@ -23,7 +23,7 @@ describe('SubjectRecordsHistoryComponent', () => {
       ]
     })
     .compileComponents();
-  });
+  }));
 
   beforeEach(() => {
     fixture = TestBed.createComponent(SubjectRecordsHistoryComponent);

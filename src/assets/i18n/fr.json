@@ -63,15 +63,6 @@
     },
     "DEFAULT_LANGUAGE": {
       "LABEL": "Langue par défaut"
-    },
-    "RECORD_STATUS": {
-      "PENDING": "En attente",
-      "COMMITTED": "Validé",
-      "DELETED": "Supprimé",
-      "VALID": "Valide",
-      "OBSOLETE": "Obsolète",
-      "EXPIRED": "Expiré",
-      "IRRELEVANT": "Hors sujet"
     }
   },
   "MATERIAL": {
@@ -496,7 +487,16 @@
         "VALID": "Valide",
         "INVALID": "Non valide"
       },
-      "VALUE": {
+      "STATUS_DETAILS": {
+        "LABEL": "Détails du statut",
+        "OBSOLETE": "Obsolète",
+        "EXPIRED": "Expiré",
+        "IRRELEVANT": "Hors sujet",
+        "UNKNOWN": "Inconnu",
+        "accepted": "Valide, accepté",
+        "refused": "Valide, refusé"
+      },
+      "PROCESSING_VALUE": {
         "LABEL": "Valeur actuelle",
         "accepted": "Accepter",
         "refused": "Refuser"

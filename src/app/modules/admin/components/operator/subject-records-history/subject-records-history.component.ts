@@ -3,7 +3,8 @@ import { CollectionDatasource } from '../../../utils/collection-datasource';
 import {
   CollectionPage,
   RecordDto,
-  RecordFilter
+  RecordFilter,
+  RecordStatus
 } from '../../../../../core/models/models';
 import { Observable, of } from 'rxjs';
 import { tap } from 'rxjs/operators';
@@ -59,7 +60,7 @@ export class SubjectRecordsHistoryComponent implements OnInit {
   public dataSource: SubjectRecordsHistoryDataSource;
 
   public displayedColumns = [
-    'creationTimestamp', 'value', 'collectionMethod'
+    'creationTimestamp', 'value', 'collectionMethod', 'status', 'statusDetails'
   ];
   public pageSizeOptions = [10, 25, 50];
 
@@ -101,6 +102,14 @@ export class SubjectRecordsHistoryComponent implements OnInit {
 
   formatValue(value): string {
     return value ? value.split(',').join(' ; ') : '-';
+  }
+
+  getRecordStatus(element): string {
+    return element.status === RecordStatus.VALID && element.value === 'accepted' ? 'VALID' : 'INVALID';
+  }
+
+  getRecordStatusDetails(element): string {
+    return element.status === RecordStatus.VALID ? element.value : element.status;
   }
 
   close(): void {

@@ -63,15 +63,6 @@
     },
     "DEFAULT_LANGUAGE": {
       "LABEL": "Default language"
-    },
-    "RECORD_STATUS": {
-      "PENDING": "Pending",
-      "COMMITTED": "Committed",
-      "DELETED": "Deleted",
-      "VALID": "Valid",
-      "OBSOLETE": "Obsolete",
-      "EXPIRED": "Expired",
-      "IRRELEVANT": "Irrelevant"
     }
   },
   "MATERIAL": {
@@ -496,7 +487,16 @@
         "VALID": "Valid",
         "INVALID": "Invalid"
       },
-      "VALUE": {
+      "STATUS_DETAILS": {
+        "LABEL": "Status details",
+        "OBSOLETE": "Obsolete",
+        "EXPIRED": "Expired",
+        "IRRELEVANT": "Irrelevant",
+        "UNKOWN": "Unknown",
+        "accepted": "Valid, accepted",
+        "refused": "Valid, refused"
+      },
+      "PROCESSING_VALUE": {
         "LABEL": "Current value",
         "accepted": "Accept",
         "refused": "Refuse"
