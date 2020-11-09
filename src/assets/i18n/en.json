@@ -489,13 +489,13 @@
         "INVALID": "Invalid"
       },
       "STATUS_DETAILS": {
-        "LABEL": "Status details",
-        "OBSOLETE": "Obsolete",
-        "EXPIRED": "Expired",
-        "IRRELEVANT": "Irrelevant",
-        "UNKOWN": "Unknown",
-        "accepted": "Valid, accepted",
-        "refused": "Valid, refused"
+        "LABEL": "Status explanation",
+        "LATEST_VALID": "Most recent valid record",
+        "OBSOLETE": "A more recent valid record exists",
+        "EXPIRED": "Expiration date reached",
+        "INFO_SERIAL_ARCHIVED": "Basic info serial no more active",
+        "BODY_SERIAL_ARCHIVED": "Body serial no more active",
+        "NOT_COMMITTED": "Non committed records are irrelevant"
       },
       "PROCESSING_VALUE": {
         "LABEL": "Current value",

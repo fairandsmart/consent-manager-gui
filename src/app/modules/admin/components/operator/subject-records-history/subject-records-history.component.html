@@ -52,7 +52,7 @@
     <ng-container matColumnDef="statusDetails">
       <th mat-header-cell *matHeaderCellDef>{{'RECORDS.COMMON.STATUS_DETAILS.LABEL' | translate}}</th>
       <td mat-cell *matCellDef="let element">
-          {{'RECORDS.COMMON.STATUS_DETAILS.' + getRecordStatusDetails(element) | translate}}
+        {{element.statusExplanation ? ('RECORDS.COMMON.STATUS_DETAILS.' + element.statusExplanation | translate) : '-'}}
       </td>
     </ng-container>
 

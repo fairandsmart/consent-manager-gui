@@ -284,6 +284,15 @@ export enum RecordStatus {
   UNKNOWN = 'UNKNOWN'
 }
 
+export enum RecordStatusExplanation {
+  LATEST_VALID = 'LATEST_VALID',
+  OBSOLETE = 'OBSOLETE',
+  EXPIRED = 'EXPIRED',
+  INFO_SERIAL_ARCHIVED = 'INFO_SERIAL_ARCHIVED',
+  BODY_SERIAL_ARCHIVED = 'BODY_SERIAL_ARCHIVED',
+  NOT_COMMITTED = 'NOT_COMMITTED'
+}
+
 export interface RecordDto {
   serial: string;
   infoKey?: string;
@@ -294,6 +303,7 @@ export interface RecordDto {
   type: string;
   value: string;
   status: RecordStatus;
+  statusExplanation: RecordStatusExplanation;
   collectionMethod: CollectionMethod;
   comment: string;
 }

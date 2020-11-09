@@ -489,13 +489,13 @@
         "INVALID": "Non valide"
       },
       "STATUS_DETAILS": {
-        "LABEL": "Détails du statut",
-        "OBSOLETE": "Obsolète",
-        "EXPIRED": "Expiré",
-        "IRRELEVANT": "Hors sujet",
-        "UNKNOWN": "Inconnu",
-        "accepted": "Valide, accepté",
-        "refused": "Valide, refusé"
+        "LABEL": "Explication du statut",
+        "LATEST_VALID": "Consentement valide le plus récent",
+        "OBSOLETE": "Un consentement valide plus récent existe",
+        "EXPIRED": "Date d'expiration atteinte",
+        "INFO_SERIAL_ARCHIVED": "Numéro de série des informations générales inactif",
+        "BODY_SERIAL_ARCHIVED": "Numéro de série de l'élément inactif",
+        "NOT_COMMITTED": "Les consentements non committés ne sont pas pertinents"
       },
       "PROCESSING_VALUE": {
         "LABEL": "Valeur actuelle",

@@ -108,10 +108,6 @@ export class SubjectRecordsHistoryComponent implements OnInit {
     return element.status === RecordStatus.VALID && element.value === 'accepted' ? 'VALID' : 'INVALID';
   }
 
-  getRecordStatusDetails(element): string {
-    return element.status === RecordStatus.VALID ? element.value : element.status;
-  }
-
   close(): void {
     this.dialogRef.close();
   }
