@@ -413,7 +413,7 @@
           "CONTENT": "Email body"
         },
         "SENDER": {
-          "LABEL": "Sender"
+          "LABEL": "Sender email address"
         },
         "SUBJECT": {
           "LABEL": "Subject"

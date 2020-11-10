@@ -413,7 +413,7 @@
           "CONTENT": "Corps de l'email"
         },
         "SENDER": {
-          "LABEL": "Expéditeur"
+          "LABEL": "Adresse email de l'expéditeur"
         },
         "SUBJECT": {
           "LABEL": "Sujet"
