@@ -266,7 +266,8 @@ export enum ConsentFormType {
 
 export enum CollectionMethod {
   WEBFORM = 'WEBFORM',
-  OPERATOR = 'OPERATOR'
+  OPERATOR = 'OPERATOR',
+  EMAIL = 'EMAIL'
 }
 
 export type ReceiptDeliveryType = 'NONE' | 'GENERATE' | 'DISPLAY' | 'STORE' | 'DOWNLOAD';
@@ -276,12 +277,20 @@ export const RECEIPT_DELIVERY_TYPES: ReceiptDeliveryType[] = ['NONE', 'GENERATE'
 /* Records */
 
 export enum RecordStatus {
-  PENDING = 'PENDING',
-  COMMITTED = 'COMMITTED',
-  DELETED = 'DELETED',
   VALID = 'VALID',
   OBSOLETE = 'OBSOLETE',
-  IRRELEVANT = 'IRRELEVANT'
+  EXPIRED = 'EXPIRED',
+  IRRELEVANT = 'IRRELEVANT',
+  UNKNOWN = 'UNKNOWN'
+}
+
+export enum RecordStatusExplanation {
+  LATEST_VALID = 'LATEST_VALID',
+  OBSOLETE = 'OBSOLETE',
+  EXPIRED = 'EXPIRED',
+  INFO_SERIAL_ARCHIVED = 'INFO_SERIAL_ARCHIVED',
+  BODY_SERIAL_ARCHIVED = 'BODY_SERIAL_ARCHIVED',
+  NOT_COMMITTED = 'NOT_COMMITTED'
 }
 
 export interface RecordDto {
@@ -294,8 +303,10 @@ export interface RecordDto {
   type: string;
   value: string;
   status: RecordStatus;
+  statusExplanation: RecordStatusExplanation;
   collectionMethod: CollectionMethod;
   comment: string;
+  mailRecipient: string;
 }
 
 export interface RecordFilter {
@@ -355,4 +366,13 @@ export interface OperatorLogElement {
   key: string;
   identifier: string;
   value: string;
+}
+
+/* Subjects */
+
+export interface SubjectDto {
+  id: string;
+  name: string;
+  emailAddress: string;
+  creationTimestamp: number;
 }

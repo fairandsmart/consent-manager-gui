@@ -7,7 +7,7 @@ import { Icons, RecordStatus } from '../../../../../core/models/models';
 @Component({
   selector: 'cm-operator-conditions',
   templateUrl: './operator-conditions.component.html',
-  styleUrls: ['./operator-conditions.component.scss']
+  styleUrls: ['../operator-consent-list/_operator-consent-list.directive.scss', './operator-conditions.component.scss']
 })
 export class OperatorConditionsComponent extends OperatorConsentListDirective implements OnInit {
 

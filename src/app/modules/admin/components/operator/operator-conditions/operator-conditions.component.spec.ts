@@ -1,4 +1,4 @@
-import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 
 import { OperatorConditionsComponent } from './operator-conditions.component';
 import { ModelsResourceService } from '../../../../../core/http/models-resource.service';
@@ -14,11 +14,11 @@ describe('OperatorConditionsComponent', () => {
   let modelsResourceServiceSpy: SpyObj<ModelsResourceService>;
   let subjectsResourceServiceSpy: SpyObj<SubjectsResourceService>;
 
-  beforeEach(async () => {
+  beforeEach(waitForAsync(() => {
     modelsResourceServiceSpy =  createSpyObj<ModelsResourceService>('ModelsResourceService', ['listEntries']);
     subjectsResourceServiceSpy = createSpyObj<SubjectsResourceService>('SubjectsResourceService', ['listCustomerRecords']);
 
-    await TestBed.configureTestingModule({
+    TestBed.configureTestingModule({
       declarations: [ OperatorConditionsComponent ],
       imports: [ CoreTestingModule ],
       providers: [
@@ -27,7 +27,7 @@ describe('OperatorConditionsComponent', () => {
       ]
     })
     .compileComponents();
-  });
+  }));
 
   beforeEach(() => {
     modelsResourceServiceSpy.listEntries.and.returnValue(EMPTY);

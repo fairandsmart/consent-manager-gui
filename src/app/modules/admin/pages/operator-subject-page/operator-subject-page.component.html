@@ -3,24 +3,45 @@
     <div class="container" *ngIf="subject">
 
       <div class="subcontainer">
-        <div class="user-details">
-          <mat-icon>account_circle</mat-icon>
-          <div class="user-id">{{subject}}</div>
+        <div class="subject">
+          <mat-icon class="subject-icon">account_circle</mat-icon>
+
+          <div class="subject-details">
+            <div class="subject-name">{{subject.name}}</div>
+
+            <div class="new-subject" *ngIf="subject.creationTimestamp <= 0">{{'RECORDS.OPERATOR.SUBJECT.NEW_SUBJECT' | translate}}</div>
+
+            <div class="subject-info">
+              <mat-icon class="subject-info-icon">alternate_email</mat-icon>
+              <span *ngIf="!subject.emailAddress">{{'RECORDS.OPERATOR.SUBJECT.NO_EMAIL' | translate}}</span>
+              <span *ngIf="subject.emailAddress">{{subject.emailAddress}}</span>
+              <button mat-icon-button (click)="editSubject()">
+                <mat-icon>edit</mat-icon>
+              </button>
+            </div>
+          </div>
+
+          <div class="subject-date">
+            <div class="subject-info" *ngIf="subject.creationTimestamp > 0">
+              <mat-icon class="subject-info-icon">calendar_today</mat-icon>
+              {{'RECORDS.OPERATOR.SUBJECT.ACTIVE_SINCE' | translate}} {{subject.creationTimestamp | date:'shortDate'}}
+            </div>
+          </div>
         </div>
       </div>
 
       <div class="subcontainer">
-        <cm-operator-processing #processing [subject]="subject"
+        <cm-operator-processing #processing [subject]="subject.name"
                                 (operatorAction)="addElementToLog($event)"></cm-operator-processing>
       </div>
 
       <div class="subcontainer">
-        <cm-operator-preferences #preferences [subject]="subject"
+        <cm-operator-preferences #preferences [subject]="subject.name"
                                  (operatorAction)="addElementToLog($event)"></cm-operator-preferences>
       </div>
 
       <div class="subcontainer">
-        <cm-operator-conditions #conditions [subject]="subject"></cm-operator-conditions>
+        <cm-operator-conditions #conditions [subject]="subject.name"></cm-operator-conditions>
       </div>
 
     </div>

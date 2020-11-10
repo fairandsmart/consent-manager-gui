@@ -1,4 +1,4 @@
-import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 
 import { OperatorPreferencesComponent } from './operator-preferences.component';
 import { ModelsResourceService } from '../../../../../core/http/models-resource.service';
@@ -14,11 +14,11 @@ describe('OperatorPreferencesComponent', () => {
   let modelsResourceServiceSpy: SpyObj<ModelsResourceService>;
   let subjectsResourceServiceSpy: SpyObj<SubjectsResourceService>;
 
-  beforeEach(async () => {
+  beforeEach(waitForAsync(() => {
     modelsResourceServiceSpy =  createSpyObj<ModelsResourceService>('ModelsResourceService', ['listEntries', 'getActiveVersion']);
     subjectsResourceServiceSpy = createSpyObj<SubjectsResourceService>('SubjectsResourceService', ['listCustomerRecords']);
 
-    await TestBed.configureTestingModule({
+    TestBed.configureTestingModule({
       declarations: [ OperatorPreferencesComponent ],
       imports: [ CoreTestingModule ],
       providers: [
@@ -27,7 +27,7 @@ describe('OperatorPreferencesComponent', () => {
       ]
     })
     .compileComponents();
-  });
+  }));
 
   beforeEach(() => {
     modelsResourceServiceSpy.listEntries.and.returnValue(EMPTY);

@@ -36,7 +36,7 @@
   </span>
 </mat-toolbar>
 <mat-autocomplete #subjectsAuto="matAutocomplete" (optionSelected)="search()">
-  <mat-option *ngFor="let subject of filteredSubjects | async" [value]="subject">
-    {{ subject }}
+  <mat-option *ngFor="let subject of filteredSubjects | async" [value]="subject.name">
+    {{ subject.name }}
   </mat-option>
 </mat-autocomplete>

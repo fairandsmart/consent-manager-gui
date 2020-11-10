@@ -1,0 +1,17 @@
+<h2 mat-dialog-title>{{'RECORDS.OPERATOR.SUBJECT.EDITOR.TITLE' | translate}}</h2>
+
+<div mat-dialog-content>
+  <mat-form-field appearance="outline">
+    <mat-label>{{'RECORDS.OPERATOR.SUBJECT.EDITOR.EMAIL.LABEL' | translate}}</mat-label>
+    <input type="email" [formControl]="control" matInput autocomplete="off">
+  </mat-form-field>
+</div>
+
+<div class="btn-uppercase align-right" mat-dialog-actions>
+  <button mat-button color="primary" [mat-dialog-close]="null">
+    {{'COMMON.BUTTONS.CANCEL' | translate}}
+  </button>
+  <button mat-button color="primary" [disabled]="control.invalid" (click)="submit()">
+    {{'COMMON.BUTTONS.SAVE' | translate}}
+  </button>
+</div>

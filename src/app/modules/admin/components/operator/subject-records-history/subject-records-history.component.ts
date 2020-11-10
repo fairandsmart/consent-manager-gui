@@ -3,7 +3,8 @@ import { CollectionDatasource } from '../../../utils/collection-datasource';
 import {
   CollectionPage,
   RecordDto,
-  RecordFilter
+  RecordFilter,
+  RecordStatus
 } from '../../../../../core/models/models';
 import { Observable, of } from 'rxjs';
 import { tap } from 'rxjs/operators';
@@ -46,7 +47,7 @@ class SubjectRecordsHistoryDataSource extends CollectionDatasource<RecordDto, Re
 @Component({
   selector: 'cm-subject-records-history',
   templateUrl: './subject-records-history.component.html',
-  styleUrls: ['./subject-records-history.component.scss']
+  styleUrls: ['../operator-consent-list/_operator-consent-list.directive.scss', './subject-records-history.component.scss']
 })
 export class SubjectRecordsHistoryComponent implements OnInit {
 
@@ -59,7 +60,7 @@ export class SubjectRecordsHistoryComponent implements OnInit {
   public dataSource: SubjectRecordsHistoryDataSource;
 
   public displayedColumns = [
-    'creationTimestamp', 'value', 'collectionMethod'
+    'creationTimestamp', 'value', 'collectionMethod', 'status', 'statusDetails', 'mailRecipient'
   ];
   public pageSizeOptions = [10, 25, 50];
 
@@ -101,6 +102,10 @@ export class SubjectRecordsHistoryComponent implements OnInit {
 
   formatValue(value): string {
     return value ? value.split(',').join(' ; ') : '-';
+  }
+
+  getRecordStatus(element): string {
+    return element.status === RecordStatus.VALID && element.value === 'accepted' ? 'VALID' : 'INVALID';
   }
 
   close(): void {

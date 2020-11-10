@@ -40,6 +40,29 @@
       </td>
     </ng-container>
 
+    <ng-container matColumnDef="status">
+      <th mat-header-cell *matHeaderCellDef>{{'RECORDS.COMMON.STATUS.LABEL' | translate}}</th>
+      <td mat-cell *matCellDef="let element">
+          <span [attr.record-status]="element.status" [attr.record-value]="element.value">
+            {{'RECORDS.COMMON.STATUS.' + getRecordStatus(element) | translate}}
+          </span>
+      </td>
+    </ng-container>
+
+    <ng-container matColumnDef="statusDetails">
+      <th mat-header-cell *matHeaderCellDef>{{'RECORDS.COMMON.STATUS_DETAILS.LABEL' | translate}}</th>
+      <td mat-cell *matCellDef="let element">
+        {{element.statusExplanation ? ('RECORDS.COMMON.STATUS_DETAILS.' + element.statusExplanation | translate) : '-'}}
+      </td>
+    </ng-container>
+
+    <ng-container matColumnDef="mailRecipient">
+      <th mat-header-cell *matHeaderCellDef>{{'RECORDS.COMMON.RECIPIENT.LABEL' | translate}}</th>
+      <td mat-cell *matCellDef="let element">
+        {{element.mailRecipient ? element.mailRecipient : ('RECORDS.COMMON.RECIPIENT.NO_NOTIFICATION' | translate)}}
+      </td>
+    </ng-container>
+
     <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
     <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
 

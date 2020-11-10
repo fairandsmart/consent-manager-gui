@@ -3,10 +3,9 @@ import { ActivatedRouteStubSpec } from '../../../../testing/activated-route-stub
 import { RouterTestingModule } from '@angular/router/testing';
 import { ReactiveFormsModule } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
-import { EMPTY, of } from 'rxjs';
+import { EMPTY } from 'rxjs';
 import { KeysComponent } from './keys.component';
 import { KeysResourceService } from '../../../../core/http/keys-resource.service';
-import { Key } from '../../../../core/models/models';
 import { CoreTestingModule } from '../../../../testing/core-testing-module.spec';
 import SpyObj = jasmine.SpyObj;
 import createSpyObj = jasmine.createSpyObj;
@@ -33,8 +32,7 @@ describe('KeysComponent', () => {
   }));
 
   beforeEach(() => {
-    const keys: Key[] = [];
-    keysResourceServiceSpy.listKeys.and.returnValue(of(keys));
+    keysResourceServiceSpy.listKeys.and.returnValue(EMPTY);
     keysResourceServiceSpy.createKey.and.returnValue(EMPTY);
 
     fixture = TestBed.createComponent(KeysComponent);

@@ -47,7 +47,8 @@
     },
     "COLLECTION_METHODS": {
       "WEBFORM": "Web form",
-      "OPERATOR": "Operator"
+      "OPERATOR": "Operator",
+      "EMAIL": "Email"
     },
     "LANGUAGES": {
       "EN": "English",
@@ -63,15 +64,6 @@
     },
     "DEFAULT_LANGUAGE": {
       "LABEL": "Default language"
-    },
-    "RECORD_STATUS": {
-      "PENDING": "Pending",
-      "COMMITTED": "Committed",
-      "DELETED": "Deleted",
-      "VALID": "Valid",
-      "OBSOLETE": "Obsolete",
-      "EXPIRED": "Expired",
-      "IRRELEVANT": "Irrelevant"
     }
   },
   "MATERIAL": {
@@ -496,7 +488,16 @@
         "VALID": "Valid",
         "INVALID": "Invalid"
       },
-      "VALUE": {
+      "STATUS_DETAILS": {
+        "LABEL": "Status explanation",
+        "LATEST_VALID": "Most recent valid record",
+        "OBSOLETE": "A more recent valid record exists",
+        "EXPIRED": "Expiration date reached",
+        "INFO_SERIAL_ARCHIVED": "Basic info serial no more active",
+        "BODY_SERIAL_ARCHIVED": "Body serial no more active",
+        "NOT_COMMITTED": "Non committed records are irrelevant"
+      },
+      "PROCESSING_VALUE": {
         "LABEL": "Current value",
         "accepted": "Accept",
         "refused": "Refuse"
@@ -524,7 +525,8 @@
         "REQUIRED": "Please specify the email address",
         "EMAIL_INVALID": "Please specify a valid email address",
         "NOTIFY": "Notify the user by email",
-        "NO_MODELS_HINT": "To be able to send an email notification you must have defined at least one email model."
+        "NO_MODELS_HINT": "To be able to send an email notification you must have defined at least one email model.",
+        "NO_NOTIFICATION": "No notification was sent."
       },
       "MODEL": {
         "LABEL": "Email Notification model",
@@ -542,6 +544,17 @@
         "processing": "Consents of ",
         "preference": "Preferences of ",
         "conditions": "End user license agreements of "
+      },
+      "SUBJECT": {
+        "NEW_SUBJECT": "This user does not exist. If you save changes on this page, they will be created.",
+        "ACTIVE_SINCE": "Active since",
+        "NO_EMAIL": "No known email address",
+        "EDITOR": {
+          "TITLE": "Edit informations",
+          "EMAIL": {
+            "LABEL": "Adresse email"
+          }
+        }
       },
       "LOG": {
         "TITLE": "Pending changes",

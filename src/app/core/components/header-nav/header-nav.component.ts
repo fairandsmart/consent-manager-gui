@@ -5,7 +5,7 @@ import { debounceTime, filter, mergeMap } from 'rxjs/operators';
 import { SubjectsResourceService } from '../../http/subjects-resource.service';
 import { FormControl } from '@angular/forms';
 import { Observable, of } from 'rxjs';
-import { Icons } from '../../models/models';
+import { Icons, SubjectDto } from '../../models/models';
 import { I18N_LANGUAGES } from '../../constants/i18n';
 import { TranslateService } from '@ngx-translate/core';
 
@@ -93,7 +93,7 @@ export class HeaderNavComponent implements OnInit {
 
   searchCtrl: FormControl;
 
-  filteredSubjects: Observable<string[]>;
+  filteredSubjects: Observable<SubjectDto[]>;
 
   readonly LANGUAGES = I18N_LANGUAGES;
 

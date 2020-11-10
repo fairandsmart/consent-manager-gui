@@ -6,12 +6,12 @@ import { TranslateModule } from '@ngx-translate/core';
 import { HeaderNavComponent } from '../../../../core/components/header-nav/header-nav.component';
 import { KeycloakService } from 'keycloak-angular';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
-import { CoreModule } from '../../../../core/core.module';
 import { SideNavComponent } from '../../components/side-nav/side-nav.component';
 import { SubjectsResourceService } from '../../../../core/http/subjects-resource.service';
 import { EMPTY } from 'rxjs';
 import SpyObj = jasmine.SpyObj;
 import createSpyObj = jasmine.createSpyObj;
+import { CoreTestingModule } from '../../../../testing/core-testing-module.spec';
 
 describe('AdminPageComponent', () => {
   let component: AdminPageComponent;
@@ -25,7 +25,7 @@ describe('AdminPageComponent', () => {
 
     TestBed.configureTestingModule({
       declarations: [ AdminPageComponent, HeaderNavComponent, SideNavComponent ],
-      imports: [CoreModule, RouterTestingModule, NoopAnimationsModule, TranslateModule.forRoot()],
+      imports: [ CoreTestingModule, RouterTestingModule, NoopAnimationsModule, TranslateModule.forRoot() ],
       providers: [
         {provide: KeycloakService, useValue: keycloakServiceSpy},
         {provide: SubjectsResourceService, useValue: subjectsResourceServiceSpy}

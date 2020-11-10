@@ -47,7 +47,8 @@
     },
     "COLLECTION_METHODS": {
       "WEBFORM": "Formulaire Web",
-      "OPERATOR": "Opérateur"
+      "OPERATOR": "Opérateur",
+      "EMAIL": "Email"
     },
     "LANGUAGES": {
       "EN": "Anglais",
@@ -63,15 +64,6 @@
     },
     "DEFAULT_LANGUAGE": {
       "LABEL": "Langue par défaut"
-    },
-    "RECORD_STATUS": {
-      "PENDING": "En attente",
-      "COMMITTED": "Validé",
-      "DELETED": "Supprimé",
-      "VALID": "Valide",
-      "OBSOLETE": "Obsolète",
-      "EXPIRED": "Expiré",
-      "IRRELEVANT": "Hors sujet"
     }
   },
   "MATERIAL": {
@@ -496,7 +488,16 @@
         "VALID": "Valide",
         "INVALID": "Non valide"
       },
-      "VALUE": {
+      "STATUS_DETAILS": {
+        "LABEL": "Explication du statut",
+        "LATEST_VALID": "Consentement valide le plus récent",
+        "OBSOLETE": "Un consentement valide plus récent existe",
+        "EXPIRED": "Date d'expiration atteinte",
+        "INFO_SERIAL_ARCHIVED": "Numéro de série des informations générales inactif",
+        "BODY_SERIAL_ARCHIVED": "Numéro de série de l'élément inactif",
+        "NOT_COMMITTED": "Les consentements non committés ne sont pas pertinents"
+      },
+      "PROCESSING_VALUE": {
         "LABEL": "Valeur actuelle",
         "accepted": "Accepter",
         "refused": "Refuser"
@@ -524,7 +525,8 @@
         "REQUIRED": "Vous devez préciser l'adresse email",
         "EMAIL_INVALID": "Vous devez préciser une adresse email valide",
         "NOTIFY": "Notifier l'utilisateur par email",
-        "NO_MODELS_HINT": "Pour pouvoir envoyer une notification par email vous devez avoir défini au moins un modèle d'email."
+        "NO_MODELS_HINT": "Pour pouvoir envoyer une notification par email vous devez avoir défini au moins un modèle d'email.",
+        "NO_NOTIFICATION": "Aucune notification n'a été envoyée."
       },
       "MODEL": {
         "LABEL": "Modèle d'email de notification",
@@ -542,6 +544,17 @@
         "processing": "Consentements de ",
         "preference": "Préférences de ",
         "conditions": "Conditions générales de "
+      },
+      "SUBJECT": {
+        "NEW_SUBJECT": "Cet utilisateur n'existe pas. Si vous enregistrez des modifications sur cette page, il sera créé.",
+        "ACTIVE_SINCE": "Actif depuis le",
+        "NO_EMAIL": "Pas d'adresse email connue",
+        "EDITOR": {
+          "TITLE": "Modifier les informations",
+          "EMAIL": {
+            "LABEL": "Adresse email"
+          }
+        }
       },
       "LOG": {
         "TITLE": "Modifications effectuées",

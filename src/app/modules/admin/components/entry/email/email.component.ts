@@ -34,7 +34,7 @@ export class EmailComponent extends EntryContentDirective<Email> implements OnIn
   protected initForm(): void {
     this.form = this.fb.group({
       type: [this.type, [Validators.required]],
-      sender: ['', [Validators.required]],
+      sender: ['', [Validators.required, Validators.email]],
       subject: ['', [Validators.required]],
       title: ['', [Validators.required]],
       body: ['', [Validators.required]],
