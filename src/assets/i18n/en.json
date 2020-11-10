@@ -525,7 +525,8 @@
         "REQUIRED": "Please specify the email address",
         "EMAIL_INVALID": "Please specify a valid email address",
         "NOTIFY": "Notify the user by email",
-        "NO_MODELS_HINT": "To be able to send an email notification you must have defined at least one email model."
+        "NO_MODELS_HINT": "To be able to send an email notification you must have defined at least one email model.",
+        "NO_NOTIFICATION": "No notification was sent."
       },
       "MODEL": {
         "LABEL": "Email Notification model",

@@ -186,5 +186,8 @@
       }
     }
   },
-  "defaultProject": "consent-manager-gui"
+  "defaultProject": "consent-manager-gui",
+  "cli": {
+    "analytics": false
+  }
 }

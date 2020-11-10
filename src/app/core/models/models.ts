@@ -306,6 +306,7 @@ export interface RecordDto {
   statusExplanation: RecordStatusExplanation;
   collectionMethod: CollectionMethod;
   comment: string;
+  mailRecipient: string;
 }
 
 export interface RecordFilter {

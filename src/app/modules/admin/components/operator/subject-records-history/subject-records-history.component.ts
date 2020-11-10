@@ -60,7 +60,7 @@ export class SubjectRecordsHistoryComponent implements OnInit {
   public dataSource: SubjectRecordsHistoryDataSource;
 
   public displayedColumns = [
-    'creationTimestamp', 'value', 'collectionMethod', 'status', 'statusDetails'
+    'creationTimestamp', 'value', 'collectionMethod', 'status', 'statusDetails', 'mailRecipient'
   ];
   public pageSizeOptions = [10, 25, 50];
 
