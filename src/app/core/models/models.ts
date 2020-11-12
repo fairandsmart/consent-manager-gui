@@ -307,6 +307,7 @@ export interface RecordDto {
   collectionMethod: CollectionMethod;
   comment: string;
   mailRecipient: string;
+  transaction: string;
 }
 
 export interface RecordFilter {

@@ -214,6 +214,7 @@
         "HIDE": "Display only in receipts",
         "DATA_CONTROLLER": {
           "TITLE": "Data controller",
+          "TITLE_OPTIONAL": "Data controller (if different from the data controller in the general informations)",
           "ACTING_BEHALF_COMPANY": {
             "LABEL": "This controller is acting on behalf of the company"
           },
@@ -302,7 +303,8 @@
         },
         "DATA": {
           "TITLE": {
-            "LABEL": "Data label"
+            "LABEL": "Data label (optional)"
+            "LABEL": "Data label (optional)"
           },
           "BODY": {
             "LABEL": "Data description"
@@ -310,7 +312,7 @@
         },
         "RETENTION": {
           "TITLE": {
-            "LABEL": "Retention duration label"
+            "LABEL": "Retention duration label (optional)"
           },
           "BODY": {
             "LABEL": "Retention duration description"
@@ -318,7 +320,7 @@
         },
         "USAGE": {
           "TITLE": {
-            "LABEL": "Usage label"
+            "LABEL": "Usage label (optional)"
           },
           "BODY": {
             "LABEL": "Usage description"
@@ -516,6 +518,9 @@
       },
       "HISTORY_VALUE": {
         "LABEL": "Answer"
+      },
+      "RECEIPT": {
+        "LABEL": "View receipt"
       },
       "COMMENT": {
         "LABEL": "Comment"

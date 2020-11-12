@@ -7,11 +7,13 @@ import {
   RecordStatus
 } from '../../../../../core/models/models';
 import { Observable, of } from 'rxjs';
-import { tap } from 'rxjs/operators';
+import { catchError, tap } from 'rxjs/operators';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { SubjectRecordApplyChangesDialogData } from '../subject-record-apply-changes-dialog/subject-record-apply-changes-dialog.component';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort, Sort } from '@angular/material/sort';
+import { ReceiptsResourceService } from '../../../../../core/http/receipts-resource.service';
+import * as FileSaver from 'file-saver';
 
 class SubjectRecordsHistoryDataSource extends CollectionDatasource<RecordDto, RecordFilter> {
 
@@ -60,7 +62,7 @@ export class SubjectRecordsHistoryComponent implements OnInit {
   public dataSource: SubjectRecordsHistoryDataSource;
 
   public displayedColumns = [
-    'creationTimestamp', 'value', 'collectionMethod', 'status', 'statusDetails', 'mailRecipient'
+    'creationTimestamp', 'value', 'collectionMethod', 'status', 'statusDetails', 'mailRecipient', 'receipt'
   ];
   public pageSizeOptions = [10, 25, 50];
 
@@ -74,7 +76,8 @@ export class SubjectRecordsHistoryComponent implements OnInit {
   };
 
   constructor(private dialogRef: MatDialogRef<SubjectRecordsHistoryComponent, SubjectRecordApplyChangesDialogData>,
-              @Inject(MAT_DIALOG_DATA) public data: RecordDto[]) {
+              @Inject(MAT_DIALOG_DATA) public data: RecordDto[],
+              private receiptResource: ReceiptsResourceService) {
   }
 
   ngOnInit(): void {
@@ -106,6 +109,19 @@ export class SubjectRecordsHistoryComponent implements OnInit {
 
   getRecordStatus(element): string {
     return element.status === RecordStatus.VALID && element.value === 'accepted' ? 'VALID' : 'INVALID';
+  }
+
+  openReceipt(element): void {
+    this.receiptResource.getReceiptPdf(element.transaction).pipe(
+      tap((pdf: ArrayBuffer) => {
+        const blob = new Blob([pdf], {type: 'application/pdf'});
+        FileSaver.saveAs(blob, 'receipt.pdf');
+      }),
+      catchError((response) => {
+        console.error(response);
+        return null;
+      })
+    ).subscribe();
   }
 
   close(): void {

@@ -214,6 +214,7 @@
         "HIDE": "N'afficher que dans les reçus",
         "DATA_CONTROLLER": {
           "TITLE": "Responsable de traitement",
+          "TITLE_OPTIONAL": "Responsable de traitement (si différent du responsable de traitement indiqué dans les informations générales)",
           "ACTING_BEHALF_COMPANY": {
             "LABEL": "Ce responsable agit au nom de l'entreprise"
           },
@@ -302,7 +303,7 @@
         },
         "DATA": {
           "TITLE": {
-            "LABEL": "Libellé des données"
+            "LABEL": "Libellé des données (facultatif)"
           },
           "BODY": {
             "LABEL": "Description des données"
@@ -310,7 +311,7 @@
         },
         "RETENTION": {
           "TITLE": {
-            "LABEL": "Libellé de la durée de rétention"
+            "LABEL": "Libellé de la durée de rétention (facultatif)"
           },
           "BODY": {
             "LABEL": "Description de la durée de rétention"
@@ -318,7 +319,7 @@
         },
         "USAGE": {
           "TITLE": {
-            "LABEL": "Libellé de la finalité"
+            "LABEL": "Libellé de la finalité (facultatif)"
           },
           "BODY": {
             "LABEL": "Description de la finalité"
@@ -516,6 +517,9 @@
       },
       "HISTORY_VALUE": {
         "LABEL": "Réponse"
+      },
+      "RECEIPT": {
+        "LABEL": "Consulter le reçu"
       },
       "COMMENT": {
         "LABEL": "Commentaire"
