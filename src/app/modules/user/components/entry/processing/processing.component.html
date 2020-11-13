@@ -1,7 +1,7 @@
 <div class="model-entry">
   <div class="model-name">
     <mat-icon (click)="showDetails = !showDetails">help_outline</mat-icon>
-    {{getData()?.processingTitle}}
+    {{getData()?.title}}
   </div>
   <div class="model-action">
     <div class="user-input">
@@ -22,27 +22,18 @@
     </mat-expansion-panel-header>
 
     <div class="paragraph">
-      <h2 *ngIf="getData()?.dataTitle">
-        {{getData()?.dataTitle}}
-      </h2>
       <div>
-        {{getData()?.dataBody}}
+        {{getData()?.data}}
       </div>
     </div>
     <div class="paragraph">
-      <h2 *ngIf="getData()?.retentionTitle">
-        {{getData()?.retentionTitle}}
-      </h2>
       <div>
-        {{getData()?.retentionBody}}
+        {{getData()?.retention}} {{getData()?.retentionDuration}} {{'ENTRIES.EDITOR.PROCESSING.RETENTION.UNIT.VALUES.' + getData()?.retentionUnit | translate}}
       </div>
     </div>
     <div class="paragraph">
-      <h2 *ngIf="getData()?.usageTitle">
-        {{getData()?.usageTitle}}
-      </h2>
       <div>
-        {{getData()?.usageBody}}
+        {{getData()?.usage}}
       </div>
     </div>
 

@@ -7,7 +7,9 @@ import {
   ModelVersionDto,
   Processing,
   PROCESSING_PURPOSES,
-  ProcessingPurpose
+  ProcessingPurpose,
+  RETENTION_UNITS,
+  RetentionUnit
 } from '../../../../../core/models/models';
 import { FormArray, FormBuilder, Validators } from '@angular/forms';
 import { ModelsResourceService } from '../../../../../core/http/models-resource.service';
@@ -23,6 +25,7 @@ export class ProcessingComponent extends EntryContentDirective<Processing> imple
 
   static CONTEXT = 'processing-form';
   readonly PURPOSES = PROCESSING_PURPOSES;
+  readonly RETENTION_UNITS = RETENTION_UNITS;
 
   constructor(
       private fb: FormBuilder,
@@ -43,13 +46,12 @@ export class ProcessingComponent extends EntryContentDirective<Processing> imple
   protected initForm(): void {
     this.form = this.fb.group({
       type: [this.type, [Validators.required]],
-      processingTitle: ['', [Validators.required]],
-      dataTitle: [''],
-      dataBody: ['', [Validators.required]],
-      retentionTitle: [''],
-      retentionBody: ['', [Validators.required]],
-      usageTitle: [''],
-      usageBody: ['', [Validators.required]],
+      title: ['', [Validators.required]],
+      data: ['', [Validators.required]],
+      retention: ['', [Validators.required]],
+      retentionDuration: [0, [Validators.required, Validators.min(1)]],
+      retentionUnit: [RetentionUnit.YEAR, [Validators.required]],
+      usage: ['', [Validators.required]],
       purposes: [[], [Validators.required]],
       containsSensitiveData: [false],
       containsMedicalData: [false],
@@ -118,7 +120,7 @@ export class ProcessingComponent extends EntryContentDirective<Processing> imple
   private isDataControllerEmpty(dataController: Controller): boolean {
     if (this.form.contains('dataController')) {
       return !['company', 'name', 'address', 'email', 'phoneNumber']
-        .some(k => dataController[k].length > 0);
+        .some(k => dataController[k] != null && dataController[k].length > 0);
     }
     return true;
   }

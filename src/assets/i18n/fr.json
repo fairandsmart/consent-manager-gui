@@ -302,28 +302,26 @@
           "LABEL": "Libellé du traitement"
         },
         "DATA": {
-          "TITLE": {
-            "LABEL": "Libellé des données (facultatif)"
-          },
-          "BODY": {
-            "LABEL": "Description des données"
-          }
+          "LABEL": "Description des données"
         },
         "RETENTION": {
-          "TITLE": {
-            "LABEL": "Libellé de la durée de rétention (facultatif)"
-          },
           "BODY": {
             "LABEL": "Description de la durée de rétention"
+          },
+          "DURATION": {
+            "LABEL": "Valeur de la durée de rétention"
+          },
+          "UNIT": {
+            "LABEL": "Unité de la durée de rétention",
+            "VALUES": {
+              "YEAR": "An(s)",
+              "MONTH": "Mois",
+              "WEEK": "Semaine(s)"
+            }
           }
         },
         "USAGE": {
-          "TITLE": {
-            "LABEL": "Libellé de la finalité (facultatif)"
-          },
-          "BODY": {
-            "LABEL": "Description de la finalité"
-          }
+          "LABEL": "Description de la finalité"
         },
         "PURPOSE": {
           "LABEL": "Base de consentement",

@@ -302,29 +302,26 @@
           "LABEL": "Processing label"
         },
         "DATA": {
-          "TITLE": {
-            "LABEL": "Data label (optional)"
-            "LABEL": "Data label (optional)"
-          },
-          "BODY": {
-            "LABEL": "Data description"
-          }
+          "LABEL": "Data description"
         },
         "RETENTION": {
-          "TITLE": {
-            "LABEL": "Retention duration label (optional)"
-          },
           "BODY": {
             "LABEL": "Retention duration description"
+          },
+          "DURATION": {
+            "LABEL": "Retention duration value"
+          },
+          "UNIT": {
+            "LABEL": "Retention duration unit",
+            "VALUES": {
+              "YEAR": "Year(s)",
+              "MONTH": "Month(s)",
+              "WEEK": "Week(s)"
+            }
           }
         },
         "USAGE": {
-          "TITLE": {
-            "LABEL": "Usage label (optional)"
-          },
-          "BODY": {
-            "LABEL": "Usage description"
-          }
+          "LABEL": "Usage description"
         },
         "PURPOSE": {
           "LABEL": "Purposes",
