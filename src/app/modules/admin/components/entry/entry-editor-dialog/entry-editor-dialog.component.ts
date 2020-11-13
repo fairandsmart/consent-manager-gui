@@ -2,13 +2,7 @@ import { Component, Inject, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { Observable, Subject } from 'rxjs';
-import {
-  CreateModelDto,
-  FIELD_VALIDATORS,
-  ModelDataType,
-  ModelEntryDto,
-  UpdateModelDto
-} from '../../../../../core/models/models';
+import { CreateModelDto, FIELD_VALIDATORS, ModelDataType, ModelEntryDto, UpdateModelDto } from '../../../../../core/models/models';
 import { ModelsResourceService } from '../../../../../core/http/models-resource.service';
 import { HttpErrorResponse } from '@angular/common/http';
 import { mergeMap } from 'rxjs/operators';
@@ -114,9 +108,9 @@ export class EntryEditorDialogComponent implements OnInit {
     }, (err: HttpErrorResponse) => {
       console.error(err);
       this.enableForm();
-      if (err.status === 409) {
-        this.form.get('key').setErrors({alreadyExists: true});
-      }
+      // if (err.status === 409) {
+      //   this.form.get('key').setErrors({alreadyExists: true});
+      // }
     });
   }
 
@@ -126,9 +120,9 @@ export class EntryEditorDialogComponent implements OnInit {
       if (this.data.entry.type) {
         this.form.get('type').disable();
       }
-      if (this.data.entry.key) {
-        this.form.get('key').disable();
-      }
+      // if (this.data.entry.key) {
+      //   this.form.get('key').disable();
+      // }
     }
   }
 

@@ -1,7 +1,14 @@
 @import 'node_modules/@angular/material/theming';
 
+cm-entry-card {
+  width: 100%;
+  height: 100%;
+  margin: 5px;
+}
+
 cm-entry-card.cdk-drag-disabled {
   ::ng-deep mat-card {
     background-color: mat-color($mat-light-theme-background, disabled-button) !important;
   }
+
 }

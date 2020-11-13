@@ -8,27 +8,26 @@
   right: 0;
   bottom: 0;
   display: flex;
+  min-width: 600px;
 
   mat-sidenav-container {
     flex: 1 1 auto;
-    min-height: 500px;
     background: none;
   }
 
+  .container {
+    max-width: 750px;
+    padding-top: 1em;
+    margin: 0 auto;
+    .title-container {
+      padding: 1em 24px 0;
+    }
+  }
+
   mat-sidenav-content {
-    overflow: hidden;
 
     mat-horizontal-stepper {
-      position: absolute;
-      top: 0;
-      left: 0;
-      right: 0;
-      bottom: 0;
       background: none;
-      display: flex;
-      flex-direction: column;
-      justify-content: stretch;
-      overflow: hidden;
 
       &.step-1 ::ng-deep {
         .mat-horizontal-content-container {
@@ -47,7 +46,6 @@
       ::ng-deep {
         .mat-horizontal-stepper-header-container, .mat-horizontal-content-container {
           margin: 0 auto;
-          max-width: 750px;
           width: 100%;
           box-sizing: border-box;
         }
@@ -73,7 +71,7 @@
   }
 
   mat-sidenav {
-    min-width: 400px;
+    width: 400px;
     overflow: hidden;
 
     mat-form-field {
@@ -83,6 +81,12 @@
     cm-entries-library ::ng-deep cm-entries-list-drag-and-drop cm-entry-card ::ng-deep mat-card {
       background-color: mat-color($mat-light-theme-background, background);
     }
+  }
+}
+
+@media (max-width: 960px) {
+  mat-sidenav {
+    width: 300px !important;
   }
 }
 
@@ -152,6 +156,7 @@ mat-form-field {
   margin-bottom: 1em;
   position: relative;
   flex: 1 1 auto;
+  height: 500px;
 
   iframe {
     border: none;
@@ -165,13 +170,14 @@ mat-form-field {
   flex-direction: row;
   justify-content: space-between;
   margin-top: 1em;
+  flex-wrap: wrap;
 
   mat-form-field {
     margin-top: 0 !important;
 
     &:first-child {
-      width: 130px;
-      flex: 0 0 130px;
+      max-width: 130px;
+      flex: 1 1 130px;
       margin-right: 1em;
     }
 

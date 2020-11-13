@@ -36,6 +36,9 @@ export class EntriesListComponent implements OnInit, AfterViewInit {
     if (this.section.orderingOptions == null) {
       this.section.orderingOptions = ['name', 'key'];
     }
+    if (this.section.columns == null) {
+      this.section.columns = 2;
+    }
     if (this.section.filter == null) {
       this.section.filter = {
         types: this.section.types,

@@ -8,6 +8,8 @@ export interface AppEnvironment {
 }
 
 export interface AppCustomization {
+  headerLogoStyle: string;
+  headerLogoUrl: string;
   multipleInfo: boolean;
   defaultLanguage: string;
   displayUserPage: boolean;

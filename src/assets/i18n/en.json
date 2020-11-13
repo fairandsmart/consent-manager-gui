@@ -1,6 +1,5 @@
 {
   "NAV": {
-    "TITLE": "Consent Manager",
     "SEARCH_LABEL": "Search for a user",
     "KEYCLOAK": {
       "LOGOUT": "Log out"
@@ -35,7 +34,8 @@
       "SUBMIT": "Submit",
       "BACK": "Back",
       "CLOSE": "Close",
-      "COPY": "Copy"
+      "COPY": "Copy",
+      "SEARCH": "Search"
     },
     "ENTRY_TYPES": {
       "BASICINFO": "Basic Info",

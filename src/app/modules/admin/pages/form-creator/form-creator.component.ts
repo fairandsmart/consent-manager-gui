@@ -24,6 +24,7 @@ import * as _ from 'lodash';
 import { MatDialog } from '@angular/material/dialog';
 import { FormUrlDialogComponent, FormUrlDialogComponentData } from '../../components/form-url-dialog/form-url-dialog.component';
 import { hasActiveVersion } from '../../../../core/utils/model-entry.utils';
+import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
 
 enum FORM_CREATOR_STEP {
   ELEMENTS,
@@ -42,11 +43,7 @@ enum FORM_CREATOR_STEP {
 })
 export class FormCreatorComponent implements OnInit {
 
-  constructor(private consentsResource: ConsentsResourceService,
-              private modelsResource: ModelsResourceService,
-              private fb: FormBuilder,
-              private sanitizer: DomSanitizer,
-              private dialog: MatDialog) { }
+  readonly ICONS = Icons;
 
   public elementsLibraryConfig: (SectionConfig & {draggingDisabled: boolean, included: boolean})[] = [
     {
@@ -128,7 +125,26 @@ export class FormCreatorComponent implements OnInit {
     return '';
   }
 
+  constructor(private consentsResource: ConsentsResourceService,
+              private modelsResource: ModelsResourceService,
+              private fb: FormBuilder,
+              private sanitizer: DomSanitizer,
+              private dialog: MatDialog,
+              private breakpointObserver: BreakpointObserver) { }
+
   ngOnInit(): void {
+    this.breakpointObserver.observe([Breakpoints.XSmall, Breakpoints.Small]).pipe(
+      tap((state) => {
+        ['elementsLibraryConfig', 'themesLibraryConfig', 'emailsLibraryConfig'].forEach(config => {
+          const previous = this[config][0].columns;
+          this[config].forEach(c => c.columns = (state.matches ? 1 : 2));
+          if (previous !== this[config][0].columns) {
+            // Needed to fire change detection
+            this[config] = _.cloneDeep(this[config]);
+          }
+        });
+      })
+    ).subscribe();
     zip(...this.elementsLibraryConfig.map(c => this.modelsResource.listEntries({types: c.types, size: 1}))).pipe(
       tap((responses) => {
         const selected: {[id: string]: ModelEntryDto[]} = {...this.selectedElements};

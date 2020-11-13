@@ -1,75 +1,56 @@
 <div class="dashboard">
-
   <div class="graphs">
-    <div class="card-container">
-      <mat-card>
-        <mat-card-title>{{'DASHBOARD.TITLE1' | translate}}</mat-card-title>
-        <mat-card-content *ngIf="recordsWeekData; else noContent">
-          <div class="chart-container">
-            <canvas baseChart
-                    chartType="line"
-                    width="400px"
-                    height="400px"
-                    [datasets]="recordsWeekData.chartData"
-                    [labels]="recordsWeekData.chartLabels"
-                    [colors]="CHART_COLORS_SET"
-                    [options]="CHART_OPTIONS.stackedChart">
-            </canvas>
-          </div>
-        </mat-card-content>
-      </mat-card>
-    </div>
-
-    <div class="card-container">
-      <mat-card>
-        <mat-card-title>{{'DASHBOARD.TITLE2' | translate}}</mat-card-title>
-        <mat-card-content *ngIf="recordsAverageData; else noContent">
-          <div class="chart-container">
-            <canvas baseChart
-                    chartType="pie"
-                    width="400px"
-                    height="400px"
-                    [datasets]="recordsAverageData.chartData"
-                    [labels]="recordsAverageData.chartLabels">
-            </canvas>
-          </div>
-        </mat-card-content>
-      </mat-card>
-    </div>
-
-    <div class="card-container">
-      <mat-card>
-        <mat-card-title>{{'DASHBOARD.TITLE3' | translate}}</mat-card-title>
-        <mat-card-content *ngIf="answersWeekData; else noContent">
-          <div class="chart-container">
-            <canvas baseChart
-                    chartType="bar"
-                    width="400px"
-                    height="400px"
-                    [datasets]="answersWeekData.chartData"
-                    [labels]="answersWeekData.chartLabels"
-                    [colors]="CHART_COLORS_SET"
-                    [options]="CHART_OPTIONS.stackedChart">
-            </canvas>
-          </div>
-        </mat-card-content>
-      </mat-card>
-    </div>
-
-    <div class="card-container">
-      <mat-card>
-        <mat-card-title>{{'DASHBOARD.TITLE4' | translate}}</mat-card-title>
-        <mat-card-content *ngIf="numbersData; else noContent">
-          <mat-list>
-            <mat-list-item>{{'DASHBOARD.USERS' | translate}} {{ numbersData.subjects }}</mat-list-item>
-            <mat-list-item>{{'DASHBOARD.CONSENTS' | translate}} {{ numbersData.records }}</mat-list-item>
-          </mat-list>
-        </mat-card-content>
-      </mat-card>
-    </div>
-
+    <mat-card>
+      <mat-card-title>{{'DASHBOARD.TITLE1' | translate}}</mat-card-title>
+      <mat-card-content *ngIf="recordsWeekData; else noContent">
+        <div class="chart-container">
+          <canvas baseChart
+                  chartType="line"
+                  [datasets]="recordsWeekData.chartData"
+                  [labels]="recordsWeekData.chartLabels"
+                  [colors]="CHART_COLORS_SET"
+                  [options]="CHART_OPTIONS.stackedChart">
+          </canvas>
+        </div>
+      </mat-card-content>
+    </mat-card>
+    <mat-card>
+      <mat-card-title>{{'DASHBOARD.TITLE2' | translate}}</mat-card-title>
+      <mat-card-content *ngIf="recordsAverageData; else noContent">
+        <div class="chart-container">
+          <canvas baseChart
+                  chartType="pie"
+                  [datasets]="recordsAverageData.chartData"
+                  [labels]="recordsAverageData.chartLabels"
+                  [options]="CHART_OPTIONS.pie">
+          </canvas>
+        </div>
+      </mat-card-content>
+    </mat-card>
+    <mat-card>
+      <mat-card-title>{{'DASHBOARD.TITLE3' | translate}}</mat-card-title>
+      <mat-card-content *ngIf="answersWeekData; else noContent">
+        <div class="chart-container">
+          <canvas baseChart
+                  chartType="bar"
+                  [datasets]="answersWeekData.chartData"
+                  [labels]="answersWeekData.chartLabels"
+                  [colors]="CHART_COLORS_SET"
+                  [options]="CHART_OPTIONS.stackedChart">
+          </canvas>
+        </div>
+      </mat-card-content>
+    </mat-card>
+    <mat-card>
+      <mat-card-title>{{'DASHBOARD.TITLE4' | translate}}</mat-card-title>
+      <mat-card-content *ngIf="numbersData; else noContent">
+        <mat-list>
+          <mat-list-item>{{'DASHBOARD.USERS' | translate}} {{ numbersData.subjects }}</mat-list-item>
+          <mat-list-item>{{'DASHBOARD.CONSENTS' | translate}} {{ numbersData.records }}</mat-list-item>
+        </mat-list>
+      </mat-card-content>
+    </mat-card>
   </div>
-
 </div>
 
 <ng-template #noContent>

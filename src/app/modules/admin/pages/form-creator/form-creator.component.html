@@ -1,5 +1,9 @@
 <mat-sidenav-container>
   <mat-sidenav-content>
+    <div class="container">
+      <div class="title-container">
+        <h2><mat-icon>{{ICONS.formCreator}}</mat-icon> {{'FORM_CREATOR.TITLE' | translate}}</h2>
+      </div>
       <mat-horizontal-stepper #stepper linear="true" labelPosition="bottom" [class]="'step-' + currentStep" (selectionChange)="stepChange($event)">
 
         <mat-step [label]="'FORM_CREATOR.STEP_ELEMENTS' | translate" [stepControl]="form.at(STEPS.ELEMENTS)">
@@ -83,8 +87,8 @@
             <button mat-button color="primary" (click)="openApiUrlDialog()">{{'FORM_CREATOR.API_URL.BUTTON_VIEW' | translate}}</button>
           </div>
         </mat-step>
-
       </mat-horizontal-stepper>
+    </div>
   </mat-sidenav-content>
   <mat-sidenav opened mode="side" position="end">
     <cm-entries-library

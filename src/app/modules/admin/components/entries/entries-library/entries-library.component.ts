@@ -26,6 +26,7 @@ export interface SectionConfig {
   orderingOptions?: (keyof ModelEntryDto)[];
   icon?: Icons;
   displayDescription: boolean;
+  columns?: number;
 }
 
 @Component({

@@ -34,9 +34,11 @@ export enum Icons {
   processing = 'check_box',
   preference = 'favorite',
   conditions = 'text_snippet',
-  email = 'mail_outline',
+  email = 'mail',
   theme = 'palette',
-  cookies = 'local_offer'
+  cookies = 'local_offer',
+  formCreator = 'code',
+  apiKey = 'vpn_key'
 }
 
 /* Models */

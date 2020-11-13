@@ -1,7 +1,26 @@
-<mat-list *ngIf="section?.sub">
-  <mat-list-item *ngFor="let subSection of section.sub">
-    <button mat-button [routerLink]="subSection.link" routerLinkActive="active-link">
-      <mat-icon *ngIf="subSection.icon">{{subSection.icon}}</mat-icon> {{subSection.title | translate}}
-    </button>
-  </mat-list-item>
+<mat-list>
+  <ng-container *ngFor="let section of SECTIONS">
+    <span class="section-wrapper" [class.active]="section === active" [class.expanded]="section.expanded">
+      <mat-list-item class="main-section">
+        <ng-container *ngIf="!section.sub">
+          <button mat-button [routerLink]="section.link" (click)="selectMainSection(section)">
+            <span>{{section.title | translate}}</span>
+          </button>
+        </ng-container>
+        <ng-container *ngIf="section.sub">
+          <button mat-button (click)="selectMainSection(section)">
+            <span>{{section.title | translate}}</span>
+            <mat-icon>chevron_right</mat-icon>
+          </button>
+        </ng-container>
+      </mat-list-item>
+      <span *ngIf="section?.sub" class="sub-sections">
+        <mat-list-item *ngFor="let subSection of section.sub" class="sub-section">
+          <button mat-button (click)="selectSubSection(section)" [routerLink]="subSection.link" routerLinkActive="active-link">
+            <mat-icon *ngIf="subSection.icon">{{subSection.icon}}</mat-icon> {{subSection.title | translate}}
+          </button>
+        </mat-list-item>
+      </span>
+    </span>
+  </ng-container>
 </mat-list>

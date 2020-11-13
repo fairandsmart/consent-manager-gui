@@ -33,7 +33,14 @@
   }
 }
 
+.entries-wrapper {
+  margin: -5px;
+  &.loading {
+    opacity: 0.4;
+    user-select: none;
+  }
+}
+
 cm-entry-card {
-  width: 100%;
-  height: 100%;
+  margin: 5px;
 }

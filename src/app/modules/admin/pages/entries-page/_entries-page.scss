@@ -1,0 +1,13 @@
+@import "src/variables";
+
+:host {
+  padding-top: 1em;
+  display: block;
+}
+
+cm-entries-library {
+  max-width: 1000px;
+  ::ng-deep mat-accordion ::ng-deep .library-title {
+    font-size: mat-font-size($typography, 'title') !important;
+  }
+}

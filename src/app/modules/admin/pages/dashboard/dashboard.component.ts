@@ -62,7 +62,11 @@ export class DashboardComponent implements OnInit {
     }];
 
   public CHART_OPTIONS = {
+    pie: {
+      responsive: true
+    },
     stackedChart: {
+      responsive: true,
       scales: {
         xAxes: [{
           stacked: true

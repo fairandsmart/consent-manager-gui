@@ -6,7 +6,8 @@ import { Icons } from '../../../../core/models/models';
   selector: 'cm-processing-page',
   template: `
     <cm-entries-library [config]="config" [expandable]="false"></cm-entries-library>
-  `
+  `,
+  styleUrls: ['./_entries-page.scss']
 })
 export class ProcessingPageComponent {
 

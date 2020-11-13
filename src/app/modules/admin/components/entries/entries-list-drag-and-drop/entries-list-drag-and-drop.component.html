@@ -23,7 +23,7 @@
        cdkDropListSortingDisabled
        class="elements-list"
        (cdkDropListDropped)="drop($event)">
-    <mat-grid-list *ngIf="entries.length > 0" cols="2" gutterSize="10" rowHeight="80"
+    <mat-grid-list *ngIf="entries.length > 0" [cols]="section.columns" gutterSize="10" rowHeight="80"
                    [class.loading]="section.dataSource.loading$ | async">
       <mat-grid-tile *ngFor="let entry of entries">
         <cm-entry-card cdkDrag [cdkDragData]="entry"

@@ -1,6 +1,5 @@
 {
   "NAV": {
-    "TITLE": "Gestionnaire de consentements",
     "SEARCH_LABEL": "Rechercher un utilisateur",
     "KEYCLOAK": {
       "LOGOUT": "Déconnexion"
@@ -35,7 +34,8 @@
       "SUBMIT": "Valider",
       "BACK": "Retour",
       "CLOSE": "Fermer",
-      "COPY": "Copier"
+      "COPY": "Copier",
+      "SEARCH": "Rechercher"
     },
     "ENTRY_TYPES": {
       "BASICINFO": "Informations",
@@ -459,7 +459,12 @@
   },
   "ENTRY_CARD": {
     "LABEL_NO_DESCRIPTION": "Pas de description",
+    "ACTIVE": {
+      "true": "Actif",
+      "false": "Non actif"
+    },
     "ACTIVE_VERSION": "Actif",
+    "INACTIVE_VERSION": "Non actif",
     "LANGUAGES_TOOLTIP": "Langue(s)"
   },
   "RECORDS": {
