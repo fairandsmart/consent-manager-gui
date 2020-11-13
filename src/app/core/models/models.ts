@@ -151,7 +151,7 @@ export interface Processing extends ModelData {
   title: string;
   data: string;
   retention: string;
-  retentionDuration: number;
+  retentionValue: number;
   retentionUnit: RetentionUnit;
   usage: string;
   purposes: ProcessingPurpose[];

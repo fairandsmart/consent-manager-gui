@@ -214,7 +214,7 @@
         "HIDE": "N'afficher que dans les reçus",
         "DATA_CONTROLLER": {
           "TITLE": "Responsable de traitement",
-          "TITLE_OPTIONAL": "Responsable de traitement (si différent du responsable de traitement indiqué dans les informations générales)",
+          "SUBTITLE_OPTIONAL": "(si différent de celui indiqué dans les informations générales)",
           "ACTING_BEHALF_COMPANY": {
             "LABEL": "Ce responsable agit au nom de l'entreprise"
           },
@@ -294,7 +294,7 @@
         "SUBTITLES": {
           "TITLE": "Titre",
           "DATA": "Données traitées",
-          "RETENTION": "Durée de rétention des données",
+          "RETENTION": "Durée de conservation des données",
           "USAGE": "Finalité du traitement",
           "LAW": "Informations juridiques"
         },
@@ -302,17 +302,17 @@
           "LABEL": "Libellé du traitement"
         },
         "DATA": {
-          "LABEL": "Description des données"
+          "LABEL": "Description des données collectées"
         },
         "RETENTION": {
           "BODY": {
-            "LABEL": "Description de la durée de rétention"
+            "LABEL": "Description de la durée de conservation des données"
           },
-          "DURATION": {
-            "LABEL": "Valeur de la durée de rétention"
+          "VALUE": {
+            "LABEL": "Valeur"
           },
           "UNIT": {
-            "LABEL": "Unité de la durée de rétention",
+            "LABEL": "Unité",
             "VALUES": {
               "YEAR": "An(s)",
               "MONTH": "Mois",

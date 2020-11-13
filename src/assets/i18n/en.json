@@ -214,7 +214,7 @@
         "HIDE": "Display only in receipts",
         "DATA_CONTROLLER": {
           "TITLE": "Data controller",
-          "TITLE_OPTIONAL": "Data controller (if different from the data controller in the general informations)",
+          "SUBTITLE_OPTIONAL": "(if different from the one in the general informations)",
           "ACTING_BEHALF_COMPANY": {
             "LABEL": "This controller is acting on behalf of the company"
           },
@@ -294,7 +294,7 @@
         "SUBTITLES": {
           "TITLE": "Title",
           "DATA": "Processed data",
-          "RETENTION": "Data retention duration",
+          "RETENTION": "Data retention period",
           "USAGE": "Data usage",
           "LAW": "Legal information"
         },
@@ -302,17 +302,17 @@
           "LABEL": "Processing label"
         },
         "DATA": {
-          "LABEL": "Data description"
+          "LABEL": "Collected data description"
         },
         "RETENTION": {
           "BODY": {
-            "LABEL": "Retention duration description"
+            "LABEL": "Data retention period description"
           },
-          "DURATION": {
-            "LABEL": "Retention duration value"
+          "VALUE": {
+            "LABEL": "Value"
           },
           "UNIT": {
-            "LABEL": "Retention duration unit",
+            "LABEL": "Unit",
             "VALUES": {
               "YEAR": "Year(s)",
               "MONTH": "Month(s)",
