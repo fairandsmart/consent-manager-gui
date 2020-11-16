@@ -91,6 +91,7 @@ export abstract class EntryCardContentDirective<T extends ModelData> implements 
       orientation: ConsentFormOrientation.VERTICAL,
       info: '',
       elements: [element],
+      associatePreferences: false,
       callback: '',
       validity: '',
       language: this.defaultLanguage,

@@ -27,6 +27,7 @@ export interface SectionConfig {
   icon?: Icons;
   displayDescription: boolean;
   columns?: number;
+  listName?: string;
 }
 
 @Component({

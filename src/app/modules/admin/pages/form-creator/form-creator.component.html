@@ -7,29 +7,29 @@
       <mat-horizontal-stepper #stepper linear="true" labelPosition="bottom" [class]="'step-' + currentStep" (selectionChange)="stepChange($event)">
 
         <mat-step [label]="'FORM_CREATOR.STEP_ELEMENTS' | translate" [stepControl]="form.at(STEPS.ELEMENTS)">
-          <ng-container *ngFor="let section of elementsLibraryConfig">
+          <ng-container *ngFor="let list of selectedElementsLists">
             <h4>
-              <span>{{'FORM_CREATOR.FORM.ELEMENTS_PANEL_TITLE.' + section.id | translate}}</span>
+              <span>{{'FORM_CREATOR.FORM.ELEMENTS_PANEL_TITLE.' + list.id | translate}}</span>
             </h4>
             <div class="form-container"
-                 [class.excluded]="!section.included"
-                 [class.empty]="selectedElements[section.id]?.length === 0"
-                 cdkDropList [id]="'selected-' + section.id"
-                 [cdkDropListDisabled]="section.draggingDisabled"
-                 [cdkDropListData]="selectedElements[section.id]"
-                 [cdkDropListConnectedTo]="['available-' + section.id]"
+                 [class.excluded]="!list.included"
+                 [class.empty]="selectedElements[list.id]?.length === 0"
+                 cdkDropList [id]="'selected-' + list.id"
+                 [cdkDropListDisabled]="list.draggingDisabled"
+                 [cdkDropListData]="selectedElements[list.id]"
+                 [cdkDropListConnectedTo]="['available-' + list.id]"
                  (cdkDropListDropped)="elementDropped($event)">
-              <mat-card *ngIf="selectedElements[section.id]?.length === 0" class="empty-hint">
-                <span>{{'ENTRIES.' + section.id + '.EMPTY' | translate}}</span>
+              <mat-card *ngIf="selectedElements[list.id]?.length === 0" class="empty-hint">
+                <span>{{'ENTRIES.' + list.id + '.EMPTY' | translate}}</span>
               </mat-card>
-              <cm-entry-card *ngFor="let entry of selectedElements[section.id]"
+              <cm-entry-card *ngFor="let entry of selectedElements[list.id]"
                               cdkDrag
-                              [selectable]="!section.draggingDisabled"
+                              [selectable]="!list.draggingDisabled"
                               [cdkDragData]="entry"
                               [entry]="entry"></cm-entry-card>
             </div>
-            <div *ngIf="!section.included" class="form-container">
-              <mat-card class="excluded-hint">{{'ENTRIES.' + section.id + '.EXCLUDED' | translate}}</mat-card>
+            <div *ngIf="!list.included" class="form-container">
+              <mat-card class="excluded-hint">{{'ENTRIES.' + list.id + '.EXCLUDED' | translate}}</mat-card>
             </div>
           </ng-container>
           <div class="step-actions">
@@ -97,6 +97,10 @@
       [selected]="selectedElements"
       (selectedChange)="selectedElementsChange($event)"
       [mode]="'drag'"></cm-entries-library>
+
+    <ng-container *ngIf="stepper.selectedIndex === STEPS.ELEMENTS" [formGroup]="form.at(STEPS.ELEMENTS)">
+      <mat-checkbox formControlName="associatePreferences">{{'FORM_CREATOR.FORM.ASSOCIATIONS.LABEL' | translate}}</mat-checkbox>
+    </ng-container>
 
     <ng-container *ngIf="stepper.selectedIndex === STEPS.PREVIEW" [formGroup]="form.at(STEPS.OPTIONS)">
       <mat-form-field appearance="fill">

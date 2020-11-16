@@ -54,7 +54,8 @@ export class FormCreatorComponent implements OnInit {
       draggingDisabled: false,
       included: true,
       icon: Icons.basicinfo,
-      displayDescription: false
+      displayDescription: false,
+      listName: 'selected-infos'
     },
     {
       id: 'processing',
@@ -64,13 +65,38 @@ export class FormCreatorComponent implements OnInit {
       draggingDisabled: false,
       included: true,
       icon: Icons.processing,
-      displayDescription: false
+      displayDescription: false,
+      listName: 'selected-elements'
     },
+    {
+      id: 'preferences',
+      types: ['preference'],
+      multiple: true,
+      showSort: true,
+      draggingDisabled: false,
+      included: true,
+      icon: Icons.preference,
+      displayDescription: false,
+      listName: 'selected-elements'
+    }
+  ];
+
+  public selectedElementsLists = [
+    {
+      id: 'infos',
+      draggingDisabled: this.elementsLibraryConfig[0].draggingDisabled,
+      included: this.elementsLibraryConfig[0].included
+    },
+    { // Processing & preferences
+      id: 'elements',
+      draggingDisabled: this.elementsLibraryConfig[1].draggingDisabled,
+      included: this.elementsLibraryConfig[1].included
+    }
   ];
 
   public selectedElements: {[id: string]: ModelEntryDto[]} = {
     infos: [],
-    processing: []
+    elements: []
   };
 
   public themesLibraryConfig: SectionConfig[] = [
@@ -161,7 +187,8 @@ export class FormCreatorComponent implements OnInit {
     this.form = this.fb.array([
       this.fb.group({
         info: ['', [Validators.required, Validators.pattern(FIELD_VALIDATORS.key.pattern)]],
-        elements: [[], [Validators.required, Validators.pattern(FIELD_VALIDATORS.elementsKeys.pattern)]]
+        elements: [[], [Validators.required, Validators.pattern(FIELD_VALIDATORS.elementsKeys.pattern)]],
+        associatePreferences: [true, [Validators.required]]
       }),
       this.fb.group({
         theme: ['', [Validators.pattern(FIELD_VALIDATORS.key.pattern)]],
@@ -257,6 +284,7 @@ export class FormCreatorComponent implements OnInit {
       orientation: formValue.orientation,
       info: formValue.info,
       elements: formValue.elements,
+      associatePreferences: formValue.associatePreferences,
       callback: '',
       validity: FormCreatorComponent.formatValidity(formValue.validity, formValue.validityUnit),
       language: formValue.language,
@@ -278,7 +306,7 @@ export class FormCreatorComponent implements OnInit {
     this.selectedElements = selected;
     this.form.at(FORM_CREATOR_STEP.ELEMENTS).setValue({
       info: this.selectedElements.infos.map(e => e.key)?.[0] || '',
-      elements: this.selectedElements.processing.map(e => e.key)
+      elements: this.selectedElements.elements.map(e => e.key)
     });
   }
 

@@ -96,32 +96,35 @@
     "infos": {
       "PANEL_TITLE": "Basic informations",
       "PANEL_DESCRIPTION_HTML": "<div>Here are the information you created.</div><div>This is meant to inform your users about your privacy policy, for example.</div><div>You can only create one information entry.</div>",
-      "EMPTY": "First, create basic informations..."
+      "EMPTY": "First, add basic informations..."
     },
     "processing": {
       "PANEL_TITLE": "Processing library",
       "PANEL_DESCRIPTION_HTML": "<div>Here are the processing you created.</div><div>This is meant to ask your users for their consent.</div><div>You can create more at any time by clicking on \"+\".</div>",
-      "EMPTY": "First, create a processing..."
+      "EMPTY": "First, add a processing..."
     },
     "preferences": {
       "PANEL_TITLE": "Preferences library",
       "PANEL_DESCRIPTION_HTML": "<div>Here are the preferences you created.</div><div>This is meant to ask your users for details about their contact information or other information.</div><div>You can create more at any time by clicking on \"+\".</div>",
-      "EMPTY": "First, create a preference..."
+      "EMPTY": "First, add a preference..."
     },
     "conditions": {
       "PANEL_TITLE": "EULA library",
       "PANEL_DESCRIPTION_HTML": "<div>Here are the EULA you created.</div><div>This is meant to ask your users for their consent.</div><div>You can create more at any time by clicking on \"+\".</div>",
-      "EMPTY": "First, create a EULA model..."
+      "EMPTY": "First, add a EULA model..."
     },
     "themes": {
       "PANEL_TITLE": "Themes library",
       "PANEL_DESCRIPTION_HTML": "<div>Here are the themes you created.</div><div>This is meant to define the styles of your forms.</div><div>You can create more at any time by clicking on \"+\".</div>",
-      "EMPTY": "First, create a theme..."
+      "EMPTY": "First, add a theme..."
     },
     "emails": {
       "PANEL_TITLE": "Emails library",
       "PANEL_DESCRIPTION_HTML": "<div>Here are the emails you created.</div><div>This is meant to notify your users.</div><div>You can create more at any time by clicking on \"+\".</div>",
-      "EMPTY": "First, create an email..."
+      "EMPTY": "First, add an email..."
+    },
+    "elements": {
+      "EMPTY": "First, add a processing or a preference..."
     },
     "BUTTON_ADD": {
       "basicinfo": "New Basic Info",
@@ -575,7 +578,10 @@
       "TITLE": "Form creator",
       "ELEMENTS_PANEL_TITLE": {
         "infos": "Basic info",
-        "processing": "Displayed processing"
+        "elements": "Displayed processing and preferences"
+      },
+      "ASSOCIATIONS": {
+        "LABEL": "Add to the form the preferences associated to the selected processing"
       },
       "SUBJECT": {
         "LABEL": "Customer ID",
