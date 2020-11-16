@@ -130,6 +130,14 @@ export interface BasicInfo extends ModelData {
   customAcceptAllText: string;
 }
 
+export enum RetentionUnit {
+  YEAR = 'YEAR',
+  MONTH = 'MONTH',
+  WEEK = 'WEEK'
+}
+
+export const RETENTION_UNITS = Object.keys(RetentionUnit);
+
 export enum ProcessingPurpose {
   CONSENT_CORE_SERVICE = 'CONSENT_CORE_SERVICE',
   CONSENT_IMPROVED_SERVICE = 'CONSENT_IMPROVED_SERVICE',
@@ -142,13 +150,12 @@ export const PROCESSING_PURPOSES = Object.keys(ProcessingPurpose);
 
 export interface Processing extends ModelData {
   type: 'processing';
-  processingTitle: string;
-  dataTitle: string;
-  dataBody: string;
-  retentionTitle: string;
-  retentionBody: string;
-  usageTitle: string;
-  usageBody: string;
+  title: string;
+  data: string;
+  retention: string;
+  retentionValue: number;
+  retentionUnit: RetentionUnit;
+  usage: string;
   purposes: ProcessingPurpose[];
   containsSensitiveData: boolean;
   containsMedicalData: boolean;
@@ -309,6 +316,7 @@ export interface RecordDto {
   collectionMethod: CollectionMethod;
   comment: string;
   mailRecipient: string;
+  transaction: string;
 }
 
 export interface RecordFilter {

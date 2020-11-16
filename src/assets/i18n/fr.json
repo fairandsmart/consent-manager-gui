@@ -214,6 +214,7 @@
         "HIDE": "N'afficher que dans les reçus",
         "DATA_CONTROLLER": {
           "TITLE": "Responsable de traitement",
+          "SUBTITLE_OPTIONAL": "(si différent de celui indiqué dans les informations générales)",
           "ACTING_BEHALF_COMPANY": {
             "LABEL": "Ce responsable agit au nom de l'entreprise"
           },
@@ -293,7 +294,7 @@
         "SUBTITLES": {
           "TITLE": "Titre",
           "DATA": "Données traitées",
-          "RETENTION": "Durée de rétention des données",
+          "RETENTION": "Durée de conservation des données",
           "USAGE": "Finalité du traitement",
           "LAW": "Informations juridiques"
         },
@@ -301,28 +302,26 @@
           "LABEL": "Libellé du traitement"
         },
         "DATA": {
-          "TITLE": {
-            "LABEL": "Libellé des données"
-          },
-          "BODY": {
-            "LABEL": "Description des données"
-          }
+          "LABEL": "Description des données collectées"
         },
         "RETENTION": {
-          "TITLE": {
-            "LABEL": "Libellé de la durée de rétention"
-          },
           "BODY": {
-            "LABEL": "Description de la durée de rétention"
+            "LABEL": "Description de la durée de conservation des données"
+          },
+          "VALUE": {
+            "LABEL": "Valeur"
+          },
+          "UNIT": {
+            "LABEL": "Unité",
+            "VALUES": {
+              "YEAR": "An(s)",
+              "MONTH": "Mois",
+              "WEEK": "Semaine(s)"
+            }
           }
         },
         "USAGE": {
-          "TITLE": {
-            "LABEL": "Libellé de la finalité"
-          },
-          "BODY": {
-            "LABEL": "Description de la finalité"
-          }
+          "LABEL": "Description de la finalité"
         },
         "PURPOSE": {
           "LABEL": "Base de consentement",
@@ -521,6 +520,9 @@
       },
       "HISTORY_VALUE": {
         "LABEL": "Réponse"
+      },
+      "RECEIPT": {
+        "LABEL": "Consulter le reçu"
       },
       "COMMENT": {
         "LABEL": "Commentaire"

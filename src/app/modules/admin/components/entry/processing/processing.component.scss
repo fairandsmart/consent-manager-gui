@@ -1,3 +1,28 @@
+.subtitle-optional {
+  font-size: small;
+  font-style: italic;
+  font-weight: normal;
+}
+
+.retention-fields {
+  display: flex;
+  flex-direction: row;
+
+  .description {
+    width: 100%;
+  }
+
+  .value {
+    margin-left: 1em;
+    width: 90px;
+  }
+
+  .unit {
+    margin-left: 1em;
+    width: 140px;
+  }
+}
+
 .third-parties-empty {
   padding-left: 0.5em;
   font-style: italic;
