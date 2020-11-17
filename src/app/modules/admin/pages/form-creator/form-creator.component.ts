@@ -55,7 +55,7 @@ export class FormCreatorComponent implements OnInit {
       included: true,
       icon: Icons.basicinfo,
       displayDescription: false,
-      listName: 'infos'
+      listId: 'infos'
     },
     {
       id: 'processing',
@@ -66,7 +66,7 @@ export class FormCreatorComponent implements OnInit {
       included: true,
       icon: Icons.processing,
       displayDescription: false,
-      listName: 'elements'
+      listId: 'elements'
     },
     {
       id: 'preferences',
@@ -77,20 +77,18 @@ export class FormCreatorComponent implements OnInit {
       included: true,
       icon: Icons.preference,
       displayDescription: false,
-      listName: 'elements'
+      listId: 'elements'
     }
   ];
 
-  public selectedElementsLists = [
+  public selectionConfig = [
     {
       id: 'infos',
-      draggingDisabled: this.elementsLibraryConfig[0].draggingDisabled,
-      included: this.elementsLibraryConfig[0].included
+      sectionsId: ['infos']
     },
-    { // Processing & preferences
+    {
       id: 'elements',
-      draggingDisabled: this.elementsLibraryConfig[1].draggingDisabled,
-      included: this.elementsLibraryConfig[1].included
+      sectionsId: ['processing', 'preferences']
     }
   ];
 
@@ -349,5 +347,17 @@ export class FormCreatorComponent implements OnInit {
       console.error(err);
       this.form.enable();
     });
+  }
+
+  private isSelectionExcluded(config: { id: string, sectionsId: string[] }): boolean {
+    return this.elementsLibraryConfig.every(section => config.sectionsId.includes(section.id) && !section.included);
+  }
+
+  private isSelectionDraggable(config: { id: string, sectionsId: string[] }): boolean {
+    return this.elementsLibraryConfig.some(section => config.sectionsId.includes(section.id) && !section.draggingDisabled);
+  }
+
+  private getSelectionAvaiableLists(config: { id: string, sectionsId: string[] }): string[] {
+    return this.elementsLibraryConfig.filter(section => config.sectionsId.includes(section.id)).map(section => 'available-' + section.id);
   }
 }

@@ -7,29 +7,29 @@
       <mat-horizontal-stepper #stepper linear="true" labelPosition="bottom" [class]="'step-' + currentStep" (selectionChange)="stepChange($event)">
 
         <mat-step [label]="'FORM_CREATOR.STEP_ELEMENTS' | translate" [stepControl]="form.at(STEPS.ELEMENTS)">
-          <ng-container *ngFor="let list of selectedElementsLists">
+          <ng-container *ngFor="let config of selectionConfig">
             <h4>
-              <span>{{'FORM_CREATOR.FORM.ELEMENTS_PANEL_TITLE.' + list.id | translate}}</span>
+              <span>{{'FORM_CREATOR.FORM.ELEMENTS_PANEL_TITLE.' + config.id | translate}}</span>
             </h4>
             <div class="form-container"
-                 [class.excluded]="!list.included"
-                 [class.empty]="selectedElements[list.id]?.length === 0"
-                 cdkDropList [id]="'selected-' + list.id"
-                 [cdkDropListDisabled]="list.draggingDisabled"
-                 [cdkDropListData]="selectedElements[list.id]"
-                 [cdkDropListConnectedTo]="['available-' + list.id]"
+                 [class.excluded]="isSelectionExcluded(config)"
+                 [class.empty]="selectedElements[config.id]?.length === 0"
+                 cdkDropList [id]="'selected-' + config.id"
+                 [cdkDropListDisabled]="!isSelectionDraggable(config)"
+                 [cdkDropListData]="selectedElements[config.id]"
+                 [cdkDropListConnectedTo]="getSelectionAvaiableLists(config)"
                  (cdkDropListDropped)="elementDropped($event)">
-              <mat-card *ngIf="selectedElements[list.id]?.length === 0" class="empty-hint">
-                <span>{{'ENTRIES.' + list.id + '.EMPTY' | translate}}</span>
+              <mat-card *ngIf="selectedElements[config.id]?.length === 0" class="empty-hint">
+                <span>{{'ENTRIES.' + config.id + '.EMPTY' | translate}}</span>
               </mat-card>
-              <cm-entry-card *ngFor="let entry of selectedElements[list.id]"
+              <cm-entry-card *ngFor="let entry of selectedElements[config.id]"
                               cdkDrag
-                              [selectable]="!list.draggingDisabled"
+                              [selectable]="isSelectionDraggable(config)"
                               [cdkDragData]="entry"
                               [entry]="entry"></cm-entry-card>
             </div>
-            <div *ngIf="!list.included" class="form-container">
-              <mat-card class="excluded-hint">{{'ENTRIES.' + list.id + '.EXCLUDED' | translate}}</mat-card>
+            <div *ngIf="isSelectionExcluded(config)" class="form-container">
+              <mat-card class="excluded-hint">{{'ENTRIES.' + config.id + '.EXCLUDED' | translate}}</mat-card>
             </div>
           </ng-container>
           <div class="step-actions">

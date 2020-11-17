@@ -27,7 +27,7 @@ export interface SectionConfig {
   icon?: Icons;
   displayDescription: boolean;
   columns?: number;
-  listName?: string;
+  listId?: string;
 }
 
 @Component({
@@ -60,7 +60,7 @@ export class EntriesLibraryComponent implements OnInit {
   }
 
   selectedEntriesChange(section: SectionConfig, event: ModelEntryDto[]): void {
-    this.selected[section.listName ? section.listName : section.id] = event;
+    this.selected[section.listId ? section.listId : section.id] = event;
     this.selectedChange.emit(this.selected);
   }
 
