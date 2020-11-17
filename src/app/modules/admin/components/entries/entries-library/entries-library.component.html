@@ -14,11 +14,11 @@
       <ng-container [ngSwitch]="mode">
         <cm-entries-list *ngSwitchCase="'view'" [config]="section"></cm-entries-list>
         <cm-entries-list-drag-and-drop *ngSwitchCase="'drag'"
-                                       [ngModel]="selected[section.id]"
+                                       [ngModel]="selected[section.listName ? section.listName : section.id]"
                                        (ngModelChange)="selectedEntriesChange(section, $event)"
                                        [config]="section"></cm-entries-list-drag-and-drop>
         <cm-entries-list-select *ngSwitchCase="'select'"
-                                [ngModel]="selected[section.id]"
+                                [ngModel]="selected[section.listName ? section.listName : section.id]"
                                 (ngModelChange)="selectedEntriesChange(section, $event)"
                                 [config]="section"></cm-entries-list-select>
       </ng-container>

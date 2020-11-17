@@ -94,7 +94,7 @@ export class BasicinfoComponent extends EntryContentDirective<BasicInfo> impleme
   private isDataControllerEmpty(dataController: Controller): boolean {
     if (this.form.contains('dataController')) {
       return !['company', 'name', 'address', 'email', 'phoneNumber']
-        .some(k => dataController[k].length > 0);
+        .some(k => dataController[k] != null && dataController[k].length > 0);
     }
     return true;
   }

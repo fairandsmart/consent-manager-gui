@@ -2,7 +2,6 @@ import { Component, OnInit } from '@angular/core';
 import { EntryContentDirective } from '../entry-content/entry-content.directive';
 import {
   ModelDataType,
-  ModelEntryDto,
   ModelVersionDto,
   Preference,
   PREFERENCE_VALUE_TYPES
@@ -25,7 +24,6 @@ export class PreferenceComponent extends EntryContentDirective<Preference> imple
   public readonly VALUE_TYPES = PREFERENCE_VALUE_TYPES;
 
   separatorKeysCodes: number[] = [ENTER, COMMA];
-  availableProcessing: ModelEntryDto[];
   optionsInputCtrl: FormControl;
 
   constructor(
@@ -43,18 +41,12 @@ export class PreferenceComponent extends EntryContentDirective<Preference> imple
   ngOnInit(): void {
     this.optionsInputCtrl = new FormControl('', Validators.required);
     super.ngOnInit();
-    this.modelsResourceService.listEntries({
-      types: ['processing'],
-      size: -1
-    }).subscribe((entries) => this.availableProcessing = entries.values);
   }
 
   protected initForm(): void {
     this.form = this.fb.group({
       type: [this.type, [Validators.required]],
       label: ['', [Validators.required]],
-      associatedWithProcessing: [false, [Validators.required]],
-      associatedProcessing: [[]],
       description: [''],
       valueType: ['NONE', [Validators.required]],
       options: [[]]
@@ -75,14 +67,6 @@ export class PreferenceComponent extends EntryContentDirective<Preference> imple
         this.form.get('options').setValidators(validators);
       }
       this.form.get('options').updateValueAndValidity();
-    });
-    this.form.get('associatedWithProcessing').valueChanges.subscribe(v => {
-      if (v) {
-        this.form.get('associatedProcessing').setValidators([Validators.required]);
-      } else {
-        this.form.get('associatedProcessing').clearValidators();
-        this.form.get('associatedProcessing').setValue([]);
-      }
     });
     super.registerFormChanges();
   }

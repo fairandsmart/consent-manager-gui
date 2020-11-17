@@ -298,7 +298,8 @@
           "DATA": "Données traitées",
           "RETENTION": "Durée de rétention des données",
           "USAGE": "Finalité du traitement",
-          "LAW": "Informations juridiques"
+          "LAW": "Informations juridiques",
+          "ASSOCIATIONS": "Préférences associées"
         },
         "TITLE": {
           "LABEL": "Libellé du traitement"
@@ -349,6 +350,12 @@
           "VALUE": "Description",
           "BUTTON_ADD": "Ajouter une tierce-partie",
           "EMPTY": "Aucune tierce-partie pour le moment."
+        },
+        "ASSOCIATE": {
+          "LABEL": "Ce traitement est lié à une ou plusieurs préférence(s)"
+        },
+        "ASSOCIATED_PREFERENCES": {
+          "LABEL": "Préférences associées"
         }
       },
       "PREFERENCE": {
@@ -358,12 +365,6 @@
         },
         "LABEL": {
           "LABEL": "Libellé des préférences"
-        },
-        "ASSOCIATE": {
-          "LABEL": "Cette préférence est associée à un ou plusieurs traitements"
-        },
-        "ASSOCIATED_PROCESSING": {
-          "LABEL": "Traitements associés"
         },
         "DESCRIPTION": {
           "LABEL": "Description"

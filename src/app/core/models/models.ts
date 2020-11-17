@@ -155,6 +155,8 @@ export interface Processing extends ModelData {
   dataController: Controller;
   showDataController: boolean;
   thirdParties: { name: string, value: string }[];
+  associatedWithPreferences: boolean;
+  associatedPreferences: string[];
 }
 
 export enum PreferenceValueType {
@@ -172,8 +174,6 @@ export const PREFERENCE_VALUE_TYPES: PreferenceValueType[] = Object.keys(Prefere
 export interface Preference extends ModelData {
   type: 'preference';
   label: string;
-  associatedWithProcessing: boolean;
-  associatedProcessing: string[];
   description: string;
   options: string[];
   valueType: PreferenceValueType;

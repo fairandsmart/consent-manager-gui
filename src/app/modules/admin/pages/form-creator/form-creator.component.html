@@ -99,7 +99,9 @@
       [mode]="'drag'"></cm-entries-library>
 
     <ng-container *ngIf="stepper.selectedIndex === STEPS.ELEMENTS" [formGroup]="form.at(STEPS.ELEMENTS)">
-      <mat-checkbox formControlName="associatePreferences">{{'FORM_CREATOR.FORM.ASSOCIATIONS.LABEL' | translate}}</mat-checkbox>
+      <div class="checkbox-wrapper">
+        <mat-checkbox formControlName="associatePreferences">{{'FORM_CREATOR.FORM.ASSOCIATIONS.LABEL' | translate}}</mat-checkbox>
+      </div>
     </ng-container>
 
     <ng-container *ngIf="stepper.selectedIndex === STEPS.PREVIEW" [formGroup]="form.at(STEPS.OPTIONS)">

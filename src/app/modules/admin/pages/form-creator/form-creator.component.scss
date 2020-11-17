@@ -74,8 +74,16 @@
     width: 400px;
     overflow: hidden;
 
-    mat-form-field {
+    mat-form-field, .checkbox-wrapper {
       margin: 16px;
+    }
+
+    ::ng-deep .mat-checkbox-layout {
+      white-space: normal !important;
+    }
+
+    ::ng-deep .mat-checkbox-inner-container {
+      margin-top: 3px !important;
     }
 
     cm-entries-library ::ng-deep cm-entries-list-drag-and-drop cm-entry-card ::ng-deep mat-card {

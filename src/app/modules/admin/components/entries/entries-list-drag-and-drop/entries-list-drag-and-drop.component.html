@@ -17,8 +17,8 @@
     </div>
   </div>
   <div cdkDropList
-       [id]="'available-' + section.id"
-       [cdkDropListConnectedTo]="[section.listName ? section.listName : 'selected-' + section.id]"
+       [id]="'available-' + (section.listName ? section.listName : section.id)"
+       [cdkDropListConnectedTo]="['selected-' + (section.listName ? section.listName : section.id)]"
        [cdkDropListData]="entries"
        cdkDropListSortingDisabled
        class="elements-list"

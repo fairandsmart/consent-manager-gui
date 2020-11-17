@@ -4,6 +4,7 @@ import {
   Controller,
   FIELD_VALIDATORS,
   ModelDataType,
+  ModelEntryDto,
   ModelVersionDto,
   Processing,
   PROCESSING_PURPOSES,
@@ -23,6 +24,7 @@ export class ProcessingComponent extends EntryContentDirective<Processing> imple
 
   static CONTEXT = 'processing-form';
   readonly PURPOSES = PROCESSING_PURPOSES;
+  availablePreferences: ModelEntryDto[];
 
   constructor(
       private fb: FormBuilder,
@@ -38,6 +40,10 @@ export class ProcessingComponent extends EntryContentDirective<Processing> imple
 
   ngOnInit(): void {
     super.ngOnInit();
+    this.modelsResourceService.listEntries({
+      types: ['preference'],
+      size: -1
+    }).subscribe((entries) => this.availablePreferences = entries.values);
   }
 
   protected initForm(): void {
@@ -62,13 +68,23 @@ export class ProcessingComponent extends EntryContentDirective<Processing> imple
         phoneNumber: ['', Validators.pattern(FIELD_VALIDATORS.phone.pattern)]
       }),
       showDataController: [{value: false, disabled: true}],
-      thirdParties: this.fb.array([])
+      thirdParties: this.fb.array([]),
+      associatedWithPreferences: [false, [Validators.required]],
+      associatedPreferences: [[]]
     });
     this.checkFormState();
   }
 
   registerFormChanges(): void {
     this.form.get('dataController').valueChanges.subscribe(v => this.dataControllerChange(v));
+    this.form.get('associatedWithPreferences').valueChanges.subscribe(v => {
+      if (v) {
+        this.form.get('associatedPreferences').setValidators([Validators.required]);
+      } else {
+        this.form.get('associatedPreferences').clearValidators();
+        this.form.get('associatedPreferences').setValue([]);
+      }
+    });
     super.registerFormChanges();
   }
 
@@ -118,7 +134,7 @@ export class ProcessingComponent extends EntryContentDirective<Processing> imple
   private isDataControllerEmpty(dataController: Controller): boolean {
     if (this.form.contains('dataController')) {
       return !['company', 'name', 'address', 'email', 'phoneNumber']
-        .some(k => dataController[k].length > 0);
+        .some(k => dataController[k] != null && dataController[k].length > 0);
     }
     return true;
   }

@@ -298,7 +298,8 @@
           "DATA": "Processed data",
           "RETENTION": "Data retention duration",
           "USAGE": "Data usage",
-          "LAW": "Legal information"
+          "LAW": "Legal information",
+          "ASSOCIATIONS": "Associated preferences"
         },
         "TITLE": {
           "LABEL": "Processing label"
@@ -349,6 +350,12 @@
           "VALUE": "Description",
           "BUTTON_ADD": "Add third party",
           "EMPTY": "There is no third party yet."
+        },
+        "ASSOCIATE": {
+          "LABEL": "This processing is associated with one or more preference(s)"
+        },
+        "ASSOCIATED_PREFERENCES": {
+          "LABEL": "Associated preferences"
         }
       },
       "PREFERENCE": {
@@ -358,12 +365,6 @@
         },
         "LABEL": {
           "LABEL": "Preference label"
-        },
-        "ASSOCIATE": {
-          "LABEL": "This preference is associated with one or more processing"
-        },
-        "ASSOCIATED_PROCESSING": {
-          "LABEL": "Associated processing"
         },
         "DESCRIPTION": {
           "LABEL": "Description"

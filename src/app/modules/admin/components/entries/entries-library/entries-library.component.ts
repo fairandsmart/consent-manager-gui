@@ -60,7 +60,7 @@ export class EntriesLibraryComponent implements OnInit {
   }
 
   selectedEntriesChange(section: SectionConfig, event: ModelEntryDto[]): void {
-    this.selected[section.id] = event;
+    this.selected[section.listName ? section.listName : section.id] = event;
     this.selectedChange.emit(this.selected);
   }
 

@@ -55,7 +55,7 @@ export class FormCreatorComponent implements OnInit {
       included: true,
       icon: Icons.basicinfo,
       displayDescription: false,
-      listName: 'selected-infos'
+      listName: 'infos'
     },
     {
       id: 'processing',
@@ -66,7 +66,7 @@ export class FormCreatorComponent implements OnInit {
       included: true,
       icon: Icons.processing,
       displayDescription: false,
-      listName: 'selected-elements'
+      listName: 'elements'
     },
     {
       id: 'preferences',
@@ -77,7 +77,7 @@ export class FormCreatorComponent implements OnInit {
       included: true,
       icon: Icons.preference,
       displayDescription: false,
-      listName: 'selected-elements'
+      listName: 'elements'
     }
   ];
 
@@ -304,7 +304,7 @@ export class FormCreatorComponent implements OnInit {
 
   private setSelectedElements(selected: {[id: string]: ModelEntryDto[]}): void {
     this.selectedElements = selected;
-    this.form.at(FORM_CREATOR_STEP.ELEMENTS).setValue({
+    this.form.at(FORM_CREATOR_STEP.ELEMENTS).patchValue({
       info: this.selectedElements.infos.map(e => e.key)?.[0] || '',
       elements: this.selectedElements.elements.map(e => e.key)
     });
