@@ -19,8 +19,9 @@
       },
       "INTEGRATION": {
         "LABEL": "Integration",
-        "FORM_CREATOR": "Form",
-        "API": "API"
+        "GETTING_STARTED": "Getting started",
+        "FORM_CREATOR": "Form creation",
+        "API": "API access"
       }
     }
   },
@@ -567,7 +568,7 @@
     }
   },
   "FORM_CREATOR": {
-    "TITLE": "Consent form",
+    "TITLE": "Consent form creation",
     "STEP_ELEMENTS": "Elements",
     "STEP_OPTIONS": "Options",
     "STEP_PREVIEW": "Preview",
@@ -660,6 +661,12 @@
     "RELOAD": "Reload the page"
   },
   "API": {
+    "GETTING_STARTED": {
+      "TITLE": "Getting started",
+      "DESCRIPTION": "<p>The integration section will allow you to:</p><ul><li>build your consent forms from the templates registered in the \"Configuration\" section and integrate them in your application/website thanks to different code examples (PHP, etc...).</li><li>manage the access keys to the API</li></ul><p>In this section, you will also find a module allowing you to make queries in the base of the collected consents.</p><p>There are two different actions: the collection of consent and then its exploitation afterwards.</p>",
+      "MORE": "<p>You can find more information about our solution:</p><ul><li>the different use cases</li><li>the two versions of our product</li><li>the product roadmap</li><li>the complete documentation of the API</li></ul>",
+      "MORE_BUTTON": "More..."
+    },
     "KEYS": {
       "TITLE": "API Acces key management",
       "NAME": {

@@ -40,6 +40,7 @@ import { OperatorPreferencesComponent } from './components/operator/operator-pre
 import { OperatorSubjectPageComponent } from './pages/operator-subject-page/operator-subject-page.component';
 import { SubjectRecordsHistoryComponent } from './components/operator/subject-records-history/subject-records-history.component';
 import { SubjectInfosEditorDialogComponent } from './components/operator/subject-infos-editor-dialog/subject-infos-editor-dialog.component';
+import { GettingStartedPageComponent } from './pages/getting-started-page/getting-started-page.component';
 
 @NgModule({
   declarations: [
@@ -78,7 +79,8 @@ import { SubjectInfosEditorDialogComponent } from './components/operator/subject
     OperatorPreferencesComponent,
     OperatorSubjectPageComponent,
     SubjectRecordsHistoryComponent,
-    SubjectInfosEditorDialogComponent
+    SubjectInfosEditorDialogComponent,
+    GettingStartedPageComponent
   ],
   imports: [
     AdminRoutingModule,

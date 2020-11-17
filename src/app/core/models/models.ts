@@ -37,7 +37,8 @@ export enum Icons {
   email = 'mail',
   theme = 'palette',
   cookies = 'local_offer',
-  formCreator = 'code',
+  gettingStarted = 'help',
+  formCreator = 'integration_instructions',
   apiKey = 'vpn_key'
 }
 

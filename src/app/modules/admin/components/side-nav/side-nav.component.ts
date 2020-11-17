@@ -71,6 +71,11 @@ export class SideNavComponent implements OnInit {
       expanded: false,
       sub: [
         {
+          title: 'NAV.CATEGORIES.INTEGRATION.GETTING_STARTED',
+          link: '/admin/integration/getting-started',
+          icon: Icons.gettingStarted
+        },
+        {
           title: 'NAV.CATEGORIES.INTEGRATION.FORM_CREATOR',
           link: '/admin/integration/form-creator',
           icon: Icons.formCreator

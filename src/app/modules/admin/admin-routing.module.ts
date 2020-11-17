@@ -12,6 +12,7 @@ import { ThemesPageComponent } from './pages/entries-page/themes-page.component'
 import { FormCreatorComponent } from './pages/form-creator/form-creator.component';
 import { KeysComponent } from './pages/keys/keys.component';
 import { OperatorSubjectPageComponent } from './pages/operator-subject-page/operator-subject-page.component';
+import { GettingStartedPageComponent } from './pages/getting-started-page/getting-started-page.component';
 
 const routes: Routes = [
   {
@@ -62,6 +63,10 @@ const routes: Routes = [
       {
         path: 'integration',
         children: [
+          {
+            path: 'getting-started',
+            component: GettingStartedPageComponent
+          },
           {
             path: 'form-creator',
             component: FormCreatorComponent
