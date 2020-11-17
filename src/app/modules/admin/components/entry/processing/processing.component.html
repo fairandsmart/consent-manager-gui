@@ -8,37 +8,39 @@
           <mat-card-subtitle>{{'ENTRIES.EDITOR.PROCESSING.SUBTITLES.TITLE' | translate}}</mat-card-subtitle>
           <mat-form-field appearance="outline">
             <mat-label>{{'ENTRIES.EDITOR.PROCESSING.TITLE.LABEL' | translate}}</mat-label>
-            <input matInput required formControlName="processingTitle" autocomplete="off">
+            <input matInput required formControlName="title" autocomplete="off">
           </mat-form-field>
 
           <mat-card-subtitle>{{'ENTRIES.EDITOR.PROCESSING.SUBTITLES.DATA' | translate}}</mat-card-subtitle>
           <mat-form-field appearance="outline">
-            <mat-label>{{'ENTRIES.EDITOR.PROCESSING.DATA.TITLE.LABEL' | translate}}</mat-label>
-            <input matInput formControlName="dataTitle" autocomplete="off">
-          </mat-form-field>
-          <mat-form-field appearance="outline">
-            <mat-label>{{'ENTRIES.EDITOR.PROCESSING.DATA.BODY.LABEL' | translate}}</mat-label>
-            <textarea matInput required formControlName="dataBody" cdkTextareaAutosize cdkAutosizeMinRows="5"></textarea>
+            <mat-label>{{'ENTRIES.EDITOR.PROCESSING.DATA.LABEL' | translate}}</mat-label>
+            <textarea matInput required formControlName="data" cdkTextareaAutosize cdkAutosizeMinRows="5"></textarea>
           </mat-form-field>
 
           <mat-card-subtitle>{{'ENTRIES.EDITOR.PROCESSING.SUBTITLES.RETENTION' | translate}}</mat-card-subtitle>
-          <mat-form-field appearance="outline">
-            <mat-label>{{'ENTRIES.EDITOR.PROCESSING.RETENTION.TITLE.LABEL' | translate}}</mat-label>
-            <input matInput formControlName="retentionTitle" autocomplete="off">
-          </mat-form-field>
-          <mat-form-field appearance="outline">
-            <mat-label>{{'ENTRIES.EDITOR.PROCESSING.RETENTION.BODY.LABEL' | translate}}</mat-label>
-            <textarea matInput required formControlName="retentionBody" cdkTextareaAutosize cdkAutosizeMinRows="5"></textarea>
-          </mat-form-field>
+          <div class="retention-fields">
+            <mat-form-field class="description" appearance="outline">
+              <mat-label>{{'ENTRIES.EDITOR.PROCESSING.RETENTION.BODY.LABEL' | translate}}</mat-label>
+              <textarea matInput required formControlName="retention" cdkTextareaAutosize cdkAutosizeMinRows="1"></textarea>
+            </mat-form-field>
+            <mat-form-field class="value" appearance="outline">
+              <mat-label>{{'ENTRIES.EDITOR.PROCESSING.RETENTION.VALUE.LABEL' | translate}}</mat-label>
+              <input type="number" matInput required formControlName="retentionValue" autocomplete="off">
+            </mat-form-field>
+            <mat-form-field class="unit" appearance="outline">
+              <mat-label>{{'ENTRIES.EDITOR.PROCESSING.RETENTION.UNIT.LABEL' | translate}}</mat-label>
+              <mat-select formControlName="retentionUnit" required multiple="false">
+                <mat-option *ngFor="let unit of RETENTION_UNITS" [value]="unit">
+                  {{'ENTRIES.EDITOR.PROCESSING.RETENTION.UNIT.VALUES.' + unit | translate}}
+                </mat-option>
+              </mat-select>
+            </mat-form-field>
+          </div>
 
           <mat-card-subtitle>{{'ENTRIES.EDITOR.PROCESSING.SUBTITLES.USAGE' | translate}}</mat-card-subtitle>
           <mat-form-field appearance="outline">
-            <mat-label>{{'ENTRIES.EDITOR.PROCESSING.USAGE.TITLE.LABEL' | translate}}</mat-label>
-            <input matInput formControlName="usageTitle" autocomplete="off">
-          </mat-form-field>
-          <mat-form-field appearance="outline">
-            <mat-label>{{'ENTRIES.EDITOR.PROCESSING.USAGE.BODY.LABEL' | translate}}</mat-label>
-            <textarea matInput required formControlName="usageBody" cdkTextareaAutosize cdkAutosizeMinRows="5"></textarea>
+            <mat-label>{{'ENTRIES.EDITOR.PROCESSING.USAGE.LABEL' | translate}}</mat-label>
+            <textarea matInput required formControlName="usage" cdkTextareaAutosize cdkAutosizeMinRows="5"></textarea>
           </mat-form-field>
 
           <mat-card-subtitle>{{'ENTRIES.EDITOR.PROCESSING.SUBTITLES.LAW' | translate}}</mat-card-subtitle>
@@ -52,7 +54,9 @@
           <mat-checkbox formControlName="containsMedicalData">{{'ENTRIES.EDITOR.PROCESSING.MEDICAL.LABEL' | translate}}</mat-checkbox>
 
           <div formGroupName="dataController">
-            <mat-card-subtitle>{{'ENTRIES.EDITOR.CONTENT.DATA_CONTROLLER.TITLE' | translate}}</mat-card-subtitle>
+            <mat-card-subtitle>{{'ENTRIES.EDITOR.CONTENT.DATA_CONTROLLER.TITLE' | translate}}
+              <span class="subtitle-optional">{{'ENTRIES.EDITOR.CONTENT.DATA_CONTROLLER.SUBTITLE_OPTIONAL' | translate}}</span>
+            </mat-card-subtitle>
             <mat-form-field appearance="outline">
               <mat-label>{{'ENTRIES.EDITOR.CONTENT.DATA_CONTROLLER.COMPANY.LABEL' | translate}}</mat-label>
               <input matInput formControlName="company" autocomplete="off">
