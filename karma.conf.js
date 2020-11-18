@@ -9,30 +9,20 @@ module.exports = function (config) {
       require('karma-jasmine'),
       require('karma-chrome-launcher'),
       require('karma-jasmine-html-reporter'),
-      require('karma-coverage-istanbul-reporter'),
+      require('karma-coverage'),
       require('@angular-devkit/build-angular/plugins/karma')
     ],
     client: {
       clearContext: false // leave Jasmine Spec Runner output visible in browser
     },
-    coverageIstanbulReporter: {
+    coverageReporter: {
       dir: require('path').join(__dirname, './coverage/consent-manager-gui'),
-      reports: ['html', 'lcovonly', 'cobertura', 'clover', 'text-summary'],
-      fixWebpackSourcePaths: true,
-      'report-config': {
-        // all options available at: https://github.com/istanbuljs/istanbuljs/blob/aae256fb8b9a3d19414dcf069c592e88712c32c6/packages/istanbul-reports/lib/html/index.js#L135-L137
-        html: {
-          subdir: 'html'
-        },
-        // all options available at: https://github.com/istanbuljs/istanbuljs/blob/aae256fb8b9a3d19414dcf069c592e88712c32c6/packages/istanbul-reports/lib/cobertura/index.js#L9-L10
-        cobertura: {
-          file: 'cobertura-coverage.xml'
-        },
-        // all options available at: https://github.com/istanbuljs/istanbuljs/blob/aae256fb8b9a3d19414dcf069c592e88712c32c6/packages/istanbul-reports/lib/clover/index.js#L8-L9
-        clover: {
-          file: 'clover.xml'
-        }
-      },
+      reporters: [
+        { type: 'html', subdir: 'html' },
+        { type: 'cobertura', subdir: '.', file: 'cobertura-coverage.xml' },
+        { type: 'clover', subdir: '.', file: 'clover.xml' },
+        { type: 'text-summary', subdir: '.', file: 'text-summary.txt' }
+      ]
     },
     reporters: ['progress', 'kjhtml'],
     port: 9876,
