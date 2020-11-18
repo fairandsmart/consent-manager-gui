@@ -11,7 +11,7 @@ export const environment: AppEnvironment = {
     headerLogoStyle: 'height: 59px;',
     multipleInfo: false,
     defaultLanguage: 'fr',
-    displayUserPage: false,
-    userPageElementsOrder: ''
+    displayUserPage: true,
+    userPageElementsOrder: 'Core.1,Market.1,Channel.1,Frequency.1,Mode.1,Username.1,cgu.1'
   }
 };
