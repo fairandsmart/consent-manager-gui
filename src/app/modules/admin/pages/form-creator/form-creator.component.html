@@ -17,7 +17,7 @@
                  cdkDropList [id]="'selected-' + config.id"
                  [cdkDropListDisabled]="!isSelectionDraggable(config)"
                  [cdkDropListData]="selectedElements[config.id]"
-                 [cdkDropListConnectedTo]="getSelectionAvaiableLists(config)"
+                 [cdkDropListConnectedTo]="getSelectionAvailableLists(config)"
                  (cdkDropListDropped)="elementDropped($event)">
               <mat-card *ngIf="selectedElements[config.id]?.length === 0" class="empty-hint">
                 <span>{{'ENTRIES.' + config.id + '.EMPTY' | translate}}</span>

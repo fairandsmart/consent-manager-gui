@@ -357,7 +357,7 @@ export class FormCreatorComponent implements OnInit {
     return this.elementsLibraryConfig.some(section => config.sectionsId.includes(section.id) && !section.draggingDisabled);
   }
 
-  private getSelectionAvaiableLists(config: { id: string, sectionsId: string[] }): string[] {
+  private getSelectionAvailableLists(config: { id: string, sectionsId: string[] }): string[] {
     return this.elementsLibraryConfig.filter(section => config.sectionsId.includes(section.id)).map(section => 'available-' + section.id);
   }
 }
