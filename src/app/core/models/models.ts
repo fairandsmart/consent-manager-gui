@@ -152,7 +152,7 @@ export interface Processing extends ModelData {
   type: 'processing';
   title: string;
   data: string;
-  retention: string;
+  retentionLabel: string;
   retentionValue: number;
   retentionUnit: RetentionUnit;
   usage: string;

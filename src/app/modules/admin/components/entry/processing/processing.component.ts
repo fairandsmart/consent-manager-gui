@@ -55,7 +55,7 @@ export class ProcessingComponent extends EntryContentDirective<Processing> imple
       type: [this.type, [Validators.required]],
       title: ['', [Validators.required]],
       data: ['', [Validators.required]],
-      retention: ['', [Validators.required]],
+      retentionLabel: ['', [Validators.required]],
       retentionValue: [0, [Validators.required, Validators.min(1)]],
       retentionUnit: [RetentionUnit.YEAR, [Validators.required]],
       usage: ['', [Validators.required]],
