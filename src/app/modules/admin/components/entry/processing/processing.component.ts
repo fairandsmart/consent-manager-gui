@@ -4,6 +4,7 @@ import {
   Controller,
   FIELD_VALIDATORS,
   ModelDataType,
+  ModelEntryDto,
   ModelVersionDto,
   Processing,
   PROCESSING_PURPOSES,
@@ -27,6 +28,8 @@ export class ProcessingComponent extends EntryContentDirective<Processing> imple
   readonly PURPOSES = PROCESSING_PURPOSES;
   readonly RETENTION_UNITS = RETENTION_UNITS;
 
+  availablePreferences: ModelEntryDto[];
+
   constructor(
       private fb: FormBuilder,
       modelsResourceService: ModelsResourceService,
@@ -41,6 +44,10 @@ export class ProcessingComponent extends EntryContentDirective<Processing> imple
 
   ngOnInit(): void {
     super.ngOnInit();
+    this.modelsResourceService.listEntries({
+      types: ['preference'],
+      size: -1
+    }).subscribe((entries) => this.availablePreferences = entries.values);
   }
 
   protected initForm(): void {
@@ -48,7 +55,7 @@ export class ProcessingComponent extends EntryContentDirective<Processing> imple
       type: [this.type, [Validators.required]],
       title: ['', [Validators.required]],
       data: ['', [Validators.required]],
-      retention: ['', [Validators.required]],
+      retentionLabel: ['', [Validators.required]],
       retentionValue: [0, [Validators.required, Validators.min(1)]],
       retentionUnit: [RetentionUnit.YEAR, [Validators.required]],
       usage: ['', [Validators.required]],
@@ -64,13 +71,23 @@ export class ProcessingComponent extends EntryContentDirective<Processing> imple
         phoneNumber: ['', Validators.pattern(FIELD_VALIDATORS.phone.pattern)]
       }),
       showDataController: [{value: false, disabled: true}],
-      thirdParties: this.fb.array([])
+      thirdParties: this.fb.array([]),
+      associatedWithPreferences: [false, [Validators.required]],
+      associatedPreferences: [[]]
     });
     this.checkFormState();
   }
 
   registerFormChanges(): void {
     this.form.get('dataController').valueChanges.subscribe(v => this.dataControllerChange(v));
+    this.form.get('associatedWithPreferences').valueChanges.subscribe(v => {
+      if (v) {
+        this.form.get('associatedPreferences').setValidators([Validators.required]);
+      } else {
+        this.form.get('associatedPreferences').clearValidators();
+        this.form.get('associatedPreferences').setValue([]);
+      }
+    });
     super.registerFormChanges();
   }
 

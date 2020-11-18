@@ -60,7 +60,7 @@ export class EntriesListDragAndDropComponent extends EntriesListComponent implem
   }
 
   drop(event: CdkDragDrop<ModelEntryDto[]>): void {
-    if (event.previousContainer !== event.container) {
+    if (event.previousContainer !== event.container && this.section.types.includes(event.item.data.type)) {
       transferArrayItem(event.previousContainer.data, [], event.previousIndex, 0);
       this.onChange(this.selected);
     }

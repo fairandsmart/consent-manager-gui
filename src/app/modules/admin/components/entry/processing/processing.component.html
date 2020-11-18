@@ -21,7 +21,7 @@
           <div class="retention-fields">
             <mat-form-field class="description" appearance="outline">
               <mat-label>{{'ENTRIES.EDITOR.PROCESSING.RETENTION.BODY.LABEL' | translate}}</mat-label>
-              <textarea matInput required formControlName="retention" cdkTextareaAutosize cdkAutosizeMinRows="1"></textarea>
+              <textarea matInput required formControlName="retentionLabel" cdkTextareaAutosize cdkAutosizeMinRows="1"></textarea>
             </mat-form-field>
             <mat-form-field class="value" appearance="outline">
               <mat-label>{{'ENTRIES.EDITOR.PROCESSING.RETENTION.VALUE.LABEL' | translate}}</mat-label>
@@ -79,10 +79,12 @@
             </mat-form-field>
             <mat-checkbox formControlName="actingBehalfCompany">{{'ENTRIES.EDITOR.CONTENT.DATA_CONTROLLER.ACTING_BEHALF_COMPANY.LABEL' | translate}}</mat-checkbox>
           </div>
+
           <mat-radio-group formControlName="showDataController">
             <mat-radio-button [value]="true">{{'ENTRIES.EDITOR.CONTENT.SHOW' | translate}}</mat-radio-button>
             <mat-radio-button [value]="false">{{'ENTRIES.EDITOR.CONTENT.HIDE' | translate}}</mat-radio-button>
           </mat-radio-group>
+
           <mat-card *ngIf="form.controls.purposes.value.includes('CONSENT_THIRD_PART_SHARING')">
             <mat-card-title>{{'ENTRIES.EDITOR.PROCESSING.THIRD_PARTIES.LABEL' | translate}}</mat-card-title>
             <mat-card-content>
@@ -107,6 +109,18 @@
               <button mat-button (click)="addThirdParty()">{{'ENTRIES.EDITOR.PROCESSING.THIRD_PARTIES.BUTTON_ADD' | translate}}</button>
             </mat-card-actions>
           </mat-card>
+
+          <mat-card-subtitle>{{'ENTRIES.EDITOR.PROCESSING.SUBTITLES.ASSOCIATIONS' | translate}}</mat-card-subtitle>
+          <mat-checkbox formControlName="associatedWithPreferences">{{'ENTRIES.EDITOR.PROCESSING.ASSOCIATE.LABEL' | translate}}</mat-checkbox>
+
+          <mat-form-field appearance="outline" *ngIf="form.get('associatedWithPreferences').value">
+            <mat-label>{{'ENTRIES.EDITOR.PROCESSING.ASSOCIATED_PREFERENCES.LABEL' | translate}}</mat-label>
+            <mat-select multiple formControlName="associatedPreferences">
+              <mat-option *ngFor="let entry of availablePreferences" [value]="entry.key">
+                ({{entry.key}}) {{entry.name}}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
 
         </mat-card-content>
         <mat-card-actions *ngIf="isLatestVersion()">

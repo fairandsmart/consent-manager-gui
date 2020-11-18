@@ -153,7 +153,7 @@ export interface Processing extends ModelData {
   type: 'processing';
   title: string;
   data: string;
-  retention: string;
+  retentionLabel: string;
   retentionValue: number;
   retentionUnit: RetentionUnit;
   usage: string;
@@ -163,6 +163,8 @@ export interface Processing extends ModelData {
   dataController: Controller;
   showDataController: boolean;
   thirdParties: { name: string, value: string }[];
+  associatedWithPreferences: boolean;
+  associatedPreferences: string[];
 }
 
 export enum PreferenceValueType {
@@ -180,8 +182,6 @@ export const PREFERENCE_VALUE_TYPES: PreferenceValueType[] = Object.keys(Prefere
 export interface Preference extends ModelData {
   type: 'preference';
   label: string;
-  associatedWithProcessing: boolean;
-  associatedProcessing: string[];
   description: string;
   options: string[];
   valueType: PreferenceValueType;
@@ -246,6 +246,7 @@ export interface ConsentContext {
   orientation: ConsentFormOrientation;
   info: string;
   elements: string[];
+  associatePreferences: boolean;
   callback: string;
   language: string;
   validity?: string;

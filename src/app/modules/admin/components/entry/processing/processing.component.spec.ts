@@ -11,6 +11,7 @@ import { AlertService } from '../../../../../core/services/alert.service';
 import SpyObj = jasmine.SpyObj;
 import createSpyObj = jasmine.createSpyObj;
 import { KeycloakService } from 'keycloak-angular';
+import { EMPTY } from 'rxjs';
 
 describe('ProcessingComponent', () => {
   let component: ProcessingComponent;
@@ -37,6 +38,7 @@ describe('ProcessingComponent', () => {
   }));
 
   beforeEach(() => {
+    modelsResourceServiceSpy.listEntries.and.returnValue(EMPTY);
     fixture = TestBed.createComponent(ProcessingComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();

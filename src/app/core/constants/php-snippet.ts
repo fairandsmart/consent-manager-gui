@@ -11,6 +11,7 @@ function getFormUrl() {
         "orientation" => "$$ORIENTATION$$",
         "info" => "$$INFO$$",
         "elements" => array($$ELEMENTS$$),
+        "associatePreferences" => $$ASSOCIATE_PREFERENCES$$,
         "callback" => "$$CALLBACK$$",
         "language" => "$$LANGUAGE$$",
         "validity" => "$$VALIDITY$$",
@@ -68,6 +69,7 @@ export function getPhpSnippetFromContext(context: ConsentContext): string {
     .replace('$$ORIENTATION$$', context.orientation)
     .replace('$$INFO$$', context.info)
     .replace('$$ELEMENTS$$', `"${context.elements.join('","')}"`)
+    .replace('$$ASSOCIATE_PREFERENCES$$', String(context.associatePreferences))
     .replace('$$CALLBACK$$', context.callback)
     .replace('$$LANGUAGE$$', context.language)
     .replace('$$VALIDITY$$', context.validity)

@@ -54,7 +54,8 @@ export class FormCreatorComponent implements OnInit {
       draggingDisabled: false,
       included: true,
       icon: Icons.basicinfo,
-      displayDescription: false
+      displayDescription: false,
+      listId: 'infos'
     },
     {
       id: 'processing',
@@ -64,13 +65,36 @@ export class FormCreatorComponent implements OnInit {
       draggingDisabled: false,
       included: true,
       icon: Icons.processing,
-      displayDescription: false
+      displayDescription: false,
+      listId: 'elements'
     },
+    {
+      id: 'preferences',
+      types: ['preference'],
+      multiple: true,
+      showSort: true,
+      draggingDisabled: false,
+      included: true,
+      icon: Icons.preference,
+      displayDescription: false,
+      listId: 'elements'
+    }
+  ];
+
+  public selectionConfig = [
+    {
+      id: 'infos',
+      sectionsId: ['infos']
+    },
+    {
+      id: 'elements',
+      sectionsId: ['processing', 'preferences']
+    }
   ];
 
   public selectedElements: {[id: string]: ModelEntryDto[]} = {
     infos: [],
-    processing: []
+    elements: []
   };
 
   public themesLibraryConfig: SectionConfig[] = [
@@ -161,7 +185,8 @@ export class FormCreatorComponent implements OnInit {
     this.form = this.fb.array([
       this.fb.group({
         info: ['', [Validators.required, Validators.pattern(FIELD_VALIDATORS.key.pattern)]],
-        elements: [[], [Validators.required, Validators.pattern(FIELD_VALIDATORS.elementsKeys.pattern)]]
+        elements: [[], [Validators.required, Validators.pattern(FIELD_VALIDATORS.elementsKeys.pattern)]],
+        associatePreferences: [true, [Validators.required]]
       }),
       this.fb.group({
         theme: ['', [Validators.pattern(FIELD_VALIDATORS.key.pattern)]],
@@ -257,6 +282,7 @@ export class FormCreatorComponent implements OnInit {
       orientation: formValue.orientation,
       info: formValue.info,
       elements: formValue.elements,
+      associatePreferences: formValue.associatePreferences,
       callback: '',
       validity: FormCreatorComponent.formatValidity(formValue.validity, formValue.validityUnit),
       language: formValue.language,
@@ -276,9 +302,9 @@ export class FormCreatorComponent implements OnInit {
 
   private setSelectedElements(selected: {[id: string]: ModelEntryDto[]}): void {
     this.selectedElements = selected;
-    this.form.at(FORM_CREATOR_STEP.ELEMENTS).setValue({
+    this.form.at(FORM_CREATOR_STEP.ELEMENTS).patchValue({
       info: this.selectedElements.infos.map(e => e.key)?.[0] || '',
-      elements: this.selectedElements.processing.map(e => e.key)
+      elements: this.selectedElements.elements.map(e => e.key)
     });
   }
 
@@ -321,5 +347,17 @@ export class FormCreatorComponent implements OnInit {
       console.error(err);
       this.form.enable();
     });
+  }
+
+  private isSelectionExcluded(config: { id: string, sectionsId: string[] }): boolean {
+    return this.elementsLibraryConfig.every(section => config.sectionsId.includes(section.id) && !section.included);
+  }
+
+  private isSelectionDraggable(config: { id: string, sectionsId: string[] }): boolean {
+    return this.elementsLibraryConfig.some(section => config.sectionsId.includes(section.id) && !section.draggingDisabled);
+  }
+
+  private getSelectionAvaiableLists(config: { id: string, sectionsId: string[] }): string[] {
+    return this.elementsLibraryConfig.filter(section => config.sectionsId.includes(section.id)).map(section => 'available-' + section.id);
   }
 }
