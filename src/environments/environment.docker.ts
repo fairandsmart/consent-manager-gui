@@ -12,6 +12,6 @@ export const environment: AppEnvironment = {
     multipleInfo: 'PUT_MULTIPLE_HEADER_HERE' as any,
     defaultLanguage: 'PUT_DEFAULT_LANGUAGE_HERE',
     displayUserPage: 'PUT_USER_PAGE_HERE' as any,
-    userPageElementsOrder: 'PUT_KEYS_SEPARATED_WITH_COMMAS_HERE'
+    userPageElementsOrder: 'PUT_USER_PAGE_ELEMENTS_HERE'
   }
 };
