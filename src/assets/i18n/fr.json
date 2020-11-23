@@ -92,6 +92,12 @@
     "CONFIRM": "Confirmer",
     "CANCEL": "Annuler"
   },
+  "ROUTING": {
+    "404": {
+      "TITLE": "404 Page introuvable",
+      "BODY": "Ceci n'est pas la page que vous recherchez."
+    }
+  },
   "ENTRIES": {
     "TITLE": "Éléments",
     "infos": {

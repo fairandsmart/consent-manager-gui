@@ -75,4 +75,7 @@ export class HeaderNavComponent implements OnInit {
     }
   }
 
+  getHomeUrl(): string {
+    return this.keycloak.isUserInRole('admin') ? '/admin/home' : '/user/me';
+  }
 }

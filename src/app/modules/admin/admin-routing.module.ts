@@ -20,6 +20,11 @@ const routes: Routes = [
     component: AdminPageComponent,
     children: [
       {
+        path: '',
+        redirectTo: 'home',
+        pathMatch: 'full'
+      },
+      {
         path: 'home',
         component: DashboardComponent
       },

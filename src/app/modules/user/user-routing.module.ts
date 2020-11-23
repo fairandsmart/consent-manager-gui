@@ -9,6 +9,11 @@ const routes: Routes = [
     component: UserPageComponent,
     children: [
       {
+        path: '',
+        redirectTo: 'me',
+        pathMatch: 'full'
+      },
+      {
         path: 'me',
         component: EntriesPageComponent
       }
