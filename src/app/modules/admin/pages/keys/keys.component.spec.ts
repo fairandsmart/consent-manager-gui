@@ -3,10 +3,9 @@ import { ActivatedRouteStubSpec } from '../../../../testing/activated-route-stub
 import { RouterTestingModule } from '@angular/router/testing';
 import { ReactiveFormsModule } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
-import { of } from 'rxjs';
+import { EMPTY } from 'rxjs';
 import { KeysComponent } from './keys.component';
 import { KeysResourceService } from '../../../../core/http/keys-resource.service';
-import { Key } from '../../../../core/models/models';
 import { CoreTestingModule } from '../../../../testing/core-testing-module.spec';
 import SpyObj = jasmine.SpyObj;
 import createSpyObj = jasmine.createSpyObj;
@@ -18,7 +17,7 @@ describe('KeysComponent', () => {
   let activatedRouteStub: ActivatedRouteStubSpec;
 
   beforeEach(waitForAsync(() => {
-    keysResourceServiceSpy =  createSpyObj<KeysResourceService>('KeysResourceService', ['listKeys']);
+    keysResourceServiceSpy =  createSpyObj<KeysResourceService>('KeysResourceService', ['listKeys', 'createKey', 'deleteKey']);
     activatedRouteStub = new ActivatedRouteStubSpec();
 
     TestBed.configureTestingModule({
@@ -33,8 +32,8 @@ describe('KeysComponent', () => {
   }));
 
   beforeEach(() => {
-    const keys: Key[] = [];
-    keysResourceServiceSpy.listKeys.and.returnValue(of(keys));
+    keysResourceServiceSpy.listKeys.and.returnValue(EMPTY);
+    keysResourceServiceSpy.createKey.and.returnValue(EMPTY);
 
     fixture = TestBed.createComponent(KeysComponent);
     component = fixture.componentInstance;

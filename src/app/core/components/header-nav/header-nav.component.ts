@@ -1,21 +1,15 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output, TemplateRef, ViewChild } from '@angular/core';
 import { KeycloakService } from 'keycloak-angular';
-import { NavigationEnd, Router } from '@angular/router';
-import { debounceTime, filter, mergeMap } from 'rxjs/operators';
+import { Router } from '@angular/router';
+import { debounceTime, mergeMap } from 'rxjs/operators';
 import { SubjectsResourceService } from '../../http/subjects-resource.service';
 import { FormControl } from '@angular/forms';
 import { Observable, of } from 'rxjs';
-
-export interface NavSection {
-  title: string;
-  link?: string;
-  sub?: SideNavSubSection[];
-}
-
-export interface SideNavSubSection {
-  title: string;
-  link: string;
-}
+import { SubjectDto } from '../../models/models';
+import { I18N_LANGUAGES } from '../../constants/i18n';
+import { TranslateService } from '@ngx-translate/core';
+import { MatDialog, MatDialogRef } from '@angular/material/dialog';
+import { environment } from '../../../../environments/environment';
 
 @Component({
   selector: 'cm-header-nav',
@@ -24,93 +18,34 @@ export interface SideNavSubSection {
 })
 export class HeaderNavComponent implements OnInit {
 
-  readonly SECTIONS: NavSection[] = [
-    {
-      title: 'NAV.CATEGORIES.HOME.LABEL',
-      link: '/admin/home'
-    },
-    {
-      title: 'NAV.CATEGORIES.MODELS.LABEL',
-      sub: [
-        {
-          title: 'NAV.CATEGORIES.MODELS.INFO',
-          link: '/admin/configuration/basicinfo'
-        },
-        {
-          title: 'NAV.CATEGORIES.MODELS.TREATMENTS',
-          link: '/admin/configuration/treatments'
-        },
-        {
-          title: 'NAV.CATEGORIES.MODELS.PREFERENCES',
-          link: '/admin/configuration/preferences'
-        },
-        {
-          title: 'NAV.CATEGORIES.MODELS.CONDITIONS',
-          link: '/admin/configuration/conditions'
-        },
-        {
-          title: 'NAV.CATEGORIES.MODELS.EMAILS',
-          link: '/admin/configuration/emails'
-        },
-        {
-          title: 'NAV.CATEGORIES.MODELS.THEMES',
-          link: '/admin/configuration/themes'
-        },
-      ]
-    },
-    {
-      title: 'NAV.CATEGORIES.INTEGRATION.LABEL',
-      sub: [
-        {
-          title: 'NAV.CATEGORIES.INTEGRATION.FORM_CREATOR',
-          link: '/admin/integration/form-creator'
-        },
-        {
-          title: 'NAV.CATEGORIES.INTEGRATION.API',
-          link: '/admin/integration/api'
-        },
-      ]
-    }
-  ];
+  @Input()
+  displaySearchBar = false;
 
-  active: NavSection;
+  @Output()
+  toggleSideNav = new EventEmitter();
+
+  @ViewChild('searchDialog')
+  searchDialogTemplate: TemplateRef<any>;
+
+  private searchDialog: MatDialogRef<any>;
+
+  readonly CUSTOMIZATION = environment.customization;
 
   searchCtrl: FormControl;
 
-  filteredSubjects: Observable<string[]>;
+  filteredSubjects: Observable<SubjectDto[]>;
+
+  readonly LANGUAGES = I18N_LANGUAGES;
 
   constructor(
     public keycloak: KeycloakService,
     private router: Router,
     private subjectsService: SubjectsResourceService,
+    private dialog: MatDialog,
+    public translate: TranslateService
   ) { }
 
   ngOnInit(): void {
-    this.SECTIONS.some(s => {
-      if (
-        (!s.sub && this.router.isActive(s.link, true)) ||
-        s.sub?.some(sub => this.router.isActive(sub.link, false))
-      ) {
-        this.active = s;
-        return true;
-      }
-    });
-    this.router.events.pipe(
-      filter(e => e instanceof NavigationEnd)
-    ).subscribe(() => {
-      const hasActive = this.SECTIONS.some(s => {
-        if (
-          (!s.sub && this.router.isActive(s.link, true)) ||
-          s.sub?.some(sub => this.router.isActive(sub.link, false))
-        ) {
-          this.active = s;
-          return true;
-        }
-      });
-      if (!hasActive) {
-        this.active = null;
-      }
-    });
     this.searchCtrl = new FormControl();
     this.filteredSubjects = this.searchCtrl.valueChanges.pipe(
       debounceTime(200),
@@ -123,12 +58,24 @@ export class HeaderNavComponent implements OnInit {
     );
   }
 
+  openSearchDialog(): void {
+    this.searchDialog = this.dialog.open(this.searchDialogTemplate, {
+      width: '400px'
+    });
+  }
+
   search(): void {
     const subject = this.searchCtrl.value?.trim();
     if (subject != null) {
       this.router.navigate(['admin', 'subjects', subject]);
       this.searchCtrl.reset('');
+      if (this.searchDialog != null) {
+        this.searchDialog.close();
+      }
     }
   }
 
+  getHomeUrl(): string {
+    return this.keycloak.isUserInRole('admin') ? '/admin/home' : '/user/me';
+  }
 }

@@ -1,18 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { EntryContentDirective } from '../entry-content/entry-content.directive';
-import {
-  CollectionMethod,
-  Conditions,
-  ConsentContext,
-  ConsentFormOrientation,
-  ConsentFormType,
-  ModelDataType
-} from '../../../../../core/models/models';
+import { Conditions, ModelDataType } from '../../../../../core/models/models';
 import { FormBuilder, Validators } from '@angular/forms';
 import { ModelsResourceService } from '../../../../../core/http/models-resource.service';
-import { FormUrlDialogComponent, FormUrlDialogComponentData } from '../../form-url-dialog/form-url-dialog.component';
-import { MatDialog } from '@angular/material/dialog';
-import { ConsentsResourceService } from '../../../../../core/http/consents-resource.service';
 import { DomSanitizer } from '@angular/platform-browser';
 import { AlertService } from '../../../../../core/services/alert.service';
 
@@ -23,6 +13,7 @@ import { AlertService } from '../../../../../core/services/alert.service';
 })
 export class ConditionsComponent extends EntryContentDirective<Conditions> implements OnInit {
 
+  static CONTEXT = 'conditions';
   readonly CODE_MIRROR_OPTIONS = {
     lineNumbers: true,
     mode: 'htmlmixed',
@@ -38,11 +29,9 @@ export class ConditionsComponent extends EntryContentDirective<Conditions> imple
   constructor(
       private fb: FormBuilder,
       modelsResourceService: ModelsResourceService,
-      public consentsResourceService: ConsentsResourceService,
       alertService: AlertService,
-      sanitizer: DomSanitizer,
-      private dialog: MatDialog) {
-    super(modelsResourceService, alertService, sanitizer);
+      sanitizer: DomSanitizer) {
+    super(ConditionsComponent.CONTEXT, modelsResourceService, alertService, sanitizer);
   }
 
   get type(): ModelDataType {
@@ -61,43 +50,7 @@ export class ConditionsComponent extends EntryContentDirective<Conditions> imple
       acceptLabel: ['', [Validators.required]],
       rejectLabel: ['', [Validators.required]]
     });
-    this.initPreview();
-  }
-
-  openApiUrlDialog(): void {
-    if (this.form.invalid) {
-      return;
-    }
-    const formValue = this.form.getRawValue();
-    const context: ConsentContext = {
-      subject: '',
-      orientation: ConsentFormOrientation.VERTICAL,
-      info: '',
-      elements: [this.entry.key],
-      callback: '',
-      validity: '',
-      locale: formValue.locale,
-      formType: ConsentFormType.FULL,
-      receiptDeliveryType: 'NONE',
-      userinfos: {},
-      attributes: {},
-      optoutModel: '',
-      optoutRecipient: '',
-      collectionMethod: CollectionMethod.WEBFORM,
-      author: '',
-      preview: false,
-      iframe: true,
-      conditions: true,
-      theme: ''
-    };
-    this.consentsResourceService.generateToken(context).subscribe((token) => {
-      const url = this.consentsResourceService.getFormUrl(token);
-      this.dialog.open<FormUrlDialogComponent, FormUrlDialogComponentData>(FormUrlDialogComponent, {
-        data: {url: url}
-      });
-    }, (err) => {
-      console.error(err);
-    });
+    this.checkFormState();
   }
 
 }

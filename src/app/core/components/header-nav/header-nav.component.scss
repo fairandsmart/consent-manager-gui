@@ -1,11 +1,23 @@
 @import '~src/variables';
 
-.spacer {
-  flex: 1 1 auto;
+:host {
+  display: block;
+  z-index: 10;
+  box-shadow: 0 2px 5px 0 rgba(0,0,0,.3);
+}
+
+.title-img {
+  cursor: pointer;
+}
+
+mat-toolbar {
+  .spacer {
+    flex: 1 1 auto;
+  }
 }
 
 .home {
-  font-size: large;
+  font-size: mat-font-size($typography, 'subheading-2');
 }
 
 .active-link {
@@ -13,17 +25,25 @@
   border-radius: 0;
 }
 
-form {
+form.search-user-form {
   display: inline-block;
   margin-right: 1em;
   @include mat-typography-level-to-styles($typography, 'body-1');
   mat-form-field {
     margin-top: 1.34375em;
+    width: 300px;
     ::ng-deep {
       .mat-form-field-flex {
-        background: #ffffff;
-        color: $dark-primary-text;
+        background-color: rgba(255, 255, 255, 0.2);
+        color: #ffffff;
+        border-radius: 4px;
+      }
+      .mat-form-field-underline::before {
+        background-color: transparent;
       }
     }
+  }
+  &.sm mat-form-field {
+    width: 210px;
   }
 }

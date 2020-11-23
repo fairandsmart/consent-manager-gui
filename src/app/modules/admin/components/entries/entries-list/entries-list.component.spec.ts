@@ -6,7 +6,7 @@ import { FormsModule } from '@angular/forms';
 import { ModelsResourceService } from '../../../../../core/http/models-resource.service';
 import { ActivatedRoute } from '@angular/router';
 import { ActivatedRouteStubSpec } from '../../../../../testing/activated-route-stub.spec';
-import { of } from 'rxjs';
+import { EMPTY } from 'rxjs';
 import { CoreTestingModule } from '../../../../../testing/core-testing-module.spec';
 import createSpyObj = jasmine.createSpyObj;
 import SpyObj = jasmine.SpyObj;
@@ -33,13 +33,7 @@ describe('EntriesListComponent', () => {
   }));
 
   beforeEach(() => {
-    modelsResourceServiceSpy.listEntries.and.returnValue(of({
-      values: [],
-      page: 0,
-      pageSize: 0,
-      totalCount: 0,
-      totalPages: 0,
-    }));
+    modelsResourceServiceSpy.listEntries.and.returnValue(EMPTY);
 
     fixture = TestBed.createComponent(EntriesListComponent);
     component = fixture.componentInstance;
@@ -47,7 +41,8 @@ describe('EntriesListComponent', () => {
       id: 'infos',
       types: ['basicinfo'],
       multiple: true,
-      showSort: true
+      showSort: true,
+      displayDescription: false,
     };
 
     // fixture.detectChanges();

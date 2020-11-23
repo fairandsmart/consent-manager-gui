@@ -1,11 +1,13 @@
 import { Component } from '@angular/core';
 import { SectionConfig } from '../../components/entries/entries-library/entries-library.component';
+import { Icons } from '../../../../core/models/models';
 
 @Component({
   selector: 'cm-themes-page',
   template: `
     <cm-entries-library [config]="config" [expandable]="false"></cm-entries-library>
-  `
+  `,
+  styleUrls: ['./_entries-page.scss']
 })
 export class ThemesPageComponent {
 
@@ -14,7 +16,9 @@ export class ThemesPageComponent {
       id: 'themes',
       types: ['theme'],
       multiple: true,
-      showSort: true
+      showSort: true,
+      icon: Icons.theme,
+      displayDescription: true
     }
   ];
 

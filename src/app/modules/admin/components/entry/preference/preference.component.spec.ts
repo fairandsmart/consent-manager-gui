@@ -9,6 +9,7 @@ import { CoreTestingModule } from '../../../../../testing/core-testing-module.sp
 import { RouterTestingModule } from '@angular/router/testing';
 import SpyObj = jasmine.SpyObj;
 import createSpyObj = jasmine.createSpyObj;
+import { EMPTY } from 'rxjs';
 
 describe('PreferenceComponent', () => {
   let component: PreferenceComponent;
@@ -22,13 +23,14 @@ describe('PreferenceComponent', () => {
       declarations: [ PreferenceComponent, EntryInfoComponent, EntryPreviewComponent ],
       imports: [ CoreTestingModule, RouterTestingModule, ReactiveFormsModule ],
       providers: [
-        {provide: ModelsResourceService, useValue: modelsResourceServiceSpy},
+        {provide: ModelsResourceService, useValue: modelsResourceServiceSpy}
       ]
     })
     .compileComponents();
   }));
 
   beforeEach(() => {
+    modelsResourceServiceSpy.listEntries.and.returnValue(EMPTY);
     fixture = TestBed.createComponent(PreferenceComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();

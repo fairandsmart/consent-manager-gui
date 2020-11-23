@@ -6,22 +6,62 @@
         <mat-card-content>
 
           <mat-card-subtitle>{{'ENTRIES.EDITOR.PREFERENCE.SUBTITLES.CONTENT' | translate}}</mat-card-subtitle>
+
           <mat-form-field appearance="outline">
-            <mat-label>{{'ENTRIES.EDITOR.PREFERENCE.TITLE.LABEL' | translate}}</mat-label>
-            <input matInput required formControlName="title" autocomplete="off">
+            <mat-label>{{'ENTRIES.EDITOR.PREFERENCE.LABEL.LABEL' | translate}}</mat-label>
+            <input matInput required formControlName="label" autocomplete="off">
           </mat-form-field>
 
           <mat-form-field appearance="outline">
-            <mat-label>{{'ENTRIES.EDITOR.PREFERENCE.BODY.LABEL' | translate}}</mat-label>
-            <textarea matInput required formControlName="body" cdkTextareaAutosize cdkAutosizeMinRows="5"></textarea>
+            <mat-label>{{'ENTRIES.EDITOR.PREFERENCE.DESCRIPTION.LABEL' | translate}}</mat-label>
+            <textarea matInput formControlName="description" cdkTextareaAutosize cdkAutosizeMinRows="5"></textarea>
           </mat-form-field>
+
+          <mat-form-field appearance="outline">
+            <mat-label>{{'ENTRIES.EDITOR.PREFERENCE.VALUE_TYPE.LABEL' | translate}}</mat-label>
+            <mat-select formControlName="valueType" required>
+              <mat-option *ngFor="let type of VALUE_TYPES" [value]="type">
+                {{'ENTRIES.EDITOR.PREFERENCE.VALUE_TYPE.VALUES.' + type | translate}}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+
+          <div *ngIf="form.get('valueType').value && form.get('valueType').value !== 'NONE' && form.get('valueType').value !== 'FREE_TEXT'">
+            <mat-card-subtitle>{{'ENTRIES.EDITOR.PREFERENCE.SUBTITLES.OPTIONS' | translate}}</mat-card-subtitle>
+
+            <div>
+              <mat-form-field appearance="outline">
+                <mat-label>{{'ENTRIES.EDITOR.PREFERENCE.OPTIONS.LABEL' | translate}}</mat-label>
+                <mat-chip-list #optionsChipList required>
+                  <mat-chip *ngFor="let option of form.get('options').value" [selectable]="true"
+                            [removable]="true" (removed)="removeOption(option)">
+                    {{option}}
+                    <mat-icon matChipRemove>cancel</mat-icon>
+                  </mat-chip>
+                  <input
+                    [placeholder]="'ENTRIES.EDITOR.PREFERENCE.OPTIONS.PLACEHOLDER' | translate"
+                    [formControl]="optionsInputCtrl"
+                    [matChipInputFor]="optionsChipList"
+                    [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
+                    [matChipInputAddOnBlur]="false"
+                    (matChipInputTokenEnd)="addOption($event)">
+                </mat-chip-list>
+                <mat-hint *ngIf="form.get('valueType').value === 'TOGGLE'">
+                  {{'ENTRIES.EDITOR.PREFERENCE.OPTIONS.TOGGLE_HINT' | translate}}
+                </mat-hint>
+              </mat-form-field>
+            </div>
+          </div>
 
         </mat-card-content>
         <mat-card-actions *ngIf="isLatestVersion()">
-          <button mat-button type="button" color="primary" [disabled]="form.invalid" (click)="save()">{{'ENTRIES.EDITOR.BUTTONS.SAVE' | translate}}</button>
+          <button mat-button type="button" color="primary" [disabled]="form.invalid"
+                  (click)="save()">{{'ENTRIES.EDITOR.BUTTONS.SAVE' | translate}}</button>
           <ng-container *ngIf="version != null">
-            <button mat-button type="button" color="primary" [disabled]="version.status === STATUS.ACTIVE" (click)="activate()">{{'ENTRIES.EDITOR.BUTTONS.ACTIVATE' | translate}}</button>
-            <button mat-button type="button" color="warn" [disabled]="version.status !== STATUS.DRAFT" (click)="delete()">{{'ENTRIES.EDITOR.BUTTONS.DELETE' | translate}}</button>
+            <button mat-button type="button" color="primary" [disabled]="version.status === STATUS.ACTIVE"
+                    (click)="activate()">{{'ENTRIES.EDITOR.BUTTONS.ACTIVATE' | translate}}</button>
+            <button mat-button type="button" color="warn" [disabled]="version.status !== STATUS.DRAFT"
+                    (click)="delete()">{{'ENTRIES.EDITOR.BUTTONS.DELETE' | translate}}</button>
           </ng-container>
         </mat-card-actions>
       </mat-card>
@@ -31,7 +71,8 @@
     </form>
   </mat-sidenav-content>
   <mat-sidenav opened mode="side" position="end">
-    <cm-entry-info *ngIf="entry" [entry]="entry" [version]="version" (selectVersion)="selectVersion($event)"></cm-entry-info>
+    <cm-entry-info *ngIf="entry" [entry]="entry" [version]="version"
+                   (selectVersion)="selectVersion($event)"></cm-entry-info>
     <cm-entry-preview [safePreview]="safePreview"></cm-entry-preview>
   </mat-sidenav>
 </mat-sidenav-container>

@@ -1,3 +1,5 @@
+@import "src/variables";
+
 .mat-card-title {
   display: flex;
   justify-content: space-between;
@@ -5,10 +7,28 @@
 }
 
 code {
-  background-color: #ccc;
+  background-color: mat-color($mat-gray, 100);
+  border: 1px solid $dark-dividers;
   display: block;
   white-space: pre-wrap;
   overflow-x: auto;
-  padding: 4px;
+  padding: 6px;
   word-break: break-all;
+}
+
+ngx-codemirror {
+  display: block;
+  margin-bottom: 1em;
+  ::ng-deep .CodeMirror {
+    background-color: mat-color($mat-gray, 100);
+    border: 1px solid $dark-dividers;
+  }
+}
+
+mat-tab-group ::ng-deep .mat-tab-body-wrapper {
+  margin-top: 1em;
+  button.mat-button {
+    margin-bottom: 1em;
+    margin-top: 1em;
+  }
 }

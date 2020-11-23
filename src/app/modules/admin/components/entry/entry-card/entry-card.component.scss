@@ -85,8 +85,18 @@
         overflow: hidden;
       }
       .entry-detail {
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
         margin-top: 10px;
-        text-align: right;
+        mat-icon {
+          margin-right: 8px;
+        }
+        > span {
+          display: flex;
+          flex-direction: row;
+          align-items: center;
+        }
       }
     }
   }

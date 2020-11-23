@@ -1,0 +1,37 @@
+<h2 mat-dialog-title>{{data.record.name}}</h2>
+
+<div mat-dialog-content>
+  <div *ngIf="!data.valueType || (data.valueType !== TYPES.NONE && data.valueType !== TYPES.FREE_TEXT)">
+    <mat-form-field appearance="outline">
+      <mat-label>{{'ENTRIES.EDITOR.PREFERENCE.OPTIONS.LABEL' | translate}}</mat-label>
+      <mat-select [multiple]="isMultipleChoice()" [formControl]="control">
+        <ng-container *ngIf="data.valueType">
+          <mat-option *ngFor="let option of data.options" [value]="option">
+            {{option}}
+          </mat-option>
+        </ng-container>
+        <ng-container *ngIf="!data.valueType">
+          <mat-option *ngFor="let option of data.options" [value]="option">
+            {{'RECORDS.COMMON.PROCESSING_VALUE.' + option | translate}}
+          </mat-option>
+        </ng-container>
+      </mat-select>
+    </mat-form-field>
+  </div>
+
+  <div *ngIf="data.valueType === TYPES.FREE_TEXT">
+    <mat-form-field appearance="outline">
+      <mat-label>{{'ENTRIES.EDITOR.PREFERENCE.OPTIONS.LABEL' | translate}}</mat-label>
+      <input [formControl]="control" matInput autocomplete="off">
+    </mat-form-field>
+  </div>
+</div>
+
+<div class="btn-uppercase align-right" mat-dialog-actions>
+  <button mat-button color="primary" [mat-dialog-close]="null">
+    {{'COMMON.BUTTONS.CANCEL' | translate}}
+  </button>
+  <button mat-button color="primary" [disabled]="control.invalid" (click)="submit()">
+    {{'COMMON.BUTTONS.SAVE' | translate}}
+  </button>
+</div>

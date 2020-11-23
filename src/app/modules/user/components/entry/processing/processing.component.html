@@ -1,0 +1,42 @@
+<div class="model-entry">
+  <div class="model-name">
+    <mat-icon (click)="showDetails = !showDetails">help_outline</mat-icon>
+    {{getData()?.title}}
+  </div>
+  <div class="model-action">
+    <div class="user-input">
+      <label>{{'USER.REFUSE' | translate}}</label>
+      <mat-slide-toggle [formControl]="control"></mat-slide-toggle>
+      <label>{{'USER.ACCEPT' | translate}}</label>
+    </div>
+  </div>
+</div>
+
+<mat-accordion>
+  <mat-expansion-panel [expanded]="showDetails">
+
+    <mat-expansion-panel-header>
+      <mat-panel-title>
+        {{'USER.DETAILS' | translate}}
+      </mat-panel-title>
+    </mat-expansion-panel-header>
+
+    <div class="paragraph">
+      <div>
+        {{getData()?.data}}
+      </div>
+    </div>
+    <div class="paragraph">
+      <div>
+        {{getData()?.retentionLabel}} {{getData()?.retentionValue}} {{'ENTRIES.EDITOR.PROCESSING.RETENTION.UNIT.VALUES.' + getData()?.retentionUnit | translate}}
+      </div>
+    </div>
+    <div class="paragraph">
+      <div>
+        {{getData()?.usage}}
+      </div>
+    </div>
+
+  </mat-expansion-panel>
+</mat-accordion>
+

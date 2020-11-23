@@ -7,8 +7,8 @@ import {
   ConsentFormOrientation,
   ConsentFormType,
   FIELD_VALIDATORS,
+  Icons,
   ModelEntryDto,
-  ModelVersionStatus,
   RECEIPT_DELIVERY_TYPES
 } from '../../../../core/models/models';
 import { tap } from 'rxjs/operators';
@@ -23,6 +23,8 @@ import { environment } from '../../../../../environments/environment';
 import * as _ from 'lodash';
 import { MatDialog } from '@angular/material/dialog';
 import { FormUrlDialogComponent, FormUrlDialogComponentData } from '../../components/form-url-dialog/form-url-dialog.component';
+import { hasActiveVersion } from '../../../../core/utils/model-entry.utils';
+import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
 
 enum FORM_CREATOR_STEP {
   ELEMENTS,
@@ -41,11 +43,7 @@ enum FORM_CREATOR_STEP {
 })
 export class FormCreatorComponent implements OnInit {
 
-  constructor(private consentsResource: ConsentsResourceService,
-              private modelsResource: ModelsResourceService,
-              private fb: FormBuilder,
-              private sanitizer: DomSanitizer,
-              private dialog: MatDialog) { }
+  readonly ICONS = Icons;
 
   public elementsLibraryConfig: (SectionConfig & {draggingDisabled: boolean, included: boolean})[] = [
     {
@@ -54,21 +52,49 @@ export class FormCreatorComponent implements OnInit {
       multiple: environment.customization.multipleInfo,
       showSort: environment.customization.multipleInfo,
       draggingDisabled: false,
-      included: true
+      included: true,
+      icon: Icons.basicinfo,
+      displayDescription: false,
+      listId: 'infos'
     },
     {
-      id: 'treatments',
-      types: ['treatment'],
+      id: 'processing',
+      types: ['processing'],
       multiple: true,
       showSort: true,
       draggingDisabled: false,
-      included: true
+      included: true,
+      icon: Icons.processing,
+      displayDescription: false,
+      listId: 'elements'
     },
+    {
+      id: 'preferences',
+      types: ['preference'],
+      multiple: true,
+      showSort: true,
+      draggingDisabled: false,
+      included: true,
+      icon: Icons.preference,
+      displayDescription: false,
+      listId: 'elements'
+    }
+  ];
+
+  public selectionConfig = [
+    {
+      id: 'infos',
+      sectionsId: ['infos']
+    },
+    {
+      id: 'elements',
+      sectionsId: ['processing', 'preferences']
+    }
   ];
 
   public selectedElements: {[id: string]: ModelEntryDto[]} = {
     infos: [],
-    treatments: []
+    elements: []
   };
 
   public themesLibraryConfig: SectionConfig[] = [
@@ -76,7 +102,9 @@ export class FormCreatorComponent implements OnInit {
       id: 'themes',
       types: ['theme'],
       multiple: false,
-      showSort: true
+      showSort: true,
+      icon: Icons.theme,
+      displayDescription: false
     }
   ];
 
@@ -87,7 +115,9 @@ export class FormCreatorComponent implements OnInit {
       id: 'emails',
       types: ['email'],
       multiple: false,
-      showSort: true
+      showSort: true,
+      icon: Icons.email,
+      displayDescription: false
     }
   ];
 
@@ -102,10 +132,10 @@ export class FormCreatorComponent implements OnInit {
   public formUrl: SafeResourceUrl;
   private previousContext: ConsentContext;
   private previousOrientation: ConsentFormOrientation;
-  private previousLocale: string;
+  private previousLanguage: string;
   public currentStep: FORM_CREATOR_STEP;
 
-  private readonly defaultLocale = environment.customization.defaultLocale;
+  private readonly defaultLanguage = environment.customization.defaultLanguage;
 
   private static formatValidity(validity, validityUnit): string {
     if (validity) {
@@ -119,12 +149,31 @@ export class FormCreatorComponent implements OnInit {
     return '';
   }
 
+  constructor(private consentsResource: ConsentsResourceService,
+              private modelsResource: ModelsResourceService,
+              private fb: FormBuilder,
+              private sanitizer: DomSanitizer,
+              private dialog: MatDialog,
+              private breakpointObserver: BreakpointObserver) { }
+
   ngOnInit(): void {
+    this.breakpointObserver.observe([Breakpoints.XSmall, Breakpoints.Small]).pipe(
+      tap((state) => {
+        ['elementsLibraryConfig', 'themesLibraryConfig', 'emailsLibraryConfig'].forEach(config => {
+          const previous = this[config][0].columns;
+          this[config].forEach(c => c.columns = (state.matches ? 1 : 2));
+          if (previous !== this[config][0].columns) {
+            // Needed to fire change detection
+            this[config] = _.cloneDeep(this[config]);
+          }
+        });
+      })
+    ).subscribe();
     zip(...this.elementsLibraryConfig.map(c => this.modelsResource.listEntries({types: c.types, size: 1}))).pipe(
       tap((responses) => {
         const selected: {[id: string]: ModelEntryDto[]} = {...this.selectedElements};
         responses.forEach((response, index) => {
-          if (response.totalCount === 1 && response.values[0].versions.find(v => v.status === ModelVersionStatus.ACTIVE) !== undefined) {
+          if (response.totalCount === 1 && hasActiveVersion(response.values[0])) {
             const config = this.elementsLibraryConfig[index];
             selected[config.id] = response.values;
             config.draggingDisabled = true;
@@ -136,7 +185,8 @@ export class FormCreatorComponent implements OnInit {
     this.form = this.fb.array([
       this.fb.group({
         info: ['', [Validators.required, Validators.pattern(FIELD_VALIDATORS.key.pattern)]],
-        elements: [[], [Validators.required, Validators.pattern(FIELD_VALIDATORS.elementsKeys.pattern)]]
+        elements: [[], [Validators.required, Validators.pattern(FIELD_VALIDATORS.elementsKeys.pattern)]],
+        associatePreferences: [true, [Validators.required]]
       }),
       this.fb.group({
         theme: ['', [Validators.pattern(FIELD_VALIDATORS.key.pattern)]],
@@ -144,13 +194,13 @@ export class FormCreatorComponent implements OnInit {
       this.fb.group({
         subject: ['', [Validators.required]],
         orientation: [ConsentFormOrientation.VERTICAL, [Validators.required]],
-        locale: [this.defaultLocale, [Validators.required]],
+        language: [this.defaultLanguage, [Validators.required]],
         forceDisplay: [true, [Validators.required]],
         validity: [6, [Validators.required, Validators.min(1)]],
         validityUnit: ['M', [Validators.required]],
         receiptDeliveryType: ['DISPLAY', [Validators.required]],
-        optoutModel: ['', [Validators.pattern(FIELD_VALIDATORS.key.pattern)]],
-        optoutRecipient: ['']
+        notificationModel: ['', [Validators.pattern(FIELD_VALIDATORS.key.pattern)]],
+        notificationRecipient: ['']
       })
     ]);
     this.form.at(FORM_CREATOR_STEP.OPTIONS).get('orientation').valueChanges.subscribe((orientation) => {
@@ -160,10 +210,10 @@ export class FormCreatorComponent implements OnInit {
         this.preview();
       }
     });
-    this.form.at(FORM_CREATOR_STEP.OPTIONS).get('locale').valueChanges.subscribe((locale) => {
-      if (this.currentStep === FORM_CREATOR_STEP.PREVIEW && this.previousLocale !== locale
-        && this.previousContext != null && this.previousContext.locale !== locale) {
-        this.previousLocale = locale;
+    this.form.at(FORM_CREATOR_STEP.OPTIONS).get('language').valueChanges.subscribe((language) => {
+      if (this.currentStep === FORM_CREATOR_STEP.PREVIEW && this.previousLanguage !== language
+        && this.previousContext != null && this.previousContext.language !== language) {
+        this.previousLanguage = language;
         this.preview();
       }
     });
@@ -232,29 +282,29 @@ export class FormCreatorComponent implements OnInit {
       orientation: formValue.orientation,
       info: formValue.info,
       elements: formValue.elements,
+      associatePreferences: formValue.associatePreferences,
       callback: '',
       validity: FormCreatorComponent.formatValidity(formValue.validity, formValue.validityUnit),
-      locale: formValue.locale,
+      language: formValue.language,
       formType: formValue.forceDisplay ? ConsentFormType.FULL : ConsentFormType.PARTIAL,
       receiptDeliveryType: formValue.receiptDeliveryType,
       userinfos: {},
       attributes: {},
-      optoutModel: formValue.optoutModel,
-      optoutRecipient: formValue.optoutRecipient,
+      notificationModel: formValue.notificationModel,
+      notificationRecipient: formValue.notificationRecipient,
       collectionMethod: CollectionMethod.WEBFORM,
       author: '',
       preview: isPreview,
       iframe: true,
-      conditions: false,
       theme: formValue.theme
     };
   }
 
   private setSelectedElements(selected: {[id: string]: ModelEntryDto[]}): void {
     this.selectedElements = selected;
-    this.form.at(FORM_CREATOR_STEP.ELEMENTS).setValue({
+    this.form.at(FORM_CREATOR_STEP.ELEMENTS).patchValue({
       info: this.selectedElements.infos.map(e => e.key)?.[0] || '',
-      elements: this.selectedElements.treatments.map(e => e.key)
+      elements: this.selectedElements.elements.map(e => e.key)
     });
   }
 
@@ -269,12 +319,13 @@ export class FormCreatorComponent implements OnInit {
   private setSelectedEmail(selected: {[id: string]: ModelEntryDto[]}): void {
     this.selectedEmail = selected;
     this.form.at(FORM_CREATOR_STEP.OPTIONS).patchValue({
-      optoutModel: this.selectedEmail.emails?.[0]?.key || ''
+      notificationModel: this.selectedEmail.emails?.[0]?.key || ''
     });
   }
 
   openApiUrlDialog(): void {
     if (this.form.invalid) {
+      this.form.markAllAsTouched();
       return;
     }
     this.form.disable();
@@ -286,11 +337,27 @@ export class FormCreatorComponent implements OnInit {
       this.form.enable();
       const url = this.consentsResource.getFormUrl(token);
       this.dialog.open<FormUrlDialogComponent, FormUrlDialogComponentData>(FormUrlDialogComponent, {
-        data: {url: url}
+        width: '800px',
+        data: {
+          url: url,
+          context: context
+        }
       });
     }, (err) => {
       console.error(err);
       this.form.enable();
     });
+  }
+
+  private isSelectionExcluded(config: { id: string, sectionsId: string[] }): boolean {
+    return this.elementsLibraryConfig.every(section => config.sectionsId.includes(section.id) && !section.included);
+  }
+
+  private isSelectionDraggable(config: { id: string, sectionsId: string[] }): boolean {
+    return this.elementsLibraryConfig.some(section => config.sectionsId.includes(section.id) && !section.draggingDisabled);
+  }
+
+  private getSelectionAvailableLists(config: { id: string, sectionsId: string[] }): string[] {
+    return this.elementsLibraryConfig.filter(section => config.sectionsId.includes(section.id)).map(section => 'available-' + section.id);
   }
 }

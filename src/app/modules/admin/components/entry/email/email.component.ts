@@ -13,12 +13,14 @@ import { AlertService } from '../../../../../core/services/alert.service';
 })
 export class EmailComponent extends EntryContentDirective<Email> implements OnInit {
 
+  static CONTEXT = 'email';
+
   constructor(
     private fb: FormBuilder,
     modelsResourceService: ModelsResourceService,
     alertService: AlertService,
     sanitizer: DomSanitizer) {
-    super(modelsResourceService, alertService, sanitizer);
+    super(EmailComponent.CONTEXT, modelsResourceService, alertService, sanitizer);
   }
 
   get type(): ModelDataType {
@@ -32,7 +34,7 @@ export class EmailComponent extends EntryContentDirective<Email> implements OnIn
   protected initForm(): void {
     this.form = this.fb.group({
       type: [this.type, [Validators.required]],
-      sender: ['', [Validators.required]],
+      sender: ['', [Validators.required, Validators.email]],
       subject: ['', [Validators.required]],
       title: ['', [Validators.required]],
       body: ['', [Validators.required]],
@@ -40,7 +42,7 @@ export class EmailComponent extends EntryContentDirective<Email> implements OnIn
       footer: ['', [Validators.required]],
       signature: ['', [Validators.required]]
     });
-    this.initPreview();
+    this.checkFormState();
   }
 
 }

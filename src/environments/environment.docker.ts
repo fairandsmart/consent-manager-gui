@@ -7,7 +7,11 @@ export const environment: AppEnvironment = {
   authClientId: 'PUT_AUTH_CLIENTID_HERE',
   managerUrl: 'PUT_MANAGER_URI_HERE',
   customization: {
+    headerLogoUrl: 'PUT_HEADER_LOGO_URI_HERE',
+    headerLogoStyle: 'PUT_HEADER_LOGO_STYLE_HERE',
     multipleInfo: 'PUT_MULTIPLE_HEADER_HERE' as any,
-    defaultLocale: 'PUT_DEFAULT_LANGUAGE_HERE'
+    defaultLanguage: 'PUT_DEFAULT_LANGUAGE_HERE',
+    displayUserPage: 'PUT_USER_PAGE_HERE' as any,
+    userPageElementsOrder: 'PUT_USER_PAGE_ELEMENTS_HERE'
   }
 };

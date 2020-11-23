@@ -1,26 +1,54 @@
 <mat-toolbar color="primary">
-  <button mat-button class="home" routerLink="/">{{'NAV.TITLE' | translate}}</button>
-  <ng-container *ngFor="let section of SECTIONS">
-    <button mat-button [routerLink]="section.sub ? section.sub[0].link : section.link"
-            [class.active-link]="section === active">{{section.title | translate}}</button>
-  </ng-container>
+  <button mat-icon-button (click)="toggleSideNav.emit()"><mat-icon>menu</mat-icon></button>
+  <img class="title-img" alt="Logo" [style]="CUSTOMIZATION.headerLogoStyle" [src]="CUSTOMIZATION.headerLogoUrl" [routerLink]="getHomeUrl()">
   <span class="spacer"></span>
-  <form (ngSubmit)="search()">
-    <mat-form-field appearance="fill" #searchFormField>
-      <mat-icon matPrefix>search</mat-icon>
-      <mat-label>{{'NAV.SEARCH_LABEL' | translate}}</mat-label>
-      <input #searchInput matInput [formControl]="searchCtrl" [matAutocomplete]="subjectsAuto" name="search" type="text" autocomplete="off">
-    </mat-form-field>
-  </form>
+  <ng-container *ngIf="displaySearchBar">
+    <form class="search-user-form" fxHide.lt-sm (ngSubmit)="search()" ngClass.lt-md="sm">
+      <mat-form-field appearance="fill">
+        <mat-icon matPrefix>search</mat-icon>
+        <mat-label>{{'NAV.SEARCH_LABEL' | translate}}</mat-label>
+        <input matInput [formControl]="searchCtrl" [matAutocomplete]="subjectsAuto" name="search" type="text" autocomplete="off">
+      </mat-form-field>
+    </form>
+    <button fxHide.gt-xs mat-icon-button (click)="openSearchDialog()"><mat-icon>search</mat-icon></button>
+  </ng-container>
   <span>
-    <button mat-button [matMenuTriggerFor]="userMenu"><mat-icon>account_circle</mat-icon> {{keycloak.getUsername()}}</button>
+    <button mat-icon-button [matTooltip]="'COMMON.UI_LANGUAGES.SWITCH_BUTTON_TOOLTIP' | translate"
+            [matMenuTriggerFor]="languagesMenu">
+      <mat-icon>language</mat-icon>
+    </button>
+    <button fxHide.gt-sm mat-icon-button [matMenuTriggerFor]="userMenu"><mat-icon>account_circle</mat-icon></button>
+    <button fxHide.lt-md mat-button [matMenuTriggerFor]="userMenu"><mat-icon>account_circle</mat-icon> {{keycloak.getUsername()}}</button>
+    <mat-menu #languagesMenu>
+      <ng-template matMenuContent>
+        <button mat-menu-item *ngFor="let language of LANGUAGES" [disabled]="language === translate.currentLang"
+                (click)="translate.use(language)">
+          {{'COMMON.UI_LANGUAGES.' + language | translate}}
+        </button>
+      </ng-template>
+    </mat-menu>
     <mat-menu #userMenu="matMenu">
       <button mat-menu-item (click)="keycloak.logout()">{{'NAV.KEYCLOAK.LOGOUT' | translate}}</button>
     </mat-menu>
   </span>
 </mat-toolbar>
 <mat-autocomplete #subjectsAuto="matAutocomplete" (optionSelected)="search()">
-  <mat-option *ngFor="let subject of filteredSubjects | async" [value]="subject">
-    {{ subject }}
+  <mat-option *ngFor="let subject of filteredSubjects | async" [value]="subject.name">
+    {{ subject.name }}
   </mat-option>
 </mat-autocomplete>
+<ng-template #searchDialog>
+  <form (ngSubmit)="search()">
+    <mat-dialog-content>
+      <mat-form-field appearance="fill" style="width: 100%">
+        <mat-icon matPrefix>search</mat-icon>
+        <mat-label>{{'NAV.SEARCH_LABEL' | translate}}</mat-label>
+        <input matInput [formControl]="searchCtrl" [matAutocomplete]="subjectsAuto" name="search" type="text" autocomplete="off">
+      </mat-form-field>
+    </mat-dialog-content>
+    <mat-dialog-actions class="btn-uppercase align-right" style="margin-top: -1.34em">
+      <button mat-button color="primary" type="button" mat-dialog-close>{{'COMMON.BUTTONS.CLOSE' | translate}}</button>
+      <button mat-button color="primary" type="submit">{{'COMMON.BUTTONS.SEARCH' | translate}}</button>
+    </mat-dialog-actions>
+  </form>
+</ng-template>

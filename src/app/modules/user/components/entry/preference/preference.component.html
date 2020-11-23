@@ -1,0 +1,58 @@
+<div class="model-entry">
+  <div class="model-name vertical">
+    {{getData()?.label}}
+    <small *ngIf="getData()?.description">{{getData().description}}</small>
+  </div>
+  <div class="model-action" *ngIf="control">
+
+    <form *ngIf="getData()?.valueType !== TYPES.NONE" class="answer-container">
+
+      <div *ngIf="getData()?.valueType === TYPES.TOGGLE">
+        <div class="user-input">
+          <label>{{getData().options[0]}}</label>
+          <mat-slide-toggle [formControl]="control" ></mat-slide-toggle>
+          <label>{{getData().options[1]}}</label>
+        </div>
+      </div>
+
+      <div *ngIf="getData()?.valueType === TYPES.CHECKBOXES">
+        <ul [formGroup]="checkboxesGroup">
+          <li *ngFor="let option of getData().options; index as index">
+            <mat-checkbox [formControlName]="option">{{option}}</mat-checkbox>
+          </li>
+        </ul>
+      </div>
+
+      <div *ngIf="getData()?.valueType === TYPES.RADIO_BUTTONS">
+        <mat-radio-group [formControl]="control">
+          <ul>
+            <li *ngFor="let option of getData().options">
+              <mat-radio-button [value]="option">{{option}}</mat-radio-button>
+            </li>
+          </ul>
+        </mat-radio-group>
+      </div>
+
+      <div *ngIf="getData()?.valueType === TYPES.LIST_SINGLE || getData()?.valueType === TYPES.LIST_MULTI">
+        <mat-form-field appearance="outline">
+          <mat-label>{{'ENTRIES.EDITOR.PREFERENCE.OPTIONS.LABEL' | translate}}</mat-label>
+          <mat-select [multiple]="getData().valueType === TYPES.LIST_MULTI" [formControl]="control">
+            <mat-option *ngFor="let option of getData()?.options" [value]="option">
+              {{option}}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+      </div>
+
+      <div *ngIf="getData()?.valueType === TYPES.FREE_TEXT">
+        <mat-form-field appearance="outline">
+          <mat-label>{{'ENTRIES.EDITOR.PREFERENCE.OPTIONS.LABEL' | translate}}</mat-label>
+          <input [formControl]="control" matInput autocomplete="off">
+        </mat-form-field>
+      </div>
+
+    </form>
+
+  </div>
+</div>
+

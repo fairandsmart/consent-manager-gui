@@ -2,30 +2,56 @@
   <div class="section-toolbar">
     <ng-container *ngIf="section.multiple || entries?.length === 0">
       <ng-container *ngIf="section.types.length === 1; else addMultiple">
-        <button [matTooltip]="'ENTRIES.BUTTON_ADD.' + section.types[0] | translate" mat-mini-fab (click)="newEntry(section.types[0])"><mat-icon>add</mat-icon></button>
+        <button [matTooltip]="'ENTRIES.BUTTON_ADD.' + section.types[0] | translate" mat-mini-fab
+                (click)="newEntry(section.types[0])">
+          <mat-icon>add</mat-icon>
+        </button>
       </ng-container>
       <ng-template #addMultiple>
-        <button [matTooltip]="'ENTRIES.BUTTON_ADD.MULTIPLE' | translate" mat-mini-fab [matMenuTriggerFor]="addMultipleMenu"><mat-icon>add</mat-icon></button>
+        <button [matTooltip]="'ENTRIES.BUTTON_ADD.MULTIPLE' | translate" mat-mini-fab
+                [matMenuTriggerFor]="addMultipleMenu">
+          <mat-icon>add</mat-icon>
+        </button>
         <mat-menu #addMultipleMenu>
-          <button mat-menu-item *ngFor="let type of section.types" (click)="newEntry(type)">{{'ENTRIES.BUTTON_ADD.' + type | translate}}</button>
+          <button mat-menu-item *ngFor="let type of section.types" (click)="newEntry(type)">
+            {{'ENTRIES.BUTTON_ADD.' + type | translate}}
+          </button>
         </mat-menu>
       </ng-template>
     </ng-container>
     <div *ngIf="section.showSort && entries.length > 0 && section.orderingOptions.length > 0" class="sort-actions">
-      <button mat-button [matMenuTriggerFor]="orderMenu">{{'ENTRIES.COMMON.' + section.filter.order + '.LABEL' | translate}}</button>
+      <button mat-button [matMenuTriggerFor]="orderMenu">
+        {{'ENTRIES.COMMON.' + section.filter.order + '.LABEL' | translate}}
+      </button>
       <mat-menu #orderMenu>
         <ng-template matMenuContent>
-          <button mat-menu-item *ngFor="let option of section.orderingOptions" [disabled]="section.filter.order === option" (click)="sortBy(option, section)">{{'ENTRIES.COMMON.' + option + '.LABEL' | translate}}</button>
+          <button mat-menu-item *ngFor="let option of section.orderingOptions"
+                  [disabled]="section.filter.order === option" (click)="sortBy(option, section)">
+            {{'ENTRIES.COMMON.' + option + '.LABEL' | translate}}
+          </button>
         </ng-template>
       </mat-menu>
-      <button (click)="toggleDirection(section)" mat-icon-button><mat-icon>{{section.filter.direction === 'asc' ? 'arrow_upward' : 'arrow_downward'}}</mat-icon></button>
+      <button (click)="toggleDirection(section)" mat-icon-button>
+        <mat-icon>{{section.filter.direction === 'asc' ? 'arrow_upward' : 'arrow_downward'}}</mat-icon>
+      </button>
     </div>
   </div>
-  <mat-grid-list *ngIf="entries.length > 0" cols="3" gutterSize="10" rowHeight="110" [class.loading]="section.dataSource.loading$ | async">
-    <mat-grid-tile *ngFor="let entry of entries">
-      <cm-entry-card [routerLink]="'./' + entry.id" [entry]="entry" [showDetail]="true"></cm-entry-card>
-    </mat-grid-tile>
-  </mat-grid-list>
+  <div *ngIf="entries.length > 0" class="entries-wrapper" fxLayout="row wrap"
+       [class.loading]="section.dataSource.loading$ | async">
+    <cm-entry-card *ngFor="let entry of entries"
+                   fxFlex="0 0 calc(33.33%-10px)"
+                   fxFlex.md="0 0 calc(50%-10px)"
+                   fxFlex.lt-md="0 0 100%"
+                   [routerLink]="'./' + entry.id"
+                   [entry]="entry" [showDetail]="true"></cm-entry-card>
+  </div>
+<!--  <mat-grid-list *ngIf="entries.length > 0" cols="3" gutterSize="10" rowHeight="110"-->
+<!--                 [class.loading]="section.dataSource.loading$ | async">-->
+<!--    <mat-grid-tile *ngFor="let entry of entries">-->
+<!--      <cm-entry-card [routerLink]="'./' + entry.id" [entry]="entry" [showDetail]="true"></cm-entry-card>-->
+<!--    </mat-grid-tile>-->
+<!--  </mat-grid-list>-->
 </ng-container>
 <mat-paginator [class.single-page]="paginator.pageIndex === 0 && !paginator.hasNextPage()"
-               #paginator="matPaginator" [hidePageSize]="true" [pageIndex]="section.filter.page" [pageSize]="section.filter.size"></mat-paginator>
+               #paginator="matPaginator" [hidePageSize]="true" [pageIndex]="section.filter.page"
+               [pageSize]="section.filter.size"></mat-paginator>

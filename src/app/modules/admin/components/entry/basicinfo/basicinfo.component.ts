@@ -13,12 +13,14 @@ import { AlertService } from '../../../../../core/services/alert.service';
 })
 export class BasicinfoComponent extends EntryContentDirective<BasicInfo> implements OnInit {
 
+  static CONTEXT = 'Basic-Info';
+
   constructor(
     private fb: FormBuilder,
     modelsResourceService: ModelsResourceService,
     alertService: AlertService,
     sanitizer: DomSanitizer) {
-    super(modelsResourceService, alertService, sanitizer);
+    super(BasicinfoComponent.CONTEXT, modelsResourceService, alertService, sanitizer);
   }
 
   get type(): ModelDataType {
@@ -59,14 +61,16 @@ export class BasicinfoComponent extends EntryContentDirective<BasicInfo> impleme
       showAcceptAll: [false],
       customAcceptAllText: ['']
     });
+    this.checkFormState();
+  }
 
+  registerFormChanges(): void {
     this.form.get('jurisdiction').valueChanges.subscribe(v => this.optionalFieldChange(v, 'showJurisdiction'));
     this.form.get('collectionMethod').valueChanges.subscribe(v => this.optionalFieldChange(v, 'showCollectionMethod'));
     this.form.get('scope').valueChanges.subscribe(v => this.optionalFieldChange(v, 'showScope'));
     this.form.get('shortNoticeLink').valueChanges.subscribe(v => this.optionalFieldChange(v, 'showShortNoticeLink'));
     this.form.get('dataController').valueChanges.subscribe(v => this.dataControllerChange(v));
-
-    this.initPreview();
+    super.registerFormChanges();
   }
 
   private optionalFieldChange(value: string, linkedControllerName: keyof BasicInfo): void {
@@ -90,7 +94,7 @@ export class BasicinfoComponent extends EntryContentDirective<BasicInfo> impleme
   private isDataControllerEmpty(dataController: Controller): boolean {
     if (this.form.contains('dataController')) {
       return !['company', 'name', 'address', 'email', 'phoneNumber']
-        .some(k => dataController[k].length > 0);
+        .some(k => dataController[k] != null && dataController[k].length > 0);
     }
     return true;
   }

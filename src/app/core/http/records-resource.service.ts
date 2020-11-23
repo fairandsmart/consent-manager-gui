@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { CollectionPage, RecordDto, RecordFilter } from '../models/models';
-import { Observable } from 'rxjs';
+import { Observable, of } from 'rxjs';
 import { environment } from '../../../environments/environment';
 import { HttpClient } from '@angular/common/http';
 
@@ -24,7 +24,7 @@ export class RecordsResourceService {
   }
 
   getStats(): Observable<object[]> {
-    return this.http.get<object[]>(`${environment.managerUrl}/subjects`, {params: {name: 'jack'}}); // TODO
+    return of([{todo: 'TODO'}]); // TODO :)
   }
 
 }

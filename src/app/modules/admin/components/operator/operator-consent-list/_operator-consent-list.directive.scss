@@ -1,0 +1,56 @@
+@import '~src/variables';
+
+h2 {
+  display: flex;
+  align-items: center;
+
+  mat-icon {
+    margin-right: 8px;
+  }
+}
+
+.progress-bar-container {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 0;
+}
+
+table {
+  width: 100%;
+
+  &.loading {
+    ::ng-deep tbody tr {
+      opacity: 0.5;
+    }
+  }
+
+  td {
+    max-width: 20em;
+  }
+
+  th.mat-header-cell, td.mat-cell {
+    padding: 0 6px;
+  }
+
+  th.mat-header-cell:first-of-type, td.mat-cell:first-of-type {
+    padding-left: 24px;
+  }
+
+  th.mat-header-cell:last-of-type, td.mat-cell:last-of-type {
+    padding-right: 24px;
+  }
+
+  td.mat-column-status span {
+    padding: 4px;
+    border-radius: 4px;
+    border: 1px solid mat-color($mat-red, 800);
+    background-color: mat-color($mat-red, 500);
+    &[record-status="VALID"] {
+      &[record-value="accepted"] {
+        border: 1px solid mat-color($mat-green, 800);
+        background-color: mat-color($mat-green, 500);
+      }
+    }
+  }
+}

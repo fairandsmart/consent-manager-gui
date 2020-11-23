@@ -1,0 +1,48 @@
+:host {
+  display: block;
+  max-width: 1000px;
+  margin: auto;
+}
+
+.user-page {
+  display: grid;
+  grid-template-areas: 'details details' 'processing preferences';
+  grid-template-columns: 50% 50%;
+  grid-gap: 1.5em;
+}
+
+.user-details {
+  grid-area: details;
+  padding: 2em 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  mat-icon {
+    height: 120px;
+    width: 120px;
+    font-size: 120px;
+    color: #3F3F3F;
+  }
+
+  h3 {
+    letter-spacing: 1px;
+    margin-bottom: 0;
+  }
+}
+
+.user-processing {
+  grid-area: processing;
+}
+
+.user-preferences {
+  grid-area: preferences;
+}
+
+h2 {
+  margin-bottom: 0
+}
+p {
+  font-size: .9em;
+  opacity: .8;
+}

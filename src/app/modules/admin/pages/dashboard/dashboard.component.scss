@@ -1,27 +1,29 @@
 :host {
+  display: block;
   position: absolute;
   top: 0;
   left: 0;
   right: 0;
   bottom: 0;
-  display: block;
+}
 
-  ::ng-deep {
-    .dashboard {
-      margin: 0 auto;
-      //max-width: 1000px;
-      width: 100%;
-      box-sizing: border-box;
+.dashboard {
+  margin: 0 auto;
+  max-width: 1280px;
+  padding-top: 1em;
+  box-sizing: border-box;
 
-      .graphs {
-        display: flex;
-        flex-direction: row;
-        flex-wrap: wrap;
-        justify-content: center;
+  .graphs {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: center;
 
-        mat-card {
-          margin: 2em;
-        }
+    mat-card {
+      margin: 1em;
+      width: 500px;
+      mat-card-content {
+        height: 240px;
       }
     }
   }

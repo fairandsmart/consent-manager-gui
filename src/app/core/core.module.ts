@@ -17,12 +17,15 @@ import { CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HeaderNavComponent } from './components/header-nav/header-nav.component';
 import { RouterModule } from '@angular/router';
+import { FlexLayoutModule } from '@angular/flex-layout';
+import { RoutingErrorPageComponent } from './pages/routing-error-page/routing-error-page.component';
 
 @NgModule({
   declarations: [
     HeaderNavComponent,
     HealthErrorComponent,
-    ConfirmDialogComponent
+    ConfirmDialogComponent,
+    RoutingErrorPageComponent
   ],
   imports: [
     CommonModule,
@@ -30,7 +33,8 @@ import { RouterModule } from '@angular/router';
     FormsModule,
     ReactiveFormsModule,
     MaterialModule,
-    TranslateModule
+    TranslateModule,
+    FlexLayoutModule
   ],
   exports: [
     CommonModule,
@@ -39,6 +43,7 @@ import { RouterModule } from '@angular/router';
     ReactiveFormsModule,
     MaterialModule,
     TranslateModule,
+    FlexLayoutModule,
     HeaderNavComponent
   ],
   providers: [

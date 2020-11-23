@@ -1,13 +1,14 @@
 import { Component, Inject, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
-import { Observable } from 'rxjs';
+import { Observable, Subject } from 'rxjs';
 import { CreateModelDto, FIELD_VALIDATORS, ModelDataType, ModelEntryDto, UpdateModelDto } from '../../../../../core/models/models';
 import { ModelsResourceService } from '../../../../../core/http/models-resource.service';
 import { HttpErrorResponse } from '@angular/common/http';
+import { mergeMap } from 'rxjs/operators';
 
 export interface EntryEditorDialogComponentData {
-  entry: Partial<ModelEntryDto> & {type: ModelDataType};
+  entry: Partial<ModelEntryDto> & { type: ModelDataType };
 }
 
 @Component({
@@ -32,10 +33,6 @@ export class EntryEditorDialogComponent implements OnInit {
       type: ['', [
         Validators.required
       ]],
-      key: ['', [
-        Validators.required,
-        Validators.pattern(FIELD_VALIDATORS.key.pattern)
-      ]],
       name: ['', [
         Validators.required,
         Validators.minLength(FIELD_VALIDATORS.name.min),
@@ -54,6 +51,31 @@ export class EntryEditorDialogComponent implements OnInit {
     this.enableForm();
   }
 
+  generateKey(): Observable<string> {
+    return new Observable((observer) => {
+      const rootKey = this.form.get('type').value;
+      this.modelsResourceService.listEntries({ types: [rootKey], size: -1 }).subscribe((entries) => {
+        let increment = entries.values.length + 1;
+        const keyCheck$ = new Subject<void>();
+        keyCheck$.pipe(
+          mergeMap(() => this.modelsResourceService.listEntries({
+            keys: [rootKey + '.' + increment],
+            size: -1
+          })),
+        ).subscribe((result) => {
+          if (!result || result.values.length === 0) {
+            observer.next(rootKey + '.' + increment);
+            observer.complete();
+          } else {
+            increment++;
+            keyCheck$.next();
+          }
+        });
+        keyCheck$.next();
+      });
+    });
+  }
+
   submit(): void {
     if (this.form.invalid) {
       this.form.markAllAsTouched();
@@ -69,22 +91,26 @@ export class EntryEditorDialogComponent implements OnInit {
       };
       obs = this.modelsResourceService.updateEntry(this.data.entry.id, dto);
     } else {
-      const dto: CreateModelDto = {
-        type: formValue.type,
-        key: formValue.key,
-        name: formValue.name,
-        description: formValue.description
-      };
-      obs = this.modelsResourceService.createEntry(dto);
+      obs = this.generateKey().pipe(
+        mergeMap((key) => {
+          const dto: CreateModelDto = {
+            type: formValue.type,
+            key,
+            name: formValue.name,
+            description: formValue.description
+          };
+          return this.modelsResourceService.createEntry(dto);
+        })
+      );
     }
     obs.subscribe((entry) => {
       this.dialogRef.close(entry);
     }, (err: HttpErrorResponse) => {
       console.error(err);
       this.enableForm();
-      if (err.status === 409) {
-        this.form.get('key').setErrors({alreadyExists: true});
-      }
+      // if (err.status === 409) {
+      //   this.form.get('key').setErrors({alreadyExists: true});
+      // }
     });
   }
 
@@ -94,9 +120,9 @@ export class EntryEditorDialogComponent implements OnInit {
       if (this.data.entry.type) {
         this.form.get('type').disable();
       }
-      if (this.data.entry.key) {
-        this.form.get('key').disable();
-      }
+      // if (this.data.entry.key) {
+      //   this.form.get('key').disable();
+      // }
     }
   }
 

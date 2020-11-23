@@ -4,6 +4,8 @@ import { RolesGuardService } from './roles-guard.service';
 import { KeycloakService } from 'keycloak-angular';
 import SpyObj = jasmine.SpyObj;
 import createSpyObj = jasmine.createSpyObj;
+import { CoreTestingModule } from '../../testing/core-testing-module.spec';
+import { RouterTestingModule } from '@angular/router/testing';
 
 describe('RolesGuardService', () => {
   let service: RolesGuardService;
@@ -13,6 +15,7 @@ describe('RolesGuardService', () => {
     keycloakServiceSpy = createSpyObj('KeycloakService', ['isUserInRole']);
 
     TestBed.configureTestingModule({
+      imports: [ CoreTestingModule, RouterTestingModule ],
       providers: [
         RolesGuardService,
         {provide: KeycloakService, useValue: keycloakServiceSpy}

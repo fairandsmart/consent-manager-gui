@@ -29,6 +29,19 @@ export interface CollectionPage<T> {
   totalCount: number;
 }
 
+export enum Icons {
+  basicinfo = 'info',
+  processing = 'check_box',
+  preference = 'favorite',
+  conditions = 'text_snippet',
+  email = 'mail',
+  theme = 'palette',
+  cookies = 'local_offer',
+  gettingStarted = 'help',
+  formCreator = 'integration_instructions',
+  apiKey = 'vpn_key'
+}
+
 /* Models */
 
 export interface ModelEntryDto {
@@ -62,8 +75,8 @@ export interface ModelVersionDtoLight<T extends ModelData = ModelData> {
   parent?: string;
   child?: string;
   author?: string;
-  defaultLocale?: string;
-  availableLocales?: string[];
+  defaultLanguage?: string;
+  availableLanguages?: string[];
   status?: ModelVersionStatus;
   type?: ModelVersionType;
   creationDate?: number;
@@ -72,7 +85,7 @@ export interface ModelVersionDtoLight<T extends ModelData = ModelData> {
 }
 
 export interface ModelVersionDto<T extends ModelData = ModelData> extends ModelVersionDtoLight {
-  data: { [locale: string]: T };
+  data: { [language: string]: T };
 }
 
 export enum ModelVersionStatus {
@@ -118,7 +131,15 @@ export interface BasicInfo extends ModelData {
   customAcceptAllText: string;
 }
 
-export enum TreatmentPurpose {
+export enum RetentionUnit {
+  YEAR = 'YEAR',
+  MONTH = 'MONTH',
+  WEEK = 'WEEK'
+}
+
+export const RETENTION_UNITS = Object.keys(RetentionUnit);
+
+export enum ProcessingPurpose {
   CONSENT_CORE_SERVICE = 'CONSENT_CORE_SERVICE',
   CONSENT_IMPROVED_SERVICE = 'CONSENT_IMPROVED_SERVICE',
   CONSENT_MARKETING = 'CONSENT_MARKETING',
@@ -126,29 +147,44 @@ export enum TreatmentPurpose {
   CONSENT_RESEARCH = 'CONSENT_RESEARCH'
 }
 
-export const TREATMENT_PURPOSES = Object.keys(TreatmentPurpose);
+export const PROCESSING_PURPOSES = Object.keys(ProcessingPurpose);
 
-export interface Treatment extends ModelData {
-  type: 'treatment';
-  treatmentTitle: string;
-  dataTitle: string;
-  dataBody: string;
-  retentionTitle: string;
-  retentionBody: string;
-  usageTitle: string;
-  usageBody: string;
-  purposes: TreatmentPurpose[];
+export interface Processing extends ModelData {
+  type: 'processing';
+  title: string;
+  data: string;
+  retentionLabel: string;
+  retentionValue: number;
+  retentionUnit: RetentionUnit;
+  usage: string;
+  purposes: ProcessingPurpose[];
   containsSensitiveData: boolean;
   containsMedicalData: boolean;
   dataController: Controller;
   showDataController: boolean;
   thirdParties: { name: string, value: string }[];
+  associatedWithPreferences: boolean;
+  associatedPreferences: string[];
 }
+
+export enum PreferenceValueType {
+  NONE = 'NONE',
+  TOGGLE = 'TOGGLE',
+  CHECKBOXES = 'CHECKBOXES',
+  RADIO_BUTTONS = 'RADIO_BUTTONS',
+  LIST_SINGLE = 'LIST_SINGLE',
+  LIST_MULTI = 'LIST_MULTI',
+  FREE_TEXT = 'FREE_TEXT'
+}
+
+export const PREFERENCE_VALUE_TYPES: PreferenceValueType[] = Object.keys(PreferenceValueType) as PreferenceValueType[];
 
 export interface Preference extends ModelData {
   type: 'preference';
-  title: string;
-  body: string;
+  label: string;
+  description: string;
+  options: string[];
+  valueType: PreferenceValueType;
 }
 
 export interface Conditions extends ModelData {
@@ -186,16 +222,17 @@ export interface Email extends ModelData {
   signature: string;
 }
 
-export type ModelDataType = 'basicinfo' | 'treatment' | 'conditions' | 'theme' | 'email' | 'preference';
+export type ModelDataType = 'basicinfo' | 'processing' | 'conditions' | 'theme' | 'email' | 'preference';
 
 export interface PreviewDto {
-  locale: string;
+  language: string;
   orientation: ConsentFormOrientation;
   data?: ModelData;
 }
 
 export interface ModelFilter {
-  types: ModelDataType[];
+  types?: ModelDataType[];
+  keys?: string[];
   page?: number;
   size?: number;
   order?: string;
@@ -209,20 +246,20 @@ export interface ConsentContext {
   orientation: ConsentFormOrientation;
   info: string;
   elements: string[];
+  associatePreferences: boolean;
   callback: string;
-  locale: string;
+  language: string;
   validity?: string;
   formType: ConsentFormType;
   receiptDeliveryType: ReceiptDeliveryType;
   userinfos: { [key: string]: string };
   attributes: { [key: string]: string };
-  optoutModel: string;
-  optoutRecipient: string;
+  notificationModel: string;
+  notificationRecipient: string;
   collectionMethod: CollectionMethod;
   author: string;
   preview: boolean;
   iframe: boolean;
-  conditions?: boolean;
   theme?: string;
 }
 
@@ -240,7 +277,8 @@ export enum ConsentFormType {
 
 export enum CollectionMethod {
   WEBFORM = 'WEBFORM',
-  OPERATOR = 'OPERATOR'
+  OPERATOR = 'OPERATOR',
+  EMAIL = 'EMAIL'
 }
 
 export type ReceiptDeliveryType = 'NONE' | 'GENERATE' | 'DISPLAY' | 'STORE' | 'DOWNLOAD';
@@ -250,12 +288,20 @@ export const RECEIPT_DELIVERY_TYPES: ReceiptDeliveryType[] = ['NONE', 'GENERATE'
 /* Records */
 
 export enum RecordStatus {
-  PENDING = 'PENDING',
-  COMMITTED = 'COMMITTED',
-  DELETED = 'DELETED',
   VALID = 'VALID',
   OBSOLETE = 'OBSOLETE',
-  IRRELEVANT = 'IRRELEVANT'
+  EXPIRED = 'EXPIRED',
+  IRRELEVANT = 'IRRELEVANT',
+  UNKNOWN = 'UNKNOWN'
+}
+
+export enum RecordStatusExplanation {
+  LATEST_VALID = 'LATEST_VALID',
+  OBSOLETE = 'OBSOLETE',
+  EXPIRED = 'EXPIRED',
+  INFO_SERIAL_ARCHIVED = 'INFO_SERIAL_ARCHIVED',
+  BODY_SERIAL_ARCHIVED = 'BODY_SERIAL_ARCHIVED',
+  NOT_COMMITTED = 'NOT_COMMITTED'
 }
 
 export interface RecordDto {
@@ -268,8 +314,11 @@ export interface RecordDto {
   type: string;
   value: string;
   status: RecordStatus;
+  statusExplanation: RecordStatusExplanation;
   collectionMethod: CollectionMethod;
   comment: string;
+  mailRecipient: string;
+  transaction: string;
 }
 
 export interface RecordFilter {
@@ -288,6 +337,10 @@ export interface RecordFilter {
   direction?: SortDirection;
 }
 
+export interface RecordsMap {
+  [key: string]: RecordDto[];
+}
+
 export interface Key {
   id?: string;
   name: string;
@@ -298,6 +351,7 @@ export interface Key {
 }
 
 export interface EntryRecord {
+  id: string;
   key: string;
   type: string;
   name: string;
@@ -309,6 +363,7 @@ export interface EntryRecord {
   collectionMethod?: CollectionMethod;
   status?: RecordStatus;
   active: boolean;
+  versionIndex: number;
 }
 
 export interface EntryRecordFilter extends ModelFilter {
@@ -316,4 +371,20 @@ export interface EntryRecordFilter extends ModelFilter {
   subject: string;
   before?: number;
   after?: number;
+}
+
+export interface OperatorLogElement {
+  type: string;
+  key: string;
+  identifier: string;
+  value: string;
+}
+
+/* Subjects */
+
+export interface SubjectDto {
+  id: string;
+  name: string;
+  emailAddress: string;
+  creationTimestamp: number;
 }

@@ -8,6 +8,7 @@
 
   .container {
     margin: 2em auto;
+    padding: 0 2em;
     max-width: 1000px;
   }
 
@@ -33,6 +34,18 @@
 
       td {
         max-width: 20em;
+      }
+
+      th.mat-header-cell, td.mat-cell {
+        padding: 0 6px;
+      }
+
+      th.mat-header-cell:first-of-type, td.mat-cell:first-of-type {
+        padding-left: 24px;
+      }
+
+      th.mat-header-cell:last-of-type, td.mat-cell:last-of-type {
+        padding-right: 24px;
       }
 
       .mat-footer-cell {

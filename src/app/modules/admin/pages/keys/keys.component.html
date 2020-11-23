@@ -1,9 +1,9 @@
 <div class="container">
   <div class="title-container">
-    <h2>{{'API.KEYS.TITLE' | translate}}</h2>
+    <h2><mat-icon>{{ICONS.apiKey}}</mat-icon> {{'API.KEYS.TITLE' | translate}}</h2>
   </div>
 
-  <div class="table-container mat-elevation-z6">
+  <div class="table-container mat-elevation-z1">
     <div class="progress-bar-container" *ngIf="dataSource.loading$ | async">
       <mat-progress-bar mode="indeterminate"></mat-progress-bar>
     </div>
@@ -26,7 +26,8 @@
 
       <ng-container matColumnDef="lastAccessDate">
         <th mat-header-cell *matHeaderCellDef>{{'API.KEYS.LAST_ACCESS_DATE.LABEL' | translate}}</th>
-        <td mat-cell *matCellDef="let element">{{ (element.lastAccessDate !== -1) ? (element.lastAccessDate | date: 'dd MMM yyyy HH:mm') : "-" }}</td>
+        <td mat-cell
+            *matCellDef="let element">{{ (element.lastAccessDate !== -1) ? (element.lastAccessDate | date: 'dd MMM yyyy HH:mm') : "-" }}</td>
       </ng-container>
 
       <ng-container matColumnDef="actions">
@@ -43,9 +44,11 @@
           <form (ngSubmit)="generateKey()" [formGroup]="form">
             <mat-form-field class="generate-field">
               <mat-label>{{'API.KEYS.GENERATE.LABEL' | translate}}</mat-label>
-              <input formControlName="name" matInput placeholder="{{'API.KEYS.GENERATE.PLACEHOLDER' | translate}}" autocomplete="off">
+              <input formControlName="name" matInput placeholder="{{'API.KEYS.GENERATE.PLACEHOLDER' | translate}}"
+                     autocomplete="off">
             </mat-form-field>
-            <button mat-flat-button type="submit" [disabled]="form.disabled" color="primary" class="generate-button">{{'API.KEYS.GENERATE.BUTTON' | translate}}</button>
+            <button mat-flat-button type="submit" [disabled]="form.disabled" color="primary"
+                    class="generate-button">{{'API.KEYS.GENERATE.BUTTON' | translate}}</button>
           </form>
         </td>
       </ng-container>

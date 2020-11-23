@@ -1,0 +1,22 @@
+<div class="user-page">
+  <div class="user-details">
+    <mat-icon>account_circle</mat-icon>
+    <h3>{{username}}</h3>
+    <!-- CGU here -->
+  </div>
+  <div class="user-processing">
+    <mat-card>
+      <h2>{{'USER.CONSENTS.TITLE' | translate}}</h2>
+      <p>{{'USER.CONSENTS.HINT' | translate}}</p>
+      <cm-entry-card [entry]="card.entry" [record]="card.record" *ngFor="let card of filterCards(data, 'conditions')"></cm-entry-card>
+      <cm-entry-card [entry]="card.entry" [record]="card.record" *ngFor="let card of filterCards(data, 'processing')"></cm-entry-card>
+    </mat-card>
+  </div>
+  <div class="user-preferences">
+    <mat-card>
+      <h2>{{'USER.PREFERENCES.TITLE' | translate}}</h2>
+      <p>{{'USER.PREFERENCES.HINT' | translate}}</p>
+      <cm-entry-card [entry]="card.entry" [record]="card.record" *ngFor="let card of filterCards(data, 'preference')"></cm-entry-card>
+    </mat-card>
+  </div>
+</div>

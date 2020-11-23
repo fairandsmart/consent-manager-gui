@@ -1,7 +1,6 @@
 {
   "NAV": {
-    "TITLE": "Gestionnaire de consentements",
-    "SEARCH_LABEL": "Recherche",
+    "SEARCH_LABEL": "Rechercher un utilisateur",
     "KEYCLOAK": {
       "LOGOUT": "Déconnexion"
     },
@@ -12,7 +11,7 @@
       "MODELS": {
         "LABEL": "Configuration",
         "INFO": "Informations",
-        "TREATMENTS": "Traitements",
+        "PROCESSING": "Traitements",
         "PREFERENCES": "Préférences",
         "CONDITIONS": "CGU/CGS",
         "EMAILS": "Emails",
@@ -20,8 +19,9 @@
       },
       "INTEGRATION": {
         "LABEL": "Intégration",
+        "GETTING_STARTED": "Bien démarrer",
         "FORM_CREATOR": "Formulaire",
-        "API": "API"
+        "API": "Accès à l'API"
       }
     }
   },
@@ -34,11 +34,13 @@
       "EDIT": "Modifier",
       "SUBMIT": "Valider",
       "BACK": "Retour",
-      "CLOSE": "Fermer"
+      "CLOSE": "Fermer",
+      "COPY": "Copier",
+      "SEARCH": "Rechercher"
     },
     "ENTRY_TYPES": {
       "BASICINFO": "Informations",
-      "TREATMENT": "Traitement",
+      "PROCESSING": "Traitement",
       "PREFERENCE": "Préférence",
       "CONDITIONS": "CGU/CGS",
       "THEME": "Thème",
@@ -46,25 +48,23 @@
     },
     "COLLECTION_METHODS": {
       "WEBFORM": "Formulaire Web",
-      "OPERATOR": "Opérateur"
+      "OPERATOR": "Opérateur",
+      "EMAIL": "Email"
     },
     "LANGUAGES": {
       "EN": "Anglais",
       "FR": "Français"
     },
-    "LOCALE": {
+    "UI_LANGUAGES": {
+      "SWITCH_BUTTON_TOOLTIP": "Langue",
+      "en": "English",
+      "fr": "Français"
+    },
+    "LANGUAGE": {
       "LABEL": "Langue"
     },
-    "DEFAULT_LOCALE": {
+    "DEFAULT_LANGUAGE": {
       "LABEL": "Langue par défaut"
-    },
-    "RECORD_STATUS": {
-      "PENDING": "En attente",
-      "COMMITTED": "Validé",
-      "DELETED": "Supprimé",
-      "VALID": "Valide",
-      "OBSOLETE": "Obsolète",
-      "IRRELEVANT": "Hors sujet"
     }
   },
   "MATERIAL": {
@@ -92,36 +92,50 @@
     "CONFIRM": "Confirmer",
     "CANCEL": "Annuler"
   },
+  "ROUTING": {
+    "404": {
+      "TITLE": "404 Page introuvable",
+      "BODY": "Ceci n'est pas la page que vous recherchez."
+    }
+  },
   "ENTRIES": {
     "TITLE": "Éléments",
     "infos": {
       "PANEL_TITLE": "Informations générales",
+      "PANEL_DESCRIPTION_HTML": "<div>Voici les informations générales que vous avez paramétrées.</div><div>Cela permet d'informer vos utilisateurs de votre politique de confidentialité, par exemple.</div><div>Vous ne pouvez en créer qu'un seul ensemble.</div>",
       "EMPTY": "Commencez par spécifier les informations générales..."
     },
-    "treatments": {
+    "processing": {
       "PANEL_TITLE": "Bibliothèque de traitements",
+      "PANEL_DESCRIPTION_HTML": "<div>Voici les traitements que vous avez paramétrés.</div><div>Cela permet de demander leur consentement à vos utilisateurs.</div><div>Vous pouvez en créer de nouveaux à tout moment en cliquant sur \"+\".</div>",
       "EMPTY": "Commencez par ajouter un traitement..."
     },
     "preferences": {
       "PANEL_TITLE": "Bibliothèque de préférences",
+      "PANEL_DESCRIPTION_HTML": "<div>Voici les préférences que vous avez paramétrées.</div><div>Cela permet de demander à vos utilisateurs des précisions concernant leurs préférences de contact ou autre.</div><div>Vous pouvez en créer de nouvelles à tout moment en cliquant sur \"+\".</div>",
       "EMPTY": "Commencez par ajouter une préférence..."
     },
     "conditions": {
       "PANEL_TITLE": "Bibliothèque de CGU",
+      "PANEL_DESCRIPTION_HTML": "<div>Voici les CGU que vous avez paramétrées.</div><div>Cela permet de demander leur consentement à vos utilisateurs.</div><div>Vous pouvez en créer de nouvelles à tout moment en cliquant sur \"+\".</div>",
       "EMPTY": "Commencez par ajouter des CGU..."
     },
     "themes": {
       "PANEL_TITLE": "Bibliothèque de thèmes",
-      "EMPTY": "Commencez par ajouter un thème...",
-      "NO_DESCRIPTION": "Pas de description"
+      "PANEL_DESCRIPTION_HTML": "<div>Voici les thèmes que vous avez paramétrés.</div><div>Cela permet de modifier le style de vos formulaires.</div><div>Vous pouvez en créer de nouveaux à tout moment en cliquant sur \"+\".</div>",
+      "EMPTY": "Commencez par ajouter un thème..."
     },
     "emails": {
       "PANEL_TITLE": "Bibliothèque d'emails",
+      "PANEL_DESCRIPTION_HTML": "<div>Voici les emails que vous avez paramétrés.</div><div>Cela permet de notifier vos utilisateurs.</div><div>Vous pouvez en créer de nouveaux à tout moment en cliquant sur \"+\".</div>",
       "EMPTY": "Commencez par ajouter un email..."
+    },
+    "elements": {
+      "EMPTY": "Commencez par ajouter un traitement ou une préférence..."
     },
     "BUTTON_ADD": {
       "basicinfo": "Ajouter les informations de base",
-      "treatment": "Ajouter un traitement",
+      "processing": "Ajouter un traitement",
       "preference": "Ajouter une préférence",
       "conditions": "Ajouter des CGU",
       "theme": "Ajouter un thème",
@@ -144,10 +158,12 @@
       },
       "name": {
         "LABEL": "Nom",
-        "REQUIRED": "Vous devez préciser un nom"
+        "REQUIRED": "Vous devez préciser un nom",
+        "HINT": "Référence interne jamais affichée au client"
       },
       "description": {
-        "LABEL": "Description"
+        "LABEL": "Description",
+        "HINT": "Description interne jamais affichée au client"
       },
       "type": {
         "LABEL": "Type"
@@ -155,13 +171,19 @@
       "version": {
         "LABEL": "Version"
       },
+      "saveState": {
+        "title": "Formulaire abandonné",
+        "content": "Vous avez quitté la page sans sauvegarder les changements. Voulez-vous les restaurer ?",
+        "accept": "Oui",
+        "refuse": "Non"
+      },
       "EMPTY_LIST": "Aucun élément"
     },
     "CREATE_BUTTON": "Nouvel élément",
     "DIALOG": {
       "TITLE_NEW": {
         "basicinfo": "Nouvelles informations de base",
-        "treatment": "Nouveau traitement",
+        "processing": "Nouveau traitement",
         "preference": "Nouvelle préférence",
         "conditions": "Nouvelles CGU",
         "theme": "Nouveau thème",
@@ -169,7 +191,7 @@
       },
       "TITLE_UPDATE": {
         "basicinfo": "Modification des informations de base",
-        "treatment": "Modification du traitement",
+        "processing": "Modification du traitement",
         "preference": "Modification de la préférence",
         "conditions": "Modification des CGU",
         "theme": "Modification du thème",
@@ -178,7 +200,7 @@
     },
     "PREVIEW": {
       "TITLE": "Prévisualisation",
-      "NO_LOCALE": "Sélectionnez une langue pour afficher la prévisualisation."
+      "NO_LANGUAGE": "Sélectionnez une langue pour afficher la prévisualisation."
     },
     "EDITOR": {
       "INFORMATION": {
@@ -192,7 +214,7 @@
       "CONTENT": {
         "TITLE": {
           "BASICINFO": "Contenu des informations de base",
-          "TREATMENT": "Contenu du traitement",
+          "PROCESSING": "Contenu du traitement",
           "PREFERENCE": "Contenu de la préférence",
           "CONDITIONS": "Contenu des CGU",
           "THEME": "Contenu du thème",
@@ -202,6 +224,7 @@
         "HIDE": "N'afficher que dans les reçus",
         "DATA_CONTROLLER": {
           "TITLE": "Responsable de traitement",
+          "SUBTITLE_OPTIONAL": "(si différent de celui indiqué dans les informations générales)",
           "ACTING_BEHALF_COMPANY": {
             "LABEL": "Ce responsable agit au nom de l'entreprise"
           },
@@ -277,40 +300,39 @@
           }
         }
       },
-      "TREATMENT": {
+      "PROCESSING": {
         "SUBTITLES": {
           "TITLE": "Titre",
           "DATA": "Données traitées",
-          "RETENTION": "Durée de rétention des données",
+          "RETENTION": "Durée de conservation des données",
           "USAGE": "Finalité du traitement",
-          "LAW": "Informations juridiques"
+          "LAW": "Informations juridiques",
+          "ASSOCIATIONS": "Préférences associées"
         },
         "TITLE": {
           "LABEL": "Libellé du traitement"
         },
         "DATA": {
-          "TITLE": {
-            "LABEL": "Libellé des données"
-          },
-          "BODY": {
-            "LABEL": "Description des données"
-          }
+          "LABEL": "Description des données collectées"
         },
         "RETENTION": {
-          "TITLE": {
-            "LABEL": "Libellé de la durée de rétention"
-          },
           "BODY": {
-            "LABEL": "Description de la durée de rétention"
+            "LABEL": "Description de la durée de conservation des données"
+          },
+          "VALUE": {
+            "LABEL": "Valeur"
+          },
+          "UNIT": {
+            "LABEL": "Unité",
+            "VALUES": {
+              "YEAR": "An(s)",
+              "MONTH": "Mois",
+              "WEEK": "Semaine(s)"
+            }
           }
         },
         "USAGE": {
-          "TITLE": {
-            "LABEL": "Libellé de la finalité"
-          },
-          "BODY": {
-            "LABEL": "Description de la finalité"
-          }
+          "LABEL": "Description de la finalité"
         },
         "PURPOSE": {
           "LABEL": "Base de consentement",
@@ -334,17 +356,41 @@
           "VALUE": "Description",
           "BUTTON_ADD": "Ajouter une tierce-partie",
           "EMPTY": "Aucune tierce-partie pour le moment."
+        },
+        "ASSOCIATE": {
+          "LABEL": "Ce traitement est lié à une ou plusieurs préférence(s)"
+        },
+        "ASSOCIATED_PREFERENCES": {
+          "LABEL": "Préférences associées"
         }
       },
       "PREFERENCE": {
         "SUBTITLES": {
-          "CONTENT": "Contenu"
+          "CONTENT": "Contenu",
+          "OPTIONS": "Options"
         },
-        "TITLE": {
-          "LABEL": "Libellé"
+        "LABEL": {
+          "LABEL": "Libellé des préférences"
         },
-        "BODY": {
-          "LABEL": "Corps"
+        "DESCRIPTION": {
+          "LABEL": "Description"
+        },
+        "VALUE_TYPE": {
+          "LABEL": "Type de réponse",
+          "VALUES": {
+            "NONE": "Aucune",
+            "TOGGLE": "Interrupteur",
+            "CHECKBOXES": "Cases à cocher",
+            "RADIO_BUTTONS": "Boutons radio",
+            "LIST_SINGLE": "Liste à choix unique",
+            "LIST_MULTI": "Liste à choix multiple",
+            "FREE_TEXT": "Texte libre"
+          }
+        },
+        "OPTIONS": {
+          "LABEL": "Options",
+          "PLACEHOLDER": "Entrez ici vos options",
+          "TOGGLE_HINT": "Entrez une première valeur pour la position \"refuser\", et une seconde pour la position \"accepter\"."
         }
       },
       "CONDITIONS": {
@@ -354,7 +400,7 @@
           "BUTTONS": "Boutons"
         },
         "TITLE": {
-          "LABEL": "Libellé"
+          "LABEL": "Libellé des CGU"
         },
         "BODY": {
           "LABEL": "CGU/CGS",
@@ -377,7 +423,7 @@
           "CONTENT": "Corps de l'email"
         },
         "SENDER": {
-          "LABEL": "Expéditeur"
+          "LABEL": "Adresse email de l'expéditeur"
         },
         "SUBJECT": {
           "LABEL": "Sujet"
@@ -397,49 +443,39 @@
         "SIGNATURE": {
           "LABEL": "Signature"
         }
+      },
+      "THEMES": {
+        "SUBTITLES": {
+          "TYPE": "Type de thème",
+          "CSS": "Feuille de style"
+        },
+        "IFRAME": {
+          "TITLE": "Prévisualisation"
+        },
+        "TARGET_TYPE": {
+          "LABEL": "Catégorie",
+          "VALUES": {
+            "FORM": "Formulaire de consentement",
+            "EMAIL": "Email de confirmation"
+          }
+        },
+        "CSS": {
+          "LABEL": "Style",
+          "HINT": "Renseignez votre style CSS ou déposez un fichier CSS",
+          "AUTOCOMPLETE": "(profitez de l'auto-complétion grâce à CTRL+E ou CMD+E pour vous aider à paramétrer le style des éléments du formulaire)"
+        }
       }
     }
   },
   "ENTRY_CARD": {
     "LABEL_NO_DESCRIPTION": "Pas de description",
+    "ACTIVE": {
+      "true": "Actif",
+      "false": "Non actif"
+    },
     "ACTIVE_VERSION": "Actif",
+    "INACTIVE_VERSION": "Non actif",
     "LANGUAGES_TOOLTIP": "Langue(s)"
-  },
-  "THEMES": {
-    "TITLE": "Thèmes",
-    "SUBTITLES": {
-      "TYPE": "Type de thème",
-      "CSS": "Feuille de style"
-    },
-    "IFRAME": {
-      "TITLE": "Prévisualisation"
-    },
-    "COMMON": {
-      "KEY": {
-        "LABEL": "Référence"
-      },
-      "NAME": {
-        "LABEL": "Nom"
-      },
-      "PRESENTATION": {
-        "LABEL": "Présentation"
-      },
-      "TARGET_TYPE": {
-        "LABEL": "Catégorie",
-        "VALUES": {
-          "FORM": "Formulaire de consentement",
-          "EMAIL": "Email de confirmation"
-        }
-      },
-      "ICON": {
-        "LABEL": "Vignette"
-      },
-      "CSS": {
-        "LABEL": "Style",
-        "HINT": "Renseignez votre style CSS ou déposez un fichier CSS",
-        "AUTOCOMPLETE": "(profitez de l'auto-complétion grâce à CTRL+E ou CMD+E pour vous aider à paramétrer le style des éléments du formulaire)"
-      }
-    }
   },
   "RECORDS": {
     "TITLE": "Consentements",
@@ -450,46 +486,104 @@
       "NAME": {
         "LABEL": "Nom"
       },
-      "TYPE": {
+      "SUBTYPE": {
         "LABEL": "Type"
       },
-      "VALUE": {
-        "LABEL": "Réponse",
-        "ACCEPTED": "Accepté",
-        "REFUSED": "Refusé"
+      "VERSION": {
+        "LABEL": "Version"
       },
       "COLLECTION_METHOD": {
         "LABEL": "Méthode de collecte"
       },
+      "HISTORY": {
+        "LABEL": "Voir tous les enregistrements"
+      },
+      "STATUS": {
+        "LABEL": "Statut",
+        "VALID": "Valide",
+        "INVALID": "Non valide"
+      },
+      "STATUS_DETAILS": {
+        "LABEL": "Explication du statut",
+        "LATEST_VALID": "Consentement valide le plus récent",
+        "OBSOLETE": "Un consentement valide plus récent existe",
+        "EXPIRED": "Date d'expiration atteinte",
+        "INFO_SERIAL_ARCHIVED": "Numéro de série des informations générales inactif",
+        "BODY_SERIAL_ARCHIVED": "Numéro de série de l'élément inactif",
+        "NOT_COMMITTED": "Les consentements non committés ne sont pas pertinents"
+      },
+      "PROCESSING_VALUE": {
+        "LABEL": "Valeur actuelle",
+        "accepted": "Accepter",
+        "refused": "Refuser"
+      },
+      "PROCESSING_DATE": {
+        "LABEL": "Date d'expiration"
+      },
+      "PREFERENCE_DATE": {
+        "LABEL": "Date de dernière modification"
+      },
+      "CONDITIONS_DATE": {
+        "LABEL": "Date de réponse"
+      },
+      "HISTORY_DATE": {
+        "LABEL": "Date de collecte"
+      },
+      "HISTORY_VALUE": {
+        "LABEL": "Réponse"
+      },
+      "RECEIPT": {
+        "LABEL": "Consulter le reçu"
+      },
       "COMMENT": {
         "LABEL": "Commentaire"
       },
-      "STATUS": {
-        "LABEL": "Statut"
+      "RECIPIENT": {
+        "LABEL": "Adresse email de notification",
+        "REQUIRED": "Vous devez préciser l'adresse email",
+        "EMAIL_INVALID": "Vous devez préciser une adresse email valide",
+        "NOTIFY": "Notifier l'utilisateur par email",
+        "NO_MODELS_HINT": "Pour pouvoir envoyer une notification par email vous devez avoir défini au moins un modèle d'email.",
+        "NO_NOTIFICATION": "Aucune notification n'a été envoyée."
       },
-      "CREATION": {
-        "LABEL": "Date de création"
-      },
-      "EXPIRATION": {
-        "LABEL": "Date d'expiration"
+      "MODEL": {
+        "LABEL": "Modèle d'email de notification",
+        "REQUIRED": "Vous devez préciser le modèle"
       }
     },
     "DIALOG": {
       "TITLE_NEW": "Nouvelle réponse",
-      "TITLE_UPDATE": "Modification de la réponse"
+      "TITLE_UPDATE": "Modification de la réponse",
+      "TITLE_APPLY": "Appliquer les modifications",
+      "TITLE_HISTORY": "Historique des consentements"
     },
     "OPERATOR": {
-      "TITLE": "Consentements de",
+      "SUBTITLES": {
+        "processing": "Consentements de ",
+        "preference": "Préférences de ",
+        "conditions": "Conditions générales de "
+      },
+      "SUBJECT": {
+        "NEW_SUBJECT": "Cet utilisateur n'existe pas. Si vous enregistrez des modifications sur cette page, il sera créé.",
+        "ACTIVE_SINCE": "Actif depuis le",
+        "NO_EMAIL": "Pas d'adresse email connue",
+        "EDITOR": {
+          "TITLE": "Modifier les informations",
+          "EMAIL": {
+            "LABEL": "Adresse email"
+          }
+        }
+      },
       "LOG": {
-        "TITLE": "Log",
-        "EMPTY": "Le log est vide.",
+        "TITLE": "Modifications effectuées",
+        "EMPTY": "Aucune modification en cours.",
         "COMMENT": "Commentaire",
-        "SUBMIT": "Enregistrer les changements"
+        "SUBMIT": "Valider mes modifications"
       }
     }
   },
   "FORM_CREATOR": {
-    "TITLE": "Formulaire de consentement",
+    "TITLE": "Création d'un formulaire de consentement",
     "STEP_ELEMENTS": "Éléments",
     "STEP_OPTIONS": "Options",
     "STEP_PREVIEW": "Prévisualisation",
@@ -497,8 +591,16 @@
     "BUTTON_LABEL_PREVIOUS_STEP": "Précédent",
     "FORM": {
       "TITLE": "Génération du formulaire de consentement",
+      "ELEMENTS_PANEL_TITLE": {
+        "infos": "Informations générales",
+        "elements": "Traitements et préférences affichés"
+      },
+      "ASSOCIATIONS": {
+        "LABEL": "Ajouter au formulaire les préférences associées aux traitements sélectionnés"
+      },
       "SUBJECT": {
-        "LABEL": "Idenfifiant client"
+        "LABEL": "Identifiant client",
+        "REQUIRED": "Vous devez préciser un identifiant"
       },
       "ORIENTATION": {
         "LABEL": "Orientation",
@@ -506,17 +608,6 @@
           "VERTICAL": "Verticale",
           "HORIZONTAL": "Horizontale"
         }
-      },
-      "BASICINFO": {
-        "LABEL": "Référence des informations de base"
-      },
-      "TREATMENTS": {
-        "LABEL_AVAILABLE": "Traitements disponibles",
-        "LABEL_DISPLAYED": "Traitements affichés"
-      },
-      "PREFERENCES": {
-        "LABEL_AVAILABLE": "Préférences disponibles",
-        "LABEL_DISPLAYED": "Préférences affichées"
       },
       "VALIDITY": {
         "LABEL": "Durée de validité"
@@ -540,7 +631,7 @@
           "DOWNLOAD": "Télécharger"
         }
       },
-      "OPTOUT_RECIPIENT": {
+      "NOTIFICATION_RECIPIENT": {
         "LABEL": "Destinataire de l'email"
       },
       "THEME": {
@@ -564,9 +655,21 @@
       "TITLE": "Résultat"
     },
     "API_URL": {
-      "DIALOG_TITLE": "Générer des formulaires",
-      "TITLE": "URL d'appel à l'API",
-      "BUTTON_OK": "Terminé",
+      "DIALOG_TITLE": "Intégration du formulaire",
+      "SNIPPET_PHP": {
+        "TITLE": "Exemple d'intégration PHP",
+        "HINT": "Exemple de code PHP générant un token et affichant le formulaire dans une iframe :"
+      },
+      "SNIPPET_CURL": {
+        "TITLE": "cURL",
+        "HINT": "Appel cURL pour obtenir un jeton pour ce formulaire :",
+        "HINT_2": "Après obtention du jeton, l'URL du formulaire sera :"
+      },
+      "URL": {
+        "TITLE": "URL directe vers le formulaire",
+        "BUTTON_COPY": "Copier l'url du formulaire",
+        "BUTTON_OPEN": "Ouvrir le formulaire"
+      },
       "BUTTON_VIEW": "Obtenir l'URL d'appel à l'API"
     }
   },
@@ -576,6 +679,12 @@
     "RELOAD": "Recharger la page"
   },
   "API": {
+    "GETTING_STARTED": {
+      "TITLE": "Bien démarrer",
+      "DESCRIPTION": "<p>La section intégration va vous permettre de :</p><ul><li>construire vos formulaires de collecte de consentement à partir des modèles enregistrés dans la partie \"Configuration\"</li><li>pouvoir les intégrer dans votre application/site internet grace à différents exemples de code (PHP, etc...).</li><li>gérer les clés d'accès à l'API</li></ul><p>Dans cette section, vous trouverez également un module vous permettant de faire des requêtes dans la base des consentements collectés.</p><p>Il y a donc bien deux actions différentes : la collecte du consentement puis son exploitation par la suite.</p>",
+      "MORE": "<p>Vous pouvez retrouver plus d'informations sur notre solution :</p><ul><li>les différents cas d'usages</li><li>les deux versions de notre produit</li><li>la feuille de route du produit</li><li>la documentation complète de l'API</li></ul>",
+      "MORE_BUTTON": "En savoir plus"
+    },
     "KEYS": {
       "TITLE": "Gestion des clés d'accès à l'API",
       "NAME": {
@@ -603,7 +712,7 @@
         "KEY": "Votre clé d'accès à l'API",
         "HOW_TO": {
           "TITLE": "Comment l'utiliser",
-          "EXPLAIN": "Cette clé est à utiliser comme un mot de passe Http Basic classique dans les entêtes des requêtes faites à l'application"
+          "EXPLAIN": "Cette clé est à utiliser comme un mot de passe Http Basic classique dans les entêtes des requêtes faites à l'application."
         }
       },
       "DROP": {
@@ -613,5 +722,31 @@
         "SUCCESS": "La clé a été supprimée"
       }
     }
+  },
+  "USER": {
+    "CONSENTS": {
+      "TITLE": "Consentements",
+      "HINT": "Gérez et modifiez vos consentements depuis cette page."
+    },
+    "PREFERENCES": {
+      "TITLE": "Préférences",
+      "HINT": "Gérez et modifiez vos préférences depuis cette page."
+    },
+    "DETAILS": "Détails",
+    "ACCEPT": "J'accepte",
+    "REFUSE": "Je refuse",
+    "SAVE": {
+      "SUCCESS": "Modifications sauvegardées",
+      "ERROR": "Une erreur inattendue est survenue"
+    }
+  },
+  "DASHBOARD": {
+    "TITLE1": "Consentements collectés",
+    "TITLE2": "Consentements par semaine (moyenne)",
+    "TITLE3": "Réponses",
+    "TITLE4": "Quelques nombres",
+    "USERS": "Utilisateurs :",
+    "CONSENTS": "Consentements collectés :",
+    "EMPTY": "Aucune donnée à afficher sur cette période"
   }
 }

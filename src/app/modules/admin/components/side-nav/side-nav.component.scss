@@ -2,13 +2,73 @@
 
 .mat-list {
 
+  ::ng-deep .mat-list-item-content {
+    padding-left: 7px !important;
+    padding-right: 12px !important;
+  }
+
+  mat-list-item {
+    box-sizing: border-box;
+  }
+
   .mat-button {
     width: 100%;
     text-align: left;
   }
 
-  .active-link {
-    background-color: mat-color($app-primary);
-    color: white;
+  .section-wrapper {
+    &.active {
+      .main-section {
+        color: mat-color($app-accent);
+        border-left: 5px solid mat-color($app-accent);
+      }
+    }
+    &.expanded {
+      .main-section {
+        mat-icon {
+          transform: rotate(90deg);
+        }
+      }
+      .sub-sections {
+        opacity: 1;
+        max-height: 1000px;
+        visibility: visible;
+        transition: visibility .7s,opacity .7s,max-height .3s;
+        transition-timing-function: ease-in-out;
+      }
+    }
   }
+
+  .main-section {
+    border-left: 5px solid transparent;
+    mat-icon {
+      transition: transform .15s;
+      transition-timing-function: ease-in-out;
+      position: absolute;
+      right: 0;
+      top: 7px;
+    }
+  }
+
+  .sub-sections {
+    display: block;
+    max-height: 0;
+    opacity: 0;
+    mat-icon {
+      font-size: 22px !important;
+      width: 22px !important;
+    }
+  }
+
+  .sub-section {
+    height: 40px;
+    .mat-icon {
+      margin-right: 8px;
+    }
+  }
+
+  .active-link {
+    color: mat-color($app-accent);
+  }
+
 }

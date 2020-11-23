@@ -1,0 +1,81 @@
+mat-card {
+  margin: 2em;
+
+  mat-card-content {
+    padding: 1em 1em 0 1em;
+
+    .answer-container {
+      display: flex;
+      flex-direction: row;
+      margin-top: 1em;
+
+      .answer-label {
+        font-weight: bold;
+        margin: 1em 1em 1em 0;
+        font-size: large;
+      }
+
+    }
+  }
+}
+
+.model-entry {
+  padding: 1em 0;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  .model-name {
+    font-weight: bold;
+    letter-spacing: 1px;
+    display: flex;
+    align-items: center;
+
+    &.vertical {
+      flex-direction: column;
+      align-items: flex-start;
+    }
+
+    small {
+      font-weight: 300;
+      letter-spacing: normal;
+    }
+
+    mat-icon {
+      margin-right: .5em;
+      opacity: .7;
+      cursor: pointer;
+      user-select: none;
+      &:hover {
+        opacity: .9;
+      }
+      &:active {
+        opacity: .8;
+      }
+    }
+  }
+
+  .model-action {
+    font-weight: 300;
+    margin-left: 1em;
+
+
+    .user-input {
+      align-self: center;
+      display: flex;
+      flex-direction: row;
+
+      mat-slide-toggle {
+        margin: 0 .7em;
+      }
+
+      label {
+        align-self: center;
+      }
+    }
+  }
+}
+
+mat-accordion mat-expansion-panel-header {
+  display: none;
+}

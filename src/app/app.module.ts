@@ -11,7 +11,6 @@ import { TranslateLoader, TranslateModule, TranslateService } from '@ngx-transla
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 import { registerLocaleData } from '@angular/common';
 import localeFr from '@angular/common/locales/fr';
-import { ConditionsReadOnlyComponent } from './conditions-read-only/conditions-read-only.component';
 import { CoreModule } from './core/core.module';
 
 const keycloakService = new KeycloakService();
@@ -21,12 +20,12 @@ export function createTranslateLoader(http: HttpClient): TranslateHttpLoader {
 }
 
 export class DynamicLocaleId extends String {
-  constructor(protected service: TranslateService) {
+  constructor(protected translate: TranslateService) {
     super();
   }
 
   toString(): string {
-    return this.service.currentLang;
+    return this.translate.currentLang;
   }
 }
 
@@ -34,8 +33,7 @@ registerLocaleData(localeFr, 'fr');
 
 @NgModule({
   declarations: [
-    AppComponent,
-    ConditionsReadOnlyComponent,
+    AppComponent
   ],
   imports: [
     CoreModule,

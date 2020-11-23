@@ -18,18 +18,18 @@
   </div>
   <div cdkDropList
        [id]="'available-' + section.id"
-       [cdkDropListConnectedTo]="['selected-' + section.id]"
+       [cdkDropListConnectedTo]="['selected-' + (section.listId ? section.listId : section.id)]"
        [cdkDropListData]="entries"
        cdkDropListSortingDisabled
        class="elements-list"
        (cdkDropListDropped)="drop($event)">
-    <mat-grid-list *ngIf="entries.length > 0" cols="2" gutterSize="10" rowHeight="80"
+    <mat-grid-list *ngIf="entries.length > 0" [cols]="section.columns" gutterSize="10" rowHeight="80"
                    [class.loading]="section.dataSource.loading$ | async">
       <mat-grid-tile *ngFor="let entry of entries">
         <cm-entry-card cdkDrag [cdkDragData]="entry"
-                        [selected]="isSelected(entry)"
-                        [cdkDragDisabled]="isDisabled(entry)"
-                        [entry]="entry"></cm-entry-card>
+                       [selected]="isSelected(entry)"
+                       [cdkDragDisabled]="isDisabled(entry)"
+                       [entry]="entry"></cm-entry-card>
       </mat-grid-tile>
     </mat-grid-list>
   </div>

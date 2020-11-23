@@ -4,8 +4,23 @@
 html, body { height: 100%; }
 body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
 
-body {
-  background-color: #efefef;
+
+$scrollbar-background: mat-color($mat-gray, 100);
+$scrollbar-thumb: mat-color($mat-gray, 400);
+* {
+  scrollbar-width: thin;
+  scrollbar-color: $scrollbar-thumb $scrollbar-background;
+  ::-webkit-scrollbar {
+    width: 11px;
+  }
+  &::-webkit-scrollbar-track {
+    background: $scrollbar-background;
+  }
+  &::-webkit-scrollbar-thumb {
+    background-color: $scrollbar-thumb;
+    border-radius: 6px;
+    border: 3px solid $scrollbar-background;
+  }
 }
 
 [mat-dialog-actions], mat-dialog-actions {
@@ -27,6 +42,26 @@ body {
   color: white;
 }
 
+.mat-icon {
+  &.mat-icon-small {
+    font-size: 16px !important;
+    width: 16px !important;
+    height: 16px !important;
+  }
+
+  &.mat-icon-2x {
+    font-size: 48px;
+    width: 48px;
+    height: 48px;
+  }
+
+  &.mat-icon-3x {
+    font-size: 60px;
+    width: 60px;
+    height: 60px;
+  }
+}
+
 .badge {
   display: inline-block;
   padding: .25em .4em;
@@ -37,8 +72,8 @@ body {
   white-space: nowrap;
   vertical-align: baseline;
   border-radius: 4px;
-  background-color: mat-color($mat-gray, 600);
-  color: mat-contrast($mat-gray, 600);
+  background-color: mat-color($mat-gray, 300);
+  color: mat-contrast($mat-gray, 300);
   + .badge {
     margin-left: 6px;
   }
@@ -51,11 +86,25 @@ body {
     color: mat-contrast($app-accent, 500);
   }
   &.badge-success {
-    background-color: mat-color($mat-green, 600);
-    color: mat-contrast($mat-green, 600);
+    background-color: mat-color($mat-light-green, 700);
+    color: mat-contrast($mat-light-green, 700);
   }
   &.badge-warning {
     background-color: mat-color($mat-red, 500);
     color: mat-contrast($mat-red, 500);
+  }
+}
+
+.mat-secondary-text {
+  color: $dark-secondary-text;
+}
+
+.container .title-container h2 {
+  font-size: mat-font-size($typography, 'title');
+  font-weight: 400;
+  display: flex;
+  align-items: center;
+  mat-icon {
+    margin-right: 10px;
   }
 }

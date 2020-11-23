@@ -1,6 +1,7 @@
 import { ChangeDetectionStrategy, Component, HostBinding, Input, OnInit } from '@angular/core';
-import { ModelEntryDto, ModelVersionStatus } from '../../../../../core/models/models';
+import { ModelEntryDto } from '../../../../../core/models/models';
 import * as _ from 'lodash';
+import { hasActiveVersion } from '../../../../../core/utils/model-entry.utils';
 
 @Component({
   selector: 'cm-entry-card',
@@ -30,11 +31,11 @@ export class EntryCardComponent implements OnInit {
   }
 
   hasActiveVersion(): boolean {
-    return this.entry.versions.some(v => v.status === ModelVersionStatus.ACTIVE);
+    return hasActiveVersion(this.entry);
   }
 
   languages(): string {
-    return _.last(this.entry.versions)?.availableLocales.join(' | ');
+    return _.last(this.entry.versions)?.availableLanguages.join(' | ');
   }
 
 }

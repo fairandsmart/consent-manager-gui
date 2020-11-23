@@ -1,15 +1,32 @@
 <h2 mat-dialog-title>{{'FORM_CREATOR.API_URL.DIALOG_TITLE' | translate }}</h2>
 <div mat-dialog-content>
-  <mat-card *ngIf="data.url">
-    <mat-card-title>
-      {{'FORM_CREATOR.API_URL.TITLE' | translate}}
-      <button mat-icon-button [cdkCopyToClipboard]="data.url"><mat-icon>content_copy</mat-icon></button>
-    </mat-card-title>
-    <mat-card-content>
+  <mat-tab-group>
+    <mat-tab [label]="'FORM_CREATOR.API_URL.URL.TITLE' | translate">
+<!--      <div class="mat-warn">-->
+<!--        <p class="mat-body-2">{{'FORM_CREATOR.API_URL.URL.HINT' | translate}}</p>-->
+<!--      </div>-->
       <code>{{data.url}}</code>
-    </mat-card-content>
-  </mat-card>
+      <button mat-button [cdkCopyToClipboard]="data.url"><mat-icon>content_copy</mat-icon> {{'FORM_CREATOR.API_URL.URL.BUTTON_COPY' | translate}}</button>
+      <a mat-button [href]="data.url" target="_blank"><mat-icon>launch</mat-icon> {{'FORM_CREATOR.API_URL.URL.BUTTON_OPEN' | translate}}</a>
+    </mat-tab>
+    <mat-tab [label]="'FORM_CREATOR.API_URL.SNIPPET_CURL.TITLE' | translate">
+      <p class="mat-body-2">{{'FORM_CREATOR.API_URL.SNIPPET_CURL.HINT' | translate}}</p>
+      <code>{{snippet.curl}}</code>
+      <button mat-button [cdkCopyToClipboard]="snippet.curl"><mat-icon>content_copy</mat-icon> {{'COMMON.BUTTONS.COPY' | translate}}</button>
+      <p class="mat-body-2">{{'FORM_CREATOR.API_URL.SNIPPET_CURL.HINT_2' | translate}}</p>
+      <code>{{snippet.formUrl}}</code>
+    </mat-tab>
+    <mat-tab [label]="'FORM_CREATOR.API_URL.SNIPPET_PHP.TITLE' | translate">
+      <ng-template matTabContent>
+        <p class="mat-body-2">{{'FORM_CREATOR.API_URL.SNIPPET_PHP.HINT' | translate}}</p>
+        <div>
+          <ngx-codemirror [options]="CODE_MIRROR_OPTIONS_PHP" [ngModel]="snippet.php"></ngx-codemirror>
+        </div>
+        <button mat-button [cdkCopyToClipboard]="snippet.php"><mat-icon>content_copy</mat-icon> {{'COMMON.BUTTONS.COPY' | translate}}</button>
+      </ng-template>
+    </mat-tab>
+  </mat-tab-group>
 </div>
 <div class="btn-uppercase align-right" mat-dialog-actions>
-  <button mat-button color="primary" (click)="close()">{{'FORM_CREATOR.API_URL.BUTTON_OK' | translate}}</button>
+  <button mat-button color="primary" (click)="close()">{{'COMMON.BUTTONS.CLOSE' | translate}}</button>
 </div>

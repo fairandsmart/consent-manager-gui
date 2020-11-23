@@ -12,8 +12,7 @@ mat-sidenav-container {
 
   mat-sidenav {
     width: 200px;
-    box-shadow: 3px 0 5px -1px rgba(0, 0, 0, 0.2), 6px 0 10px 0 rgba(0, 0, 0, 0.14), 1px 0 18px 0 rgba(0, 0, 0, 0.12);
-
+    box-shadow: 6px 0 6px rgba(0,0,0,.1);
     ::ng-deep .mat-drawer-inner-container {
       display: flex;
       flex-direction: column;
@@ -21,8 +20,6 @@ mat-sidenav-container {
   }
 
   mat-sidenav-content {
-    overflow: hidden;
-
     ::ng-deep > router-outlet + * {
       flex: 1 1 100%;
       overflow: auto;

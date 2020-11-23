@@ -20,6 +20,7 @@ import {
 export class ModelsResourceService {
 
   readonly ROOT = `${environment.managerUrl}/models`;
+  readonly NEW_VERSION_UUID = '11111111-9999-1111-9999-111111111111';
 
   constructor(private http: HttpClient) {
   }

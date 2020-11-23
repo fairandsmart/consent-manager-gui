@@ -1,7 +1,6 @@
 {
   "NAV": {
-    "TITLE": "Consent Manager",
-    "SEARCH_LABEL": "Search",
+    "SEARCH_LABEL": "Search for a user",
     "KEYCLOAK": {
       "LOGOUT": "Log out"
     },
@@ -12,7 +11,7 @@
       "MODELS": {
         "LABEL": "Configuration",
         "INFO": "Basic Information",
-        "TREATMENTS": "Treatments",
+        "PROCESSING": "Processing",
         "PREFERENCES": "Preferences",
         "CONDITIONS": "EULA",
         "EMAILS": "Emails",
@@ -20,8 +19,9 @@
       },
       "INTEGRATION": {
         "LABEL": "Integration",
-        "FORM_CREATOR": "Form",
-        "API": "API"
+        "GETTING_STARTED": "Getting started",
+        "FORM_CREATOR": "Form creation",
+        "API": "API access"
       }
     }
   },
@@ -34,11 +34,13 @@
       "EDIT": "Edit",
       "SUBMIT": "Submit",
       "BACK": "Back",
-      "CLOSE": "Close"
+      "CLOSE": "Close",
+      "COPY": "Copy",
+      "SEARCH": "Search"
     },
     "ENTRY_TYPES": {
       "BASICINFO": "Basic Info",
-      "TREATMENT": "Treatment",
+      "PROCESSING": "Processing",
       "PREFERENCE": "Preference",
       "CONDITIONS": "EULA",
       "THEME": "Theme",
@@ -46,25 +48,23 @@
     },
     "COLLECTION_METHODS": {
       "WEBFORM": "Web form",
-      "OPERATOR": "Operator"
+      "OPERATOR": "Operator",
+      "EMAIL": "Email"
     },
     "LANGUAGES": {
       "EN": "English",
       "FR": "French"
     },
-    "LOCALE": {
+    "UI_LANGUAGES": {
+      "SWITCH_BUTTON_TOOLTIP": "Language",
+      "en": "English",
+      "fr": "Français"
+    },
+    "LANGUAGE": {
       "LABEL": "Language"
     },
-    "DEFAULT_LOCALE": {
+    "DEFAULT_LANGUAGE": {
       "LABEL": "Default language"
-    },
-    "RECORD_STATUS": {
-      "PENDING": "Pending",
-      "COMMITTED": "Committed",
-      "DELETED": "Deleted",
-      "VALID": "Valid",
-      "OBSOLETE": "Obsolete",
-      "IRRELEVANT": "Irrelevant"
     }
   },
   "MATERIAL": {
@@ -92,36 +92,50 @@
     "CONFIRM": "Confirm",
     "CANCEL": "Cancel"
   },
+  "ROUTING": {
+    "404": {
+      "TITLE": "404 Not Found",
+      "BODY": "This is not the page you are looking for."
+    }
+  },
   "ENTRIES": {
     "TITLE": "Entries",
     "infos": {
-      "PANEL_TITLE": "Basic Info library",
-      "EMPTY": "First, create basic info..."
+      "PANEL_TITLE": "Basic information",
+      "PANEL_DESCRIPTION_HTML": "<div>Here are the information you created.</div><div>This is meant to inform your users about your privacy policy, for example.</div><div>You can only create one information entry.</div>",
+      "EMPTY": "First, add basic information..."
     },
-    "treatments": {
-      "PANEL_TITLE": "Treatments library",
-      "EMPTY": "First, create a treatment..."
+    "processing": {
+      "PANEL_TITLE": "Processing library",
+      "PANEL_DESCRIPTION_HTML": "<div>Here are the processing you created.</div><div>This is meant to ask your users for their consent.</div><div>You can create more at any time by clicking on \"+\".</div>",
+      "EMPTY": "First, add a processing..."
     },
     "preferences": {
       "PANEL_TITLE": "Preferences library",
-      "EMPTY": "First, create a preference..."
+      "PANEL_DESCRIPTION_HTML": "<div>Here are the preferences you created.</div><div>This is meant to ask your users for details about their contact information or other information.</div><div>You can create more at any time by clicking on \"+\".</div>",
+      "EMPTY": "First, add a preference..."
     },
     "conditions": {
       "PANEL_TITLE": "EULA library",
-      "EMPTY": "First, create a EULA model..."
+      "PANEL_DESCRIPTION_HTML": "<div>Here are the EULA you created.</div><div>This is meant to ask your users for their consent.</div><div>You can create more at any time by clicking on \"+\".</div>",
+      "EMPTY": "First, add a EULA model..."
     },
     "themes": {
       "PANEL_TITLE": "Themes library",
-      "EMPTY": "First, create a theme...",
-      "NO_DESCRIPTION": "No description"
+      "PANEL_DESCRIPTION_HTML": "<div>Here are the themes you created.</div><div>This is meant to define the styles of your forms.</div><div>You can create more at any time by clicking on \"+\".</div>",
+      "EMPTY": "First, add a theme..."
     },
     "emails": {
       "PANEL_TITLE": "Emails library",
-      "EMPTY": "First, create an email..."
+      "PANEL_DESCRIPTION_HTML": "<div>Here are the emails you created.</div><div>This is meant to notify your users.</div><div>You can create more at any time by clicking on \"+\".</div>",
+      "EMPTY": "First, add an email..."
+    },
+    "elements": {
+      "EMPTY": "First, add a processing or a preference..."
     },
     "BUTTON_ADD": {
       "basicinfo": "New Basic Info",
-      "treatment": "New treatment",
+      "processing": "New processing",
       "preference": "New preference",
       "conditions": "New EULA",
       "theme": "New theme",
@@ -144,10 +158,12 @@
       },
       "name": {
         "LABEL": "Name",
-        "REQUIRED": "Name is mandatory"
+        "REQUIRED": "Name is mandatory",
+        "HINT": "Reference for internal use only, never displayed to the end user"
       },
       "description": {
-        "LABEL": "Description"
+        "LABEL": "Description",
+        "HINT": "Description for internal use only, never displayed to the end user"
       },
       "type": {
         "LABEL": "Type"
@@ -155,13 +171,19 @@
       "version": {
         "LABEL": "Version"
       },
+      "saveState": {
+        "title": "You left the page",
+        "content": "You left the page without saving last time. Do you wish to restore the form you left ?",
+        "accept": "Yes",
+        "refuse": "No"
+      },
       "EMPTY_LIST": "Nothing to display"
     },
     "CREATE_BUTTON": "New entry",
     "DIALOG": {
       "TITLE_NEW": {
         "basicinfo": "New basic info",
-        "treatment": "New treatment",
+        "processing": "New processing",
         "preference": "New preference",
         "consitions": "New EULA",
         "theme": "New theme",
@@ -169,7 +191,7 @@
       },
       "TITLE_UPDATE": {
         "basicinfo": "Update basic info",
-        "treatment": "Update treatment",
+        "processing": "Update processing",
         "preference": "Update preference",
         "conditions": "Update EULA",
         "theme": "Update theme",
@@ -178,7 +200,7 @@
     },
     "PREVIEW": {
       "TITLE": "Preview",
-      "NO_LOCALE": "Select a language to display the preview."
+      "NO_LANGUAGE": "Select a language to display the preview."
     },
     "EDITOR": {
       "INFORMATION": {
@@ -192,7 +214,7 @@
       "CONTENT": {
         "TITLE": {
           "BASICINFO": "Basic Info content",
-          "TREATMENT": "Treatment content",
+          "PROCESSING": "Processing content",
           "PREFERENCE": "Preference content",
           "CONDITIONS": "EULA content",
           "THEME": "Theme content",
@@ -202,6 +224,7 @@
         "HIDE": "Display only in receipts",
         "DATA_CONTROLLER": {
           "TITLE": "Data controller",
+          "SUBTITLE_OPTIONAL": "(if different from the one in the basic information)",
           "ACTING_BEHALF_COMPANY": {
             "LABEL": "This controller is acting on behalf of the company"
           },
@@ -277,40 +300,39 @@
           }
         }
       },
-      "TREATMENT": {
+      "PROCESSING": {
         "SUBTITLES": {
           "TITLE": "Title",
           "DATA": "Processed data",
-          "RETENTION": "Data retention duration",
+          "RETENTION": "Data retention period",
           "USAGE": "Data usage",
-          "LAW": "Legal information"
+          "LAW": "Legal information",
+          "ASSOCIATIONS": "Associated preferences"
         },
         "TITLE": {
-          "LABEL": "Treatment label"
+          "LABEL": "Processing label"
         },
         "DATA": {
-          "TITLE": {
-            "LABEL": "Data label"
-          },
-          "BODY": {
-            "LABEL": "Data description"
-          }
+          "LABEL": "Collected data description"
         },
         "RETENTION": {
-          "TITLE": {
-            "LABEL": "Retention duration label"
-          },
           "BODY": {
-            "LABEL": "Retention duration description"
+            "LABEL": "Data retention period description"
+          },
+          "VALUE": {
+            "LABEL": "Value"
+          },
+          "UNIT": {
+            "LABEL": "Unit",
+            "VALUES": {
+              "YEAR": "Year(s)",
+              "MONTH": "Month(s)",
+              "WEEK": "Week(s)"
+            }
           }
         },
         "USAGE": {
-          "TITLE": {
-            "LABEL": "Usage label"
-          },
-          "BODY": {
-            "LABEL": "Usage description"
-          }
+          "LABEL": "Usage description"
         },
         "PURPOSE": {
           "LABEL": "Purposes",
@@ -334,17 +356,41 @@
           "VALUE": "Description",
           "BUTTON_ADD": "Add third party",
           "EMPTY": "There is no third party yet."
+        },
+        "ASSOCIATE": {
+          "LABEL": "This processing is associated with one or more preference(s)"
+        },
+        "ASSOCIATED_PREFERENCES": {
+          "LABEL": "Associated preferences"
         }
       },
       "PREFERENCE": {
         "SUBTITLES": {
-          "CONTENT": "Content"
+          "CONTENT": "Content",
+          "OPTIONS": "Options"
         },
-        "TITLE": {
-          "LABEL": "Title"
+        "LABEL": {
+          "LABEL": "Preference label"
         },
-        "BODY": {
-          "LABEL": "Body"
+        "DESCRIPTION": {
+          "LABEL": "Description"
+        },
+        "VALUE_TYPE": {
+          "LABEL": "Answer type",
+          "VALUES": {
+            "NONE": "None",
+            "TOGGLE": "Toggle switch",
+            "CHECKBOXES": "Checkboxes",
+            "RADIO_BUTTONS": "Radio buttons",
+            "LIST_SINGLE": "Single choice list",
+            "LIST_MULTI": "Multiple choice list",
+            "FREE_TEXT": "Free text"
+          }
+        },
+        "OPTIONS": {
+          "LABEL": "Options",
+          "PLACEHOLDER": "Enter here your options",
+          "TOGGLE_HINT": "Enter a first value for the position \"refuse\", and a second one for the position \"accept\"."
         }
       },
       "CONDITIONS": {
@@ -354,7 +400,7 @@
           "BUTTONS": "Buttons"
         },
         "TITLE": {
-          "LABEL": "Label"
+          "LABEL": "EULA label"
         },
         "BODY": {
           "LABEL": "EULA",
@@ -377,7 +423,7 @@
           "CONTENT": "Email body"
         },
         "SENDER": {
-          "LABEL": "Sender"
+          "LABEL": "Sender email address"
         },
         "SUBJECT": {
           "LABEL": "Subject"
@@ -397,6 +443,27 @@
         "SIGNATURE": {
           "LABEL": "Signature"
         }
+      },
+      "THEMES": {
+        "SUBTITLES": {
+          "TYPE": "Theme type",
+          "CSS": "Stylesheet"
+        },
+        "IFRAME": {
+          "TITLE": "Preview"
+        },
+        "TARGET_TYPE": {
+          "LABEL": "Category",
+          "VALUES": {
+            "FORM": "Consent form",
+            "EMAIL": "Opt-out email"
+          }
+        },
+        "CSS": {
+          "LABEL": "Style",
+          "HINT": "Write your custom CSS or drop a CSS file",
+          "AUTOCOMPLETE": "(toggle auto-completion with CTRL+E or CMD+E to help you stylize the form elements)"
+        }
       }
     }
   },
@@ -404,42 +471,6 @@
     "LABEL_NO_DESCRIPTION": "No description",
     "ACTIVE_VERSION": "Active",
     "LANGUAGES_TOOLTIP": "Language(s)"
-  },
-  "THEMES": {
-    "TITLE": "Themes",
-    "SUBTITLES": {
-      "TYPE": "Theme type",
-      "CSS": "Stylesheet"
-    },
-    "IFRAME": {
-      "TITLE": "Preview"
-    },
-    "COMMON": {
-      "KEY": {
-        "LABEL": "Reference"
-      },
-      "NAME": {
-        "LABEL": "Name"
-      },
-      "PRESENTATION": {
-        "LABEL": "Presentation"
-      },
-      "TARGET_TYPE": {
-        "LABEL": "Category",
-        "VALUES": {
-          "FORM": "Consent form",
-          "EMAIL": "Opt-out email"
-        }
-      },
-      "ICON": {
-        "LABEL": "Icon"
-      },
-      "CSS": {
-        "LABEL": "Style",
-        "HINT": "Write your custom CSS or drop a CSS file",
-        "AUTOCOMPLETE": "(toggle auto-completion with CTRL+E or CMD+E to help you stylize the form elements)"
-      }
-    }
   },
   "RECORDS": {
     "TITLE": "Consents",
@@ -450,46 +481,104 @@
       "NAME": {
         "LABEL": "Name"
       },
-      "TYPE": {
+      "SUBTYPE": {
         "LABEL": "Type"
       },
-      "VALUE": {
-        "LABEL": "Answer",
-        "ACCEPTED": "Accepted",
-        "REFUSED": "Refused"
+      "VERSION": {
+        "LABEL": "Version"
       },
       "COLLECTION_METHOD": {
         "LABEL": "Collection method"
       },
+      "HISTORY": {
+        "LABEL": "See all the records"
+      },
+      "STATUS": {
+        "LABEL": "Status",
+        "VALID": "Valid",
+        "INVALID": "Invalid"
+      },
+      "STATUS_DETAILS": {
+        "LABEL": "Status explanation",
+        "LATEST_VALID": "Most recent valid record",
+        "OBSOLETE": "A more recent valid record exists",
+        "EXPIRED": "Expiration date reached",
+        "INFO_SERIAL_ARCHIVED": "Basic info serial no more active",
+        "BODY_SERIAL_ARCHIVED": "Body serial no more active",
+        "NOT_COMMITTED": "Non committed records are irrelevant"
+      },
+      "PROCESSING_VALUE": {
+        "LABEL": "Current value",
+        "accepted": "Accept",
+        "refused": "Refuse"
+      },
+      "PROCESSING_DATE": {
+        "LABEL": "Expiration date"
+      },
+      "PREFERENCE_DATE": {
+        "LABEL": "Last modification date"
+      },
+      "CONDITIONS_DATE": {
+        "LABEL": "Answer date"
+      },
+      "HISTORY_DATE": {
+        "LABEL": "Collect date"
+      },
+      "HISTORY_VALUE": {
+        "LABEL": "Answer"
+      },
+      "RECEIPT": {
+        "LABEL": "View receipt"
+      },
       "COMMENT": {
         "LABEL": "Comment"
       },
-      "STATUS": {
-        "LABEL": "Status"
+      "RECIPIENT": {
+        "LABEL": "Notification email address",
+        "REQUIRED": "Please specify the email address",
+        "EMAIL_INVALID": "Please specify a valid email address",
+        "NOTIFY": "Notify the user by email",
+        "NO_MODELS_HINT": "To be able to send an email notification you must have defined at least one email model.",
+        "NO_NOTIFICATION": "No notification was sent."
       },
-      "CREATION": {
-        "LABEL": "Creation date"
-      },
-      "EXPIRATION": {
-        "LABEL": "Expiration date"
+      "MODEL": {
+        "LABEL": "Email Notification model",
+        "REQUIRED": "Please specify a model"
       }
     },
     "DIALOG": {
       "TITLE_NEW": "New consent record",
-      "TITLE_UPDATE": "Update consent record"
+      "TITLE_UPDATE": "Update consent record",
+      "TITLE_APPLY": "Apply modifications",
+      "TITLE_HISTORY": "Consent history"
     },
     "OPERATOR": {
-      "TITLE": "Consents of",
+      "SUBTITLES": {
+        "processing": "Consents of ",
+        "preference": "Preferences of ",
+        "conditions": "End user license agreements of "
+      },
+      "SUBJECT": {
+        "NEW_SUBJECT": "This user does not exist. If you save changes on this page, they will be created.",
+        "ACTIVE_SINCE": "Active since",
+        "NO_EMAIL": "No known email address",
+        "EDITOR": {
+          "TITLE": "Edit information",
+          "EMAIL": {
+            "LABEL": "Adresse email"
+          }
+        }
+      },
       "LOG": {
-        "TITLE": "Log",
-        "EMPTY": "The log is empty.",
+        "TITLE": "Pending changes",
+        "EMPTY": "No pending change.",
         "COMMENT": "Comment",
-        "SUBMIT": "Save changes"
+        "SUBMIT": "Save my changes"
       }
     }
   },
   "FORM_CREATOR": {
-    "TITLE": "Consent form",
+    "TITLE": "Consent form creation",
     "STEP_ELEMENTS": "Elements",
     "STEP_OPTIONS": "Options",
     "STEP_PREVIEW": "Preview",
@@ -497,8 +586,16 @@
     "BUTTON_LABEL_PREVIOUS_STEP": "Previous",
     "FORM": {
       "TITLE": "Form creator",
+      "ELEMENTS_PANEL_TITLE": {
+        "infos": "Basic info",
+        "elements": "Displayed processing and preferences"
+      },
+      "ASSOCIATIONS": {
+        "LABEL": "Add to the form the preferences associated to the selected processing"
+      },
       "SUBJECT": {
-        "LABEL": "Customer ID"
+        "LABEL": "Customer ID",
+        "REQUIRED": "A customer ID is mandatory"
       },
       "ORIENTATION": {
         "LABEL": "Orientation",
@@ -506,17 +603,6 @@
           "VERTICAL": "Vertical",
           "HORIZONTAL": "Horizontal"
         }
-      },
-      "BASICINFO": {
-        "LABEL": "Basic info reference"
-      },
-      "TREATMENTS": {
-        "LABEL_AVAILABLE": "Available treatments",
-        "LABEL_DISPLAYED": "Displayed treatments"
-      },
-      "PREFERENCES": {
-        "LABEL_AVAILABLE": "Available preferences",
-        "LABEL_DISPLAYED": "Displayed preferences"
       },
       "VALIDITY": {
         "LABEL": "Validity"
@@ -540,7 +626,7 @@
           "DOWNLOAD": "Download"
         }
       },
-      "OPTOUT_RECIPIENT": {
+      "NOTIFICATION_RECIPIENT": {
         "LABEL": "Email recipient"
       },
       "THEME": {
@@ -548,7 +634,7 @@
         "DEFAULT": "Default theme"
       },
       "FORCE_DISPLAY": {
-        "LABEL": "Force display of all treatments"
+        "LABEL": "Force display of all processing"
       },
       "EMAIL": {
         "LABEL": "Opt-out email"
@@ -564,9 +650,21 @@
       "TITLE": "Result"
     },
     "API_URL": {
-      "DIALOG_TITLE": "Generate forms",
-      "TITLE": "API call URL",
-      "BUTTON_OK": "Done",
+      "DIALOG_TITLE": "Form integration",
+      "SNIPPET_PHP": {
+        "TITLE": "PHP example",
+        "HINT": "Example of PHP code generating a token and displaying the form in an iframe :"
+      },
+      "SNIPPET_CURL": {
+        "TITLE": "cURL",
+        "HINT": "cURL call to get a token for this form :",
+        "HINT_2": "After obtaining the token, the URL of the form will be :"
+      },
+      "URL": {
+        "TITLE": "Direct URL to the form",
+        "BUTTON_COPY": "Copy the form url",
+        "BUTTON_OPEN": "Open the form"
+      },
       "BUTTON_VIEW": "Get API call URL"
     }
   },
@@ -576,8 +674,14 @@
     "RELOAD": "Reload the page"
   },
   "API": {
+    "GETTING_STARTED": {
+      "TITLE": "Getting started",
+      "DESCRIPTION": "<p>The integration section will allow you to:</p><ul><li>build your consent forms from the templates registered in the \"Configuration\" section and integrate them in your application/website thanks to different code examples (PHP, etc...).</li><li>manage the access keys to the API</li></ul><p>In this section, you will also find a module allowing you to make queries in the base of the collected consents.</p><p>There are two different actions: the collection of consent and then its exploitation afterwards.</p>",
+      "MORE": "<p>You can find more information about our solution:</p><ul><li>the different use cases</li><li>the two versions of our product</li><li>the product roadmap</li><li>the complete documentation of the API</li></ul>",
+      "MORE_BUTTON": "More..."
+    },
     "KEYS": {
-      "TITLE": "API Acces key management",
+      "TITLE": "API Access key management",
       "NAME": {
         "LABEL": "Name"
       },
@@ -603,12 +707,38 @@
         "KEY": "Your API access key",
         "HOW_TO": {
           "TITLE": "How to use it",
-          "EXPLAIN": "This key cna be used in Http request headers of API request as any kind of classic Http Basic password"
+          "EXPLAIN": "This key cna be used in Http request headers of API request as any kind of classic Http Basic password."
         }
       },
       "DROP": {
         "SUCCESS": "The API key has been deleted"
       }
     }
+  },
+  "USER": {
+    "CONSENTS": {
+      "TITLE": "Consents",
+      "HINT": "Manage and update your consents on this page."
+    },
+    "PREFERENCES": {
+      "TITLE": "Preferences",
+      "HINT": "Manage and update your preferences on this page."
+    },
+    "DETAILS": "Details",
+    "ACCEPT": "I accept",
+    "REFUSE": "I refuse",
+    "SAVE": {
+      "SUCCESS": "Changes saved",
+      "ERROR": "An unexpected error occurred"
+    }
+  },
+  "DASHBOARD": {
+    "TITLE1": "Collected consents",
+    "TITLE2": "Consents per week (average)",
+    "TITLE3": "Answers",
+    "TITLE4": "Some numbers",
+    "USERS": "Users:",
+    "CONSENTS": "Collected consents:",
+    "EMPTY": "No data to display for this period"
   }
 }

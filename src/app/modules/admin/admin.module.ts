@@ -8,7 +8,7 @@ import { EntriesListDragAndDropComponent } from './components/entries/entries-li
 import { EntriesListSelectComponent } from './components/entries/entries-list-select/entries-list-select.component';
 import { EntryPageComponent } from './pages/entry-page/entry-page.component';
 import { BasicinfoComponent } from './components/entry/basicinfo/basicinfo.component';
-import { TreatmentComponent } from './components/entry/treatment/treatment.component';
+import { ProcessingComponent } from './components/entry/processing/processing.component';
 import { ConditionsComponent } from './components/entry/conditions/conditions.component';
 import { EntryEditorDialogComponent } from './components/entry/entry-editor-dialog/entry-editor-dialog.component';
 import { EntryInfoComponent } from './components/entry/entry-info/entry-info.component';
@@ -25,15 +25,22 @@ import { PreferencesPageComponent } from './pages/entries-page/preferences-page.
 import { DashboardComponent } from './pages/dashboard/dashboard.component';
 import { ConditionsPageComponent } from './pages/entries-page/conditions-page.component';
 import { BasicinfoPageComponent } from './pages/entries-page/basicinfo-page.component';
-import { TreatmentsPageComponent } from './pages/entries-page/treatments-page.component';
+import { ProcessingPageComponent } from './pages/entries-page/processing-page.component';
 import { GeneratedKeyDialogComponent, KeysComponent } from './pages/keys/keys.component';
-import { SubjectRecordsComponent } from './pages/subject-records/subject-records.component';
-import { SubjectRecordEditorDialogComponent } from './components/subject-record-editor-dialog/subject-record-editor-dialog.component';
+import { SubjectRecordEditorDialogComponent } from './components/operator/subject-record-editor-dialog/subject-record-editor-dialog.component';
+import { SubjectRecordApplyChangesDialogComponent } from './components/operator/subject-record-apply-changes-dialog/subject-record-apply-changes-dialog.component';
 import { CoreModule } from '../../core/core.module';
 import { ClipboardModule } from '@angular/cdk/clipboard';
 import { ChartsModule } from 'ng2-charts';
 import { CodemirrorModule } from '@ctrl/ngx-codemirror';
 import { AdminRoutingModule } from './admin-routing.module';
+import { OperatorProcessingComponent } from './components/operator/operator-processing/operator-processing.component';
+import { OperatorConditionsComponent } from './components/operator/operator-conditions/operator-conditions.component';
+import { OperatorPreferencesComponent } from './components/operator/operator-preferences/operator-preferences.component';
+import { OperatorSubjectPageComponent } from './pages/operator-subject-page/operator-subject-page.component';
+import { SubjectRecordsHistoryComponent } from './components/operator/subject-records-history/subject-records-history.component';
+import { SubjectInfosEditorDialogComponent } from './components/operator/subject-infos-editor-dialog/subject-infos-editor-dialog.component';
+import { GettingStartedPageComponent } from './pages/getting-started-page/getting-started-page.component';
 
 @NgModule({
   declarations: [
@@ -45,7 +52,7 @@ import { AdminRoutingModule } from './admin-routing.module';
     EntriesListSelectComponent,
     EntryPageComponent,
     BasicinfoComponent,
-    TreatmentComponent,
+    ProcessingComponent,
     ConditionsComponent,
     EntryEditorDialogComponent,
     EntryInfoComponent,
@@ -62,11 +69,18 @@ import { AdminRoutingModule } from './admin-routing.module';
     DashboardComponent,
     ConditionsPageComponent,
     BasicinfoPageComponent,
-    TreatmentsPageComponent,
+    ProcessingPageComponent,
     KeysComponent,
     GeneratedKeyDialogComponent,
-    SubjectRecordsComponent,
     SubjectRecordEditorDialogComponent,
+    SubjectRecordApplyChangesDialogComponent,
+    OperatorProcessingComponent,
+    OperatorConditionsComponent,
+    OperatorPreferencesComponent,
+    OperatorSubjectPageComponent,
+    SubjectRecordsHistoryComponent,
+    SubjectInfosEditorDialogComponent,
+    GettingStartedPageComponent
   ],
   imports: [
     AdminRoutingModule,

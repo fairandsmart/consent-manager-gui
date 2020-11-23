@@ -1,8 +1,7 @@
-@import 'node_modules/@angular/material/theming';
+@import "src/variables";
 
 :host {
   display: block;
-  max-width: 1000px;
   margin: auto;
 
   mat-expansion-panel {
@@ -16,11 +15,25 @@
         color: $dark-primary-text;
       }
 
+      .library-title {
+        font-size: mat-font-size($typography, 'subheading-2');
+        display: flex;
+        align-items: center;
+      }
+
+      .mat-icon {
+        margin-right: 8px;
+      }
+
       .mat-progress-bar {
         align-self: center;
         width: 32px;
         margin-left: 10px;
       }
+    }
+
+    .panel-description {
+      margin: 0 0 32px 32px;
     }
   }
 }

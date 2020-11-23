@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { RecordsResourceService } from '../../../../core/http/records-resource.service';
+import { TranslateService } from '@ngx-translate/core';
 
 @Component({
   selector: 'cm-dashboard',
@@ -61,7 +62,11 @@ export class DashboardComponent implements OnInit {
     }];
 
   public CHART_OPTIONS = {
+    pie: {
+      responsive: true
+    },
     stackedChart: {
+      responsive: true,
       scales: {
         xAxes: [{
           stacked: true
@@ -83,19 +88,32 @@ export class DashboardComponent implements OnInit {
   public answersWeekData: {chartData: object, chartLabels: object};
 
   constructor(
-    public recordsService: RecordsResourceService
+    public recordsService: RecordsResourceService,
+    public translate: TranslateService
   ) {
   }
 
   ngOnInit(): void {
     this.recordsService.getStats().subscribe((response) => {
-      // TODO
+    // TODO stats
+    const labels = {
+      fr: {
+        types: ['Traitements', 'Préférences', 'CGU'],
+        yes: 'Oui',
+        no: 'Non'
+      },
+      en: {
+        types: ['Processing', 'Preferences', 'EULA'],
+        yes: 'Yes',
+        no: 'No'
+      }
+    };
     this.numbersData = {
-        subjects: 1,
-        records: 2
+        subjects: 14,
+        records: 218
       };
     this.recordsAverageData = {
-        chartLabels: ['Traitements', 'Préférences', 'CGU'],
+        chartLabels: labels[this.translate.currentLang].types,
         chartData: [
           {
             data: [5.4, 1.1, 3.2],
@@ -112,15 +130,15 @@ export class DashboardComponent implements OnInit {
         chartData: [
           {
             data: [0, 1, 4, 5, 0, 3, 1],
-            label: 'Traitements'
+            label: labels[this.translate.currentLang].types[0]
           },
           {
             data: [3, 2, 0, 1, 4, 0, 2],
-            label: 'Préférences'
+            label: labels[this.translate.currentLang].types[1]
           },
           {
             data: [4, 1, 2, 3, 2, 2, 1],
-            label: 'CGU'
+            label: labels[this.translate.currentLang].types[2]
           }
         ]
       };
@@ -129,11 +147,11 @@ export class DashboardComponent implements OnInit {
         chartData: [
           {
             data: [8, 7, 4, 1, 0, 5, 3],
-            label: 'Oui'
+            label: labels[this.translate.currentLang].yes
           },
           {
             data: [3, 5, 2, 3, 4, 1, 2],
-            label: 'Non'
+            label: labels[this.translate.currentLang].no
           }
         ]
       };

@@ -1,6 +1,6 @@
 import { AfterViewInit, ChangeDetectorRef, Component, Inject, OnInit } from '@angular/core';
 import { MAT_DIALOG_DATA, MatDialog } from '@angular/material/dialog';
-import { Key } from '../../../../core/models/models';
+import { Icons, Key } from '../../../../core/models/models';
 import { CollectionViewer, DataSource } from '@angular/cdk/collections';
 import { BehaviorSubject, Observable, of } from 'rxjs';
 import { catchError, filter, skip, takeUntil } from 'rxjs/operators';
@@ -59,6 +59,8 @@ export class KeysComponent implements OnInit, AfterViewInit {
   public dataSource: KeysDataSource;
 
   public form: FormGroup;
+
+  readonly ICONS = Icons;
 
   constructor(
     private keysResource: KeysResourceService,

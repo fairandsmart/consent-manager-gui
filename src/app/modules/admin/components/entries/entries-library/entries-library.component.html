@@ -2,15 +2,25 @@
   <mat-expansion-panel *ngFor="let section of sections" [disabled]="!expandable" [hideToggle]="!expandable" [expanded]="true">
     <mat-expansion-panel-header>
       <mat-panel-title>
-        <span>{{'ENTRIES.' + section.id + '.PANEL_TITLE' | translate}}</span>
+        <span class="library-title">
+          <mat-icon *ngIf="section.icon">{{section.icon}}</mat-icon> {{'ENTRIES.' + section.id + '.PANEL_TITLE' | translate}}
+        </span>
         <mat-progress-bar *ngIf="section.dataSource?.loading$ | async" mode="buffer"></mat-progress-bar>
       </mat-panel-title>
     </mat-expansion-panel-header>
+    <div *ngIf="section.displayDescription" class="panel-description"
+         [innerHTML]="'ENTRIES.' + section.id + '.PANEL_DESCRIPTION_HTML' | translate"></div>
     <div>
       <ng-container [ngSwitch]="mode">
         <cm-entries-list *ngSwitchCase="'view'" [config]="section"></cm-entries-list>
-        <cm-entries-list-drag-and-drop *ngSwitchCase="'drag'" [ngModel]="selected[section.id]" (ngModelChange)="selectedEntriesChange(section, $event)" [config]="section"></cm-entries-list-drag-and-drop>
-        <cm-entries-list-select *ngSwitchCase="'select'" [ngModel]="selected[section.id]" (ngModelChange)="selectedEntriesChange(section, $event)" [config]="section"></cm-entries-list-select>
+        <cm-entries-list-drag-and-drop *ngSwitchCase="'drag'"
+                                       [ngModel]="selected[section.listId ? section.listId : section.id]"
+                                       (ngModelChange)="selectedEntriesChange(section, $event)"
+                                       [config]="section"></cm-entries-list-drag-and-drop>
+        <cm-entries-list-select *ngSwitchCase="'select'"
+                                [ngModel]="selected[section.listId ? section.listId : section.id]"
+                                (ngModelChange)="selectedEntriesChange(section, $event)"
+                                [config]="section"></cm-entries-list-select>
       </ng-container>
     </div>
   </mat-expansion-panel>

@@ -1,11 +1,13 @@
 import { Component } from '@angular/core';
 import { SectionConfig } from '../../components/entries/entries-library/entries-library.component';
+import { Icons } from '../../../../core/models/models';
 
 @Component({
   selector: 'cm-email-page',
   template: `
     <cm-entries-library [config]="config" [expandable]="false"></cm-entries-library>
-  `
+  `,
+  styleUrls: ['./_entries-page.scss']
 })
 export class EmailsPageComponent {
 
@@ -14,7 +16,9 @@ export class EmailsPageComponent {
       id: 'emails',
       types: ['email'],
       multiple: true,
-      showSort: true
+      showSort: true,
+      icon: Icons.email,
+      displayDescription: true
     }
   ];
 

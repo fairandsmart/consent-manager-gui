@@ -38,6 +38,8 @@
               "node_modules/htmlhint/dist/htmlhint.js",
               "node_modules/codemirror/lib/codemirror.js",
               "node_modules/codemirror/mode/css/css.js",
+              "node_modules/codemirror/mode/clike/clike.js",
+              "node_modules/codemirror/mode/php/php.js",
               "node_modules/codemirror/mode/xml/xml.js",
               "node_modules/codemirror/mode/javascript/javascript.js",
               "node_modules/codemirror/mode/htmlmixed/htmlmixed.js",
@@ -74,7 +76,6 @@
               "optimization": true,
               "outputHashing": "all",
               "sourceMap": false,
-              "extractCss": true,
               "namedChunks": false,
               "extractLicenses": true,
               "vendorChunk": false,
@@ -102,7 +103,6 @@
               "optimization": true,
               "outputHashing": "all",
               "sourceMap": false,
-              "extractCss": true,
               "namedChunks": false,
               "extractLicenses": true,
               "vendorChunk": false,
@@ -184,5 +184,8 @@
       }
     }
   },
-  "defaultProject": "consent-manager-gui"
+  "defaultProject": "consent-manager-gui",
+  "cli": {
+    "analytics": false
+  }
 }

@@ -1,0 +1,78 @@
+<mat-sidenav-container>
+  <mat-sidenav-content>
+    <div class="container" *ngIf="subject">
+
+      <div class="subcontainer">
+        <div class="subject">
+          <mat-icon class="subject-icon">account_circle</mat-icon>
+
+          <div class="subject-details">
+            <div class="subject-name">{{subject.name}}</div>
+
+            <div class="new-subject" *ngIf="subject.creationTimestamp <= 0">{{'RECORDS.OPERATOR.SUBJECT.NEW_SUBJECT' | translate}}</div>
+
+            <div class="subject-info">
+              <mat-icon class="subject-info-icon">alternate_email</mat-icon>
+              <span *ngIf="!subject.emailAddress">{{'RECORDS.OPERATOR.SUBJECT.NO_EMAIL' | translate}}</span>
+              <span *ngIf="subject.emailAddress">{{subject.emailAddress}}</span>
+              <button mat-icon-button (click)="editSubject()">
+                <mat-icon>edit</mat-icon>
+              </button>
+            </div>
+          </div>
+
+          <div class="subject-date">
+            <div class="subject-info" *ngIf="subject.creationTimestamp > 0">
+              <mat-icon class="subject-info-icon">calendar_today</mat-icon>
+              {{'RECORDS.OPERATOR.SUBJECT.ACTIVE_SINCE' | translate}} {{subject.creationTimestamp | date:'shortDate'}}
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="subcontainer">
+        <cm-operator-processing #processing [subject]="subject.name"
+                                (operatorAction)="addElementToLog($event)"></cm-operator-processing>
+      </div>
+
+      <div class="subcontainer">
+        <cm-operator-preferences #preferences [subject]="subject.name"
+                                 (operatorAction)="addElementToLog($event)"></cm-operator-preferences>
+      </div>
+
+      <div class="subcontainer">
+        <cm-operator-conditions #conditions [subject]="subject.name"></cm-operator-conditions>
+      </div>
+
+    </div>
+  </mat-sidenav-content>
+
+  <mat-sidenav [opened]="operatorLog.length > 0" mode="side" position="end">
+    <h2>{{'RECORDS.OPERATOR.LOG.TITLE' | translate}}</h2>
+    <ng-container *ngIf="operatorLog.length > 0; else emptyLogTemplate">
+      <mat-list>
+        <mat-list-item *ngFor="let element of operatorLog">
+          <div class="list-content">
+            <span class="list-content-text" *ngIf="element.type === 'preference'">
+              <span class="list-content-key">{{element.key}}</span> : {{formatPreferenceValue(element.value)}}
+            </span>
+            <span class="list-content-text" *ngIf="element.type !== 'preference'">
+              <span class="list-content-key">{{element.key}}</span> : <mat-icon>{{element.value === 'accepted' ? 'check' : 'close'}}</mat-icon>
+            </span>
+            <button mat-icon-button (click)="removeElementFromLog(element)">
+              <mat-icon>delete</mat-icon>
+            </button>
+          </div>
+        </mat-list-item>
+      </mat-list>
+    </ng-container>
+    <ng-template #emptyLogTemplate>
+      <div class="empty-log">{{'RECORDS.OPERATOR.LOG.EMPTY' | translate}}</div>
+    </ng-template>
+    <div class="log-button-container">
+      <button mat-raised-button color="primary" (click)="submitLog()" [disabled]="operatorLog.length == 0">
+        {{'RECORDS.OPERATOR.LOG.SUBMIT' | translate}}
+      </button>
+    </div>
+  </mat-sidenav>
+</mat-sidenav-container>

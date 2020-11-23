@@ -28,15 +28,18 @@ import { MatListModule } from '@angular/material/list';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { MatStepperModule } from '@angular/material/stepper';
 import { MatRadioModule } from '@angular/material/radio';
+import { MatChipsModule } from '@angular/material/chips';
+import { MatTabsModule } from '@angular/material/tabs';
 
 @Injectable()
 export class MatPaginatorIntlTranslated extends MatPaginatorIntl {
 
   private rangeLabel = 'of';
 
-  constructor(private translateService: TranslateService) {
+  constructor(private translate: TranslateService) {
     super();
-    this.translateService.onLangChange.subscribe(() => this.getTranslations());
+    this.translate.onLangChange.subscribe(() => this.getTranslations());
+    this.getTranslations();
   }
 
   getRangeLabel = ((page, pageSize, length) => {
@@ -50,7 +53,7 @@ export class MatPaginatorIntlTranslated extends MatPaginatorIntl {
   });
 
   getTranslations(): void {
-    this.translateService.get([
+    this.translate.get([
       'MATERIAL.PAGINATOR.FIRST_PAGE',
       'MATERIAL.PAGINATOR.LAST_PAGE',
       'MATERIAL.PAGINATOR.ITEMS_PER_PAGE',
@@ -99,7 +102,9 @@ const modules = [
   MatListModule,
   MatSlideToggleModule,
   MatStepperModule,
-  MatRadioModule
+  MatRadioModule,
+  MatTabsModule,
+  MatChipsModule
 ];
 
 @NgModule({
