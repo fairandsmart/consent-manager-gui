@@ -92,12 +92,18 @@
     "CONFIRM": "Confirm",
     "CANCEL": "Cancel"
   },
+  "ROUTING": {
+    "404": {
+      "TITLE": "404 Not Found",
+      "BODY": "This is not the page you are looking for."
+    }
+  },
   "ENTRIES": {
     "TITLE": "Entries",
     "infos": {
-      "PANEL_TITLE": "Basic informations",
+      "PANEL_TITLE": "Basic information",
       "PANEL_DESCRIPTION_HTML": "<div>Here are the information you created.</div><div>This is meant to inform your users about your privacy policy, for example.</div><div>You can only create one information entry.</div>",
-      "EMPTY": "First, add basic informations..."
+      "EMPTY": "First, add basic information..."
     },
     "processing": {
       "PANEL_TITLE": "Processing library",
@@ -218,7 +224,7 @@
         "HIDE": "Display only in receipts",
         "DATA_CONTROLLER": {
           "TITLE": "Data controller",
-          "SUBTITLE_OPTIONAL": "(if different from the one in the general informations)",
+          "SUBTITLE_OPTIONAL": "(if different from the one in the basic information)",
           "ACTING_BEHALF_COMPANY": {
             "LABEL": "This controller is acting on behalf of the company"
           },
@@ -557,7 +563,7 @@
         "ACTIVE_SINCE": "Active since",
         "NO_EMAIL": "No known email address",
         "EDITOR": {
-          "TITLE": "Edit informations",
+          "TITLE": "Edit information",
           "EMAIL": {
             "LABEL": "Adresse email"
           }

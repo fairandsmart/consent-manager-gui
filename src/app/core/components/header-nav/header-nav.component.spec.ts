@@ -16,7 +16,7 @@ describe('HeaderNavComponent', () => {
   let subjectsResourceServiceSpy: SpyObj<SubjectsResourceService>;
 
   beforeEach(waitForAsync(() => {
-    keycloakServiceSpy = createSpyObj<KeycloakService>('KeycloakService', ['getUsername']);
+    keycloakServiceSpy = createSpyObj<KeycloakService>('KeycloakService', ['getUsername', 'isUserInRole']);
     subjectsResourceServiceSpy = createSpyObj<SubjectsResourceService>('SubjectsResourceService', ['listSubjects']);
 
     TestBed.configureTestingModule({
@@ -32,6 +32,7 @@ describe('HeaderNavComponent', () => {
 
   beforeEach(() => {
     keycloakServiceSpy.getUsername.and.returnValue('FOO BAR');
+    keycloakServiceSpy.isUserInRole.and.returnValue(true);
     subjectsResourceServiceSpy.listSubjects.and.returnValue(EMPTY);
 
     fixture = TestBed.createComponent(HeaderNavComponent);

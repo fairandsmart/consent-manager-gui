@@ -1,7 +1,6 @@
 <mat-toolbar color="primary">
   <button mat-icon-button (click)="toggleSideNav.emit()"><mat-icon>menu</mat-icon></button>
-  <img class="title-img" alt="Logo" [style]="CUSTOMIZATION.headerLogoStyle" [src]="CUSTOMIZATION.headerLogoUrl"
-       routerLink="/admin/home">
+  <img class="title-img" alt="Logo" [style]="CUSTOMIZATION.headerLogoStyle" [src]="CUSTOMIZATION.headerLogoUrl" [routerLink]="getHomeUrl()">
   <span class="spacer"></span>
   <ng-container *ngIf="displaySearchBar">
     <form class="search-user-form" fxHide.lt-sm (ngSubmit)="search()" ngClass.lt-md="sm">

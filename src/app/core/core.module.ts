@@ -18,12 +18,14 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HeaderNavComponent } from './components/header-nav/header-nav.component';
 import { RouterModule } from '@angular/router';
 import { FlexLayoutModule } from '@angular/flex-layout';
+import { RoutingErrorPageComponent } from './pages/routing-error-page/routing-error-page.component';
 
 @NgModule({
   declarations: [
     HeaderNavComponent,
     HealthErrorComponent,
-    ConfirmDialogComponent
+    ConfirmDialogComponent,
+    RoutingErrorPageComponent
   ],
   imports: [
     CommonModule,

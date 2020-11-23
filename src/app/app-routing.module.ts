@@ -3,12 +3,15 @@ import { RouterModule, Routes } from '@angular/router';
 import { RolesGuardService } from './core/guards/roles-guard.service';
 import { EnablingGuardService } from './core/guards/enabling-guard.service';
 import { environment } from '../environments/environment';
+import { HomeGuardService } from './core/guards/home-guard.service';
+import { RoutingErrorPageComponent } from './core/pages/routing-error-page/routing-error-page.component';
 
 const routes: Routes = [
   {
     path: '',
-    redirectTo: '/admin/home',
-    pathMatch: 'full'
+    component: RoutingErrorPageComponent,
+    pathMatch: 'full',
+    canActivate: [HomeGuardService]
   },
   {
     path: 'admin',
@@ -25,6 +28,10 @@ const routes: Routes = [
     data: {
       enabled: environment.customization.displayUserPage
     }
+  },
+  {
+    path: '**',
+    component: RoutingErrorPageComponent
   }
 ];
 

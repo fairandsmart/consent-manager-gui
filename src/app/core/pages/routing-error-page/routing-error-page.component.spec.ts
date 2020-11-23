@@ -1,17 +1,17 @@
 import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 
-import { UserPageComponent } from './user-page.component';
-import { CoreTestingModule } from '../../../../testing/core-testing-module.spec';
-import { RouterTestingModule } from '@angular/router/testing';
+import { RoutingErrorPageComponent } from './routing-error-page.component';
+import { CoreTestingModule } from '../../../testing/core-testing-module.spec';
 import { KeycloakService } from 'keycloak-angular';
 import SpyObj = jasmine.SpyObj;
 import createSpyObj = jasmine.createSpyObj;
-import { SubjectsResourceService } from '../../../../core/http/subjects-resource.service';
+import { RouterTestingModule } from '@angular/router/testing';
+import { SubjectsResourceService } from '../../http/subjects-resource.service';
 import { EMPTY } from 'rxjs';
 
-describe('UserPageComponent', () => {
-  let component: UserPageComponent;
-  let fixture: ComponentFixture<UserPageComponent>;
+describe('RoutingErrorPageComponent', () => {
+  let component: RoutingErrorPageComponent;
+  let fixture: ComponentFixture<RoutingErrorPageComponent>;
   let keycloakServiceSpy: SpyObj<KeycloakService>;
   let subjectsResourceServiceSpy: SpyObj<SubjectsResourceService>;
 
@@ -20,7 +20,7 @@ describe('UserPageComponent', () => {
     subjectsResourceServiceSpy = createSpyObj<SubjectsResourceService>('SubjectsResourceService', ['listSubjects']);
 
     TestBed.configureTestingModule({
-      declarations: [ UserPageComponent ],
+      declarations: [ RoutingErrorPageComponent ],
       imports: [ CoreTestingModule, RouterTestingModule ],
       providers: [
         {provide: KeycloakService, useValue: keycloakServiceSpy},
@@ -35,7 +35,7 @@ describe('UserPageComponent', () => {
     keycloakServiceSpy.isUserInRole.and.returnValue(true);
     subjectsResourceServiceSpy.listSubjects.and.returnValue(EMPTY);
 
-    fixture = TestBed.createComponent(UserPageComponent);
+    fixture = TestBed.createComponent(RoutingErrorPageComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });
