@@ -51,6 +51,30 @@
                 </mat-hint>
               </mat-form-field>
             </div>
+
+            <mat-checkbox formControlName="includeDefault">
+              {{'ENTRIES.EDITOR.PREFERENCE.INCLUDE_DEFAULT.LABEL' | translate}}
+            </mat-checkbox>
+
+            <div *ngIf="form.get('includeDefault').value">
+              <mat-form-field appearance="outline">
+                <mat-label>{{'ENTRIES.EDITOR.PREFERENCE.DEFAULT_VALUE.LABEL' | translate}}</mat-label>
+                <ng-container *ngIf="form.get('valueType').value === 'CHECKBOXES' || form.get('valueType').value === 'LIST_MULTI'; else single">
+                  <mat-select formControlName="defaultValues" required multiple="true">
+                    <mat-option *ngFor="let value of form.get('options').value" [value]="value">
+                      {{value}}
+                    </mat-option>
+                  </mat-select>
+                </ng-container>
+                <ng-template #single>
+                  <mat-select formControlName="defaultValues" required>
+                    <mat-option *ngFor="let value of form.get('options').value" [value]="[value]">
+                      {{value}}
+                    </mat-option>
+                  </mat-select>
+                </ng-template>
+              </mat-form-field>
+            </div>
           </div>
 
         </mat-card-content>

@@ -49,7 +49,9 @@ export class PreferenceComponent extends EntryContentDirective<Preference> imple
       label: ['', [Validators.required]],
       description: [''],
       valueType: ['NONE', [Validators.required]],
-      options: [[]]
+      options: [[]],
+      includeDefault: [true, [Validators.required]],
+      defaultValues: [[]]
     });
     this.checkFormState();
   }
@@ -59,6 +61,7 @@ export class PreferenceComponent extends EntryContentDirective<Preference> imple
       if (v === 'NONE' || v === 'FREE_TEXT') {
         this.form.get('options').setValue([]);
         this.form.get('options').clearValidators();
+        this.form.get('includeDefault').setValue(false);
       } else {
         const validators = [Validators.required, Validators.minLength(v === 'CHECKBOXES' ? 1 : 2)];
         if (v === 'TOGGLE') {
@@ -67,6 +70,21 @@ export class PreferenceComponent extends EntryContentDirective<Preference> imple
         this.form.get('options').setValidators(validators);
       }
       this.form.get('options').updateValueAndValidity();
+    });
+    this.form.get('options').valueChanges.subscribe(v => {
+      if (!v.includes(this.form.get('defaultValues').value)) {
+        this.form.get('defaultValues').setValue([]);
+      }
+      this.form.get('defaultValues').updateValueAndValidity();
+    });
+    this.form.get('includeDefault').valueChanges.subscribe(v => {
+      if (v) {
+        this.form.get('defaultValues').setValidators([Validators.required]);
+      } else {
+        this.form.get('defaultValues').setValue([]);
+        this.form.get('defaultValues').clearValidators();
+      }
+      this.form.get('defaultValues').updateValueAndValidity();
     });
     super.registerFormChanges();
   }

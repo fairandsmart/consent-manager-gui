@@ -25,7 +25,7 @@
             </mat-form-field>
             <mat-form-field class="value" appearance="outline">
               <mat-label>{{'ENTRIES.EDITOR.PROCESSING.RETENTION.VALUE.LABEL' | translate}}</mat-label>
-              <input type="number" matInput required formControlName="retentionValue" autocomplete="off">
+              <input type="number" matInput required formControlName="retentionValue" autocomplete="off" min="1">
             </mat-form-field>
             <mat-form-field class="unit" appearance="outline">
               <mat-label>{{'ENTRIES.EDITOR.PROCESSING.RETENTION.UNIT.LABEL' | translate}}</mat-label>
@@ -115,7 +115,7 @@
 
           <mat-form-field appearance="outline" *ngIf="form.get('associatedWithPreferences').value">
             <mat-label>{{'ENTRIES.EDITOR.PROCESSING.ASSOCIATED_PREFERENCES.LABEL' | translate}}</mat-label>
-            <mat-select multiple formControlName="associatedPreferences">
+            <mat-select multiple="true" required formControlName="associatedPreferences">
               <mat-option *ngFor="let entry of availablePreferences" [value]="entry.key">
                 ({{entry.key}}) {{entry.name}}
               </mat-option>

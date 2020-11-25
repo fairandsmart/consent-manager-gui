@@ -390,7 +390,13 @@
         "OPTIONS": {
           "LABEL": "Options",
           "PLACEHOLDER": "Enter here your options",
-          "TOGGLE_HINT": "Enter a first value for the position \"refuse\", and a second one for the position \"accept\"."
+          "TOGGLE_HINT": "Enter a first value for the \"off\" position, and a second one for the \"on\" position."
+        },
+        "INCLUDE_DEFAULT": {
+          "LABEL": "I want to use a default parameter for this preference during my consent form creation"
+        },
+        "DEFAULT_VALUE": {
+          "LABEL": "Default answer"
         }
       },
       "CONDITIONS": {
