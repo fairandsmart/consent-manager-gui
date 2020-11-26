@@ -626,6 +626,15 @@
           "DOWNLOAD": "Download"
         }
       },
+      "RECEIPT_FORMAT": {
+        "LABEL": "Receipt format",
+        "VALUES": {
+          "HTML": "HTML page",
+          "XML": "XML file",
+          "PDF": "PDF file",
+          "TEXT": "Plain text"
+        }
+      },
       "NOTIFICATION_RECIPIENT": {
         "LABEL": "Email recipient"
       },

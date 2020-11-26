@@ -76,6 +76,12 @@
                   <mat-option *ngFor="let type of RECEIPT_TYPES" [value]="type">{{'FORM_CREATOR.FORM.RECEIPT.VALUES.' + type.toUpperCase() | translate}}</mat-option>
                 </mat-select>
               </mat-form-field>
+              <mat-form-field appearance="fill">
+                <mat-label>{{'FORM_CREATOR.FORM.RECEIPT_FORMAT.LABEL' | translate}}</mat-label>
+                <mat-select formControlName="receiptDisplayType" required>
+                  <mat-option *ngFor="let type of RECEIPT_FORMATS" [value]="type">{{'FORM_CREATOR.FORM.RECEIPT_FORMAT.VALUES.' + type.toUpperCase() | translate}}</mat-option>
+                </mat-select>
+              </mat-form-field>
               <mat-form-field appearance="fill" *ngIf="form.at(STEPS.OPTIONS).get('notificationModel').value">
                 <mat-label>{{'FORM_CREATOR.FORM.NOTIFICATION_RECIPIENT.LABEL' | translate}}</mat-label>
                 <input type="email" matInput formControlName="notificationRecipient" autocomplete="off" email>
