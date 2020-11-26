@@ -1,4 +1,4 @@
-import { NgModule } from '@angular/core';
+import { ModuleWithProviders, NgModule } from '@angular/core';
 import { RolesGuardService } from './guards/roles-guard.service';
 import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import { HealthInterceptor } from './interceptors/health.interceptor';
@@ -47,19 +47,25 @@ import { ConfigService } from './services/config.service';
     TranslateModule,
     FlexLayoutModule,
     HeaderNavComponent
-  ],
-  providers: [
-    {provide: HTTP_INTERCEPTORS, useClass: HealthInterceptor, multi: true},
-    {provide: MAT_SNACK_BAR_DEFAULT_OPTIONS, useValue: {duration: 3000}},
-    RolesGuardService,
-    AlertService,
-    ConfigService,
-    ConsentsResourceService,
-    KeysResourceService,
-    ModelsResourceService,
-    RecordsResourceService,
-    SubjectsResourceService,
-    SystemResourceService
   ]
 })
-export class CoreModule { }
+export class CoreModule {
+  static forRoot(): ModuleWithProviders<CoreModule> {
+    return {
+      ngModule: CoreModule,
+      providers: [
+        {provide: HTTP_INTERCEPTORS, useClass: HealthInterceptor, multi: true},
+        {provide: MAT_SNACK_BAR_DEFAULT_OPTIONS, useValue: {duration: 3000}},
+        RolesGuardService,
+        AlertService,
+        ConfigService,
+        ConsentsResourceService,
+        KeysResourceService,
+        ModelsResourceService,
+        RecordsResourceService,
+        SubjectsResourceService,
+        SystemResourceService
+      ]
+    };
+  }
+}
