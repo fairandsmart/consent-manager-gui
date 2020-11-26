@@ -251,8 +251,7 @@
           "LOGO": "Logo",
           "TEXT": "Title, body and footer",
           "LAW": "Legal information",
-          "POLICY": "Privacy policy",
-          "BUTTON": "Button \"Accept all\""
+          "POLICY": "Privacy policy"
         },
         "LOGO": {
           "PATH": {
@@ -290,14 +289,6 @@
           },
           "LINK_LABEL": {
             "LABEL": "Privacy policy link label"
-          }
-        },
-        "ACCEPT_ALL": {
-          "DISPLAY": {
-            "LABEL": "Display \"Accept all\" button"
-          },
-          "BUTTON_LABEL": {
-            "LABEL": "\"Accept all\" button label"
           }
         }
       },
@@ -615,6 +606,14 @@
       },
       "ASSOCIATIONS": {
         "LABEL": "Add to the form the preferences associated to the selected processing"
+      },
+      "ACCEPT_ALL": {
+        "DISPLAY": {
+          "LABEL": "Display \"Accept all\" button"
+        },
+        "BUTTON_LABEL": {
+          "LABEL": "\"Accept all\" button label"
+        }
       },
       "SUBJECT": {
         "LABEL": "Customer ID",

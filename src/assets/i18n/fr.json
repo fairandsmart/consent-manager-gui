@@ -251,8 +251,7 @@
           "LOGO": "Logo",
           "TEXT": "Titre, corps et pied de page",
           "LAW": "Informations juridiques",
-          "POLICY": "Politique de confidentialité",
-          "BUTTON": "Bouton \"Tout accepter\""
+          "POLICY": "Politique de confidentialité"
         },
         "LOGO": {
           "PATH": {
@@ -290,14 +289,6 @@
           },
           "LINK_LABEL": {
             "LABEL": "Libellé du lien vers la politique de confidentialité"
-          }
-        },
-        "ACCEPT_ALL": {
-          "DISPLAY": {
-            "LABEL": "Afficher le bouton \"Tout accepter\""
-          },
-          "BUTTON_LABEL": {
-            "LABEL": "Libellé du bouton \"Tout accepter\""
           }
         }
       },
@@ -615,6 +606,14 @@
       },
       "ASSOCIATIONS": {
         "LABEL": "Ajouter au formulaire les préférences associées aux traitements sélectionnés"
+      },
+      "ACCEPT_ALL": {
+        "DISPLAY": {
+          "LABEL": "Afficher le bouton \"Tout accepter\""
+        },
+        "BUTTON_LABEL": {
+          "LABEL": "Libellé du bouton \"Tout accepter\""
+        }
       },
       "SUBJECT": {
         "LABEL": "Identifiant client",

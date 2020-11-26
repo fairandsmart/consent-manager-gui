@@ -57,9 +57,7 @@ export class BasicinfoComponent extends EntryContentDirective<BasicInfo> impleme
       shortNoticeLink: [''],
       showShortNoticeLink: [{value: false, disabled: true}],
       privacyPolicyUrl: ['', [Validators.required]],
-      customPrivacyPolicyText: [''],
-      showAcceptAll: [false],
-      customAcceptAllText: ['']
+      customPrivacyPolicyText: ['']
     });
     this.checkFormState();
   }

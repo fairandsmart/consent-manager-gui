@@ -102,13 +102,6 @@
             <mat-radio-button [value]="false">{{'ENTRIES.EDITOR.CONTENT.HIDE' | translate}}</mat-radio-button>
           </mat-radio-group>
 
-          <mat-card-subtitle>{{'ENTRIES.EDITOR.BASICINFO.SUBTITLES.BUTTON' | translate}}</mat-card-subtitle>
-          <mat-checkbox formControlName="showAcceptAll">{{'ENTRIES.EDITOR.BASICINFO.ACCEPT_ALL.DISPLAY.LABEL' | translate}}</mat-checkbox>
-          <mat-form-field appearance="outline">
-            <mat-label>{{'ENTRIES.EDITOR.BASICINFO.ACCEPT_ALL.BUTTON_LABEL.LABEL' | translate}}</mat-label>
-            <input matInput formControlName="customAcceptAllText" autocomplete="off">
-          </mat-form-field>
-
         </mat-card-content>
         <mat-card-actions *ngIf="isLatestVersion()">
           <button mat-button type="button" color="primary" [disabled]="form.invalid" (click)="save()">{{'ENTRIES.EDITOR.BUTTONS.SAVE' | translate}}</button>

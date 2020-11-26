@@ -128,8 +128,6 @@ export interface BasicInfo extends ModelData {
   showShortNoticeLink: boolean;
   privacyPolicyUrl: string;
   customPrivacyPolicyText: string;
-  showAcceptAll: boolean;
-  customAcceptAllText: string;
 }
 
 export enum RetentionUnit {
@@ -262,6 +260,8 @@ export interface ConsentContext {
   preview: boolean;
   iframe: boolean;
   theme?: string;
+  showAcceptAll?: boolean;
+  acceptAllText?: string;
 }
 
 export enum ConsentFormOrientation {
