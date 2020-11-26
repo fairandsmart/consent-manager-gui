@@ -20,8 +20,9 @@
       "INTEGRATION": {
         "LABEL": "Intégration",
         "GETTING_STARTED": "Bien démarrer",
-        "FORM_CREATOR": "Formulaire",
-        "API": "Accès à l'API"
+        "COLLECT": "Collecter",
+        "INTERROGATE": "Interroger",
+        "SECURITY": "Sécurité"
       }
     }
   },
@@ -738,6 +739,26 @@
         "CONFIRM_BUTTON": "Supprimer",
         "SUCCESS": "La clé a été supprimée"
       }
+    }
+  },
+  "INTERROGATE": {
+    "TITLE": "Interroger",
+    "ENTRY": "Élément",
+    "VALUE": "Valeur",
+    "NO_RESULTS": "Pas de résultats",
+    "EXPORT_BUTTON": "Exporter",
+    "PREFERENCE": {
+      "GROUP_TITLE": "Préférences"
+    },
+    "PROCESSING": {
+      "GROUP_TITLE": "Traitements",
+      "VALUE": {
+        "accepted": "Accepté",
+        "refused": "Refusé"
+      }
+    },
+    "CONDITIONS": {
+      "GROUP_TITLE": "CGU/CGS"
     }
   },
   "USER": {

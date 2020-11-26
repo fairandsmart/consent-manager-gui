@@ -38,8 +38,9 @@ export enum Icons {
   theme = 'palette',
   cookies = 'local_offer',
   gettingStarted = 'help',
-  formCreator = 'integration_instructions',
-  apiKey = 'vpn_key'
+  collect = 'integration_instructions',
+  interrogate = 'search',
+  security = 'vpn_key'
 }
 
 /* Models */
@@ -411,6 +412,25 @@ export interface SubjectDto {
   name: string;
   emailAddress: string;
   creationTimestamp: number;
+}
+
+export interface ExtractionConfigCondition {
+  key: string;
+  value: string;
+  regexpValue: boolean;
+}
+
+export interface ExtractionConfigDto {
+  condition: ExtractionConfigCondition;
+}
+
+export interface ExtractionResultDto {
+  subjectId: string;
+  subjectName: string;
+  subjectEmail: string;
+  recordKey: string;
+  recordSerial: string;
+  recordValue: string;
 }
 
 export interface UserDto {
