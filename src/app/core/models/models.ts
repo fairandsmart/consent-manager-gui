@@ -380,11 +380,27 @@ export interface OperatorLogElement {
   value: string;
 }
 
-/* Subjects */
-
 export interface SubjectDto {
   id: string;
   name: string;
   emailAddress: string;
   creationTimestamp: number;
+}
+
+export interface UserDto {
+  username: string;
+  admin: boolean;
+  operator: boolean;
+  roles: string[];
+}
+
+export interface SupportInfoDto {
+  status: string;
+  latestVersion: string;
+  currentVersion: string;
+}
+
+export interface ClientConfigDto {
+  userPageEnabled: string;
+  userPageElements: string[];
 }

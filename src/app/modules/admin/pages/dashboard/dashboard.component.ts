@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { RecordsResourceService } from '../../../../core/http/records-resource.service';
 import { TranslateService } from '@ngx-translate/core';
+import { SystemResourceService } from '../../../../core/http/system-resource.service';
 
 @Component({
   selector: 'cm-dashboard',
@@ -88,13 +88,13 @@ export class DashboardComponent implements OnInit {
   public answersWeekData: {chartData: object, chartLabels: object};
 
   constructor(
-    public recordsService: RecordsResourceService,
+    public systemService: SystemResourceService,
     public translate: TranslateService
   ) {
   }
 
   ngOnInit(): void {
-    this.recordsService.getStats().subscribe((response) => {
+    this.systemService.getStats().subscribe((response) => {
     // TODO stats
     const labels = {
       fr: {

@@ -19,6 +19,7 @@ import { HeaderNavComponent } from './components/header-nav/header-nav.component
 import { RouterModule } from '@angular/router';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { RoutingErrorPageComponent } from './pages/routing-error-page/routing-error-page.component';
+import { SystemResourceService } from './http/system-resource.service';
 
 @NgModule({
   declarations: [
@@ -55,7 +56,8 @@ import { RoutingErrorPageComponent } from './pages/routing-error-page/routing-er
     KeysResourceService,
     ModelsResourceService,
     RecordsResourceService,
-    SubjectsResourceService
+    SubjectsResourceService,
+    SystemResourceService
   ]
 })
 export class CoreModule { }
