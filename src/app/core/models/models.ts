@@ -427,6 +427,6 @@ export interface SupportInfoDto {
 }
 
 export interface ClientConfigDto {
-  userPageEnabled: string;
+  userPageEnabled: boolean;
   userPageElements: string[];
 }
