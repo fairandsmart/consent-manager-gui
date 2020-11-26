@@ -285,6 +285,32 @@ export type ReceiptDeliveryType = 'NONE' | 'GENERATE' | 'DISPLAY' | 'STORE' | 'D
 
 export const RECEIPT_DELIVERY_TYPES: ReceiptDeliveryType[] = ['NONE', 'GENERATE', 'DISPLAY', 'STORE', 'DOWNLOAD'];
 
+/* Notification reports */
+
+export enum NotificationReportStatus {
+  SENT = 'SENT',
+  DELIVERED = 'DELIVERED',
+  OPENED = 'OPENED',
+  INVALID_RECIPIENT = 'INVALID_RECIPIENT',
+  MAILBOX_FULL = 'MAILBOX_FULL',
+  ERROR = 'ERROR'
+}
+
+export enum NotificationReportType {
+  SMS = 'SMS',
+  EMAIL = 'EMAIL',
+  FCM = 'FCM',
+  XMPP = 'XMPP'
+}
+
+export interface NotificationReport {
+  transaction: string;
+  creationTimestamp: number;
+  status: NotificationReportStatus;
+  type: NotificationReportType;
+  explanation: string;
+}
+
 /* Records */
 
 export enum RecordStatus {
@@ -317,8 +343,8 @@ export interface RecordDto {
   statusExplanation: RecordStatusExplanation;
   collectionMethod: CollectionMethod;
   comment: string;
-  mailRecipient: string;
   transaction: string;
+  notificationReports: NotificationReport[];
 }
 
 export interface RecordFilter {

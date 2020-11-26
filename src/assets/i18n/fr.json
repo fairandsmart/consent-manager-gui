@@ -542,13 +542,30 @@
         "LABEL": "Adresse email de notification",
         "REQUIRED": "Vous devez préciser l'adresse email",
         "EMAIL_INVALID": "Vous devez préciser une adresse email valide",
-        "NOTIFY": "Notifier l'utilisateur par email",
-        "NO_MODELS_HINT": "Pour pouvoir envoyer une notification par email vous devez avoir défini au moins un modèle d'email.",
-        "NO_NOTIFICATION": "Aucune notification n'a été envoyée."
+        "NOTIFY": "Notifier l'utilisateur par email"
       },
       "MODEL": {
         "LABEL": "Modèle d'email de notification",
-        "REQUIRED": "Vous devez préciser le modèle"
+        "REQUIRED": "Vous devez préciser le modèle",
+        "NO_MODELS_HINT": "Pour pouvoir envoyer une notification par email vous devez avoir défini au moins un modèle d'email."
+      },
+      "NOTIFICATION": {
+        "LABEL": "Notifications",
+        "TYPE": {
+          "SMS": "SMS",
+          "EMAIL": "Email",
+          "FCM": "FCM",
+          "XMPP": "XMPP"
+        },
+        "STATUS": {
+          "SENT": "Envoyé",
+          "DELIVERED": "Transmis",
+          "OPENED": "Ouvert",
+          "INVALID_RECIPIENT": "Destinataire invalide",
+          "MAILBOX_FULL": "Boîte de réception pleine",
+          "ERROR": "Erreur"
+        },
+        "EMPTY": "Aucune"
       }
     },
     "DIALOG": {
