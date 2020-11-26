@@ -41,6 +41,7 @@ import { OperatorSubjectPageComponent } from './pages/operator-subject-page/oper
 import { SubjectRecordsHistoryComponent } from './components/operator/subject-records-history/subject-records-history.component';
 import { SubjectInfosEditorDialogComponent } from './components/operator/subject-infos-editor-dialog/subject-infos-editor-dialog.component';
 import { GettingStartedPageComponent } from './pages/getting-started-page/getting-started-page.component';
+import { InterrogatePageComponent } from './pages/interrogate-page/interrogate-page.component';
 
 @NgModule({
   declarations: [
@@ -80,7 +81,8 @@ import { GettingStartedPageComponent } from './pages/getting-started-page/gettin
     OperatorSubjectPageComponent,
     SubjectRecordsHistoryComponent,
     SubjectInfosEditorDialogComponent,
-    GettingStartedPageComponent
+    GettingStartedPageComponent,
+    InterrogatePageComponent
   ],
   imports: [
     AdminRoutingModule,

@@ -20,8 +20,9 @@
       "INTEGRATION": {
         "LABEL": "Integration",
         "GETTING_STARTED": "Getting started",
-        "FORM_CREATOR": "Form creation",
-        "API": "API access"
+        "COLLECT": "Collect",
+        "INTERROGATE": "Interrogate",
+        "API": "Security"
       }
     }
   },
@@ -469,7 +470,12 @@
   },
   "ENTRY_CARD": {
     "LABEL_NO_DESCRIPTION": "No description",
+    "ACTIVE": {
+      "true": "Active",
+      "false": "Inactive"
+    },
     "ACTIVE_VERSION": "Active",
+    "INACTIVE_VERSION": "Inactive",
     "LANGUAGES_TOOLTIP": "Language(s)"
   },
   "RECORDS": {
@@ -728,8 +734,31 @@
         }
       },
       "DROP": {
+        "CONFIRM_TITLE": "Delete this API key ?",
+        "CONFIRM_CONTENT": "This operation is irreversible. Are you sure you want to delete this API key?",
+        "CONFIRM_BUTTON": "Delete",
         "SUCCESS": "The API key has been deleted"
       }
+    }
+  },
+  "INTERROGATE": {
+    "TITLE": "Interrogate",
+    "ENTRY": "Entry",
+    "VALUE": "Value",
+    "NO_RESULTS": "No results",
+    "EXPORT_BUTTON": "Export",
+    "PREFERENCE": {
+      "GROUP_TITLE": "Preferences"
+    },
+    "PROCESSING": {
+      "GROUP_TITLE": "Processings",
+      "VALUE": {
+        "accepted": "Accepted",
+        "refused": "Refused"
+      }
+    },
+    "CONDITIONS": {
+      "GROUP_TITLE": "EULAs"
     }
   },
   "USER": {
