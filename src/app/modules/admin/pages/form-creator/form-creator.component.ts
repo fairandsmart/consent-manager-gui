@@ -188,7 +188,8 @@ export class FormCreatorComponent implements OnInit {
         elements: [[], [Validators.required, Validators.pattern(FIELD_VALIDATORS.elementsKeys.pattern)]],
         associatePreferences: [true, [Validators.required]],
         showAcceptAll: [false, [Validators.required]],
-        acceptAllText: ['']
+        acceptAllText: [''],
+        footerOnTop: [false, [Validators.required]]
       }),
       this.fb.group({
         theme: ['', [Validators.pattern(FIELD_VALIDATORS.key.pattern)]],
@@ -271,7 +272,7 @@ export class FormCreatorComponent implements OnInit {
     if (this.currentStep === FORM_CREATOR_STEP.ELEMENTS) {
       this.updateAcceptAll();
     }
-    if (event.selectedIndex === FORM_CREATOR_STEP.PREVIEW) {
+    if (this.currentStep === FORM_CREATOR_STEP.PREVIEW) {
       this.preview();
     }
   }
@@ -303,7 +304,8 @@ export class FormCreatorComponent implements OnInit {
       iframe: true,
       theme: formValue.theme,
       showAcceptAll: formValue.showAcceptAll,
-      acceptAllText: formValue.acceptAllText
+      acceptAllText: formValue.acceptAllText,
+      footerOnTop: formValue.footerOnTop
     };
   }
 

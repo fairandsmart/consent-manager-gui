@@ -607,6 +607,9 @@
       "ASSOCIATIONS": {
         "LABEL": "Add to the form the preferences associated to the selected processing"
       },
+      "FOOTER_ON_TOP": {
+        "LABEL": "Always display the form footer"
+      },
       "ACCEPT_ALL": {
         "DISPLAY": {
           "LABEL": "Display \"Accept all\" button"

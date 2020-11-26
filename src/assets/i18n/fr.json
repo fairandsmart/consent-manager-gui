@@ -607,6 +607,9 @@
       "ASSOCIATIONS": {
         "LABEL": "Ajouter au formulaire les préférences associées aux traitements sélectionnés"
       },
+      "FOOTER_ON_TOP": {
+        "LABEL": "Toujours afficher le pied du formulaire"
+      },
       "ACCEPT_ALL": {
         "DISPLAY": {
           "LABEL": "Afficher le bouton \"Tout accepter\""

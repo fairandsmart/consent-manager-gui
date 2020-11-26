@@ -262,6 +262,7 @@ export interface ConsentContext {
   theme?: string;
   showAcceptAll?: boolean;
   acceptAllText?: string;
+  footerOnTop?: boolean;
 }
 
 export enum ConsentFormOrientation {
