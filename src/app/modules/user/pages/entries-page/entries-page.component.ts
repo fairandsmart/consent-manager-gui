@@ -7,6 +7,7 @@ import { CollectionPage, ModelDataType, ModelEntryDto, RecordDto, RecordsMap } f
 import { combineLatest, Subscription } from 'rxjs';
 import { map } from 'rxjs/operators';
 import * as _ from 'lodash';
+import { ConfigService } from '../../../../core/services/config.service';
 
 interface CardData {
   entry: ModelEntryDto;
@@ -30,11 +31,12 @@ export class EntriesPageComponent implements OnInit, OnDestroy {
 
   constructor(public keycloakService: KeycloakService,
               public modelsResourceService: ModelsResourceService,
-              public subjectsResourceService: SubjectsResourceService) {
+              public subjectsResourceService: SubjectsResourceService,
+              public configService: ConfigService) {
   }
 
   ngOnInit(): void {
-    this.elementsKeys = environment.customization.userPageElementsOrder.split(',');
+    this.elementsKeys = this.configService.config.userPageElements;
     this.subs.push(
       combineLatest([
         this.modelsResourceService.listEntries({

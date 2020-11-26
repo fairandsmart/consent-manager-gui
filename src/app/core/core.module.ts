@@ -20,6 +20,7 @@ import { RouterModule } from '@angular/router';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { RoutingErrorPageComponent } from './pages/routing-error-page/routing-error-page.component';
 import { SystemResourceService } from './http/system-resource.service';
+import { ConfigService } from './services/config.service';
 
 @NgModule({
   declarations: [
@@ -52,6 +53,7 @@ import { SystemResourceService } from './http/system-resource.service';
     {provide: MAT_SNACK_BAR_DEFAULT_OPTIONS, useValue: {duration: 3000}},
     RolesGuardService,
     AlertService,
+    ConfigService,
     ConsentsResourceService,
     KeysResourceService,
     ModelsResourceService,

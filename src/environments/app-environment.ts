@@ -12,6 +12,4 @@ export interface AppCustomization {
   headerLogoUrl: string;
   multipleInfo: boolean;
   defaultLanguage: string;
-  displayUserPage: boolean;
-  userPageElementsOrder: string;
 }
