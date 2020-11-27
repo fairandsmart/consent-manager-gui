@@ -253,6 +253,7 @@ export interface ConsentContext {
   validity?: string;
   formType: ConsentFormType;
   receiptDeliveryType: ReceiptDeliveryType;
+  receiptDisplayType?: ReceiptDisplayType;
   userinfos: { [key: string]: string };
   attributes: { [key: string]: string };
   notificationModel: string;
@@ -284,7 +285,10 @@ export enum CollectionMethod {
 
 export type ReceiptDeliveryType = 'NONE' | 'GENERATE' | 'DISPLAY' | 'STORE' | 'DOWNLOAD';
 
+export type ReceiptDisplayType = 'HTML' | 'XML' | 'PDF' | 'TEXT';
+
 export const RECEIPT_DELIVERY_TYPES: ReceiptDeliveryType[] = ['NONE', 'GENERATE', 'DISPLAY', 'STORE', 'DOWNLOAD'];
+export const RECEIPT_DISPLAY_TYPES: ReceiptDisplayType[] = ['HTML', 'XML', 'PDF', 'TEXT'];
 
 /* Notification reports */
 

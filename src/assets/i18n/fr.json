@@ -649,6 +649,15 @@
           "DOWNLOAD": "Télécharger"
         }
       },
+      "RECEIPT_FORMAT": {
+        "LABEL": "Format du reçu",
+        "VALUES": {
+          "HTML": "Page HTML",
+          "XML": "Fichier XML",
+          "PDF": "Fichier PDF",
+          "TEXT": "Plein texte"
+        }
+      },
       "NOTIFICATION_RECIPIENT": {
         "LABEL": "Destinataire de l'email"
       },

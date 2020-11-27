@@ -9,7 +9,7 @@ import {
   FIELD_VALIDATORS,
   Icons,
   ModelEntryDto,
-  RECEIPT_DELIVERY_TYPES
+  RECEIPT_DELIVERY_TYPES, RECEIPT_DISPLAY_TYPES
 } from '../../../../core/models/models';
 import { tap } from 'rxjs/operators';
 import { zip } from 'rxjs';
@@ -127,6 +127,7 @@ export class FormCreatorComponent implements OnInit {
   public readonly STEPS = FORM_CREATOR_STEP;
   public readonly ORIENTATIONS = CONSENT_FORM_ORIENTATIONS;
   public readonly RECEIPT_TYPES = RECEIPT_DELIVERY_TYPES;
+  public readonly RECEIPT_FORMATS = RECEIPT_DISPLAY_TYPES;
   public readonly VALIDITY_UNITS = ['D', 'W', 'M', 'Y'];
 
   public formUrl: SafeResourceUrl;
@@ -199,6 +200,7 @@ export class FormCreatorComponent implements OnInit {
         validity: [6, [Validators.required, Validators.min(1)]],
         validityUnit: ['M', [Validators.required]],
         receiptDeliveryType: ['DISPLAY', [Validators.required]],
+        receiptDisplayType: ['HTML', [Validators.required]],
         notificationModel: ['', [Validators.pattern(FIELD_VALIDATORS.key.pattern)]],
         notificationRecipient: ['']
       })
@@ -288,6 +290,7 @@ export class FormCreatorComponent implements OnInit {
       language: formValue.language,
       formType: formValue.forceDisplay ? ConsentFormType.FULL : ConsentFormType.PARTIAL,
       receiptDeliveryType: formValue.receiptDeliveryType,
+      receiptDisplayType: formValue.receiptDisplayType,
       userinfos: {},
       attributes: {},
       notificationModel: formValue.notificationModel,
