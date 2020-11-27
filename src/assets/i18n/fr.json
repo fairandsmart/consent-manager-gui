@@ -614,7 +614,7 @@
         "elements": "Traitements et préférences affichés"
       },
       "ASSOCIATIONS": {
-        "LABEL": "Ajouter au formulaire les préférences associées aux traitements sélectionnés"
+        "LABEL": "Ajouter au formulaire les préférences associées aux traitements sélectionnés (les préférences seront directement ajoutées et vous pourrez les visualiser à l'écran suivant)"
       },
       "SUBJECT": {
         "LABEL": "Identifiant client",

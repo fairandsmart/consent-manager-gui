@@ -614,7 +614,7 @@
         "elements": "Displayed processing and preferences"
       },
       "ASSOCIATIONS": {
-        "LABEL": "Add to the form the preferences associated to the selected processing"
+        "LABEL": "Add to the form the preferences associated to the selected processing (the preferences will be automatically added and you will be able to see them in the preview in the next step)"
       },
       "SUBJECT": {
         "LABEL": "Customer ID",
