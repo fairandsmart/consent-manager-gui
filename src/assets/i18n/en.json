@@ -396,7 +396,8 @@
           "LABEL": "I want to use a default parameter for this preference during my consent form creation"
         },
         "DEFAULT_VALUE": {
-          "LABEL": "Default answer"
+          "LABEL": "Default answer",
+          "LENGTH_ERROR": "Only one default value may be selected for this answer type."
         }
       },
       "CONDITIONS": {

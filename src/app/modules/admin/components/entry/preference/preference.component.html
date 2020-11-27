@@ -59,20 +59,14 @@
             <div *ngIf="form.get('includeDefault').value">
               <mat-form-field appearance="outline">
                 <mat-label>{{'ENTRIES.EDITOR.PREFERENCE.DEFAULT_VALUE.LABEL' | translate}}</mat-label>
-                <ng-container *ngIf="form.get('valueType').value === 'CHECKBOXES' || form.get('valueType').value === 'LIST_MULTI'; else single">
-                  <mat-select formControlName="defaultValues" required multiple="true">
-                    <mat-option *ngFor="let value of form.get('options').value" [value]="value">
-                      {{value}}
-                    </mat-option>
-                  </mat-select>
-                </ng-container>
-                <ng-template #single>
-                  <mat-select formControlName="defaultValues" required>
-                    <mat-option *ngFor="let value of form.get('options').value" [value]="[value]">
-                      {{value}}
-                    </mat-option>
-                  </mat-select>
-                </ng-template>
+                <mat-select formControlName="defaultValues" required multiple="true">
+                  <mat-option *ngFor="let value of form.get('options').value" [value]="value">
+                    {{value}}
+                  </mat-option>
+                </mat-select>
+                <mat-error *ngIf="form.hasError('maxlength', ['defaultValues'])">
+                  {{'ENTRIES.EDITOR.PREFERENCE.DEFAULT_VALUE.LENGTH_ERROR' | translate}}
+                </mat-error>
               </mat-form-field>
             </div>
           </div>
