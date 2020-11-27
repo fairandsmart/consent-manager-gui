@@ -35,6 +35,11 @@ export class SideNavComponent implements OnInit {
       expanded: false,
       sub: [
         {
+          title: 'NAV.CATEGORIES.MODELS.GETTING_STARTED',
+          link: '/admin/configuration/getting-started',
+          icon: Icons.gettingStarted
+        },
+        {
           title: 'NAV.CATEGORIES.MODELS.INFO',
           link: '/admin/configuration/basicinfo',
           icon: Icons.basicinfo
