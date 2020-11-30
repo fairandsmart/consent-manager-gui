@@ -1,12 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { EntryContentDirective } from '../entry-content/entry-content.directive';
-import {
-  ModelDataType,
-  ModelVersionDto,
-  Preference,
-  PREFERENCE_VALUE_TYPES,
-  PreferenceValueType
-} from '../../../../../core/models/models';
+import { ModelDataType, Preference, PREFERENCE_VALUE_TYPES, PreferenceValueType } from '../../../../../core/models/models';
 import { FormBuilder, FormControl, Validators } from '@angular/forms';
 import { ModelsResourceService } from '../../../../../core/http/models-resource.service';
 import { DomSanitizer } from '@angular/platform-browser';
@@ -112,10 +106,6 @@ export class PreferenceComponent extends EntryContentDirective<Preference> imple
   removeOption(value: string): void {
     const values: string[] = this.form.get('options').value || [];
     this.form.get('options').setValue(values.filter(t => t !== value));
-  }
-
-  protected setVersion(version: ModelVersionDto<Preference>, language: string = this.version.defaultLanguage): void {
-    super.setVersion(version, language);
   }
 
   protected updateDefaultValuesValidators(valueType): void {

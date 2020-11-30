@@ -81,9 +81,11 @@
   },
   "ALERT": {
     "NO_CHANGE": "No change",
+    "FORM_ERROR": "There are errors in the form, changes not saved",
     "UNSAVED_CHANGES": "Unsaved changes, cannot activate draft",
-    "SAVE_SUCCESS": "Content saved!",
+    "SAVE_SUCCESS": "Your draft has been saved. In order to be able to use this template in your forms, please activate it.",
     "SAVE_ERROR": "Cannot save content...",
+    "UNKNOWN_ERROR": "An unknown error occurred...",
     "ACTIVATION_SUCCESS": "Version activated!",
     "ACTIVATION_ERROR": "Cannot activate draft...",
     "DELETION_SUCCESS": "Draft deleted!",

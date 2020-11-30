@@ -12,7 +12,7 @@ import {
 import { EMPTY, Observable, of } from 'rxjs';
 import { ModelsResourceService } from '../../../../../core/http/models-resource.service';
 import * as _ from 'lodash';
-import { catchError, debounceTime, mergeMap, startWith } from 'rxjs/operators';
+import { catchError, debounceTime, distinctUntilChanged, map, mergeMap, startWith } from 'rxjs/operators';
 import { HttpErrorResponse } from '@angular/common/http';
 import { environment } from '../../../../../../environments/environment';
 import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
@@ -82,8 +82,9 @@ export abstract class EntryContentDirective<T extends ModelData> extends FormSta
   protected initPreview(): void {
     this.form.valueChanges.pipe(
       startWith(this.form.getRawValue() as T),
-      debounceTime(this.previewDelay)
-    ).subscribe(() => {
+      debounceTime(this.previewDelay),
+      distinctUntilChanged((a, b) => _.isEqual(a, b))
+    ).subscribe((e) => {
       this.formStateChanged();
       this.refreshPreview();
     });
@@ -122,11 +123,20 @@ export abstract class EntryContentDirective<T extends ModelData> extends FormSta
     this.initialValue = _.cloneDeep(this.form.getRawValue());
   }
 
-  private updateVersion(version: ModelVersionDto<T>): void {
-    this.version = version;
-    this.modelsResourceService.getEntry(this.entry.id).subscribe(e => this.entry = e);
-    this.form.markAsPristine();
-    this.setVersion(this.version);
+  private updateVersion(version: ModelVersionDto<T>): Observable<[ModelEntryDto, ModelVersionDto<T>]> {
+    return this.modelsResourceService.getEntry(this.entry.id).pipe(
+      catchError((err) => {
+        this.alertService.error('ALERT.UNKNOWN_ERROR', err);
+        return EMPTY;
+      }),
+      map((entry) => {
+        this.entry = entry;
+        this.setVersion(version);
+        this.clearSavedState();
+        this.form.markAsPristine();
+        return [entry, version];
+      })
+    );
   }
 
   save(): void {
@@ -134,27 +144,35 @@ export abstract class EntryContentDirective<T extends ModelData> extends FormSta
       this.alertService.info('ALERT.NO_CHANGE');
       return;
     }
-    if (this.form.valid) {
-      let obs: Observable<ModelVersionDto<T>>;
-      const data: T = this.form.getRawValue();
-      const dto: ModelVersionDto<T> = {
-        defaultLanguage: this.defaultLanguage,
-        availableLanguages: [this.defaultLanguage],
-        data: {[this.defaultLanguage]: data}
-      };
-      if (this.version?.status === ModelVersionStatus.DRAFT) {
-        obs = this.modelsResourceService.updateVersion<T>(this.entry.id, this.version.id, dto);
-      } else {
-        obs = this.modelsResourceService.createVersion<T>(this.entry.id, dto);
-      }
-      obs.subscribe(version => {
-        this.updateVersion(version);
-        this.clearSavedState();
-        this.alertService.success('ALERT.SAVE_SUCCESS');
-      }, err => {
-        this.alertService.error('ALERT.SAVE_ERROR', err);
-      });
+    if (this.form.invalid) {
+      this.form.markAllAsTouched();
+      this.alertService.error('ALERT.FORM_ERROR', 'Form invalid');
+      return;
     }
+    let obs: Observable<ModelVersionDto<T>>;
+    const data: T = this.form.getRawValue();
+    this.form.disable({emitEvent: false});
+    const dto: ModelVersionDto<T> = {
+      defaultLanguage: this.defaultLanguage,
+      availableLanguages: [this.defaultLanguage],
+      data: {[this.defaultLanguage]: data}
+    };
+    if (this.version?.status === ModelVersionStatus.DRAFT) {
+      obs = this.modelsResourceService.updateVersion<T>(this.entry.id, this.version.id, dto);
+    } else {
+      obs = this.modelsResourceService.createVersion<T>(this.entry.id, dto);
+    }
+    obs.pipe(
+      catchError((err) => {
+        this.form.enable();
+        this.alertService.error('ALERT.SAVE_ERROR', err);
+        return EMPTY;
+      }),
+      mergeMap((version) => {
+        this.alertService.success('ALERT.SAVE_SUCCESS', {snackBarConfig: {duration: 6000}});
+        return this.updateVersion(version);
+      })
+    ).subscribe();
   }
 
   activate(): void {
@@ -162,18 +180,24 @@ export abstract class EntryContentDirective<T extends ModelData> extends FormSta
       this.alertService.info('ALERT.UNSAVED_CHANGES');
       return;
     }
-    this.modelsResourceService.updateVersionStatus<T>(this.entry.id, this.version.id, ModelVersionStatus.ACTIVE)
-      .subscribe(version => {
-        this.updateVersion(version);
-        this.alertService.success('ALERT.ACTIVATION_SUCCESS');
-      }, err => {
+    this.form.disable();
+    this.modelsResourceService.updateVersionStatus<T>(this.entry.id, this.version.id, ModelVersionStatus.ACTIVE).pipe(
+      catchError((err) => {
+        this.form.enable();
         this.alertService.error('ALERT.ACTIVATION_ERROR', err);
-      });
+        return EMPTY;
+      }),
+      mergeMap((version) => {
+        this.alertService.success('ALERT.ACTIVATION_SUCCESS');
+        return this.updateVersion(version);
+      })
+    ).subscribe();
   }
 
   delete(): void {
     this.modelsResourceService.deleteVersion(this.entry.id, this.version.id).pipe(
       catchError((err) => {
+        this.form.enable();
         this.alertService.error('ALERT.DELETION_ERROR', err);
         return EMPTY;
       }),
@@ -183,17 +207,20 @@ export abstract class EntryContentDirective<T extends ModelData> extends FormSta
           return this.modelsResourceService.getVersion(this.entry.id, this.entry.versions[this.entry.versions.length - 2].id);
         }
         return of(null);
-      })
-    ).subscribe(version => {
-      this.updateVersion(version);
-    }, (err: HttpErrorResponse) => {
-      if (err.status === 404) {
-        this.version = null;
-        this.initForm();
-      } else {
-        this.alertService.error('ALERT.RELOAD_ERROR', err);
-      }
-    });
+      }),
+      catchError((err: HttpErrorResponse) => {
+        if (err.status === 404) {
+          this.version = null;
+          this.form.enable();
+          this.initForm();
+        } else {
+          this.form.enable();
+          this.alertService.error('ALERT.RELOAD_ERROR', err);
+        }
+        return EMPTY;
+      }),
+      mergeMap((version) => this.updateVersion(version))
+    ).subscribe();
   }
 
   isLatestVersion(): boolean {
