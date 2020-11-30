@@ -38,8 +38,9 @@ export enum Icons {
   theme = 'palette',
   cookies = 'local_offer',
   gettingStarted = 'help',
-  formCreator = 'integration_instructions',
-  apiKey = 'vpn_key'
+  collect = 'integration_instructions',
+  interrogate = 'search',
+  security = 'vpn_key'
 }
 
 /* Models */
@@ -254,6 +255,7 @@ export interface ConsentContext {
   validity?: string;
   formType: ConsentFormType;
   receiptDeliveryType: ReceiptDeliveryType;
+  receiptDisplayType?: ReceiptDisplayType;
   userinfos: { [key: string]: string };
   attributes: { [key: string]: string };
   notificationModel: string;
@@ -285,7 +287,36 @@ export enum CollectionMethod {
 
 export type ReceiptDeliveryType = 'NONE' | 'GENERATE' | 'DISPLAY' | 'STORE' | 'DOWNLOAD';
 
+export type ReceiptDisplayType = 'HTML' | 'XML' | 'PDF' | 'TEXT';
+
 export const RECEIPT_DELIVERY_TYPES: ReceiptDeliveryType[] = ['NONE', 'GENERATE', 'DISPLAY', 'STORE', 'DOWNLOAD'];
+export const RECEIPT_DISPLAY_TYPES: ReceiptDisplayType[] = ['HTML', 'XML', 'PDF', 'TEXT'];
+
+/* Notification reports */
+
+export enum NotificationReportStatus {
+  SENT = 'SENT',
+  DELIVERED = 'DELIVERED',
+  OPENED = 'OPENED',
+  INVALID_RECIPIENT = 'INVALID_RECIPIENT',
+  MAILBOX_FULL = 'MAILBOX_FULL',
+  ERROR = 'ERROR'
+}
+
+export enum NotificationReportType {
+  SMS = 'SMS',
+  EMAIL = 'EMAIL',
+  FCM = 'FCM',
+  XMPP = 'XMPP'
+}
+
+export interface NotificationReport {
+  transaction: string;
+  creationTimestamp: number;
+  status: NotificationReportStatus;
+  type: NotificationReportType;
+  explanation: string;
+}
 
 /* Records */
 
@@ -319,8 +350,8 @@ export interface RecordDto {
   statusExplanation: RecordStatusExplanation;
   collectionMethod: CollectionMethod;
   comment: string;
-  mailRecipient: string;
   transaction: string;
+  notificationReports: NotificationReport[];
 }
 
 export interface RecordFilter {
@@ -382,11 +413,46 @@ export interface OperatorLogElement {
   value: string;
 }
 
-/* Subjects */
-
 export interface SubjectDto {
   id: string;
   name: string;
   emailAddress: string;
   creationTimestamp: number;
+}
+
+export interface ExtractionConfigCondition {
+  key: string;
+  value: string;
+  regexpValue: boolean;
+}
+
+export interface ExtractionConfigDto {
+  condition: ExtractionConfigCondition;
+}
+
+export interface ExtractionResultDto {
+  subjectId: string;
+  subjectName: string;
+  subjectEmail: string;
+  recordKey: string;
+  recordSerial: string;
+  recordValue: string;
+}
+
+export interface UserDto {
+  username: string;
+  admin: boolean;
+  operator: boolean;
+  roles: string[];
+}
+
+export interface SupportInfoDto {
+  status: string;
+  latestVersion: string;
+  currentVersion: string;
+}
+
+export interface ClientConfigDto {
+  userPageEnabled: boolean;
+  userPageElements: string[];
 }

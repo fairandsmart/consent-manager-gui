@@ -10,6 +10,7 @@
       },
       "MODELS": {
         "LABEL": "Configuration",
+        "GETTING_STARTED": "Getting started",
         "INFO": "Basic Information",
         "PROCESSING": "Processing",
         "PREFERENCES": "Preferences",
@@ -20,8 +21,9 @@
       "INTEGRATION": {
         "LABEL": "Integration",
         "GETTING_STARTED": "Getting started",
-        "FORM_CREATOR": "Form creation",
-        "API": "API access"
+        "COLLECT": "Collect",
+        "INTERROGATE": "Interrogate",
+        "API": "Security"
       }
     }
   },
@@ -476,7 +478,12 @@
   },
   "ENTRY_CARD": {
     "LABEL_NO_DESCRIPTION": "No description",
+    "ACTIVE": {
+      "true": "Active",
+      "false": "Inactive"
+    },
     "ACTIVE_VERSION": "Active",
+    "INACTIVE_VERSION": "Inactive",
     "LANGUAGES_TOOLTIP": "Language(s)"
   },
   "RECORDS": {
@@ -544,13 +551,30 @@
         "LABEL": "Notification email address",
         "REQUIRED": "Please specify the email address",
         "EMAIL_INVALID": "Please specify a valid email address",
-        "NOTIFY": "Notify the user by email",
-        "NO_MODELS_HINT": "To be able to send an email notification you must have defined at least one email model.",
-        "NO_NOTIFICATION": "No notification was sent."
+        "NOTIFY": "Notify the user by email"
       },
       "MODEL": {
-        "LABEL": "Email Notification model",
-        "REQUIRED": "Please specify a model"
+        "LABEL": "Email notification model",
+        "REQUIRED": "Please specify a model",
+        "NO_MODELS_HINT": "To be able to send an email notification you must have defined at least one email model."
+      },
+      "NOTIFICATION": {
+        "LABEL": "Notifications",
+        "TYPE": {
+          "SMS": "SMS",
+          "EMAIL": "Email",
+          "FCM": "FCM",
+          "XMPP": "XMPP"
+        },
+        "STATUS": {
+          "SENT": "Sent",
+          "DELIVERED": "Delivered",
+          "OPENED": "Opened",
+          "INVALID_RECIPIENT": "Invalid recipient",
+          "MAILBOX_FULL": "Mailbox full",
+          "ERROR": "Error"
+        },
+        "EMPTY": "None"
       }
     },
     "DIALOG": {
@@ -598,7 +622,7 @@
         "elements": "Displayed processing and preferences"
       },
       "ASSOCIATIONS": {
-        "LABEL": "Add to the form the preferences associated to the selected processing"
+        "LABEL": "Add to the form the preferences associated to the selected processing (the preferences will be automatically added and you will be able to see them in the preview in the next step)"
       },
       "SUBJECT": {
         "LABEL": "Customer ID",
@@ -631,6 +655,15 @@
           "DISPLAY": "Display",
           "STORE": "Store",
           "DOWNLOAD": "Download"
+        }
+      },
+      "RECEIPT_FORMAT": {
+        "LABEL": "Receipt format",
+        "VALUES": {
+          "HTML": "HTML page",
+          "XML": "XML file",
+          "PDF": "PDF file",
+          "TEXT": "Plain text"
         }
       },
       "NOTIFICATION_RECIPIENT": {
@@ -683,7 +716,10 @@
   "API": {
     "GETTING_STARTED": {
       "TITLE": "Getting started",
-      "DESCRIPTION": "<p>The integration section will allow you to:</p><ul><li>build your consent forms from the templates registered in the \"Configuration\" section and integrate them in your application/website thanks to different code examples (PHP, etc...).</li><li>manage the access keys to the API</li></ul><p>In this section, you will also find a module allowing you to make queries in the base of the collected consents.</p><p>There are two different actions: the collection of consent and then its exploitation afterwards.</p>",
+      "DESCRIPTION": {
+        "configuration": "<div>The \"Configuration\" section allows you to parameterize elements which you will later use to create consent forms in the \"Integration\" section. You can configure the following elements:</div><ul><li>general information templates: these information are essential to create a consent form, as they include for instance your privacy policy and define the header and footer of your forms. Beware, in this Community version, you will only be able to have one general informations active template at any time. If you wish to learn more and switch to the Enterprise version, click on the button below.</li><li>processing templates: processing constitute the foundations of a consent form within the meaning of the GDPR. In this section, you will be able to define processing, which you may then add to a form to ask your customers for their consent regarding those processing.</li><li>preferences templates: associated to processing or not, they allow you to ask your customers for they preferred contact channel for example, or the themes about which they would like to be regularly informed.</li><li>EULA templates: these elements are essential for the use of any service by your customers. You can browse here the various versions and push them to your customers through forms.</li><li>consent emails templates: these emails are sent (or not, depending on your use case) to your customers following their consent form submission, this will allow them to retrieve their receipt, to visualize their consent once more and to change it later.</li><li>themes templates: applied to forms, consent emails and receipts alike, they allow your to customize all these elements with your logo and your graphical charter.</li></ul>",
+        "integration": "<p>The integration section will allow you to:</p><ul><li>build your consent forms from the templates registered in the \"Configuration\" section and integrate them in your application/website thanks to different code examples (PHP, etc...).</li><li>manage the access keys to the API</li></ul><p>In this section, you will also find a module allowing you to make queries in the base of the collected consents.</p><p>There are two different actions: the collection of consent and then its exploitation afterwards.</p>"
+      },
       "MORE": "<p>You can find more information about our solution:</p><ul><li>the different use cases</li><li>the two versions of our product</li><li>the product roadmap</li><li>the complete documentation of the API</li></ul>",
       "MORE_BUTTON": "More..."
     },
@@ -718,8 +754,31 @@
         }
       },
       "DROP": {
+        "CONFIRM_TITLE": "Delete this API key ?",
+        "CONFIRM_CONTENT": "This operation is irreversible. Are you sure you want to delete this API key?",
+        "CONFIRM_BUTTON": "Delete",
         "SUCCESS": "The API key has been deleted"
       }
+    }
+  },
+  "INTERROGATE": {
+    "TITLE": "Interrogate",
+    "ENTRY": "Entry",
+    "VALUE": "Value",
+    "NO_RESULTS": "No results",
+    "EXPORT_BUTTON": "Export",
+    "PREFERENCE": {
+      "GROUP_TITLE": "Preferences"
+    },
+    "PROCESSING": {
+      "GROUP_TITLE": "Processings",
+      "VALUE": {
+        "accepted": "Accepted",
+        "refused": "Refused"
+      }
+    },
+    "CONDITIONS": {
+      "GROUP_TITLE": "EULAs"
     }
   },
   "USER": {

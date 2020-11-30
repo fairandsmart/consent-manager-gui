@@ -1,4 +1,4 @@
-import { NgModule } from '@angular/core';
+import { ModuleWithProviders, NgModule } from '@angular/core';
 import { RolesGuardService } from './guards/roles-guard.service';
 import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import { HealthInterceptor } from './interceptors/health.interceptor';
@@ -19,6 +19,8 @@ import { HeaderNavComponent } from './components/header-nav/header-nav.component
 import { RouterModule } from '@angular/router';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { RoutingErrorPageComponent } from './pages/routing-error-page/routing-error-page.component';
+import { SystemResourceService } from './http/system-resource.service';
+import { ConfigService } from './services/config.service';
 
 @NgModule({
   declarations: [
@@ -45,17 +47,25 @@ import { RoutingErrorPageComponent } from './pages/routing-error-page/routing-er
     TranslateModule,
     FlexLayoutModule,
     HeaderNavComponent
-  ],
-  providers: [
-    {provide: HTTP_INTERCEPTORS, useClass: HealthInterceptor, multi: true},
-    {provide: MAT_SNACK_BAR_DEFAULT_OPTIONS, useValue: {duration: 3000}},
-    RolesGuardService,
-    AlertService,
-    ConsentsResourceService,
-    KeysResourceService,
-    ModelsResourceService,
-    RecordsResourceService,
-    SubjectsResourceService
   ]
 })
-export class CoreModule { }
+export class CoreModule {
+  static forRoot(): ModuleWithProviders<CoreModule> {
+    return {
+      ngModule: CoreModule,
+      providers: [
+        {provide: HTTP_INTERCEPTORS, useClass: HealthInterceptor, multi: true},
+        {provide: MAT_SNACK_BAR_DEFAULT_OPTIONS, useValue: {duration: 3000}},
+        RolesGuardService,
+        AlertService,
+        ConfigService,
+        ConsentsResourceService,
+        KeysResourceService,
+        ModelsResourceService,
+        RecordsResourceService,
+        SubjectsResourceService,
+        SystemResourceService
+      ]
+    };
+  }
+}

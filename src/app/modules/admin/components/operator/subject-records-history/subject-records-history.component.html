@@ -56,10 +56,16 @@
       </td>
     </ng-container>
 
-    <ng-container matColumnDef="mailRecipient">
-      <th mat-header-cell *matHeaderCellDef>{{'RECORDS.COMMON.RECIPIENT.LABEL' | translate}}</th>
+    <ng-container matColumnDef="notificationReports">
+      <th mat-header-cell *matHeaderCellDef>{{'RECORDS.COMMON.NOTIFICATION.LABEL' | translate}}</th>
       <td mat-cell *matCellDef="let element">
-        {{element.mailRecipient ? element.mailRecipient : ('RECORDS.COMMON.RECIPIENT.NO_NOTIFICATION' | translate)}}
+        <ng-container *ngIf="element.notificationReports.length > 0; else none"></ng-container>
+          <div *ngFor="let notif of element.notificationReports">
+            {{'RECORDS.COMMON.NOTIFICATION.TYPE.' + notif.type | translate}}: {{'RECORDS.COMMON.NOTIFICATION.STATUS.' + notif.status | translate}}
+          </div>
+        <ng-template #none>
+          {{'RECORDS.COMMON.NOTIFICATION.EMPTY' | translate}}
+        </ng-template>
       </td>
     </ng-container>
 

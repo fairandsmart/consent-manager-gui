@@ -13,6 +13,7 @@ import { FormCreatorComponent } from './pages/form-creator/form-creator.componen
 import { KeysComponent } from './pages/keys/keys.component';
 import { OperatorSubjectPageComponent } from './pages/operator-subject-page/operator-subject-page.component';
 import { GettingStartedPageComponent } from './pages/getting-started-page/getting-started-page.component';
+import { InterrogatePageComponent } from './pages/interrogate-page/interrogate-page.component';
 
 const routes: Routes = [
   {
@@ -35,6 +36,10 @@ const routes: Routes = [
       {
         path: 'configuration',
         children: [
+          {
+            path: 'getting-started',
+            component: GettingStartedPageComponent
+          },
           {
             path: ':type/:id',
             component: EntryPageComponent
@@ -73,11 +78,15 @@ const routes: Routes = [
             component: GettingStartedPageComponent
           },
           {
-            path: 'form-creator',
+            path: 'collect',
             component: FormCreatorComponent
           },
           {
-            path: 'api',
+            path: 'interrogate',
+            component: InterrogatePageComponent
+          },
+          {
+            path: 'security',
             component: KeysComponent
           }
         ]

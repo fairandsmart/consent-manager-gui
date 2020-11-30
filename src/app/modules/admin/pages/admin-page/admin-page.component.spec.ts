@@ -6,9 +6,10 @@ import { KeycloakService } from 'keycloak-angular';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { SubjectsResourceService } from '../../../../core/http/subjects-resource.service';
 import { EMPTY } from 'rxjs';
+import { CoreTestingModule } from '../../../../testing/core-testing-module.spec';
+import { SideNavComponent } from '../../components/side-nav/side-nav.component';
 import SpyObj = jasmine.SpyObj;
 import createSpyObj = jasmine.createSpyObj;
-import { CoreTestingModule } from '../../../../testing/core-testing-module.spec';
 
 describe('AdminPageComponent', () => {
   let component: AdminPageComponent;
@@ -21,7 +22,7 @@ describe('AdminPageComponent', () => {
     subjectsResourceServiceSpy = createSpyObj<SubjectsResourceService>('SubjectsResourceService', ['listSubjects']);
 
     TestBed.configureTestingModule({
-      declarations: [ AdminPageComponent ],
+      declarations: [ AdminPageComponent, SideNavComponent ],
       imports: [ CoreTestingModule, RouterTestingModule, NoopAnimationsModule ],
       providers: [
         {provide: KeycloakService, useValue: keycloakServiceSpy},
