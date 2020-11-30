@@ -37,6 +37,10 @@ const routes: Routes = [
         path: 'configuration',
         children: [
           {
+            path: 'getting-started',
+            component: GettingStartedPageComponent
+          },
+          {
             path: ':type/:id',
             component: EntryPageComponent
           },
