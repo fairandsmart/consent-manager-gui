@@ -392,7 +392,14 @@
         "OPTIONS": {
           "LABEL": "Options",
           "PLACEHOLDER": "Entrez ici vos options",
-          "TOGGLE_HINT": "Entrez une première valeur pour la position \"refuser\", et une seconde pour la position \"accepter\"."
+          "TOGGLE_HINT": "Entrez une première valeur pour la position \"inactive\", et une seconde pour la position \"active\"."
+        },
+        "INCLUDE_DEFAULT": {
+          "LABEL": "Je veux utiliser un paramètre par défaut pour cette préférence lors de la construction de mon formulaire de consentement"
+        },
+        "DEFAULT_VALUE": {
+          "LABEL": "Réponse par défaut",
+          "LENGTH_ERROR": "Vous ne pouvez sélectionner qu'une seule valeur par défaut pour ce type de réponse."
         }
       },
       "CONDITIONS": {

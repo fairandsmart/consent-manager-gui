@@ -4,7 +4,8 @@ import {
   ModelDataType,
   ModelVersionDto,
   Preference,
-  PREFERENCE_VALUE_TYPES
+  PREFERENCE_VALUE_TYPES,
+  PreferenceValueType
 } from '../../../../../core/models/models';
 import { FormBuilder, FormControl, Validators } from '@angular/forms';
 import { ModelsResourceService } from '../../../../../core/http/models-resource.service';
@@ -48,25 +49,45 @@ export class PreferenceComponent extends EntryContentDirective<Preference> imple
       type: [this.type, [Validators.required]],
       label: ['', [Validators.required]],
       description: [''],
-      valueType: ['NONE', [Validators.required]],
-      options: [[]]
+      valueType: [PreferenceValueType.NONE, [Validators.required]],
+      options: [[]],
+      includeDefault: [true, [Validators.required]],
+      defaultValues: [[]]
     });
     this.checkFormState();
   }
 
   registerFormChanges(): void {
     this.form.get('valueType').valueChanges.subscribe(v => {
-      if (v === 'NONE' || v === 'FREE_TEXT') {
+      if (v === PreferenceValueType.NONE || v === PreferenceValueType.FREE_TEXT) {
         this.form.get('options').setValue([]);
         this.form.get('options').clearValidators();
+        this.form.get('includeDefault').setValue(false);
       } else {
-        const validators = [Validators.required, Validators.minLength(v === 'CHECKBOXES' ? 1 : 2)];
-        if (v === 'TOGGLE') {
+        const validators = [Validators.required, Validators.minLength(v === PreferenceValueType.CHECKBOXES ? 1 : 2)];
+        if (v === PreferenceValueType.TOGGLE) {
           validators.push(Validators.maxLength(2));
         }
         this.form.get('options').setValidators(validators);
+        this.updateDefaultValuesValidators(v);
       }
       this.form.get('options').updateValueAndValidity();
+    });
+
+    this.form.get('options').valueChanges.subscribe(v => {
+      const defaultValues = this.form.get('defaultValues').value.filter(d => v.includes(d));
+      this.form.get('defaultValues').setValue(defaultValues);
+      this.form.get('defaultValues').updateValueAndValidity();
+    });
+
+    this.form.get('includeDefault').valueChanges.subscribe(v => {
+      if (v) {
+        this.updateDefaultValuesValidators(this.form.get('valueType').value);
+      } else {
+        this.form.get('defaultValues').setValue([]);
+        this.form.get('defaultValues').clearValidators();
+        this.form.get('defaultValues').updateValueAndValidity();
+      }
     });
     super.registerFormChanges();
   }
@@ -95,5 +116,15 @@ export class PreferenceComponent extends EntryContentDirective<Preference> imple
 
   protected setVersion(version: ModelVersionDto<Preference>, language: string = this.version.defaultLanguage): void {
     super.setVersion(version, language);
+  }
+
+  protected updateDefaultValuesValidators(valueType): void {
+    const validators = [Validators.required];
+    if (valueType !== PreferenceValueType.LIST_MULTI && valueType !== PreferenceValueType.CHECKBOXES) {
+      validators.push(Validators.maxLength(1));
+    } else {
+    }
+    this.form.get('defaultValues').setValidators(validators);
+    this.form.get('defaultValues').updateValueAndValidity();
   }
 }

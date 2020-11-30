@@ -186,6 +186,8 @@ export interface Preference extends ModelData {
   description: string;
   options: string[];
   valueType: PreferenceValueType;
+  includeDefault: boolean;
+  defaultValues: string[];
 }
 
 export interface Conditions extends ModelData {
