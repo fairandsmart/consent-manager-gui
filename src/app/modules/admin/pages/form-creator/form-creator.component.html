@@ -82,9 +82,18 @@
                   <mat-option *ngFor="let type of RECEIPT_FORMATS" [value]="type">{{'FORM_CREATOR.FORM.RECEIPT_FORMAT.VALUES.' + type.toUpperCase() | translate}}</mat-option>
                 </mat-select>
               </mat-form-field>
-              <mat-form-field appearance="fill" *ngIf="form.at(STEPS.OPTIONS).get('notificationModel').value">
+              <div class="checkbox-wrapper">
+                <mat-checkbox formControlName="notify">{{'FORM_CREATOR.FORM.NOTIFICATION_RECIPIENT.NOTIFY_CHECKBOX_LABEL' | translate}}</mat-checkbox>
+              </div>
+              <mat-form-field appearance="fill" *ngIf="form.at(STEPS.OPTIONS).get('notify').value" required>
                 <mat-label>{{'FORM_CREATOR.FORM.NOTIFICATION_RECIPIENT.LABEL' | translate}}</mat-label>
                 <input type="email" matInput formControlName="notificationRecipient" autocomplete="off" email>
+                <mat-error *ngIf="form.hasError('required', [STEPS.OPTIONS, 'notificationRecipient'])">
+                  {{'FORM_CREATOR.FORM.NOTIFICATION_RECIPIENT.REQUIRED' | translate }}
+                </mat-error>
+                <mat-error *ngIf="form.hasError('email', [STEPS.OPTIONS, 'notificationRecipient'])">
+                  {{'FORM_CREATOR.FORM.NOTIFICATION_RECIPIENT.EMAIL_INVALID' | translate }}
+                </mat-error>
               </mat-form-field>
             </mat-card-content>
           </mat-card>
@@ -133,7 +142,7 @@
     </ng-container>
 
     <cm-entries-library
-      [style.display]="stepper.selectedIndex !== STEPS.OPTIONS ? 'none' : undefined"
+      [style.display]="stepper.selectedIndex !== STEPS.OPTIONS || !form.at(STEPS.OPTIONS).get('notify').value ? 'none' : undefined"
       [config]="emailsLibraryConfig"
       [selected]="selectedEmail" [mode]="'select'"
       (selectedChange)="selectedEmailChange($event)"></cm-entries-library>

@@ -669,7 +669,10 @@
         }
       },
       "NOTIFICATION_RECIPIENT": {
-        "LABEL": "Email recipient"
+        "NOTIFY_CHECKBOX_LABEL": "I would like to notify the user by email following the submission of the form",
+        "LABEL": "Email recipient",
+        "REQUIRED": "Please specify the email address",
+        "EMAIL_INVALID": "Please specify a valid email address"
       },
       "THEME": {
         "LABEL": "Theme (optional)",

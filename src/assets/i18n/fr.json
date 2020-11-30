@@ -669,7 +669,10 @@
         }
       },
       "NOTIFICATION_RECIPIENT": {
-        "LABEL": "Destinataire de l'email"
+        "NOTIFY_CHECKBOX_LABEL": "Je souhaite notifier l'utilisateur par email suite à la soumission du formulaire",
+        "LABEL": "Destinataire de l'email",
+        "REQUIRED": "Vous devez préciser le destinataire",
+        "EMAIL_INVALID": "Vous devez préciser une adresse email valide"
       },
       "THEME": {
         "LABEL": "Thème (facultatif)",
