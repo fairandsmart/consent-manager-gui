@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Icons } from '../../../../core/models/models';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'cm-getting-started-page',
@@ -10,9 +11,14 @@ export class GettingStartedPageComponent implements OnInit {
 
   readonly ICONS = Icons;
 
-  constructor() { }
+  sectionName: string;
+
+  constructor(private route: ActivatedRoute) { }
 
   ngOnInit(): void {
+    this.route.parent.url.subscribe((section) => {
+      this.sectionName = section[0].path;
+    });
   }
 
 }

@@ -1,5 +1,5 @@
-import { ReplaySubject } from 'rxjs';
-import { ActivatedRouteSnapshot, convertToParamMap, Data, ParamMap, Params } from '@angular/router';
+import { Observable, ReplaySubject } from 'rxjs';
+import { ActivatedRouteSnapshot, convertToParamMap, Data, ParamMap, Params, UrlSegment } from '@angular/router';
 
 /**
  * An ActivateRoute test double with a `paramMap` observable.
@@ -12,17 +12,20 @@ export class ActivatedRouteStubSpec {
   private paramMapSubject = new ReplaySubject<ParamMap>();
   private queryParamMapSubject = new ReplaySubject<ParamMap>();
   private dataSubject = new ReplaySubject<Data>();
+  private urlSubject = new ReplaySubject<UrlSegment[]>();
 
   /** The mock paramMap observable */
   readonly paramMap = this.paramMapSubject.asObservable();
   readonly queryParamMap = this.queryParamMapSubject.asObservable();
   readonly data = this.dataSubject.asObservable();
   readonly snapshot: ActivatedRouteSnapshot = {} as ActivatedRouteSnapshot;
+  readonly parent: { url: Observable<UrlSegment[]> } = {url: this.urlSubject.asObservable()};
 
-  constructor(initialValues: {params?: Params, queryParams?: Params, data?: Data} = {}) {
+  constructor(initialValues: {params?: Params, queryParams?: Params, data?: Data, url?: UrlSegment[]} = {}) {
     this.setParamMap(initialValues.params);
     this.setQueryParamMap(initialValues.queryParams);
     this.setData(initialValues.data);
+    this.setUrl(initialValues.url);
   }
 
   /** Set the paramMap observables's next value */
@@ -45,5 +48,12 @@ export class ActivatedRouteStubSpec {
       this.dataSubject.next(data);
     }
     this.snapshot.data = data;
+  }
+
+  setUrl(url?: UrlSegment[]): void {
+    if (url) {
+      this.urlSubject.next(url);
+    }
+    this.snapshot.url = url;
   }
 }

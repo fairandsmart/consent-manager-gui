@@ -2,7 +2,9 @@
   <div class="title-container">
     <h2><mat-icon>{{ICONS.gettingStarted}}</mat-icon> {{'API.GETTING_STARTED.TITLE' | translate}}</h2>
   </div>
-  <div [innerHTML]="'API.GETTING_STARTED.DESCRIPTION' | translate"></div>
+  <div [innerHTML]="'API.GETTING_STARTED.DESCRIPTION.' + sectionName | translate"></div>
   <div [innerHTML]="'API.GETTING_STARTED.MORE' | translate"></div>
-  <a mat-flat-button color="accent" href="https://gitlab.fairandsmart.tech/fairandsmart/consent-manager" target="_blank">{{'API.GETTING_STARTED.MORE_BUTTON' | translate}}</a>
+  <a mat-flat-button color="accent" href="https://gitlab.fairandsmart.tech/fairandsmart/consent-manager" target="_blank">
+    {{'API.GETTING_STARTED.MORE_BUTTON' | translate}}
+  </a>
 </div>

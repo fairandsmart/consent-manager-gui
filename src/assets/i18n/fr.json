@@ -10,6 +10,7 @@
       },
       "MODELS": {
         "LABEL": "Configuration",
+        "GETTING_STARTED": "Bien démarrer",
         "INFO": "Informations",
         "PROCESSING": "Traitements",
         "PREFERENCES": "Préférences",
@@ -605,7 +606,7 @@
         "elements": "Traitements et préférences affichés"
       },
       "ASSOCIATIONS": {
-        "LABEL": "Ajouter au formulaire les préférences associées aux traitements sélectionnés"
+        "LABEL": "Ajouter au formulaire les préférences associées aux traitements sélectionnés (les préférences seront directement ajoutées et vous pourrez les visualiser à l'écran suivant)"
       },
       "FOOTER_ON_TOP": {
         "LABEL": "Toujours afficher le pied du formulaire"
@@ -649,6 +650,15 @@
           "DISPLAY": "Afficher",
           "STORE": "Stocker",
           "DOWNLOAD": "Télécharger"
+        }
+      },
+      "RECEIPT_FORMAT": {
+        "LABEL": "Format du reçu",
+        "VALUES": {
+          "HTML": "Page HTML",
+          "XML": "Fichier XML",
+          "PDF": "Fichier PDF",
+          "TEXT": "Plein texte"
         }
       },
       "NOTIFICATION_RECIPIENT": {
@@ -701,7 +711,10 @@
   "API": {
     "GETTING_STARTED": {
       "TITLE": "Bien démarrer",
-      "DESCRIPTION": "<p>La section intégration va vous permettre de :</p><ul><li>construire vos formulaires de collecte de consentement à partir des modèles enregistrés dans la partie \"Configuration\"</li><li>pouvoir les intégrer dans votre application/site internet grace à différents exemples de code (PHP, etc...).</li><li>gérer les clés d'accès à l'API</li></ul><p>Dans cette section, vous trouverez également un module vous permettant de faire des requêtes dans la base des consentements collectés.</p><p>Il y a donc bien deux actions différentes : la collecte du consentement puis son exploitation par la suite.</p>",
+      "DESCRIPTION": {
+        "configuration": "<div>La section \"Configuration\" va vous permettre de paramétrer certains éléments, qui, par la suite, vous serviront à créer vos formulaires de consentements dans la partie \"Intégration\". Vous pourrez y configurer les éléments suivants :</div><ul><li>des modèles d'informations générales : indispensables pour créer votre formulaire de consentement, les informations générales regroupent votre privacy policy par exemple et constitueront l'entête et le pied de page de votre formulaire par la suite. Attention, dans cette version Community, vous ne pourrez avoir qu'un seul modèle d'informations générales actif à la fois. Si vous souhaitez en savoir plus et passer à la version Enterprise, cliquez sur le bouton ci-dessous.</li><li>des modèles de traitement : les traitements constituent la base d'un formulaire de consentement au sens du RGPD. Dans cette section vous pourrez définir des traitements, que vous pourrez par la suite ajouter à un formulaire pour demander leur consentement pour ce(s) traitement(s) à vos clients.</li><li>des préférences : associées ou non à des traitements, elles permettent de demander à vos clients finaux leur canal de contact favori par exemple ou les sujets sur lesquels ils aimeraient être informés régulièrement.</li><li>des modèles de CGU/CGS : ces éléments sont indispensables à toute utilisation d'un quelconque service par vos clients. Retrouvez ici les différentes versions et poussez les via des formulaires à vos clients.</li><li>des modèles d'emails de consentement : envoyés (ou non, selon votre cas d'usage) à vos clients suite à leur soumission d'un formulaire de consentement, cela leur permettra d'accéder à leur reçu, de pouvoir visualiser à nouveau leur consentement et le modifier a posteriori.</li><li>des thèmes : applicables pour les formulaires, les emails de consentements mais également les reçus, ils vous permettent de personnaliser ces éléments avec votre logo et votre charte graphique.</li></ul>",
+        "integration": "<p>La section intégration va vous permettre de :</p><ul><li>construire vos formulaires de collecte de consentement à partir des modèles enregistrés dans la partie \"Configuration\"</li><li>pouvoir les intégrer dans votre application/site internet grace à différents exemples de code (PHP, etc...).</li><li>gérer les clés d'accès à l'API</li></ul><p>Dans cette section, vous trouverez également un module vous permettant de faire des requêtes dans la base des consentements collectés.</p><p>Il y a donc bien deux actions différentes : la collecte du consentement puis son exploitation par la suite.</p>"
+      },
       "MORE": "<p>Vous pouvez retrouver plus d'informations sur notre solution :</p><ul><li>les différents cas d'usages</li><li>les deux versions de notre produit</li><li>la feuille de route du produit</li><li>la documentation complète de l'API</li></ul>",
       "MORE_BUTTON": "En savoir plus"
     },
