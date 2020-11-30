@@ -108,6 +108,19 @@
       <div class="checkbox-wrapper">
         <mat-checkbox formControlName="associatePreferences">{{'FORM_CREATOR.FORM.ASSOCIATIONS.LABEL' | translate}}</mat-checkbox>
       </div>
+
+      <div class="checkbox-wrapper">
+        <mat-checkbox formControlName="footerOnTop">{{'FORM_CREATOR.FORM.FOOTER_ON_TOP.LABEL' | translate}}</mat-checkbox>
+      </div>
+
+      <div class="checkbox-wrapper">
+        <mat-checkbox formControlName="showAcceptAll">{{'FORM_CREATOR.FORM.ACCEPT_ALL.DISPLAY.LABEL' | translate}}</mat-checkbox>
+      </div>
+
+      <mat-form-field appearance="outline" *ngIf="form.at(STEPS.ELEMENTS).get('showAcceptAll').value">
+        <mat-label>{{'FORM_CREATOR.FORM.ACCEPT_ALL.BUTTON_LABEL.LABEL' | translate}}</mat-label>
+        <input matInput formControlName="acceptAllText" autocomplete="off">
+      </mat-form-field>
     </ng-container>
 
     <ng-container *ngIf="stepper.selectedIndex === STEPS.PREVIEW" [formGroup]="form.at(STEPS.OPTIONS)">

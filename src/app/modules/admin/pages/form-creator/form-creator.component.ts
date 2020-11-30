@@ -187,7 +187,10 @@ export class FormCreatorComponent implements OnInit {
       this.fb.group({
         info: ['', [Validators.required, Validators.pattern(FIELD_VALIDATORS.key.pattern)]],
         elements: [[], [Validators.required, Validators.pattern(FIELD_VALIDATORS.elementsKeys.pattern)]],
-        associatePreferences: [true, [Validators.required]]
+        associatePreferences: [true, [Validators.required]],
+        showAcceptAll: [false, [Validators.required]],
+        acceptAllText: [''],
+        footerOnTop: [false, [Validators.required]]
       }),
       this.fb.group({
         theme: ['', [Validators.pattern(FIELD_VALIDATORS.key.pattern)]],
@@ -268,7 +271,10 @@ export class FormCreatorComponent implements OnInit {
 
   stepChange(event: StepperSelectionEvent): void {
     this.currentStep = event.selectedIndex;
-    if (event.selectedIndex === FORM_CREATOR_STEP.PREVIEW) {
+    if (this.currentStep === FORM_CREATOR_STEP.ELEMENTS) {
+      this.updateAcceptAll();
+    }
+    if (this.currentStep === FORM_CREATOR_STEP.PREVIEW) {
       this.preview();
     }
   }
@@ -299,7 +305,10 @@ export class FormCreatorComponent implements OnInit {
       author: '',
       preview: isPreview,
       iframe: true,
-      theme: formValue.theme
+      theme: formValue.theme,
+      showAcceptAll: formValue.showAcceptAll,
+      acceptAllText: formValue.acceptAllText,
+      footerOnTop: formValue.footerOnTop
     };
   }
 
@@ -309,6 +318,7 @@ export class FormCreatorComponent implements OnInit {
       info: this.selectedElements.infos.map(e => e.key)?.[0] || '',
       elements: this.selectedElements.elements.map(e => e.key)
     });
+    this.updateAcceptAll();
   }
 
   private setSelectedTheme(selected: {[id: string]: ModelEntryDto[]}): void {
@@ -362,5 +372,14 @@ export class FormCreatorComponent implements OnInit {
 
   private getSelectionAvailableLists(config: { id: string, sectionsId: string[] }): string[] {
     return this.elementsLibraryConfig.filter(section => config.sectionsId.includes(section.id)).map(section => 'available-' + section.id);
+  }
+
+  private updateAcceptAll(): void {
+    if (this.selectedElements.elements.filter(e => e.type === 'processing').length > 1) {
+      this.form.at(FORM_CREATOR_STEP.ELEMENTS).get('showAcceptAll').enable();
+    } else {
+      this.form.at(FORM_CREATOR_STEP.ELEMENTS).get('showAcceptAll').setValue(false);
+      this.form.at(FORM_CREATOR_STEP.ELEMENTS).get('showAcceptAll').disable();
+    }
   }
 }
