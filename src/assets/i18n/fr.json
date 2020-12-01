@@ -619,7 +619,7 @@
         "LABEL": "Ajouter au formulaire les préférences associées aux traitements sélectionnés (les préférences seront directement ajoutées et vous pourrez les visualiser à l'écran suivant)"
       },
       "FOOTER_ON_TOP": {
-        "LABEL": "Toujours afficher le pied du formulaire"
+        "LABEL": "Toujours afficher le bouton de soumission du formulaire"
       },
       "ACCEPT_ALL": {
         "DISPLAY": {

@@ -12,8 +12,8 @@ import {
   RECEIPT_DELIVERY_TYPES,
   RECEIPT_DISPLAY_TYPES
 } from '../../../../core/models/models';
-import { distinctUntilChanged, tap } from 'rxjs/operators';
-import { zip } from 'rxjs';
+import { debounceTime, tap } from 'rxjs/operators';
+import { merge, zip } from 'rxjs';
 import { CdkDragDrop, copyArrayItem, moveItemInArray } from '@angular/cdk/drag-drop';
 import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ConsentsResourceService } from '../../../../core/http/consents-resource.service';
@@ -187,18 +187,18 @@ export class FormCreatorComponent implements OnInit {
       this.fb.group({
         info: ['', [Validators.required, Validators.pattern(FIELD_VALIDATORS.key.pattern)]],
         elements: [[], [Validators.required, Validators.pattern(FIELD_VALIDATORS.elementsKeys.pattern)]],
-        associatePreferences: [true, [Validators.required]],
-        showAcceptAll: [false, [Validators.required]],
-        acceptAllText: [''],
-        footerOnTop: [false, [Validators.required]]
+        associatePreferences: [true, [Validators.required]]
       }),
       this.fb.group({
+        language: [this.defaultLanguage, [Validators.required]],
         theme: ['', [Validators.pattern(FIELD_VALIDATORS.key.pattern)]],
+        showAcceptAll: [false, [Validators.required]],
+        acceptAllText: [''],
+        footerOnTop: [false, [Validators.required]],
+        orientation: [ConsentFormOrientation.VERTICAL, [Validators.required]],
       }),
       this.fb.group({
         subject: ['', [Validators.required]],
-        orientation: [ConsentFormOrientation.VERTICAL, [Validators.required]],
-        language: [this.defaultLanguage, [Validators.required]],
         forceDisplay: [true, [Validators.required]],
         validity: [6, [Validators.required, Validators.min(1)]],
         validityUnit: ['M', [Validators.required]],
@@ -209,19 +209,18 @@ export class FormCreatorComponent implements OnInit {
         notificationRecipient: ['']
       })
     ]);
-    this.form.at(FORM_CREATOR_STEP.OPTIONS).get('orientation').valueChanges.pipe(
-      distinctUntilChanged()
-    ).subscribe((orientation) => {
-      if (this.currentStep === FORM_CREATOR_STEP.PREVIEW &&
-        this.previousContext != null && this.previousContext.orientation !== orientation) {
-        this.preview();
-      }
-    });
-    this.form.at(FORM_CREATOR_STEP.OPTIONS).get('language').valueChanges.pipe(
-      distinctUntilChanged()
-    ).subscribe((language) => {
-      if (this.currentStep === FORM_CREATOR_STEP.PREVIEW &&
-        this.previousContext != null && this.previousContext.language !== language) {
+    merge(
+      this.form.at(FORM_CREATOR_STEP.PREVIEW).get('language').valueChanges,
+      this.form.at(FORM_CREATOR_STEP.PREVIEW).get('theme').valueChanges,
+      this.form.at(FORM_CREATOR_STEP.PREVIEW).get('showAcceptAll').valueChanges,
+      this.form.at(FORM_CREATOR_STEP.PREVIEW).get('acceptAllText').valueChanges.pipe(
+        debounceTime(500)
+      ),
+      this.form.at(FORM_CREATOR_STEP.PREVIEW).get('footerOnTop').valueChanges,
+      this.form.at(FORM_CREATOR_STEP.PREVIEW).get('orientation').valueChanges,
+    ).subscribe(() => {
+      if (this.currentStep === FORM_CREATOR_STEP.PREVIEW && this.previousContext != null
+        && !_.isEqual(this.buildContext(true), this.previousContext)) {
         this.preview();
       }
     });
@@ -265,18 +264,14 @@ export class FormCreatorComponent implements OnInit {
       return;
     }
     const context: ConsentContext = this.buildContext(true);
-    this.form.disable();
     if (_.isEqual(context, this.previousContext)) {
-      this.form.enable();
       return;
     }
+    this.previousContext = context;
     this.consentsResource.generateToken(context).subscribe((token) => {
-      this.previousContext = context;
       this.formUrl = this.sanitizer.bypassSecurityTrustResourceUrl(this.consentsResource.getFormUrl(token));
-      this.form.enable();
     }, (err) => {
       console.error(err);
-      this.form.enable();
       this.formUrl = '';
     });
   }
@@ -386,10 +381,10 @@ export class FormCreatorComponent implements OnInit {
 
   private updateAcceptAll(): void {
     if (this.selectedElements.elements.filter(e => e.type === 'processing').length > 1) {
-      this.form.at(FORM_CREATOR_STEP.ELEMENTS).get('showAcceptAll').enable();
+      this.form.at(FORM_CREATOR_STEP.PREVIEW).get('showAcceptAll').enable();
     } else {
-      this.form.at(FORM_CREATOR_STEP.ELEMENTS).get('showAcceptAll').setValue(false);
-      this.form.at(FORM_CREATOR_STEP.ELEMENTS).get('showAcceptAll').disable();
+      this.form.at(FORM_CREATOR_STEP.PREVIEW).get('showAcceptAll').setValue(false);
+      this.form.at(FORM_CREATOR_STEP.PREVIEW).get('showAcceptAll').disable();
     }
   }
 }
