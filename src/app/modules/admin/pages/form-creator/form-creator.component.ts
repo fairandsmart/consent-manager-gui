@@ -9,12 +9,13 @@ import {
   FIELD_VALIDATORS,
   Icons,
   ModelEntryDto,
-  RECEIPT_DELIVERY_TYPES, RECEIPT_DISPLAY_TYPES
+  RECEIPT_DELIVERY_TYPES,
+  RECEIPT_DISPLAY_TYPES
 } from '../../../../core/models/models';
-import { tap } from 'rxjs/operators';
+import { distinctUntilChanged, tap } from 'rxjs/operators';
 import { zip } from 'rxjs';
 import { CdkDragDrop, copyArrayItem, moveItemInArray } from '@angular/cdk/drag-drop';
-import { FormArray, FormBuilder, Validators } from '@angular/forms';
+import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ConsentsResourceService } from '../../../../core/http/consents-resource.service';
 import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
 import { StepperSelectionEvent } from '@angular/cdk/stepper';
@@ -45,7 +46,7 @@ export class FormCreatorComponent implements OnInit {
 
   readonly ICONS = Icons;
 
-  public elementsLibraryConfig: (SectionConfig & {draggingDisabled: boolean, included: boolean})[] = [
+  public elementsLibraryConfig: (SectionConfig & { draggingDisabled: boolean, included: boolean })[] = [
     {
       id: 'infos',
       types: ['basicinfo'],
@@ -92,7 +93,7 @@ export class FormCreatorComponent implements OnInit {
     }
   ];
 
-  public selectedElements: {[id: string]: ModelEntryDto[]} = {
+  public selectedElements: { [id: string]: ModelEntryDto[] } = {
     infos: [],
     elements: []
   };
@@ -108,7 +109,7 @@ export class FormCreatorComponent implements OnInit {
     }
   ];
 
-  public selectedTheme: {[id: string]: ModelEntryDto[]} = {themes: []};
+  public selectedTheme: { [id: string]: ModelEntryDto[] } = {themes: []};
 
   public emailsLibraryConfig: SectionConfig[] = [
     {
@@ -121,7 +122,7 @@ export class FormCreatorComponent implements OnInit {
     }
   ];
 
-  public selectedEmail: {[id: string]: ModelEntryDto[]} = {emails: []};
+  public selectedEmail: { [id: string]: ModelEntryDto[] } = {emails: []};
 
   public form: FormArray;
   public readonly STEPS = FORM_CREATOR_STEP;
@@ -132,8 +133,6 @@ export class FormCreatorComponent implements OnInit {
 
   public formUrl: SafeResourceUrl;
   private previousContext: ConsentContext;
-  private previousOrientation: ConsentFormOrientation;
-  private previousLanguage: string;
   public currentStep: FORM_CREATOR_STEP;
 
   private readonly defaultLanguage = environment.customization.defaultLanguage;
@@ -155,7 +154,8 @@ export class FormCreatorComponent implements OnInit {
               private fb: FormBuilder,
               private sanitizer: DomSanitizer,
               private dialog: MatDialog,
-              private breakpointObserver: BreakpointObserver) { }
+              private breakpointObserver: BreakpointObserver) {
+  }
 
   ngOnInit(): void {
     this.breakpointObserver.observe([Breakpoints.XSmall, Breakpoints.Small]).pipe(
@@ -172,7 +172,7 @@ export class FormCreatorComponent implements OnInit {
     ).subscribe();
     zip(...this.elementsLibraryConfig.map(c => this.modelsResource.listEntries({types: c.types, size: 1}))).pipe(
       tap((responses) => {
-        const selected: {[id: string]: ModelEntryDto[]} = {...this.selectedElements};
+        const selected: { [id: string]: ModelEntryDto[] } = {...this.selectedElements};
         responses.forEach((response, index) => {
           if (response.totalCount === 1 && hasActiveVersion(response.values[0])) {
             const config = this.elementsLibraryConfig[index];
@@ -204,22 +204,34 @@ export class FormCreatorComponent implements OnInit {
         validityUnit: ['M', [Validators.required]],
         receiptDeliveryType: ['DISPLAY', [Validators.required]],
         receiptDisplayType: ['HTML', [Validators.required]],
+        notify: [false],
         notificationModel: ['', [Validators.pattern(FIELD_VALIDATORS.key.pattern)]],
         notificationRecipient: ['']
       })
     ]);
-    this.form.at(FORM_CREATOR_STEP.OPTIONS).get('orientation').valueChanges.subscribe((orientation) => {
-      if (this.currentStep === FORM_CREATOR_STEP.PREVIEW && this.previousOrientation !== orientation
-        && this.previousContext != null && this.previousContext.orientation !== orientation) {
-        this.previousOrientation = orientation;
+    this.form.at(FORM_CREATOR_STEP.OPTIONS).get('orientation').valueChanges.pipe(
+      distinctUntilChanged()
+    ).subscribe((orientation) => {
+      if (this.currentStep === FORM_CREATOR_STEP.PREVIEW &&
+        this.previousContext != null && this.previousContext.orientation !== orientation) {
         this.preview();
       }
     });
-    this.form.at(FORM_CREATOR_STEP.OPTIONS).get('language').valueChanges.subscribe((language) => {
-      if (this.currentStep === FORM_CREATOR_STEP.PREVIEW && this.previousLanguage !== language
-        && this.previousContext != null && this.previousContext.language !== language) {
-        this.previousLanguage = language;
+    this.form.at(FORM_CREATOR_STEP.OPTIONS).get('language').valueChanges.pipe(
+      distinctUntilChanged()
+    ).subscribe((language) => {
+      if (this.currentStep === FORM_CREATOR_STEP.PREVIEW &&
+        this.previousContext != null && this.previousContext.language !== language) {
         this.preview();
+      }
+    });
+    this.form.at(FORM_CREATOR_STEP.OPTIONS).get('notify').valueChanges.subscribe((notify: boolean) => {
+      if (notify) {
+        this.form.at(FORM_CREATOR_STEP.OPTIONS).get('notificationRecipient').setValidators([Validators.required, Validators.email]);
+      } else {
+        this.form.at(FORM_CREATOR_STEP.OPTIONS).get('notificationRecipient').clearValidators();
+        this.setSelectedEmail({emails: []});
+        this.form.at(FORM_CREATOR_STEP.OPTIONS).get('notificationRecipient').setValue('');
       }
     });
   }
@@ -236,15 +248,15 @@ export class FormCreatorComponent implements OnInit {
     this.setSelectedElements({...this.selectedElements});
   }
 
-  selectedElementsChange(event: {[id: string]: ModelEntryDto[]}): void {
+  selectedElementsChange(event: { [id: string]: ModelEntryDto[] }): void {
     this.setSelectedElements(event);
   }
 
-  selectedThemeChange(event: {[id: string]: ModelEntryDto[]}): void {
+  selectedThemeChange(event: { [id: string]: ModelEntryDto[] }): void {
     this.setSelectedTheme(event);
   }
 
-  selectedEmailChange(event: {[id: string]: ModelEntryDto[]}): void {
+  selectedEmailChange(event: { [id: string]: ModelEntryDto[] }): void {
     this.setSelectedEmail(event);
   }
 
@@ -252,8 +264,8 @@ export class FormCreatorComponent implements OnInit {
     if (this.form.at(FORM_CREATOR_STEP.ELEMENTS).invalid || this.form.at(FORM_CREATOR_STEP.PREVIEW).invalid) {
       return;
     }
-    this.form.disable();
     const context: ConsentContext = this.buildContext(true);
+    this.form.disable();
     if (_.isEqual(context, this.previousContext)) {
       this.form.enable();
       return;
@@ -280,10 +292,10 @@ export class FormCreatorComponent implements OnInit {
   }
 
   private buildContext(isPreview: boolean): ConsentContext {
-    const formValue: Partial<ConsentContext & {forceDisplay: boolean, validityUnit: string}> = {
-      ...this.form.at(FORM_CREATOR_STEP.OPTIONS).value,
-      ...this.form.at(FORM_CREATOR_STEP.ELEMENTS).value,
-      ...this.form.at(FORM_CREATOR_STEP.PREVIEW).value
+    const formValue: Partial<ConsentContext & { forceDisplay: boolean, validityUnit: string }> = {
+      ...(this.form.at(FORM_CREATOR_STEP.OPTIONS) as FormGroup).getRawValue(),
+      ...(this.form.at(FORM_CREATOR_STEP.ELEMENTS) as FormGroup).getRawValue(),
+      ...(this.form.at(FORM_CREATOR_STEP.PREVIEW) as FormGroup).getRawValue()
     };
     return {
       subject: formValue.subject,
@@ -312,7 +324,7 @@ export class FormCreatorComponent implements OnInit {
     };
   }
 
-  private setSelectedElements(selected: {[id: string]: ModelEntryDto[]}): void {
+  private setSelectedElements(selected: { [id: string]: ModelEntryDto[] }): void {
     this.selectedElements = selected;
     this.form.at(FORM_CREATOR_STEP.ELEMENTS).patchValue({
       info: this.selectedElements.infos.map(e => e.key)?.[0] || '',
@@ -321,19 +333,17 @@ export class FormCreatorComponent implements OnInit {
     this.updateAcceptAll();
   }
 
-  private setSelectedTheme(selected: {[id: string]: ModelEntryDto[]}): void {
+  private setSelectedTheme(selected: { [id: string]: ModelEntryDto[] }): void {
     this.selectedTheme = selected;
-    this.form.at(FORM_CREATOR_STEP.PREVIEW).patchValue({
-      theme: this.selectedTheme.themes?.[0]?.key || ''
-    });
+    this.form.at(FORM_CREATOR_STEP.PREVIEW).get('theme')
+      .setValue(this.selectedTheme.themes?.[0]?.key || '');
     this.preview();
   }
 
-  private setSelectedEmail(selected: {[id: string]: ModelEntryDto[]}): void {
+  private setSelectedEmail(selected: { [id: string]: ModelEntryDto[] }): void {
     this.selectedEmail = selected;
-    this.form.at(FORM_CREATOR_STEP.OPTIONS).patchValue({
-      notificationModel: this.selectedEmail.emails?.[0]?.key || ''
-    });
+    this.form.at(FORM_CREATOR_STEP.OPTIONS).get('notificationModel')
+      .setValue(this.selectedEmail.emails?.[0]?.key || '');
   }
 
   openApiUrlDialog(): void {
