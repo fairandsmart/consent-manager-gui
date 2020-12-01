@@ -65,7 +65,7 @@
         </ng-container>
       </ng-container>
       <mat-form-field appearance="fill" *ngSwitchDefault>
-        <mat-label>Value</mat-label>
+        <mat-label>{{'INTERROGATE.VALUE' | translate}}</mat-label>
         <input matInput readonly type="text" formControlName="value" autocomplete="off">
       </mat-form-field>
     </ng-container>
@@ -74,17 +74,17 @@
 
   <div *ngIf="records$ | async as records" class="table-wrapper mat-elevation-z2">
     <table mat-table [dataSource]="records">
-      <mat-text-column name="subjectId" headerText="Subject ID"></mat-text-column>
-      <mat-text-column name="subjectName" headerText="Subject Name"></mat-text-column>
-      <mat-text-column name="subjectEmail" headerText="Subject Email"></mat-text-column>
-      <mat-text-column name="recordKey" headerText="Record Key"></mat-text-column>
-      <mat-text-column name="recordSerial" headerText="Record Serial"></mat-text-column>
-      <mat-text-column name="recordValue" headerText="Record Value"></mat-text-column>
+      <mat-text-column name="subjectId" [headerText]="'INTERROGATE.SUBJECT_ID_HEADER' | translate"></mat-text-column>
+      <mat-text-column name="subjectName" [headerText]="'INTERROGATE.SUBJECT_NAME_HEADER' | translate"></mat-text-column>
+      <mat-text-column name="subjectEmail" [headerText]="'INTERROGATE.SUBJECT_EMAIL_HEADER' | translate"></mat-text-column>
+      <mat-text-column name="recordKey" [headerText]="'INTERROGATE.RECORD_KEY_HEADER' | translate"></mat-text-column>
+      <mat-text-column name="recordSerial" [headerText]="'INTERROGATE.RECORD_SERIAL_HEADER' | translate"></mat-text-column>
+      <mat-text-column name="recordValue" [headerText]="'INTERROGATE.RECORD_VALUE_HEADER' | translate"></mat-text-column>
 
       <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
       <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
     </table>
-    <div class="no-results" *ngIf="records.length === 0">Pas de résultats</div>
+    <div class="no-results" *ngIf="records.length === 0">{{'INTERROGATE.NO_RESULTS' | translate}}</div>
     <mat-toolbar>
       <mat-toolbar-row>
         <span fxFlex></span>

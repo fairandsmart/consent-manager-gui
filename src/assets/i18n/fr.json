@@ -771,6 +771,12 @@
     "ENTRY": "Élément",
     "VALUE": "Valeur",
     "NO_RESULTS": "Pas de résultats",
+    "SUBJECT_ID_HEADER": "Identifiant",
+    "SUBJECT_NAME_HEADER": "Nom",
+    "SUBJECT_EMAIL_HEADER": "Email",
+    "RECORD_KEY_HEADER": "Clé",
+    "RECORD_SERIAL_HEADER": "Numéro de série",
+    "RECORD_VALUE_HEADER": "Valeur",
     "EXPORT_BUTTON": "Exporter",
     "PREFERENCE": {
       "GROUP_TITLE": "Préférences"
