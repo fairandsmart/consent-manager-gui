@@ -108,18 +108,12 @@ export abstract class EntryContentDirective<T extends ModelData> extends FormSta
     }
   }
 
-  public selectVersion(version: ModelVersionDtoLight, language?: string): void {
-    if (language == null) {
-      language = version.defaultLanguage;
-    }
+  public selectVersion(version: ModelVersionDtoLight, language: string = version.defaultLanguage): void {
     this.modelsResourceService.getVersion<T>(this.entry.id, version.id).subscribe(v => this.setVersion(v, language));
   }
 
-  protected setVersion(version: ModelVersionDto<T>, language?: string): void {
+  protected setVersion(version: ModelVersionDto<T>, language: string = version.defaultLanguage): void {
     this.version = version;
-    if (language == null) {
-      language = this.version.defaultLanguage;
-    }
     if (this.isLatestVersion()) {
       this.form.enable();
     } else {
