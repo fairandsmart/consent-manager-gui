@@ -26,6 +26,10 @@
             </mat-select>
           </mat-form-field>
 
+          <mat-checkbox formControlName="optional">
+            {{'ENTRIES.EDITOR.PREFERENCE.OPTIONAL.LABEL' | translate}}
+          </mat-checkbox>
+
           <div *ngIf="form.get('valueType').value && form.get('valueType').value !== 'NONE' && form.get('valueType').value !== 'FREE_TEXT'">
             <mat-card-subtitle>{{'ENTRIES.EDITOR.PREFERENCE.SUBTITLES.OPTIONS' | translate}}</mat-card-subtitle>
 

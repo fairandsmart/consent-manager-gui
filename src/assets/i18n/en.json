@@ -380,6 +380,9 @@
             "FREE_TEXT": "Free text"
           }
         },
+        "OPTIONAL": {
+          "LABEL": "This preference can be ignored"
+        },
         "OPTIONS": {
           "LABEL": "Options",
           "PLACEHOLDER": "Enter here your options",

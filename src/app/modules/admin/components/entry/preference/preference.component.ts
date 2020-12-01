@@ -50,6 +50,7 @@ export class PreferenceComponent extends EntryContentDirective<Preference> imple
       label: ['', [Validators.required]],
       description: [''],
       valueType: [PreferenceValueType.NONE, [Validators.required]],
+      optional: [false, [Validators.required]],
       options: [[]],
       includeDefault: [true, [Validators.required]],
       defaultValues: [[]]
