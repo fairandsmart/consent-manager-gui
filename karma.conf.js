@@ -20,6 +20,7 @@ module.exports = function (config) {
       reporters: [
         { type: 'html', subdir: 'html' },
         { type: 'cobertura', subdir: '.', file: 'cobertura-coverage.xml' },
+        {type: 'lcovonly', subdir: '.', file: 'lcov.info'},
         { type: 'clover', subdir: '.', file: 'clover.xml' },
         { type: 'text-summary', subdir: '.', file: 'text-summary.txt' }
       ]
