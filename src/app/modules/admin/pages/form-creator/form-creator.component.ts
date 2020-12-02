@@ -204,9 +204,9 @@ export class FormCreatorComponent implements OnInit {
         validityUnit: ['M', [Validators.required]],
         receiptDeliveryType: ['DISPLAY', [Validators.required]],
         receiptDisplayType: ['HTML', [Validators.required]],
-        notify: [false],
+        notify: [true],
         notificationModel: ['', [Validators.pattern(FIELD_VALIDATORS.key.pattern)]],
-        notificationRecipient: ['']
+        notificationRecipient: ['', [Validators.required]]
       })
     ]);
     merge(
