@@ -75,10 +75,19 @@ export class ProcessingComponent extends EntryContentDirective<Processing> imple
       associatedWithPreferences: [false, [Validators.required]],
       associatedPreferences: [[]]
     });
+    this.form.get('containsMedicalData').disable();
     this.checkFormState();
   }
 
   registerFormChanges(): void {
+    this.form.get('containsSensitiveData').valueChanges.subscribe(v => {
+      if (v) {
+        this.form.get('containsMedicalData').enable();
+      } else {
+        this.form.get('containsMedicalData').disable();
+        this.form.get('containsMedicalData').setValue(false);
+      }
+    });
     this.form.get('dataController').valueChanges.subscribe(v => this.dataControllerChange(v));
     this.form.get('associatedWithPreferences').valueChanges.subscribe(v => {
       if (v) {

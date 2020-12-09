@@ -340,10 +340,10 @@
           }
         },
         "SENSITIVE": {
-          "LABEL": "Contains sensitive data"
+          "LABEL": "This processing collects sensitive data"
         },
         "MEDICAL": {
-          "LABEL": "Contains medical data"
+          "LABEL": "This processing collects medical data"
         },
         "THIRD_PARTIES": {
           "LABEL": "Third parties",
