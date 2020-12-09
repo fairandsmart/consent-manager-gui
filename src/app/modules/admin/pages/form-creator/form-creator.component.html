@@ -111,13 +111,11 @@
       [config]="elementsLibraryConfig"
       [selected]="selectedElements"
       (selectedChange)="selectedElementsChange($event)"
-      [mode]="'drag'"></cm-entries-library>
-
-    <ng-container *ngIf="stepper.selectedIndex === STEPS.ELEMENTS" [formGroup]="form.at(STEPS.ELEMENTS)">
-      <div class="checkbox-wrapper">
+      [mode]="'drag'">
+      <ng-container *ngIf="stepper.selectedIndex === STEPS.ELEMENTS" [formGroup]="form.at(STEPS.ELEMENTS)">
         <mat-checkbox formControlName="associatePreferences">{{'FORM_CREATOR.FORM.ASSOCIATIONS.LABEL' | translate}}</mat-checkbox>
-      </div>
-    </ng-container>
+      </ng-container>
+    </cm-entries-library>
 
     <ng-container *ngIf="stepper.selectedIndex === STEPS.PREVIEW" [formGroup]="form.at(STEPS.PREVIEW)">
       <div class="panel-title-like">
