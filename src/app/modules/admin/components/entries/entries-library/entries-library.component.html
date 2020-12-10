@@ -10,6 +10,7 @@
     </mat-expansion-panel-header>
     <div *ngIf="section.displayDescription" class="panel-description"
          [innerHTML]="'ENTRIES.' + section.id + '.PANEL_DESCRIPTION_HTML' | translate"></div>
+    <ng-content></ng-content>
     <div>
       <ng-container [ngSwitch]="mode">
         <cm-entries-list *ngSwitchCase="'view'" [config]="section"></cm-entries-list>
