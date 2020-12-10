@@ -90,15 +90,19 @@ export abstract class EntryContentDirective<T extends ModelData> extends FormSta
     });
   }
 
+  protected makePreviewDto(language, values): PreviewDto {
+    return {
+      language: language,
+      orientation: ConsentFormOrientation.VERTICAL,
+      data: values
+    };
+  }
+
   protected refreshPreview(): void {
     const rawValues: T = this.form.getRawValue();
     const language = this.defaultLanguage;
     if (language) {
-      const dto: PreviewDto = {
-        language: language,
-        orientation: ConsentFormOrientation.VERTICAL,
-        data: rawValues
-      };
+      const dto: PreviewDto = this.makePreviewDto(language, rawValues);
       const versionId = this.version ? this.version.id : this.modelsResourceService.NEW_VERSION_UUID;
       this.modelsResourceService.getVersionPreview(this.entry.id, versionId, dto)
         .subscribe((result: string) => {

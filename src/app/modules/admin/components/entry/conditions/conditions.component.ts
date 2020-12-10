@@ -47,8 +47,8 @@ export class ConditionsComponent extends EntryContentDirective<Conditions> imple
       type: [this.type, [Validators.required]],
       title: ['', [Validators.required]],
       body: ['', [Validators.required]],
-      acceptLabel: ['', [Validators.required]],
-      rejectLabel: ['', [Validators.required]]
+      acceptLabel: [''],
+      rejectLabel: ['']
     });
     this.checkFormState();
   }

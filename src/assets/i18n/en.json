@@ -251,18 +251,9 @@
       },
       "BASICINFO": {
         "SUBTITLES": {
-          "LOGO": "Logo",
           "TEXT": "Title, body and footer",
           "LAW": "Legal information",
           "POLICY": "Privacy policy"
-        },
-        "LOGO": {
-          "PATH": {
-            "LABEL": "Logo URL"
-          },
-          "ALT_TEXT": {
-            "LABEL": "Logo alt-text"
-          }
         },
         "TITLE": {
           "LABEL": "Title"
@@ -449,25 +440,39 @@
           "LABEL": "Signature"
         }
       },
-      "THEMES": {
+      "THEME": {
         "SUBTITLES": {
-          "TYPE": "Theme type",
+          "LOGO": "Logo",
           "CSS": "Stylesheet"
         },
-        "IFRAME": {
-          "TITLE": "Preview"
-        },
-        "TARGET_TYPE": {
-          "LABEL": "Category",
-          "VALUES": {
-            "FORM": "Consent form",
-            "EMAIL": "Opt-out email"
+        "LOGO": {
+          "PATH": {
+            "LABEL": "Logo URL"
+          },
+          "ALT_TEXT": {
+            "LABEL": "Logo alt-text"
+          },
+          "POSITION": {
+            "LABEL": "Logo position",
+            "VALUES": {
+              "LEFT": "To the left",
+              "CENTER": "In the center",
+              "RIGHT": "To the right"
+            }
           }
         },
         "CSS": {
           "LABEL": "Style",
           "HINT": "Write your custom CSS or drop a CSS file",
           "AUTOCOMPLETE": "(toggle auto-completion with CTRL+E or CMD+E to help you stylize the form elements)"
+        },
+        "PREVIEW": {
+          "LABEL": "Preview target",
+          "VALUES": {
+            "FORM": "Consent form",
+            "RECEIPT": "Consent receipt",
+            "EMAIL": "Notification email"
+          }
         }
       }
     }
@@ -727,7 +732,7 @@
     "GETTING_STARTED": {
       "TITLE": "Getting started",
       "DESCRIPTION": {
-        "configuration": "<div>The \"Configuration\" section allows you to parameterize elements which you will later use to create consent forms in the \"Integration\" section. You can configure the following elements:</div><ul><li>general information templates: these information are essential to create a consent form, as they include for instance your privacy policy and define the header and footer of your forms. Beware, in this Community version, you will only be able to have one general informations active template at any time. If you wish to learn more and switch to the Enterprise version, click on the button below.</li><li>processing templates: processing constitute the foundations of a consent form within the meaning of the GDPR. In this section, you will be able to define processing, which you may then add to a form to ask your customers for their consent regarding those processing.</li><li>preferences templates: associated to processing or not, they allow you to ask your customers for they preferred contact channel for example, or the themes about which they would like to be regularly informed.</li><li>EULA templates: these elements are essential for the use of any service by your customers. You can browse here the various versions and push them to your customers through forms.</li><li>consent emails templates: these emails are sent (or not, depending on your use case) to your customers following their consent form submission, this will allow them to retrieve their receipt, to visualize their consent once more and to change it later.</li><li>themes templates: applied to forms, consent emails and receipts alike, they allow your to customize all these elements with your logo and your graphical charter.</li></ul>",
+        "configuration": "<div>The \"Configuration\" section allows you to parameterize elements which you will later use to create consent forms in the \"Integration\" section. You can configure the following elements:</div><ul><li>general information templates: these information are essential to create a consent form, as they include for instance your privacy policy and define the header and footer of your forms. Beware, in this Community version, you will only be able to have one general informations active template at any time. If you wish to learn more and switch to the Enterprise version, click on the button at the bottom of this page.</li><li>processing templates: processing constitute the foundations of a consent form within the meaning of the GDPR. In this section, you will be able to define processing, which you may then add to a form to ask your customers for their consent regarding those processing.</li><li>preferences templates: associated to processing or not, they allow you to ask your customers for they preferred contact channel for example, or the themes about which they would like to be regularly informed.</li><li>EULA templates: these elements are essential for the use of any service by your customers. You can browse here the various versions and push them to your customers through forms.</li><li>consent emails templates: these emails are sent (or not, depending on your use case) to your customers following their consent form submission, this will allow them to retrieve their receipt, to visualize their consent once more and to change it later.</li><li>themes templates: applied to forms, consent emails and receipts alike, they allow your to customize all these elements with your logo and your graphical charter.</li></ul>",
         "integration": "<p>The integration section will allow you to:</p><ul><li>build your consent forms from the templates registered in the \"Configuration\" section and integrate them in your application/website thanks to different code examples (PHP, etc...).</li><li>manage the access keys to the API</li></ul><p>In this section, you will also find a module allowing you to make queries in the base of the collected consents.</p><p>There are two different actions: the collection of consent and then its exploitation afterwards.</p>"
       },
       "MORE": "<p>You can find more information about our solution:</p><ul><li>the different use cases</li><li>the two versions of our product</li><li>the product roadmap</li><li>the complete documentation of the API</li></ul>",

@@ -34,8 +34,6 @@ export class BasicinfoComponent extends EntryContentDirective<BasicInfo> impleme
   protected initForm(): void {
     this.form = this.fb.group({
       type: [this.type, [Validators.required]],
-      logoPath: [''],
-      logoAltText: [''],
       title: ['', [Validators.required]],
       header: [''],
       footer: [''],
