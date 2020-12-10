@@ -111,8 +111,6 @@ export interface Controller {
 
 export interface BasicInfo extends ModelData {
   type: 'basicinfo';
-  logoPath: string;
-  logoAltText: string;
   title: string;
   header: string;
   footer: string;
@@ -193,9 +191,17 @@ export interface Conditions extends ModelData {
   type: 'conditions';
   title: string;
   body: string;
-  acceptLabel: string;
-  rejectLabel: string;
+  acceptLabel?: string;
+  rejectLabel?: string;
 }
+
+export enum LogoPosition {
+  LEFT = 'LEFT',
+  CENTER = 'CENTER',
+  RIGHT = 'RIGHT'
+}
+
+export const LOGO_POSITIONS = Object.keys(LogoPosition);
 
 export interface Theme extends ModelData {
   type: 'theme';
@@ -203,15 +209,10 @@ export interface Theme extends ModelData {
   presentation: string;
   icon: string;
   css: string;
-  targetType: TargetType;
+  logoPath?: string;
+  logoAltText?: string;
+  logoPosition?: LogoPosition;
 }
-
-export enum TargetType {
-  FORM = 'FORM',
-  EMAIL = 'EMAIL'
-}
-
-export const TARGET_TYPES = Object.keys(TargetType);
 
 export interface Email extends ModelData {
   type: 'email';
@@ -226,10 +227,19 @@ export interface Email extends ModelData {
 
 export type ModelDataType = 'basicinfo' | 'processing' | 'conditions' | 'theme' | 'email' | 'preference';
 
+export enum PreviewType {
+  FORM = 'FORM',
+  RECEIPT = 'RECEIPT',
+  EMAIL = 'EMAIL'
+}
+
+export const PREVIEW_TYPES = Object.keys(PreviewType);
+
 export interface PreviewDto {
   language: string;
   orientation: ConsentFormOrientation;
   data?: ModelData;
+  previewType?: PreviewType;
 }
 
 export interface ModelFilter {

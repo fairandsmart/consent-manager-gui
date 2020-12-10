@@ -1,4 +1,25 @@
 <h2>{{'ENTRIES.PREVIEW.TITLE' | translate}}</h2>
+
+<div class="parameters">
+  <mat-form-field appearance="fill" *ngIf="previewTypeCtrl">
+    <mat-label>{{'ENTRIES.EDITOR.THEME.LOGO.POSITION.LABEL' | translate}}</mat-label>
+    <mat-select [formControl]="previewTypeCtrl" required>
+      <mat-option *ngFor="let type of PREVIEW_TYPES" [value]="type">
+        {{'ENTRIES.EDITOR.THEME.PREVIEW.VALUES.' + type | translate}}
+      </mat-option>
+    </mat-select>
+  </mat-form-field>
+
+  <mat-form-field appearance="fill" *ngIf="orientationCtrl">
+    <mat-label>{{'FORM_CREATOR.FORM.ORIENTATION.LABEL' | translate}}</mat-label>
+    <mat-select [formControl]="orientationCtrl" required>
+      <mat-option *ngFor="let orientation of ORIENTATIONS" [value]="orientation">
+        {{'FORM_CREATOR.FORM.ORIENTATION.VALUES.' + orientation | translate}}
+      </mat-option>
+    </mat-select>
+  </mat-form-field>
+</div>
+
 <ng-container *ngIf="safePreview; else loadingPreview">
   <div class="preview-container">
     <iframe class="preview-iframe" [srcdoc]="safePreview"></iframe>

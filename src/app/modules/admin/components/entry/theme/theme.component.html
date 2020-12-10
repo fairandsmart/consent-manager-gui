@@ -5,27 +5,31 @@
         <mat-card-title>{{'ENTRIES.EDITOR.CONTENT.TITLE.THEME' | translate}}</mat-card-title>
         <mat-card-content>
 
-          <mat-card-subtitle>{{'ENTRIES.EDITOR.THEMES.SUBTITLES.TYPE' | translate}}</mat-card-subtitle>
+          <mat-card-subtitle>{{'ENTRIES.EDITOR.THEME.SUBTITLES.LOGO' | translate}}</mat-card-subtitle>
           <mat-form-field appearance="outline">
-            <mat-label>{{'ENTRIES.EDITOR.THEMES.TARGET_TYPE.LABEL' | translate}}</mat-label>
-            <mat-select formControlName="targetType" required>
-              <mat-option *ngFor="let targetType of TARGET_TYPES" [value]="targetType">
-                {{'ENTRIES.EDITOR.THEMES.TARGET_TYPE.VALUES.' + targetType.toUpperCase() | translate}}
+            <mat-label>{{'ENTRIES.EDITOR.THEME.LOGO.PATH.LABEL' | translate}}</mat-label>
+            <input matInput formControlName="logoPath" autocomplete="off">
+          </mat-form-field>
+          <mat-form-field appearance="outline">
+            <mat-label>{{'ENTRIES.EDITOR.THEME.LOGO.ALT_TEXT.LABEL' | translate}}</mat-label>
+            <input matInput formControlName="logoAltText" autocomplete="off">
+          </mat-form-field>
+          <mat-form-field appearance="outline">
+            <mat-label>{{'ENTRIES.EDITOR.THEME.LOGO.POSITION.LABEL' | translate}}</mat-label>
+            <mat-select formControlName="logoPosition" required>
+              <mat-option *ngFor="let position of LOGO_POSITIONS" [value]="position">
+                {{'ENTRIES.EDITOR.THEME.LOGO.POSITION.VALUES.' + position | translate}}
               </mat-option>
             </mat-select>
           </mat-form-field>
-          <!--<mat-form-field appearance="outline">
-            <mat-label>{{'THEMES.COMMON.ICON.LABEL' | translate}}</mat-label>
-            <input matInput formControlName="icon" autocomplete="off">
-          </mat-form-field>-->
 
-          <mat-card-subtitle>{{'ENTRIES.EDITOR.THEMES.SUBTITLES.CSS' | translate}}</mat-card-subtitle>
+          <mat-card-subtitle>{{'ENTRIES.EDITOR.THEME.SUBTITLES.CSS' | translate}}</mat-card-subtitle>
           <div class="codemirror-wrapper">
             <p class="code-input-label">
-              <span class="required-field">{{'ENTRIES.EDITOR.THEMES.CSS.LABEL' | translate}}</span>
+              <span class="required-field">{{'ENTRIES.EDITOR.THEME.CSS.LABEL' | translate}}</span>
               <span class="mat-caption">
-                <br>{{'ENTRIES.EDITOR.THEMES.CSS.HINT' | translate}}
-                <br>{{'ENTRIES.EDITOR.THEMES.CSS.AUTOCOMPLETE' | translate}}
+                <br>{{'ENTRIES.EDITOR.THEME.CSS.HINT' | translate}}
+                <br>{{'ENTRIES.EDITOR.THEME.CSS.AUTOCOMPLETE' | translate}}
               </span>
             </p>
             <ngx-codemirror formControlName="css" name="css" [options]="CODE_MIRROR_OPTIONS"></ngx-codemirror>
@@ -47,6 +51,6 @@
   </mat-sidenav-content>
   <mat-sidenav opened mode="side" position="end">
     <cm-entry-info *ngIf="entry" [entry]="entry" [showType]="false" [version]="version" (selectVersion)="selectVersion($event)"></cm-entry-info>
-    <cm-entry-preview [safePreview]="safePreview"></cm-entry-preview>
+    <cm-entry-preview [safePreview]="safePreview" [previewTypeCtrl]="previewTypeCtrl" [orientationCtrl]="orientationCtrl"></cm-entry-preview>
   </mat-sidenav>
 </mat-sidenav-container>
