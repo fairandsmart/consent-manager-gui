@@ -331,10 +331,10 @@
           }
         },
         "SENSITIVE": {
-          "LABEL": "Contient des données sensibles"
+          "LABEL": "Ce traitement collecte des données sensibles"
         },
         "MEDICAL": {
-          "LABEL": "Contient des données de santé"
+          "LABEL": "Ce traitement collecte des données de santé"
         },
         "THIRD_PARTIES": {
           "LABEL": "Tierce-parties",
