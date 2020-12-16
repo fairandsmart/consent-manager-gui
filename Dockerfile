@@ -7,7 +7,7 @@ COPY tsconfig.app.json /usr/src/app
 COPY tsconfig.json /usr/src/app
 WORKDIR /usr/src/app
 RUN npm install
-RUN npm run maven-build
+RUN npm run docker-build
 
 FROM nginx:1.19.2-alpine AS run
 COPY --from=build-front /usr/src/app/dist/consent-manager-gui /usr/share/nginx/html

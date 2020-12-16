@@ -9,8 +9,8 @@
     "test": "ng test",
     "lint": "ng lint",
     "e2e": "ng e2e",
-    "maven-build": "ng build --configuration docker",
-    "docker-build": "maven-build",
+    "docker-build": "ng build --configuration docker",
+    "maven-build": "docker-build",
     "docker-test": "maven-test",
     "maven-test": "ng test --code-coverage"
   },
