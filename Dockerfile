@@ -1,16 +1,5 @@
-FROM node:14.4.0-alpine3.10 AS build-front
-COPY src /usr/src/app/src
-COPY angular.json /usr/src/app
-COPY package.json /usr/src/app
-COPY package-lock.json /usr/src/app
-COPY tsconfig.app.json /usr/src/app
-COPY tsconfig.json /usr/src/app
-WORKDIR /usr/src/app
-RUN npm install
-RUN npm run docker-build
-
-FROM nginx:1.19.2-alpine AS run
-COPY --from=build-front /usr/src/app/dist/consent-manager-gui /usr/share/nginx/html
+FROM nginx:1.19.2-alpine
+COPY dist/consent-manager-gui /usr/share/nginx/html
 COPY fs /
 EXPOSE 80
 ENTRYPOINT ["/scripts/docker-entrypoint.sh"]
