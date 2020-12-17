@@ -5,18 +5,18 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { ChartsModule } from 'ng2-charts';
 import { RouterTestingModule } from '@angular/router/testing';
 import { CoreTestingModule } from '../../../../testing/core-testing-module.spec';
-import { SystemResourceService } from '../../../../core/http/system-resource.service';
 import { EMPTY } from 'rxjs';
 import createSpyObj = jasmine.createSpyObj;
 import SpyObj = jasmine.SpyObj;
+import { StatisticsResourceService } from '../../../../core/http/statistics-resource.service';
 
 describe('DashboardComponent', () => {
   let component: DashboardComponent;
   let fixture: ComponentFixture<DashboardComponent>;
-  let systemResourceServiceSpy: SpyObj<SystemResourceService>;
+  let statsResourceServiceSpy: SpyObj<StatisticsResourceService>;
 
   beforeEach(waitForAsync(() => {
-    systemResourceServiceSpy = createSpyObj<SystemResourceService>('SystemResourceService', ['getStats']);
+    statsResourceServiceSpy = createSpyObj<StatisticsResourceService>('StatisticsResourceService', ['getStats']);
 
     TestBed.configureTestingModule({
       declarations: [DashboardComponent],
@@ -24,14 +24,14 @@ describe('DashboardComponent', () => {
         CoreTestingModule, FormsModule, ReactiveFormsModule, ChartsModule, RouterTestingModule
       ],
       providers: [
-        {provide: SystemResourceService, useValue: systemResourceServiceSpy},
+        {provide: StatisticsResourceService, useValue: statsResourceServiceSpy},
       ]
     })
       .compileComponents();
   }));
 
   beforeEach(() => {
-    systemResourceServiceSpy.getStats.and.returnValue(EMPTY);
+    statsResourceServiceSpy.getStats.and.returnValue(EMPTY);
 
     fixture = TestBed.createComponent(DashboardComponent);
     component = fixture.componentInstance;

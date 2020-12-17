@@ -18,13 +18,5 @@
     flex-direction: row;
     flex-wrap: wrap;
     justify-content: center;
-
-    mat-card {
-      margin: 1em;
-      width: 500px;
-      mat-card-content {
-        height: 240px;
-      }
-    }
   }
 }

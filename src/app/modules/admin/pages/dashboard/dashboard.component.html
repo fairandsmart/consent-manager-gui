@@ -1,61 +1,37 @@
 <div class="dashboard">
   <div class="graphs">
-    <mat-card>
-      <mat-card-title>{{'DASHBOARD.TITLE1' | translate}}</mat-card-title>
-      <mat-card-content *ngIf="recordsWeekData; else noContent">
-        <div class="chart-container">
-          <canvas baseChart
-                  chartType="line"
-                  [datasets]="recordsWeekData.chartData"
-                  [labels]="recordsWeekData.chartLabels"
-                  [colors]="CHART_COLORS_SET"
-                  [options]="CHART_OPTIONS.stackedChart">
-          </canvas>
-        </div>
-      </mat-card-content>
-    </mat-card>
-    <mat-card>
-      <mat-card-title>{{'DASHBOARD.TITLE2' | translate}}</mat-card-title>
-      <mat-card-content *ngIf="recordsAverageData; else noContent">
-        <div class="chart-container">
-          <canvas baseChart
-                  chartType="pie"
-                  [datasets]="recordsAverageData.chartData"
-                  [labels]="recordsAverageData.chartLabels"
-                  [options]="CHART_OPTIONS.pie">
-          </canvas>
-        </div>
-      </mat-card-content>
-    </mat-card>
-    <mat-card>
-      <mat-card-title>{{'DASHBOARD.TITLE3' | translate}}</mat-card-title>
-      <mat-card-content *ngIf="answersWeekData; else noContent">
-        <div class="chart-container">
-          <canvas baseChart
-                  chartType="bar"
-                  [datasets]="answersWeekData.chartData"
-                  [labels]="answersWeekData.chartLabels"
-                  [colors]="CHART_COLORS_SET"
-                  [options]="CHART_OPTIONS.stackedChart">
-          </canvas>
-        </div>
-      </mat-card-content>
-    </mat-card>
-    <mat-card>
-      <mat-card-title>{{'DASHBOARD.TITLE4' | translate}}</mat-card-title>
-      <mat-card-content *ngIf="numbersData; else noContent">
-        <mat-list>
-          <mat-list-item>{{'DASHBOARD.USERS' | translate}} {{ numbersData.subjects }}</mat-list-item>
-          <mat-list-item>{{'DASHBOARD.CONSENTS' | translate}} {{ numbersData.records }}</mat-list-item>
-        </mat-list>
-      </mat-card-content>
-    </mat-card>
+
+    <cm-dashboard-chart #recordsWebformChart
+                        *ngIf="recordsWebformStats"
+                        name="RECORDS_WEBFORM"
+                        [labelsTranslations]="labelsTranslations"
+                        [stats]="recordsWebformStats"
+                        [chartOptions]="CHART_OPTIONS.unstackedChart"></cm-dashboard-chart>
+
+    <cm-dashboard-chart #recordsOperatorChart
+                        *ngIf="recordsOperatorStats"
+                        name="RECORDS_OPERATOR"
+                        [labelsTranslations]="labelsTranslations"
+                        [stats]="recordsOperatorStats"
+                        [chartOptions]="CHART_OPTIONS.unstackedChart"></cm-dashboard-chart>
+
+    <cm-dashboard-top-table #topTable
+                            *ngIf="topStats"
+                            [stats]="topStats"></cm-dashboard-top-table>
+
+    <cm-dashboard-chart #subjectsChart
+                        *ngIf="subjectsStats"
+                        name="SUBJECTS"
+                        [labelsTranslations]="labelsTranslations"
+                        [stats]="subjectsStats"
+                        [chartOptions]="CHART_OPTIONS.unstackedChart"></cm-dashboard-chart>
+
+    <cm-dashboard-chart #modelsChart
+                        *ngIf="modelsStats"
+                        name="MODELS"
+                        [labelsTranslations]="labelsTranslations"
+                        [stats]="modelsStats"
+                        [chartOptions]="CHART_OPTIONS.unstackedChart"></cm-dashboard-chart>
+
   </div>
 </div>
-
-<ng-template #noContent>
-  <mat-card-content class="no-content">
-    <mat-icon class="mat-icon-3x">block</mat-icon>
-    <div>{{'DASHBOARD.EMPTY' | translate}}</div>
-  </mat-card-content>
-</ng-template>

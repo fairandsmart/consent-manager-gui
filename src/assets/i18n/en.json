@@ -820,12 +820,62 @@
     }
   },
   "DASHBOARD": {
-    "TITLE1": "Collected consents",
-    "TITLE2": "Consents per week (average)",
-    "TITLE3": "Answers",
-    "TITLE4": "Some numbers",
-    "USERS": "Users:",
-    "CONSENTS": "Collected consents:",
-    "EMPTY": "No data to display for this period"
+    "CHARTS": {
+      "MODELS": "Active models",
+      "RECORDS_WEBFORM": "Consents collected by webforms",
+      "RECORDS_OPERATOR": "Consents collected by operators",
+      "SUBJECTS": "New customers"
+    },
+    "LABELS": {
+      "SUBJECTS": "Customers"
+    },
+    "TIME_SCALE": {
+      "LABEL": "Time scale",
+      "DAYS": "Day",
+      "WEEKS": "Week",
+      "MONTHS": "Month"
+    },
+    "EMPTY": "No data",
+    "TOP_TABLE": {
+      "RANK": {
+        "LABEL": "Rank"
+      },
+      "COLLECTED_KEY": {
+        "LABEL": "Collected processing top 3"
+      },
+      "COLLECTED_VALUE": {
+        "LABEL": "Collected processing number"
+      },
+      "ACCEPTED_KEY": {
+        "LABEL": "Accepted processing top 3"
+      },
+      "ACCEPTED_VALUE": {
+        "LABEL": "Accepted processing number"
+      }
+    },
+    "DAYS": {
+      "1": "Monday",
+      "2": "Tuesday",
+      "3": "Wednesday",
+      "4": "Thursday",
+      "5": "Friday",
+      "6": "Saturday",
+      "7": "Sunday"
+    },
+    "WEEKS_PREFIX": "W",
+    "MONTHS": {
+      "1": "January",
+      "2": "February",
+      "3": "March",
+      "4": "April",
+      "5": "May",
+      "6": "June",
+      "7": "July",
+      "8": "August",
+      "9": "September",
+      "10": "October",
+      "11": "November",
+      "12": "December"
+    }
   }
 }

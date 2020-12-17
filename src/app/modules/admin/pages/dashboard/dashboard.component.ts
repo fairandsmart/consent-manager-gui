@@ -1,6 +1,8 @@
-import { Component, OnInit } from '@angular/core';
-import { TranslateService } from '@ngx-translate/core';
-import { SystemResourceService } from '../../../../core/http/system-resource.service';
+import { Component, OnInit, ViewChild } from '@angular/core';
+import { StatsChart } from '../../../../core/models/models';
+import { StatisticsResourceService } from '../../../../core/http/statistics-resource.service';
+import { DashboardChartComponent } from '../../components/dashboard/dashboard-chart/dashboard-chart.component';
+import { DashboardTopTableComponent } from '../../components/dashboard/dashboard-top-table/dashboard-top-table.component';
 
 @Component({
   selector: 'cm-dashboard',
@@ -9,63 +11,13 @@ import { SystemResourceService } from '../../../../core/http/system-resource.ser
 })
 export class DashboardComponent implements OnInit {
 
-  readonly CHART_COLORS_SET: Array<any> = [
-    {
-      backgroundColor: '#44bad6',
-      borderColor: '#44bad6',
-      pointBackgroundColor: '#44bad6',
-      pointBorderColor: '#fff',
-      pointHoverBackgroundColor: '#fff',
-      pointHoverBorderColor: '#44bad6'
-    }, {
-      backgroundColor: '#eab91a',
-      borderColor: '#eab91a',
-      pointBackgroundColor: '#eab91a',
-      pointBorderColor: '#fff',
-      pointHoverBackgroundColor: '#fff',
-      pointHoverBorderColor: '#eab91a'
-    }, {
-      backgroundColor: '#e7551d',
-      borderColor: '#e7551d',
-      pointBackgroundColor: '#e7551d',
-      pointBorderColor: '#fff',
-      pointHoverBackgroundColor: '#fff',
-      pointHoverBorderColor: '#e7551d'
-    }, {
-      backgroundColor: '#52c513',
-      borderColor: '#52c513',
-      pointBackgroundColor: '#52c513',
-      pointBorderColor: '#fff',
-      pointHoverBackgroundColor: '#fff',
-      pointHoverBorderColor: '#52c513'
-    }, {
-      backgroundColor: '#6c6c6c',
-      borderColor: '#6c6c6c',
-      pointBackgroundColor: '#6c6c6c',
-      pointBorderColor: '#fff',
-      pointHoverBackgroundColor: '#fff',
-      pointHoverBorderColor: '#6c6c6c'
-    }, {
-      backgroundColor: '#bebebe',
-      borderColor: '#bebebe',
-      pointBackgroundColor: '#bebebe',
-      pointBorderColor: '#fff',
-      pointHoverBackgroundColor: '#fff',
-      pointHoverBorderColor: '#bebebe'
-    }, {
-      backgroundColor: '#d31313',
-      borderColor: '#d31313',
-      pointBackgroundColor: '#d31313',
-      pointBorderColor: '#fff',
-      pointHoverBackgroundColor: '#fff',
-      pointHoverBorderColor: '#d31313'
-    }];
-
   public CHART_OPTIONS = {
     pie: {
+      chartType: 'pie',
       responsive: true
     },
     stackedChart: {
+      chartType: 'bar',
       responsive: true,
       scales: {
         xAxes: [{
@@ -79,83 +31,85 @@ export class DashboardComponent implements OnInit {
           stacked: true
         }]
       }
+    },
+    unstackedChart: {
+      chartType: 'bar',
+      responsive: true,
+      scales: {
+        xAxes: [{
+          stacked: false
+        }],
+        yAxes: [{
+          ticks: {
+            beginAtZero: true,
+            stepSize: 1
+          },
+          stacked: false
+        }]
+      }
     }
   };
 
-  public numbersData: {[key: string]: number};
-  public recordsAverageData: {chartData: object, chartLabels: object};
-  public recordsWeekData: {chartData: object, chartLabels: object};
-  public answersWeekData: {chartData: object, chartLabels: object};
+  public labelsTranslations;
 
-  constructor(
-    public systemService: SystemResourceService,
-    public translate: TranslateService
-  ) {
+  @ViewChild('modelsChart')
+  public modelsChart: DashboardChartComponent;
+  public modelsStats: StatsChart;
+
+  @ViewChild('recordsWebformChart')
+  public recordsWebformChart: DashboardChartComponent;
+  public recordsWebformStats: StatsChart;
+
+  @ViewChild('recordsOperatorChart')
+  public recordsOperatorChart: DashboardChartComponent;
+  public recordsOperatorStats: StatsChart;
+
+  @ViewChild('subjectsChart')
+  public subjectsChart: DashboardChartComponent;
+  public subjectsStats: StatsChart;
+
+  @ViewChild('totalChart')
+  public totalChart: DashboardChartComponent;
+  public totalStats: StatsChart;
+
+  @ViewChild('topTable')
+  public topTable: DashboardTopTableComponent;
+  public topStats: StatsChart;
+
+  constructor(public statsService: StatisticsResourceService) {
   }
 
   ngOnInit(): void {
-    this.systemService.getStats().subscribe((response) => {
-    // TODO stats
-    const labels = {
-      fr: {
-        types: ['Traitements', 'Préférences', 'CGU'],
-        yes: 'Oui',
-        no: 'Non'
-      },
-      en: {
-        types: ['Processing', 'Preferences', 'EULA'],
-        yes: 'Yes',
-        no: 'No'
-      }
-    };
-    this.numbersData = {
-        subjects: 14,
-        records: 218
-      };
-    this.recordsAverageData = {
-        chartLabels: labels[this.translate.currentLang].types,
-        chartData: [
-          {
-            data: [5.4, 1.1, 3.2],
-            backgroundColor: [
-              this.CHART_COLORS_SET[0].backgroundColor,
-              this.CHART_COLORS_SET[1].backgroundColor,
-              this.CHART_COLORS_SET[2].backgroundColor
-            ]
-          }
-        ]
-      };
-    this.recordsWeekData = {
-        chartLabels: ['21/09', '22/09', '23/09', '24/09', '25/09', '26/09', '27/09'],
-        chartData: [
-          {
-            data: [0, 1, 4, 5, 0, 3, 1],
-            label: labels[this.translate.currentLang].types[0]
-          },
-          {
-            data: [3, 2, 0, 1, 4, 0, 2],
-            label: labels[this.translate.currentLang].types[1]
-          },
-          {
-            data: [4, 1, 2, 3, 2, 2, 1],
-            label: labels[this.translate.currentLang].types[2]
-          }
-        ]
-      };
-    this.answersWeekData = {
-        chartLabels: ['21/09', '22/09', '23/09', '24/09', '25/09', '26/09', '27/09'],
-        chartData: [
-          {
-            data: [8, 7, 4, 1, 0, 5, 3],
-            label: labels[this.translate.currentLang].yes
-          },
-          {
-            data: [3, 5, 2, 3, 4, 1, 2],
-            label: labels[this.translate.currentLang].no
-          }
-        ]
-      };
+    this.statsService.getStats().subscribe(stats => {
+      this.modelsStats = stats.models;
+      this.recordsWebformStats = stats.recordsWebform;
+      this.recordsOperatorStats = stats.recordsOperator;
+      this.subjectsStats = stats.subjects;
+      this.totalStats = stats.total;
+      this.topStats = stats.top;
+      this.updateCharts();
     });
+  }
+
+  updateCharts(): void {
+    if (this.modelsChart) {
+      this.modelsChart.updateChart();
+    }
+    if (this.recordsWebformChart) {
+      this.recordsWebformChart.updateChart();
+    }
+    if (this.recordsOperatorChart) {
+      this.recordsOperatorChart.updateChart();
+    }
+    if (this.subjectsChart) {
+      this.subjectsChart.updateChart();
+    }
+    if (this.totalChart) {
+      this.totalChart.updateChart();
+    }
+    if (this.topTable) {
+      this.topTable.updateTable();
+    }
   }
 
 }

@@ -1,0 +1,43 @@
+<mat-card>
+  <mat-card-title>{{'DASHBOARD.CHARTS.TOP_TABLE' | translate}}</mat-card-title>
+  <mat-card-content *ngIf="topTable; else noContent">
+    <table mat-table [dataSource]="topTable">
+
+      <ng-container matColumnDef="rank">
+        <th mat-header-cell *matHeaderCellDef>{{'DASHBOARD.TOP_TABLE.RANK.LABEL' | translate}}</th>
+        <td mat-cell *matCellDef="let element">{{element.rank}}</td>
+      </ng-container>
+
+      <ng-container matColumnDef="collectedKey">
+        <th mat-header-cell *matHeaderCellDef>{{'DASHBOARD.TOP_TABLE.COLLECTED_KEY.LABEL' | translate}}</th>
+        <td mat-cell *matCellDef="let element">{{element.collectedKey}}</td>
+      </ng-container>
+
+      <ng-container matColumnDef="collectedValue">
+        <th mat-header-cell *matHeaderCellDef>{{'DASHBOARD.TOP_TABLE.COLLECTED_VALUE.LABEL' | translate}}</th>
+        <td mat-cell *matCellDef="let element">{{element.collectedValue}}</td>
+      </ng-container>
+
+      <ng-container matColumnDef="acceptedKey">
+        <th mat-header-cell *matHeaderCellDef>{{'DASHBOARD.TOP_TABLE.ACCEPTED_KEY.LABEL' | translate}}</th>
+        <td mat-cell *matCellDef="let element">{{element.acceptedKey}}</td>
+      </ng-container>
+
+      <ng-container matColumnDef="acceptedValue">
+        <th mat-header-cell *matHeaderCellDef>{{'DASHBOARD.TOP_TABLE.ACCEPTED_VALUE.LABEL' | translate}}</th>
+        <td mat-cell *matCellDef="let element">{{element.acceptedValue}}</td>
+      </ng-container>
+
+      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+      <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+
+    </table>
+  </mat-card-content>
+</mat-card>
+
+<ng-template #noContent>
+  <mat-card-content class="no-content">
+    <mat-icon class="mat-icon-3x">block</mat-icon>
+    <div>{{'DASHBOARD.EMPTY' | translate}}</div>
+  </mat-card-content>
+</ng-template>

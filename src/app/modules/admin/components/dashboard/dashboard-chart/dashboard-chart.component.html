@@ -1,0 +1,30 @@
+<mat-card>
+  <mat-card-title>{{'DASHBOARD.CHARTS.' + name | translate}}</mat-card-title>
+  <mat-card-content *ngIf="currentStats; else noContent">
+    <div class="chart-container">
+      <canvas baseChart
+              [chartType]="chartOptions.chartType"
+              [datasets]="currentStats.datasets"
+              [labels]="currentStats.labels"
+              [colors]="CHART_COLORS_SET"
+              [options]="chartOptions">
+      </canvas>
+    </div>
+  </mat-card-content>
+
+  <mat-form-field appearance="outline">
+    <mat-label>{{'DASHBOARD.TIME_SCALE.LABEL' | translate}}</mat-label>
+    <mat-select [formControl]="control">
+      <mat-option *ngFor="let scale of TIME_SCALES" [value]="scale">
+        {{'DASHBOARD.TIME_SCALE.' + scale | translate}}
+      </mat-option>
+    </mat-select>
+  </mat-form-field>
+</mat-card>
+
+<ng-template #noContent>
+  <mat-card-content class="no-content">
+    <mat-icon class="mat-icon-3x">block</mat-icon>
+    <div>{{'DASHBOARD.EMPTY' | translate}}</div>
+  </mat-card-content>
+</ng-template>
