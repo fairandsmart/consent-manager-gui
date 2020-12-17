@@ -146,13 +146,18 @@ export enum ProcessingPurpose {
 
 export const PROCESSING_PURPOSES = Object.keys(ProcessingPurpose);
 
+export interface RetentionInfo {
+  label: string;
+  value: number;
+  unit: RetentionUnit;
+  fullText: string;
+}
+
 export interface Processing extends ModelData {
   type: 'processing';
   title: string;
   data: string;
-  retentionLabel: string;
-  retentionValue: number;
-  retentionUnit: RetentionUnit;
+  retention: RetentionInfo;
   usage: string;
   purposes: ProcessingPurpose[];
   containsSensitiveData: boolean;
