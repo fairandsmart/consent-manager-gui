@@ -1,0 +1,66 @@
+mat-card {
+  margin: 1em;
+  width: 500px;
+
+  mat-card-title {
+    margin-bottom: 1em;
+  }
+}
+
+.metrics-cards {
+  padding: 0;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-template-rows: 1fr 1fr;
+  grid-gap: 1em;
+
+  mat-card {
+    margin: 0;
+    display: flex;
+    box-shadow: none;
+    flex-direction: column;
+    color: #ffffff;
+    width: initial;
+
+    &.metrics {
+      mat-icon + div {
+        padding-top: 8px;
+      }
+    }
+
+    mat-icon {
+      display: block;
+      margin-right: 10px;
+    }
+
+    mat-card-content {
+      padding: 0;
+      /*flex: 1 1 100%;*/
+      font-weight: bold;
+      text-align: left;
+      display: flex;
+      align-items: center;
+      font-size: large;
+      margin-bottom: 0;
+    }
+
+    .value {
+      font-size: xx-large;
+      margin-right: 4px;
+    }
+
+    .evolution-wrapper {
+      color: #ffffff;
+      font-weight: normal;
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+
+      .subvalue {
+        font-weight: bold;
+        font-size: large;
+        margin-right: 4px;
+      }
+    }
+  }
+}

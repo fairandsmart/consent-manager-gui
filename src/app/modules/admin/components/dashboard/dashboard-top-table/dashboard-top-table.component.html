@@ -1,5 +1,6 @@
 <mat-card>
   <mat-card-title>{{'DASHBOARD.CHARTS.TOP_TABLE' | translate}}</mat-card-title>
+  <mat-card-subtitle>{{'DASHBOARD.CHARTS.TOP_TABLE_SUBTITLE' | translate}}</mat-card-subtitle>
   <mat-card-content *ngIf="topTable; else noContent">
     <table mat-table [dataSource]="topTable">
 

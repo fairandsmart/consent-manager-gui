@@ -1,19 +1,18 @@
 <div class="dashboard">
   <div class="graphs">
 
-    <cm-dashboard-chart #recordsWebformChart
-                        *ngIf="recordsWebformStats"
-                        name="RECORDS_WEBFORM"
+    <cm-dashboard-chart #recordsChart
+                        *ngIf="recordsStats"
+                        name="RECORDS"
                         [labelsTranslations]="labelsTranslations"
-                        [stats]="recordsWebformStats"
-                        [chartOptions]="CHART_OPTIONS.unstackedChart"></cm-dashboard-chart>
+                        [stats]="recordsStats"
+                        [chartOptions]="CHART_OPTIONS.unstackedChart"
+                        [chartColors]="CHART_COLORS_SET"></cm-dashboard-chart>
 
-    <cm-dashboard-chart #recordsOperatorChart
-                        *ngIf="recordsOperatorStats"
-                        name="RECORDS_OPERATOR"
-                        [labelsTranslations]="labelsTranslations"
-                        [stats]="recordsOperatorStats"
-                        [chartOptions]="CHART_OPTIONS.unstackedChart"></cm-dashboard-chart>
+    <cm-dashboard-numbers #totalCard
+                          *ngIf="totalStats"
+                          [stats]="totalStats"
+                          [colors]="CHART_COLORS_SET"></cm-dashboard-numbers>
 
     <cm-dashboard-top-table #topTable
                             *ngIf="topStats"
@@ -24,14 +23,8 @@
                         name="SUBJECTS"
                         [labelsTranslations]="labelsTranslations"
                         [stats]="subjectsStats"
-                        [chartOptions]="CHART_OPTIONS.unstackedChart"></cm-dashboard-chart>
-
-    <cm-dashboard-chart #modelsChart
-                        *ngIf="modelsStats"
-                        name="MODELS"
-                        [labelsTranslations]="labelsTranslations"
-                        [stats]="modelsStats"
-                        [chartOptions]="CHART_OPTIONS.unstackedChart"></cm-dashboard-chart>
+                        [chartOptions]="CHART_OPTIONS.lineChart"
+                        [chartColors]="CHART_COLORS_SET"></cm-dashboard-chart>
 
   </div>
 </div>

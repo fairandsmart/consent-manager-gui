@@ -2,8 +2,11 @@ mat-card {
   margin: 1em;
   width: 500px;
 
+  mat-card-title {
+    margin-bottom: 1em;
+  }
+
   mat-card-content {
-    height: 240px;
     text-align: center;
   }
 
@@ -12,5 +15,9 @@ mat-card {
     justify-content: center;
     align-items: center;
     flex-direction: column;
+  }
+
+  mat-card-actions {
+    text-align: center;
   }
 }

@@ -6,20 +6,19 @@
               [chartType]="chartOptions.chartType"
               [datasets]="currentStats.datasets"
               [labels]="currentStats.labels"
-              [colors]="CHART_COLORS_SET"
+              [colors]="chartColors"
               [options]="chartOptions">
       </canvas>
     </div>
   </mat-card-content>
 
-  <mat-form-field appearance="outline">
-    <mat-label>{{'DASHBOARD.TIME_SCALE.LABEL' | translate}}</mat-label>
-    <mat-select [formControl]="control">
-      <mat-option *ngFor="let scale of TIME_SCALES" [value]="scale">
+  <mat-card-actions>
+    <mat-button-toggle-group name="timeScale" (change)="changeTimeScale($event.value)">
+      <mat-button-toggle *ngFor="let scale of TIME_SCALES" [value]="scale" [checked]="scale === timeScale">
         {{'DASHBOARD.TIME_SCALE.' + scale | translate}}
-      </mat-option>
-    </mat-select>
-  </mat-form-field>
+      </mat-button-toggle>
+    </mat-button-toggle-group>
+  </mat-card-actions>
 </mat-card>
 
 <ng-template #noContent>

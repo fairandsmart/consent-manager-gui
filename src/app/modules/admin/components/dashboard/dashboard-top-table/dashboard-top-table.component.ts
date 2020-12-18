@@ -33,13 +33,13 @@ export class DashboardTopTableComponent implements OnInit {
   updateTable(): void {
     if (this.stats) {
       this.topTable = [];
-      for (let i = 0; i < this.stats.topCollectedProcessing.labels.length; i++) {
+      for (let i = 0; i < this.stats.collected.labels.length; i++) {
         this.topTable.push({
           rank: i + 1,
-          collectedKey: this.stats.topCollectedProcessing.labels[i],
-          collectedValue: this.stats.topCollectedProcessing.datasets[0].data[i],
-          acceptedKey: this.stats.topAcceptedProcessing.labels[i],
-          acceptedValue: this.stats.topAcceptedProcessing.datasets[0].data[i]
+          collectedKey: this.stats.collected.labels[i],
+          collectedValue: this.stats.collected.datasets[0].data[i],
+          acceptedKey: this.stats.accepted.labels[i],
+          acceptedValue: this.stats.accepted.datasets[0].data[i]
         });
       }
     }

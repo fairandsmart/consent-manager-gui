@@ -40,7 +40,9 @@ export enum Icons {
   gettingStarted = 'help',
   collect = 'integration_instructions',
   interrogate = 'search',
-  security = 'vpn_key'
+  security = 'vpn_key',
+  all = 'assignment_turned_in',
+  subject = 'people'
 }
 
 /* Models */

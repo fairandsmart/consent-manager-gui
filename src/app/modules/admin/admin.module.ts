@@ -44,6 +44,7 @@ import { GettingStartedPageComponent } from './pages/getting-started-page/gettin
 import { InterrogatePageComponent } from './pages/interrogate-page/interrogate-page.component';
 import { DashboardChartComponent } from './components/dashboard/dashboard-chart/dashboard-chart.component';
 import { DashboardTopTableComponent } from './components/dashboard/dashboard-top-table/dashboard-top-table.component';
+import { DashboardNumbersComponent } from './components/dashboard/dashboard-numbers/dashboard-numbers.component';
 
 @NgModule({
   declarations: [
@@ -86,7 +87,8 @@ import { DashboardTopTableComponent } from './components/dashboard/dashboard-top
     GettingStartedPageComponent,
     InterrogatePageComponent,
     DashboardChartComponent,
-    DashboardTopTableComponent
+    DashboardTopTableComponent,
+    DashboardNumbersComponent
   ],
   imports: [
     AdminRoutingModule,
