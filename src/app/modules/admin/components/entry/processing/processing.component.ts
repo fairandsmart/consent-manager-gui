@@ -16,6 +16,7 @@ import { FormArray, FormBuilder, Validators } from '@angular/forms';
 import { ModelsResourceService } from '../../../../../core/http/models-resource.service';
 import { DomSanitizer } from '@angular/platform-browser';
 import { AlertService } from '../../../../../core/services/alert.service';
+import {TranslateService} from '@ngx-translate/core';
 
 @Component({
   selector: 'cm-processing',
@@ -34,7 +35,8 @@ export class ProcessingComponent extends EntryContentDirective<Processing> imple
       private fb: FormBuilder,
       modelsResourceService: ModelsResourceService,
       alertService: AlertService,
-      sanitizer: DomSanitizer) {
+      sanitizer: DomSanitizer,
+      private translate: TranslateService) {
     super(ProcessingComponent.CONTEXT, modelsResourceService, alertService, sanitizer);
   }
 
@@ -55,9 +57,12 @@ export class ProcessingComponent extends EntryContentDirective<Processing> imple
       type: [this.type, [Validators.required]],
       title: ['', [Validators.required]],
       data: ['', [Validators.required]],
-      retentionLabel: ['', [Validators.required]],
-      retentionValue: [0, [Validators.required, Validators.min(1)]],
-      retentionUnit: [RetentionUnit.YEAR, [Validators.required]],
+      retention: this.fb.group({
+        label: ['', [Validators.required]],
+        value: [0, [Validators.required, Validators.min(1)]],
+        unit: [RetentionUnit.YEAR, [Validators.required]],
+        fullText: ['']
+      }),
       usage: ['', [Validators.required]],
       purposes: [[], [Validators.required]],
       containsSensitiveData: [false],
@@ -76,6 +81,10 @@ export class ProcessingComponent extends EntryContentDirective<Processing> imple
       associatedPreferences: [[]]
     });
     this.form.get('containsMedicalData').disable();
+    this.form.get('retention').valueChanges.subscribe((value) => {
+      this.form.get('retention').get('fullText')
+        .patchValue(`${value.label} ${value.value} ${this.translate.instant('ENTRIES.EDITOR.PROCESSING.RETENTION.UNIT.VALUES.' + value.unit)}`, { emitEvent: false });
+    });
     this.checkFormState();
   }
 
