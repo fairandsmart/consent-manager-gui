@@ -10,20 +10,21 @@
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.inceptionYear>2020</project.inceptionYear>
-        <version.dependency-check-maven>5.3.2</version.dependency-check-maven>
-        <version.frontend-maven-plugin>1.10.0</version.frontend-maven-plugin>
-        <version.gitflow-maven-plugin>1.14.0</version.gitflow-maven-plugin>
+        <version.dependency-check-maven>6.0.3</version.dependency-check-maven>
+        <version.frontend-maven-plugin>1.10.3</version.frontend-maven-plugin>
+        <version.gitflow-maven-plugin>1.15.0</version.gitflow-maven-plugin>
         <version.maven>3.6.3</version.maven>
         <version.maven-assembly-plugin>3.3.0</version.maven-assembly-plugin>
         <version.maven-clean-plugin>3.1.0</version.maven-clean-plugin>
         <version.maven-deploy-plugin>3.0.0-M1</version.maven-deploy-plugin>
         <version.maven-enforcer-plugin>3.0.0-M3</version.maven-enforcer-plugin>
+        <version.maven-exec-plugin>3.0.0</version.maven-exec-plugin>
         <version.maven-install-plugin>3.0.0-M1</version.maven-install-plugin>
-        <version.maven-site-plugin>3.9.0</version.maven-site-plugin>
+        <version.maven-site-plugin>3.9.1</version.maven-site-plugin>
         <version.node>v12.13.0</version.node>
         <version.npm>6.12.0</version.npm>
-        <version.sortpom-maven-plugin>2.11.0</version.sortpom-maven-plugin>
-        <version.versions-maven-plugin>2.7</version.versions-maven-plugin>
+        <version.sortpom-maven-plugin>2.12.0</version.sortpom-maven-plugin>
+        <version.versions-maven-plugin>2.8.1</version.versions-maven-plugin>
     </properties>
     <build>
         <plugins>
@@ -188,6 +189,64 @@
         </snapshotRepository>
     </distributionManagement>
     <profiles>
+        <profile>
+            <id>buildDockerImage</id>
+            <activation>
+                <property>
+                    <name>buildDockerImage</name>
+                </property>
+            </activation>
+            <properties>
+                <skipTests>true</skipTests>
+            </properties>
+            <build>
+                <plugins>
+                    <plugin>
+                        <groupId>org.codehaus.mojo</groupId>
+                        <artifactId>exec-maven-plugin</artifactId>
+                        <version>${version.maven-exec-plugin}</version>
+                        <executions>
+                            <execution>
+                                <id>docker-clean</id>
+                                <phase>clean</phase>
+                                <goals>
+                                    <goal>exec</goal>
+                                </goals>
+                                <configuration>
+                                    <executable>docker</executable>
+                                    <workingDirectory>${project.basedir}</workingDirectory>
+                                    <arguments>
+                                        <argument>rmi</argument>
+                                        <argument>-f</argument>
+                                        <argument>fairandsmart/${project.artifactId}</argument>
+                                        <argument>${project.artifactId}:${project.version}</argument>
+                                    </arguments>
+                                </configuration>
+                            </execution>
+                            <execution>
+                                <id>docker-build</id>
+                                <phase>install</phase>
+                                <goals>
+                                    <goal>exec</goal>
+                                </goals>
+                                <configuration>
+                                    <executable>docker</executable>
+                                    <workingDirectory>${project.basedir}</workingDirectory>
+                                    <arguments>
+                                        <argument>build</argument>
+                                        <argument>-t</argument>
+                                        <argument>fairandsmart/${project.artifactId}:latest</argument>
+                                        <argument>-t</argument>
+                                        <argument>fairandsmart/${project.artifactId}:${project.version}</argument>
+                                        <argument>.</argument>
+                                    </arguments>
+                                </configuration>
+                            </execution>
+                        </executions>
+                    </plugin>
+                </plugins>
+            </build>
+        </profile>
         <profile>
             <id>CI</id>
             <activation>

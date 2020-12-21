@@ -18,18 +18,18 @@
           </mat-form-field>
 
           <mat-card-subtitle>{{'ENTRIES.EDITOR.PROCESSING.SUBTITLES.RETENTION' | translate}}</mat-card-subtitle>
-          <div class="retention-fields">
+          <div class="retention-fields" formGroupName="retention">
             <mat-form-field class="description" appearance="outline">
               <mat-label>{{'ENTRIES.EDITOR.PROCESSING.RETENTION.BODY.LABEL' | translate}}</mat-label>
-              <textarea matInput required formControlName="retentionLabel" cdkTextareaAutosize cdkAutosizeMinRows="1"></textarea>
+              <textarea matInput required formControlName="label" cdkTextareaAutosize cdkAutosizeMinRows="1"></textarea>
             </mat-form-field>
             <mat-form-field class="value" appearance="outline">
               <mat-label>{{'ENTRIES.EDITOR.PROCESSING.RETENTION.VALUE.LABEL' | translate}}</mat-label>
-              <input type="number" matInput required formControlName="retentionValue" autocomplete="off" min="1">
+              <input type="number" matInput required formControlName="value" autocomplete="off" min="1">
             </mat-form-field>
             <mat-form-field class="unit" appearance="outline">
               <mat-label>{{'ENTRIES.EDITOR.PROCESSING.RETENTION.UNIT.LABEL' | translate}}</mat-label>
-              <mat-select formControlName="retentionUnit" required multiple="false">
+              <mat-select formControlName="unit" required multiple="false">
                 <mat-option *ngFor="let unit of RETENTION_UNITS" [value]="unit">
                   {{'ENTRIES.EDITOR.PROCESSING.RETENTION.UNIT.VALUES.' + unit | translate}}
                 </mat-option>
