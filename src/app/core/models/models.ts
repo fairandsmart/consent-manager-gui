@@ -299,7 +299,9 @@ export enum ConsentFormType {
 export enum CollectionMethod {
   WEBFORM = 'WEBFORM',
   OPERATOR = 'OPERATOR',
-  EMAIL = 'EMAIL'
+  EMAIL = 'EMAIL',
+  RECEIPT = 'RECEIPT',
+  USER_PAGE = 'USER_PAGE'
 }
 
 export type ReceiptDeliveryType = 'NONE' | 'GENERATE' | 'DISPLAY' | 'STORE' | 'DOWNLOAD';
