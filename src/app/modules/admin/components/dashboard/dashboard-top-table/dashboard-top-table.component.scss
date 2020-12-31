@@ -1,0 +1,36 @@
+mat-card {
+  margin: 1em;
+  width: 500px;
+
+  mat-card-title {
+    margin-bottom: 1em;
+  }
+
+  mat-card-content {
+    text-align: center;
+
+    table {
+
+      th, td {
+        max-width: 9em;
+      }
+
+      th.mat-header-cell, td.mat-cell {
+        padding: 0 6px;
+        text-align: center;
+      }
+
+      th.mat-header-cell:first-of-type, td.mat-cell:first-of-type {
+        padding-left: 24px;
+      }
+
+      th.mat-header-cell:last-of-type, td.mat-cell:last-of-type {
+        padding-right: 24px;
+      }
+
+      tr.mat-row:last-of-type td {
+        border-bottom: none;
+      }
+    }
+  }
+}

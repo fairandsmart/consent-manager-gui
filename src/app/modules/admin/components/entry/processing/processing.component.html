@@ -85,7 +85,7 @@
             <mat-radio-button [value]="false">{{'ENTRIES.EDITOR.CONTENT.HIDE' | translate}}</mat-radio-button>
           </mat-radio-group>
 
-          <mat-card *ngIf="form.controls.purposes.value.includes('CONSENT_THIRD_PART_SHARING')">
+          <mat-card *ngIf="form.controls.purposes.value.includes('CONSENT_THIRD_PART_SHARING')" class="third-parties-card">
             <mat-card-title>{{'ENTRIES.EDITOR.PROCESSING.THIRD_PARTIES.LABEL' | translate}}</mat-card-title>
             <mat-card-content>
               <div *ngIf="getThirdParties().controls.length == 0" class="third-parties-empty">{{'ENTRIES.EDITOR.PROCESSING.THIRD_PARTIES.EMPTY' | translate}}</div>

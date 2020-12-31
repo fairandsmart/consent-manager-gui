@@ -1,0 +1,28 @@
+<mat-card>
+  <mat-card-title>{{'DASHBOARD.CHARTS.NUMBERS' | translate}}</mat-card-title>
+  <mat-card-content *ngIf="numberStats; else noContent">
+    <div class="metrics-cards">
+      <mat-card *ngFor="let stat of numberStats" class="metrics" [style]="'background-color: ' + stat.color">
+        <mat-card-content>
+          <mat-icon *ngIf="stat.icon" class="mat-icon-2x">{{stat.icon}}</mat-icon>
+          <div>
+            <span class="value">{{stat.value}}</span>
+            {{'DASHBOARD.NUMBERS.' + stat.name | translate}}
+          </div>
+        </mat-card-content>
+        <div class="evolution-wrapper">
+          <mat-icon>{{stat.evolution > 0 ? 'trending_up' : (stat.evolution < 0 ? 'trending_down' : 'trending_flat')}}</mat-icon>
+          <span class="subvalue">{{stat.evolution > 0 ? ('+' + stat.evolution) : stat.evolution}}</span>
+          {{'DASHBOARD.NUMBERS.COMPARISON' | translate}}
+        </div>
+      </mat-card>
+    </div>
+  </mat-card-content>
+</mat-card>
+
+<ng-template #noContent>
+  <mat-card-content class="no-content">
+    <mat-icon class="mat-icon-3x">block</mat-icon>
+    <div>{{'DASHBOARD.EMPTY' | translate}}</div>
+  </mat-card-content>
+</ng-template>

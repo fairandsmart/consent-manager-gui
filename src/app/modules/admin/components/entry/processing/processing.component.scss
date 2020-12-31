@@ -23,6 +23,14 @@
   }
 }
 
+.third-parties-card {
+  margin-bottom: 2em;
+
+  mat-card-content {
+    margin-bottom: 0;
+  }
+}
+
 .third-parties-empty {
   padding-left: 0.5em;
   font-style: italic;

@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { environment } from '../../../environments/environment';
 import { HttpClient } from '@angular/common/http';
-import { Observable, of } from 'rxjs';
+import { Observable } from 'rxjs';
 import { ClientConfigDto, SupportInfoDto, UserDto } from '../models/models';
 
 @Injectable()
@@ -24,7 +24,4 @@ export class SystemResourceService {
     return this.http.get<ClientConfigDto>(`${this.ROOT}/config`);
   }
 
-  getStats(): Observable<object[]> {
-    return of([{todo: 'TODO'}]); // TODO :)
-  }
 }

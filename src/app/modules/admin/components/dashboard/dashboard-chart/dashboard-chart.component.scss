@@ -1,0 +1,23 @@
+mat-card {
+  margin: 1em;
+  width: 500px;
+
+  mat-card-title {
+    margin-bottom: 1em;
+  }
+
+  mat-card-content {
+    text-align: center;
+  }
+
+  .no-content {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+  }
+
+  mat-card-actions {
+    text-align: center;
+  }
+}
