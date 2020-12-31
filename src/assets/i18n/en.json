@@ -51,7 +51,9 @@
     "COLLECTION_METHODS": {
       "WEBFORM": "Web form",
       "OPERATOR": "Operator",
-      "EMAIL": "Email"
+      "EMAIL": "Email link",
+      "RECEIPT": "Receipt link",
+      "USER_PAGE": "User page"
     },
     "LANGUAGES": {
       "EN": "English",
