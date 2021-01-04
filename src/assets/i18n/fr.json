@@ -10,6 +10,7 @@
       },
       "MODELS": {
         "LABEL": "Configuration",
+        "GETTING_STARTED": "Bien démarrer",
         "INFO": "Informations",
         "PROCESSING": "Traitements",
         "PREFERENCES": "Préférences",
@@ -20,8 +21,9 @@
       "INTEGRATION": {
         "LABEL": "Intégration",
         "GETTING_STARTED": "Bien démarrer",
-        "FORM_CREATOR": "Formulaire",
-        "API": "Accès à l'API"
+        "COLLECT": "Collecter",
+        "INTERROGATE": "Interroger",
+        "SECURITY": "Sécurité"
       }
     }
   },
@@ -49,7 +51,9 @@
     "COLLECTION_METHODS": {
       "WEBFORM": "Formulaire Web",
       "OPERATOR": "Opérateur",
-      "EMAIL": "Email"
+      "EMAIL": "Lien de l'email",
+      "RECEIPT": "Lien du reçu",
+      "USER_PAGE": "Interface utilisateur"
     },
     "LANGUAGES": {
       "EN": "Anglais",
@@ -79,9 +83,11 @@
   },
   "ALERT": {
     "NO_CHANGE": "Aucune modification",
+    "FORM_ERROR": "Il y a des erreurs dans le formulaire, modifications non enregistrées",
     "UNSAVED_CHANGES": "Il y a des modifications non enregistrées, impossible d'activer le brouillon",
-    "SAVE_SUCCESS": "Modifications enregistrées !",
+    "SAVE_SUCCESS": "Votre brouillon a bien été enregistré. Afin de pouvoir utiliser ce modèle dans vos formulaires, merci de bien vouloir l'activer.",
     "SAVE_ERROR": "Impossible d'enregistrer les modifications...",
+    "UNKNOWN_ERROR": "Une erreur inattendue est survenue...",
     "ACTIVATION_SUCCESS": "Version activée !",
     "ACTIVATION_ERROR": "Impossible d'activer le brouillon...",
     "DELETION_SUCCESS": "Brouillon supprimé !",
@@ -247,19 +253,9 @@
       },
       "BASICINFO": {
         "SUBTITLES": {
-          "LOGO": "Logo",
           "TEXT": "Titre, corps et pied de page",
           "LAW": "Informations juridiques",
-          "POLICY": "Politique de confidentialité",
-          "BUTTON": "Bouton \"Tout accepter\""
-        },
-        "LOGO": {
-          "PATH": {
-            "LABEL": "URL du logo"
-          },
-          "ALT_TEXT": {
-            "LABEL": "Texte alternatif du logo"
-          }
+          "POLICY": "Politique de confidentialité"
         },
         "TITLE": {
           "LABEL": "Titre"
@@ -289,14 +285,6 @@
           },
           "LINK_LABEL": {
             "LABEL": "Libellé du lien vers la politique de confidentialité"
-          }
-        },
-        "ACCEPT_ALL": {
-          "DISPLAY": {
-            "LABEL": "Afficher le bouton \"Tout accepter\""
-          },
-          "BUTTON_LABEL": {
-            "LABEL": "Libellé du bouton \"Tout accepter\""
           }
         }
       },
@@ -345,10 +333,10 @@
           }
         },
         "SENSITIVE": {
-          "LABEL": "Contient des données sensibles"
+          "LABEL": "Ce traitement collecte des données sensibles"
         },
         "MEDICAL": {
-          "LABEL": "Contient des données de santé"
+          "LABEL": "Ce traitement collecte des données de santé"
         },
         "THIRD_PARTIES": {
           "LABEL": "Tierce-parties",
@@ -387,10 +375,20 @@
             "FREE_TEXT": "Texte libre"
           }
         },
+        "OPTIONAL": {
+          "LABEL": "Cette préférence peut être ignorée"
+        },
         "OPTIONS": {
           "LABEL": "Options",
           "PLACEHOLDER": "Entrez ici vos options",
-          "TOGGLE_HINT": "Entrez une première valeur pour la position \"refuser\", et une seconde pour la position \"accepter\"."
+          "TOGGLE_HINT": "Entrez une première valeur pour la position \"inactive\", et une seconde pour la position \"active\"."
+        },
+        "INCLUDE_DEFAULT": {
+          "LABEL": "Je veux utiliser un paramètre par défaut pour cette préférence lors de la construction de mon formulaire de consentement"
+        },
+        "DEFAULT_VALUE": {
+          "LABEL": "Réponse par défaut",
+          "LENGTH_ERROR": "Vous ne pouvez sélectionner qu'une seule valeur par défaut pour ce type de réponse."
         }
       },
       "CONDITIONS": {
@@ -444,25 +442,39 @@
           "LABEL": "Signature"
         }
       },
-      "THEMES": {
+      "THEME": {
         "SUBTITLES": {
-          "TYPE": "Type de thème",
+          "LOGO": "Logo",
           "CSS": "Feuille de style"
         },
-        "IFRAME": {
-          "TITLE": "Prévisualisation"
-        },
-        "TARGET_TYPE": {
-          "LABEL": "Catégorie",
-          "VALUES": {
-            "FORM": "Formulaire de consentement",
-            "EMAIL": "Email de confirmation"
+        "LOGO": {
+          "PATH": {
+            "LABEL": "URL du logo"
+          },
+          "ALT_TEXT": {
+            "LABEL": "Texte alternatif du logo"
+          },
+          "POSITION": {
+            "LABEL": "Positionnement du logo",
+            "VALUES": {
+              "LEFT": "A gauche",
+              "CENTER": "Au centre",
+              "RIGHT": "A droite"
+            }
           }
         },
         "CSS": {
           "LABEL": "Style",
           "HINT": "Renseignez votre style CSS ou déposez un fichier CSS",
           "AUTOCOMPLETE": "(profitez de l'auto-complétion grâce à CTRL+E ou CMD+E pour vous aider à paramétrer le style des éléments du formulaire)"
+        },
+        "PREVIEW": {
+          "LABEL": "Cible de la prévisualisation",
+          "VALUES": {
+            "FORM": "Formulaire de consentement",
+            "RECEIPT": "Reçu de consentement",
+            "EMAIL": "Email de notification"
+          }
         }
       }
     }
@@ -542,13 +554,30 @@
         "LABEL": "Adresse email de notification",
         "REQUIRED": "Vous devez préciser l'adresse email",
         "EMAIL_INVALID": "Vous devez préciser une adresse email valide",
-        "NOTIFY": "Notifier l'utilisateur par email",
-        "NO_MODELS_HINT": "Pour pouvoir envoyer une notification par email vous devez avoir défini au moins un modèle d'email.",
-        "NO_NOTIFICATION": "Aucune notification n'a été envoyée."
+        "NOTIFY": "Notifier l'utilisateur par email"
       },
       "MODEL": {
         "LABEL": "Modèle d'email de notification",
-        "REQUIRED": "Vous devez préciser le modèle"
+        "REQUIRED": "Vous devez préciser le modèle",
+        "NO_MODELS_HINT": "Pour pouvoir envoyer une notification par email vous devez avoir défini au moins un modèle d'email."
+      },
+      "NOTIFICATION": {
+        "LABEL": "Notifications",
+        "TYPE": {
+          "SMS": "SMS",
+          "EMAIL": "Email",
+          "FCM": "FCM",
+          "XMPP": "XMPP"
+        },
+        "STATUS": {
+          "SENT": "Envoyé",
+          "DELIVERED": "Transmis",
+          "OPENED": "Ouvert",
+          "INVALID_RECIPIENT": "Destinataire invalide",
+          "MAILBOX_FULL": "Boîte de réception pleine",
+          "ERROR": "Erreur"
+        },
+        "EMPTY": "Aucune"
       }
     },
     "DIALOG": {
@@ -596,7 +625,18 @@
         "elements": "Traitements et préférences affichés"
       },
       "ASSOCIATIONS": {
-        "LABEL": "Ajouter au formulaire les préférences associées aux traitements sélectionnés"
+        "LABEL": "Ajouter au formulaire les préférences associées aux traitements sélectionnés (les préférences seront directement ajoutées et vous pourrez les visualiser à l'écran suivant)"
+      },
+      "FOOTER_ON_TOP": {
+        "LABEL": "Toujours afficher le bouton de soumission du formulaire"
+      },
+      "ACCEPT_ALL": {
+        "DISPLAY": {
+          "LABEL": "Afficher le bouton \"Tout accepter\""
+        },
+        "BUTTON_LABEL": {
+          "LABEL": "Libellé du bouton \"Tout accepter\""
+        }
       },
       "SUBJECT": {
         "LABEL": "Identifiant client",
@@ -631,8 +671,20 @@
           "DOWNLOAD": "Télécharger"
         }
       },
+      "RECEIPT_FORMAT": {
+        "LABEL": "Format du reçu",
+        "VALUES": {
+          "HTML": "Page HTML",
+          "XML": "Fichier XML",
+          "PDF": "Fichier PDF",
+          "TEXT": "Plein texte"
+        }
+      },
       "NOTIFICATION_RECIPIENT": {
-        "LABEL": "Destinataire de l'email"
+        "NOTIFY_CHECKBOX_LABEL": "Je souhaite notifier l'utilisateur par email suite à la soumission du formulaire",
+        "LABEL": "Destinataire de l'email",
+        "REQUIRED": "Vous devez préciser le destinataire",
+        "EMAIL_INVALID": "Vous devez préciser une adresse email valide"
       },
       "THEME": {
         "LABEL": "Thème (facultatif)",
@@ -681,7 +733,10 @@
   "API": {
     "GETTING_STARTED": {
       "TITLE": "Bien démarrer",
-      "DESCRIPTION": "<p>La section intégration va vous permettre de :</p><ul><li>construire vos formulaires de collecte de consentement à partir des modèles enregistrés dans la partie \"Configuration\"</li><li>pouvoir les intégrer dans votre application/site internet grace à différents exemples de code (PHP, etc...).</li><li>gérer les clés d'accès à l'API</li></ul><p>Dans cette section, vous trouverez également un module vous permettant de faire des requêtes dans la base des consentements collectés.</p><p>Il y a donc bien deux actions différentes : la collecte du consentement puis son exploitation par la suite.</p>",
+      "DESCRIPTION": {
+        "configuration": "<div>La section \"Configuration\" va vous permettre de paramétrer certains éléments, qui, par la suite, vous serviront à créer vos formulaires de consentements dans la partie \"Intégration\". Vous pourrez y configurer les éléments suivants :</div><ul><li>des modèles d'informations générales : indispensables pour créer votre formulaire de consentement, les informations générales regroupent votre privacy policy par exemple et constitueront l'entête et le pied de page de votre formulaire par la suite. Attention, dans cette version Community, vous ne pourrez avoir qu'un seul modèle d'informations générales actif à la fois. Si vous souhaitez en savoir plus et passer à la version Enterprise, cliquez sur le bouton en bas de la page.</li><li>des modèles de traitement : les traitements constituent la base d'un formulaire de consentement au sens du RGPD. Dans cette section vous pourrez définir des traitements, que vous pourrez par la suite ajouter à un formulaire pour demander leur consentement pour ce(s) traitement(s) à vos clients.</li><li>des préférences : associées ou non à des traitements, elles permettent de demander à vos clients finaux leur canal de contact favori par exemple ou les sujets sur lesquels ils aimeraient être informés régulièrement.</li><li>des modèles de CGU/CGS : ces éléments sont indispensables à toute utilisation d'un quelconque service par vos clients. Retrouvez ici les différentes versions et poussez les via des formulaires à vos clients.</li><li>des modèles d'emails de consentement : envoyés (ou non, selon votre cas d'usage) à vos clients suite à leur soumission d'un formulaire de consentement, cela leur permettra d'accéder à leur reçu, de pouvoir visualiser à nouveau leur consentement et le modifier a posteriori.</li><li>des thèmes : applicables pour les formulaires, les emails de consentements mais également les reçus, ils vous permettent de personnaliser ces éléments avec votre logo et votre charte graphique.</li></ul>",
+        "integration": "<p>La section intégration va vous permettre de :</p><ul><li>construire vos formulaires de collecte de consentement à partir des modèles enregistrés dans la partie \"Configuration\"</li><li>pouvoir les intégrer dans votre application/site internet grace à différents exemples de code (PHP, etc...).</li><li>gérer les clés d'accès à l'API</li></ul><p>Dans cette section, vous trouverez également un module vous permettant de faire des requêtes dans la base des consentements collectés.</p><p>Il y a donc bien deux actions différentes : la collecte du consentement puis son exploitation par la suite.</p>"
+      },
       "MORE": "<p>Vous pouvez retrouver plus d'informations sur notre solution :</p><ul><li>les différents cas d'usages</li><li>les deux versions de notre produit</li><li>la feuille de route du produit</li><li>la documentation complète de l'API</li></ul>",
       "MORE_BUTTON": "En savoir plus"
     },
@@ -723,6 +778,32 @@
       }
     }
   },
+  "INTERROGATE": {
+    "TITLE": "Interroger",
+    "ENTRY": "Élément",
+    "VALUE": "Valeur",
+    "NO_RESULTS": "Pas de résultats",
+    "SUBJECT_ID_HEADER": "Identifiant",
+    "SUBJECT_NAME_HEADER": "Nom",
+    "SUBJECT_EMAIL_HEADER": "Email",
+    "RECORD_KEY_HEADER": "Clé",
+    "RECORD_SERIAL_HEADER": "Numéro de série",
+    "RECORD_VALUE_HEADER": "Valeur",
+    "EXPORT_BUTTON": "Exporter",
+    "PREFERENCE": {
+      "GROUP_TITLE": "Préférences"
+    },
+    "PROCESSING": {
+      "GROUP_TITLE": "Traitements",
+      "VALUE": {
+        "accepted": "Accepté",
+        "refused": "Refusé"
+      }
+    },
+    "CONDITIONS": {
+      "GROUP_TITLE": "CGU/CGS"
+    }
+  },
   "USER": {
     "CONSENTS": {
       "TITLE": "Consentements",
@@ -741,12 +822,71 @@
     }
   },
   "DASHBOARD": {
-    "TITLE1": "Consentements collectés",
-    "TITLE2": "Consentements par semaine (moyenne)",
-    "TITLE3": "Réponses",
-    "TITLE4": "Quelques nombres",
-    "USERS": "Utilisateurs :",
-    "CONSENTS": "Consentements collectés :",
-    "EMPTY": "Aucune donnée à afficher sur cette période"
+    "CHARTS": {
+      "MODELS": "Modèles actifs",
+      "RECORDS": "Consentements collectés",
+      "SUBJECTS": "Clients",
+      "TOP_TABLE": "Top des traitements",
+      "TOP_TABLE_SUBTITLE": "Top 3 des traitements collectés (gauche) et des traitements acceptés (droite)",
+      "NUMBERS": "Résultats des collectes"
+    },
+    "TIME_SCALE": {
+      "LABEL": "Echelle de temps",
+      "DAYS": "Par jour",
+      "WEEKS": "Par semaine",
+      "MONTHS": "Par mois"
+    },
+    "TIME_LABELS": {
+      "DAYS": {
+        "1": "Lundi",
+        "2": "Mardi",
+        "3": "Mercredi",
+        "4": "Jeudi",
+        "5": "Vendredi",
+        "6": "Samedi",
+        "7": "Dimanche"
+      },
+      "WEEKS_PREFIX": "S",
+      "MONTHS": {
+        "1": "Janvier",
+        "2": "Février",
+        "3": "Mars",
+        "4": "Avril",
+        "5": "Mai",
+        "6": "Juin",
+        "7": "Juillet",
+        "8": "Août",
+        "9": "Septembre",
+        "10": "Octobre",
+        "11": "Novembre",
+        "12": "Décembre"
+      }
+    },
+    "EMPTY": "Aucune donnée",
+    "TOP_TABLE": {
+      "RANK": {
+        "LABEL": "Rang"
+      },
+      "COLLECTED_KEY": {
+        "LABEL": "Traitements collectés"
+      },
+      "COLLECTED_VALUE": {
+        "LABEL": "Quantité (collecte)"
+      },
+      "ACCEPTED_KEY": {
+        "LABEL": "Traitements acceptés"
+      },
+      "ACCEPTED_VALUE": {
+        "LABEL": "Quantité (acceptation)"
+      }
+    },
+    "NUMBERS": {
+      "PROCESSING": "réponses pour des traitements",
+      "PREFERENCE": "réponses pour des préférences",
+      "CONDITIONS": "réponses pour des CGU",
+      "ALL": "réponses au total",
+      "SUBJECT": "utilisateurs connus",
+      "COMPARISON": "ce mois-ci"
+    }
   }
 }

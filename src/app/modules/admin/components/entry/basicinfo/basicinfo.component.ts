@@ -34,8 +34,6 @@ export class BasicinfoComponent extends EntryContentDirective<BasicInfo> impleme
   protected initForm(): void {
     this.form = this.fb.group({
       type: [this.type, [Validators.required]],
-      logoPath: [''],
-      logoAltText: [''],
       title: ['', [Validators.required]],
       header: [''],
       footer: [''],
@@ -57,9 +55,7 @@ export class BasicinfoComponent extends EntryContentDirective<BasicInfo> impleme
       shortNoticeLink: [''],
       showShortNoticeLink: [{value: false, disabled: true}],
       privacyPolicyUrl: ['', [Validators.required]],
-      customPrivacyPolicyText: [''],
-      showAcceptAll: [false],
-      customAcceptAllText: ['']
+      customPrivacyPolicyText: ['']
     });
     this.checkFormState();
   }

@@ -1,0 +1,36 @@
+.container {
+  margin: 2em auto;
+  padding: 0 2em;
+  max-width: 1000px;
+}
+
+mat-form-field {
+  display: block;
+  max-width: 100%;
+  width: 400px;
+}
+
+div[fxlayout] [mat-icon-button] {
+  margin-bottom: 1.34375em;
+}
+
+.add-value {
+  margin-bottom: 1em;
+}
+
+.table-wrapper {
+  margin-top: 1em;
+}
+
+table {
+  width: 100%;
+}
+
+mat-toolbar {
+  background-color: #ffffff;
+}
+
+.no-results {
+  padding: 2em;
+  text-align: center;
+}

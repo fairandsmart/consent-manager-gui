@@ -36,7 +36,7 @@ registerLocaleData(localeFr, 'fr');
     AppComponent
   ],
   imports: [
-    CoreModule,
+    CoreModule.forRoot(),
     AppRoutingModule,
     BrowserModule,
     BrowserAnimationsModule,

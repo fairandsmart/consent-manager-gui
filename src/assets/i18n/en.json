@@ -10,6 +10,7 @@
       },
       "MODELS": {
         "LABEL": "Configuration",
+        "GETTING_STARTED": "Getting started",
         "INFO": "Basic Information",
         "PROCESSING": "Processing",
         "PREFERENCES": "Preferences",
@@ -20,8 +21,9 @@
       "INTEGRATION": {
         "LABEL": "Integration",
         "GETTING_STARTED": "Getting started",
-        "FORM_CREATOR": "Form creation",
-        "API": "API access"
+        "COLLECT": "Collect",
+        "INTERROGATE": "Interrogate",
+        "API": "Security"
       }
     }
   },
@@ -49,7 +51,9 @@
     "COLLECTION_METHODS": {
       "WEBFORM": "Web form",
       "OPERATOR": "Operator",
-      "EMAIL": "Email"
+      "EMAIL": "Email link",
+      "RECEIPT": "Receipt link",
+      "USER_PAGE": "User page"
     },
     "LANGUAGES": {
       "EN": "English",
@@ -79,9 +83,11 @@
   },
   "ALERT": {
     "NO_CHANGE": "No change",
+    "FORM_ERROR": "There are errors in the form, changes not saved",
     "UNSAVED_CHANGES": "Unsaved changes, cannot activate draft",
-    "SAVE_SUCCESS": "Content saved!",
+    "SAVE_SUCCESS": "Your draft has been saved. In order to be able to use this template in your forms, please activate it.",
     "SAVE_ERROR": "Cannot save content...",
+    "UNKNOWN_ERROR": "An unknown error occurred...",
     "ACTIVATION_SUCCESS": "Version activated!",
     "ACTIVATION_ERROR": "Cannot activate draft...",
     "DELETION_SUCCESS": "Draft deleted!",
@@ -247,19 +253,9 @@
       },
       "BASICINFO": {
         "SUBTITLES": {
-          "LOGO": "Logo",
           "TEXT": "Title, body and footer",
           "LAW": "Legal information",
-          "POLICY": "Privacy policy",
-          "BUTTON": "Button \"Accept all\""
-        },
-        "LOGO": {
-          "PATH": {
-            "LABEL": "Logo URL"
-          },
-          "ALT_TEXT": {
-            "LABEL": "Logo alt-text"
-          }
+          "POLICY": "Privacy policy"
         },
         "TITLE": {
           "LABEL": "Title"
@@ -289,14 +285,6 @@
           },
           "LINK_LABEL": {
             "LABEL": "Privacy policy link label"
-          }
-        },
-        "ACCEPT_ALL": {
-          "DISPLAY": {
-            "LABEL": "Display \"Accept all\" button"
-          },
-          "BUTTON_LABEL": {
-            "LABEL": "\"Accept all\" button label"
           }
         }
       },
@@ -345,10 +333,10 @@
           }
         },
         "SENSITIVE": {
-          "LABEL": "Contains sensitive data"
+          "LABEL": "This processing collects sensitive data"
         },
         "MEDICAL": {
-          "LABEL": "Contains medical data"
+          "LABEL": "This processing collects medical data"
         },
         "THIRD_PARTIES": {
           "LABEL": "Third parties",
@@ -387,10 +375,20 @@
             "FREE_TEXT": "Free text"
           }
         },
+        "OPTIONAL": {
+          "LABEL": "This preference can be ignored"
+        },
         "OPTIONS": {
           "LABEL": "Options",
           "PLACEHOLDER": "Enter here your options",
-          "TOGGLE_HINT": "Enter a first value for the position \"refuse\", and a second one for the position \"accept\"."
+          "TOGGLE_HINT": "Enter a first value for the \"off\" position, and a second one for the \"on\" position."
+        },
+        "INCLUDE_DEFAULT": {
+          "LABEL": "I want to use a default parameter for this preference during my consent form creation"
+        },
+        "DEFAULT_VALUE": {
+          "LABEL": "Default answer",
+          "LENGTH_ERROR": "Only one default value may be selected for this answer type."
         }
       },
       "CONDITIONS": {
@@ -444,32 +442,51 @@
           "LABEL": "Signature"
         }
       },
-      "THEMES": {
+      "THEME": {
         "SUBTITLES": {
-          "TYPE": "Theme type",
+          "LOGO": "Logo",
           "CSS": "Stylesheet"
         },
-        "IFRAME": {
-          "TITLE": "Preview"
-        },
-        "TARGET_TYPE": {
-          "LABEL": "Category",
-          "VALUES": {
-            "FORM": "Consent form",
-            "EMAIL": "Opt-out email"
+        "LOGO": {
+          "PATH": {
+            "LABEL": "Logo URL"
+          },
+          "ALT_TEXT": {
+            "LABEL": "Logo alt-text"
+          },
+          "POSITION": {
+            "LABEL": "Logo position",
+            "VALUES": {
+              "LEFT": "To the left",
+              "CENTER": "In the center",
+              "RIGHT": "To the right"
+            }
           }
         },
         "CSS": {
           "LABEL": "Style",
           "HINT": "Write your custom CSS or drop a CSS file",
           "AUTOCOMPLETE": "(toggle auto-completion with CTRL+E or CMD+E to help you stylize the form elements)"
+        },
+        "PREVIEW": {
+          "LABEL": "Preview target",
+          "VALUES": {
+            "FORM": "Consent form",
+            "RECEIPT": "Consent receipt",
+            "EMAIL": "Notification email"
+          }
         }
       }
     }
   },
   "ENTRY_CARD": {
     "LABEL_NO_DESCRIPTION": "No description",
+    "ACTIVE": {
+      "true": "Active",
+      "false": "Inactive"
+    },
     "ACTIVE_VERSION": "Active",
+    "INACTIVE_VERSION": "Inactive",
     "LANGUAGES_TOOLTIP": "Language(s)"
   },
   "RECORDS": {
@@ -537,13 +554,30 @@
         "LABEL": "Notification email address",
         "REQUIRED": "Please specify the email address",
         "EMAIL_INVALID": "Please specify a valid email address",
-        "NOTIFY": "Notify the user by email",
-        "NO_MODELS_HINT": "To be able to send an email notification you must have defined at least one email model.",
-        "NO_NOTIFICATION": "No notification was sent."
+        "NOTIFY": "Notify the user by email"
       },
       "MODEL": {
-        "LABEL": "Email Notification model",
-        "REQUIRED": "Please specify a model"
+        "LABEL": "Email notification model",
+        "REQUIRED": "Please specify a model",
+        "NO_MODELS_HINT": "To be able to send an email notification you must have defined at least one email model."
+      },
+      "NOTIFICATION": {
+        "LABEL": "Notifications",
+        "TYPE": {
+          "SMS": "SMS",
+          "EMAIL": "Email",
+          "FCM": "FCM",
+          "XMPP": "XMPP"
+        },
+        "STATUS": {
+          "SENT": "Sent",
+          "DELIVERED": "Delivered",
+          "OPENED": "Opened",
+          "INVALID_RECIPIENT": "Invalid recipient",
+          "MAILBOX_FULL": "Mailbox full",
+          "ERROR": "Error"
+        },
+        "EMPTY": "None"
       }
     },
     "DIALOG": {
@@ -591,7 +625,18 @@
         "elements": "Displayed processing and preferences"
       },
       "ASSOCIATIONS": {
-        "LABEL": "Add to the form the preferences associated to the selected processing"
+        "LABEL": "Add to the form the preferences associated to the selected processing (the preferences will be automatically added and you will be able to see them in the preview in the next step)"
+      },
+      "FOOTER_ON_TOP": {
+        "LABEL": "Always display the submit form button"
+      },
+      "ACCEPT_ALL": {
+        "DISPLAY": {
+          "LABEL": "Display \"Accept all\" button"
+        },
+        "BUTTON_LABEL": {
+          "LABEL": "\"Accept all\" button label"
+        }
       },
       "SUBJECT": {
         "LABEL": "Customer ID",
@@ -626,8 +671,20 @@
           "DOWNLOAD": "Download"
         }
       },
+      "RECEIPT_FORMAT": {
+        "LABEL": "Receipt format",
+        "VALUES": {
+          "HTML": "HTML page",
+          "XML": "XML file",
+          "PDF": "PDF file",
+          "TEXT": "Plain text"
+        }
+      },
       "NOTIFICATION_RECIPIENT": {
-        "LABEL": "Email recipient"
+        "NOTIFY_CHECKBOX_LABEL": "I would like to notify the user by email following the submission of the form",
+        "LABEL": "Email recipient",
+        "REQUIRED": "Please specify the email address",
+        "EMAIL_INVALID": "Please specify a valid email address"
       },
       "THEME": {
         "LABEL": "Theme (optional)",
@@ -676,7 +733,10 @@
   "API": {
     "GETTING_STARTED": {
       "TITLE": "Getting started",
-      "DESCRIPTION": "<p>The integration section will allow you to:</p><ul><li>build your consent forms from the templates registered in the \"Configuration\" section and integrate them in your application/website thanks to different code examples (PHP, etc...).</li><li>manage the access keys to the API</li></ul><p>In this section, you will also find a module allowing you to make queries in the base of the collected consents.</p><p>There are two different actions: the collection of consent and then its exploitation afterwards.</p>",
+      "DESCRIPTION": {
+        "configuration": "<div>The \"Configuration\" section allows you to parameterize elements which you will later use to create consent forms in the \"Integration\" section. You can configure the following elements:</div><ul><li>general information templates: these information are essential to create a consent form, as they include for instance your privacy policy and define the header and footer of your forms. Beware, in this Community version, you will only be able to have one general informations active template at any time. If you wish to learn more and switch to the Enterprise version, click on the button at the bottom of this page.</li><li>processing templates: processing constitute the foundations of a consent form within the meaning of the GDPR. In this section, you will be able to define processing, which you may then add to a form to ask your customers for their consent regarding those processing.</li><li>preferences templates: associated to processing or not, they allow you to ask your customers for they preferred contact channel for example, or the themes about which they would like to be regularly informed.</li><li>EULA templates: these elements are essential for the use of any service by your customers. You can browse here the various versions and push them to your customers through forms.</li><li>consent emails templates: these emails are sent (or not, depending on your use case) to your customers following their consent form submission, this will allow them to retrieve their receipt, to visualize their consent once more and to change it later.</li><li>themes templates: applied to forms, consent emails and receipts alike, they allow your to customize all these elements with your logo and your graphical charter.</li></ul>",
+        "integration": "<p>The integration section will allow you to:</p><ul><li>build your consent forms from the templates registered in the \"Configuration\" section and integrate them in your application/website thanks to different code examples (PHP, etc...).</li><li>manage the access keys to the API</li></ul><p>In this section, you will also find a module allowing you to make queries in the base of the collected consents.</p><p>There are two different actions: the collection of consent and then its exploitation afterwards.</p>"
+      },
       "MORE": "<p>You can find more information about our solution:</p><ul><li>the different use cases</li><li>the two versions of our product</li><li>the product roadmap</li><li>the complete documentation of the API</li></ul>",
       "MORE_BUTTON": "More..."
     },
@@ -711,8 +771,37 @@
         }
       },
       "DROP": {
+        "CONFIRM_TITLE": "Delete this API key ?",
+        "CONFIRM_CONTENT": "This operation is irreversible. Are you sure you want to delete this API key?",
+        "CONFIRM_BUTTON": "Delete",
         "SUCCESS": "The API key has been deleted"
       }
+    }
+  },
+  "INTERROGATE": {
+    "TITLE": "Interrogate",
+    "ENTRY": "Entry",
+    "VALUE": "Value",
+    "NO_RESULTS": "No results",
+    "SUBJECT_ID_HEADER": "ID",
+    "SUBJECT_NAME_HEADER": "Name",
+    "SUBJECT_EMAIL_HEADER": "Email",
+    "RECORD_KEY_HEADER": "Key",
+    "RECORD_SERIAL_HEADER": "Serial",
+    "RECORD_VALUE_HEADER": "Value",
+    "EXPORT_BUTTON": "Export",
+    "PREFERENCE": {
+      "GROUP_TITLE": "Preferences"
+    },
+    "PROCESSING": {
+      "GROUP_TITLE": "Processings",
+      "VALUE": {
+        "accepted": "Accepted",
+        "refused": "Refused"
+      }
+    },
+    "CONDITIONS": {
+      "GROUP_TITLE": "EULAs"
     }
   },
   "USER": {
@@ -733,12 +822,71 @@
     }
   },
   "DASHBOARD": {
-    "TITLE1": "Collected consents",
-    "TITLE2": "Consents per week (average)",
-    "TITLE3": "Answers",
-    "TITLE4": "Some numbers",
-    "USERS": "Users:",
-    "CONSENTS": "Collected consents:",
-    "EMPTY": "No data to display for this period"
+    "CHARTS": {
+      "MODELS": "Active models",
+      "RECORDS": "Collected consents",
+      "SUBJECTS": "Customers",
+      "TOP_TABLE": "Top processing",
+      "TOP_TABLE_SUBTITLE": "Top 3 of collected processing (left) and accepted processing (right)",
+      "NUMBERS": "Collects results"
+    },
+    "TIME_SCALE": {
+      "LABEL": "Time scale",
+      "DAYS": "Per day",
+      "WEEKS": "Per week",
+      "MONTHS": "Per month"
+    },
+    "TIME_LABELS": {
+      "DAYS": {
+        "1": "Monday",
+        "2": "Tuesday",
+        "3": "Wednesday",
+        "4": "Thursday",
+        "5": "Friday",
+        "6": "Saturday",
+        "7": "Sunday"
+      },
+      "WEEKS_PREFIX": "W",
+      "MONTHS": {
+        "1": "January",
+        "2": "February",
+        "3": "March",
+        "4": "April",
+        "5": "May",
+        "6": "June",
+        "7": "July",
+        "8": "August",
+        "9": "September",
+        "10": "October",
+        "11": "November",
+        "12": "December"
+      }
+    },
+    "EMPTY": "No data",
+    "TOP_TABLE": {
+      "RANK": {
+        "LABEL": "Rank"
+      },
+      "COLLECTED_KEY": {
+        "LABEL": "Collected processing top 3"
+      },
+      "COLLECTED_VALUE": {
+        "LABEL": "Collected processing number"
+      },
+      "ACCEPTED_KEY": {
+        "LABEL": "Accepted processing top 3"
+      },
+      "ACCEPTED_VALUE": {
+        "LABEL": "Accepted processing number"
+      }
+    },
+    "NUMBERS": {
+      "PROCESSING": "answers regarding processing",
+      "PREFERENCE": "answers regarding preferences",
+      "CONDITIONS": "answers regarding EULA",
+      "ALL": "answers in total",
+      "SUBJECT": "users known",
+      "COMPARISON": "this month"
+    }
   }
 }

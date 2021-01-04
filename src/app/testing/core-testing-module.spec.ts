@@ -5,7 +5,7 @@ import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 
 @NgModule({
   imports: [
-    CoreModule,
+    CoreModule.forRoot(),
     NoopAnimationsModule,
     TranslateModule.forRoot()
   ],

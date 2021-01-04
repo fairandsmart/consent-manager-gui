@@ -29,7 +29,7 @@ export class AlertService {
 
   error(key: string, error: any, options: {snackBarConfig?: MatSnackBarConfig, interpolateParams?: object} = {}): void {
     console.error(error);
-    options = _.merge({snackBarConfig: {panelClass: 'mat-snack-bar-error'}}, options);
+    options = _.merge({snackBarConfig: {panelClass: 'mat-snack-bar-error', duration: 5000}}, options);
     this.alert(key, options);
   }
 

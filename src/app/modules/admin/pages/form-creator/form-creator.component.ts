@@ -9,12 +9,13 @@ import {
   FIELD_VALIDATORS,
   Icons,
   ModelEntryDto,
-  RECEIPT_DELIVERY_TYPES
+  RECEIPT_DELIVERY_TYPES,
+  RECEIPT_DISPLAY_TYPES
 } from '../../../../core/models/models';
-import { tap } from 'rxjs/operators';
-import { zip } from 'rxjs';
+import { debounceTime, tap } from 'rxjs/operators';
+import { merge, zip } from 'rxjs';
 import { CdkDragDrop, copyArrayItem, moveItemInArray } from '@angular/cdk/drag-drop';
-import { FormArray, FormBuilder, Validators } from '@angular/forms';
+import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ConsentsResourceService } from '../../../../core/http/consents-resource.service';
 import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
 import { StepperSelectionEvent } from '@angular/cdk/stepper';
@@ -45,7 +46,7 @@ export class FormCreatorComponent implements OnInit {
 
   readonly ICONS = Icons;
 
-  public elementsLibraryConfig: (SectionConfig & {draggingDisabled: boolean, included: boolean})[] = [
+  public elementsLibraryConfig: (SectionConfig & { draggingDisabled: boolean, included: boolean })[] = [
     {
       id: 'infos',
       types: ['basicinfo'],
@@ -92,7 +93,7 @@ export class FormCreatorComponent implements OnInit {
     }
   ];
 
-  public selectedElements: {[id: string]: ModelEntryDto[]} = {
+  public selectedElements: { [id: string]: ModelEntryDto[] } = {
     infos: [],
     elements: []
   };
@@ -108,7 +109,7 @@ export class FormCreatorComponent implements OnInit {
     }
   ];
 
-  public selectedTheme: {[id: string]: ModelEntryDto[]} = {themes: []};
+  public selectedTheme: { [id: string]: ModelEntryDto[] } = {themes: []};
 
   public emailsLibraryConfig: SectionConfig[] = [
     {
@@ -121,18 +122,17 @@ export class FormCreatorComponent implements OnInit {
     }
   ];
 
-  public selectedEmail: {[id: string]: ModelEntryDto[]} = {emails: []};
+  public selectedEmail: { [id: string]: ModelEntryDto[] } = {emails: []};
 
   public form: FormArray;
   public readonly STEPS = FORM_CREATOR_STEP;
   public readonly ORIENTATIONS = CONSENT_FORM_ORIENTATIONS;
   public readonly RECEIPT_TYPES = RECEIPT_DELIVERY_TYPES;
+  public readonly RECEIPT_FORMATS = RECEIPT_DISPLAY_TYPES;
   public readonly VALIDITY_UNITS = ['D', 'W', 'M', 'Y'];
 
   public formUrl: SafeResourceUrl;
   private previousContext: ConsentContext;
-  private previousOrientation: ConsentFormOrientation;
-  private previousLanguage: string;
   public currentStep: FORM_CREATOR_STEP;
 
   private readonly defaultLanguage = environment.customization.defaultLanguage;
@@ -154,7 +154,8 @@ export class FormCreatorComponent implements OnInit {
               private fb: FormBuilder,
               private sanitizer: DomSanitizer,
               private dialog: MatDialog,
-              private breakpointObserver: BreakpointObserver) { }
+              private breakpointObserver: BreakpointObserver) {
+  }
 
   ngOnInit(): void {
     this.breakpointObserver.observe([Breakpoints.XSmall, Breakpoints.Small]).pipe(
@@ -171,7 +172,7 @@ export class FormCreatorComponent implements OnInit {
     ).subscribe();
     zip(...this.elementsLibraryConfig.map(c => this.modelsResource.listEntries({types: c.types, size: 1}))).pipe(
       tap((responses) => {
-        const selected: {[id: string]: ModelEntryDto[]} = {...this.selectedElements};
+        const selected: { [id: string]: ModelEntryDto[] } = {...this.selectedElements};
         responses.forEach((response, index) => {
           if (response.totalCount === 1 && hasActiveVersion(response.values[0])) {
             const config = this.elementsLibraryConfig[index];
@@ -189,32 +190,47 @@ export class FormCreatorComponent implements OnInit {
         associatePreferences: [true, [Validators.required]]
       }),
       this.fb.group({
+        language: [this.defaultLanguage, [Validators.required]],
         theme: ['', [Validators.pattern(FIELD_VALIDATORS.key.pattern)]],
+        showAcceptAll: [false, [Validators.required]],
+        acceptAllText: [''],
+        footerOnTop: [false, [Validators.required]],
+        orientation: [ConsentFormOrientation.VERTICAL, [Validators.required]],
       }),
       this.fb.group({
         subject: ['', [Validators.required]],
-        orientation: [ConsentFormOrientation.VERTICAL, [Validators.required]],
-        language: [this.defaultLanguage, [Validators.required]],
         forceDisplay: [true, [Validators.required]],
         validity: [6, [Validators.required, Validators.min(1)]],
         validityUnit: ['M', [Validators.required]],
         receiptDeliveryType: ['DISPLAY', [Validators.required]],
+        receiptDisplayType: ['HTML', [Validators.required]],
+        notify: [true],
         notificationModel: ['', [Validators.pattern(FIELD_VALIDATORS.key.pattern)]],
-        notificationRecipient: ['']
+        notificationRecipient: ['', [Validators.required]]
       })
     ]);
-    this.form.at(FORM_CREATOR_STEP.OPTIONS).get('orientation').valueChanges.subscribe((orientation) => {
-      if (this.currentStep === FORM_CREATOR_STEP.PREVIEW && this.previousOrientation !== orientation
-        && this.previousContext != null && this.previousContext.orientation !== orientation) {
-        this.previousOrientation = orientation;
+    merge(
+      this.form.at(FORM_CREATOR_STEP.PREVIEW).get('language').valueChanges,
+      this.form.at(FORM_CREATOR_STEP.PREVIEW).get('theme').valueChanges,
+      this.form.at(FORM_CREATOR_STEP.PREVIEW).get('showAcceptAll').valueChanges,
+      this.form.at(FORM_CREATOR_STEP.PREVIEW).get('acceptAllText').valueChanges.pipe(
+        debounceTime(500)
+      ),
+      this.form.at(FORM_CREATOR_STEP.PREVIEW).get('footerOnTop').valueChanges,
+      this.form.at(FORM_CREATOR_STEP.PREVIEW).get('orientation').valueChanges,
+    ).subscribe(() => {
+      if (this.currentStep === FORM_CREATOR_STEP.PREVIEW && this.previousContext != null
+        && !_.isEqual(this.buildContext(true), this.previousContext)) {
         this.preview();
       }
     });
-    this.form.at(FORM_CREATOR_STEP.OPTIONS).get('language').valueChanges.subscribe((language) => {
-      if (this.currentStep === FORM_CREATOR_STEP.PREVIEW && this.previousLanguage !== language
-        && this.previousContext != null && this.previousContext.language !== language) {
-        this.previousLanguage = language;
-        this.preview();
+    this.form.at(FORM_CREATOR_STEP.OPTIONS).get('notify').valueChanges.subscribe((notify: boolean) => {
+      if (notify) {
+        this.form.at(FORM_CREATOR_STEP.OPTIONS).get('notificationRecipient').setValidators([Validators.required, Validators.email]);
+      } else {
+        this.form.at(FORM_CREATOR_STEP.OPTIONS).get('notificationRecipient').clearValidators();
+        this.setSelectedEmail({emails: []});
+        this.form.at(FORM_CREATOR_STEP.OPTIONS).get('notificationRecipient').setValue('');
       }
     });
   }
@@ -231,15 +247,15 @@ export class FormCreatorComponent implements OnInit {
     this.setSelectedElements({...this.selectedElements});
   }
 
-  selectedElementsChange(event: {[id: string]: ModelEntryDto[]}): void {
+  selectedElementsChange(event: { [id: string]: ModelEntryDto[] }): void {
     this.setSelectedElements(event);
   }
 
-  selectedThemeChange(event: {[id: string]: ModelEntryDto[]}): void {
+  selectedThemeChange(event: { [id: string]: ModelEntryDto[] }): void {
     this.setSelectedTheme(event);
   }
 
-  selectedEmailChange(event: {[id: string]: ModelEntryDto[]}): void {
+  selectedEmailChange(event: { [id: string]: ModelEntryDto[] }): void {
     this.setSelectedEmail(event);
   }
 
@@ -247,35 +263,34 @@ export class FormCreatorComponent implements OnInit {
     if (this.form.at(FORM_CREATOR_STEP.ELEMENTS).invalid || this.form.at(FORM_CREATOR_STEP.PREVIEW).invalid) {
       return;
     }
-    this.form.disable();
     const context: ConsentContext = this.buildContext(true);
     if (_.isEqual(context, this.previousContext)) {
-      this.form.enable();
       return;
     }
+    this.previousContext = context;
     this.consentsResource.generateToken(context).subscribe((token) => {
-      this.previousContext = context;
       this.formUrl = this.sanitizer.bypassSecurityTrustResourceUrl(this.consentsResource.getFormUrl(token));
-      this.form.enable();
     }, (err) => {
       console.error(err);
-      this.form.enable();
       this.formUrl = '';
     });
   }
 
   stepChange(event: StepperSelectionEvent): void {
     this.currentStep = event.selectedIndex;
-    if (event.selectedIndex === FORM_CREATOR_STEP.PREVIEW) {
+    if (this.currentStep === FORM_CREATOR_STEP.ELEMENTS) {
+      this.updateAcceptAll();
+    }
+    if (this.currentStep === FORM_CREATOR_STEP.PREVIEW) {
       this.preview();
     }
   }
 
   private buildContext(isPreview: boolean): ConsentContext {
-    const formValue: Partial<ConsentContext & {forceDisplay: boolean, validityUnit: string}> = {
-      ...this.form.at(FORM_CREATOR_STEP.OPTIONS).value,
-      ...this.form.at(FORM_CREATOR_STEP.ELEMENTS).value,
-      ...this.form.at(FORM_CREATOR_STEP.PREVIEW).value
+    const formValue: Partial<ConsentContext & { forceDisplay: boolean, validityUnit: string }> = {
+      ...(this.form.at(FORM_CREATOR_STEP.OPTIONS) as FormGroup).getRawValue(),
+      ...(this.form.at(FORM_CREATOR_STEP.ELEMENTS) as FormGroup).getRawValue(),
+      ...(this.form.at(FORM_CREATOR_STEP.PREVIEW) as FormGroup).getRawValue()
     };
     return {
       subject: formValue.subject,
@@ -288,6 +303,7 @@ export class FormCreatorComponent implements OnInit {
       language: formValue.language,
       formType: formValue.forceDisplay ? ConsentFormType.FULL : ConsentFormType.PARTIAL,
       receiptDeliveryType: formValue.receiptDeliveryType,
+      receiptDisplayType: formValue.receiptDisplayType,
       userinfos: {},
       attributes: {},
       notificationModel: formValue.notificationModel,
@@ -296,31 +312,33 @@ export class FormCreatorComponent implements OnInit {
       author: '',
       preview: isPreview,
       iframe: true,
-      theme: formValue.theme
+      theme: formValue.theme,
+      showAcceptAll: formValue.showAcceptAll,
+      acceptAllText: formValue.acceptAllText,
+      footerOnTop: formValue.footerOnTop
     };
   }
 
-  private setSelectedElements(selected: {[id: string]: ModelEntryDto[]}): void {
+  private setSelectedElements(selected: { [id: string]: ModelEntryDto[] }): void {
     this.selectedElements = selected;
     this.form.at(FORM_CREATOR_STEP.ELEMENTS).patchValue({
       info: this.selectedElements.infos.map(e => e.key)?.[0] || '',
       elements: this.selectedElements.elements.map(e => e.key)
     });
+    this.updateAcceptAll();
   }
 
-  private setSelectedTheme(selected: {[id: string]: ModelEntryDto[]}): void {
+  private setSelectedTheme(selected: { [id: string]: ModelEntryDto[] }): void {
     this.selectedTheme = selected;
-    this.form.at(FORM_CREATOR_STEP.PREVIEW).patchValue({
-      theme: this.selectedTheme.themes?.[0]?.key || ''
-    });
+    this.form.at(FORM_CREATOR_STEP.PREVIEW).get('theme')
+      .setValue(this.selectedTheme.themes?.[0]?.key || '');
     this.preview();
   }
 
-  private setSelectedEmail(selected: {[id: string]: ModelEntryDto[]}): void {
+  private setSelectedEmail(selected: { [id: string]: ModelEntryDto[] }): void {
     this.selectedEmail = selected;
-    this.form.at(FORM_CREATOR_STEP.OPTIONS).patchValue({
-      notificationModel: this.selectedEmail.emails?.[0]?.key || ''
-    });
+    this.form.at(FORM_CREATOR_STEP.OPTIONS).get('notificationModel')
+      .setValue(this.selectedEmail.emails?.[0]?.key || '');
   }
 
   openApiUrlDialog(): void {
@@ -359,5 +377,14 @@ export class FormCreatorComponent implements OnInit {
 
   private getSelectionAvailableLists(config: { id: string, sectionsId: string[] }): string[] {
     return this.elementsLibraryConfig.filter(section => config.sectionsId.includes(section.id)).map(section => 'available-' + section.id);
+  }
+
+  private updateAcceptAll(): void {
+    if (this.selectedElements.elements.filter(e => e.type === 'processing').length > 1) {
+      this.form.at(FORM_CREATOR_STEP.PREVIEW).get('showAcceptAll').enable();
+    } else {
+      this.form.at(FORM_CREATOR_STEP.PREVIEW).get('showAcceptAll').setValue(false);
+      this.form.at(FORM_CREATOR_STEP.PREVIEW).get('showAcceptAll').disable();
+    }
   }
 }

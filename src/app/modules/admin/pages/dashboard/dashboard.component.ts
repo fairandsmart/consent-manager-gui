@@ -1,6 +1,9 @@
-import { Component, OnInit } from '@angular/core';
-import { RecordsResourceService } from '../../../../core/http/records-resource.service';
-import { TranslateService } from '@ngx-translate/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
+import { StatsChart } from '../../../../core/models/models';
+import { StatisticsResourceService } from '../../../../core/http/statistics-resource.service';
+import { DashboardChartComponent } from '../../components/dashboard/dashboard-chart/dashboard-chart.component';
+import { DashboardTopTableComponent } from '../../components/dashboard/dashboard-top-table/dashboard-top-table.component';
+import { DashboardNumbersComponent } from '../../components/dashboard/dashboard-numbers/dashboard-numbers.component';
 
 @Component({
   selector: 'cm-dashboard',
@@ -59,13 +62,16 @@ export class DashboardComponent implements OnInit {
       pointBorderColor: '#fff',
       pointHoverBackgroundColor: '#fff',
       pointHoverBorderColor: '#d31313'
-    }];
+    }
+  ];
 
   public CHART_OPTIONS = {
     pie: {
+      chartType: 'pie',
       responsive: true
     },
     stackedChart: {
+      chartType: 'bar',
       responsive: true,
       scales: {
         xAxes: [{
@@ -79,83 +85,94 @@ export class DashboardComponent implements OnInit {
           stacked: true
         }]
       }
+    },
+    unstackedChart: {
+      chartType: 'bar',
+      responsive: true,
+      scales: {
+        xAxes: [{
+          stacked: false
+        }],
+        yAxes: [{
+          ticks: {
+            beginAtZero: true,
+            stepSize: 1
+          },
+          stacked: false
+        }]
+      }
+    },
+    lineChart: {
+      chartType: 'line',
+      elements: {
+        line: {
+          tension: 0,
+          fill: false
+        }
+      },
+      legend: {
+        display: false
+      },
+      responsive: true,
+      scales: {
+        xAxes: [{
+          stacked: false
+        }],
+        yAxes: [{
+          ticks: {
+            beginAtZero: true,
+            stepSize: 1
+          },
+          stacked: false
+        }]
+      }
     }
   };
 
-  public numbersData: {[key: string]: number};
-  public recordsAverageData: {chartData: object, chartLabels: object};
-  public recordsWeekData: {chartData: object, chartLabels: object};
-  public answersWeekData: {chartData: object, chartLabels: object};
+  public labelsTranslations;
 
-  constructor(
-    public recordsService: RecordsResourceService,
-    public translate: TranslateService
-  ) {
+  @ViewChild('recordsChart')
+  public recordsChart: DashboardChartComponent;
+  public recordsStats: StatsChart;
+
+  @ViewChild('subjectsChart')
+  public subjectsChart: DashboardChartComponent;
+  public subjectsStats: StatsChart;
+
+  @ViewChild('totalCard')
+  public totalCard: DashboardNumbersComponent;
+  public totalStats: StatsChart;
+
+  @ViewChild('topTable')
+  public topTable: DashboardTopTableComponent;
+  public topStats: StatsChart;
+
+  constructor(public statsService: StatisticsResourceService) {
   }
 
   ngOnInit(): void {
-    this.recordsService.getStats().subscribe((response) => {
-    // TODO stats
-    const labels = {
-      fr: {
-        types: ['Traitements', 'Préférences', 'CGU'],
-        yes: 'Oui',
-        no: 'Non'
-      },
-      en: {
-        types: ['Processing', 'Preferences', 'EULA'],
-        yes: 'Yes',
-        no: 'No'
-      }
-    };
-    this.numbersData = {
-        subjects: 14,
-        records: 218
-      };
-    this.recordsAverageData = {
-        chartLabels: labels[this.translate.currentLang].types,
-        chartData: [
-          {
-            data: [5.4, 1.1, 3.2],
-            backgroundColor: [
-              this.CHART_COLORS_SET[0].backgroundColor,
-              this.CHART_COLORS_SET[1].backgroundColor,
-              this.CHART_COLORS_SET[2].backgroundColor
-            ]
-          }
-        ]
-      };
-    this.recordsWeekData = {
-        chartLabels: ['21/09', '22/09', '23/09', '24/09', '25/09', '26/09', '27/09'],
-        chartData: [
-          {
-            data: [0, 1, 4, 5, 0, 3, 1],
-            label: labels[this.translate.currentLang].types[0]
-          },
-          {
-            data: [3, 2, 0, 1, 4, 0, 2],
-            label: labels[this.translate.currentLang].types[1]
-          },
-          {
-            data: [4, 1, 2, 3, 2, 2, 1],
-            label: labels[this.translate.currentLang].types[2]
-          }
-        ]
-      };
-    this.answersWeekData = {
-        chartLabels: ['21/09', '22/09', '23/09', '24/09', '25/09', '26/09', '27/09'],
-        chartData: [
-          {
-            data: [8, 7, 4, 1, 0, 5, 3],
-            label: labels[this.translate.currentLang].yes
-          },
-          {
-            data: [3, 5, 2, 3, 4, 1, 2],
-            label: labels[this.translate.currentLang].no
-          }
-        ]
-      };
+    this.statsService.getStats().subscribe(stats => {
+      this.recordsStats = stats.records;
+      this.subjectsStats = stats.subjects;
+      this.totalStats = stats.total;
+      this.topStats = stats.top;
+      this.updateCharts();
     });
+  }
+
+  updateCharts(): void {
+    if (this.recordsChart) {
+      this.recordsChart.updateChart();
+    }
+    if (this.subjectsChart) {
+      this.subjectsChart.updateChart();
+    }
+    if (this.totalCard) {
+      this.totalCard.updateCard();
+    }
+    if (this.topTable) {
+      this.topTable.updateTable();
+    }
   }
 
 }

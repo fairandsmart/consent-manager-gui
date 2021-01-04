@@ -1,0 +1,96 @@
+<div class="container">
+  <div class="title-container">
+    <h2><mat-icon>{{ICONS.interrogate}}</mat-icon> {{'INTERROGATE.TITLE' | translate}}</h2>
+  </div>
+  <form [formGroup]="form" (ngSubmit)="search()">
+    <mat-form-field appearance="fill">
+      <mat-label>{{'INTERROGATE.ENTRY' | translate}}</mat-label>
+      <mat-select formControlName="entry">
+        <ng-container *ngIf="entries$ | async as entries">
+          <ng-container *ngIf="entries.processing.length > 0">
+            <mat-optgroup [label]="'INTERROGATE.PROCESSING.GROUP_TITLE' | translate">
+              <mat-option *ngFor="let entry of entries.processing" [value]="entry">{{entry.name}} ({{entry.key}})</mat-option>
+            </mat-optgroup>
+          </ng-container>
+          <ng-container *ngIf="entries.preference.length > 0">
+            <mat-optgroup [label]="'INTERROGATE.PREFERENCE.GROUP_TITLE' | translate">
+              <mat-option *ngFor="let entry of entries.preference" [value]="entry">{{entry.name}} ({{entry.key}})</mat-option>
+            </mat-optgroup>
+          </ng-container>
+          <ng-container *ngIf="entries.conditions.length > 0">
+            <mat-optgroup [label]="'INTERROGATE.CONDITIONS.GROUP_TITLE' | translate">
+              <mat-option *ngFor="let entry of entries.conditions" [value]="entry">{{entry.name}} ({{entry.key}})</mat-option>
+            </mat-optgroup>
+          </ng-container>
+        </ng-container>
+      </mat-select>
+    </mat-form-field>
+    <ng-container [ngSwitch]="form.get('entry').value?.type">
+      <mat-form-field appearance="fill" *ngSwitchCase="'processing'">
+        <mat-label>{{'INTERROGATE.VALUE' | translate}}</mat-label>
+        <mat-select formControlName="value">
+          <mat-option value="accepted">{{'INTERROGATE.PROCESSING.VALUE.accepted' | translate}}</mat-option>
+          <mat-option value="refused">{{'INTERROGATE.PROCESSING.VALUE.refused' | translate}}</mat-option>
+        </mat-select>
+      </mat-form-field>
+      <mat-form-field appearance="fill" *ngSwitchCase="'conditions'">
+        <mat-label>{{'INTERROGATE.VALUE' | translate}}</mat-label>
+        <mat-select formControlName="value">
+          <mat-option value="accepted">{{'INTERROGATE.PROCESSING.VALUE.accepted' | translate}}</mat-option>
+          <mat-option value="refused">{{'INTERROGATE.PROCESSING.VALUE.refused' | translate}}</mat-option>
+        </mat-select>
+      </mat-form-field>
+      <ng-container *ngSwitchCase="'preference'">
+        <ng-container *ngIf="options$ | async as options">
+          <ng-container *ngIf="options.length === 0" formArrayName="values">
+            <div fxLayout="row" fxLayoutAlign="start center" *ngFor="let value of this.getValuesFormArray().controls; index as index; last as last">
+              <mat-form-field appearance="fill">
+                <mat-label>{{'INTERROGATE.VALUE' | translate}} ({{index + 1}})</mat-label>
+                <input matInput type="text" [formControlName]="index" autocomplete="off">
+              </mat-form-field>
+              <button *ngIf="index !== 0 || !last" type="button" color="accent" mat-icon-button (click)="removeValue(index)"><mat-icon>remove_circle</mat-icon></button>
+            </div>
+            <div>
+              <button class="add-value" type="button" mat-button color="accent" (click)="addValue()"><mat-icon>add_circle</mat-icon> Ajouter une valeur</button>
+            </div>
+          </ng-container>
+          <ng-container *ngIf="options.length > 0" formArrayName="values">
+            <mat-form-field appearance="fill">
+              <mat-label>{{'INTERROGATE.VALUE' | translate}}</mat-label>
+              <mat-select formControlName="0" multiple>
+                <mat-option *ngFor="let option of options" [value]="option">{{option}}</mat-option>
+              </mat-select>
+            </mat-form-field>
+          </ng-container>
+        </ng-container>
+      </ng-container>
+      <mat-form-field appearance="fill" *ngSwitchDefault>
+        <mat-label>{{'INTERROGATE.VALUE' | translate}}</mat-label>
+        <input matInput readonly type="text" formControlName="value" autocomplete="off">
+      </mat-form-field>
+    </ng-container>
+    <button mat-flat-button color="primary" type="submit">{{'COMMON.BUTTONS.SEARCH' | translate}}</button>
+  </form>
+
+  <div *ngIf="records$ | async as records" class="table-wrapper mat-elevation-z2">
+    <table mat-table [dataSource]="records">
+      <mat-text-column name="subjectId" [headerText]="'INTERROGATE.SUBJECT_ID_HEADER' | translate"></mat-text-column>
+      <mat-text-column name="subjectName" [headerText]="'INTERROGATE.SUBJECT_NAME_HEADER' | translate"></mat-text-column>
+      <mat-text-column name="subjectEmail" [headerText]="'INTERROGATE.SUBJECT_EMAIL_HEADER' | translate"></mat-text-column>
+      <mat-text-column name="recordKey" [headerText]="'INTERROGATE.RECORD_KEY_HEADER' | translate"></mat-text-column>
+      <mat-text-column name="recordSerial" [headerText]="'INTERROGATE.RECORD_SERIAL_HEADER' | translate"></mat-text-column>
+      <mat-text-column name="recordValue" [headerText]="'INTERROGATE.RECORD_VALUE_HEADER' | translate"></mat-text-column>
+
+      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+      <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+    </table>
+    <div class="no-results" *ngIf="records.length === 0">{{'INTERROGATE.NO_RESULTS' | translate}}</div>
+    <mat-toolbar>
+      <mat-toolbar-row>
+        <span fxFlex></span>
+        <button mat-flat-button color="accent" type="button" (click)="exportResults()">{{'INTERROGATE.EXPORT_BUTTON' | translate}}</button>
+      </mat-toolbar-row>
+    </mat-toolbar>
+  </div>
+</div>
+

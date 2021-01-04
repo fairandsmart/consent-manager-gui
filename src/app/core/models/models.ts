@@ -38,8 +38,11 @@ export enum Icons {
   theme = 'palette',
   cookies = 'local_offer',
   gettingStarted = 'help',
-  formCreator = 'integration_instructions',
-  apiKey = 'vpn_key'
+  collect = 'integration_instructions',
+  interrogate = 'search',
+  security = 'vpn_key',
+  all = 'assignment_turned_in',
+  subject = 'people'
 }
 
 /* Models */
@@ -110,8 +113,6 @@ export interface Controller {
 
 export interface BasicInfo extends ModelData {
   type: 'basicinfo';
-  logoPath: string;
-  logoAltText: string;
   title: string;
   header: string;
   footer: string;
@@ -127,8 +128,6 @@ export interface BasicInfo extends ModelData {
   showShortNoticeLink: boolean;
   privacyPolicyUrl: string;
   customPrivacyPolicyText: string;
-  showAcceptAll: boolean;
-  customAcceptAllText: string;
 }
 
 export enum RetentionUnit {
@@ -149,13 +148,18 @@ export enum ProcessingPurpose {
 
 export const PROCESSING_PURPOSES = Object.keys(ProcessingPurpose);
 
+export interface RetentionInfo {
+  label: string;
+  value: number;
+  unit: RetentionUnit;
+  fullText: string;
+}
+
 export interface Processing extends ModelData {
   type: 'processing';
   title: string;
   data: string;
-  retentionLabel: string;
-  retentionValue: number;
-  retentionUnit: RetentionUnit;
+  retention: RetentionInfo;
   usage: string;
   purposes: ProcessingPurpose[];
   containsSensitiveData: boolean;
@@ -185,15 +189,26 @@ export interface Preference extends ModelData {
   description: string;
   options: string[];
   valueType: PreferenceValueType;
+  includeDefault: boolean;
+  defaultValues: string[];
+  optional: boolean;
 }
 
 export interface Conditions extends ModelData {
   type: 'conditions';
   title: string;
   body: string;
-  acceptLabel: string;
-  rejectLabel: string;
+  acceptLabel?: string;
+  rejectLabel?: string;
 }
+
+export enum LogoPosition {
+  LEFT = 'LEFT',
+  CENTER = 'CENTER',
+  RIGHT = 'RIGHT'
+}
+
+export const LOGO_POSITIONS = Object.keys(LogoPosition);
 
 export interface Theme extends ModelData {
   type: 'theme';
@@ -201,15 +216,10 @@ export interface Theme extends ModelData {
   presentation: string;
   icon: string;
   css: string;
-  targetType: TargetType;
+  logoPath?: string;
+  logoAltText?: string;
+  logoPosition?: LogoPosition;
 }
-
-export enum TargetType {
-  FORM = 'FORM',
-  EMAIL = 'EMAIL'
-}
-
-export const TARGET_TYPES = Object.keys(TargetType);
 
 export interface Email extends ModelData {
   type: 'email';
@@ -224,10 +234,19 @@ export interface Email extends ModelData {
 
 export type ModelDataType = 'basicinfo' | 'processing' | 'conditions' | 'theme' | 'email' | 'preference';
 
+export enum PreviewType {
+  FORM = 'FORM',
+  RECEIPT = 'RECEIPT',
+  EMAIL = 'EMAIL'
+}
+
+export const PREVIEW_TYPES = Object.keys(PreviewType);
+
 export interface PreviewDto {
   language: string;
   orientation: ConsentFormOrientation;
   data?: ModelData;
+  previewType?: PreviewType;
 }
 
 export interface ModelFilter {
@@ -252,6 +271,7 @@ export interface ConsentContext {
   validity?: string;
   formType: ConsentFormType;
   receiptDeliveryType: ReceiptDeliveryType;
+  receiptDisplayType?: ReceiptDisplayType;
   userinfos: { [key: string]: string };
   attributes: { [key: string]: string };
   notificationModel: string;
@@ -261,6 +281,9 @@ export interface ConsentContext {
   preview: boolean;
   iframe: boolean;
   theme?: string;
+  showAcceptAll?: boolean;
+  acceptAllText?: string;
+  footerOnTop?: boolean;
 }
 
 export enum ConsentFormOrientation {
@@ -278,12 +301,43 @@ export enum ConsentFormType {
 export enum CollectionMethod {
   WEBFORM = 'WEBFORM',
   OPERATOR = 'OPERATOR',
-  EMAIL = 'EMAIL'
+  EMAIL = 'EMAIL',
+  RECEIPT = 'RECEIPT',
+  USER_PAGE = 'USER_PAGE'
 }
 
 export type ReceiptDeliveryType = 'NONE' | 'GENERATE' | 'DISPLAY' | 'STORE' | 'DOWNLOAD';
 
+export type ReceiptDisplayType = 'HTML' | 'XML' | 'PDF' | 'TEXT';
+
 export const RECEIPT_DELIVERY_TYPES: ReceiptDeliveryType[] = ['NONE', 'GENERATE', 'DISPLAY', 'STORE', 'DOWNLOAD'];
+export const RECEIPT_DISPLAY_TYPES: ReceiptDisplayType[] = ['HTML', 'XML', 'PDF', 'TEXT'];
+
+/* Notification reports */
+
+export enum NotificationReportStatus {
+  SENT = 'SENT',
+  DELIVERED = 'DELIVERED',
+  OPENED = 'OPENED',
+  INVALID_RECIPIENT = 'INVALID_RECIPIENT',
+  MAILBOX_FULL = 'MAILBOX_FULL',
+  ERROR = 'ERROR'
+}
+
+export enum NotificationReportType {
+  SMS = 'SMS',
+  EMAIL = 'EMAIL',
+  FCM = 'FCM',
+  XMPP = 'XMPP'
+}
+
+export interface NotificationReport {
+  transaction: string;
+  creationTimestamp: number;
+  status: NotificationReportStatus;
+  type: NotificationReportType;
+  explanation: string;
+}
 
 /* Records */
 
@@ -317,8 +371,8 @@ export interface RecordDto {
   statusExplanation: RecordStatusExplanation;
   collectionMethod: CollectionMethod;
   comment: string;
-  mailRecipient: string;
   transaction: string;
+  notificationReports: NotificationReport[];
 }
 
 export interface RecordFilter {
@@ -380,11 +434,74 @@ export interface OperatorLogElement {
   value: string;
 }
 
-/* Subjects */
-
 export interface SubjectDto {
   id: string;
   name: string;
   emailAddress: string;
   creationTimestamp: number;
+}
+
+export interface ExtractionConfigCondition {
+  key: string;
+  value: string;
+  regexpValue: boolean;
+}
+
+export interface ExtractionConfigDto {
+  condition: ExtractionConfigCondition;
+}
+
+export interface ExtractionResultDto {
+  subjectId: string;
+  subjectName: string;
+  subjectEmail: string;
+  recordKey: string;
+  recordSerial: string;
+  recordValue: string;
+}
+
+export interface UserDto {
+  username: string;
+  admin: boolean;
+  operator: boolean;
+  roles: string[];
+}
+
+export interface SupportInfoDto {
+  status: string;
+  latestVersion: string;
+  currentVersion: string;
+}
+
+export interface ClientConfigDto {
+  userPageEnabled: boolean;
+  userPageElements: string[];
+}
+
+/* Statistics */
+
+export enum TimeScale {
+  DAYS = 'DAYS',
+  WEEKS = 'WEEKS',
+  MONTHS = 'MONTHS'
+}
+
+export const TIME_SCALES: TimeScale[] = Object.keys(TimeScale) as TimeScale[];
+
+export interface StatsDataSet {
+  label: string;
+  data: number[];
+}
+
+export interface StatsData {
+  datasets: StatsDataSet[];
+  labels: string[];
+}
+
+export interface StatsChart {
+  [key: string]: StatsData;
+}
+
+export interface StatsBag {
+  [key: string]: StatsChart;
 }

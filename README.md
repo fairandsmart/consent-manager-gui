@@ -22,17 +22,21 @@ Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.
 
 Run `ng e2e` to execute the end-to-end tests via [Protractor](http://www.protractortest.org/).
 
-## Building the docker image
+## Building the docker image using maven (Dev style)
 
-Run "docker build . -t container-manager-gui"
+`mvn clean install -DbuildDockerImage`
+
+## Building the docker image using docker (Ops style)
+
+`docker build . -f Dockerfile.dockerhub -t container-manager-gui`
 
 ## Running the docker container
 
-Environment variables :
-* FS_AUTH_CLIENTID (default is fsconsentmgr)
-* FS_AUTH_REALM (default is FairAndSmart)
-* FS_AUTH_URI (default is http://127.0.0.1:8080)
-* FS_MANAGER_URI (default is http://127.0.0.1:8080) 
+`docker run container-manager-gui`
+
+## Environment variables
+
+see fs/scripts/docker-entrypoint.sh
 
 ## Further help
 

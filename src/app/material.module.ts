@@ -30,6 +30,7 @@ import { MatStepperModule } from '@angular/material/stepper';
 import { MatRadioModule } from '@angular/material/radio';
 import { MatChipsModule } from '@angular/material/chips';
 import { MatTabsModule } from '@angular/material/tabs';
+import { MatButtonToggleModule } from '@angular/material/button-toggle';
 
 @Injectable()
 export class MatPaginatorIntlTranslated extends MatPaginatorIntl {
@@ -104,7 +105,8 @@ const modules = [
   MatStepperModule,
   MatRadioModule,
   MatTabsModule,
-  MatChipsModule
+  MatChipsModule,
+  MatButtonToggleModule
 ];
 
 @NgModule({

@@ -1,4 +1,4 @@
-@import 'node_modules/@angular/material/theming';
+@import '~src/variables';
 
 :host {
   margin: 0 !important;
@@ -164,13 +164,17 @@ mat-form-field {
   margin-bottom: 1em;
   position: relative;
   flex: 1 1 auto;
-  height: 500px;
+  height: 620px;
 
   iframe {
     border: none;
     width: 100%;
     height: 100%;
   }
+}
+
+.checkbox-wrapper {
+  margin: 16px;
 }
 
 .consent-validity-wrapper {
@@ -192,5 +196,18 @@ mat-form-field {
     &:last-child {
       flex: 1 1 auto;
     }
+  }
+}
+
+.panel-title-like {
+  font-size: mat-font-size($typography, subheading-2);
+  font-weight: mat-font-weight($typography, subheading-2);
+  margin-top: 16px;
+  margin-bottom: 16px;
+  padding: 0 24px;
+  display: flex;
+  align-items: center;
+  mat-icon {
+    margin-right: 8px;
   }
 }

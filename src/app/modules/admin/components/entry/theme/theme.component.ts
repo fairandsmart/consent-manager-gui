@@ -1,22 +1,22 @@
 import { Component, OnInit } from '@angular/core';
 import { EntryContentDirective } from '../entry-content/entry-content.directive';
-import { ModelDataType, TARGET_TYPES, Theme } from '../../../../../core/models/models';
-import { FormBuilder, Validators } from '@angular/forms';
+import {
+  ConsentFormOrientation,
+  LOGO_POSITIONS,
+  LogoPosition,
+  ModelDataType,
+  PreviewDto,
+  PreviewType,
+  Theme
+} from '../../../../../core/models/models';
+import { FormBuilder, FormControl, Validators } from '@angular/forms';
 import { ModelsResourceService } from '../../../../../core/http/models-resource.service';
 import * as CodeMirror from 'codemirror';
 import { Editor } from 'codemirror';
 import { DomSanitizer } from '@angular/platform-browser';
 import { AlertService } from '../../../../../core/services/alert.service';
-
-const snippets: { text: string, displayText: string }[] = [
-  { text: '.logo-wrapper', displayText: 'Logo - Conteneur' },
-  { text: '.logo-wrapper .logo', displayText: 'Logo - Image' },
-  { text: '.header', displayText: 'En-tête - Conteneur' },
-  { text: '.header h2', displayText: 'En-tête - Titre' },
-  { text: '.header .header-body', displayText: 'En-tête - Corps' },
-  { text: '.header .privacy-policy-link-wrapper a', displayText: 'En-tête - Lien vers la politique de confidentialité' },
-  { text: '.processing', displayText: 'Traitements - Conteneur' },
-];
+import { TranslateService } from '@ngx-translate/core';
+import { ThemeAutocomplete } from './_theme-autocomplete';
 
 @Component({
   selector: 'cm-theme',
@@ -26,7 +26,8 @@ const snippets: { text: string, displayText: string }[] = [
 export class ThemeComponent extends EntryContentDirective<Theme> implements OnInit {
 
   static CONTEXT = 'theme';
-  readonly TARGET_TYPES = TARGET_TYPES;
+  readonly LOGO_POSITIONS = LOGO_POSITIONS;
+
   readonly CODE_MIRROR_OPTIONS = {
     lineNumbers: true,
     mode: 'css',
@@ -56,7 +57,8 @@ export class ThemeComponent extends EntryContentDirective<Theme> implements OnIn
         let end = cur.ch;
         let word = token.string.slice(0, end - start);
         if (/[^\w$_-]/.test(word)) {
-          word = ''; start = end = cur.ch;
+          word = '';
+          start = end = cur.ch;
         }
 
         const spec = (window.CodeMirror as any).resolveMode('text/css');
@@ -65,7 +67,7 @@ export class ThemeComponent extends EntryContentDirective<Theme> implements OnIn
 
         const st = inner.state.state;
         if (st === 'top') {
-          result.push(...snippets);
+          result.push(...ThemeAutocomplete.createSnippets(this.translate.currentLang));
         } else {
           if (st === 'pseudo' || token.type === 'variable-3') {
           } else if (st === 'block' || st === 'maybeprop') {
@@ -99,11 +101,15 @@ export class ThemeComponent extends EntryContentDirective<Theme> implements OnIn
     }
   };
 
+  previewTypeCtrl: FormControl;
+  orientationCtrl: FormControl;
+
   constructor(
-      private fb: FormBuilder,
-      modelsResourceService: ModelsResourceService,
-      alertService: AlertService,
-      sanitizer: DomSanitizer) {
+    private fb: FormBuilder,
+    modelsResourceService: ModelsResourceService,
+    alertService: AlertService,
+    sanitizer: DomSanitizer,
+    public translate: TranslateService) {
     super(ThemeComponent.CONTEXT, modelsResourceService, alertService, sanitizer);
   }
 
@@ -113,24 +119,41 @@ export class ThemeComponent extends EntryContentDirective<Theme> implements OnIn
 
   ngOnInit(): void {
     super.ngOnInit();
+    this.previewTypeCtrl = new FormControl(PreviewType.FORM, [Validators.required]);
+    this.orientationCtrl = new FormControl(ConsentFormOrientation.VERTICAL, [Validators.required]);
+    this.previewTypeCtrl.valueChanges.subscribe(value => {
+      if (value !== PreviewType.FORM) {
+        this.orientationCtrl.disable();
+        this.orientationCtrl.setValue(ConsentFormOrientation.VERTICAL);
+      } else {
+        this.orientationCtrl.enable();
+      }
+      this.refreshPreview();
+    });
+    this.orientationCtrl.valueChanges.subscribe(value => {
+      if (this.orientationCtrl.enabled) {
+        this.refreshPreview();
+      }
+    });
   }
 
   protected initForm(): void {
     this.form = this.fb.group({
       type: [this.type, [Validators.required]],
-      targetType: ['', [Validators.required]],
+      logoPath: [''],
+      logoAltText: [''],
+      logoPosition: [LogoPosition.CENTER],
       css: ['', [Validators.required]]
     });
     this.checkFormState();
   }
 
-
-  protected refreshPreview(): void {
-    if (this.form.get('targetType').invalid) {
-      // avoid server error when targetType not set
-      this.safePreview = null;
-      return;
-    }
-    super.refreshPreview();
+  protected makePreviewDto(language, values): PreviewDto {
+    return {
+      language: language,
+      orientation: this.orientationCtrl.value,
+      data: values,
+      previewType: this.previewTypeCtrl.value
+    };
   }
 }

@@ -1,3 +1,7 @@
 "PUT_MULTIPLE_HEADER_HERE"|true
 "PUT_MULTIPLE_FOOTER_HERE"|true
-"PUT_DEFAULT_LANGUAGE_HERE"|'fr'
+"PUT_DEFAULT_LANGUAGE_HERE"|"fr"
+"PUT_HEADER_LOGO_URI_HERE"|"https://assets.fairandsmart.tech/logo_fs_tagline.png"
+"PUT_HEADER_LOGO_STYLE_HERE"|"height: 59px;"
+"PUT_USER_PAGE_HERE"|true
+"PUT_USER_PAGE_ELEMENTS_HERE"|"Core.1,Market.1,Channel.1,Frequency.1,Mode.1,Username.1,cgu.1"

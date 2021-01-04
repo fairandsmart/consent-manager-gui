@@ -1,0 +1,29 @@
+<mat-card>
+  <mat-card-title>{{'DASHBOARD.CHARTS.' + name | translate}}</mat-card-title>
+  <mat-card-content *ngIf="currentStats; else noContent">
+    <div class="chart-container">
+      <canvas baseChart
+              [chartType]="chartOptions.chartType"
+              [datasets]="currentStats.datasets"
+              [labels]="currentStats.labels"
+              [colors]="chartColors"
+              [options]="chartOptions">
+      </canvas>
+    </div>
+  </mat-card-content>
+
+  <mat-card-actions>
+    <mat-button-toggle-group name="timeScale" (change)="changeTimeScale($event.value)">
+      <mat-button-toggle *ngFor="let scale of TIME_SCALES" [value]="scale" [checked]="scale === timeScale">
+        {{'DASHBOARD.TIME_SCALE.' + scale | translate}}
+      </mat-button-toggle>
+    </mat-button-toggle-group>
+  </mat-card-actions>
+</mat-card>
+
+<ng-template #noContent>
+  <mat-card-content class="no-content">
+    <mat-icon class="mat-icon-3x">block</mat-icon>
+    <div>{{'DASHBOARD.EMPTY' | translate}}</div>
+  </mat-card-content>
+</ng-template>

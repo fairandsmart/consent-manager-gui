@@ -16,6 +16,7 @@ import { FormArray, FormBuilder, Validators } from '@angular/forms';
 import { ModelsResourceService } from '../../../../../core/http/models-resource.service';
 import { DomSanitizer } from '@angular/platform-browser';
 import { AlertService } from '../../../../../core/services/alert.service';
+import {TranslateService} from '@ngx-translate/core';
 
 @Component({
   selector: 'cm-processing',
@@ -34,7 +35,8 @@ export class ProcessingComponent extends EntryContentDirective<Processing> imple
       private fb: FormBuilder,
       modelsResourceService: ModelsResourceService,
       alertService: AlertService,
-      sanitizer: DomSanitizer) {
+      sanitizer: DomSanitizer,
+      private translate: TranslateService) {
     super(ProcessingComponent.CONTEXT, modelsResourceService, alertService, sanitizer);
   }
 
@@ -55,9 +57,12 @@ export class ProcessingComponent extends EntryContentDirective<Processing> imple
       type: [this.type, [Validators.required]],
       title: ['', [Validators.required]],
       data: ['', [Validators.required]],
-      retentionLabel: ['', [Validators.required]],
-      retentionValue: [0, [Validators.required, Validators.min(1)]],
-      retentionUnit: [RetentionUnit.YEAR, [Validators.required]],
+      retention: this.fb.group({
+        label: ['', [Validators.required]],
+        value: [0, [Validators.required, Validators.min(1)]],
+        unit: [RetentionUnit.YEAR, [Validators.required]],
+        fullText: ['']
+      }),
       usage: ['', [Validators.required]],
       purposes: [[], [Validators.required]],
       containsSensitiveData: [false],
@@ -75,10 +80,23 @@ export class ProcessingComponent extends EntryContentDirective<Processing> imple
       associatedWithPreferences: [false, [Validators.required]],
       associatedPreferences: [[]]
     });
+    this.form.get('containsMedicalData').disable();
+    this.form.get('retention').valueChanges.subscribe((value) => {
+      this.form.get('retention').get('fullText')
+        .patchValue(`${value.label} ${value.value} ${this.translate.instant('ENTRIES.EDITOR.PROCESSING.RETENTION.UNIT.VALUES.' + value.unit)}`, { emitEvent: false });
+    });
     this.checkFormState();
   }
 
   registerFormChanges(): void {
+    this.form.get('containsSensitiveData').valueChanges.subscribe(v => {
+      if (v) {
+        this.form.get('containsMedicalData').enable();
+      } else {
+        this.form.get('containsMedicalData').disable();
+        this.form.get('containsMedicalData').setValue(false);
+      }
+    });
     this.form.get('dataController').valueChanges.subscribe(v => this.dataControllerChange(v));
     this.form.get('associatedWithPreferences').valueChanges.subscribe(v => {
       if (v) {
@@ -91,7 +109,7 @@ export class ProcessingComponent extends EntryContentDirective<Processing> imple
     super.registerFormChanges();
   }
 
-  protected setVersion(version: ModelVersionDto<Processing>, language: string = this.version.defaultLanguage): void {
+  protected setVersion(version: ModelVersionDto<Processing>, language: string = version.defaultLanguage): void {
     this.form.setControl('thirdParties', this.fb.array([]));
     version.data[language].thirdParties.forEach(tp => this.addThirdParty());
     super.setVersion(version, language);

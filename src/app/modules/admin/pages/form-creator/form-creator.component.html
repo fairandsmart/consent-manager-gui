@@ -2,7 +2,7 @@
   <mat-sidenav-content>
     <div class="container">
       <div class="title-container">
-        <h2><mat-icon>{{ICONS.formCreator}}</mat-icon> {{'FORM_CREATOR.TITLE' | translate}}</h2>
+        <h2><mat-icon>{{ICONS.collect}}</mat-icon> {{'FORM_CREATOR.TITLE' | translate}}</h2>
       </div>
       <mat-horizontal-stepper #stepper linear="true" labelPosition="bottom" [class]="'step-' + currentStep" (selectionChange)="stepChange($event)">
 
@@ -76,9 +76,24 @@
                   <mat-option *ngFor="let type of RECEIPT_TYPES" [value]="type">{{'FORM_CREATOR.FORM.RECEIPT.VALUES.' + type.toUpperCase() | translate}}</mat-option>
                 </mat-select>
               </mat-form-field>
-              <mat-form-field appearance="fill" *ngIf="form.at(STEPS.OPTIONS).get('notificationModel').value">
+              <mat-form-field appearance="fill">
+                <mat-label>{{'FORM_CREATOR.FORM.RECEIPT_FORMAT.LABEL' | translate}}</mat-label>
+                <mat-select formControlName="receiptDisplayType" required>
+                  <mat-option *ngFor="let type of RECEIPT_FORMATS" [value]="type">{{'FORM_CREATOR.FORM.RECEIPT_FORMAT.VALUES.' + type.toUpperCase() | translate}}</mat-option>
+                </mat-select>
+              </mat-form-field>
+              <div class="checkbox-wrapper">
+                <mat-checkbox formControlName="notify">{{'FORM_CREATOR.FORM.NOTIFICATION_RECIPIENT.NOTIFY_CHECKBOX_LABEL' | translate}}</mat-checkbox>
+              </div>
+              <mat-form-field appearance="fill" *ngIf="form.at(STEPS.OPTIONS).get('notify').value" required>
                 <mat-label>{{'FORM_CREATOR.FORM.NOTIFICATION_RECIPIENT.LABEL' | translate}}</mat-label>
                 <input type="email" matInput formControlName="notificationRecipient" autocomplete="off" email>
+                <mat-error *ngIf="form.hasError('required', [STEPS.OPTIONS, 'notificationRecipient'])">
+                  {{'FORM_CREATOR.FORM.NOTIFICATION_RECIPIENT.REQUIRED' | translate }}
+                </mat-error>
+                <mat-error *ngIf="form.hasError('email', [STEPS.OPTIONS, 'notificationRecipient'])">
+                  {{'FORM_CREATOR.FORM.NOTIFICATION_RECIPIENT.EMAIL_INVALID' | translate }}
+                </mat-error>
               </mat-form-field>
             </mat-card-content>
           </mat-card>
@@ -96,25 +111,39 @@
       [config]="elementsLibraryConfig"
       [selected]="selectedElements"
       (selectedChange)="selectedElementsChange($event)"
-      [mode]="'drag'"></cm-entries-library>
-
-    <ng-container *ngIf="stepper.selectedIndex === STEPS.ELEMENTS" [formGroup]="form.at(STEPS.ELEMENTS)">
-      <div class="checkbox-wrapper">
+      [mode]="'drag'">
+      <ng-container *ngIf="stepper.selectedIndex === STEPS.ELEMENTS" [formGroup]="form.at(STEPS.ELEMENTS)">
         <mat-checkbox formControlName="associatePreferences">{{'FORM_CREATOR.FORM.ASSOCIATIONS.LABEL' | translate}}</mat-checkbox>
-      </div>
-    </ng-container>
+      </ng-container>
+    </cm-entries-library>
 
-    <ng-container *ngIf="stepper.selectedIndex === STEPS.PREVIEW" [formGroup]="form.at(STEPS.OPTIONS)">
+    <ng-container *ngIf="stepper.selectedIndex === STEPS.PREVIEW" [formGroup]="form.at(STEPS.PREVIEW)">
+      <div class="panel-title-like">
+        <mat-icon>settings</mat-icon>
+        <span>Options d'affichage</span>
+      </div>
       <mat-form-field appearance="fill">
         <mat-label>{{'FORM_CREATOR.FORM.ORIENTATION.LABEL' | translate}}</mat-label>
         <mat-select formControlName="orientation" required>
           <mat-option *ngFor="let orientation of ORIENTATIONS" [value]="orientation">{{'FORM_CREATOR.FORM.ORIENTATION.VALUES.' + orientation | translate}}</mat-option>
         </mat-select>
       </mat-form-field>
+      <div class="checkbox-wrapper">
+        <mat-checkbox formControlName="footerOnTop">{{'FORM_CREATOR.FORM.FOOTER_ON_TOP.LABEL' | translate}}</mat-checkbox>
+      </div>
+
+      <div class="checkbox-wrapper">
+        <mat-checkbox formControlName="showAcceptAll">{{'FORM_CREATOR.FORM.ACCEPT_ALL.DISPLAY.LABEL' | translate}}</mat-checkbox>
+      </div>
+
+      <mat-form-field appearance="outline" *ngIf="form.at(STEPS.PREVIEW).get('showAcceptAll').value">
+        <mat-label>{{'FORM_CREATOR.FORM.ACCEPT_ALL.BUTTON_LABEL.LABEL' | translate}}</mat-label>
+        <input matInput formControlName="acceptAllText" autocomplete="off">
+      </mat-form-field>
     </ng-container>
 
     <cm-entries-library
-      [style.display]="stepper.selectedIndex !== STEPS.OPTIONS ? 'none' : undefined"
+      [style.display]="stepper.selectedIndex !== STEPS.OPTIONS || !form.at(STEPS.OPTIONS).get('notify').value ? 'none' : undefined"
       [config]="emailsLibraryConfig"
       [selected]="selectedEmail" [mode]="'select'"
       (selectedChange)="selectedEmailChange($event)"></cm-entries-library>
