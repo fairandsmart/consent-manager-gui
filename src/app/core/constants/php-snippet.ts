@@ -5,6 +5,7 @@ export const PHP_SNIPPET =
 `<?php
 function getFormUrl() {
     $api_url = "$$API_URL$$";
+    $iframe_host_url = "$$IFRAME_HOST_URL$$";
     $api_key = "PUT_YOUR_API_KEY_HERE";
     $context = [
         "subject" => "$$SUBJECT$$",
@@ -47,7 +48,7 @@ function getFormUrl() {
         echo "cURL Error #:" . $err;
     }
 
-    return $api_url."/consents?t=".$consent_token;
+    return $iframe_host_url."/consents?t=".$consent_token;
 
 }
 
@@ -56,7 +57,12 @@ $formUrl = getFormUrl();
 ?>
 
 <html>
+<head>
+    <meta charset="utf-8">
+    <title>Right Consents iFrame Integration Test</title>
+</head>
 <body>
+  <h2 style="text-align: center">Right Consents iFrame Integration Test</h2>
   <iframe width="700" height="500" src="<?php echo $formUrl ?>"></iframe>
 </body>
 </html>
@@ -65,6 +71,7 @@ $formUrl = getFormUrl();
 export function getPhpSnippetFromContext(context: ConsentContext): string {
   return PHP_SNIPPET
     .replace('$$API_URL$$', environment.managerUrl)
+    .replace('$$IFRAME_HOST_URL$$', environment.managerUrl)
     .replace('$$SUBJECT$$', context.subject)
     .replace('$$ORIENTATION$$', context.orientation)
     .replace('$$INFO$$', context.info)
