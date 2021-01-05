@@ -575,7 +575,8 @@
           "OPENED": "Opened",
           "INVALID_RECIPIENT": "Invalid recipient",
           "MAILBOX_FULL": "Mailbox full",
-          "ERROR": "Error"
+          "ERROR": "Error",
+          "PENDING": "Pending"
         },
         "EMPTY": "None"
       }
