@@ -575,7 +575,8 @@
           "OPENED": "Ouvert",
           "INVALID_RECIPIENT": "Destinataire invalide",
           "MAILBOX_FULL": "Boîte de réception pleine",
-          "ERROR": "Erreur"
+          "ERROR": "Erreur",
+          "PENDING": "En cours d'envoi"
         },
         "EMPTY": "Aucune"
       }

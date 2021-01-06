@@ -321,7 +321,8 @@ export enum NotificationReportStatus {
   OPENED = 'OPENED',
   INVALID_RECIPIENT = 'INVALID_RECIPIENT',
   MAILBOX_FULL = 'MAILBOX_FULL',
-  ERROR = 'ERROR'
+  ERROR = 'ERROR',
+  PENDING = 'PENDING'
 }
 
 export enum NotificationReportType {
@@ -332,11 +333,11 @@ export enum NotificationReportType {
 }
 
 export interface NotificationReport {
-  transaction: string;
-  creationTimestamp: number;
+  transaction?: string;
+  creationTimestamp?: number;
   status: NotificationReportStatus;
   type: NotificationReportType;
-  explanation: string;
+  explanation?: string;
 }
 
 /* Records */
