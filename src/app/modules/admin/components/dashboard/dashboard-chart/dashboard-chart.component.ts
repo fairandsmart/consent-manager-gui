@@ -41,18 +41,18 @@ export class DashboardChartComponent implements OnInit {
 
   updateTranslations(): void {
     this.translate.get([
-      'COMMON.ENTRY_TYPES.PROCESSING',
-      'COMMON.ENTRY_TYPES.PREFERENCE',
-      'COMMON.ENTRY_TYPES.CONDITIONS',
+      'DASHBOARD.ENTRY_TYPES.PROCESSING',
+      'DASHBOARD.ENTRY_TYPES.PREFERENCE',
+      'DASHBOARD.ENTRY_TYPES.CONDITIONS',
       'DASHBOARD.TIME_LABELS.WEEKS_PREFIX',
       ..._.range(1, 8).map(i => 'DASHBOARD.TIME_LABELS.DAYS.' + i),
       ..._.range(1, 13).map(i => 'DASHBOARD.TIME_LABELS.MONTHS.' + i)
   ]).
     subscribe(translations => {
       this.labelsTranslations = {
-        processing: translations['COMMON.ENTRY_TYPES.PROCESSING'],
-        preference: translations['COMMON.ENTRY_TYPES.PREFERENCE'],
-        conditions: translations['COMMON.ENTRY_TYPES.CONDITIONS'],
+        processing: translations['DASHBOARD.ENTRY_TYPES.PROCESSING'],
+        preference: translations['DASHBOARD.ENTRY_TYPES.PREFERENCE'],
+        conditions: translations['DASHBOARD.ENTRY_TYPES.CONDITIONS'],
         weeksPrefix: translations['DASHBOARD.TIME_LABELS.WEEKS_PREFIX'],
         DAYS: _.range(1, 8).map(i => translations['DASHBOARD.TIME_LABELS.DAYS.' + i]),
         MONTHS: _.range(1, 13).map(i => translations['DASHBOARD.TIME_LABELS.MONTHS.' + i])

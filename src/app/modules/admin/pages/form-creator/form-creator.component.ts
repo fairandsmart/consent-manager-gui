@@ -102,8 +102,8 @@ export class FormCreatorComponent implements OnInit {
     {
       id: 'themes',
       types: ['theme'],
-      multiple: false,
-      showSort: true,
+      multiple: environment.customization.multipleThemes,
+      showSort: environment.customization.multipleThemes,
       icon: Icons.theme,
       displayDescription: false
     }

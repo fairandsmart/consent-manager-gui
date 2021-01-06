@@ -103,9 +103,8 @@ export enum ModelVersionType {
 }
 
 export interface Controller {
-  actingBehalfCompany: boolean;
   company: string;
-  name: string;
+  info: string;
   address: string;
   email: string;
   phoneNumber: string;

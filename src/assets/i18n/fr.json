@@ -128,7 +128,7 @@
     },
     "themes": {
       "PANEL_TITLE": "Bibliothèque de thèmes",
-      "PANEL_DESCRIPTION_HTML": "<div>Voici les thèmes que vous avez paramétrés.</div><div>Cela permet de modifier le style de vos formulaires.</div><div>Vous pouvez en créer de nouveaux à tout moment en cliquant sur \"+\".</div>",
+      "PANEL_DESCRIPTION_HTML": "<div>Voici les thèmes que vous avez paramétrés.</div><div>Cela permet de modifier le style de vos formulaires.</div><div>Vous ne pouvez en créer qu'un seul ensemble.</div>",
       "EMPTY": "Commencez par ajouter un thème..."
     },
     "emails": {
@@ -231,14 +231,11 @@
         "DATA_CONTROLLER": {
           "TITLE": "Responsable de traitement",
           "SUBTITLE_OPTIONAL": "(si différent de celui indiqué dans les informations générales)",
-          "ACTING_BEHALF_COMPANY": {
-            "LABEL": "Ce responsable agit au nom de l'entreprise"
-          },
           "COMPANY": {
             "LABEL": "Entreprise"
           },
-          "NAME": {
-            "LABEL": "Nom"
+          "INFO": {
+            "LABEL": "Complément d'information"
           },
           "ADDRESS": {
             "LABEL": "Adresse"
@@ -826,11 +823,16 @@
   "DASHBOARD": {
     "CHARTS": {
       "MODELS": "Modèles actifs",
-      "RECORDS": "Consentements collectés",
+      "RECORDS": "Données enregistrées",
       "SUBJECTS": "Clients",
       "TOP_TABLE": "Top des traitements",
       "TOP_TABLE_SUBTITLE": "Top 3 des traitements collectés (gauche) et des traitements acceptés (droite)",
-      "NUMBERS": "Résultats des collectes"
+      "NUMBERS": "Résultats de la collecte"
+    },
+    "ENTRY_TYPES": {
+      "PROCESSING": "Traitements",
+      "PREFERENCE": "Préférences",
+      "CONDITIONS": "CGU/CGS"
     },
     "TIME_SCALE": {
       "LABEL": "Echelle de temps",
@@ -873,13 +875,13 @@
         "LABEL": "Traitements collectés"
       },
       "COLLECTED_VALUE": {
-        "LABEL": "Quantité (collecte)"
+        "LABEL": "Total soumis"
       },
       "ACCEPTED_KEY": {
         "LABEL": "Traitements acceptés"
       },
       "ACCEPTED_VALUE": {
-        "LABEL": "Quantité (acceptation)"
+        "LABEL": "Total accepté"
       }
     },
     "NUMBERS": {

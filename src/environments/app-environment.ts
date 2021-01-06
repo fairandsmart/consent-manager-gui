@@ -12,5 +12,6 @@ export interface AppCustomization {
   headerLogoStyle: string;
   headerLogoUrl: string;
   multipleInfo: boolean;
+  multipleThemes: boolean;
   defaultLanguage: string;
 }

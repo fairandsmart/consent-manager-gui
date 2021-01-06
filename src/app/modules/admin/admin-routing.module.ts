@@ -82,7 +82,7 @@ const routes: Routes = [
             component: FormCreatorComponent
           },
           {
-            path: 'interrogate',
+            path: 'search',
             component: InterrogatePageComponent
           },
           {

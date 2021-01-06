@@ -68,9 +68,8 @@ export class ProcessingComponent extends EntryContentDirective<Processing> imple
       containsSensitiveData: [false],
       containsMedicalData: [false],
       dataController: this.fb.group({
-        actingBehalfCompany: [false],
         company: [''],
-        name: [''],
+        info: [''],
         address: [''],
         email: ['', Validators.email],
         phoneNumber: ['', Validators.pattern(FIELD_VALIDATORS.phone.pattern)]
@@ -154,7 +153,7 @@ export class ProcessingComponent extends EntryContentDirective<Processing> imple
 
   private isDataControllerEmpty(dataController: Controller): boolean {
     if (this.form.contains('dataController')) {
-      return !['company', 'name', 'address', 'email', 'phoneNumber']
+      return !['company', 'info', 'address', 'email', 'phoneNumber']
         .some(k => dataController[k] != null && dataController[k].length > 0);
     }
     return true;

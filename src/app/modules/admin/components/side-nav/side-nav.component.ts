@@ -87,7 +87,7 @@ export class SideNavComponent implements OnInit {
         },
         {
           title: 'NAV.CATEGORIES.INTEGRATION.INTERROGATE',
-          link: '/admin/integration/interrogate',
+          link: '/admin/integration/search',
           icon: Icons.interrogate
         },
         {

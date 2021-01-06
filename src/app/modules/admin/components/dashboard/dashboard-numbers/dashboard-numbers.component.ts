@@ -32,8 +32,14 @@ export class DashboardNumbersComponent implements OnInit {
 
   updateCard(): void {
     if (this.stats) {
-      const labels = ['processing', 'preference', 'conditions', 'all'];
-      this.numberStats = [];
+      const labels = ['all', 'processing', 'preference', 'conditions'];
+      this.numberStats = [{
+        icon: Icons.subject,
+        name: 'SUBJECT',
+        color: this.colors[4].backgroundColor,
+        value: this.stats.subjects.datasets[0].data[0],
+        evolution: this.stats.subjects.datasets[0].data[1]
+      }];
       labels.forEach((label, index) => {
         this.numberStats.push({
           icon: Icons[label],
@@ -42,13 +48,6 @@ export class DashboardNumbersComponent implements OnInit {
           value: this.stats.records.datasets.find(d => d.label === label).data[0],
           evolution: this.stats.records.datasets.find(d => d.label === label).data[1]
         });
-      });
-      this.numberStats.push({
-        icon: Icons.subject,
-        name: 'SUBJECT',
-        color: this.colors[4].backgroundColor,
-        value: this.stats.subjects.datasets[0].data[0],
-        evolution: this.stats.subjects.datasets[0].data[1]
       });
     }
   }

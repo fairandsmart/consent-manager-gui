@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { SectionConfig } from '../../components/entries/entries-library/entries-library.component';
 import { Icons } from '../../../../core/models/models';
+import { environment } from '../../../../../environments/environment';
 
 @Component({
   selector: 'cm-themes-page',
@@ -15,8 +16,8 @@ export class ThemesPageComponent {
     {
       id: 'themes',
       types: ['theme'],
-      multiple: true,
-      showSort: true,
+      multiple: environment.customization.multipleThemes,
+      showSort: environment.customization.multipleThemes,
       icon: Icons.theme,
       displayDescription: true
     }

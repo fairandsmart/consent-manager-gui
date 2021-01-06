@@ -12,9 +12,9 @@
         "LABEL": "Configuration",
         "GETTING_STARTED": "Getting started",
         "INFO": "Basic Information",
-        "PROCESSING": "Processing",
+        "PROCESSING": "Processings",
         "PREFERENCES": "Preferences",
-        "CONDITIONS": "ToU",
+        "CONDITIONS": "Terms & Conditions",
         "EMAILS": "Emails",
         "THEMES": "Themes"
       },
@@ -22,8 +22,8 @@
         "LABEL": "Integration",
         "GETTING_STARTED": "Getting started",
         "COLLECT": "Collect",
-        "INTERROGATE": "Interrogate",
-        "API": "Security"
+        "INTERROGATE": "Search",
+        "SECURITY": "Security"
       }
     }
   },
@@ -44,7 +44,7 @@
       "BASICINFO": "Basic Info",
       "PROCESSING": "Processing",
       "PREFERENCE": "Preference",
-      "CONDITIONS": "ToU",
+      "CONDITIONS": "Terms and Conditions",
       "THEME": "Theme",
       "EMAIL": "Email"
     },
@@ -112,8 +112,8 @@
       "EMPTY": "First, add basic information..."
     },
     "processing": {
-      "PANEL_TITLE": "Processing library",
-      "PANEL_DESCRIPTION_HTML": "<div>Here are the processing you created.</div><div>This is meant to ask your users for their consent.</div><div>You can create more at any time by clicking on \"+\".</div>",
+      "PANEL_TITLE": "Processings library",
+      "PANEL_DESCRIPTION_HTML": "<div>Here are the processings you created.</div><div>This is meant to ask your users for their consent.</div><div>You can create more at any time by clicking on \"+\".</div>",
       "EMPTY": "First, add a processing..."
     },
     "preferences": {
@@ -122,13 +122,13 @@
       "EMPTY": "First, add a preference..."
     },
     "conditions": {
-      "PANEL_TITLE": "ToU library",
-      "PANEL_DESCRIPTION_HTML": "<div>Here are the ToU you created.</div><div>This is meant to ask your users for their consent.</div><div>You can create more at any time by clicking on \"+\".</div>",
-      "EMPTY": "First, add a ToU model..."
+      "PANEL_TITLE": "Terms & Conditions library",
+      "PANEL_DESCRIPTION_HTML": "<div>Here are the terms and conditions you created.</div><div>This is meant to ask your users for their consent.</div><div>You can create more at any time by clicking on \"+\".</div>",
+      "EMPTY": "First, add a terms and conditions model..."
     },
     "themes": {
       "PANEL_TITLE": "Themes library",
-      "PANEL_DESCRIPTION_HTML": "<div>Here are the themes you created.</div><div>This is meant to define the styles of your forms.</div><div>You can create more at any time by clicking on \"+\".</div>",
+      "PANEL_DESCRIPTION_HTML": "<div>Here are the themes you created.</div><div>This is meant to define the styles of your forms.</div><div>You can only create one theme entry.</div>",
       "EMPTY": "First, add a theme..."
     },
     "emails": {
@@ -143,7 +143,7 @@
       "basicinfo": "New Basic Info",
       "processing": "New processing",
       "preference": "New preference",
-      "conditions": "New ToU",
+      "conditions": "New terms and conditions",
       "theme": "New theme",
       "email": "New email",
       "MULTIPLE": "Add..."
@@ -191,7 +191,7 @@
         "basicinfo": "New basic info",
         "processing": "New processing",
         "preference": "New preference",
-        "consitions": "New ToU",
+        "consitions": "New terms and conditions",
         "theme": "New theme",
         "email": "New email"
       },
@@ -199,7 +199,7 @@
         "basicinfo": "Update basic info",
         "processing": "Update processing",
         "preference": "Update preference",
-        "conditions": "Update ToU",
+        "conditions": "Update terms and conditions",
         "theme": "Update theme",
         "email": "Update email"
       }
@@ -222,7 +222,7 @@
           "BASICINFO": "Basic Info content",
           "PROCESSING": "Processing content",
           "PREFERENCE": "Preference content",
-          "CONDITIONS": "ToU content",
+          "CONDITIONS": "Terms and Conditions content",
           "THEME": "Theme content",
           "EMAIL": "Email content"
         },
@@ -231,14 +231,11 @@
         "DATA_CONTROLLER": {
           "TITLE": "Data controller",
           "SUBTITLE_OPTIONAL": "(if different from the one in the basic information)",
-          "ACTING_BEHALF_COMPANY": {
-            "LABEL": "This controller is acting on behalf of the company"
-          },
           "COMPANY": {
             "LABEL": "Company"
           },
-          "NAME": {
-            "LABEL": "Name"
+          "INFO": {
+            "LABEL": "Further information"
           },
           "ADDRESS": {
             "LABEL": "Address"
@@ -293,7 +290,7 @@
           "TITLE": "Title",
           "DATA": "Processed data",
           "RETENTION": "Data retention period",
-          "USAGE": "Data usage",
+          "USAGE": "Purpose",
           "LAW": "Legal information",
           "ASSOCIATIONS": "Associated preferences"
         },
@@ -320,10 +317,10 @@
           }
         },
         "USAGE": {
-          "LABEL": "Usage description"
+          "LABEL": "Purpose description"
         },
         "PURPOSE": {
-          "LABEL": "Purposes",
+          "LABEL": "Purpose categories",
           "VALUES": {
             "CONSENT_CORE_SERVICE": "Core service",
             "CONSENT_IMPROVED_SERVICE": "Improved service",
@@ -398,10 +395,10 @@
           "BUTTONS": "Buttons"
         },
         "TITLE": {
-          "LABEL": "ToU label"
+          "LABEL": "Terms and Conditions label"
         },
         "BODY": {
-          "LABEL": "ToU",
+          "LABEL": "Terms and Conditions",
           "HINT": "Write your custom HTML or drop a HTML file",
           "AUTOCOMPLETE": "(toggle auto-completion with CTRL+E or CMD+E)"
         },
@@ -536,13 +533,13 @@
         "LABEL": "Last modification date"
       },
       "CONDITIONS_DATE": {
-        "LABEL": "Answer date"
+        "LABEL": "Record date"
       },
       "HISTORY_DATE": {
         "LABEL": "Collect date"
       },
       "HISTORY_VALUE": {
-        "LABEL": "Answer"
+        "LABEL": "Record"
       },
       "RECEIPT": {
         "LABEL": "View receipt"
@@ -624,10 +621,10 @@
       "TITLE": "Form creator",
       "ELEMENTS_PANEL_TITLE": {
         "infos": "Basic info",
-        "elements": "Displayed processing and preferences"
+        "elements": "Displayed processings and preferences"
       },
       "ASSOCIATIONS": {
-        "LABEL": "Add to the form the preferences associated to the selected processing (the preferences will be automatically added and you will be able to see them in the preview in the next step)"
+        "LABEL": "Add to the form the preferences associated to the selected processings (the preferences will be automatically added and you will be able to see them in the preview in the next step)"
       },
       "FOOTER_ON_TOP": {
         "LABEL": "Always display the submit form button"
@@ -693,7 +690,7 @@
         "DEFAULT": "Default theme"
       },
       "FORCE_DISPLAY": {
-        "LABEL": "Force display of all processing"
+        "LABEL": "Force display of all processings"
       },
       "EMAIL": {
         "LABEL": "Opt-out email"
@@ -736,8 +733,8 @@
     "GETTING_STARTED": {
       "TITLE": "Getting started",
       "DESCRIPTION": {
-        "configuration": "<div>The \"Configuration\" section allows you to parameterize elements which you will later use to create consent forms in the \"Integration\" section. You can configure the following elements:</div><ul><li>general information templates: these information are essential to create a consent form, as they include for instance your privacy policy and define the header and footer of your forms. Beware, in this Community version, you will only be able to have one general informations active template at any time. If you wish to learn more and switch to the Enterprise version, click on the button at the bottom of this page.</li><li>processing templates: processing constitute the foundations of a consent form within the meaning of the GDPR. In this section, you will be able to define processing, which you may then add to a form to ask your customers for their consent regarding those processing.</li><li>preferences templates: associated to processing or not, they allow you to ask your customers for they preferred contact channel for example, or the themes about which they would like to be regularly informed.</li><li>ToU templates: these elements are essential for the use of any service by your customers. You can browse here the various versions and push them to your customers through forms.</li><li>consent emails templates: these emails are sent (or not, depending on your use case) to your customers following their consent form submission, this will allow them to retrieve their receipt, to visualize their consent once more and to change it later.</li><li>themes templates: applied to forms, consent emails and receipts alike, they allow your to customize all these elements with your logo and your graphical charter.</li></ul>",
-        "integration": "<p>The integration section will allow you to:</p><ul><li>build your consent forms from the templates registered in the \"Configuration\" section and integrate them in your application/website thanks to different code examples (PHP, etc...).</li><li>manage the access keys to the API</li></ul><p>In this section, you will also find a module allowing you to make queries in the base of the collected consents.</p><p>There are two different actions: the collection of consent and then its exploitation afterwards.</p>"
+        "configuration": "<div>The \"Configuration\" section allows you to parameterize elements which you will later use to create consent forms in the \"Integration\" section. You can configure the following elements:</div><ul><li>general information templates: these information are essential to create a consent form, as they include for instance your privacy policy and define the header and footer of your forms. Beware, in this Community version, you will only be able to have one general informations active template at any time. If you wish to learn more and switch to the Enterprise version, click on the button at the bottom of this page.</li><li>processings templates: processings constitute the foundations of a consent form within the meaning of the GDPR. In this section, you will be able to define processings, which you may then add to a form to ask your customers for their consent regarding those processings.</li><li>preferences templates: associated to processings or not, they allow you to ask your customers for they preferred contact channel for example, or the themes about which they would like to be regularly informed.</li><li>terms and conditions templates: these elements are essential for the use of any service by your customers. You can browse here the various versions and push them to your customers through forms.</li><li>consent emails templates: these emails are sent (or not, depending on your use case) to your customers following their consent form submission, this will allow them to retrieve their receipt, to visualize their consent once more and to change it later.</li><li>themes templates: applied to forms, consent emails and receipts alike, they allow your to customize all these elements with your logo and your graphical charter.</li></ul>",
+        "integration": "<p>The integration section will allow you to:</p><ul><li>build your consent forms from the templates registered in the \"Configuration\" section and integrate them in your application/website thanks to different code examples (PHP, etc...).</li><li>manage the access keys to the API</li></ul><p>In this section, you will also find a module allowing you to make queries in the base of recorded data.</p><p>There are two different actions: the collection of consent and then its exploitation afterwards.</p>"
       },
       "MORE": "<p>You can find more information about our solution:</p><ul><li>the different use cases</li><li>the two versions of our product</li><li>the product roadmap</li><li>the complete documentation of the API</li></ul>",
       "MORE_BUTTON": "More..."
@@ -781,7 +778,7 @@
     }
   },
   "INTERROGATE": {
-    "TITLE": "Interrogate",
+    "TITLE": "Search",
     "ENTRY": "Entry",
     "VALUE": "Value",
     "NO_RESULTS": "No results",
@@ -803,7 +800,7 @@
       }
     },
     "CONDITIONS": {
-      "GROUP_TITLE": "ToU"
+      "GROUP_TITLE": "Terms and Conditions"
     }
   },
   "USER": {
@@ -826,11 +823,16 @@
   "DASHBOARD": {
     "CHARTS": {
       "MODELS": "Active models",
-      "RECORDS": "Collected consents",
-      "SUBJECTS": "Customers",
-      "TOP_TABLE": "Top processing",
-      "TOP_TABLE_SUBTITLE": "Top 3 of collected processing (left) and accepted processing (right)",
-      "NUMBERS": "Collects results"
+      "RECORDS": "Data recorded",
+      "SUBJECTS": "Total end-users",
+      "TOP_TABLE": "Top processings",
+      "TOP_TABLE_SUBTITLE": "Top 3 processings submitted (left) and accepted (right)",
+      "NUMBERS": "Collection results"
+    },
+    "ENTRY_TYPES": {
+      "PROCESSING": "Processings",
+      "PREFERENCE": "Preferences",
+      "CONDITIONS": "Terms and Conditions"
     },
     "TIME_SCALE": {
       "LABEL": "Time scale",
@@ -870,24 +872,24 @@
         "LABEL": "Rank"
       },
       "COLLECTED_KEY": {
-        "LABEL": "Collected processing top 3"
+        "LABEL": "Collected processings labels"
       },
       "COLLECTED_VALUE": {
-        "LABEL": "Collected processing number"
+        "LABEL": "Total submitted"
       },
       "ACCEPTED_KEY": {
-        "LABEL": "Accepted processing top 3"
+        "LABEL": "Accepted processings labels"
       },
       "ACCEPTED_VALUE": {
-        "LABEL": "Accepted processing number"
+        "LABEL": "Total accepted"
       }
     },
     "NUMBERS": {
-      "PROCESSING": "answers regarding processing",
-      "PREFERENCE": "answers regarding preferences",
-      "CONDITIONS": "answers regarding ToU",
-      "ALL": "answers in total",
-      "SUBJECT": "users known",
+      "PROCESSING": "processings records",
+      "PREFERENCE": "preferences records",
+      "CONDITIONS": "terms and conditions records",
+      "ALL": "total records",
+      "SUBJECT": "end-users",
       "COMPARISON": "this month"
     }
   }

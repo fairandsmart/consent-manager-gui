@@ -52,8 +52,8 @@
               <input matInput formControlName="company" autocomplete="off">
             </mat-form-field>
             <mat-form-field appearance="outline">
-              <mat-label>{{'ENTRIES.EDITOR.CONTENT.DATA_CONTROLLER.NAME.LABEL' | translate}}</mat-label>
-              <input matInput formControlName="name" autocomplete="off">
+              <mat-label>{{'ENTRIES.EDITOR.CONTENT.DATA_CONTROLLER.INFO.LABEL' | translate}}</mat-label>
+              <input matInput formControlName="info" autocomplete="off">
             </mat-form-field>
             <mat-form-field appearance="outline">
               <mat-label>{{'ENTRIES.EDITOR.CONTENT.DATA_CONTROLLER.ADDRESS.LABEL' | translate}}</mat-label>
@@ -67,7 +67,6 @@
               <mat-label>{{'ENTRIES.EDITOR.CONTENT.DATA_CONTROLLER.PHONE.LABEL' | translate}}</mat-label>
               <input type="tel" matInput formControlName="phoneNumber" autocomplete="off">
             </mat-form-field>
-            <mat-checkbox formControlName="actingBehalfCompany">{{'ENTRIES.EDITOR.CONTENT.DATA_CONTROLLER.ACTING_BEHALF_COMPANY.LABEL' | translate}}</mat-checkbox>
           </div>
           <mat-radio-group formControlName="showDataController">
             <mat-radio-button [value]="true">{{'ENTRIES.EDITOR.CONTENT.SHOW' | translate}}</mat-radio-button>
