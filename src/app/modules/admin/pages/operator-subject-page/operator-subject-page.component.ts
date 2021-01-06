@@ -5,8 +5,6 @@ import {
   ConsentContext,
   ConsentFormOrientation,
   ConsentFormType,
-  NotificationReportStatus,
-  NotificationReportType,
   OperatorLogElement,
   RecordsMap,
   SubjectDto
@@ -67,7 +65,7 @@ export class OperatorSubjectPageComponent implements OnInit {
       this.subject = subject;
       this.records = {};
       this.operatorLog = [];
-      this.reloadRecords([]);
+      this.reloadRecords();
     });
   }
 
@@ -90,18 +88,9 @@ export class OperatorSubjectPageComponent implements OnInit {
     return value !== undefined ? value.split(',').join(' ; ') : '-';
   }
 
-  reloadRecords(pendingNotificationKeys: string[]): void {
+  reloadRecords(): void {
     this.subjectsResource.listCustomerRecords(this.subject.name).subscribe((records) => {
       this.records = records;
-      pendingNotificationKeys.forEach(key => {
-        const recordIndex = this.records[key].length - 1;
-        if (this.records[key][recordIndex].notificationReports.length === 0) {
-          this.records[key][recordIndex].notificationReports.push({
-            type: NotificationReportType.EMAIL,
-            status: NotificationReportStatus.PENDING
-          });
-        }
-      });
       this.processingComponent.updateRecords(records);
       this.preferencesComponent.updateRecords(records);
       this.conditionsComponent.updateRecords(records);
@@ -154,12 +143,8 @@ export class OperatorSubjectPageComponent implements OnInit {
             return this.consentsResource.postConsent(values);
           })
         ).subscribe((receipt) => {
-          const pendingNotificationKeys = [];
-          if (result.model && result.recipient) {
-            this.operatorLog.forEach(element => pendingNotificationKeys.push(element.key));
-          }
           this.operatorLog = [];
-          this.reloadRecords(pendingNotificationKeys);
+          this.reloadRecords();
 
           if (this.subject.creationTimestamp <= 0) {
             this.subjectsResource.getSubject(this.subject.name).subscribe((subject) => this.subject = subject);

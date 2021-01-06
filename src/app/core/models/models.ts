@@ -322,22 +322,24 @@ export enum NotificationReportStatus {
   INVALID_RECIPIENT = 'INVALID_RECIPIENT',
   MAILBOX_FULL = 'MAILBOX_FULL',
   ERROR = 'ERROR',
-  PENDING = 'PENDING'
+  PENDING = 'PENDING',
+  NONE = 'NONE'
 }
 
 export enum NotificationReportType {
   SMS = 'SMS',
   EMAIL = 'EMAIL',
   FCM = 'FCM',
-  XMPP = 'XMPP'
+  XMPP = 'XMPP',
+  NONE = 'NONE'
 }
 
 export interface NotificationReport {
-  transaction?: string;
-  creationTimestamp?: number;
+  transaction: string;
+  creationTimestamp: number;
   status: NotificationReportStatus;
   type: NotificationReportType;
-  explanation?: string;
+  explanation: string;
 }
 
 /* Records */

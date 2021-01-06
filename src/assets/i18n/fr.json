@@ -567,7 +567,8 @@
           "SMS": "SMS",
           "EMAIL": "Email",
           "FCM": "FCM",
-          "XMPP": "XMPP"
+          "XMPP": "XMPP",
+          "NONE": "Aucune"
         },
         "STATUS": {
           "SENT": "Envoyé",
