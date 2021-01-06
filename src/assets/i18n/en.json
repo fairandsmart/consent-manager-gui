@@ -14,7 +14,7 @@
         "INFO": "Basic Information",
         "PROCESSING": "Processing",
         "PREFERENCES": "Preferences",
-        "CONDITIONS": "EULA",
+        "CONDITIONS": "ToU",
         "EMAILS": "Emails",
         "THEMES": "Themes"
       },
@@ -44,7 +44,7 @@
       "BASICINFO": "Basic Info",
       "PROCESSING": "Processing",
       "PREFERENCE": "Preference",
-      "CONDITIONS": "EULA",
+      "CONDITIONS": "ToU",
       "THEME": "Theme",
       "EMAIL": "Email"
     },
@@ -122,9 +122,9 @@
       "EMPTY": "First, add a preference..."
     },
     "conditions": {
-      "PANEL_TITLE": "EULA library",
-      "PANEL_DESCRIPTION_HTML": "<div>Here are the EULA you created.</div><div>This is meant to ask your users for their consent.</div><div>You can create more at any time by clicking on \"+\".</div>",
-      "EMPTY": "First, add a EULA model..."
+      "PANEL_TITLE": "ToU library",
+      "PANEL_DESCRIPTION_HTML": "<div>Here are the ToU you created.</div><div>This is meant to ask your users for their consent.</div><div>You can create more at any time by clicking on \"+\".</div>",
+      "EMPTY": "First, add a ToU model..."
     },
     "themes": {
       "PANEL_TITLE": "Themes library",
@@ -143,7 +143,7 @@
       "basicinfo": "New Basic Info",
       "processing": "New processing",
       "preference": "New preference",
-      "conditions": "New EULA",
+      "conditions": "New ToU",
       "theme": "New theme",
       "email": "New email",
       "MULTIPLE": "Add..."
@@ -191,7 +191,7 @@
         "basicinfo": "New basic info",
         "processing": "New processing",
         "preference": "New preference",
-        "consitions": "New EULA",
+        "consitions": "New ToU",
         "theme": "New theme",
         "email": "New email"
       },
@@ -199,7 +199,7 @@
         "basicinfo": "Update basic info",
         "processing": "Update processing",
         "preference": "Update preference",
-        "conditions": "Update EULA",
+        "conditions": "Update ToU",
         "theme": "Update theme",
         "email": "Update email"
       }
@@ -222,7 +222,7 @@
           "BASICINFO": "Basic Info content",
           "PROCESSING": "Processing content",
           "PREFERENCE": "Preference content",
-          "CONDITIONS": "EULA content",
+          "CONDITIONS": "ToU content",
           "THEME": "Theme content",
           "EMAIL": "Email content"
         },
@@ -398,10 +398,10 @@
           "BUTTONS": "Buttons"
         },
         "TITLE": {
-          "LABEL": "EULA label"
+          "LABEL": "ToU label"
         },
         "BODY": {
-          "LABEL": "EULA",
+          "LABEL": "ToU",
           "HINT": "Write your custom HTML or drop a HTML file",
           "AUTOCOMPLETE": "(toggle auto-completion with CTRL+E or CMD+E)"
         },
@@ -590,7 +590,7 @@
       "SUBTITLES": {
         "processing": "Consents of ",
         "preference": "Preferences of ",
-        "conditions": "End user license agreements of "
+        "conditions": "Terms of use of "
       },
       "SUBJECT": {
         "NEW_SUBJECT": "This user does not exist. If you save changes on this page, they will be created.",
@@ -734,7 +734,7 @@
     "GETTING_STARTED": {
       "TITLE": "Getting started",
       "DESCRIPTION": {
-        "configuration": "<div>The \"Configuration\" section allows you to parameterize elements which you will later use to create consent forms in the \"Integration\" section. You can configure the following elements:</div><ul><li>general information templates: these information are essential to create a consent form, as they include for instance your privacy policy and define the header and footer of your forms. Beware, in this Community version, you will only be able to have one general informations active template at any time. If you wish to learn more and switch to the Enterprise version, click on the button at the bottom of this page.</li><li>processing templates: processing constitute the foundations of a consent form within the meaning of the GDPR. In this section, you will be able to define processing, which you may then add to a form to ask your customers for their consent regarding those processing.</li><li>preferences templates: associated to processing or not, they allow you to ask your customers for they preferred contact channel for example, or the themes about which they would like to be regularly informed.</li><li>EULA templates: these elements are essential for the use of any service by your customers. You can browse here the various versions and push them to your customers through forms.</li><li>consent emails templates: these emails are sent (or not, depending on your use case) to your customers following their consent form submission, this will allow them to retrieve their receipt, to visualize their consent once more and to change it later.</li><li>themes templates: applied to forms, consent emails and receipts alike, they allow your to customize all these elements with your logo and your graphical charter.</li></ul>",
+        "configuration": "<div>The \"Configuration\" section allows you to parameterize elements which you will later use to create consent forms in the \"Integration\" section. You can configure the following elements:</div><ul><li>general information templates: these information are essential to create a consent form, as they include for instance your privacy policy and define the header and footer of your forms. Beware, in this Community version, you will only be able to have one general informations active template at any time. If you wish to learn more and switch to the Enterprise version, click on the button at the bottom of this page.</li><li>processing templates: processing constitute the foundations of a consent form within the meaning of the GDPR. In this section, you will be able to define processing, which you may then add to a form to ask your customers for their consent regarding those processing.</li><li>preferences templates: associated to processing or not, they allow you to ask your customers for they preferred contact channel for example, or the themes about which they would like to be regularly informed.</li><li>ToU templates: these elements are essential for the use of any service by your customers. You can browse here the various versions and push them to your customers through forms.</li><li>consent emails templates: these emails are sent (or not, depending on your use case) to your customers following their consent form submission, this will allow them to retrieve their receipt, to visualize their consent once more and to change it later.</li><li>themes templates: applied to forms, consent emails and receipts alike, they allow your to customize all these elements with your logo and your graphical charter.</li></ul>",
         "integration": "<p>The integration section will allow you to:</p><ul><li>build your consent forms from the templates registered in the \"Configuration\" section and integrate them in your application/website thanks to different code examples (PHP, etc...).</li><li>manage the access keys to the API</li></ul><p>In this section, you will also find a module allowing you to make queries in the base of the collected consents.</p><p>There are two different actions: the collection of consent and then its exploitation afterwards.</p>"
       },
       "MORE": "<p>You can find more information about our solution:</p><ul><li>the different use cases</li><li>the two versions of our product</li><li>the product roadmap</li><li>the complete documentation of the API</li></ul>",
@@ -801,7 +801,7 @@
       }
     },
     "CONDITIONS": {
-      "GROUP_TITLE": "EULAs"
+      "GROUP_TITLE": "ToU"
     }
   },
   "USER": {
@@ -883,7 +883,7 @@
     "NUMBERS": {
       "PROCESSING": "answers regarding processing",
       "PREFERENCE": "answers regarding preferences",
-      "CONDITIONS": "answers regarding EULA",
+      "CONDITIONS": "answers regarding ToU",
       "ALL": "answers in total",
       "SUBJECT": "users known",
       "COMPARISON": "this month"
