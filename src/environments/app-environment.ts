@@ -4,6 +4,7 @@ export interface AppEnvironment {
   authRealm: string;
   authClientId: string;
   managerUrl: string;
+  managerPrivateUrl: string; // used by code snippets if they run on a specific private network
   customization: AppCustomization;
 }
 

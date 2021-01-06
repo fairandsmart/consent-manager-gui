@@ -10,6 +10,7 @@ export const environment: AppEnvironment = {
   authRealm: 'FairAndSmart',
   authClientId: 'consent-manager-gui',
   managerUrl: 'http://localhost:8087',
+  managerPrivateUrl: 'http://localhost:8087',
   customization: {
     headerLogoUrl: 'https://assets.fairandsmart.tech/logo_fs_tagline.png',
     headerLogoStyle: 'height: 59px;',

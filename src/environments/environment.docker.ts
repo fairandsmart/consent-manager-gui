@@ -6,6 +6,7 @@ export const environment: AppEnvironment = {
   authRealm: 'PUT_AUTH_REALM_HERE',
   authClientId: 'PUT_AUTH_CLIENTID_HERE',
   managerUrl: 'PUT_MANAGER_URI_HERE',
+  managerPrivateUrl: 'PUT_MANAGER_PRIVATE_URI_HERE',
   customization: {
     headerLogoUrl: 'PUT_HEADER_LOGO_URI_HERE',
     headerLogoStyle: 'PUT_HEADER_LOGO_STYLE_HERE',
