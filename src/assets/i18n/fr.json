@@ -651,6 +651,7 @@
           "HORIZONTAL": "Horizontale"
         }
       },
+      "DISPLAY_VALIDITY": "Afficher la date de validité du reçu à l'utilisateur final",
       "VALIDITY": {
         "LABEL": "Durée de validité"
       },

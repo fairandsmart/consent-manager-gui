@@ -651,6 +651,7 @@
           "HORIZONTAL": "Horizontal"
         }
       },
+      "DISPLAY_VALIDITY": "Display the expiration date to the final user",
       "VALIDITY": {
         "LABEL": "Validity"
       },
