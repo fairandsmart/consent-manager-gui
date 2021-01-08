@@ -102,8 +102,8 @@ export class FormCreatorComponent implements OnInit {
     {
       id: 'themes',
       types: ['theme'],
-      multiple: environment.customization.multipleThemes,
-      showSort: environment.customization.multipleThemes,
+      multiple: false,
+      showSort: true,
       icon: Icons.theme,
       displayDescription: false
     }
@@ -205,8 +205,8 @@ export class FormCreatorComponent implements OnInit {
         receiptDeliveryType: ['DISPLAY', [Validators.required]],
         receiptDisplayType: ['HTML', [Validators.required]],
         notify: [true],
-        notificationModel: ['', [Validators.pattern(FIELD_VALIDATORS.key.pattern)]],
-        notificationRecipient: ['', [Validators.required]]
+        notificationModel: ['', [Validators.required, Validators.pattern(FIELD_VALIDATORS.key.pattern)]],
+        notificationRecipient: ['', [Validators.required, Validators.email]]
       })
     ]);
     merge(
@@ -226,12 +226,18 @@ export class FormCreatorComponent implements OnInit {
     });
     this.form.at(FORM_CREATOR_STEP.OPTIONS).get('notify').valueChanges.subscribe((notify: boolean) => {
       if (notify) {
-        this.form.at(FORM_CREATOR_STEP.OPTIONS).get('notificationRecipient').setValidators([Validators.required, Validators.email]);
+        this.form.at(FORM_CREATOR_STEP.OPTIONS).get('notificationModel')
+          .setValidators([Validators.required, Validators.pattern(FIELD_VALIDATORS.key.pattern)]);
+        this.form.at(FORM_CREATOR_STEP.OPTIONS).get('notificationRecipient')
+          .setValidators([Validators.required, Validators.email]);
       } else {
+        this.form.at(FORM_CREATOR_STEP.OPTIONS).get('notificationModel').clearValidators();
         this.form.at(FORM_CREATOR_STEP.OPTIONS).get('notificationRecipient').clearValidators();
         this.setSelectedEmail({emails: []});
         this.form.at(FORM_CREATOR_STEP.OPTIONS).get('notificationRecipient').setValue('');
       }
+      this.form.at(FORM_CREATOR_STEP.OPTIONS).get('notificationModel').updateValueAndValidity();
+      this.form.at(FORM_CREATOR_STEP.OPTIONS).get('notificationRecipient').updateValueAndValidity();
     });
   }
 

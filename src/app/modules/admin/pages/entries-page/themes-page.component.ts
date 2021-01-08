@@ -16,8 +16,8 @@ export class ThemesPageComponent {
     {
       id: 'themes',
       types: ['theme'],
-      multiple: environment.customization.multipleThemes,
-      showSort: environment.customization.multipleThemes,
+      multiple: true,
+      showSort: true,
       icon: Icons.theme,
       displayDescription: true
     }

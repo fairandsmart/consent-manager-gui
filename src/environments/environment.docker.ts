@@ -11,7 +11,6 @@ export const environment: AppEnvironment = {
     headerLogoUrl: 'PUT_HEADER_LOGO_URI_HERE',
     headerLogoStyle: 'PUT_HEADER_LOGO_STYLE_HERE',
     multipleInfo: 'PUT_MULTIPLE_HEADER_HERE' as any,
-    multipleThemes: 'PUT_MULTIPLE_THEMES_HERE' as any,
     defaultLanguage: 'PUT_DEFAULT_LANGUAGE_HERE'
   }
 };

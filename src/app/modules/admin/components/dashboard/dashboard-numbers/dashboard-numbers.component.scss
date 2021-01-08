@@ -34,18 +34,22 @@ mat-card {
 
     mat-card-content {
       padding: 0;
-      /*flex: 1 1 100%;*/
       font-weight: bold;
       text-align: left;
       display: flex;
       align-items: center;
-      font-size: large;
+      font-size: medium;
       margin-bottom: 0;
     }
 
+    .main-icon {
+      font-size: 32px;
+      width: 32px;
+      height: 32px;
+    }
+
     .value {
-      font-size: xx-large;
-      margin-right: 4px;
+      font-size: x-large;
     }
 
     .evolution-wrapper {

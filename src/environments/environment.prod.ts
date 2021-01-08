@@ -11,7 +11,6 @@ export const environment: AppEnvironment = {
     headerLogoUrl: 'https://assets.fairandsmart.tech/logo_fs_tagline.png',
     headerLogoStyle: 'height: 59px;',
     multipleInfo: false,
-    multipleThemes: false,
     defaultLanguage: 'fr'
   }
 };

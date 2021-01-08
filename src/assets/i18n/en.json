@@ -128,7 +128,7 @@
     },
     "themes": {
       "PANEL_TITLE": "Themes library",
-      "PANEL_DESCRIPTION_HTML": "<div>Here are the themes you created.</div><div>This is meant to define the styles of your forms.</div><div>You can only create one theme entry.</div>",
+      "PANEL_DESCRIPTION_HTML": "<div>Here are the themes you created.</div><div>This is meant to define the styles of your forms.</div><div>You can create more at any time by clicking on \"+\".</div>",
       "EMPTY": "First, add a theme..."
     },
     "emails": {
@@ -683,7 +683,8 @@
         "NOTIFY_CHECKBOX_LABEL": "I would like to notify the user by email following the submission of the form",
         "LABEL": "Email recipient",
         "REQUIRED": "Please specify the email address",
-        "EMAIL_INVALID": "Please specify a valid email address"
+        "EMAIL_INVALID": "Please specify a valid email address",
+        "MODEL_REQUIRED": "Please select an email model"
       },
       "THEME": {
         "LABEL": "Theme (optional)",
@@ -885,11 +886,26 @@
       }
     },
     "NUMBERS": {
-      "PROCESSING": "processings records",
-      "PREFERENCE": "preferences records",
-      "CONDITIONS": "terms and conditions records",
-      "ALL": "total records",
-      "SUBJECT": "end-users",
+      "PROCESSING": {
+        "SINGULAR": "processing record",
+        "PLURAL": "processings records"
+      },
+      "PREFERENCE": {
+        "SINGULAR": "preference record",
+        "PLURAL": "preferences records"
+      },
+      "CONDITIONS": {
+        "SINGULAR": "terms and conditions record",
+        "PLURAL": "terms and conditions records"
+      },
+      "ALL": {
+        "SINGULAR": "total record",
+        "PLURAL": "total records"
+      },
+      "SUBJECT": {
+        "SINGULAR": "end-user",
+        "PLURAL": "end-users"
+      },
       "COMPARISON": "this month"
     }
   }

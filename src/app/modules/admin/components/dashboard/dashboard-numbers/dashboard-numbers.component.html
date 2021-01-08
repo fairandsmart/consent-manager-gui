@@ -4,10 +4,10 @@
     <div class="metrics-cards">
       <mat-card *ngFor="let stat of numberStats" class="metrics" [style]="'background-color: ' + stat.color">
         <mat-card-content>
-          <mat-icon *ngIf="stat.icon" class="mat-icon-2x">{{stat.icon}}</mat-icon>
+          <mat-icon *ngIf="stat.icon" class="mat-icon main-icon">{{stat.icon}}</mat-icon>
           <div>
             <span class="value">{{stat.value}}</span>
-            {{'DASHBOARD.NUMBERS.' + stat.name | translate}}
+            {{'DASHBOARD.NUMBERS.' + stat.name + (stat.value > 1 ? '.PLURAL' : '.SINGULAR') | translate}}
           </div>
         </mat-card-content>
         <div class="evolution-wrapper">
