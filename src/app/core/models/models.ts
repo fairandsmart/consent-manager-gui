@@ -281,6 +281,7 @@ export interface ConsentContext {
   iframe: boolean;
   theme?: string;
   showAcceptAll?: boolean;
+  showValidity?: boolean;
   acceptAllText?: string;
   footerOnTop?: boolean;
 }

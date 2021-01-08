@@ -20,6 +20,7 @@
         <version.maven-enforcer-plugin>3.0.0-M3</version.maven-enforcer-plugin>
         <version.maven-exec-plugin>3.0.0</version.maven-exec-plugin>
         <version.maven-install-plugin>3.0.0-M1</version.maven-install-plugin>
+        <version.maven-license-plugin>2.0.0</version.maven-license-plugin>
         <version.maven-site-plugin>3.9.1</version.maven-site-plugin>
         <version.node>v12.13.0</version.node>
         <version.npm>6.12.0</version.npm>
@@ -150,6 +151,52 @@
                 </executions>
             </plugin>
             <plugin>
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>license-maven-plugin</artifactId>
+                <version>${version.maven-license-plugin}</version>
+                <configuration>
+                    <copyrightOwners>Fair And Smart</copyrightOwners>
+                    <!-- set to true to force description update-->
+                    <canUpdateDescription>false</canUpdateDescription>
+                    <!-- set to true to force copyright update-->
+                    <canUpdateCopyright>false</canUpdateCopyright>
+                    <licenseName>fairandsmart</licenseName>
+                    <licenseResolver>${project.baseUri}/src/licenses</licenseResolver>
+                    <descriptionTemplate>${basedir}/src/licenses/fairandsmart/descriptionTemplate.ftl</descriptionTemplate>
+                    <encoding>UTF-8</encoding>
+                    <offline>true</offline>
+                    <excludes>
+                        <exclude>licenses/**</exclude>
+                    </excludes>
+                </configuration>
+                <executions>
+                    <execution>
+                        <id>update-file-header</id>
+                        <goals>
+                            <goal>update-file-header</goal>
+                        </goals>
+                    </execution>
+                    <execution>
+                        <id>download-licenses</id>
+                        <goals>
+                            <goal>download-licenses</goal>
+                        </goals>
+                    </execution>
+                    <execution>
+                        <id>update-project-license</id>
+                        <goals>
+                            <goal>update-project-license</goal>
+                        </goals>
+                    </execution>
+                    <execution>
+                        <id>add-third-party</id>
+                        <goals>
+                            <goal>add-third-party</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+            <plugin>
                 <artifactId>maven-assembly-plugin</artifactId>
                 <version>${version.maven-assembly-plugin}</version>
                 <executions>
@@ -170,10 +217,110 @@
             </plugin>
         </plugins>
     </build>
+    <organization>
+        <name>Fair And Smart</name>
+        <url>https://fairandsmart.io/facogen/team-list.html</url>
+    </organization>
+    <licenses>
+        <license>
+            <name>GPL (GNU General Public License) version 3</name>
+            <url>https://www.gnu.org/licenses/gpl-3.0.txt</url>
+            <distribution>repo</distribution>
+        </license>
+    </licenses>
+    <developers>
+        <developer>
+            <id>xlefevbre</id>
+            <name>Xavier Lefevre</name>
+            <email>xavier.lefevre@fairandsmart.com</email>
+            <organization>Fair And Smart</organization>
+            <organizationUrl>https://www.fairandsmart.com</organizationUrl>
+            <roles>
+                <role>manager</role>
+            </roles>
+            <timezone>+1</timezone>
+        </developer>
+        <developer>
+            <id>abalbo</id>
+            <name>Alan Balbo</name>
+            <email>alan.balbo@fairandsmart.com</email>
+            <organization>Fair And Smart</organization>
+            <organizationUrl>https://www.fairandsmart.com</organizationUrl>
+            <roles>
+                <role>developer</role>
+            </roles>
+            <timezone>+1</timezone>
+        </developer>
+        <developer>
+            <id>nrueff</id>
+            <name>Nicolas Rueff</name>
+            <email>nicolas.rueff@fairandsmart.com</email>
+            <organization>Fair And Smart</organization>
+            <organizationUrl>https://www.fairandsmart.com</organizationUrl>
+            <roles>
+                <role>developer</role>
+            </roles>
+            <timezone>+1</timezone>
+        </developer>
+        <developer>
+            <id>fpierre</id>
+            <name>Frederic Pierre</name>
+            <email>frederic.pierre@fairandsmart.com</email>
+            <organization>Fair And Smart</organization>
+            <organizationUrl>https://www.fairandsmart.com</organizationUrl>
+            <roles>
+                <role>developer</role>
+            </roles>
+            <timezone>+1</timezone>
+        </developer>
+        <developer>
+            <id>vguillaume</id>
+            <name>Victor Guillaume</name>
+            <email>victor.guillaume@fairandsmart.com</email>
+            <organization>Fair And Smart</organization>
+            <organizationUrl>https://www.fairandsmart.com</organizationUrl>
+            <roles>
+                <role>developer</role>
+            </roles>
+            <timezone>+1</timezone>
+        </developer>
+        <developer>
+            <id>jblanchard</id>
+            <name>Jerome Blanchard</name>
+            <email>jerome.blanchard@fairandsmart.com</email>
+            <organization>Fair And Smart</organization>
+            <organizationUrl>https://www.fairandsmart.com</organizationUrl>
+            <roles>
+                <role>developer</role>
+            </roles>
+            <timezone>+1</timezone>
+        </developer>
+        <developer>
+            <id>mstremplewski</id>
+            <name>Manon Stremplewski</name>
+            <email>manon.stremplewski@fairandsmart.com</email>
+            <organization>Fair And Smart</organization>
+            <organizationUrl>https://www.fairandsmart.com</organizationUrl>
+            <roles>
+                <role>developer</role>
+            </roles>
+            <timezone>+1</timezone>
+        </developer>
+        <developer>
+            <id>pkullmann</id>
+            <name>Pauline Kullmann</name>
+            <email>pauline.kullmann@fairandsmart.com</email>
+            <organization>Fair And Smart</organization>
+            <organizationUrl>https://www.fairandsmart.com</organizationUrl>
+            <roles>
+                <role>developer</role>
+            </roles>
+            <timezone>+1</timezone>
+        </developer>
+    </developers>
     <scm>
         <connection>scm:git:ssh://git@gitlab.fairandsmart.tech:10022/fairandsmart/${project.artifactId}</connection>
-        <developerConnection>scm:git:ssh://git@gitlab.fairandsmart.tech:10022/fairandsmart/${project.artifactId}
-        </developerConnection>
+        <developerConnection>scm:git:ssh://git@gitlab.fairandsmart.tech:10022/fairandsmart/${project.artifactId}</developerConnection>
         <url>https://gitlab.fairandsmart.tech/fairandsmart/${project.artifactId}</url>
     </scm>
     <distributionManagement>
@@ -208,10 +355,10 @@
                         <executions>
                             <execution>
                                 <id>docker-clean</id>
-                                <phase>clean</phase>
                                 <goals>
                                     <goal>exec</goal>
                                 </goals>
+                                <phase>clean</phase>
                                 <configuration>
                                     <executable>docker</executable>
                                     <workingDirectory>${project.basedir}</workingDirectory>
@@ -225,10 +372,10 @@
                             </execution>
                             <execution>
                                 <id>docker-build</id>
-                                <phase>install</phase>
                                 <goals>
                                     <goal>exec</goal>
                                 </goals>
+                                <phase>install</phase>
                                 <configuration>
                                     <executable>docker</executable>
                                     <workingDirectory>${project.basedir}</workingDirectory>
