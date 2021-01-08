@@ -231,14 +231,11 @@
         "DATA_CONTROLLER": {
           "TITLE": "Responsable de traitement",
           "SUBTITLE_OPTIONAL": "(si différent de celui indiqué dans les informations générales)",
-          "ACTING_BEHALF_COMPANY": {
-            "LABEL": "Ce responsable agit au nom de l'entreprise"
-          },
           "COMPANY": {
             "LABEL": "Entreprise"
           },
-          "NAME": {
-            "LABEL": "Nom"
+          "INFO": {
+            "LABEL": "Complément d'information"
           },
           "ADDRESS": {
             "LABEL": "Adresse"
@@ -687,7 +684,8 @@
         "NOTIFY_CHECKBOX_LABEL": "Je souhaite notifier l'utilisateur par email suite à la soumission du formulaire",
         "LABEL": "Destinataire de l'email",
         "REQUIRED": "Vous devez préciser le destinataire",
-        "EMAIL_INVALID": "Vous devez préciser une adresse email valide"
+        "EMAIL_INVALID": "Vous devez préciser une adresse email valide",
+        "MODEL_REQUIRED": "Vous devez sélectionner un modèle d'email"
       },
       "THEME": {
         "LABEL": "Thème (facultatif)",
@@ -827,11 +825,16 @@
   "DASHBOARD": {
     "CHARTS": {
       "MODELS": "Modèles actifs",
-      "RECORDS": "Consentements collectés",
+      "RECORDS": "Données enregistrées",
       "SUBJECTS": "Clients",
       "TOP_TABLE": "Top des traitements",
       "TOP_TABLE_SUBTITLE": "Top 3 des traitements collectés (gauche) et des traitements acceptés (droite)",
-      "NUMBERS": "Résultats des collectes"
+      "NUMBERS": "Résultats de la collecte"
+    },
+    "ENTRY_TYPES": {
+      "PROCESSING": "Traitements",
+      "PREFERENCE": "Préférences",
+      "CONDITIONS": "CGU/CGS"
     },
     "TIME_SCALE": {
       "LABEL": "Echelle de temps",
@@ -874,21 +877,36 @@
         "LABEL": "Traitements collectés"
       },
       "COLLECTED_VALUE": {
-        "LABEL": "Quantité (collecte)"
+        "LABEL": "Total soumis"
       },
       "ACCEPTED_KEY": {
         "LABEL": "Traitements acceptés"
       },
       "ACCEPTED_VALUE": {
-        "LABEL": "Quantité (acceptation)"
+        "LABEL": "Total accepté"
       }
     },
     "NUMBERS": {
-      "PROCESSING": "réponses pour des traitements",
-      "PREFERENCE": "réponses pour des préférences",
-      "CONDITIONS": "réponses pour des CGU",
-      "ALL": "réponses au total",
-      "SUBJECT": "utilisateurs connus",
+      "PROCESSING": {
+        "SINGULAR": "réponse pour des traitements",
+        "PLURAL": "réponses pour des traitements"
+      },
+      "PREFERENCE": {
+        "SINGULAR": "réponse pour des préférences",
+        "PLURAL": "réponses pour des préférences"
+      },
+      "CONDITIONS": {
+        "SINGULAR": "réponse pour des CGU",
+        "PLURAL": "réponses pour des CGU"
+      },
+      "ALL": {
+        "SINGULAR": "réponse au total",
+        "PLURAL": "réponses au total"
+      },
+      "SUBJECT": {
+        "SINGULAR": "utilisateur connu",
+        "PLURAL": "utilisateurs connus"
+      },
       "COMPARISON": "ce mois-ci"
     }
   }

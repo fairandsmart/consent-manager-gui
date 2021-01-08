@@ -42,9 +42,8 @@ export class BasicinfoComponent extends EntryContentDirective<BasicInfo> impleme
       collectionMethod: [''],
       showCollectionMethod: [{value: false, disabled: true}],
       dataController: this.fb.group({
-        actingBehalfCompany: [false],
         company: [''],
-        name: [''],
+        info: [''],
         address: [''],
         email: ['', [Validators.email]],
         phoneNumber: ['', Validators.pattern(FIELD_VALIDATORS.phone.pattern)]
@@ -89,7 +88,7 @@ export class BasicinfoComponent extends EntryContentDirective<BasicInfo> impleme
 
   private isDataControllerEmpty(dataController: Controller): boolean {
     if (this.form.contains('dataController')) {
-      return !['company', 'name', 'address', 'email', 'phoneNumber']
+      return !['company', 'info', 'address', 'email', 'phoneNumber']
         .some(k => dataController[k] != null && dataController[k].length > 0);
     }
     return true;

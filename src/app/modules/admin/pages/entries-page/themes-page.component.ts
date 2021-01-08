@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { SectionConfig } from '../../components/entries/entries-library/entries-library.component';
 import { Icons } from '../../../../core/models/models';
+import { environment } from '../../../../../environments/environment';
 
 @Component({
   selector: 'cm-themes-page',

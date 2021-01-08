@@ -98,6 +98,9 @@
                   {{'FORM_CREATOR.FORM.NOTIFICATION_RECIPIENT.EMAIL_INVALID' | translate }}
                 </mat-error>
               </mat-form-field>
+              <mat-error *ngIf="form.at(STEPS.OPTIONS).get('notify').value && form.hasError('required', [STEPS.OPTIONS, 'notificationModel'])">
+                {{'FORM_CREATOR.FORM.NOTIFICATION_RECIPIENT.MODEL_REQUIRED' | translate }}
+              </mat-error>
             </mat-card-content>
           </mat-card>
           <div class="step-actions">
