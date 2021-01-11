@@ -158,18 +158,29 @@
                     <copyrightOwners>Fair And Smart</copyrightOwners>
                     <!-- set to true to force description update-->
                     <canUpdateDescription>false</canUpdateDescription>
-                    <!-- set to true to force copyright update-->
+                    <!-- set to true to force copyright update -->
                     <canUpdateCopyright>false</canUpdateCopyright>
                     <licenseName>fairandsmart</licenseName>
                     <licenseResolver>${project.baseUri}/src/licenses</licenseResolver>
                     <descriptionTemplate>${basedir}/src/licenses/fairandsmart/descriptionTemplate.ftl</descriptionTemplate>
                     <encoding>UTF-8</encoding>
-                    <offline>true</offline>
                     <excludes>
+                        <!-- else a little bit overkill -->
+                        <exclude>environments/**</exclude>
                         <exclude>licenses/**</exclude>
+                        <exclude>**.ts</exclude>
                     </excludes>
+                    <offline>true</offline>
                 </configuration>
                 <executions>
+                    <execution>
+                        <id>check-file-header</id>
+                        <goals>
+                            <goal>check-file-header</goal>
+                        </goals>
+                        <phase>validate</phase>
+                    </execution>
+                    <!-- disabled by default ; run with mvn licence:update-file-header -->
                     <execution>
                         <id>update-file-header</id>
                         <goals>
