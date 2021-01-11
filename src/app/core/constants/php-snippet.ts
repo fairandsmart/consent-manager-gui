@@ -72,8 +72,9 @@ function getFormUrl()
 <body>
 <h2 style="text-align: center">Right Consents iFrame Integration Test</h2>
 <div style="text-align: center;">
-    <iframe src="<?php echo getFormUrl() ?>" width="700" height="850" title="iframe"></iframe>
+    <iframe src="<?php echo getFormUrl() ?>" id="content" frameborder="0" style="width:100%; height:100vh;"></iframe>
 </div>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/iframe-resizer/4.2.11/iframeResizer.js" onload="iFrameResize({log: true}, '#content');"></script>
 </body>
 </html>`;
 
