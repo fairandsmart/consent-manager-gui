@@ -37,10 +37,6 @@ export class BasicinfoComponent extends EntryContentDirective<BasicInfo> impleme
       title: ['', [Validators.required]],
       header: [''],
       footer: [''],
-      jurisdiction: [''],
-      showJurisdiction: [{value: false, disabled: true}],
-      collectionMethod: [''],
-      showCollectionMethod: [{value: false, disabled: true}],
       dataController: this.fb.group({
         company: [''],
         info: [''],
@@ -49,6 +45,10 @@ export class BasicinfoComponent extends EntryContentDirective<BasicInfo> impleme
         phoneNumber: ['', Validators.pattern(FIELD_VALIDATORS.phone.pattern)]
       }),
       showDataController: [{value: false, disabled: true}],
+      jurisdiction: [''],
+      showJurisdiction: [{value: false, disabled: true}],
+      collectionMethod: [''],
+      showCollectionMethod: [{value: false, disabled: true}],
       scope: [''],
       showScope: [{value: false, disabled: true}],
       shortNoticeLink: [''],

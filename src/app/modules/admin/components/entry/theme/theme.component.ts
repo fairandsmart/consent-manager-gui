@@ -143,7 +143,7 @@ export class ThemeComponent extends EntryContentDirective<Theme> implements OnIn
       logoPath: [''],
       logoAltText: [''],
       logoPosition: [LogoPosition.CENTER],
-      css: ['', [Validators.required]]
+      css: ['']
     });
     this.checkFormState();
   }

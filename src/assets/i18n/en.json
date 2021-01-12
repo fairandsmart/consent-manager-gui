@@ -250,8 +250,8 @@
       },
       "BASICINFO": {
         "SUBTITLES": {
-          "TEXT": "Title, body and footer",
-          "LAW": "Legal information",
+          "TEXT": "Title, header and footer",
+          "ADDITIONAL": "Additional information",
           "POLICY": "Privacy policy"
         },
         "TITLE": {
@@ -291,7 +291,7 @@
           "DATA": "Processed data",
           "RETENTION": "Data retention period",
           "USAGE": "Purpose",
-          "LAW": "Legal information",
+          "ADDITIONAL": "Additional information",
           "ASSOCIATIONS": "Associated preferences"
         },
         "TITLE": {
@@ -592,7 +592,7 @@
         "conditions": "Terms of use of "
       },
       "SUBJECT": {
-        "NEW_SUBJECT": "This user does not exist. If you save changes on this page, they will be created.",
+        "NEW_SUBJECT": "This user does not exist, but will be created if you save changes on this page.",
         "ACTIVE_SINCE": "Active since",
         "NO_EMAIL": "No known email address",
         "EDITOR": {

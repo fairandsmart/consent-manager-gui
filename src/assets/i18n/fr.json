@@ -250,8 +250,8 @@
       },
       "BASICINFO": {
         "SUBTITLES": {
-          "TEXT": "Titre, corps et pied de page",
-          "LAW": "Informations juridiques",
+          "TEXT": "Titre, en-tête et pied de page",
+          "ADDITIONAL": "Informations additionnelles",
           "POLICY": "Politique de confidentialité"
         },
         "TITLE": {
@@ -291,7 +291,7 @@
           "DATA": "Données traitées",
           "RETENTION": "Durée de conservation des données",
           "USAGE": "Finalité du traitement",
-          "LAW": "Informations juridiques",
+          "ADDITIONAL": "Informations additionnelles",
           "ASSOCIATIONS": "Préférences associées"
         },
         "TITLE": {
@@ -592,7 +592,7 @@
         "conditions": "Conditions générales de "
       },
       "SUBJECT": {
-        "NEW_SUBJECT": "Cet utilisateur n'existe pas. Si vous enregistrez des modifications sur cette page, il sera créé.",
+        "NEW_SUBJECT": "Cet utilisateur n'existe pas, mais il sera créé si vous enregistrez des modifications sur cette page.",
         "ACTIVE_SINCE": "Actif depuis le",
         "NO_EMAIL": "Pas d'adresse email connue",
         "EDITOR": {
