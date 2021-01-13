@@ -169,7 +169,6 @@ export interface Processing extends ModelData {
 }
 
 export enum PreferenceValueType {
-  NONE = 'NONE',
   TOGGLE = 'TOGGLE',
   CHECKBOXES = 'CHECKBOXES',
   RADIO_BUTTONS = 'RADIO_BUTTONS',

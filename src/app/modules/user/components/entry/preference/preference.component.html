@@ -5,7 +5,7 @@
   </div>
   <div class="model-action" *ngIf="control">
 
-    <form *ngIf="getData()?.valueType !== TYPES.NONE" class="answer-container">
+    <form *ngIf="getData()?.valueType" class="answer-container">
 
       <div *ngIf="getData()?.valueType === TYPES.TOGGLE">
         <div class="user-input">

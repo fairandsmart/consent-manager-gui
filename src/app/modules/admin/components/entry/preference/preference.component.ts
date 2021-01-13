@@ -43,7 +43,7 @@ export class PreferenceComponent extends EntryContentDirective<Preference> imple
       type: [this.type, [Validators.required]],
       label: ['', [Validators.required]],
       description: [''],
-      valueType: [PreferenceValueType.NONE, [Validators.required]],
+      valueType: [PreferenceValueType.CHECKBOXES, [Validators.required]],
       optional: [false, [Validators.required]],
       options: [[]],
       includeDefault: [true, [Validators.required]],
@@ -54,7 +54,7 @@ export class PreferenceComponent extends EntryContentDirective<Preference> imple
 
   registerFormChanges(): void {
     this.form.get('valueType').valueChanges.subscribe(v => {
-      if (v === PreferenceValueType.NONE || v === PreferenceValueType.FREE_TEXT) {
+      if (v === PreferenceValueType.FREE_TEXT) {
         this.form.get('options').setValue([]);
         this.form.get('options').clearValidators();
         this.form.get('includeDefault').setValue(false);
