@@ -121,7 +121,6 @@ export class OperatorSubjectPageComponent implements OnInit {
           orientation: ConsentFormOrientation.VERTICAL,
           info: '',
           elements: this.operatorLog.map(e => e.identifier),
-          associatePreferences: false,
           callback: '',
           language: this.defaultLanguage,
           formType: ConsentFormType.FULL,

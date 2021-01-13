@@ -303,7 +303,6 @@ export class FormCreatorComponent implements OnInit {
       orientation: formValue.orientation,
       info: formValue.info,
       elements: formValue.elements,
-      associatePreferences: false,
       callback: '',
       validity: FormCreatorComponent.formatValidity(formValue.validity, formValue.validityUnit),
       showValidity: formValue.showValidity,

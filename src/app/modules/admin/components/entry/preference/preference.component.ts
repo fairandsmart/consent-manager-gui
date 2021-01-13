@@ -1,12 +1,18 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { EntryContentDirective } from '../entry-content/entry-content.directive';
-import { ModelDataType, Preference, PREFERENCE_VALUE_TYPES, PreferenceValueType } from '../../../../../core/models/models';
+import {
+  ModelDataType,
+  Preference,
+  PREFERENCE_VALUE_TYPES,
+  PreferenceValueType
+} from '../../../../../core/models/models';
 import { FormBuilder, FormControl, Validators } from '@angular/forms';
 import { ModelsResourceService } from '../../../../../core/http/models-resource.service';
 import { DomSanitizer } from '@angular/platform-browser';
 import { AlertService } from '../../../../../core/services/alert.service';
-import { MatChipInputEvent } from '@angular/material/chips';
+import { MatChipInputEvent, MatChipList } from '@angular/material/chips';
 import { COMMA, ENTER } from '@angular/cdk/keycodes';
+import * as _ from 'lodash';
 
 @Component({
   selector: 'cm-preference',
@@ -20,6 +26,9 @@ export class PreferenceComponent extends EntryContentDirective<Preference> imple
 
   separatorKeysCodes: number[] = [ENTER, COMMA];
   optionsInputCtrl: FormControl;
+
+  @ViewChild('optionsChipList')
+  optionsChipList: MatChipList;
 
   constructor(
     private fb: FormBuilder,
@@ -36,6 +45,11 @@ export class PreferenceComponent extends EntryContentDirective<Preference> imple
   ngOnInit(): void {
     this.optionsInputCtrl = new FormControl('', Validators.required);
     super.ngOnInit();
+    this.form.get('options').statusChanges.subscribe(status => {
+      if (this.optionsChipList) {
+        this.optionsChipList.errorState = status === 'INVALID';
+      }
+    });
   }
 
   protected initForm(): void {
@@ -45,7 +59,7 @@ export class PreferenceComponent extends EntryContentDirective<Preference> imple
       description: [''],
       valueType: [PreferenceValueType.CHECKBOXES, [Validators.required]],
       optional: [false, [Validators.required]],
-      options: [[]],
+      options: [[], [Validators.required, Validators.minLength(1)]],
       includeDefault: [true, [Validators.required]],
       defaultValues: [[]]
     });
@@ -76,13 +90,7 @@ export class PreferenceComponent extends EntryContentDirective<Preference> imple
     });
 
     this.form.get('includeDefault').valueChanges.subscribe(v => {
-      if (v) {
-        this.updateDefaultValuesValidators(this.form.get('valueType').value);
-      } else {
-        this.form.get('defaultValues').setValue([]);
-        this.form.get('defaultValues').clearValidators();
-        this.form.get('defaultValues').updateValueAndValidity();
-      }
+      this.updateDefaultValuesValidators(this.form.get('valueType').value);
     });
     super.registerFormChanges();
   }
@@ -91,7 +99,7 @@ export class PreferenceComponent extends EntryContentDirective<Preference> imple
     const input = $event.input;
     const value = ($event.value || '').trim().toLowerCase();
     if (value) {
-      const values: string[] = this.form.get('options').value || [];
+      const values: string[] = _.cloneDeep(this.form.get('options').value) || [];
       if (value.length > 0 && values.indexOf(value) === -1) {
         values.push(value);
         this.form.get('options').setValue(values);
@@ -110,12 +118,16 @@ export class PreferenceComponent extends EntryContentDirective<Preference> imple
   }
 
   protected updateDefaultValuesValidators(valueType): void {
-    const validators = [Validators.required];
-    if (valueType !== PreferenceValueType.LIST_MULTI && valueType !== PreferenceValueType.CHECKBOXES) {
-      validators.push(Validators.maxLength(1));
+    if (this.form.get('includeDefault').value) {
+      const validators = [Validators.required];
+      if (valueType !== PreferenceValueType.LIST_MULTI && valueType !== PreferenceValueType.CHECKBOXES) {
+        validators.push(Validators.maxLength(1));
+      }
+      this.form.get('defaultValues').setValidators(validators);
     } else {
+      this.form.get('defaultValues').setValue([]);
+      this.form.get('defaultValues').clearValidators();
     }
-    this.form.get('defaultValues').setValidators(validators);
     this.form.get('defaultValues').updateValueAndValidity();
   }
 }

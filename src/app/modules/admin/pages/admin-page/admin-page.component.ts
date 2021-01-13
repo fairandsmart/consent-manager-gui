@@ -12,8 +12,8 @@ import { SideNavComponent } from '../../components/side-nav/side-nav.component';
 })
 export class AdminPageComponent implements OnInit {
 
-  @ViewChild('matsSidenav', {static: true})
-  matsSidenav: MatSidenav;
+  @ViewChild('matSidenav', {static: true})
+  matSidenav: MatSidenav;
   @ViewChild('sidenav', {static: true})
   sidenav: SideNavComponent;
   sidenavMode$: Observable<'over' | 'push' | 'side'>;
@@ -26,13 +26,13 @@ export class AdminPageComponent implements OnInit {
     this.sidenavMode$ = this.breakpointObserver.observe([Breakpoints.XSmall]).pipe(
       map((state) => {
         if (state.matches) {
-          if (this.matsSidenav && this.matsSidenav.opened) {
-            this.matsSidenav.close();
+          if (this.matSidenav && this.matSidenav.opened) {
+            this.matSidenav.close();
           }
           return 'over';
         } else {
-          if (this.matsSidenav && !this.matsSidenav.opened) {
-            this.matsSidenav.open();
+          if (this.matSidenav && !this.matSidenav.opened) {
+            this.matSidenav.open();
           }
           return 'side';
         }

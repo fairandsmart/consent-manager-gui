@@ -261,7 +261,6 @@ export interface ConsentContext {
   orientation: ConsentFormOrientation;
   info: string;
   elements: string[];
-  associatePreferences: boolean;
   callback: string;
   language: string;
   validity?: string;
