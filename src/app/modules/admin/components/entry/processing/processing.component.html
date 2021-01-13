@@ -109,18 +109,6 @@
             </mat-card-actions>
           </mat-card>
 
-          <mat-card-subtitle>{{'ENTRIES.EDITOR.PROCESSING.SUBTITLES.ASSOCIATIONS' | translate}}</mat-card-subtitle>
-          <mat-checkbox formControlName="associatedWithPreferences">{{'ENTRIES.EDITOR.PROCESSING.ASSOCIATE.LABEL' | translate}}</mat-checkbox>
-
-          <mat-form-field appearance="outline" *ngIf="form.get('associatedWithPreferences').value">
-            <mat-label>{{'ENTRIES.EDITOR.PROCESSING.ASSOCIATED_PREFERENCES.LABEL' | translate}}</mat-label>
-            <mat-select multiple="true" required formControlName="associatedPreferences">
-              <mat-option *ngFor="let entry of availablePreferences" [value]="entry.key">
-                ({{entry.key}}) {{entry.name}}
-              </mat-option>
-            </mat-select>
-          </mat-form-field>
-
         </mat-card-content>
         <mat-card-actions *ngIf="isLatestVersion()">
           <button mat-button type="button" color="primary" [disabled]="form.disabled || !hasChanges" (click)="save()">{{'ENTRIES.EDITOR.BUTTONS.SAVE' | translate}}</button>

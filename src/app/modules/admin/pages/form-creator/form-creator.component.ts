@@ -186,8 +186,7 @@ export class FormCreatorComponent implements OnInit {
     this.form = this.fb.array([
       this.fb.group({
         info: ['', [Validators.required, Validators.pattern(FIELD_VALIDATORS.key.pattern)]],
-        elements: [[], [Validators.required, Validators.pattern(FIELD_VALIDATORS.elementsKeys.pattern)]],
-        associatePreferences: [true, [Validators.required]]
+        elements: [[], [Validators.required, Validators.pattern(FIELD_VALIDATORS.elementsKeys.pattern)]]
       }),
       this.fb.group({
         language: [this.defaultLanguage, [Validators.required]],
@@ -304,7 +303,7 @@ export class FormCreatorComponent implements OnInit {
       orientation: formValue.orientation,
       info: formValue.info,
       elements: formValue.elements,
-      associatePreferences: formValue.associatePreferences,
+      associatePreferences: false,
       callback: '',
       validity: FormCreatorComponent.formatValidity(formValue.validity, formValue.validityUnit),
       showValidity: formValue.showValidity,

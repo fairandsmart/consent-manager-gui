@@ -118,9 +118,6 @@
       [selected]="selectedElements"
       (selectedChange)="selectedElementsChange($event)"
       [mode]="'drag'">
-      <ng-container *ngIf="stepper.selectedIndex === STEPS.ELEMENTS" [formGroup]="form.at(STEPS.ELEMENTS)">
-        <mat-checkbox formControlName="associatePreferences">{{'FORM_CREATOR.FORM.ASSOCIATIONS.LABEL' | translate}}</mat-checkbox>
-      </ng-container>
     </cm-entries-library>
 
     <ng-container *ngIf="stepper.selectedIndex === STEPS.PREVIEW" [formGroup]="form.at(STEPS.PREVIEW)">

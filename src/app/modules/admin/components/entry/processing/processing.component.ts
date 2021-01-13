@@ -75,9 +75,7 @@ export class ProcessingComponent extends EntryContentDirective<Processing> imple
         phoneNumber: ['', Validators.pattern(FIELD_VALIDATORS.phone.pattern)]
       }),
       showDataController: [{value: false, disabled: true}],
-      thirdParties: this.fb.array([]),
-      associatedWithPreferences: [false, [Validators.required]],
-      associatedPreferences: [[]]
+      thirdParties: this.fb.array([])
     });
     this.form.get('containsMedicalData').disable();
     this.form.get('retention').valueChanges.subscribe((value) => {
@@ -97,14 +95,6 @@ export class ProcessingComponent extends EntryContentDirective<Processing> imple
       }
     });
     this.form.get('dataController').valueChanges.subscribe(v => this.dataControllerChange(v));
-    this.form.get('associatedWithPreferences').valueChanges.subscribe(v => {
-      if (v) {
-        this.form.get('associatedPreferences').setValidators([Validators.required]);
-      } else {
-        this.form.get('associatedPreferences').clearValidators();
-        this.form.get('associatedPreferences').setValue([]);
-      }
-    });
     super.registerFormChanges();
   }
 

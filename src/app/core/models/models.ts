@@ -166,8 +166,6 @@ export interface Processing extends ModelData {
   dataController: Controller;
   showDataController: boolean;
   thirdParties: { name: string, value: string }[];
-  associatedWithPreferences: boolean;
-  associatedPreferences: string[];
 }
 
 export enum PreferenceValueType {
