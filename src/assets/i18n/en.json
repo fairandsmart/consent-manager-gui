@@ -69,6 +69,9 @@
     },
     "DEFAULT_LANGUAGE": {
       "LABEL": "Default language"
+    },
+    "ACTIONS": {
+      "COPIED": "Copied in your clipboard"
     }
   },
   "MATERIAL": {
@@ -753,11 +756,15 @@
         "BUTTON": "Generate"
       },
       "GENERATED": {
-        "TITLE": "New access key generated",
-        "KEY": "Your API access key",
+        "TITLE": "New Access Key generated",
+        "INFO": {
+          "MSG": "New Access Key generated and",
+          "EMPHASIS": "it will be displayed only now."
+        },
+        "WARNING": "Please store it somewhere safe because as soon as you navigate away from this page, we will not be able to retrieve, restore or display this key",
         "HOW_TO": {
-          "TITLE": "How to use it",
-          "EXPLAIN": "This key cna be used in Http request headers of API request as any kind of classic Http Basic password."
+          "TITLE": "How to use",
+          "EXPLAIN": "Insert in the \"Authorization\" HTTP headers as an HTTP Basic authentication"
         }
       },
       "DROP": {

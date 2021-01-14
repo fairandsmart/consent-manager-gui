@@ -1,9 +1,16 @@
 <h2 mat-dialog-title>{{'API.KEYS.GENERATED.TITLE' | translate}}</h2>
-<div mat-dialog-content>
-  <h3>{{'API.KEYS.GENERATED.KEY' | translate}}</h3>
-  <p><code>{{data.key}}:{{data.password}}</code></p>
+<div mat-dialog-content class="key-result">
+  <p>{{'API.KEYS.GENERATED.INFO.MSG' | translate}} <strong>{{'API.KEYS.GENERATED.INFO.EMPHASIS' | translate}}</strong></p>
+  <div class="key"><code>{{data.key}}:{{data.password}}</code></div>
+  <div class="copy-btn">
+    <button mat-stroked-button [cdkCopyToClipboard]="data.key + ':' + data.password" (cdkCopyToClipboardCopied)="copied()"><mat-icon>content_copy</mat-icon> {{'COMMON.BUTTONS.COPY' | translate}}</button>
+  </div>
+  <p>{{'API.KEYS.GENERATED.WARNING' | translate}}</p>
   <h3>{{'API.KEYS.GENERATED.HOW_TO.TITLE' | translate}}</h3>
   <p>{{'API.KEYS.GENERATED.HOW_TO.EXPLAIN' | translate}}</p>
+  <div class="example">
+    <code>Authorization: Basic {{data.key}}:{{data.password}}</code>
+  </div>
 </div>
 <mat-dialog-actions class="btn-uppercase align-right">
   <button mat-button color="primary" [mat-dialog-close]="undefined">{{'COMMON.BUTTONS.CLOSE' | translate}}</button>
