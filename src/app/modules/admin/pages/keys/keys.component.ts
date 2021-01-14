@@ -7,6 +7,8 @@ import { catchError, filter, skip, takeUntil } from 'rxjs/operators';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { KeysResourceService } from '../../../../core/http/keys-resource.service';
 import { AlertService } from '../../../../core/services/alert.service';
+import {MatSnackBar} from '@angular/material/snack-bar';
+import {TranslateService} from '@ngx-translate/core';
 
 class KeysDataSource implements DataSource<Key> {
 
@@ -54,7 +56,7 @@ class KeysDataSource implements DataSource<Key> {
 })
 export class KeysComponent implements OnInit, AfterViewInit {
 
-  public displayedColumns: string[] = ['name', 'key', 'creationDate', 'lastAccessDate', 'actions'];
+  public displayedColumns: string[] = ['name', 'creationDate', 'lastAccessDate', 'actions'];
 
   public dataSource: KeysDataSource;
 
@@ -74,7 +76,7 @@ export class KeysComponent implements OnInit, AfterViewInit {
     this.dataSource = new KeysDataSource(this.keysResource);
     this.loadKeys();
     this.form = this.fb.group({
-      name: ['', [Validators.required]]
+      name: ['', [Validators.required, Validators.maxLength(25)]]
     });
   }
 
@@ -124,6 +126,10 @@ export class KeysComponent implements OnInit, AfterViewInit {
   styleUrls: ['./generated-key-dialog.scss']
 })
 export class GeneratedKeyDialogComponent {
-  constructor(@Inject(MAT_DIALOG_DATA) public data: Key) {
+  constructor(@Inject(MAT_DIALOG_DATA) public data: Key, public toaster: MatSnackBar, public translate: TranslateService) {
+  }
+
+  copied(): void {
+    this.toaster.open(this.translate.instant('COMMON.ACTIONS.COPIED'));
   }
 }

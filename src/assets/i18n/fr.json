@@ -69,6 +69,9 @@
     },
     "DEFAULT_LANGUAGE": {
       "LABEL": "Langue par défaut"
+    },
+    "ACTIONS": {
+      "COPIED": "Copié dans la presse-papier"
     }
   },
   "MATERIAL": {
@@ -754,10 +757,14 @@
       },
       "GENERATED": {
         "TITLE": "Nouvelle clé d'accès générée",
-        "KEY": "Votre clé d'accès à l'API",
+        "INFO": {
+          "MSG": "Votre clé d'accès a été générée",
+          "EMPHASIS": "et ne sera affichée que maintenant"
+        },
+        "WARNING": "Veuillez stocker cette clé dans un espace sécurisé: dès que vous fermerez cette fenêtre nous ne serons plus en mesure de la récupérer ou de l'afficher.",
         "HOW_TO": {
           "TITLE": "Comment l'utiliser",
-          "EXPLAIN": "Cette clé est à utiliser comme un mot de passe Http Basic classique dans les entêtes des requêtes faites à l'application."
+          "EXPLAIN": "Insérez cette clé d'accès comme token d'authentification HTTP BASIC dans l'en-tête HTTP \"Authorization\", précédé de la mention \"Basic\""
         }
       },
       "DROP": {
