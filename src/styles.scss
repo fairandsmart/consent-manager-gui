@@ -32,6 +32,10 @@ $scrollbar-thumb: mat-color($mat-gray, 400);
   }
 }
 
+.mat-snack-bar-container {
+  margin-top: 0!important;
+}
+
 .mat-snack-bar-error {
   background-color: mat-color($mat-red, 700);
   color: white;
