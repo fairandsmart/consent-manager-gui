@@ -53,19 +53,9 @@ export class ThemeComponent extends EntryContentDirective<Theme> implements OnIn
           };
         }
 
-        let start = token.start;
-        let end = cur.ch;
-        let word = token.string.slice(0, end - start);
-        if (/[^\w$_-]/.test(word)) {
-          word = '';
-          start = end = cur.ch;
-        }
-
         const spec = (window.CodeMirror as any).resolveMode('text/css');
-
-        let result = [];
-
         const st = inner.state.state;
+        let result = [];
         if (st === 'top') {
           result.push(...ThemeAutocomplete.createSnippets(this.translate.currentLang));
         } else {
@@ -79,18 +69,28 @@ export class ThemeComponent extends EntryContentDirective<Theme> implements OnIn
             result.push(...Object.keys(spec.mediaTypes));
             result.push(...Object.keys(spec.mediaFeatures));
           }
-          if (word?.length > 0) {
-            result = result.filter(i => {
-              if (typeof i === 'string') {
-                return i.startsWith(word);
-              } else {
-                return i.text?.startsWith(word);
-              }
-            });
-          }
+        }
+
+        const start = token.start;
+        const end = cur.ch;
+        const word = token.string.slice(0, end - start).toLowerCase();
+        if (word?.length > 0) {
+          result = result.filter(i => {
+            if (typeof i === 'string') {
+              return i.startsWith(word);
+            } else {
+              return i.text?.startsWith(word) || i.displayText?.toLowerCase().includes(word);
+            }
+          });
         }
 
         if (result.length) {
+          result.sort((a, b) => {
+            const aText = (a.displayText ? a.displayText : a).toLowerCase();
+            const bText = (b.displayText ? b.displayText : b).toLowerCase();
+            return aText.localeCompare(bText);
+          });
+
           return {
             list: result,
             from: CodeMirror.Pos(cur.line, start),
