@@ -113,4 +113,10 @@ Program and/or to use, propagate or distribute a closed source/proprietary
 version of the Program or its extensions in whole or in part alongside with the 
 open source version of said Program in the future.
 
+
+6. Translation
+
+In the event of a conflict between the English and French versions of the license,
+the English version shall prevail.
+
 END OF ADDITIONAL TERMS
