@@ -398,7 +398,6 @@ export interface Key {
   id?: string;
   name: string;
   key?: string;
-  password?: string;
   creationDate?: number;
   lastAccessDate?: number;
 }
