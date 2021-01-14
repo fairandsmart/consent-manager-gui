@@ -302,11 +302,11 @@ export enum CollectionMethod {
   USER_PAGE = 'USER_PAGE'
 }
 
-export type ReceiptDeliveryType = 'NONE' | 'GENERATE' | 'DISPLAY' | 'STORE' | 'DOWNLOAD';
+export type ReceiptDeliveryType = 'NONE' | 'DISPLAY' | 'DOWNLOAD';
 
 export type ReceiptDisplayType = 'HTML' | 'XML' | 'PDF' | 'TEXT';
 
-export const RECEIPT_DELIVERY_TYPES: ReceiptDeliveryType[] = ['NONE', 'GENERATE', 'DISPLAY', 'STORE', 'DOWNLOAD'];
+export const RECEIPT_DELIVERY_TYPES: ReceiptDeliveryType[] = ['NONE', 'DISPLAY', 'DOWNLOAD'];
 export const RECEIPT_DISPLAY_TYPES: ReceiptDisplayType[] = ['HTML', 'XML', 'PDF', 'TEXT'];
 
 /* Notification reports */
