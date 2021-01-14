@@ -13,8 +13,8 @@ export class OperatorConditionsComponent extends OperatorConsentListDirective im
 
   readonly ICONS = Icons;
   public displayedColumns = [
-    'key', 'name', 'subtype', 'version', 'recordCreation', 'status'
-  ]; // TODO : le mockup parle d'un sous-type 'CGU', 'CGS', etc, qui n'est pas implémenté
+    'key', 'name', 'version', 'recordCreation', 'status'
+  ];
   public pageSizeOptions = [10, 25, 50];
 
   constructor(

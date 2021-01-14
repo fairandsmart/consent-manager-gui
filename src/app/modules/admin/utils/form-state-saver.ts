@@ -5,9 +5,17 @@ export interface FormState {
   formState: any;
 }
 
+/**
+ * Used for ModelData forms
+ * This class handles an local auto-save feature on every input, allowing the user to restore the state of the form in case of
+ * accidental refresh of network issues.
+ * This keeps the last form opened in memory, across the all website
+ */
 export abstract class FormStateSaver {
-  // TODO (?) We could save one state per context. Might be overkill, but possible and easy to do.
 
+  /**
+   *  Local Storage Key for the saved form state
+   */
   static LS_KEY_FORMSTATE = 'cm-formstate';
 
   public form: FormGroup;
@@ -48,7 +56,6 @@ export abstract class FormStateSaver {
     } catch (err) {
       this.clearSavedState();
       console.error(err);
-      // TODO (?) propagate error to children ?
     }
   }
 

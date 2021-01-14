@@ -2,6 +2,10 @@ import { Component, Input, OnInit } from '@angular/core';
 import { StatsChart, StatsData, TIME_SCALES, TimeScale } from '../../../../../core/models/models';
 import * as _ from 'lodash';
 import { TranslateService } from '@ngx-translate/core';
+import {ChartOptions, ChartType} from 'chart.js';
+import {Colors} from 'ng2-charts';
+
+export type ChartConfig = {chartType: ChartType, chartOptions: ChartOptions};
 
 @Component({
   selector: 'cm-dashboard-chart',
@@ -25,10 +29,10 @@ export class DashboardChartComponent implements OnInit {
   public currentStats: StatsData;
 
   @Input()
-  public chartOptions;
+  public chartConfig: ChartConfig;
 
   @Input()
-  public chartColors;
+  public chartColors: Colors[];
 
   constructor(public translate: TranslateService) {
   }

@@ -1,5 +1,4 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { environment } from '../../../../../environments/environment';
 import { ModelsResourceService } from '../../../../core/http/models-resource.service';
 import { SubjectsResourceService } from '../../../../core/http/subjects-resource.service';
 import { KeycloakService } from 'keycloak-angular';

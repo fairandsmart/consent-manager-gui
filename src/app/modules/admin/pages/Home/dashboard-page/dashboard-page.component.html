@@ -1,0 +1,30 @@
+<div class="dashboard">
+  <div class="graphs">
+
+    <cm-dashboard-chart #recordsChart
+                        *ngIf="recordsStats"
+                        name="RECORDS"
+                        [labelsTranslations]="labelsTranslations"
+                        [stats]="recordsStats"
+                        [chartConfig]="CHART_OPTIONS.unstackedChart"
+                        [chartColors]="CHART_COLORS_SET"></cm-dashboard-chart>
+
+    <cm-dashboard-numbers #totalCard
+                          *ngIf="totalStats"
+                          [stats]="totalStats"
+                          [colors]="CHART_COLORS_SET"></cm-dashboard-numbers>
+
+    <cm-dashboard-top-table #topTable
+                            *ngIf="topStats"
+                            [stats]="topStats"></cm-dashboard-top-table>
+
+    <cm-dashboard-chart #subjectsChart
+                        *ngIf="subjectsStats"
+                        name="SUBJECTS"
+                        [labelsTranslations]="labelsTranslations"
+                        [stats]="subjectsStats"
+                        [chartConfig]="CHART_OPTIONS.lineChart"
+                        [chartColors]="CHART_COLORS_SET"></cm-dashboard-chart>
+
+  </div>
+</div>
