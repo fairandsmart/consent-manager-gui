@@ -40,7 +40,7 @@ describe('EntriesListComponent', () => {
     component.section = {
       id: 'infos',
       types: ['basicinfo'],
-      multiple: true,
+      canAddMultiple: true,
       showSort: true,
       displayDescription: false,
     };

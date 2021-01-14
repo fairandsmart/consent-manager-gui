@@ -1,4 +1,5 @@
 import { AppEnvironment } from './app-environment';
+import {AddMultipleOption} from '../app/modules/admin/components/entries/entries-library/entries-library.component';
 
 export const environment: AppEnvironment = {
   production: true,
@@ -10,7 +11,7 @@ export const environment: AppEnvironment = {
   customization: {
     headerLogoUrl: 'PUT_HEADER_LOGO_URI_HERE',
     headerLogoStyle: 'PUT_HEADER_LOGO_STYLE_HERE',
-    multipleInfo: 'PUT_MULTIPLE_HEADER_HERE' as any,
+    multipleInfo: 'PUT_MULTIPLE_HEADER_HERE' as AddMultipleOption,
     defaultLanguage: 'PUT_DEFAULT_LANGUAGE_HERE'
   }
 };

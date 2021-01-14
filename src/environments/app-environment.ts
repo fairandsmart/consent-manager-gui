@@ -1,3 +1,5 @@
+import {AddMultipleOption} from '../app/modules/admin/components/entries/entries-library/entries-library.component';
+
 export interface AppEnvironment {
   production: boolean;
   authUrl: string;
@@ -11,6 +13,6 @@ export interface AppEnvironment {
 export interface AppCustomization {
   headerLogoStyle: string;
   headerLogoUrl: string;
-  multipleInfo: boolean;
+  multipleInfo: AddMultipleOption;
   defaultLanguage: string;
 }

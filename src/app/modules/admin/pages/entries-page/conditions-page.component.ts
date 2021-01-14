@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { SectionConfig } from '../../components/entries/entries-library/entries-library.component';
+import {AddMultipleOption, SectionConfig} from '../../components/entries/entries-library/entries-library.component';
 import { Icons } from '../../../../core/models/models';
 
 @Component({
@@ -15,7 +15,7 @@ export class ConditionsPageComponent {
     {
       id: 'conditions',
       types: ['conditions'],
-      multiple: true,
+      canAddMultiple: AddMultipleOption.ALWAYS,
       showSort: true,
       icon: Icons.conditions,
       displayDescription: true

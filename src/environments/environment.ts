@@ -2,7 +2,8 @@
 // `ng build --prod` replaces `environment.ts` with `environment.prod.ts`.
 // The list of file replacements can be found in `angular.json`.
 
-import { AppEnvironment } from './app-environment';
+import {AppEnvironment} from './app-environment';
+import {AddMultipleOption} from '../app/modules/admin/components/entries/entries-library/entries-library.component';
 
 export const environment: AppEnvironment = {
   production: false,
@@ -14,7 +15,7 @@ export const environment: AppEnvironment = {
   customization: {
     headerLogoUrl: 'https://assets.fairandsmart.tech/logo_fs_tagline.png',
     headerLogoStyle: 'height: 59px;',
-    multipleInfo: false,
+    multipleInfo: AddMultipleOption.ENTERPRISE,
     defaultLanguage: 'fr'
   }
 };

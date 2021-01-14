@@ -1,7 +1,6 @@
-import { Component } from '@angular/core';
-import { SectionConfig } from '../../components/entries/entries-library/entries-library.component';
-import { Icons } from '../../../../core/models/models';
-import { environment } from '../../../../../environments/environment';
+import {Component} from '@angular/core';
+import {AddMultipleOption, SectionConfig} from '../../components/entries/entries-library/entries-library.component';
+import {Icons} from '../../../../core/models/models';
 
 @Component({
   selector: 'cm-themes-page',
@@ -16,7 +15,7 @@ export class ThemesPageComponent {
     {
       id: 'themes',
       types: ['theme'],
-      multiple: true,
+      canAddMultiple: AddMultipleOption.ALWAYS,
       showSort: true,
       icon: Icons.theme,
       displayDescription: true

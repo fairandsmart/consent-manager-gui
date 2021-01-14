@@ -95,7 +95,8 @@
     "ACTIVATION_ERROR": "Cannot activate draft...",
     "DELETION_SUCCESS": "Draft deleted!",
     "DELETION_ERROR": "Cannot delete draft...",
-    "RELOAD_ERROR": "Cannot reload latest version..."
+    "RELOAD_ERROR": "Cannot reload latest version...",
+    "AVAILABLE_IN_ENTERPRISE": "This feature is not available in the Community version."
   },
   "CONFIRM_DIALOG": {
     "CONFIRM": "Confirm",

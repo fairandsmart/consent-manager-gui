@@ -16,10 +16,16 @@ export class ConsentElementEntryDataSource extends CollectionDatasource<ModelEnt
 
 }
 
+export enum AddMultipleOption {
+  ALWAYS = 'ALWAYS',
+  NEVER = 'NEVER',
+  ENTERPRISE = 'ENTERPRISE'
+}
+
 export interface SectionConfig {
   id: string;
   types: ModelDataType[];
-  multiple: boolean;
+  canAddMultiple: AddMultipleOption;
   showSort: boolean;
   filter?: ModelFilter;
   dataSource?: ConsentElementEntryDataSource;
