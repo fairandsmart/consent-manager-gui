@@ -1,24 +1,24 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { AdminPageComponent } from './pages/admin-page/admin-page.component';
-import { DashboardComponent } from './pages/dashboard/dashboard.component';
-import { EntryPageComponent } from './pages/entry-page/entry-page.component';
-import { ProcessingPageComponent } from './pages/entries-page/processing-page.component';
-import { BasicinfoPageComponent } from './pages/entries-page/basicinfo-page.component';
-import { PreferencesPageComponent } from './pages/entries-page/preferences-page.component';
-import { ConditionsPageComponent } from './pages/entries-page/conditions-page.component';
-import { EmailsPageComponent } from './pages/entries-page/emails-page.component';
-import { ThemesPageComponent } from './pages/entries-page/themes-page.component';
-import { FormCreatorComponent } from './pages/form-creator/form-creator.component';
-import { KeysComponent } from './pages/keys/keys.component';
-import { OperatorSubjectPageComponent } from './pages/operator-subject-page/operator-subject-page.component';
+import { AdminPageContainerComponent } from './pages/admin-page-container/admin-page-container.component';
+import { DashboardPageComponent } from './pages/Home/dashboard-page/dashboard-page.component';
+import { ModelEntryPageComponent } from './pages/Configuration/model-entry-page/model-entry-page.component';
+import { ProcessingPageComponent } from './pages/Configuration/model-library-pages/processing-page.component';
+import { BasicinfoPageComponent } from './pages/Configuration/model-library-pages/basicinfo-page.component';
+import { PreferencesPageComponent } from './pages/Configuration/model-library-pages/preferences-page.component';
+import { ConditionsPageComponent } from './pages/Configuration/model-library-pages/conditions-page.component';
+import { EmailsPageComponent } from './pages/Configuration/model-library-pages/emails-page.component';
+import { ThemesPageComponent } from './pages/Configuration/model-library-pages/themes-page.component';
+import { CollectFormCreatorPageComponent } from './pages/Integration/collect-form-creator-page/collect-form-creator-page.component';
+import { AccessKeysPageComponent } from './pages/Integration/access-keys-page/access-keys-page.component';
+import { OperatorSubjectPageComponent } from './pages/Subject/operator-subject-page/operator-subject-page.component';
 import { GettingStartedPageComponent } from './pages/getting-started-page/getting-started-page.component';
-import { InterrogatePageComponent } from './pages/interrogate-page/interrogate-page.component';
+import { InterrogatePageComponent } from './pages/Integration/interrogate-page/interrogate-page.component';
 
 const routes: Routes = [
   {
     path: '',
-    component: AdminPageComponent,
+    component: AdminPageContainerComponent,
     children: [
       {
         path: '',
@@ -27,7 +27,7 @@ const routes: Routes = [
       },
       {
         path: 'home',
-        component: DashboardComponent
+        component: DashboardPageComponent
       },
       {
         path: 'subjects/:subject',
@@ -42,7 +42,7 @@ const routes: Routes = [
           },
           {
             path: ':type/:id',
-            component: EntryPageComponent
+            component: ModelEntryPageComponent
           },
           {
             path: 'basicinfo',
@@ -79,7 +79,7 @@ const routes: Routes = [
           },
           {
             path: 'collect',
-            component: FormCreatorComponent
+            component: CollectFormCreatorPageComponent
           },
           {
             path: 'search',
@@ -87,7 +87,7 @@ const routes: Routes = [
           },
           {
             path: 'security',
-            component: KeysComponent
+            component: AccessKeysPageComponent
           }
         ]
       }

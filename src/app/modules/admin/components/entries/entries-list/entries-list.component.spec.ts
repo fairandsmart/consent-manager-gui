@@ -10,6 +10,7 @@ import { EMPTY } from 'rxjs';
 import { CoreTestingModule } from '../../../../../testing/core-testing-module.spec';
 import createSpyObj = jasmine.createSpyObj;
 import SpyObj = jasmine.SpyObj;
+import { AddMultipleOption } from '../entries-library/entries-library.component';
 
 describe('EntriesListComponent', () => {
   let component: EntriesListComponent;
@@ -40,7 +41,7 @@ describe('EntriesListComponent', () => {
     component.section = {
       id: 'infos',
       types: ['basicinfo'],
-      canAddMultiple: true,
+      canAddMultiple: AddMultipleOption.ALWAYS,
       showSort: true,
       displayDescription: false,
     };

@@ -3,11 +3,11 @@
   <mat-card-content *ngIf="currentStats; else noContent">
     <div class="chart-container">
       <canvas baseChart
-              [chartType]="chartOptions.chartType"
+              [chartType]="chartConfig.chartType"
               [datasets]="currentStats.datasets"
               [labels]="currentStats.labels"
               [colors]="chartColors"
-              [options]="chartOptions">
+              [options]="chartConfig.chartOptions">
       </canvas>
     </div>
   </mat-card-content>

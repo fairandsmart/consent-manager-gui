@@ -1,5 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { ModelData, ModelEntryDto, ModelVersionDto, RecordDto } from '../../../../../core/models/models';
+import { ModelEntryDto, ModelVersionDto, RecordDto } from '../../../../../core/models/models';
 import { ModelsResourceService } from '../../../../../core/http/models-resource.service';
 
 @Component({
@@ -12,7 +12,7 @@ export class EntryCardComponent implements OnInit {
   @Input()
   entry: ModelEntryDto;
 
-  active: ModelVersionDto;
+  active: ModelVersionDto<any>;
 
   @Input()
   record: RecordDto;

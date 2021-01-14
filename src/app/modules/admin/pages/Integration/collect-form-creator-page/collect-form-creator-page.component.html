@@ -1,0 +1,160 @@
+<mat-sidenav-container>
+  <mat-sidenav-content>
+    <div class="container">
+      <div class="title-container">
+        <h2><mat-icon>{{ICONS.collect}}</mat-icon> {{'FORM_CREATOR.TITLE' | translate}}</h2>
+      </div>
+      <mat-horizontal-stepper #stepper linear="true" labelPosition="bottom" [class]="'step-' + currentStep" (selectionChange)="stepChange($event)">
+
+        <mat-step [label]="'FORM_CREATOR.STEP_ELEMENTS' | translate" [stepControl]="form.at(STEPS.ELEMENTS)">
+          <ng-container *ngFor="let config of selectionConfig">
+            <h4>
+              <span>{{'FORM_CREATOR.FORM.ELEMENTS_PANEL_TITLE.' + config.id | translate}}</span>
+            </h4>
+            <div class="form-container"
+                 [class.excluded]="isSelectionExcluded(config)"
+                 [class.empty]="selectedElements[config.id]?.length === 0"
+                 cdkDropList [id]="'selected-' + config.id"
+                 [cdkDropListDisabled]="!isSelectionDraggable(config)"
+                 [cdkDropListData]="selectedElements[config.id]"
+                 [cdkDropListConnectedTo]="getSelectionAvailableLists(config)"
+                 (cdkDropListDropped)="elementDropped($event)">
+              <mat-card *ngIf="selectedElements[config.id]?.length === 0" class="empty-hint">
+                <span>{{'ENTRIES.' + config.id + '.EMPTY' | translate}}</span>
+              </mat-card>
+              <cm-entry-card *ngFor="let entry of selectedElements[config.id]"
+                              cdkDrag
+                              [selectable]="isSelectionDraggable(config)"
+                              [cdkDragData]="entry"
+                              [entry]="entry"></cm-entry-card>
+            </div>
+            <div *ngIf="isSelectionExcluded(config)" class="form-container">
+              <mat-card class="excluded-hint">{{'ENTRIES.' + config.id + '.EXCLUDED' | translate}}</mat-card>
+            </div>
+          </ng-container>
+          <div class="step-actions">
+            <span></span>
+            <button mat-button color="primary" matStepperNext>{{'FORM_CREATOR.BUTTON_LABEL_NEXT_STEP' | translate}}</button>
+          </div>
+        </mat-step>
+
+        <mat-step [label]="'FORM_CREATOR.STEP_PREVIEW' | translate">
+          <mat-card *ngIf="formUrl" class="form-preview">
+            <iframe [src]="formUrl"></iframe>
+          </mat-card>
+          <div class="step-actions">
+            <button mat-button color="primary" matStepperPrevious>{{'FORM_CREATOR.BUTTON_LABEL_PREVIOUS_STEP' | translate}}</button>
+            <button mat-button color="primary" matStepperNext>{{'FORM_CREATOR.BUTTON_LABEL_NEXT_STEP' | translate}}</button>
+          </div>
+        </mat-step>
+
+        <mat-step [label]="'FORM_CREATOR.STEP_OPTIONS' | translate" [stepControl]="form.at(STEPS.OPTIONS)">
+          <mat-card [formGroup]="getFormGroup(form, STEPS.OPTIONS)">
+            <mat-card-content>
+              <mat-form-field appearance="fill">
+                <mat-label>{{'FORM_CREATOR.FORM.SUBJECT.LABEL' | translate}}</mat-label>
+                <input formControlName="subject" matInput required autocomplete="off" />
+                <mat-error *ngIf="form.hasError('required', [STEPS.OPTIONS, 'subject'])">
+                  {{'FORM_CREATOR.FORM.SUBJECT.REQUIRED' | translate }}
+                </mat-error>
+              </mat-form-field>
+              <div class="consent-validity-wrapper">
+                <mat-form-field appearance="fill">
+                  <mat-label>{{'FORM_CREATOR.FORM.VALIDITY.LABEL' | translate}}</mat-label>
+                  <input matInput required type="number" min="1" formControlName="validity" autocomplete="off">
+                </mat-form-field>
+                <mat-form-field appearance="fill">
+                  <mat-label>{{'FORM_CREATOR.FORM.VALIDITY_UNIT.LABEL' | translate}}</mat-label>
+                  <mat-select formControlName="validityUnit" required>
+                    <mat-option *ngFor="let unit of VALIDITY_UNITS" [value]="unit">{{'FORM_CREATOR.FORM.VALIDITY_UNIT.VALUES.' + unit | translate}}</mat-option>
+                  </mat-select>
+                </mat-form-field>
+              </div>
+              <div class="checkbox-wrapper-validity">
+                <mat-checkbox formControlName="showValidity">{{'FORM_CREATOR.FORM.DISPLAY_VALIDITY' | translate}}</mat-checkbox>
+              </div>
+              <mat-form-field appearance="fill">
+                <mat-label>{{'FORM_CREATOR.FORM.RECEIPT.LABEL' | translate}}</mat-label>
+                <mat-select formControlName="receiptDeliveryType" required>
+                  <mat-option *ngFor="let type of RECEIPT_TYPES" [value]="type">{{'FORM_CREATOR.FORM.RECEIPT.VALUES.' + type.toUpperCase() | translate}}</mat-option>
+                </mat-select>
+              </mat-form-field>
+              <mat-form-field appearance="fill">
+                <mat-label>{{'FORM_CREATOR.FORM.RECEIPT_FORMAT.LABEL' | translate}}</mat-label>
+                <mat-select formControlName="receiptDisplayType" required>
+                  <mat-option *ngFor="let type of RECEIPT_FORMATS" [value]="type">{{'FORM_CREATOR.FORM.RECEIPT_FORMAT.VALUES.' + type.toUpperCase() | translate}}</mat-option>
+                </mat-select>
+              </mat-form-field>
+              <div class="checkbox-wrapper">
+                <mat-checkbox formControlName="notify">{{'FORM_CREATOR.FORM.NOTIFICATION_RECIPIENT.NOTIFY_CHECKBOX_LABEL' | translate}}</mat-checkbox>
+              </div>
+              <mat-form-field appearance="fill" *ngIf="form.at(STEPS.OPTIONS).get('notify').value">
+                <mat-label>{{'FORM_CREATOR.FORM.NOTIFICATION_RECIPIENT.LABEL' | translate}}</mat-label>
+                <input type="email" matInput formControlName="notificationRecipient" autocomplete="off" email required />
+                <mat-error *ngIf="form.hasError('required', [STEPS.OPTIONS, 'notificationRecipient'])">
+                  {{'FORM_CREATOR.FORM.NOTIFICATION_RECIPIENT.REQUIRED' | translate }}
+                </mat-error>
+                <mat-error *ngIf="form.hasError('email', [STEPS.OPTIONS, 'notificationRecipient'])">
+                  {{'FORM_CREATOR.FORM.NOTIFICATION_RECIPIENT.EMAIL_INVALID' | translate }}
+                </mat-error>
+              </mat-form-field>
+              <mat-error *ngIf="form.at(STEPS.OPTIONS).get('notify').value && form.hasError('required', [STEPS.OPTIONS, 'notificationModel'])">
+                {{'FORM_CREATOR.FORM.NOTIFICATION_RECIPIENT.MODEL_REQUIRED' | translate }}
+              </mat-error>
+            </mat-card-content>
+          </mat-card>
+          <div class="step-actions">
+            <button mat-button color="primary" matStepperPrevious>{{'FORM_CREATOR.BUTTON_LABEL_PREVIOUS_STEP' | translate}}</button>
+            <button mat-button color="primary" (click)="openApiUrlDialog()">{{'FORM_CREATOR.API_URL.BUTTON_VIEW' | translate}}</button>
+          </div>
+        </mat-step>
+      </mat-horizontal-stepper>
+    </div>
+  </mat-sidenav-content>
+  <mat-sidenav opened mode="side" position="end">
+    <cm-entries-library
+      [style.display]="stepper.selectedIndex !== STEPS.ELEMENTS ? 'none' : undefined"
+      [config]="elementsLibraryConfig"
+      [selected]="selectedElements"
+      (selectedChange)="selectedElementsChange($event)"
+      [mode]="'drag'">
+    </cm-entries-library>
+
+    <ng-container *ngIf="stepper.selectedIndex === STEPS.PREVIEW" [formGroup]="getFormGroup(form, STEPS.PREVIEW)">
+      <div class="panel-title-like">
+        <mat-icon>settings</mat-icon>
+        <span>Options d'affichage</span>
+      </div>
+      <mat-form-field appearance="fill">
+        <mat-label>{{'FORM_CREATOR.FORM.ORIENTATION.LABEL' | translate}}</mat-label>
+        <mat-select formControlName="orientation" required>
+          <mat-option *ngFor="let orientation of ORIENTATIONS" [value]="orientation">{{'FORM_CREATOR.FORM.ORIENTATION.VALUES.' + orientation | translate}}</mat-option>
+        </mat-select>
+      </mat-form-field>
+      <div class="checkbox-wrapper">
+        <mat-checkbox formControlName="footerOnTop">{{'FORM_CREATOR.FORM.FOOTER_ON_TOP.LABEL' | translate}}</mat-checkbox>
+      </div>
+
+      <div class="checkbox-wrapper">
+        <mat-checkbox formControlName="showAcceptAll">{{'FORM_CREATOR.FORM.ACCEPT_ALL.DISPLAY.LABEL' | translate}}</mat-checkbox>
+      </div>
+
+      <mat-form-field appearance="outline" *ngIf="form.at(STEPS.PREVIEW).get('showAcceptAll').value">
+        <mat-label>{{'FORM_CREATOR.FORM.ACCEPT_ALL.BUTTON_LABEL.LABEL' | translate}}</mat-label>
+        <input matInput formControlName="acceptAllText" autocomplete="off">
+      </mat-form-field>
+    </ng-container>
+
+    <cm-entries-library
+      [style.display]="stepper.selectedIndex !== STEPS.OPTIONS || !form.at(STEPS.OPTIONS).get('notify').value ? 'none' : undefined"
+      [config]="emailsLibraryConfig"
+      [selected]="selectedEmail" [mode]="'select'"
+      (selectedChange)="selectedEmailChange($event)"></cm-entries-library>
+
+    <cm-entries-library
+      [style.display]="stepper.selectedIndex !== STEPS.PREVIEW ? 'none' : undefined"
+      [config]="themesLibraryConfig"
+      [selected]="selectedTheme" [mode]="'select'"
+      (selectedChange)="selectedThemeChange($event)"></cm-entries-library>
+  </mat-sidenav>
+</mat-sidenav-container>

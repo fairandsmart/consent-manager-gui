@@ -315,7 +315,7 @@ export class ThemeAutocomplete {
       css: '.email-title',
       hints: {
         fr: 'Email - Titre',
-        en: 'Email - Titre'
+        en: 'Email - Title'
       }
     },
     {
@@ -349,7 +349,7 @@ export class ThemeAutocomplete {
     {
       css: '.email-footer',
       hints: {
-        fr: 'Email - Pied',
+        fr: 'Email - Pied de page',
         en: 'Email - Footer'
       }
     },

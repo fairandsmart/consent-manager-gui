@@ -15,7 +15,6 @@ export class ActivatedRouteStubSpec {
   private urlSubject = new ReplaySubject<UrlSegment[]>();
 
   /** The mock paramMap observable */
-  readonly paramMap = this.paramMapSubject.asObservable();
   readonly queryParamMap = this.queryParamMapSubject.asObservable();
   readonly data = this.dataSubject.asObservable();
   readonly snapshot: ActivatedRouteSnapshot = {} as ActivatedRouteSnapshot;
