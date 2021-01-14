@@ -7,6 +7,8 @@ import { MatPaginator } from '@angular/material/paginator';
 import { ModelsResourceService } from '../../../../../core/http/models-resource.service';
 import { MatDialog } from '@angular/material/dialog';
 import { ActivatedRoute, Router } from '@angular/router';
+import {MatSnackBar} from '@angular/material/snack-bar';
+import {TranslateService} from '@ngx-translate/core';
 
 @Component({
   selector: 'cm-entries-list',
@@ -27,7 +29,10 @@ export class EntriesListComponent implements OnInit, AfterViewInit {
     private dialog: MatDialog,
     protected ref: ChangeDetectorRef,
     private route: ActivatedRoute,
-    private router: Router) {}
+    private router: Router,
+    private snackBar: MatSnackBar,
+    private translate: TranslateService
+    ) {}
 
   ngOnInit(): void {
     if (this.section.dataSource == null) {
@@ -87,4 +92,7 @@ export class EntriesListComponent implements OnInit, AfterViewInit {
     });
   }
 
+  displayAvailabilityWarning(): void {
+    this.snackBar.open(this.translate.instant('ALERT.AVAILABLE_IN_ENTERPRISE'));
+  }
 }

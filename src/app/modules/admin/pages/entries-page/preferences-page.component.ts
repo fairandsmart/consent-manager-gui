@@ -1,6 +1,6 @@
-import { Component } from '@angular/core';
-import { SectionConfig } from '../../components/entries/entries-library/entries-library.component';
-import { Icons } from '../../../../core/models/models';
+import {Component} from '@angular/core';
+import {AddMultipleOption, SectionConfig} from '../../components/entries/entries-library/entries-library.component';
+import {Icons} from '../../../../core/models/models';
 
 @Component({
   selector: 'cm-preferences-page',
@@ -15,7 +15,7 @@ export class PreferencesPageComponent {
     {
       id: 'preferences',
       types: ['preference'],
-      multiple: true,
+      canAddMultiple: AddMultipleOption.ALWAYS,
       showSort: true,
       icon: Icons.preference,
       displayDescription: true

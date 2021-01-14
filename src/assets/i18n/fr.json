@@ -95,7 +95,8 @@
     "ACTIVATION_ERROR": "Impossible d'activer le brouillon...",
     "DELETION_SUCCESS": "Brouillon supprimé !",
     "DELETION_ERROR": "Impossible de supprimer le brouillon...",
-    "RELOAD_ERROR": "Impossible de recharger la version la plus récente..."
+    "RELOAD_ERROR": "Impossible de recharger la version la plus récente...",
+    "AVAILABLE_IN_ENTERPRISE": "Cette fonctionnalité n'est pas disponible dans la version Communauté."
   },
   "CONFIRM_DIALOG": {
     "CONFIRM": "Confirmer",

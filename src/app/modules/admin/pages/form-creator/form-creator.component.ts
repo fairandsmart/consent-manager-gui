@@ -1,5 +1,5 @@
-import { Component, OnInit } from '@angular/core';
-import { ModelsResourceService } from '../../../../core/http/models-resource.service';
+import {Component, OnInit} from '@angular/core';
+import {ModelsResourceService} from '../../../../core/http/models-resource.service';
 import {
   CollectionMethod,
   CONSENT_FORM_ORIENTATIONS,
@@ -12,20 +12,20 @@ import {
   RECEIPT_DELIVERY_TYPES,
   RECEIPT_DISPLAY_TYPES
 } from '../../../../core/models/models';
-import { debounceTime, tap } from 'rxjs/operators';
-import { merge, zip } from 'rxjs';
-import { CdkDragDrop, copyArrayItem, moveItemInArray } from '@angular/cdk/drag-drop';
-import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { ConsentsResourceService } from '../../../../core/http/consents-resource.service';
-import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
-import { StepperSelectionEvent } from '@angular/cdk/stepper';
-import { SectionConfig } from '../../components/entries/entries-library/entries-library.component';
-import { environment } from '../../../../../environments/environment';
+import {debounceTime, tap} from 'rxjs/operators';
+import {merge, zip} from 'rxjs';
+import {CdkDragDrop, copyArrayItem, moveItemInArray} from '@angular/cdk/drag-drop';
+import {FormArray, FormBuilder, FormGroup, Validators} from '@angular/forms';
+import {ConsentsResourceService} from '../../../../core/http/consents-resource.service';
+import {DomSanitizer, SafeResourceUrl} from '@angular/platform-browser';
+import {StepperSelectionEvent} from '@angular/cdk/stepper';
+import {AddMultipleOption, SectionConfig} from '../../components/entries/entries-library/entries-library.component';
+import {environment} from '../../../../../environments/environment';
 import * as _ from 'lodash';
-import { MatDialog } from '@angular/material/dialog';
-import { FormUrlDialogComponent, FormUrlDialogComponentData } from '../../components/form-url-dialog/form-url-dialog.component';
-import { hasActiveVersion } from '../../../../core/utils/model-entry.utils';
-import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
+import {MatDialog} from '@angular/material/dialog';
+import {FormUrlDialogComponent, FormUrlDialogComponentData} from '../../components/form-url-dialog/form-url-dialog.component';
+import {hasActiveVersion} from '../../../../core/utils/model-entry.utils';
+import {BreakpointObserver, Breakpoints} from '@angular/cdk/layout';
 
 enum FORM_CREATOR_STEP {
   ELEMENTS,
@@ -50,8 +50,8 @@ export class FormCreatorComponent implements OnInit {
     {
       id: 'infos',
       types: ['basicinfo'],
-      multiple: environment.customization.multipleInfo,
-      showSort: environment.customization.multipleInfo,
+      canAddMultiple: environment.customization.multipleInfo,
+      showSort: environment.customization.multipleInfo === AddMultipleOption.ALWAYS,
       draggingDisabled: false,
       included: true,
       icon: Icons.basicinfo,
@@ -61,7 +61,7 @@ export class FormCreatorComponent implements OnInit {
     {
       id: 'processing',
       types: ['processing'],
-      multiple: true,
+      canAddMultiple: AddMultipleOption.ALWAYS,
       showSort: true,
       draggingDisabled: false,
       included: true,
@@ -72,7 +72,7 @@ export class FormCreatorComponent implements OnInit {
     {
       id: 'preferences',
       types: ['preference'],
-      multiple: true,
+      canAddMultiple: AddMultipleOption.ALWAYS,
       showSort: true,
       draggingDisabled: false,
       included: true,
@@ -102,7 +102,7 @@ export class FormCreatorComponent implements OnInit {
     {
       id: 'themes',
       types: ['theme'],
-      multiple: false,
+      canAddMultiple: AddMultipleOption.NEVER,
       showSort: true,
       icon: Icons.theme,
       displayDescription: false
@@ -115,7 +115,7 @@ export class FormCreatorComponent implements OnInit {
     {
       id: 'emails',
       types: ['email'],
-      multiple: false,
+      canAddMultiple: AddMultipleOption.NEVER,
       showSort: true,
       icon: Icons.email,
       displayDescription: false
