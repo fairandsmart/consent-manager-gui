@@ -309,6 +309,12 @@ export type ReceiptDisplayType = 'HTML' | 'XML' | 'PDF' | 'TEXT';
 export const RECEIPT_DELIVERY_TYPES: ReceiptDeliveryType[] = ['NONE', 'DISPLAY', 'DOWNLOAD'];
 export const RECEIPT_DISPLAY_TYPES: ReceiptDisplayType[] = ['HTML', 'XML', 'PDF', 'TEXT'];
 
+export interface ConsentTransaction {
+  subject: string;
+  transaction: string;
+  claims: {[key: string]: string};
+}
+
 /* Notification reports */
 
 export enum NotificationReportStatus {
