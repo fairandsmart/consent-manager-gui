@@ -135,7 +135,9 @@ export abstract class EntryContentDirective<T extends ModelData> extends FormSta
       }),
       map((entry) => {
         this.entry = entry;
-        this.setVersion(version);
+        if (version) {
+          this.setVersion(version);
+        }
         this.clearSavedState();
         this.form.markAsPristine();
         return [entry, version];
