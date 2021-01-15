@@ -124,7 +124,6 @@ export class OperatorSubjectPageComponent implements OnInit {
           callback: '',
           language: this.defaultLanguage,
           formType: ConsentFormType.FULL,
-          receiptDeliveryType: 'DOWNLOAD',
           userinfos: {},
           attributes: {},
           notificationModel: result.model,

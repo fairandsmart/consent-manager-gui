@@ -71,14 +71,8 @@
                 </mat-form-field>
               </div>
               <div class="checkbox-wrapper-validity">
-                <mat-checkbox formControlName="showValidity">{{'FORM_CREATOR.FORM.DISPLAY_VALIDITY' | translate}}</mat-checkbox>
+                <mat-checkbox formControlName="validityVisible">{{'FORM_CREATOR.FORM.DISPLAY_VALIDITY' | translate}}</mat-checkbox>
               </div>
-              <mat-form-field appearance="fill">
-                <mat-label>{{'FORM_CREATOR.FORM.RECEIPT.LABEL' | translate}}</mat-label>
-                <mat-select formControlName="receiptDeliveryType" required>
-                  <mat-option *ngFor="let type of RECEIPT_TYPES" [value]="type">{{'FORM_CREATOR.FORM.RECEIPT.VALUES.' + type.toUpperCase() | translate}}</mat-option>
-                </mat-select>
-              </mat-form-field>
               <mat-form-field appearance="fill">
                 <mat-label>{{'FORM_CREATOR.FORM.RECEIPT_FORMAT.LABEL' | translate}}</mat-label>
                 <mat-select formControlName="receiptDisplayType" required>
@@ -136,7 +130,7 @@
       </div>
 
       <div class="checkbox-wrapper">
-        <mat-checkbox formControlName="showAcceptAll">{{'FORM_CREATOR.FORM.ACCEPT_ALL.DISPLAY.LABEL' | translate}}</mat-checkbox>
+        <mat-checkbox formControlName="acceptAllVisible">{{'FORM_CREATOR.FORM.ACCEPT_ALL.DISPLAY.LABEL' | translate}}</mat-checkbox>
       </div>
 
       <mat-form-field appearance="outline" *ngIf="form.at(STEPS.PREVIEW).get('showAcceptAll').value">

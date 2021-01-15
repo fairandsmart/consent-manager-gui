@@ -27,7 +27,6 @@ function getFormUrl()
         "language" => "$$LANGUAGE$$",
         "validity" => "$$VALIDITY$$",
         "formType" => "$$FORM_TYPE$$",
-        "receiptDeliveryType" => "$$RECEIPT_DELIVERY_TYPE$$",
         "theme" => "$$THEME$$",
         "iframe" => $$IFRAME$$
     ];
@@ -89,7 +88,6 @@ export function getPhpSnippetFromContext(context: ConsentContext): string {
     .replace('$$LANGUAGE$$', context.language)
     .replace('$$VALIDITY$$', context.validity)
     .replace('$$FORM_TYPE$$', context.formType)
-    .replace('$$RECEIPT_DELIVERY_TYPE$$', context.receiptDeliveryType)
     .replace('$$THEME$$', context.theme)
     .replace('$$IFRAME$$', String(context.iframe))
     ;

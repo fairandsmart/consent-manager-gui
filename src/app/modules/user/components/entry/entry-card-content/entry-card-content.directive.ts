@@ -95,7 +95,6 @@ export abstract class EntryCardContentDirective<T extends ModelData> implements 
       validity: '',
       language: this.defaultLanguage,
       formType: ConsentFormType.FULL,
-      receiptDeliveryType: 'DOWNLOAD',
       userinfos: {},
       attributes: {},
       notificationModel: '',

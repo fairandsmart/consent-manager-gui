@@ -265,7 +265,6 @@ export interface ConsentContext {
   language: string;
   validity?: string;
   formType: ConsentFormType;
-  receiptDeliveryType: ReceiptDeliveryType;
   receiptDisplayType?: ReceiptDisplayType;
   userinfos: { [key: string]: string };
   attributes: { [key: string]: string };
@@ -276,8 +275,8 @@ export interface ConsentContext {
   preview: boolean;
   iframe: boolean;
   theme?: string;
-  showAcceptAll?: boolean;
-  showValidity?: boolean;
+  acceptAllVisible?: boolean;
+  validityVisible?: boolean;
   acceptAllText?: string;
   footerOnTop?: boolean;
 }
@@ -302,11 +301,8 @@ export enum CollectionMethod {
   USER_PAGE = 'USER_PAGE'
 }
 
-export type ReceiptDeliveryType = 'NONE' | 'DISPLAY' | 'DOWNLOAD';
-
 export type ReceiptDisplayType = 'HTML' | 'XML' | 'PDF' | 'TEXT';
 
-export const RECEIPT_DELIVERY_TYPES: ReceiptDeliveryType[] = ['NONE', 'DISPLAY', 'DOWNLOAD'];
 export const RECEIPT_DISPLAY_TYPES: ReceiptDisplayType[] = ['HTML', 'XML', 'PDF', 'TEXT'];
 
 export interface ConsentTransaction {

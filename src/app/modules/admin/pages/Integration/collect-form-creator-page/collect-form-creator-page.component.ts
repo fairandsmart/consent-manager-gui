@@ -9,7 +9,6 @@ import {
   FIELD_VALIDATORS,
   Icons,
   ModelEntryDto,
-  RECEIPT_DELIVERY_TYPES,
   RECEIPT_DISPLAY_TYPES
 } from '../../../../../core/models/models';
 import { debounceTime, tap } from 'rxjs/operators';
@@ -127,7 +126,6 @@ export class CollectFormCreatorPageComponent implements OnInit {
   public form: FormArray;
   public readonly STEPS = FORM_CREATOR_STEP;
   public readonly ORIENTATIONS = CONSENT_FORM_ORIENTATIONS;
-  public readonly RECEIPT_TYPES = RECEIPT_DELIVERY_TYPES;
   public readonly RECEIPT_FORMATS = RECEIPT_DISPLAY_TYPES;
   public readonly VALIDITY_UNITS = ['D', 'W', 'M', 'Y'];
 
@@ -191,7 +189,7 @@ export class CollectFormCreatorPageComponent implements OnInit {
       this.fb.group({
         language: [this.defaultLanguage, [Validators.required]],
         theme: ['', [Validators.pattern(FIELD_VALIDATORS.key.pattern)]],
-        showAcceptAll: [false, [Validators.required]],
+        acceptAllVisible: [false, [Validators.required]],
         acceptAllText: [''],
         footerOnTop: [false, [Validators.required]],
         orientation: [ConsentFormOrientation.VERTICAL, [Validators.required]],
@@ -201,8 +199,7 @@ export class CollectFormCreatorPageComponent implements OnInit {
         forceDisplay: [true, [Validators.required]],
         validity: [6, [Validators.required, Validators.min(1)]],
         validityUnit: ['M', [Validators.required]],
-        showValidity: [true],
-        receiptDeliveryType: ['DISPLAY', [Validators.required]],
+        validityVisible: [true],
         receiptDisplayType: ['HTML', [Validators.required]],
         notify: [true],
         notificationModel: ['', [Validators.required, Validators.pattern(FIELD_VALIDATORS.key.pattern)]],
@@ -212,7 +209,7 @@ export class CollectFormCreatorPageComponent implements OnInit {
     merge(
       this.form.at(FORM_CREATOR_STEP.PREVIEW).get('language').valueChanges,
       this.form.at(FORM_CREATOR_STEP.PREVIEW).get('theme').valueChanges,
-      this.form.at(FORM_CREATOR_STEP.PREVIEW).get('showAcceptAll').valueChanges,
+      this.form.at(FORM_CREATOR_STEP.PREVIEW).get('acceptAllVisible').valueChanges,
       this.form.at(FORM_CREATOR_STEP.PREVIEW).get('acceptAllText').valueChanges.pipe(
         debounceTime(500)
       ),
@@ -305,10 +302,9 @@ export class CollectFormCreatorPageComponent implements OnInit {
       elements: formValue.elements,
       callback: '',
       validity: CollectFormCreatorPageComponent.formatValidity(formValue.validity, formValue.validityUnit),
-      showValidity: formValue.showValidity,
+      validityVisible: formValue.validityVisible,
       language: formValue.language,
       formType: formValue.forceDisplay ? ConsentFormType.FULL : ConsentFormType.PARTIAL,
-      receiptDeliveryType: formValue.receiptDeliveryType,
       receiptDisplayType: formValue.receiptDisplayType,
       userinfos: {},
       attributes: {},
@@ -319,7 +315,7 @@ export class CollectFormCreatorPageComponent implements OnInit {
       preview: isPreview,
       iframe: true,
       theme: formValue.theme,
-      showAcceptAll: formValue.showAcceptAll,
+      acceptAllVisible: formValue.acceptAllVisible,
       acceptAllText: formValue.acceptAllText,
       footerOnTop: formValue.footerOnTop
     };
@@ -391,10 +387,10 @@ export class CollectFormCreatorPageComponent implements OnInit {
 
   private updateAcceptAll(): void {
     if (this.selectedElements.elements.filter(e => e.type === 'processing').length > 1) {
-      this.form.at(FORM_CREATOR_STEP.PREVIEW).get('showAcceptAll').enable();
+      this.form.at(FORM_CREATOR_STEP.PREVIEW).get('acceptAllVisible').enable();
     } else {
-      this.form.at(FORM_CREATOR_STEP.PREVIEW).get('showAcceptAll').setValue(false);
-      this.form.at(FORM_CREATOR_STEP.PREVIEW).get('showAcceptAll').disable();
+      this.form.at(FORM_CREATOR_STEP.PREVIEW).get('acceptAllVisible').setValue(false);
+      this.form.at(FORM_CREATOR_STEP.PREVIEW).get('acceptAllVisible').disable();
     }
   }
 }
