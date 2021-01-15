@@ -25,7 +25,7 @@ export class EntryEditorDialogComponent implements OnInit {
   constructor(private dialogRef: MatDialogRef<EntryEditorDialogComponent, ModelEntryDto>,
               @Inject(MAT_DIALOG_DATA) public data: EntryEditorDialogComponentData,
               private fb: FormBuilder,
-              private modelsResourceService: ModelsResourceService) {
+              private modelsResource: ModelsResourceService) {
   }
 
   ngOnInit(): void {
@@ -54,11 +54,11 @@ export class EntryEditorDialogComponent implements OnInit {
   generateKey(): Observable<string> {
     return new Observable((observer) => {
       const rootKey = this.form.get('type').value;
-      this.modelsResourceService.listEntries({ types: [rootKey], size: -1 }).subscribe((entries) => {
+      this.modelsResource.listEntries({ types: [rootKey], size: -1 }).subscribe((entries) => {
         let increment = entries.values.length + 1;
         const keyCheck$ = new Subject<void>();
         keyCheck$.pipe(
-          mergeMap(() => this.modelsResourceService.listEntries({
+          mergeMap(() => this.modelsResource.listEntries({
             keys: [rootKey + '.' + increment],
             size: -1
           })),
@@ -89,7 +89,7 @@ export class EntryEditorDialogComponent implements OnInit {
         name: formValue.name,
         description: formValue.description
       };
-      obs = this.modelsResourceService.updateEntry(this.data.entry.id, dto);
+      obs = this.modelsResource.updateEntry(this.data.entry.id, dto);
     } else {
       obs = this.generateKey().pipe(
         mergeMap((key) => {
@@ -99,7 +99,7 @@ export class EntryEditorDialogComponent implements OnInit {
             name: formValue.name,
             description: formValue.description
           };
-          return this.modelsResourceService.createEntry(dto);
+          return this.modelsResource.createEntry(dto);
         })
       );
     }

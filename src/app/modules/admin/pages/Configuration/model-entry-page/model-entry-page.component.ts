@@ -21,16 +21,16 @@ export class ModelEntryPageComponent implements OnInit {
 
   latest: ModelVersionDto<any>;
 
-  constructor(private route: ActivatedRoute, private modelsResourceService: ModelsResourceService) {
+  constructor(private route: ActivatedRoute, private modelsResource: ModelsResourceService) {
   }
 
   ngOnInit(): void {
     this.route.paramMap.pipe(
-      mergeMap((params) => this.modelsResourceService.getEntry(params.get('id'))),
+      mergeMap((params) => this.modelsResource.getEntry(params.get('id'))),
       mergeMap((entry: ModelEntryDto) => {
         const lastVersion = _.last(entry.versions);
         if (lastVersion) {
-          return this.modelsResourceService.getVersion(entry.id, lastVersion.id)
+          return this.modelsResource.getVersion(entry.id, lastVersion.id)
             .pipe(
               map((version) => ([entry, version]))
             );

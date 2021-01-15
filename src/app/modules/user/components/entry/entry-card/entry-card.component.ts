@@ -17,11 +17,11 @@ export class EntryCardComponent implements OnInit {
   @Input()
   record: RecordDto;
 
-  constructor(public modelsResourceService: ModelsResourceService) {
+  constructor(public modelsResource: ModelsResourceService) {
   }
 
   ngOnInit(): void {
-    this.modelsResourceService.getActiveVersion(this.entry.id)
+    this.modelsResource.getActiveVersion(this.entry.id)
       .subscribe((version) => this.active = version);
   }
 

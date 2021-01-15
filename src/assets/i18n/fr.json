@@ -313,9 +313,9 @@
           "UNIT": {
             "LABEL": "Unité",
             "VALUES": {
-              "YEAR": "An(s)",
-              "MONTH": "Mois",
-              "WEEK": "Semaine(s)"
+              "YEAR": "an(s)",
+              "MONTH": "mois",
+              "WEEK": "semaine(s)"
             }
           }
         },
