@@ -59,12 +59,12 @@ export class EntryEditorDialogComponent implements OnInit {
         const keyCheck$ = new Subject<void>();
         keyCheck$.pipe(
           mergeMap(() => this.modelsResource.listEntries({
-            keys: [rootKey + '.' + increment],
+            keys: [this.formatKey(rootKey, increment)],
             size: -1
           })),
         ).subscribe((result) => {
           if (!result || result.values.length === 0) {
-            observer.next(rootKey + '.' + increment);
+            observer.next(this.formatKey(rootKey, increment));
             observer.complete();
           } else {
             increment++;
@@ -74,6 +74,10 @@ export class EntryEditorDialogComponent implements OnInit {
         keyCheck$.next();
       });
     });
+  }
+
+  private formatKey(root, increment): string {
+    return root + '.' + ('000' + increment).substr(-3);
   }
 
   submit(): void {
@@ -108,9 +112,6 @@ export class EntryEditorDialogComponent implements OnInit {
     }, (err: HttpErrorResponse) => {
       console.error(err);
       this.enableForm();
-      // if (err.status === 409) {
-      //   this.form.get('key').setErrors({alreadyExists: true});
-      // }
     });
   }
 
@@ -120,9 +121,6 @@ export class EntryEditorDialogComponent implements OnInit {
       if (this.data.entry.type) {
         this.form.get('type').disable();
       }
-      // if (this.data.entry.key) {
-      //   this.form.get('key').disable();
-      // }
     }
   }
 
