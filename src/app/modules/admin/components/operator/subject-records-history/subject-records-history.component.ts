@@ -2,12 +2,13 @@ import { Component, Inject, OnInit, ViewChild } from '@angular/core';
 import { CollectionDatasource } from '../../../utils/collection-datasource';
 import {
   CollectionPage,
+  ConsentTransaction,
   RecordDto,
   RecordFilter,
   RecordStatus
 } from '../../../../../core/models/models';
 import { Observable, of } from 'rxjs';
-import { catchError, tap } from 'rxjs/operators';
+import { catchError, mergeMap, tap } from 'rxjs/operators';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { SubjectRecordApplyChangesDialogData } from '../subject-record-apply-changes-dialog/subject-record-apply-changes-dialog.component';
 import { MatPaginator } from '@angular/material/paginator';
@@ -76,12 +77,12 @@ export class SubjectRecordsHistoryComponent implements OnInit {
   };
 
   constructor(private dialogRef: MatDialogRef<SubjectRecordsHistoryComponent, SubjectRecordApplyChangesDialogData>,
-              @Inject(MAT_DIALOG_DATA) public data: RecordDto[],
+              @Inject(MAT_DIALOG_DATA) public data: {subject: string, records: RecordDto[]},
               private receiptResource: ReceiptsResourceService) {
   }
 
   ngOnInit(): void {
-    this.dataSource = new SubjectRecordsHistoryDataSource(this.data);
+    this.dataSource = new SubjectRecordsHistoryDataSource(this.data.records);
     this.dataSource.paginator = this.paginator;
     this.sort.sortChange.subscribe((sort: Sort) => {
       this.filter.page = 0;
@@ -112,7 +113,17 @@ export class SubjectRecordsHistoryComponent implements OnInit {
   }
 
   openReceipt(element): void {
-    this.receiptResource.getReceiptPdf(element.transaction).pipe(
+    const transaction: ConsentTransaction = {
+      subject: this.data.subject,
+      transaction: element.transaction,
+      claims: {
+        transaction: element.transactionId
+      }
+    };
+    this.receiptResource.generateReceiptToken(transaction).pipe(
+      mergeMap((token) => {
+        return this.receiptResource.getReceiptPdf(token, element.transaction);
+      }),
       tap((pdf: ArrayBuffer) => {
         const blob = new Blob([pdf], {type: 'application/pdf'});
         FileSaver.saveAs(blob, 'receipt.pdf');

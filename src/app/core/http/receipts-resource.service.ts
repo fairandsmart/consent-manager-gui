@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { environment } from '../../../environments/environment';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
+import { ConsentTransaction } from '../models/models';
 
 @Injectable({
   providedIn: 'root'
@@ -13,9 +14,16 @@ export class ReceiptsResourceService {
   constructor(private http: HttpClient) {
   }
 
-  getReceiptPdf(transactionId: string): Observable<ArrayBuffer> {
-    // @ts-ignore
-    return this.http.get<ArrayBuffer>(`${this.ROOT}/${transactionId}`, {params: {format: 'application/pdf'}, responseType: 'arraybuffer'});
+  generateReceiptToken(transaction: ConsentTransaction): Observable<string> {
+    return this.http.post(`${this.ROOT}/token`, transaction, {responseType: 'text'});
+  }
+
+  getReceiptPdf(token: string, transactionId: string): Observable<ArrayBuffer> {
+    return this.http.get<ArrayBuffer>(`${this.ROOT}/${transactionId}`, {
+      params: {t: token, format: 'application/pdf'},
+      // @ts-ignore
+      responseType: 'arraybuffer'
+    });
   }
 
 }

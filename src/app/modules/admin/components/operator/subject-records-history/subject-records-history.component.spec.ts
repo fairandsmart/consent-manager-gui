@@ -16,22 +16,24 @@ describe('SubjectRecordsHistoryComponent', () => {
 
   beforeEach(waitForAsync(() => {
     dialogRefSpy = createSpyObj<MatDialogRef<SubjectRecordsHistoryComponent>>('MatDialogRef', ['close']);
-    receiptsResourceServiceSpy = createSpyObj<ReceiptsResourceService>('ReceiptsResourceService', ['getReceiptPdf']);
+    receiptsResourceServiceSpy = createSpyObj<ReceiptsResourceService>('ReceiptsResourceService',
+      ['getReceiptPdf', 'generateReceiptToken']);
 
     TestBed.configureTestingModule({
-      declarations: [ SubjectRecordsHistoryComponent ],
-      imports: [ CoreTestingModule ],
+      declarations: [SubjectRecordsHistoryComponent],
+      imports: [CoreTestingModule],
       providers: [
         {provide: MatDialogRef, useValue: dialogRefSpy},
         {provide: MAT_DIALOG_DATA, useValue: []},
         {provide: ReceiptsResourceService, useValue: receiptsResourceServiceSpy},
       ]
     })
-    .compileComponents();
+      .compileComponents();
   }));
 
   beforeEach(() => {
     receiptsResourceServiceSpy.getReceiptPdf.and.returnValue(EMPTY);
+    receiptsResourceServiceSpy.generateReceiptToken.and.returnValue(EMPTY);
 
     fixture = TestBed.createComponent(SubjectRecordsHistoryComponent);
     component = fixture.componentInstance;
