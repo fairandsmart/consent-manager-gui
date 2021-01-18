@@ -10,7 +10,7 @@ import createSpyObj = jasmine.createSpyObj;
 import SpyObj = jasmine.SpyObj;
 import { StatisticsResourceService } from '../../../../../core/http/statistics-resource.service';
 
-describe('DashboardComponent', () => {
+describe('DashboardPageComponent', () => {
   let component: DashboardPageComponent;
   let fixture: ComponentFixture<DashboardPageComponent>;
   let statsResourceServiceSpy: SpyObj<StatisticsResourceService>;

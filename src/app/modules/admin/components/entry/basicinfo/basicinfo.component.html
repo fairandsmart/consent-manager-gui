@@ -42,7 +42,7 @@
               <input type="tel" matInput formControlName="phoneNumber" autocomplete="off">
             </mat-form-field>
           </div>
-          <mat-radio-group formControlName="showDataController">
+          <mat-radio-group formControlName="dataControllerVisible">
             <mat-radio-button [value]="true">{{'ENTRIES.EDITOR.CONTENT.SHOW' | translate}}</mat-radio-button>
             <mat-radio-button [value]="false">{{'ENTRIES.EDITOR.CONTENT.HIDE' | translate}}</mat-radio-button>
           </mat-radio-group>
@@ -52,7 +52,7 @@
             <mat-label>{{'ENTRIES.EDITOR.BASICINFO.JURISDICTION.LABEL' | translate}}</mat-label>
             <textarea matInput formControlName="jurisdiction" cdkTextareaAutosize cdkAutosizeMinRows="1"></textarea>
           </mat-form-field>
-          <mat-radio-group formControlName="showJurisdiction">
+          <mat-radio-group formControlName="jurisdictionVisible">
             <mat-radio-button [value]="true">{{'ENTRIES.EDITOR.CONTENT.SHOW' | translate}}</mat-radio-button>
             <mat-radio-button [value]="false">{{'ENTRIES.EDITOR.CONTENT.HIDE' | translate}}</mat-radio-button>
           </mat-radio-group>
@@ -60,7 +60,7 @@
             <mat-label>{{'ENTRIES.EDITOR.BASICINFO.COLLECTION_METHOD.LABEL' | translate}}</mat-label>
             <textarea matInput formControlName="collectionMethod" cdkTextareaAutosize cdkAutosizeMinRows="1"></textarea>
           </mat-form-field>
-          <mat-radio-group formControlName="showCollectionMethod">
+          <mat-radio-group formControlName="collectionMethodVisible">
             <mat-radio-button [value]="true">{{'ENTRIES.EDITOR.CONTENT.SHOW' | translate}}</mat-radio-button>
             <mat-radio-button [value]="false">{{'ENTRIES.EDITOR.CONTENT.HIDE' | translate}}</mat-radio-button>
           </mat-radio-group>
@@ -68,7 +68,7 @@
             <mat-label>{{'ENTRIES.EDITOR.BASICINFO.SCOPE.LABEL' | translate}}</mat-label>
             <textarea matInput formControlName="scope" cdkTextareaAutosize cdkAutosizeMinRows="1"></textarea>
           </mat-form-field>
-          <mat-radio-group formControlName="showScope">
+          <mat-radio-group formControlName="scopeVisible">
             <mat-radio-button [value]="true">{{'ENTRIES.EDITOR.CONTENT.SHOW' | translate}}</mat-radio-button>
             <mat-radio-button [value]="false">{{'ENTRIES.EDITOR.CONTENT.HIDE' | translate}}</mat-radio-button>
           </mat-radio-group>
@@ -86,7 +86,7 @@
             <mat-label>{{'ENTRIES.EDITOR.BASICINFO.SHORT_NOTICE.LABEL' | translate}}</mat-label>
             <input matInput formControlName="shortNoticeLink" autocomplete="off">
           </mat-form-field>
-          <mat-radio-group formControlName="showShortNoticeLink">
+          <mat-radio-group formControlName="shortNoticeLinkVisible">
             <mat-radio-button [value]="true">{{'ENTRIES.EDITOR.CONTENT.SHOW' | translate}}</mat-radio-button>
             <mat-radio-button [value]="false">{{'ENTRIES.EDITOR.CONTENT.HIDE' | translate}}</mat-radio-button>
           </mat-radio-group>

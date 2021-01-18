@@ -8,7 +8,7 @@ import { ModelsResourceService } from '../../../../../core/http/models-resource.
 import SpyObj = jasmine.SpyObj;
 import createSpyObj = jasmine.createSpyObj;
 
-describe('EntryPageComponent', () => {
+describe('ModelEntryPageComponent', () => {
   let component: ModelEntryPageComponent;
   let fixture: ComponentFixture<ModelEntryPageComponent>;
   let modelsResourceServiceSpy: SpyObj<ModelsResourceService>;

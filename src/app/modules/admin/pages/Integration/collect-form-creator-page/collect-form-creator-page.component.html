@@ -133,7 +133,7 @@
         <mat-checkbox formControlName="acceptAllVisible">{{'FORM_CREATOR.FORM.ACCEPT_ALL.DISPLAY.LABEL' | translate}}</mat-checkbox>
       </div>
 
-      <mat-form-field appearance="outline" *ngIf="form.at(STEPS.PREVIEW).get('showAcceptAll').value">
+      <mat-form-field appearance="outline" *ngIf="form.at(STEPS.PREVIEW).get('acceptAllVisible').value">
         <mat-label>{{'FORM_CREATOR.FORM.ACCEPT_ALL.BUTTON_LABEL.LABEL' | translate}}</mat-label>
         <input matInput formControlName="acceptAllText" autocomplete="off">
       </mat-form-field>

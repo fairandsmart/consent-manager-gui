@@ -10,6 +10,7 @@ describe('workspace-project App', () => {
 
   it('should display welcome message', () => {
     page.navigateTo();
+    // @ts-ignore
     expect(page.getTitleText()).toEqual('consent-manager-gui app is running!');
   });
 

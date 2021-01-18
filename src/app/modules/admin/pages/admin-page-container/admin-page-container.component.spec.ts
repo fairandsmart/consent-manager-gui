@@ -11,7 +11,7 @@ import { SideNavComponent } from '../../components/side-nav/side-nav.component';
 import SpyObj = jasmine.SpyObj;
 import createSpyObj = jasmine.createSpyObj;
 
-describe('AdminPageComponent', () => {
+describe('AdminPageContainerComponent', () => {
   let component: AdminPageContainerComponent;
   let fixture: ComponentFixture<AdminPageContainerComponent>;
   let keycloakServiceSpy: SpyObj<KeycloakService>;

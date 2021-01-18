@@ -10,7 +10,7 @@ import { CoreTestingModule } from '../../../../../testing/core-testing-module.sp
 import SpyObj = jasmine.SpyObj;
 import createSpyObj = jasmine.createSpyObj;
 
-describe('KeysComponent', () => {
+describe('AccessKeysPageComponent', () => {
   let component: AccessKeysPageComponent;
   let fixture: ComponentFixture<AccessKeysPageComponent>;
   let keysResourceServiceSpy: SpyObj<KeysResourceService>;
