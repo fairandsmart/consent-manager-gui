@@ -19,7 +19,7 @@
         </mat-menu>
       </ng-template>
     </ng-container>
-    <ng-container *ngIf="section.canAddMultiple === 'ENTERPRISE'">
+    <ng-container *ngIf="section.canAddMultiple === 'ENTERPRISE' && entries?.length > 0">
       <button [matTooltip]="'ENTRIES.BUTTON_ADD.' + section.types[0] | translate" mat-mini-fab
               (click)="displayAvailabilityWarning()">
         <mat-icon>add</mat-icon>

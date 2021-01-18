@@ -116,15 +116,15 @@ export interface BasicInfo extends ModelData {
   header: string;
   footer: string;
   jurisdiction: string;
-  showJurisdiction: boolean;
+  jurisdictionVisible: boolean;
   collectionMethod: string;
-  showCollectionMethod: boolean;
+  collectionMethodVisible: boolean;
   dataController: Controller;
-  showDataController: boolean;
+  dataControllerVisible: boolean;
   scope: string;
-  showScope: boolean;
+  scopeVisible: boolean;
   shortNoticeLink: string;
-  showShortNoticeLink: boolean;
+  shortNoticeLinkVisible: boolean;
   privacyPolicyUrl: string;
   customPrivacyPolicyText: string;
 }
@@ -164,7 +164,7 @@ export interface Processing extends ModelData {
   containsSensitiveData: boolean;
   containsMedicalData: boolean;
   dataController: Controller;
-  showDataController: boolean;
+  dataControllerVisible: boolean;
   thirdParties: { name: string, value: string }[];
 }
 

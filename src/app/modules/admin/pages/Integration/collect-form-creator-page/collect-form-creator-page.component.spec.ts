@@ -10,7 +10,7 @@ import { CoreTestingModule } from '../../../../../testing/core-testing-module.sp
 import SpyObj = jasmine.SpyObj;
 import createSpyObj = jasmine.createSpyObj;
 
-describe('FormCreatorComponent', () => {
+describe('CollectFormCreatorPageComponent', () => {
   let component: CollectFormCreatorPageComponent;
   let fixture: ComponentFixture<CollectFormCreatorPageComponent>;
   let modelsResourceServiceSpy: SpyObj<ModelsResourceService>;

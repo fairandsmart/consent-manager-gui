@@ -74,7 +74,7 @@ export class ProcessingComponent extends EntryContentDirective<Processing> imple
         email: ['', Validators.email],
         phoneNumber: ['', Validators.pattern(FIELD_VALIDATORS.phone.pattern)]
       }),
-      showDataController: [{value: false, disabled: true}],
+      dataControllerVisible: [{value: false, disabled: true}],
       thirdParties: this.fb.array([])
     });
     this.form.get('containsMedicalData').disable();
@@ -134,10 +134,10 @@ export class ProcessingComponent extends EntryContentDirective<Processing> imple
 
   private dataControllerChange(dataController: Controller): void {
     if (this.isDataControllerEmpty(dataController)) {
-      this.form.get('showDataController').setValue(false);
-      this.form.get('showDataController').disable();
+      this.form.get('dataControllerVisible').setValue(false);
+      this.form.get('dataControllerVisible').disable();
     } else {
-      this.form.get('showDataController').enable();
+      this.form.get('dataControllerVisible').enable();
     }
   }
 

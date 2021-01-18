@@ -9,7 +9,7 @@ import { EMPTY } from 'rxjs';
 import SpyObj = jasmine.SpyObj;
 import createSpyObj = jasmine.createSpyObj;
 
-describe('SubjectRecordNotificationDialogComponent', () => {
+describe('SubjectRecordApplyChangesDialogComponent', () => {
   let component: SubjectRecordApplyChangesDialogComponent;
   let fixture: ComponentFixture<SubjectRecordApplyChangesDialogComponent>;
   let dialogRefSpy: SpyObj<MatDialogRef<SubjectRecordApplyChangesDialogComponent>>;

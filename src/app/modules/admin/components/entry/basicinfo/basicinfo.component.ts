@@ -44,15 +44,15 @@ export class BasicinfoComponent extends EntryContentDirective<BasicInfo> impleme
         email: ['', [Validators.email]],
         phoneNumber: ['', Validators.pattern(FIELD_VALIDATORS.phone.pattern)]
       }),
-      showDataController: [{value: false, disabled: true}],
+      dataControllerVisible: [{value: false, disabled: true}],
       jurisdiction: [''],
-      showJurisdiction: [{value: false, disabled: true}],
+      jurisdictionVisible: [{value: false, disabled: true}],
       collectionMethod: [''],
-      showCollectionMethod: [{value: false, disabled: true}],
+      collectionMethodVisible: [{value: false, disabled: true}],
       scope: [''],
-      showScope: [{value: false, disabled: true}],
+      scopeVisible: [{value: false, disabled: true}],
       shortNoticeLink: [''],
-      showShortNoticeLink: [{value: false, disabled: true}],
+      shortNoticeLinkVisible: [{value: false, disabled: true}],
       privacyPolicyUrl: ['', [Validators.required]],
       customPrivacyPolicyText: ['']
     });
@@ -60,10 +60,10 @@ export class BasicinfoComponent extends EntryContentDirective<BasicInfo> impleme
   }
 
   registerFormChanges(): void {
-    this.form.get('jurisdiction').valueChanges.subscribe(v => this.optionalFieldChange(v, 'showJurisdiction'));
-    this.form.get('collectionMethod').valueChanges.subscribe(v => this.optionalFieldChange(v, 'showCollectionMethod'));
-    this.form.get('scope').valueChanges.subscribe(v => this.optionalFieldChange(v, 'showScope'));
-    this.form.get('shortNoticeLink').valueChanges.subscribe(v => this.optionalFieldChange(v, 'showShortNoticeLink'));
+    this.form.get('jurisdiction').valueChanges.subscribe(v => this.optionalFieldChange(v, 'jurisdictionVisible'));
+    this.form.get('collectionMethod').valueChanges.subscribe(v => this.optionalFieldChange(v, 'collectionMethodVisible'));
+    this.form.get('scope').valueChanges.subscribe(v => this.optionalFieldChange(v, 'scopeVisible'));
+    this.form.get('shortNoticeLink').valueChanges.subscribe(v => this.optionalFieldChange(v, 'shortNoticeLinkVisible'));
     this.form.get('dataController').valueChanges.subscribe(v => this.dataControllerChange(v));
     super.registerFormChanges();
   }
@@ -79,10 +79,10 @@ export class BasicinfoComponent extends EntryContentDirective<BasicInfo> impleme
 
   private dataControllerChange(dataController: Controller): void {
     if (this.isDataControllerEmpty(dataController)) {
-      this.form.get('showDataController').setValue(false);
-      this.form.get('showDataController').disable();
+      this.form.get('dataControllerVisible').setValue(false);
+      this.form.get('dataControllerVisible').disable();
     } else {
-      this.form.get('showDataController').enable();
+      this.form.get('dataControllerVisible').enable();
     }
   }
 
