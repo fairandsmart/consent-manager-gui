@@ -476,6 +476,7 @@ export interface SupportInfoDto {
 export interface ClientConfigDto {
   userPageEnabled: boolean;
   userPageElements: string[];
+  language: string;
 }
 
 /* Statistics */

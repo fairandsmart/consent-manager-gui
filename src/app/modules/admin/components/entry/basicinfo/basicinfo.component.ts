@@ -5,6 +5,7 @@ import { FormBuilder, Validators } from '@angular/forms';
 import { ModelsResourceService } from '../../../../../core/http/models-resource.service';
 import { DomSanitizer } from '@angular/platform-browser';
 import { AlertService } from '../../../../../core/services/alert.service';
+import {ConfigService} from '../../../../../core/services/config.service';
 
 @Component({
   selector: 'cm-basicinfo',
@@ -19,8 +20,9 @@ export class BasicinfoComponent extends EntryContentDirective<BasicInfo> impleme
     private fb: FormBuilder,
     modelsResourceService: ModelsResourceService,
     alertService: AlertService,
-    sanitizer: DomSanitizer) {
-    super(BasicinfoComponent.CONTEXT, modelsResourceService, alertService, sanitizer);
+    sanitizer: DomSanitizer,
+    configService: ConfigService) {
+    super(BasicinfoComponent.CONTEXT, modelsResourceService, alertService, sanitizer, configService);
   }
 
   get type(): ModelDataType {

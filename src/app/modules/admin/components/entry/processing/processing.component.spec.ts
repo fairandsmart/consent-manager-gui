@@ -12,6 +12,8 @@ import SpyObj = jasmine.SpyObj;
 import createSpyObj = jasmine.createSpyObj;
 import { KeycloakService } from 'keycloak-angular';
 import { EMPTY } from 'rxjs';
+import { ConfigServiceStubSpec } from '../../../../../testing/config-service-stub.spec';
+import { ConfigService } from '../../../../../core/services/config.service';
 
 describe('ProcessingComponent', () => {
   let component: ProcessingComponent;
@@ -19,11 +21,13 @@ describe('ProcessingComponent', () => {
   let modelsResourceServiceSpy: SpyObj<ModelsResourceService>;
   let keycloakServiceSpy: SpyObj<KeycloakService>;
   let alertServiceSpy: SpyObj<AlertService>;
+  let configServiceStub: ConfigServiceStubSpec;
 
   beforeEach(waitForAsync(() => {
     modelsResourceServiceSpy =  createSpyObj<ModelsResourceService>('ModelsResourceService', ['listEntries']);
     alertServiceSpy =  createSpyObj('AlertService', ['error']);
     keycloakServiceSpy =  createSpyObj<KeycloakService>('KeycloakService', ['getUsername']);
+    configServiceStub = new ConfigServiceStubSpec();
 
     TestBed.configureTestingModule({
       declarations: [ ProcessingComponent, EntryInfoComponent, EntryPreviewComponent ],
@@ -31,7 +35,8 @@ describe('ProcessingComponent', () => {
       providers: [
         {provide: ModelsResourceService, useValue: modelsResourceServiceSpy},
         {provide: KeycloakService, useValue: keycloakServiceSpy},
-        {provide: AlertService, useValue: alertServiceSpy}
+        {provide: AlertService, useValue: alertServiceSpy},
+        {provide: ConfigService, useValue: configServiceStub}
       ]
     })
     .compileComponents();

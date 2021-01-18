@@ -85,6 +85,7 @@
     }
   },
   "ALERT": {
+    "BAD_VERSION": "Your backend version is outdated",
     "NO_CHANGE": "No change",
     "FORM_ERROR": "There are errors in the form, changes not saved",
     "UNSAVED_CHANGES": "Unsaved changes, cannot activate draft",
@@ -96,7 +97,13 @@
     "DELETION_SUCCESS": "Draft deleted!",
     "DELETION_ERROR": "Cannot delete draft...",
     "RELOAD_ERROR": "Cannot reload latest version...",
-    "AVAILABLE_IN_ENTERPRISE": "This feature is not available in the Community version."
+    "AVAILABLE_IN_ENTERPRISE": "This feature is not available in the Community version.",
+    "DRAGGABLE": "Drag and drop this entry to the form",
+    "NOT_DRAGGABLE_REASONS": {
+      "ALREADY_SELECTED": "This entry is already selected",
+      "NO_ACTIVE_VERSION": "You need to activate this entry before you can select it",
+      "BAD_LANGUAGE": "This entry's language is not compatible with your version of Right Consents"
+    }
   },
   "CONFIRM_DIALOG": {
     "CONFIRM": "Confirm",

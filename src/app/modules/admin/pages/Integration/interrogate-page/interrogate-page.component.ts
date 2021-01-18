@@ -5,8 +5,8 @@ import { ExtractionConfigDto, ExtractionResultDto, Icons, ModelEntryDto, Prefere
 import { map, tap } from 'rxjs/operators';
 import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { RecordsResourceService } from '../../../../../core/http/records-resource.service';
-import { environment } from '../../../../../../environments/environment';
 import * as FileSaver from 'file-saver';
+import {ConfigService} from '../../../../../core/services/config.service';
 
 @Component({
   selector: 'cm-interrogate-page',
@@ -35,13 +35,16 @@ export class InterrogatePageComponent implements OnInit {
 
   readonly displayedColumns = ['subjectName', 'subjectEmail', 'recordKey', 'recordSerial', 'recordValue'];
 
-  private readonly defaultLanguage = environment.customization.defaultLanguage;
+  private readonly defaultLanguage;
 
   constructor(
     private modelsResource: ModelsResourceService,
     private recordsResource: RecordsResourceService,
-    private fb: FormBuilder
-  ) { }
+    private fb: FormBuilder,
+    private configService: ConfigService
+  ) {
+    this.defaultLanguage = this.configService.config.language;
+  }
 
   ngOnInit(): void {
     this.form = this.fb.group({

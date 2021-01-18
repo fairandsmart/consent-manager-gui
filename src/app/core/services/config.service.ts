@@ -5,13 +5,18 @@ import { SystemResourceService } from '../http/system-resource.service';
 import { ClientConfigDto } from '../models/models';
 import { map } from 'rxjs/operators';
 import * as _ from 'lodash';
+import {TranslateService} from '@ngx-translate/core';
+import {AlertService} from './alert.service';
 
 @Injectable()
 export class ConfigService implements CanLoad {
 
   public config: ClientConfigDto;
 
-  constructor(private systemResource: SystemResourceService) {
+  constructor(
+    private systemResource: SystemResourceService,
+    private translateService: TranslateService,
+    private alertService: AlertService) {
   }
 
   canLoad(route: Route, segments: UrlSegment[]): Observable<boolean | UrlTree> | Promise<boolean | UrlTree> | boolean | UrlTree {
@@ -19,6 +24,11 @@ export class ConfigService implements CanLoad {
       return this.systemResource.getClientConfig().pipe(
         map(config => {
           this.config = config;
+          if (!this.config.language) {
+            this.alertService.error('ALERT.BAD_VERSION', {});
+            return false;
+          }
+          this.translateService.setDefaultLang(this.config.language);
           return this.checkRouteConditions(route);
         })
       );

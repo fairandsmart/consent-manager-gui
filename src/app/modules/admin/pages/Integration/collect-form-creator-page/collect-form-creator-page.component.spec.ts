@@ -9,16 +9,20 @@ import { ConsentsResourceService } from '../../../../../core/http/consents-resou
 import { CoreTestingModule } from '../../../../../testing/core-testing-module.spec';
 import SpyObj = jasmine.SpyObj;
 import createSpyObj = jasmine.createSpyObj;
+import { ConfigServiceStubSpec } from '../../../../../testing/config-service-stub.spec';
+import { ConfigService } from '../../../../../core/services/config.service';
 
 describe('CollectFormCreatorPageComponent', () => {
   let component: CollectFormCreatorPageComponent;
   let fixture: ComponentFixture<CollectFormCreatorPageComponent>;
   let modelsResourceServiceSpy: SpyObj<ModelsResourceService>;
   let consentsResourceServiceSpy: SpyObj<ConsentsResourceService>;
+  let configServiceStub: ConfigServiceStubSpec;
 
   beforeEach(waitForAsync(() => {
     modelsResourceServiceSpy =  createSpyObj<ModelsResourceService>('ModelsResourceService', ['listEntries']);
     consentsResourceServiceSpy =  createSpyObj<ConsentsResourceService>('ConsentsResourceService', ['generateToken']);
+    configServiceStub = new ConfigServiceStubSpec();
 
     TestBed.configureTestingModule({
       declarations: [ CollectFormCreatorPageComponent ],
@@ -26,6 +30,7 @@ describe('CollectFormCreatorPageComponent', () => {
       providers: [
         {provide: ModelsResourceService, useValue: modelsResourceServiceSpy},
         {provide: ConsentsResourceService, useValue: consentsResourceServiceSpy},
+        {provide: ConfigService, useValue: configServiceStub}
       ],
       schemas: [ NO_ERRORS_SCHEMA ]
     })

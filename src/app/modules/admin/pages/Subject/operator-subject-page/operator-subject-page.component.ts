@@ -21,9 +21,9 @@ import { OperatorProcessingComponent } from '../../../components/operator/operat
 import { OperatorPreferencesComponent } from '../../../components/operator/operator-preferences/operator-preferences.component';
 import { OperatorConditionsComponent } from '../../../components/operator/operator-conditions/operator-conditions.component';
 import { SubjectsResourceService } from '../../../../../core/http/subjects-resource.service';
-import { environment } from '../../../../../../environments/environment';
 import { mergeMap } from 'rxjs/operators';
 import { SubjectInfosEditorDialogComponent } from '../../../components/operator/subject-infos-editor-dialog/subject-infos-editor-dialog.component';
+import {ConfigService} from '../../../../../core/services/config.service';
 
 @Component({
   selector: 'cm-operator-subject-page',
@@ -32,7 +32,7 @@ import { SubjectInfosEditorDialogComponent } from '../../../components/operator/
 })
 export class OperatorSubjectPageComponent implements OnInit {
 
-  private readonly defaultLanguage = environment.customization.defaultLanguage;
+  private readonly defaultLanguage;
 
   public subject: SubjectDto;
   public records: RecordsMap;
@@ -53,7 +53,9 @@ export class OperatorSubjectPageComponent implements OnInit {
     private dialog: MatDialog,
     private translate: TranslateService,
     private consentsResource: ConsentsResourceService,
-    private subjectsResource: SubjectsResourceService) {
+    private subjectsResource: SubjectsResourceService,
+    private configService: ConfigService) {
+    this.defaultLanguage = this.configService.config.language;
   }
 
   ngOnInit(): void {

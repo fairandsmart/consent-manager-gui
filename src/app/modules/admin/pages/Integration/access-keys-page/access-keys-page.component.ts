@@ -26,7 +26,6 @@ export class AccessKeysPageComponent implements OnInit, AfterViewInit {
   constructor(
     private keysResource: KeysResourceService,
     private dialog: MatDialog,
-    protected ref: ChangeDetectorRef,
     private alertService: AlertService,
     private fb: FormBuilder) {
   }

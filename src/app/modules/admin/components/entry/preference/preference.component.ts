@@ -13,6 +13,7 @@ import { AlertService } from '../../../../../core/services/alert.service';
 import { MatChipInputEvent, MatChipList } from '@angular/material/chips';
 import { COMMA, ENTER } from '@angular/cdk/keycodes';
 import * as _ from 'lodash';
+import {ConfigService} from '../../../../../core/services/config.service';
 
 @Component({
   selector: 'cm-preference',
@@ -34,8 +35,9 @@ export class PreferenceComponent extends EntryContentDirective<Preference> imple
     private fb: FormBuilder,
     modelsResourceService: ModelsResourceService,
     alertService: AlertService,
-    sanitizer: DomSanitizer) {
-    super(PreferenceComponent.CONTEXT, modelsResourceService, alertService, sanitizer);
+    sanitizer: DomSanitizer,
+    configService: ConfigService) {
+    super(PreferenceComponent.CONTEXT, modelsResourceService, alertService, sanitizer, configService);
   }
 
   get type(): ModelDataType {

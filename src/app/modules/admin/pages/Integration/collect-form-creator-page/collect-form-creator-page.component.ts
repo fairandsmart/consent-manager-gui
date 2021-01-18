@@ -25,6 +25,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { FormUrlDialogComponent, FormUrlDialogComponentData } from '../../../components/form-url-dialog/form-url-dialog.component';
 import { hasActiveVersion } from '../../../../../core/utils/model-entry.utils';
 import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
+import {ConfigService} from '../../../../../core/services/config.service';
 
 enum FORM_CREATOR_STEP {
   ELEMENTS,
@@ -133,7 +134,7 @@ export class CollectFormCreatorPageComponent implements OnInit {
   private previousContext: ConsentContext;
   public currentStep: FORM_CREATOR_STEP;
 
-  private readonly defaultLanguage = environment.customization.defaultLanguage;
+  private readonly defaultLanguage;
 
   private static formatValidity(validity, validityUnit): string {
     if (validity) {
@@ -152,7 +153,9 @@ export class CollectFormCreatorPageComponent implements OnInit {
               private fb: FormBuilder,
               private sanitizer: DomSanitizer,
               private dialog: MatDialog,
-              private breakpointObserver: BreakpointObserver) {
+              private breakpointObserver: BreakpointObserver,
+              private configService: ConfigService) {
+    this.defaultLanguage = this.configService.config.language;
   }
 
   ngOnInit(): void {

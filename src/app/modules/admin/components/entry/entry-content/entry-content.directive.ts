@@ -18,6 +18,7 @@ import { environment } from '../../../../../../environments/environment';
 import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
 import { AlertService } from '../../../../../core/services/alert.service';
 import { FormStateSaver } from '../../../utils/form-state-saver';
+import {ConfigService} from '../../../../../core/services/config.service';
 
 @Directive()
 export abstract class EntryContentDirective<T extends ModelData> extends FormStateSaver implements OnInit {
@@ -35,14 +36,16 @@ export abstract class EntryContentDirective<T extends ModelData> extends FormSta
 
   readonly STATUS = ModelVersionStatus;
 
-  private readonly defaultLanguage = environment.customization.defaultLanguage;
+  private readonly defaultLanguage;
 
   protected constructor(
     context: string,
     protected modelsResourceService: ModelsResourceService,
     protected alertService: AlertService,
-    protected sanitizer: DomSanitizer) {
+    protected sanitizer: DomSanitizer,
+    protected configService: ConfigService) {
     super(context);
+    this.defaultLanguage = configService.config.language;
   }
 
   ngOnInit(): void {

@@ -7,16 +7,20 @@ import { RecordsResourceService } from '../../../../../core/http/records-resourc
 import { CoreTestingModule } from '../../../../../testing/core-testing-module.spec';
 import SpyObj = jasmine.SpyObj;
 import createSpyObj = jasmine.createSpyObj;
+import { ConfigServiceStubSpec } from '../../../../../testing/config-service-stub.spec';
+import { ConfigService } from '../../../../../core/services/config.service';
 
 describe('InterrogatePageComponent', () => {
   let component: InterrogatePageComponent;
   let fixture: ComponentFixture<InterrogatePageComponent>;
   let modelsResourceServiceSpy: SpyObj<ModelsResourceService>;
   let recordsResourceServiceSpy: SpyObj<RecordsResourceService>;
+  let configServiceStub: ConfigServiceStubSpec;
 
   beforeEach(async () => {
     modelsResourceServiceSpy = createSpyObj<ModelsResourceService>('ModelsResourceService', ['listEntries']);
     recordsResourceServiceSpy = createSpyObj<RecordsResourceService>('RecordsResourceService', ['extractRecords']);
+    configServiceStub = new ConfigServiceStubSpec();
 
     await TestBed.configureTestingModule({
       declarations: [ InterrogatePageComponent ],
@@ -26,6 +30,7 @@ describe('InterrogatePageComponent', () => {
       providers: [
         {provide: ModelsResourceService, useValue: modelsResourceServiceSpy},
         {provide: RecordsResourceService, useValue: recordsResourceServiceSpy},
+        {provide: ConfigService, useValue: configServiceStub}
       ]
     })
     .compileComponents();

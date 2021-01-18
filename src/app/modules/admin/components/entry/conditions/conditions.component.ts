@@ -5,6 +5,7 @@ import { FormBuilder, Validators } from '@angular/forms';
 import { ModelsResourceService } from '../../../../../core/http/models-resource.service';
 import { DomSanitizer } from '@angular/platform-browser';
 import { AlertService } from '../../../../../core/services/alert.service';
+import {ConfigService} from '../../../../../core/services/config.service';
 
 @Component({
   selector: 'cm-conditions',
@@ -30,8 +31,9 @@ export class ConditionsComponent extends EntryContentDirective<Conditions> imple
       private fb: FormBuilder,
       modelsResourceService: ModelsResourceService,
       alertService: AlertService,
-      sanitizer: DomSanitizer) {
-    super(ConditionsComponent.CONTEXT, modelsResourceService, alertService, sanitizer);
+      sanitizer: DomSanitizer,
+      configService: ConfigService) {
+    super(ConditionsComponent.CONTEXT, modelsResourceService, alertService, sanitizer, configService);
   }
 
   get type(): ModelDataType {

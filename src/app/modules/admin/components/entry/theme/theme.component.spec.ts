@@ -10,20 +10,25 @@ import { CoreTestingModule } from '../../../../../testing/core-testing-module.sp
 import { RouterTestingModule } from '@angular/router/testing';
 import SpyObj = jasmine.SpyObj;
 import createSpyObj = jasmine.createSpyObj;
+import { ConfigServiceStubSpec } from '../../../../../testing/config-service-stub.spec';
+import { ConfigService } from '../../../../../core/services/config.service';
 
 describe('ThemeComponent', () => {
   let component: ThemeComponent;
   let fixture: ComponentFixture<ThemeComponent>;
   let modelsResourceServiceSpy: SpyObj<ModelsResourceService>;
+  let configServiceStub: ConfigServiceStubSpec;
 
   beforeEach(waitForAsync(() => {
     modelsResourceServiceSpy =  createSpyObj('ModelsResourceService', ['listEntries']);
+    configServiceStub = new ConfigServiceStubSpec();
 
     TestBed.configureTestingModule({
       declarations: [ ThemeComponent, EntryInfoComponent, EntryPreviewComponent ],
       imports: [ CoreTestingModule, RouterTestingModule, ReactiveFormsModule, CodemirrorModule ],
       providers: [
-        {provide: ModelsResourceService, useValue: modelsResourceServiceSpy}
+        {provide: ModelsResourceService, useValue: modelsResourceServiceSpy},
+        {provide: ConfigService, useValue: configServiceStub}
       ]
     })
     .compileComponents();
