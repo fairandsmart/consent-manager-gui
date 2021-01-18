@@ -85,6 +85,7 @@
     }
   },
   "ALERT": {
+    "BAD_VERSION": "La version du serveur utilisée n'est pas compatible",
     "NO_CHANGE": "Aucune modification",
     "FORM_ERROR": "Il y a des erreurs dans le formulaire, modifications non enregistrées",
     "UNSAVED_CHANGES": "Il y a des modifications non enregistrées, impossible d'activer le brouillon",
@@ -96,7 +97,13 @@
     "DELETION_SUCCESS": "Brouillon supprimé !",
     "DELETION_ERROR": "Impossible de supprimer le brouillon...",
     "RELOAD_ERROR": "Impossible de recharger la version la plus récente...",
-    "AVAILABLE_IN_ENTERPRISE": "Cette fonctionnalité n'est pas disponible dans la version Communauté."
+    "AVAILABLE_IN_ENTERPRISE": "Cette fonctionnalité n'est pas disponible dans la version Communauté.",
+    "DRAGGABLE": "Glissez cette entrée dans le formulaire pour l'y ajouter",
+    "NOT_DRAGGABLE_REASONS": {
+      "ALREADY_SELECTED": "Cette entrée est déjà selectionnée",
+      "NO_ACTIVE_VERSION": "Vous devez activer cette entrée avant de pouvoir la selectionner",
+      "BAD_LANGUAGE": "Le language de cette entrée n'est pas compatible"
+    }
   },
   "CONFIRM_DIALOG": {
     "CONFIRM": "Confirmer",

@@ -17,6 +17,7 @@ import { ModelsResourceService } from '../../../../../core/http/models-resource.
 import { DomSanitizer } from '@angular/platform-browser';
 import { AlertService } from '../../../../../core/services/alert.service';
 import {TranslateService} from '@ngx-translate/core';
+import {ConfigService} from '../../../../../core/services/config.service';
 
 @Component({
   selector: 'cm-processing',
@@ -36,8 +37,9 @@ export class ProcessingComponent extends EntryContentDirective<Processing> imple
       modelsResourceService: ModelsResourceService,
       alertService: AlertService,
       sanitizer: DomSanitizer,
-      private translate: TranslateService) {
-    super(ProcessingComponent.CONTEXT, modelsResourceService, alertService, sanitizer);
+      private translate: TranslateService,
+      configService: ConfigService) {
+    super(ProcessingComponent.CONTEXT, modelsResourceService, alertService, sanitizer, configService);
   }
 
   get type(): ModelDataType {

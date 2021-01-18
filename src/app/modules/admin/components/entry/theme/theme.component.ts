@@ -17,6 +17,7 @@ import { DomSanitizer } from '@angular/platform-browser';
 import { AlertService } from '../../../../../core/services/alert.service';
 import { TranslateService } from '@ngx-translate/core';
 import { ThemeAutocomplete } from './_theme-autocomplete';
+import {ConfigService} from '../../../../../core/services/config.service';
 
 @Component({
   selector: 'cm-theme',
@@ -109,8 +110,9 @@ export class ThemeComponent extends EntryContentDirective<Theme> implements OnIn
     modelsResourceService: ModelsResourceService,
     alertService: AlertService,
     sanitizer: DomSanitizer,
-    public translate: TranslateService) {
-    super(ThemeComponent.CONTEXT, modelsResourceService, alertService, sanitizer);
+    public translate: TranslateService,
+    configService: ConfigService) {
+    super(ThemeComponent.CONTEXT, modelsResourceService, alertService, sanitizer, configService);
   }
 
   get type(): ModelDataType {

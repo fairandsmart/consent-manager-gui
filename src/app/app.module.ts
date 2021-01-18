@@ -12,6 +12,7 @@ import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 import { registerLocaleData } from '@angular/common';
 import localeFr from '@angular/common/locales/fr';
 import { CoreModule } from './core/core.module';
+import {environment} from '../environments/environment';
 
 const keycloakService = new KeycloakService();
 
@@ -29,7 +30,7 @@ export class DynamicLocaleId extends String {
   }
 }
 
-registerLocaleData(localeFr, 'fr');
+registerLocaleData(localeFr, environment.customization?.defaultLanguage || 'fr');
 
 @NgModule({
   declarations: [
@@ -65,7 +66,6 @@ export class AppModule implements DoBootstrap {
     keycloakService
       .init(KEYCLOAK_CONFIG)
       .then(() => {
-        console.log('[ngDoBootstrap] bootstrap app');
         appRef.bootstrap(AppComponent);
       })
       .catch(error => console.error('[ngDoBootstrap] init Keycloak failed', error));

@@ -29,6 +29,7 @@
         <cm-entry-card cdkDrag [cdkDragData]="entry"
                        [selected]="isSelected(entry)"
                        [cdkDragDisabled]="isDisabled(entry)"
+                       [matTooltip]="notDraggableReason(entry) | translate"
                        [entry]="entry"></cm-entry-card>
       </mat-grid-tile>
     </mat-grid-list>

@@ -17,12 +17,12 @@ import { KeycloakService } from 'keycloak-angular';
 import { ConsentsResourceService } from '../../../../../core/http/consents-resource.service';
 import { AlertService } from '../../../../../core/services/alert.service';
 import { FormControl } from '@angular/forms';
-import { environment } from '../../../../../../environments/environment';
+import {ConfigService} from '../../../../../core/services/config.service';
 
 @Directive()
 export abstract class EntryCardContentDirective<T extends ModelData> implements OnInit {
 
-  private readonly defaultLanguage = environment.customization.defaultLanguage;
+  private readonly defaultLanguage;
 
   @Input()
   entry: ModelEntryDto;
@@ -43,8 +43,11 @@ export abstract class EntryCardContentDirective<T extends ModelData> implements 
     protected translate: TranslateService,
     protected keycloakService: KeycloakService,
     protected consentsResourceService: ConsentsResourceService,
-    protected alertService: AlertService
-  ) {}
+    protected alertService: AlertService,
+    protected configService: ConfigService,
+  ) {
+    this.defaultLanguage = this.configService.config.language;
+  }
 
   ngOnInit(): void {
     this.remoteValue = this.record?.value;

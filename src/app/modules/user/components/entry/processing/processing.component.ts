@@ -1,10 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { EntryCardContentDirective } from '../entry-card-content/entry-card-content.directive';
 import { Processing } from '../../../../../core/models/models';
-import { TranslateService } from '@ngx-translate/core';
-import { ConsentsResourceService } from '../../../../../core/http/consents-resource.service';
-import { KeycloakService } from 'keycloak-angular';
-import { AlertService } from '../../../../../core/services/alert.service';
+import {TranslateService} from '@ngx-translate/core';
+import {KeycloakService} from 'keycloak-angular';
+import {ConsentsResourceService} from '../../../../../core/http/consents-resource.service';
+import {AlertService} from '../../../../../core/services/alert.service';
+import {ConfigService} from '../../../../../core/services/config.service';
 
 @Component({
   selector: 'cm-processing',
@@ -19,9 +20,10 @@ export class ProcessingComponent extends EntryCardContentDirective<Processing> i
     translate: TranslateService,
     keycloakService: KeycloakService,
     consentsResourceService: ConsentsResourceService,
-    alertService: AlertService
+    alertService: AlertService,
+    configService: ConfigService,
   ) {
-    super(translate, keycloakService, consentsResourceService, alertService);
+    super(translate, keycloakService, consentsResourceService, alertService, configService);
   }
 
   ngOnInit(): void {

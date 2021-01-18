@@ -3,7 +3,7 @@ import { ModelEntryDto } from '../../../../../core/models/models';
 import { CdkDragDrop, transferArrayItem } from '@angular/cdk/drag-drop';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { EntriesListComponent } from '../entries-list/entries-list.component';
-import { hasActiveVersion } from '../../../../../core/utils/model-entry.utils';
+import {getActiveVersion, hasActiveVersion} from '../../../../../core/utils/model-entry.utils';
 
 @Component({
   selector: 'cm-entries-list-drag-and-drop',
@@ -52,7 +52,11 @@ export class EntriesListDragAndDropComponent extends EntriesListComponent implem
   }
 
   isDisabled(entry: ModelEntryDto): boolean {
-    return this.isSelected(entry) || !hasActiveVersion(entry);
+    return this.isSelected(entry) || !hasActiveVersion(entry) || !this.isLanguageCompatible(entry);
+  }
+
+  isLanguageCompatible(entry: ModelEntryDto): boolean {
+    return getActiveVersion(entry)?.availableLanguages.indexOf(this.configService.config.language) > -1;
   }
 
   isSelected(entry: ModelEntryDto): boolean {
@@ -64,6 +68,19 @@ export class EntriesListDragAndDropComponent extends EntriesListComponent implem
       transferArrayItem(event.previousContainer.data, [], event.previousIndex, 0);
       this.onChange(this.selected);
     }
+  }
+
+  notDraggableReason(entry: ModelEntryDto): string {
+    if (this.isSelected(entry)) {
+      return 'ALERT.NOT_DRAGGABLE_REASONS.ALREADY_SELECTED';
+    }
+    if (!hasActiveVersion(entry)) {
+      return'ALERT.NOT_DRAGGABLE_REASONS.NO_ACTIVE_VERSION';
+    }
+    if (!this.isLanguageCompatible(entry)) {
+      return 'ALERT.NOT_DRAGGABLE_REASONS.BAD_LANGUAGE';
+    }
+    return null;
   }
 
 }

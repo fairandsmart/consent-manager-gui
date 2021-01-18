@@ -6,6 +6,7 @@ import { KeycloakService } from 'keycloak-angular';
 import { ConsentsResourceService } from '../../../../../core/http/consents-resource.service';
 import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
 import { AlertService } from '../../../../../core/services/alert.service';
+import {ConfigService} from '../../../../../core/services/config.service';
 
 @Component({
   selector: 'cm-conditions',
@@ -29,9 +30,10 @@ export class ConditionsComponent extends EntryCardContentDirective<Conditions> i
     keycloakService: KeycloakService,
     consentsResourceService: ConsentsResourceService,
     alertService: AlertService,
-    private sanitizer: DomSanitizer
+    private sanitizer: DomSanitizer,
+    configService: ConfigService
   ) {
-    super(translate, keycloakService, consentsResourceService, alertService);
+    super(translate, keycloakService, consentsResourceService, alertService, configService);
   }
 
   ngOnInit(): void {

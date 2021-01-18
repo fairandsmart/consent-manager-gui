@@ -9,7 +9,7 @@ import {
 } from '../subject-record-editor-dialog/subject-record-editor-dialog.component';
 import { MatDialog } from '@angular/material/dialog';
 import { TranslateService } from '@ngx-translate/core';
-import { environment } from '../../../../../../environments/environment';
+import {ConfigService} from '../../../../../core/services/config.service';
 
 @Component({
   selector: 'cm-operator-preferences',
@@ -19,7 +19,7 @@ import { environment } from '../../../../../../environments/environment';
 export class OperatorPreferencesComponent extends OperatorConsentListDirective implements OnInit {
 
   readonly ICONS = Icons;
-  private readonly defaultLanguage = environment.customization.defaultLanguage;
+  private readonly defaultLanguage;
 
   public displayedColumns = ['key', 'name', 'value', 'actions', 'recordCreation'];
   public pageSizeOptions = [10, 25, 50];
@@ -28,9 +28,11 @@ export class OperatorPreferencesComponent extends OperatorConsentListDirective i
     protected modelsResource: ModelsResourceService,
     protected subjectsResource: SubjectsResourceService,
     private dialog: MatDialog,
-    private translate: TranslateService
+    private translate: TranslateService,
+    private configService: ConfigService,
   ) {
     super(modelsResource, subjectsResource);
+    this.defaultLanguage = this.configService.config.language;
   }
 
   ngOnInit(): void {

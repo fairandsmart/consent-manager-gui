@@ -14,5 +14,5 @@ export interface AppCustomization {
   headerLogoStyle: string;
   headerLogoUrl: string;
   multipleInfo: AddMultipleOption;
-  defaultLanguage: string;
+  defaultLanguage: 'fr' | 'en';
 }

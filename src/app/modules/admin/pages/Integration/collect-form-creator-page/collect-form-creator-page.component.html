@@ -142,13 +142,13 @@
     <cm-entries-library
       [style.display]="stepper.selectedIndex !== STEPS.OPTIONS || !form.at(STEPS.OPTIONS).get('notify').value ? 'none' : undefined"
       [config]="emailsLibraryConfig"
-      [selected]="selectedEmail" [mode]="'select'"
+      [selected]="selectedEmail" mode="select"
       (selectedChange)="selectedEmailChange($event)"></cm-entries-library>
 
     <cm-entries-library
       [style.display]="stepper.selectedIndex !== STEPS.PREVIEW ? 'none' : undefined"
       [config]="themesLibraryConfig"
-      [selected]="selectedTheme" [mode]="'select'"
+      [selected]="selectedTheme" mode="select"
       (selectedChange)="selectedThemeChange($event)"></cm-entries-library>
   </mat-sidenav>
 </mat-sidenav-container>

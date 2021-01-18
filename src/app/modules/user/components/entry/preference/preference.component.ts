@@ -7,6 +7,7 @@ import { debounceTime } from 'rxjs/operators';
 import { KeycloakService } from 'keycloak-angular';
 import { ConsentsResourceService } from '../../../../../core/http/consents-resource.service';
 import { AlertService } from '../../../../../core/services/alert.service';
+import {ConfigService} from '../../../../../core/services/config.service';
 
 @Component({
   selector: 'cm-preference',
@@ -25,9 +26,10 @@ export class PreferenceComponent extends EntryCardContentDirective<Preference> i
     translate: TranslateService,
     keycloakService: KeycloakService,
     consentsResourceService: ConsentsResourceService,
-    alertService: AlertService
+    alertService: AlertService,
+    configService: ConfigService,
   ) {
-    super(translate, keycloakService, consentsResourceService, alertService);
+    super(translate, keycloakService, consentsResourceService, alertService, configService);
   }
 
   ngOnInit(): void {

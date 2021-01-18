@@ -11,23 +11,28 @@ import { CoreTestingModule } from '../../../../../testing/core-testing-module.sp
 import createSpyObj = jasmine.createSpyObj;
 import SpyObj = jasmine.SpyObj;
 import { AddMultipleOption } from '../entries-library/entries-library.component';
+import { ConfigServiceStubSpec } from '../../../../../testing/config-service-stub.spec';
+import { ConfigService } from '../../../../../core/services/config.service';
 
 describe('EntriesListComponent', () => {
   let component: EntriesListComponent;
   let fixture: ComponentFixture<EntriesListComponent>;
   let modelsResourceServiceSpy: SpyObj<ModelsResourceService>;
   let activatedRouteStub: ActivatedRouteStubSpec;
+  let configServiceStub: ConfigServiceStubSpec;
 
   beforeEach(waitForAsync(() => {
     modelsResourceServiceSpy =  createSpyObj<ModelsResourceService>('ModelsResourceService', ['listEntries']);
     activatedRouteStub = new ActivatedRouteStubSpec();
+    configServiceStub = new ConfigServiceStubSpec();
 
     TestBed.configureTestingModule({
       declarations: [ EntriesListComponent ],
       imports: [ CoreTestingModule, RouterTestingModule, FormsModule ],
       providers: [
         {provide: ModelsResourceService, useValue: modelsResourceServiceSpy},
-        {provide: ActivatedRoute, useValue: activatedRouteStub}
+        {provide: ActivatedRoute, useValue: activatedRouteStub},
+        {provide: ConfigService, useValue: configServiceStub}
       ]
     })
     .compileComponents();

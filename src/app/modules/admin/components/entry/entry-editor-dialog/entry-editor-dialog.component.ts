@@ -22,6 +22,10 @@ export class EntryEditorDialogComponent implements OnInit {
 
   public updating = false;
 
+  static formatKey(root, increment): string {
+    return root + '.' + ('000' + increment).substr(-3);
+  }
+
   constructor(private dialogRef: MatDialogRef<EntryEditorDialogComponent, ModelEntryDto>,
               @Inject(MAT_DIALOG_DATA) public data: EntryEditorDialogComponentData,
               private fb: FormBuilder,
@@ -59,12 +63,12 @@ export class EntryEditorDialogComponent implements OnInit {
         const keyCheck$ = new Subject<void>();
         keyCheck$.pipe(
           mergeMap(() => this.modelsResource.listEntries({
-            keys: [this.formatKey(rootKey, increment)],
+            keys: [EntryEditorDialogComponent.formatKey(rootKey, increment)],
             size: -1
           })),
         ).subscribe((result) => {
           if (!result || result.values.length === 0) {
-            observer.next(this.formatKey(rootKey, increment));
+            observer.next(EntryEditorDialogComponent.formatKey(rootKey, increment));
             observer.complete();
           } else {
             increment++;
@@ -74,10 +78,6 @@ export class EntryEditorDialogComponent implements OnInit {
         keyCheck$.next();
       });
     });
-  }
-
-  private formatKey(root, increment): string {
-    return root + '.' + ('000' + increment).substr(-3);
   }
 
   submit(): void {

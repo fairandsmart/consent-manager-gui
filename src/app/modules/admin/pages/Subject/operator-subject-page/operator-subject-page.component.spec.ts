@@ -11,6 +11,8 @@ import { ActivatedRouteStubSpec } from '../../../../../testing/activated-route-s
 import createSpyObj = jasmine.createSpyObj;
 import { ActivatedRoute } from '@angular/router';
 import { EMPTY, of } from 'rxjs';
+import { ConfigServiceStubSpec } from '../../../../../testing/config-service-stub.spec';
+import { ConfigService } from '../../../../../core/services/config.service';
 
 describe('OperatorSubjectPageComponent', () => {
   let component: OperatorSubjectPageComponent;
@@ -18,6 +20,7 @@ describe('OperatorSubjectPageComponent', () => {
   let consentsResourceServiceSpy: SpyObj<ConsentsResourceService>;
   let subjectsResourceServiceSpy: SpyObj<SubjectsResourceService>;
   let activatedRouteStub: ActivatedRouteStubSpec;
+  let configServiceStub: ConfigServiceStubSpec;
 
   beforeEach(waitForAsync(() => {
     consentsResourceServiceSpy =  createSpyObj<ConsentsResourceService>('ConsentsResourceService', ['generateToken', 'postConsent']);
@@ -27,6 +30,7 @@ describe('OperatorSubjectPageComponent', () => {
         subject: 'foobar'
       }
     });
+    configServiceStub = new ConfigServiceStubSpec();
 
     TestBed.configureTestingModule({
       declarations: [ OperatorSubjectPageComponent ],
@@ -35,6 +39,7 @@ describe('OperatorSubjectPageComponent', () => {
         {provide: ConsentsResourceService, useValue: consentsResourceServiceSpy},
         {provide: SubjectsResourceService, useValue: subjectsResourceServiceSpy},
         {provide: ActivatedRoute, useValue: activatedRouteStub},
+        {provide: ConfigService, useValue: configServiceStub}
       ]
     })
     .compileComponents();
