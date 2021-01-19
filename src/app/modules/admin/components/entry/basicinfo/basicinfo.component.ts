@@ -46,18 +46,23 @@ export class BasicinfoComponent extends EntryContentDirective<BasicInfo> impleme
         email: ['', [Validators.email]],
         phoneNumber: ['', Validators.pattern(FIELD_VALIDATORS.phone.pattern)]
       }),
-      dataControllerVisible: [{value: false, disabled: true}],
+      dataControllerVisible: [false],
       jurisdiction: [''],
-      jurisdictionVisible: [{value: false, disabled: true}],
+      jurisdictionVisible: [false],
       collectionMethod: [''],
-      collectionMethodVisible: [{value: false, disabled: true}],
+      collectionMethodVisible: [false],
       scope: [''],
-      scopeVisible: [{value: false, disabled: true}],
+      scopeVisible: [false],
       shortNoticeLink: [''],
-      shortNoticeLinkVisible: [{value: false, disabled: true}],
+      shortNoticeLinkVisible: [false],
       privacyPolicyUrl: ['', [Validators.required]],
       customPrivacyPolicyText: ['']
     });
+    this.form.get('dataControllerVisible').disable();
+    this.form.get('jurisdictionVisible').disable();
+    this.form.get('collectionMethodVisible').disable();
+    this.form.get('scopeVisible').disable();
+    this.form.get('shortNoticeLinkVisible').disable();
     this.checkFormState();
   }
 

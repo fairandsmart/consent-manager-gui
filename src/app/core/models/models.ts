@@ -209,7 +209,6 @@ export const LOGO_POSITIONS = Object.keys(LogoPosition);
 export interface Theme extends ModelData {
   type: 'theme';
   name: string;
-  presentation: string;
   icon: string;
   css: string;
   logoPath?: string;

@@ -76,10 +76,11 @@ export class ProcessingComponent extends EntryContentDirective<Processing> imple
         email: ['', Validators.email],
         phoneNumber: ['', Validators.pattern(FIELD_VALIDATORS.phone.pattern)]
       }),
-      dataControllerVisible: [{value: false, disabled: true}],
+      dataControllerVisible: [false],
       thirdParties: this.fb.array([])
     });
     this.form.get('containsMedicalData').disable();
+    this.form.get('dataControllerVisible').disable();
     this.form.get('retention').valueChanges.subscribe((value) => {
       this.form.get('retention').get('fullText')
         .patchValue(`${value.label} ${value.value} ${this.translate.instant('ENTRIES.EDITOR.PROCESSING.RETENTION.UNIT.VALUES.' + value.unit)}`, { emitEvent: false });
