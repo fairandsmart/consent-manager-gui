@@ -31,7 +31,7 @@ export interface CollectionPage<T> {
 
 export enum Icons {
   basicinfo = 'info',
-  processing = 'check_box',
+  processing = 'fact_check',
   preference = 'favorite',
   conditions = 'text_snippet',
   email = 'mail',
