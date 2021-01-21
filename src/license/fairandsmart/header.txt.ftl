@@ -1,18 +1,7 @@
-This program is free software: you can redistribute it and/or modify it
-under the terms of the GNU General Public License as published by the
-Free Software Foundation, either version 3 of the License, or (at your
-option) any later version.
+This file is part of Right Consents Community Edition.
 
-You accept that the Program was not created with a view to satisfy Your
-individual requirements. Therefore, you must ensure that the Program
-comply with Your needs, requirements and constraints. FAIR AND SMART
-represents and warrants that it holds, without any restriction or
-reservation, all the legal titles, authorizations and intellectual
-property rights granted in the context of the GPLv3 License. See the
-Additional Terms for more details.
+Right Consents Community Edition is published by FAIR AND SMART under the
+GNU GENERAL PUBLIC LICENCE Version 3 (GPLv3) and a set of additional terms.
 
-You should have received a copy of the GNU General Public License along
-with this program. If not, see <https://www.gnu.org/licenses/>.
-
-You should have received a copy of the Additional Terms along with this
-program. If not, see <https://www.fairandsmart.com/opensource/>.
+For more information, please see the “LICENSE” and “LICENSE.FAIRANDSMART”
+files, or see https://www.fairandsmart.com/opensource/.
