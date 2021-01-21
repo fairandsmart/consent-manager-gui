@@ -158,7 +158,7 @@
                     <copyrightOwners>Fair And Smart</copyrightOwners>
                     <projectName>Right Consents Community Edition</projectName>
                     <!-- set to true to force description update-->
-                    <canUpdateDescription>true</canUpdateDescription>
+                    <canUpdateDescription>false</canUpdateDescription>
                     <!-- set to true to force copyright update -->
                     <canUpdateCopyright>false</canUpdateCopyright>
                     <licenseName>fairandsmart</licenseName>
@@ -167,7 +167,7 @@
                     <excludes>
                         <!-- else a little bit overkill -->
                         <exclude>environments/**</exclude>
-                        <exclude>licenses/**</exclude>
+                        <exclude>license/**</exclude>
                         <exclude>**.ts</exclude>
                     </excludes>
                     <offline>true</offline>
