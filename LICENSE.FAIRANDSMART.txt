@@ -1,5 +1,5 @@
-ADDITIONAL TERMS APPLICABLE TO RIGHT REQUEST AND ITS SOURCE CODE (“The 
-Program”).
+ADDITIONAL TERMS APPLICABLE TO RIGHT CONSENTS COMMUNITY EDITION AND ITS
+SOURCE CODE (“The Program”).
 
 The following additional terms ("Additional Terms") supplement and modify the 
 GNU General Public License, Version 3 ("GPLv3 License") applicable to the 
@@ -39,7 +39,7 @@ proceeding that you infringed such party’s copyright in the context of this
 license (“the Claim”) and will pay those costs and damages finally awarded 
 against You, provided that:
 (i) The Claim exclusively concerns the version of the Program created and 
-propagated by FAIR & SMART (<https://www.fairandsmart.com);
+propagated by FAIR & SMART (<https://www.fairandsmart.com>);
 (ii) The Claim is not the result of your failure to comply with the GPLv3 
 License;
 (iii) You do not assume any responsibility, or enter into any agreement or 

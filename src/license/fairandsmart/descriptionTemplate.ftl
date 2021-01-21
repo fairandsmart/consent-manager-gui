@@ -1,1 +1,1 @@
-This file is part of Right Consents / A Consent Manager Platform.
+This file is part of Right Consents Community Edition.
