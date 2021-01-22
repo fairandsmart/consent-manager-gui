@@ -5,23 +5,26 @@
  * Copyright (C) 2020 - 2021 Fair And Smart
  * %%
  * This file is part of Right Consents Community Edition.
- * 
+ *
  * Right Consents Community Edition is published by FAIR AND SMART under the
  * GNU GENERAL PUBLIC LICENCE Version 3 (GPLv3) and a set of additional terms.
- * 
+ *
  * For more information, please see the “LICENSE” and “LICENSE.FAIRANDSMART”
  * files, or see https://www.fairandsmart.com/opensource/.
  * #L%
  */
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { AfterViewInit, Component, OnDestroy, OnInit, QueryList, ViewChildren } from '@angular/core';
 import { ModelsResourceService } from '../../../../core/http/models-resource.service';
 import { SubjectsResourceService } from '../../../../core/http/subjects-resource.service';
 import { KeycloakService } from 'keycloak-angular';
 import { CollectionPage, ModelDataType, ModelEntryDto, RecordDto, RecordsMap } from '../../../../core/models/models';
-import { combineLatest, Subscription } from 'rxjs';
-import { map } from 'rxjs/operators';
+import { combineLatest, from, Subscription } from 'rxjs';
+import { finalize, map, mergeMap, toArray } from 'rxjs/operators';
 import * as _ from 'lodash';
 import { ConfigService } from '../../../../core/services/config.service';
+import { EntryCardComponent } from '../../components/entry/entry-card/entry-card.component';
+import { AlertService } from '../../../../core/services/alert.service';
+import { TranslateService } from '@ngx-translate/core';
 
 interface CardData {
   entry: ModelEntryDto;
@@ -35,6 +38,9 @@ interface CardData {
 })
 export class EntriesPageComponent implements OnInit, OnDestroy {
 
+  @ViewChildren(EntryCardComponent) entriesComponents: QueryList<EntryCardComponent>;
+  entriesWithUnsavedChanges: EntryCardComponent[];
+
   public elementsKeys: string[];
   public data: CardData[] = [];
   private subs: Subscription[] = [];
@@ -46,7 +52,9 @@ export class EntriesPageComponent implements OnInit, OnDestroy {
   constructor(public keycloakService: KeycloakService,
               public modelsResourceService: ModelsResourceService,
               public subjectsResourceService: SubjectsResourceService,
-              public configService: ConfigService) {
+              public configService: ConfigService,
+              public alertService: AlertService,
+              public translate: TranslateService) {
   }
 
   ngOnInit(): void {
@@ -77,6 +85,35 @@ export class EntriesPageComponent implements OnInit, OnDestroy {
 
   filterCards(cards: CardData[], category: ModelDataType): CardData[] {
     return cards.filter((card) => card.entry?.type === category);
+  }
+
+  updateUnsavedChanges() {
+    this.entriesWithUnsavedChanges = [];
+    if (this.entriesComponents) {
+      this.entriesWithUnsavedChanges = this.entriesComponents
+        .filter((item) => item.itemCard?.hasUnsavedChange);
+    }
+  }
+
+  saveChanges() {
+    from(this.entriesWithUnsavedChanges).pipe(
+      mergeMap((item) => item.itemCard?.saveChanges()),
+      toArray(),
+    ).subscribe({
+      next: () => {
+        this.alertService.success(this.translate.instant('USER.SAVE.PREFERENCES_UPDATED'));
+        this.updateUnsavedChanges();
+      },
+      error: (err) => {
+        this.alertService.error(this.translate.instant('USER.SAVE.PREFERENCES_SAVE_ERROR'), new Error(err));
+        this.updateUnsavedChanges();
+      }
+    })
+  }
+
+  resetChanges() {
+    this.entriesWithUnsavedChanges.forEach((item) => item.itemCard?.resetState());
+    this.updateUnsavedChanges();
   }
 
 }

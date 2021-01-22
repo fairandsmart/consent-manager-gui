@@ -5,10 +5,10 @@
   Copyright (C) 2020 - 2021 Fair And Smart
   %%
   This file is part of Right Consents Community Edition.
-  
+
   Right Consents Community Edition is published by FAIR AND SMART under the
   GNU GENERAL PUBLIC LICENCE Version 3 (GPLv3) and a set of additional terms.
-  
+
   For more information, please see the “LICENSE” and “LICENSE.FAIRANDSMART”
   files, or see https://www.fairandsmart.com/opensource/.
   #L%
@@ -23,15 +23,20 @@
     <mat-card>
       <h2>{{'USER.CONSENTS.TITLE' | translate}}</h2>
       <p>{{'USER.CONSENTS.HINT' | translate}}</p>
-      <cm-entry-card [entry]="card.entry" [record]="card.record" *ngFor="let card of filterCards(data, 'conditions')"></cm-entry-card>
-      <cm-entry-card [entry]="card.entry" [record]="card.record" *ngFor="let card of filterCards(data, 'processing')"></cm-entry-card>
+      <cm-entry-card [autoSave]="true"  [entry]="card.entry" [record]="card.record" *ngFor="let card of filterCards(data, 'conditions')"></cm-entry-card>
+      <cm-entry-card [autoSave]="true" [entry]="card.entry" [record]="card.record" *ngFor="let card of filterCards(data, 'processing')"></cm-entry-card>
     </mat-card>
   </div>
   <div class="user-preferences">
     <mat-card>
       <h2>{{'USER.PREFERENCES.TITLE' | translate}}</h2>
       <p>{{'USER.PREFERENCES.HINT' | translate}}</p>
-      <cm-entry-card [entry]="card.entry" [record]="card.record" *ngFor="let card of filterCards(data, 'preference')"></cm-entry-card>
+      <cm-entry-card (unsavedChanged)="updateUnsavedChanges()" [entry]="card.entry" [record]="card.record" *ngFor="let card of filterCards(data, 'preference')"></cm-entry-card>
     </mat-card>
   </div>
+</div>
+<div class="save-toolbar" [ngClass]="{'visible': entriesWithUnsavedChanges?.length}">
+  <span>{{'USER.SAVE.UNSAVED_CHANGES' | translate}}</span>
+  <button mat-button (click)="resetChanges()">{{'USER.SAVE.RESET' | translate}}</button>
+  <button mat-raised-button color="primary" (click)="saveChanges()">{{'USER.SAVE.SAVE' | translate}}</button>
 </div>

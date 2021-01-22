@@ -823,7 +823,12 @@
     "REFUSE": "I refuse",
     "SAVE": {
       "SUCCESS": "Changes saved",
-      "ERROR": "An unexpected error occurred"
+      "ERROR": "An unexpected error occurred",
+      "UNSAVED_CHANGES": "Warning - You have some unsaved changes!",
+      "RESET": "Reset",
+      "SAVE": "Save Changes",
+      "PREFERENCES_UPDATED": "Preferences updated!",
+      "PREFERENCES_SAVE_ERROR": "Some changes could not be saved!"
     }
   },
   "DASHBOARD": {

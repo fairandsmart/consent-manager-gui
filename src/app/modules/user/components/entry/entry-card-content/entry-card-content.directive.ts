@@ -5,15 +5,15 @@
  * Copyright (C) 2020 - 2021 Fair And Smart
  * %%
  * This file is part of Right Consents Community Edition.
- * 
+ *
  * Right Consents Community Edition is published by FAIR AND SMART under the
  * GNU GENERAL PUBLIC LICENCE Version 3 (GPLv3) and a set of additional terms.
- * 
+ *
  * For more information, please see the “LICENSE” and “LICENSE.FAIRANDSMART”
  * files, or see https://www.fairandsmart.com/opensource/.
  * #L%
  */
-import { Directive, Input, OnInit } from '@angular/core';
+import { Directive, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import {
   CollectionMethod,
   ConsentContext,
@@ -27,7 +27,7 @@ import {
 import { TranslateService } from '@ngx-translate/core';
 import { catchError, mergeMap, tap } from 'rxjs/operators';
 import { HttpParams } from '@angular/common/http';
-import { EMPTY } from 'rxjs';
+import { EMPTY, throwError } from 'rxjs';
 import { KeycloakService } from 'keycloak-angular';
 import { ConsentsResourceService } from '../../../../../core/http/consents-resource.service';
 import { AlertService } from '../../../../../core/services/alert.service';
@@ -45,14 +45,28 @@ export abstract class EntryCardContentDirective<T extends ModelData> implements 
   @Input()
   version: ModelVersionDto<T>;
 
-
-
   @Input()
   record: RecordDto;
 
   remoteValue: string;
 
   control: FormControl;
+
+  @Input()
+  autoSave: boolean;
+
+  @Output()
+  changed: EventEmitter<void>;
+
+  get hasUnsavedChange(): boolean {
+    if (this.autoSave) { return false; }
+    if (this.remoteValue === undefined) {
+      const newValue = this.serializeValue();
+      return (typeof newValue === 'object' && newValue !== null) || (typeof newValue === 'string' && newValue.length > 0);
+    } else {
+      return this.remoteValue !== this.serializeValue();
+    }
+  }
 
   protected constructor(
     protected translate: TranslateService,
@@ -62,6 +76,7 @@ export abstract class EntryCardContentDirective<T extends ModelData> implements 
     protected configService: ConfigService,
   ) {
     this.defaultLanguage = this.configService.config.language;
+    this.changed = new EventEmitter<void>();
   }
 
   ngOnInit(): void {
@@ -69,7 +84,10 @@ export abstract class EntryCardContentDirective<T extends ModelData> implements 
     const state = this.parseValue();
     this.control = new FormControl(state);
     this.control.valueChanges.subscribe(() => {
-      this.saveChanges();
+      this.changed.emit();
+      if (this.autoSave) {
+        this.doAutoSave();
+      }
     });
   }
 
@@ -84,7 +102,7 @@ export abstract class EntryCardContentDirective<T extends ModelData> implements 
     }
   }
 
-  protected resetState(): void {
+  public resetState(): void {
     const state = this.parseValue();
     this.control.setValue(state, {emitEvent: false});
   }
@@ -97,7 +115,20 @@ export abstract class EntryCardContentDirective<T extends ModelData> implements 
     this.control.disable({emitEvent: false});
   }
 
-  protected saveChanges(): void {
+  protected doAutoSave(): void {
+    this.saveChanges().pipe(
+      tap(() => {
+        // Success
+        this.alertService.success('USER.SAVE.SUCCESS');
+      }),
+      catchError((err) => {
+        this.alertService.error('USER.SAVE.ERROR', err);
+        return EMPTY;
+      })
+    ).subscribe();
+  }
+
+  public saveChanges() {
     const newValue = this.serializeValue();
     if (this.remoteValue === newValue) {
       return;
@@ -123,7 +154,7 @@ export abstract class EntryCardContentDirective<T extends ModelData> implements 
       iframe: true,
       theme: ''
     };
-    this.consentsResourceService.generateToken(context).pipe(
+    return this.consentsResourceService.generateToken(context).pipe(
       mergeMap((token) => {
         const params: HttpParams = new HttpParams()
           .append('token', token)
@@ -131,18 +162,15 @@ export abstract class EntryCardContentDirective<T extends ModelData> implements 
         return this.consentsResourceService.postConsent(params);
       }),
       tap(() => {
-        // Success
-        this.alertService.success('USER.SAVE.SUCCESS');
         this.remoteValue = newValue;
         this.enableControl();
       }),
       catchError((err) => {
-        this.alertService.error('USER.SAVE.ERROR', err);
         this.resetState();
         this.enableControl();
-        return EMPTY;
+        return throwError(err);
       })
-    ).subscribe();
+    );
   }
 
 }

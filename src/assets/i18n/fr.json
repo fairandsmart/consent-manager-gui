@@ -823,7 +823,12 @@
     "REFUSE": "Je refuse",
     "SAVE": {
       "SUCCESS": "Modifications sauvegardées",
-      "ERROR": "Une erreur inattendue est survenue"
+      "ERROR": "Une erreur inattendue est survenue",
+      "UNSAVED_CHANGES": "Attention! Il reste des modifications non enregistrées.",
+      "RESET": "Réinitialiser",
+      "SAVE": "Enregistrer les modifications",
+      "PREFERENCES_UPDATED": "Préférences mises à jour!",
+      "PREFERENCES_SAVE_ERROR": "Impossible de mettre à jour certaines modifications"
     }
   },
   "DASHBOARD": {
