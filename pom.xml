@@ -169,6 +169,7 @@
                         <exclude>environments/**</exclude>
                         <exclude>license/**</exclude>
                         <exclude>**.ts</exclude>
+                        <exclude>assets/i18n/**.json</exclude>
                     </excludes>
                     <offline>true</offline>
                 </configuration>
