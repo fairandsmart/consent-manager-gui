@@ -105,9 +105,13 @@ $scrollbar-thumb: mat-color($mat-gray, 400);
 
 .container .title-container h2 {
   font-size: mat-font-size($typography, 'title');
-  font-weight: 400;
   display: flex;
   align-items: center;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  font-weight: 300;
+  opacity: .9;
+
   mat-icon {
     margin-right: 10px;
   }

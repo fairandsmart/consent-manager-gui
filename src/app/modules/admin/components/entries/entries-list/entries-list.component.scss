@@ -35,12 +35,12 @@
 
 .entries-wrapper {
   margin: -5px;
+  display: grid;
+  grid-gap: 1em;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
   &.loading {
     opacity: 0.4;
     user-select: none;
   }
 }
 
-cm-entry-card {
-  margin: 5px;
-}

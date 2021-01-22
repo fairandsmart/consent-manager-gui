@@ -5,10 +5,10 @@
  * Copyright (C) 2020 - 2021 Fair And Smart
  * %%
  * This file is part of Right Consents Community Edition.
- * 
+ *
  * Right Consents Community Edition is published by FAIR AND SMART under the
  * GNU GENERAL PUBLIC LICENCE Version 3 (GPLv3) and a set of additional terms.
- * 
+ *
  * For more information, please see the “LICENSE” and “LICENSE.FAIRANDSMART”
  * files, or see https://www.fairandsmart.com/opensource/.
  * #L%
@@ -21,6 +21,7 @@ import { ModelsResourceService } from '../../../../../core/http/models-resource.
 import { DomSanitizer } from '@angular/platform-browser';
 import { AlertService } from '../../../../../core/services/alert.service';
 import {ConfigService} from '../../../../../core/services/config.service';
+import { BreakpointObserver } from '@angular/cdk/layout';
 
 @Component({
   selector: 'cm-conditions',
@@ -47,8 +48,9 @@ export class ConditionsComponent extends EntryContentDirective<Conditions> imple
       modelsResourceService: ModelsResourceService,
       alertService: AlertService,
       sanitizer: DomSanitizer,
-      configService: ConfigService) {
-    super(ConditionsComponent.CONTEXT, modelsResourceService, alertService, sanitizer, configService);
+      configService: ConfigService,
+      breakpointObserver: BreakpointObserver) {
+    super(ConditionsComponent.CONTEXT, modelsResourceService, alertService, sanitizer, configService, breakpointObserver);
   }
 
   get type(): ModelDataType {

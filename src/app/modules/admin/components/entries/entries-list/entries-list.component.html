@@ -5,10 +5,10 @@
   Copyright (C) 2020 - 2021 Fair And Smart
   %%
   This file is part of Right Consents Community Edition.
-  
+
   Right Consents Community Edition is published by FAIR AND SMART under the
   GNU GENERAL PUBLIC LICENCE Version 3 (GPLv3) and a set of additional terms.
-  
+
   For more information, please see the “LICENSE” and “LICENSE.FAIRANDSMART”
   files, or see https://www.fairandsmart.com/opensource/.
   #L%
@@ -57,12 +57,9 @@
       </button>
     </div>
   </div>
-  <div *ngIf="entries.length > 0" class="entries-wrapper" fxLayout="row wrap"
+  <div *ngIf="entries.length > 0" class="entries-wrapper"
        [class.loading]="section.dataSource.loading$ | async">
     <cm-entry-card *ngFor="let entry of entries"
-                   fxFlex="0 0 calc(33.33%-10px)"
-                   fxFlex.md="0 0 calc(50%-10px)"
-                   fxFlex.lt-md="0 0 100%"
                    [routerLink]="'./' + entry.id"
                    [entry]="entry" [showDetail]="true"></cm-entry-card>
   </div>

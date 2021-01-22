@@ -6,7 +6,7 @@
 }
 
 cm-entries-library {
-  max-width: 1000px;
+  padding: 0 4em 0 1em;
   ::ng-deep mat-accordion ::ng-deep .library-title {
     font-size: mat-font-size($typography, 'title') !important;
   }

@@ -5,10 +5,10 @@
   Copyright (C) 2020 - 2021 Fair And Smart
   %%
   This file is part of Right Consents Community Edition.
-  
+
   Right Consents Community Edition is published by FAIR AND SMART under the
   GNU GENERAL PUBLIC LICENCE Version 3 (GPLv3) and a set of additional terms.
-  
+
   For more information, please see the “LICENSE” and “LICENSE.FAIRANDSMART”
   files, or see https://www.fairandsmart.com/opensource/.
   #L%
@@ -17,7 +17,10 @@
   <mat-sidenav-content>
     <form *ngIf="form" [formGroup]="form">
       <mat-card>
-        <mat-card-title>{{'ENTRIES.EDITOR.CONTENT.TITLE.BASICINFO' | translate}}</mat-card-title>
+        <mat-card-title class="page-title">
+          <span>{{'ENTRIES.EDITOR.CONTENT.TITLE.BASICINFO' | translate}}</span>
+          <div class="preview-toggler" *ngIf="!optionsNav.opened" (click)="optionsNav.toggle()"><mat-icon>reorder</mat-icon> Show details</div>
+        </mat-card-title>
         <mat-card-content>
 
           <mat-card-subtitle>{{'ENTRIES.EDITOR.BASICINFO.SUBTITLES.TEXT' | translate}}</mat-card-subtitle>
@@ -121,7 +124,7 @@
     </form>
   </mat-sidenav-content>
 
-  <mat-sidenav opened mode="side" position="end">
+  <mat-sidenav #optionsNav opened [mode]="sideNavBehavior$ | async" position="end">
     <cm-entry-info *ngIf="entry" [entry]="entry" [version]="version" (selectVersion)="selectVersion($event)"></cm-entry-info>
     <cm-entry-preview [safePreview]="safePreview"></cm-entry-preview>
   </mat-sidenav>
