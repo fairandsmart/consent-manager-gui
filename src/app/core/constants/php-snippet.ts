@@ -58,7 +58,7 @@ function getFormUrl()
         CURLOPT_CUSTOMREQUEST => "POST",
         CURLOPT_POSTFIELDS => json_encode($context),
         CURLOPT_HTTPHEADER => array(
-            "Authorization: Basic " . base64_encode(getConfig()["api_key"]),
+            "Authorization: Basic " . getConfig()["api_key"],
             "Content-Type: application/json",
         ),
     ));
