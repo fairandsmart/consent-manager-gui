@@ -5,10 +5,10 @@
   Copyright (C) 2020 - 2021 Fair And Smart
   %%
   This file is part of Right Consents Community Edition.
-  
+
   Right Consents Community Edition is published by FAIR AND SMART under the
   GNU GENERAL PUBLIC LICENCE Version 3 (GPLv3) and a set of additional terms.
-  
+
   For more information, please see the “LICENSE” and “LICENSE.FAIRANDSMART”
   files, or see https://www.fairandsmart.com/opensource/.
   #L%
@@ -19,20 +19,22 @@
 
       <div class="subcontainer">
         <div class="subject">
-          <mat-icon class="subject-icon">account_circle</mat-icon>
+          <div class="subject-left">
+            <mat-icon class="subject-icon">account_circle</mat-icon>
 
-          <div class="subject-details">
-            <div class="subject-name">{{subject.name}}</div>
+            <div class="subject-details">
+              <div class="subject-name">{{subject.name}}</div>
 
-            <div class="new-subject" *ngIf="subject.creationTimestamp <= 0">{{'RECORDS.OPERATOR.SUBJECT.NEW_SUBJECT' | translate}}</div>
+              <div class="new-subject" *ngIf="subject.creationTimestamp <= 0">{{'RECORDS.OPERATOR.SUBJECT.NEW_SUBJECT' | translate}}</div>
 
-            <div class="subject-info">
-              <mat-icon class="subject-info-icon">alternate_email</mat-icon>
-              <span *ngIf="!subject.emailAddress">{{'RECORDS.OPERATOR.SUBJECT.NO_EMAIL' | translate}}</span>
-              <span *ngIf="subject.emailAddress">{{subject.emailAddress}}</span>
-              <button mat-icon-button (click)="editSubject()">
-                <mat-icon>edit</mat-icon>
-              </button>
+              <div class="subject-info">
+                <mat-icon class="subject-info-icon">alternate_email</mat-icon>
+                <span *ngIf="!subject.emailAddress">{{'RECORDS.OPERATOR.SUBJECT.NO_EMAIL' | translate}}</span>
+                <span *ngIf="subject.emailAddress">{{subject.emailAddress}}</span>
+                <button mat-icon-button (click)="editSubject()">
+                  <mat-icon>edit</mat-icon>
+                </button>
+              </div>
             </div>
           </div>
 
@@ -62,7 +64,7 @@
     </div>
   </mat-sidenav-content>
 
-  <mat-sidenav [opened]="operatorLog.length > 0" mode="side" position="end">
+  <mat-sidenav [disableClose]="true" [opened]="operatorLog.length > 0" mode="side" position="end">
     <h2>{{'RECORDS.OPERATOR.LOG.TITLE' | translate}}</h2>
     <ng-container *ngIf="operatorLog.length > 0; else emptyLogTemplate">
       <mat-list>

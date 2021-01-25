@@ -9,8 +9,17 @@
 .user-page {
   display: grid;
   grid-template-areas: 'details details' 'processing preferences';
-  grid-template-columns: 50% 50%;
+  grid-template-columns: minmax(0,50%) minmax(0,50%);
   grid-gap: 1.5em;
+}
+
+@media (max-width: 960px) {
+  .user-page {
+    display: grid;
+    grid-template-areas: 'details' 'processing' 'preferences';
+    grid-template-columns: 100% 100% 100%;
+    grid-gap: 1.5em;
+  }
 }
 
 .user-details {
@@ -35,10 +44,12 @@
 
 .user-processing {
   grid-area: processing;
+  padding: 1em;
 }
 
 .user-preferences {
   grid-area: preferences;
+  padding: 1em;
 }
 
 h2 {

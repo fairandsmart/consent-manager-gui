@@ -26,6 +26,7 @@ export abstract class CollectionDatasource<T, F> implements DataSource<T> {
   private loadingSubject = new BehaviorSubject<boolean>(false);
 
   public loading$ = this.loadingSubject.asObservable();
+  public response$ = this.responseSubject.asObservable();
 
   // tslint:disable-next-line:variable-name
   private _paginator: MatPaginator;

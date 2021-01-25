@@ -5,10 +5,10 @@
   Copyright (C) 2020 - 2021 Fair And Smart
   %%
   This file is part of Right Consents Community Edition.
-  
+
   Right Consents Community Edition is published by FAIR AND SMART under the
   GNU GENERAL PUBLIC LICENCE Version 3 (GPLv3) and a set of additional terms.
-  
+
   For more information, please see the “LICENSE” and “LICENSE.FAIRANDSMART”
   files, or see https://www.fairandsmart.com/opensource/.
   #L%
@@ -120,13 +120,15 @@
       </mat-horizontal-stepper>
     </div>
   </mat-sidenav-content>
-  <mat-sidenav opened mode="side" position="end">
+
+  <mat-sidenav [disableClose]="true" opened mode="side" position="end">
     <cm-entries-library
       [style.display]="stepper.selectedIndex !== STEPS.ELEMENTS ? 'none' : undefined"
       [config]="elementsLibraryConfig"
       [selected]="selectedElements"
       (selectedChange)="selectedElementsChange($event)"
-      [mode]="'drag'">
+      [mode]="'drag'"
+      [showKeys]="false">
     </cm-entries-library>
 
     <ng-container *ngIf="stepper.selectedIndex === STEPS.PREVIEW" [formGroup]="getFormGroup(form, STEPS.PREVIEW)">

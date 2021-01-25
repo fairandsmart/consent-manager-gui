@@ -75,6 +75,9 @@ export class EntriesLibraryComponent implements OnInit {
   @Output()
   selectedChange = new EventEmitter<{[id: string]: ModelEntryDto[]}>();
 
+  @Input()
+  showKeys = false;
+
   constructor() {}
 
   ngOnInit(): void {

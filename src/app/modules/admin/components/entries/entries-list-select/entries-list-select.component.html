@@ -37,7 +37,8 @@
       <cm-entry-card (click)="select(entry)"
                      [selectable]="isSelectable(entry)"
                      [selected]="isSelected(entry)"
-                     [entry]="entry"></cm-entry-card>
+                     [entry]="entry"
+                     [showKey]="showKeys"></cm-entry-card>
     </mat-grid-tile>
   </mat-grid-list>
   <p *ngIf="entries.length === 0" class="empty-hint">{{'ENTRIES.COMMON.EMPTY_LIST' | translate}}</p>

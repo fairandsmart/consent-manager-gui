@@ -40,6 +40,9 @@ export class EntryCardComponent implements OnInit {
   @Input()
   showDetail = false;
 
+  @Input()
+  showKey = true;
+
   constructor() { }
 
   ngOnInit(): void {

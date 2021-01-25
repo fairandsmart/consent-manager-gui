@@ -122,7 +122,7 @@
     "TITLE": "Éléments",
     "infos": {
       "PANEL_TITLE": "Informations générales",
-      "PANEL_DESCRIPTION_HTML": "<div>Voici les informations générales que vous avez paramétrées.</div><div>Cela permet d'informer vos utilisateurs de votre politique de confidentialité, par exemple.</div><div>Vous ne pouvez en créer qu'un seul ensemble.</div>",
+      "PANEL_DESCRIPTION_HTML": "<div>Voici les informations générales que vous avez paramétrées.</div><div>Cela permet d'informer vos utilisateurs de votre politique de confidentialité, par exemple.</div><div>Vous ne pouvez en créer qu'un seul modèle.</div>",
       "EMPTY": "Commencez par spécifier les informations générales..."
     },
     "processing": {
@@ -154,7 +154,7 @@
       "EMPTY": "Commencez par ajouter un traitement ou une préférence..."
     },
     "BUTTON_ADD": {
-      "basicinfo": "Ajouter les informations de base",
+      "basicinfo": "Ajouter des informations de base",
       "processing": "Ajouter un traitement",
       "preference": "Ajouter une préférence",
       "conditions": "Ajouter des CGU",
@@ -513,7 +513,10 @@
         "LABEL": "Méthode de collecte"
       },
       "HISTORY": {
-        "LABEL": "Voir tous les enregistrements"
+        "LABEL": "Historique"
+      },
+      "EDIT": {
+        "LABEL": "Modifier"
       },
       "STATUS": {
         "LABEL": "Statut",
@@ -585,6 +588,11 @@
           "PENDING": "En cours d'envoi"
         },
         "EMPTY": "Aucune"
+      },
+      "EMPTY": {
+        "PREFERENCES": "Vous n'avez défini aucun modèle de préférence.",
+        "PROCESSINGS": "Vous n'avez défini aucun modèle de traitement.",
+        "CONDITIONS": "Vous n'avez défini aucun modèle de CGU."
       }
     },
     "DIALOG": {
@@ -758,7 +766,7 @@
         "LABEL": "Partie secrète de la clé"
       },
       "CREATION_DATE": {
-        "LABEL": "Créé le"
+        "LABEL": "Créée le"
       },
       "LAST_ACCESS_DATE": {
         "LABEL": "Dernier accès le"

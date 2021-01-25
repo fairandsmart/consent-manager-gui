@@ -1,3 +1,7 @@
-.paragraph {
-  margin-bottom: 1em;
+.paragraphs-container {
+  padding-top: 16px;
+
+  .paragraph {
+    margin: .5em 0;
+  }
 }

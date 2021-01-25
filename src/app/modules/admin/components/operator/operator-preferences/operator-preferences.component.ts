@@ -38,7 +38,7 @@ export class OperatorPreferencesComponent extends OperatorConsentListDirective i
   readonly ICONS = Icons;
   private readonly defaultLanguage;
 
-  public displayedColumns = ['key', 'name', 'value', 'actions', 'recordCreation'];
+  public displayedColumns = ['key', 'name', 'value', 'recordCreation', 'actions'];
   public pageSizeOptions = [10, 25, 50];
 
   constructor(

@@ -10,7 +10,6 @@ mat-card {
   padding: 0;
   display: grid;
   grid-template-columns: 1fr 1fr;
-  grid-template-rows: 1fr 1fr;
   grid-gap: 1em;
 
   mat-card {
@@ -65,5 +64,11 @@ mat-card {
         margin-right: 4px;
       }
     }
+  }
+}
+
+@media (min-width: 1000px) and (max-width: 1279px) {
+  .metrics-cards {
+    grid-template-columns: minmax(0,1fr) minmax(0,1fr) minmax(0,1fr);
   }
 }

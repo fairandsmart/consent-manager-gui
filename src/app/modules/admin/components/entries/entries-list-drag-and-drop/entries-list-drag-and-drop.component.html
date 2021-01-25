@@ -45,7 +45,8 @@
                        [selected]="isSelected(entry)"
                        [cdkDragDisabled]="isDisabled(entry)"
                        [matTooltip]="notDraggableReason(entry) | translate"
-                       [entry]="entry"></cm-entry-card>
+                       [entry]="entry"
+                       [showKey]="showKeys"></cm-entry-card>
       </mat-grid-tile>
     </mat-grid-list>
     <p *ngIf="entries.length === 0" class="empty-hint">{{'ENTRIES.COMMON.EMPTY_LIST' | translate}}</p>

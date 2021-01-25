@@ -36,22 +36,23 @@
       </mat-panel-title>
     </mat-expansion-panel-header>
 
-    <div class="paragraph">
-      <div>
-        {{getData()?.data}}
+    <div class="paragraphs-container">
+      <div class="paragraph">
+        <div>
+          {{getData()?.data}}
+        </div>
       </div>
-    </div>
-    <div class="paragraph">
-      <div>
-        {{getData()?.retention?.label}} {{getData()?.retention?.value}} {{'ENTRIES.EDITOR.PROCESSING.RETENTION.UNIT.VALUES.' + getData()?.retention?.unit | translate}}
+      <div class="paragraph">
+        <div>
+          {{getData()?.retention?.label}} {{getData()?.retention?.value}} {{'ENTRIES.EDITOR.PROCESSING.RETENTION.UNIT.VALUES.' + getData()?.retention?.unit | translate}}
+        </div>
       </div>
-    </div>
-    <div class="paragraph">
-      <div>
-        {{getData()?.usage}}
+      <div class="paragraph">
+        <div>
+          {{getData()?.usage}}
+        </div>
       </div>
     </div>
 
   </mat-expansion-panel>
 </mat-accordion>
-
