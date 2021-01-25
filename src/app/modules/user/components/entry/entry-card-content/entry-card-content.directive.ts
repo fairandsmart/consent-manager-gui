@@ -27,12 +27,13 @@ import {
 import { TranslateService } from '@ngx-translate/core';
 import { catchError, mergeMap, tap } from 'rxjs/operators';
 import { HttpParams } from '@angular/common/http';
-import { EMPTY, throwError } from 'rxjs';
+import { EMPTY, Observable, throwError } from 'rxjs';
 import { KeycloakService } from 'keycloak-angular';
 import { ConsentsResourceService } from '../../../../../core/http/consents-resource.service';
 import { AlertService } from '../../../../../core/services/alert.service';
 import { FormControl } from '@angular/forms';
 import {ConfigService} from '../../../../../core/services/config.service';
+import { CoreService } from '../../../../../core/services/core.service';
 
 @Directive()
 export abstract class EntryCardContentDirective<T extends ModelData> implements OnInit {
@@ -74,6 +75,7 @@ export abstract class EntryCardContentDirective<T extends ModelData> implements 
     protected consentsResourceService: ConsentsResourceService,
     protected alertService: AlertService,
     protected configService: ConfigService,
+    protected coreService: CoreService
   ) {
     this.defaultLanguage = this.configService.config.language;
     this.changed = new EventEmitter<void>();
@@ -128,9 +130,14 @@ export abstract class EntryCardContentDirective<T extends ModelData> implements 
     ).subscribe();
   }
 
-  public saveChanges() {
+  public saveChanges(): Observable<string> {
     const newValue = this.serializeValue();
     if (this.remoteValue === newValue) {
+      return;
+    }
+    if (this.coreService.hasActiveBasicInfo === false) {
+      this.alertService.error(this.translate.instant('ALERT.NO_BASIC_INFO_USER'), new Error('No basic info'));
+      this.resetState();
       return;
     }
     this.disableControl();

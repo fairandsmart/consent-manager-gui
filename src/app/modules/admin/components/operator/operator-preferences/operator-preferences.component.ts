@@ -5,10 +5,10 @@
  * Copyright (C) 2020 - 2021 Fair And Smart
  * %%
  * This file is part of Right Consents Community Edition.
- * 
+ *
  * Right Consents Community Edition is published by FAIR AND SMART under the
  * GNU GENERAL PUBLIC LICENCE Version 3 (GPLv3) and a set of additional terms.
- * 
+ *
  * For more information, please see the “LICENSE” and “LICENSE.FAIRANDSMART”
  * files, or see https://www.fairandsmart.com/opensource/.
  * #L%
@@ -25,6 +25,8 @@ import {
 import { MatDialog } from '@angular/material/dialog';
 import { TranslateService } from '@ngx-translate/core';
 import {ConfigService} from '../../../../../core/services/config.service';
+import { CoreService } from '../../../../../core/services/core.service';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'cm-operator-preferences',
@@ -43,10 +45,12 @@ export class OperatorPreferencesComponent extends OperatorConsentListDirective i
     protected modelsResource: ModelsResourceService,
     protected subjectsResource: SubjectsResourceService,
     private dialog: MatDialog,
-    private translate: TranslateService,
+    protected translate: TranslateService,
     private configService: ConfigService,
+    protected coreService: CoreService,
+    protected snackBar: MatSnackBar
   ) {
-    super(modelsResource, subjectsResource);
+    super(modelsResource, subjectsResource, coreService, snackBar, translate);
     this.defaultLanguage = this.configService.config.language;
   }
 
@@ -56,6 +60,7 @@ export class OperatorPreferencesComponent extends OperatorConsentListDirective i
   }
 
   action(element): void {
+    super.action(element);
     this.modelsResource.getActiveVersion(element.id).subscribe((version) => {
       let versionDto: Preference;
       if (version.data[this.translate.currentLang]) {

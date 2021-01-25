@@ -5,10 +5,10 @@
  * Copyright (C) 2020 - 2021 Fair And Smart
  * %%
  * This file is part of Right Consents Community Edition.
- * 
+ *
  * Right Consents Community Edition is published by FAIR AND SMART under the
  * GNU GENERAL PUBLIC LICENCE Version 3 (GPLv3) and a set of additional terms.
- * 
+ *
  * For more information, please see the “LICENSE” and “LICENSE.FAIRANDSMART”
  * files, or see https://www.fairandsmart.com/opensource/.
  * #L%
@@ -24,6 +24,9 @@ import {
 } from '../subject-record-editor-dialog/subject-record-editor-dialog.component';
 import { MatDialog } from '@angular/material/dialog';
 import { SubjectRecordsHistoryComponent } from '../subject-records-history/subject-records-history.component';
+import { CoreService } from '../../../../../core/services/core.service';
+import { MatSnackBar } from '@angular/material/snack-bar';
+import { TranslateService } from '@ngx-translate/core';
 
 @Component({
   selector: 'cm-operator-processing',
@@ -41,9 +44,12 @@ export class OperatorProcessingComponent extends OperatorConsentListDirective im
   constructor(
     protected modelsResource: ModelsResourceService,
     protected subjectsResource: SubjectsResourceService,
-    private dialog: MatDialog
+    private dialog: MatDialog,
+    protected coreService: CoreService,
+    protected snackBar: MatSnackBar,
+    protected translate: TranslateService
   ) {
-    super(modelsResource, subjectsResource);
+    super(modelsResource, subjectsResource, coreService, snackBar, translate);
   }
 
   ngOnInit(): void {
@@ -52,6 +58,7 @@ export class OperatorProcessingComponent extends OperatorConsentListDirective im
   }
 
   action(element: EntryRecord): void {
+    super.action(element);
     this.dialog.open<SubjectRecordEditorDialogComponent, SubjectRecordEditorDialogData>(SubjectRecordEditorDialogComponent, {
       data: {
         record: element,

@@ -5,10 +5,10 @@
  * Copyright (C) 2020 - 2021 Fair And Smart
  * %%
  * This file is part of Right Consents Community Edition.
- * 
+ *
  * Right Consents Community Edition is published by FAIR AND SMART under the
  * GNU GENERAL PUBLIC LICENCE Version 3 (GPLv3) and a set of additional terms.
- * 
+ *
  * For more information, please see the “LICENSE” and “LICENSE.FAIRANDSMART”
  * files, or see https://www.fairandsmart.com/opensource/.
  * #L%
@@ -18,6 +18,9 @@ import { OperatorConsentListDirective } from '../operator-consent-list/operator-
 import { ModelsResourceService } from '../../../../../core/http/models-resource.service';
 import { SubjectsResourceService } from '../../../../../core/http/subjects-resource.service';
 import { Icons, RecordStatus } from '../../../../../core/models/models';
+import { CoreService } from '../../../../../core/services/core.service';
+import { MatSnackBar } from '@angular/material/snack-bar';
+import { TranslateService } from '@ngx-translate/core';
 
 @Component({
   selector: 'cm-operator-conditions',
@@ -34,9 +37,12 @@ export class OperatorConditionsComponent extends OperatorConsentListDirective im
 
   constructor(
     protected modelsResource: ModelsResourceService,
-    protected subjectsResource: SubjectsResourceService
+    protected subjectsResource: SubjectsResourceService,
+    protected coreService: CoreService,
+    protected snackBar: MatSnackBar,
+    protected translate: TranslateService
   ) {
-    super(modelsResource, subjectsResource);
+    super(modelsResource, subjectsResource, coreService, snackBar, translate);
   }
 
   ngOnInit(): void {
