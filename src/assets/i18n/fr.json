@@ -86,6 +86,9 @@
   },
   "ALERT": {
     "BAD_VERSION": "La version du serveur utilisée n'est pas compatible",
+    "NO_BASIC_INFO": "Vous ne pouvez pas créer, interroger ou modifier des traitements sans avoir complété vos informations générales",
+    "NO_BASIC_INFO_USER": "Cette fonctionnalité n'est pas encore disponible.",
+    "NO_BASIC_INFO_CALL_TO_ACTION": "Cliquez ici pour les compléter",
     "NO_CHANGE": "Aucune modification",
     "FORM_ERROR": "Il y a des erreurs dans le formulaire, modifications non enregistrées",
     "UNSAVED_CHANGES": "Il y a des modifications non enregistrées, impossible d'activer le brouillon",

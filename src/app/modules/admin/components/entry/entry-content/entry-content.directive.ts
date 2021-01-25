@@ -224,7 +224,7 @@ export abstract class EntryContentDirective<T extends ModelData> extends FormSta
         this.alertService.success('ALERT.SAVE_SUCCESS', {snackBarConfig: {duration: 6000}});
         return this.updateVersion(version);
       })
-    ).subscribe();
+    ).subscribe(() => this.afterSave());
   }
 
   activate(): void {
@@ -243,7 +243,7 @@ export abstract class EntryContentDirective<T extends ModelData> extends FormSta
         this.alertService.success('ALERT.ACTIVATION_SUCCESS');
         return this.updateVersion(version);
       })
-    ).subscribe();
+    ).subscribe(() => this.afterActivate());
   }
 
   delete(): void {
@@ -272,7 +272,7 @@ export abstract class EntryContentDirective<T extends ModelData> extends FormSta
         return EMPTY;
       }),
       mergeMap((version) => this.updateVersion(version))
-    ).subscribe();
+    ).subscribe(() => this.afterDelete());
   }
 
   isLatestVersion(): boolean {
@@ -286,5 +286,9 @@ export abstract class EntryContentDirective<T extends ModelData> extends FormSta
   restoreFormArray(controlName: string, state: any[]): void {
     return;
   }
+
+  protected afterActivate(): void {}
+  protected afterSave(): void {}
+  protected afterDelete(): void {}
 
 }

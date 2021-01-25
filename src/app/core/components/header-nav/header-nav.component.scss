@@ -47,3 +47,16 @@ form.search-user-form {
     width: 210px;
   }
 }
+
+.warning-content {
+  font-size: 16px;
+  margin-right: 1em;
+  white-space: pre-wrap;
+}
+
+.warning-button {
+  white-space: nowrap;
+  word-break: break-all;
+  text-overflow: ellipsis;
+  overflow: hidden;
+}

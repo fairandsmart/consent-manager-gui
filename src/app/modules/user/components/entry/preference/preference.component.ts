@@ -18,11 +18,11 @@ import { EntryCardContentDirective } from '../entry-card-content/entry-card-cont
 import { Preference, PreferenceValueType } from '../../../../../core/models/models';
 import { TranslateService } from '@ngx-translate/core';
 import { FormControl, FormGroup } from '@angular/forms';
-import { debounceTime } from 'rxjs/operators';
 import { KeycloakService } from 'keycloak-angular';
 import { ConsentsResourceService } from '../../../../../core/http/consents-resource.service';
 import { AlertService } from '../../../../../core/services/alert.service';
 import {ConfigService} from '../../../../../core/services/config.service';
+import { CoreService } from '../../../../../core/services/core.service';
 
 @Component({
   selector: 'cm-preference',
@@ -30,8 +30,6 @@ import {ConfigService} from '../../../../../core/services/config.service';
   styleUrls: ['../entry-card/entry-card.component.scss', './preference.component.scss']
 })
 export class PreferenceComponent extends EntryCardContentDirective<Preference> implements OnInit {
-
-  private saveDelay = 500;
 
   readonly TYPES = PreferenceValueType;
 
@@ -43,8 +41,9 @@ export class PreferenceComponent extends EntryCardContentDirective<Preference> i
     consentsResourceService: ConsentsResourceService,
     alertService: AlertService,
     configService: ConfigService,
+    coreService: CoreService
   ) {
-    super(translate, keycloakService, consentsResourceService, alertService, configService);
+    super(translate, keycloakService, consentsResourceService, alertService, configService, coreService);
   }
 
   ngOnInit(): void {
@@ -61,20 +60,20 @@ export class PreferenceComponent extends EntryCardContentDirective<Preference> i
       });
     }
     this.control = new FormControl(state);
-      this.control.valueChanges.subscribe(e => {
-        this.changed.emit();
-        if (this.autoSave) {
-          this.doAutoSave();
-        }
-      });
+    this.control.valueChanges.subscribe(e => {
+      this.changed.emit();
+      if (this.autoSave) {
+        this.doAutoSave();
+      }
+    });
   }
 
-  protected resetState(): void {
+  public resetState(): void {
     const state = this.parseValue();
     this.control.setValue(state, {emitEvent: false});
     if (this.getData().valueType === PreferenceValueType.CHECKBOXES) {
       this.getData().options.forEach(o => {
-        this.checkboxesGroup.get(o).setValue(state.indexOf(o) !== -1);
+        this.checkboxesGroup.get(o).setValue(state.indexOf(o) !== -1, {emitEvent: false});
       });
     }
   }

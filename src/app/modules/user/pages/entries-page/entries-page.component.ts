@@ -13,13 +13,13 @@
  * files, or see https://www.fairandsmart.com/opensource/.
  * #L%
  */
-import { AfterViewInit, Component, OnDestroy, OnInit, QueryList, ViewChildren } from '@angular/core';
+import { Component, OnDestroy, OnInit, QueryList, ViewChildren } from '@angular/core';
 import { ModelsResourceService } from '../../../../core/http/models-resource.service';
 import { SubjectsResourceService } from '../../../../core/http/subjects-resource.service';
 import { KeycloakService } from 'keycloak-angular';
 import { CollectionPage, ModelDataType, ModelEntryDto, RecordDto, RecordsMap } from '../../../../core/models/models';
 import { combineLatest, from, Subscription } from 'rxjs';
-import { finalize, map, mergeMap, toArray } from 'rxjs/operators';
+import { map, mergeMap, toArray } from 'rxjs/operators';
 import * as _ from 'lodash';
 import { ConfigService } from '../../../../core/services/config.service';
 import { EntryCardComponent } from '../../components/entry/entry-card/entry-card.component';
@@ -87,7 +87,7 @@ export class EntriesPageComponent implements OnInit, OnDestroy {
     return cards.filter((card) => card.entry?.type === category);
   }
 
-  updateUnsavedChanges() {
+  updateUnsavedChanges(): void {
     this.entriesWithUnsavedChanges = [];
     if (this.entriesComponents) {
       this.entriesWithUnsavedChanges = this.entriesComponents
@@ -95,7 +95,7 @@ export class EntriesPageComponent implements OnInit, OnDestroy {
     }
   }
 
-  saveChanges() {
+  saveChanges(): void {
     from(this.entriesWithUnsavedChanges).pipe(
       mergeMap((item) => item.itemCard?.saveChanges()),
       toArray(),
@@ -108,10 +108,10 @@ export class EntriesPageComponent implements OnInit, OnDestroy {
         this.alertService.error(this.translate.instant('USER.SAVE.PREFERENCES_SAVE_ERROR'), new Error(err));
         this.updateUnsavedChanges();
       }
-    })
+    });
   }
 
-  resetChanges() {
+  resetChanges(): void {
     this.entriesWithUnsavedChanges.forEach((item) => item.itemCard?.resetState());
     this.updateUnsavedChanges();
   }

@@ -86,6 +86,9 @@
   },
   "ALERT": {
     "BAD_VERSION": "Your backend version is outdated",
+    "NO_BASIC_INFO": "You cannot create, edit or interrogate processings without completing your basic informations",
+    "NO_BASIC_INFO_USER": "This feature is not yet available.",
+    "NO_BASIC_INFO_CALL_TO_ACTION": "Click here to complete them",
     "NO_CHANGE": "No change",
     "FORM_ERROR": "There are errors in the form, changes not saved",
     "UNSAVED_CHANGES": "Unsaved changes, cannot activate draft",

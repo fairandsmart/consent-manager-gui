@@ -5,10 +5,10 @@
  * Copyright (C) 2020 - 2021 Fair And Smart
  * %%
  * This file is part of Right Consents Community Edition.
- * 
+ *
  * Right Consents Community Edition is published by FAIR AND SMART under the
  * GNU GENERAL PUBLIC LICENCE Version 3 (GPLv3) and a set of additional terms.
- * 
+ *
  * For more information, please see the “LICENSE” and “LICENSE.FAIRANDSMART”
  * files, or see https://www.fairandsmart.com/opensource/.
  * #L%
@@ -25,6 +25,7 @@ import { I18N_LANGUAGES } from '../../constants/i18n';
 import { TranslateService } from '@ngx-translate/core';
 import { MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { environment } from '../../../../environments/environment';
+import { CoreService } from '../../services/core.service';
 
 @Component({
   selector: 'cm-header-nav',
@@ -52,16 +53,24 @@ export class HeaderNavComponent implements OnInit {
 
   readonly LANGUAGES = I18N_LANGUAGES;
 
+  @Input() mode: 'admin' | 'user';
+
+  get hasActiveBasicInfo$(): Observable<boolean> {
+    return this.coreService.hasActiveBasicInfo$;
+  }
+
   constructor(
     public keycloak: KeycloakService,
     private router: Router,
     private subjectsService: SubjectsResourceService,
     private dialog: MatDialog,
-    public translate: TranslateService
+    public translate: TranslateService,
+    private coreService: CoreService
   ) { }
 
   ngOnInit(): void {
     this.searchCtrl = new FormControl();
+    this.coreService.checkBasicInfo();
     this.filteredSubjects = this.searchCtrl.valueChanges.pipe(
       debounceTime(200),
       mergeMap((value: string) => {

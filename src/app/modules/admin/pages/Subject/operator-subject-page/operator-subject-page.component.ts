@@ -5,10 +5,10 @@
  * Copyright (C) 2020 - 2021 Fair And Smart
  * %%
  * This file is part of Right Consents Community Edition.
- * 
+ *
  * Right Consents Community Edition is published by FAIR AND SMART under the
  * GNU GENERAL PUBLIC LICENCE Version 3 (GPLv3) and a set of additional terms.
- * 
+ *
  * For more information, please see the “LICENSE” and “LICENSE.FAIRANDSMART”
  * files, or see https://www.fairandsmart.com/opensource/.
  * #L%
@@ -39,6 +39,7 @@ import { SubjectsResourceService } from '../../../../../core/http/subjects-resou
 import { mergeMap } from 'rxjs/operators';
 import { SubjectInfosEditorDialogComponent } from '../../../components/operator/subject-infos-editor-dialog/subject-infos-editor-dialog.component';
 import {ConfigService} from '../../../../../core/services/config.service';
+import { CoreService } from '../../../../../core/services/core.service';
 
 @Component({
   selector: 'cm-operator-subject-page',
@@ -69,7 +70,9 @@ export class OperatorSubjectPageComponent implements OnInit {
     private translate: TranslateService,
     private consentsResource: ConsentsResourceService,
     private subjectsResource: SubjectsResourceService,
-    private configService: ConfigService) {
+    private configService: ConfigService,
+    private coreService: CoreService
+  ) {
     this.defaultLanguage = this.configService.config.language;
   }
 
