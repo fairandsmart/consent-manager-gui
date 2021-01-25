@@ -5,18 +5,18 @@
   Copyright (C) 2020 - 2021 Fair And Smart
   %%
   This file is part of Right Consents Community Edition.
-  
+
   Right Consents Community Edition is published by FAIR AND SMART under the
   GNU GENERAL PUBLIC LICENCE Version 3 (GPLv3) and a set of additional terms.
-  
+
   For more information, please see the “LICENSE” and “LICENSE.FAIRANDSMART”
   files, or see https://www.fairandsmart.com/opensource/.
   #L%
   -->
 <div *ngIf="active">
   <ng-container [ngSwitch]="entry?.type">
-    <cm-processing [entry]="entry" [version]="active" [record]="record" *ngSwitchCase="'processing'"> </cm-processing>
-    <cm-preference [entry]="entry" [version]="active" [record]="record" *ngSwitchCase="'preference'"></cm-preference>
-    <cm-conditions [entry]="entry" [version]="active" [record]="record" *ngSwitchCase="'conditions'"></cm-conditions>
+    <cm-processing #itemCard (changed)="notifyUnsavedChanges()" [autoSave]="autoSave" [entry]="entry" [version]="active" [record]="record" *ngSwitchCase="'processing'"> </cm-processing>
+    <cm-preference #itemCard (changed)="notifyUnsavedChanges()" [autoSave]="autoSave" [entry]="entry" [version]="active" [record]="record" *ngSwitchCase="'preference'"></cm-preference>
+    <cm-conditions #itemCard (changed)="notifyUnsavedChanges()" [autoSave]="autoSave" [entry]="entry" [version]="active" [record]="record" *ngSwitchCase="'conditions'"></cm-conditions>
   </ng-container>
 </div>
