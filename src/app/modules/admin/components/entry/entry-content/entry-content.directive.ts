@@ -5,15 +5,15 @@
  * Copyright (C) 2020 - 2021 Fair And Smart
  * %%
  * This file is part of Right Consents Community Edition.
- * 
+ *
  * Right Consents Community Edition is published by FAIR AND SMART under the
  * GNU GENERAL PUBLIC LICENCE Version 3 (GPLv3) and a set of additional terms.
- * 
+ *
  * For more information, please see the “LICENSE” and “LICENSE.FAIRANDSMART”
  * files, or see https://www.fairandsmart.com/opensource/.
  * #L%
  */
-import { Directive, Input, OnInit } from '@angular/core';
+import { Directive, Input, OnInit, ViewChild } from '@angular/core';
 import {
   ConsentFormOrientation,
   ModelData,
@@ -24,7 +24,7 @@ import {
   ModelVersionStatus,
   PreviewDto
 } from '../../../../../core/models/models';
-import { EMPTY, Observable, of } from 'rxjs';
+import { BehaviorSubject, EMPTY, Observable, of, Subject } from 'rxjs';
 import { ModelsResourceService } from '../../../../../core/http/models-resource.service';
 import * as _ from 'lodash';
 import { catchError, debounceTime, distinctUntilChanged, map, mergeMap, startWith } from 'rxjs/operators';
@@ -34,6 +34,9 @@ import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
 import { AlertService } from '../../../../../core/services/alert.service';
 import { FormStateSaver } from '../../../utils/form-state-saver';
 import {ConfigService} from '../../../../../core/services/config.service';
+import { SideNavComponent } from '../../side-nav/side-nav.component';
+import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
+import { MatSidenav } from '@angular/material/sidenav';
 
 @Directive()
 export abstract class EntryContentDirective<T extends ModelData> extends FormStateSaver implements OnInit {
@@ -44,6 +47,10 @@ export abstract class EntryContentDirective<T extends ModelData> extends FormSta
   @Input()
   version: ModelVersionDto<T>;
   initialValue: T;
+
+  @ViewChild('optionsNav', {static: true})
+  sidenav: MatSidenav;
+  sideNavBehavior$: Observable<'side' | 'over'>
 
   private previewDelay = 500;
 
@@ -58,12 +65,15 @@ export abstract class EntryContentDirective<T extends ModelData> extends FormSta
     protected modelsResourceService: ModelsResourceService,
     protected alertService: AlertService,
     protected sanitizer: DomSanitizer,
-    protected configService: ConfigService) {
+    protected configService: ConfigService,
+    protected breakpointObserver: BreakpointObserver
+  ) {
     super(context);
     this.defaultLanguage = configService.config.language;
   }
 
   ngOnInit(): void {
+    this.initResponsiveSideNav();
     this.setContextId(this.entry?.key || ''); // disambiguation of the context to avoid cross-entry form state saving
     this.initForm();
     if (this.version) {
@@ -78,6 +88,24 @@ export abstract class EntryContentDirective<T extends ModelData> extends FormSta
   abstract get type(): ModelDataType;
 
   protected abstract initForm(): void;
+
+  private initResponsiveSideNav(): void {
+    this.sideNavBehavior$ = this.breakpointObserver.observe([Breakpoints.Small, Breakpoints.XSmall]).pipe(
+      map((state) => {
+        if (state.matches) {
+          if (this.sidenav && this.sidenav.opened) {
+            this.sidenav.close();
+          }
+          return 'over';
+        } else {
+          if (this.sidenav && !this.sidenav.opened) {
+            this.sidenav.open();
+          }
+          return 'side';
+        }
+      })
+    );
+  }
 
   notifyExistingFormState(): void {
     this.alertService.confirm({
