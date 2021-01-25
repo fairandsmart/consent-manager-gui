@@ -45,13 +45,13 @@
             {{'ENTRIES.EDITOR.PREFERENCE.OPTIONAL.LABEL' | translate}}
           </mat-checkbox>
 
-          <div *ngIf="form.get('valueType').value && form.get('valueType').value !== 'NONE' && form.get('valueType').value !== 'FREE_TEXT'">
+          <div *ngIf="form.get('valueType').value && form.get('valueType').value !== 'FREE_TEXT'">
             <mat-card-subtitle>{{'ENTRIES.EDITOR.PREFERENCE.SUBTITLES.OPTIONS' | translate}}</mat-card-subtitle>
 
             <div>
               <mat-form-field appearance="outline">
                 <mat-label>{{'ENTRIES.EDITOR.PREFERENCE.OPTIONS.LABEL' | translate}}</mat-label>
-                <mat-chip-list #optionsChipList required>
+                <mat-chip-list #optionsChipList required [matTooltip]="'ENTRIES.EDITOR.PREFERENCE.OPTIONS.SEPARATORS_HINT' | translate">
                   <mat-chip *ngFor="let option of form.get('options').value" [selectable]="true"
                             [removable]="true" (removed)="removeOption(option)">
                     {{option}}
@@ -68,6 +68,9 @@
                 <mat-hint *ngIf="form.get('valueType').value === 'TOGGLE'">
                   {{'ENTRIES.EDITOR.PREFERENCE.OPTIONS.TOGGLE_HINT' | translate}}
                 </mat-hint>
+                <mat-error *ngIf="form.hasError('maxlength', ['options'])">
+                  {{'ENTRIES.EDITOR.PREFERENCE.OPTIONS.LENGTH_ERROR' | translate}}
+                </mat-error>
               </mat-form-field>
             </div>
 

@@ -47,4 +47,9 @@
       font-size: .95em;
     }
   }
+
+  ::ng-deep .empty-hint {
+    color: $dark-secondary-text;
+  }
+
 }
