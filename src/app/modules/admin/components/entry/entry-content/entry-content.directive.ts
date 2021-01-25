@@ -196,11 +196,6 @@ export abstract class EntryContentDirective<T extends ModelData> extends FormSta
       this.alertService.info('ALERT.NO_CHANGE');
       return;
     }
-    if (this.form.invalid) {
-      this.form.markAllAsTouched();
-      this.alertService.error('ALERT.FORM_ERROR', 'Form invalid');
-      return;
-    }
     let obs: Observable<ModelVersionDto<T>>;
     const data: T = this.form.getRawValue();
     this.form.disable({emitEvent: false});
@@ -230,6 +225,11 @@ export abstract class EntryContentDirective<T extends ModelData> extends FormSta
   activate(): void {
     if (this.hasChanges) {
       this.alertService.info('ALERT.UNSAVED_CHANGES');
+      return;
+    }
+    if (this.form.invalid) {
+      this.form.markAllAsTouched();
+      this.alertService.error('ALERT.FORM_ERROR', 'Form invalid');
       return;
     }
     this.form.disable();
