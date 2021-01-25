@@ -36,9 +36,7 @@ import { TranslateService } from '@ngx-translate/core';
 export class OperatorProcessingComponent extends OperatorConsentListDirective implements OnInit {
 
   readonly ICONS = Icons;
-  public displayedColumns = [
-    'key', 'name', 'collectionMethod', 'recordExpiration', 'history', 'status', 'actions'
-  ];
+  public displayedColumns = ['key', 'name', 'collectionMethod', 'recordExpiration', 'status', 'history', 'actions'];
   public pageSizeOptions = [10, 25, 50];
 
   constructor(
@@ -69,13 +67,17 @@ export class OperatorProcessingComponent extends OperatorConsentListDirective im
     });
   }
 
-  showHistory(element): void {
+  showHistory(element: EntryRecord): void {
     this.dialog.open<SubjectRecordsHistoryComponent>(SubjectRecordsHistoryComponent, {
       data: {subject: this.subject, records: this.records[element.key]?.slice().reverse()}
     });
   }
 
-  getRecordStatus(element): string {
+  hasHistory(element: EntryRecord): boolean {
+    return this.records[element.key]?.length > 0;
+  }
+
+  getRecordStatus(element: EntryRecord): string {
     return element.status === RecordStatus.VALID && element.value === 'accepted' ? 'VALID' : 'INVALID';
   }
 

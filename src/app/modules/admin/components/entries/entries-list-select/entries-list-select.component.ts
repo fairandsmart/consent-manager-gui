@@ -42,6 +42,9 @@ export class EntriesListSelectComponent extends EntriesListComponent implements 
   @Input()
   disabled = false;
 
+  @Input()
+  showKey = false;
+
   private onChange = (value: ModelEntryDto[]) => {};
 
   private onTouched = () => {};

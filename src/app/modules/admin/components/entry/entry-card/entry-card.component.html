@@ -15,22 +15,28 @@
   -->
 <mat-card *ngIf="entry">
   <mat-card-title>
-    <span class="entry-name" cmTextOverflow #name="cmTextOverflow"
+    <div class="entry-name" cmTextOverflow #name="cmTextOverflow"
           [matTooltip]="entry.name" matTooltipShowDelay="666"
-          [matTooltipDisabled]="!name.overflowing">{{entry.name}}</span>
-    <span *ngIf="!showDetail" class="entry-info">
+          [matTooltipDisabled]="!name.overflowing">{{entry.name}}</div>
+    <div *ngIf="!showDetail && showKey" class="entry-info">
       <span class="entry-key">{{entry.key}}</span>
-    </span>
+    </div>
   </mat-card-title>
   <mat-card-content>
     <div class="entry-description" matTooltipShowDelay="666"
          cmTextOverflow #description="cmTextOverflow"
          [matTooltipDisabled]="!description.overflowing"
-         [matTooltip]="entry.description">{{entry.description || ('ENTRY_CARD.LABEL_NO_DESCRIPTION' | translate)}}</div>
+         [matTooltip]="entry.description">
+      {{entry.description || ('ENTRY_CARD.LABEL_NO_DESCRIPTION' | translate)}}
+    </div>
     <div *ngIf="showDetail" class="entry-detail">
       <span>
-        <mat-icon class="mat-icon-small" [matTooltip]="('ENTRY_CARD.ACTIVE.' + hasActiveVersion()) | translate">{{hasActiveVersion() ? 'check_circle' : 'unpublished'}}</mat-icon>
-        <span *ngIf="entry.versions?.length > 0" class="badge" [matTooltip]="'ENTRY_CARD.LANGUAGES_TOOLTIP' | translate">{{languages()}}</span>
+        <mat-icon class="mat-icon-small" [matTooltip]="('ENTRY_CARD.ACTIVE.' + hasActiveVersion()) | translate">
+          {{hasActiveVersion() ? 'check_circle' : 'unpublished'}}
+        </mat-icon>
+        <span *ngIf="entry.versions?.length > 0" class="badge" [matTooltip]="'ENTRY_CARD.LANGUAGES_TOOLTIP' | translate">
+          {{languages()}}
+        </span>
       </span>
       <span class="entry-key">{{entry.key}}</span>
     </div>

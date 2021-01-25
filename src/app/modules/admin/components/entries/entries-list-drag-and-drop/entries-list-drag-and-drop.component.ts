@@ -40,6 +40,9 @@ export class EntriesListDragAndDropComponent extends EntriesListComponent implem
   @Input()
   disabled = false;
 
+  @Input()
+  showKeys = false;
+
   private onChange = (value: ModelEntryDto[]) => {};
 
   private onTouched = () => {};

@@ -16,6 +16,12 @@
   .graphs {
     display: grid;
     grid-gap: 1em;
-    grid-template-columns: 1fr 1fr;
+    grid-template-columns: minmax(0,1fr) minmax(0,1fr);
+  }
+
+  @media (max-width: 900px) {
+    .graphs {
+      grid-template-columns: minmax(0,1fr);
+    }
   }
 }

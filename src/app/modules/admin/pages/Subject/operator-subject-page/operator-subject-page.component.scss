@@ -15,27 +15,38 @@
       .subject {
         display: flex;
         flex-direction: row;
+        justify-content: space-between;
 
-        .subject-icon {
-          height: 96px;
-          width: 96px;
-          font-size: 96px;
-          color: #3F3F3F;
-          margin-right: 16px;
-        }
-
-        .subject-details {
+        .subject-left {
           display: flex;
-          flex-direction: column;
+          flex-direction: row;
 
-          .subject-name {
-            font-size: 32px;
-            padding: 16px 0;
+          .subject-icon {
+            height: 96px;
+            width: 96px;
+            font-size: 96px;
+            color: #3F3F3F;
+            margin-right: 16px;
+          }
+
+          .subject-details {
+            display: flex;
+            flex-direction: column;
+
+            .subject-name {
+              font-size: 32px;
+              padding: 16px 0;
+            }
           }
         }
 
         .subject-date {
           padding: 16px 0 0 32px;
+          font-size: large;
+
+          .subject-info {
+            padding: 4px;
+          }
         }
 
         .subject-info {

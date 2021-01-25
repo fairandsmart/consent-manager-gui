@@ -154,7 +154,7 @@
       "EMPTY": "First, add a processing or a preference..."
     },
     "BUTTON_ADD": {
-      "basicinfo": "New Basic Info",
+      "basicinfo": "New basic information",
       "processing": "New processing",
       "preference": "New preference",
       "conditions": "New terms and conditions",
@@ -513,7 +513,10 @@
         "LABEL": "Collection method"
       },
       "HISTORY": {
-        "LABEL": "See all the records"
+        "LABEL": "History"
+      },
+      "EDIT": {
+        "LABEL": "Edit"
       },
       "STATUS": {
         "LABEL": "Status",
@@ -585,6 +588,11 @@
           "PENDING": "Pending"
         },
         "EMPTY": "None"
+      },
+      "EMPTY": {
+        "PREFERENCES": "You did not create any preference template.",
+        "PROCESSINGS": "You did not create any processing template.",
+        "CONDITIONS": "You did not create any terms and conditions template."
       }
     },
     "DIALOG": {
