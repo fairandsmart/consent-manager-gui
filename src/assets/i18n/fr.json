@@ -384,7 +384,9 @@
         "OPTIONS": {
           "LABEL": "Options",
           "PLACEHOLDER": "Entrez ici vos options",
-          "TOGGLE_HINT": "Entrez une première valeur pour la position \"inactive\", et une seconde pour la position \"active\"."
+          "TOGGLE_HINT": "Entrez une première valeur pour la position \"inactif\", et une seconde pour la position \"actif\".",
+          "SEPARATORS_HINT": "Séparez les valeurs avec une virgule ou un point-virgule, ou appuyez sur la touche Entrée",
+          "LENGTH_ERROR": "Trop d'options. Vous devez choisir deux options: une pour l'état \"inactif\" et une seconde pour la position \"actif\""
         },
         "INCLUDE_DEFAULT": {
           "LABEL": "Je veux utiliser un paramètre par défaut pour cette préférence lors de la construction de mon formulaire de consentement"

@@ -11,7 +11,3 @@ cm-entry-card:not(.entry-card-selectable) {
     background-color: mat-color($mat-light-theme-background, disabled-button) !important;
   }
 }
-
-.empty-hint {
-  color: $dark-secondary-text;
-}

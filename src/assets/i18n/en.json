@@ -384,7 +384,9 @@
         "OPTIONS": {
           "LABEL": "Options",
           "PLACEHOLDER": "Enter here your options",
-          "TOGGLE_HINT": "Enter a first value for the \"off\" position, and a second one for the \"on\" position."
+          "TOGGLE_HINT": "Enter a first value for the \"off\" position, and a second one for the \"on\" position.",
+          "SEPARATORS_HINT": "Separate values with a comma or a colon, or press Enter",
+          "LENGTH_ERROR": "Too many options. You must enter two values: the first for the \"off\" position, and a second one for the \"on\" position."
         },
         "INCLUDE_DEFAULT": {
           "LABEL": "I want to use a default parameter for this preference during my consent form creation"
