@@ -220,12 +220,16 @@ export abstract class EntryContentDirective<T extends ModelData> extends FormSta
 
   activate(): void {
     if (this.hasChanges) {
-      this.alertService.info('ALERT.UNSAVED_CHANGES');
+      this.alertService.error('ALERT.UNSAVED_CHANGES', 'Unsaved changes');
       return;
     }
     if (this.form.invalid) {
       this.form.markAllAsTouched();
       this.alertService.error('ALERT.FORM_ERROR', 'Form invalid');
+      return;
+    }
+    if (this.version.status === ModelVersionStatus.ACTIVE) {
+      this.alertService.error('ALERT.ALREADY_ACTIVE', 'Already active');
       return;
     }
     this.form.disable();

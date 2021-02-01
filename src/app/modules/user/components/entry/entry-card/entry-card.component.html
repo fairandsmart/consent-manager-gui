@@ -15,8 +15,8 @@
   -->
 <div *ngIf="active">
   <ng-container [ngSwitch]="entry?.type">
-    <cm-processing #itemCard (changed)="notifyUnsavedChanges()" [autoSave]="autoSave" [entry]="entry" [version]="active" [record]="record" *ngSwitchCase="'processing'"> </cm-processing>
-    <cm-preference #itemCard (changed)="notifyUnsavedChanges()" [autoSave]="autoSave" [entry]="entry" [version]="active" [record]="record" *ngSwitchCase="'preference'"></cm-preference>
-    <cm-conditions #itemCard (changed)="notifyUnsavedChanges()" [autoSave]="autoSave" [entry]="entry" [version]="active" [record]="record" *ngSwitchCase="'conditions'"></cm-conditions>
+    <cm-processing-user #itemCard (changed)="notifyUnsavedChanges()" [autoSave]="autoSave" [entry]="entry" [version]="active" [record]="record" *ngSwitchCase="'processing'"> </cm-processing-user>
+    <cm-preference-user #itemCard (changed)="notifyUnsavedChanges()" [autoSave]="autoSave" [entry]="entry" [version]="active" [record]="record" *ngSwitchCase="'preference'"></cm-preference-user>
+    <cm-conditions-user #itemCard (changed)="notifyUnsavedChanges()" [autoSave]="autoSave" [entry]="entry" [version]="active" [record]="record" *ngSwitchCase="'conditions'"></cm-conditions-user>
   </ng-container>
 </div>

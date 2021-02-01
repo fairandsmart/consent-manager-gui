@@ -5,10 +5,10 @@
  * Copyright (C) 2020 - 2021 Fair And Smart
  * %%
  * This file is part of Right Consents Community Edition.
- * 
+ *
  * Right Consents Community Edition is published by FAIR AND SMART under the
  * GNU GENERAL PUBLIC LICENCE Version 3 (GPLv3) and a set of additional terms.
- * 
+ *
  * For more information, please see the “LICENSE” and “LICENSE.FAIRANDSMART”
  * files, or see https://www.fairandsmart.com/opensource/.
  * #L%
@@ -20,6 +20,7 @@ import { ModelEntryDto, ModelVersionDto } from '../../../../../core/models/model
 import { ModelsResourceService } from '../../../../../core/http/models-resource.service';
 import { of } from 'rxjs';
 import * as _ from 'lodash';
+import {EntryContentDirective} from '../../../components/entry/entry-content/entry-content.directive';
 
 @Component({
   selector: 'cm-entry-page',
@@ -35,6 +36,8 @@ export class ModelEntryPageComponent implements OnInit {
   entry: ModelEntryDto;
 
   latest: ModelVersionDto<any>;
+
+  childContext: EntryContentDirective<any>;
 
   constructor(private route: ActivatedRoute, private modelsResource: ModelsResourceService) {
   }

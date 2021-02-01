@@ -49,7 +49,7 @@
           </ng-container>
           <div class="step-actions">
             <span></span>
-            <button mat-button color="primary" matStepperNext>{{'FORM_CREATOR.BUTTON_LABEL_NEXT_STEP' | translate}}</button>
+            <button mat-button color="primary" matStepperNext [disabled]="form.at(STEPS.ELEMENTS).invalid">{{'FORM_CREATOR.BUTTON_LABEL_NEXT_STEP' | translate}}</button>
           </div>
         </mat-step>
 

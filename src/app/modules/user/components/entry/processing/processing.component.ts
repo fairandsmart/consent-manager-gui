@@ -24,7 +24,7 @@ import {ConfigService} from '../../../../../core/services/config.service';
 import { CoreService } from '../../../../../core/services/core.service';
 
 @Component({
-  selector: 'cm-processing',
+  selector: 'cm-processing-user',
   templateUrl: './processing.component.html',
   styleUrls: ['../entry-card/entry-card.component.scss', './processing.component.scss']
 })
