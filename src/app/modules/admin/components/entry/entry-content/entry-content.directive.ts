@@ -17,26 +17,24 @@ import { Directive, Input, OnInit, ViewChild } from '@angular/core';
 import {
   ConsentFormOrientation,
   ModelData,
-  ModelDataType,
   ModelEntryDto,
   ModelVersionDto,
   ModelVersionDtoLight,
   ModelVersionStatus,
-  PreviewDto
+  PreviewDto, PreviewType
 } from '../../../../../core/models/models';
-import { BehaviorSubject, EMPTY, Observable, of, Subject } from 'rxjs';
+import { EMPTY, Observable, of } from 'rxjs';
 import { ModelsResourceService } from '../../../../../core/http/models-resource.service';
 import * as _ from 'lodash';
 import { catchError, debounceTime, distinctUntilChanged, map, mergeMap, startWith } from 'rxjs/operators';
 import { HttpErrorResponse } from '@angular/common/http';
 import { environment } from '../../../../../../environments/environment';
-import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
 import { AlertService } from '../../../../../core/services/alert.service';
 import { FormStateSaver } from '../../../utils/form-state-saver';
 import {ConfigService} from '../../../../../core/services/config.service';
-import { SideNavComponent } from '../../side-nav/side-nav.component';
 import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
 import { MatSidenav } from '@angular/material/sidenav';
+import { EntryPreviewComponent } from '../entry-preview/entry-preview.component';
 
 @Directive()
 export abstract class EntryContentDirective<T extends ModelData> extends FormStateSaver implements OnInit {
@@ -50,29 +48,29 @@ export abstract class EntryContentDirective<T extends ModelData> extends FormSta
 
   @ViewChild('optionsNav', {static: true})
   sidenav: MatSidenav;
-  sideNavBehavior$: Observable<'side' | 'over'>
+  sideNavBehavior$: Observable<'side' | 'over'>;
 
-  private previewDelay = 500;
+  @ViewChild('preview')
+  preview: EntryPreviewComponent;
 
-  public safePreview: SafeHtml;
-
+  private readonly previewDelay = 500;
+  private readonly defaultLanguage;
   readonly STATUS = ModelVersionStatus;
 
-  private readonly defaultLanguage;
+  public type: string;
 
   protected constructor(
-    context: string,
     protected modelsResourceService: ModelsResourceService,
     protected alertService: AlertService,
-    protected sanitizer: DomSanitizer,
     protected configService: ConfigService,
     protected breakpointObserver: BreakpointObserver
   ) {
-    super(context);
+    super();
     this.defaultLanguage = configService.config.language;
   }
 
   ngOnInit(): void {
+    this.type = this.entry.type;
     this.initResponsiveSideNav();
     this.setContextId(this.entry?.key || ''); // disambiguation of the context to avoid cross-entry form state saving
     this.initForm();
@@ -84,8 +82,6 @@ export abstract class EntryContentDirective<T extends ModelData> extends FormSta
   get hasChanges(): boolean {
     return !_.isEqual(this.initialValue, this.form.getRawValue());
   }
-
-  abstract get type(): ModelDataType;
 
   protected abstract initForm(): void;
 
@@ -130,7 +126,7 @@ export abstract class EntryContentDirective<T extends ModelData> extends FormSta
       startWith(this.form.getRawValue() as T),
       debounceTime(this.previewDelay),
       distinctUntilChanged((a, b) => _.isEqual(a, b))
-    ).subscribe((e) => {
+    ).subscribe(() => {
       this.formStateChanged();
       this.refreshPreview();
     });
@@ -140,11 +136,12 @@ export abstract class EntryContentDirective<T extends ModelData> extends FormSta
     return {
       language: language,
       orientation: ConsentFormOrientation.VERTICAL,
-      data: values
+      data: values,
+      previewType: PreviewType.FORM
     };
   }
 
-  protected refreshPreview(): void {
+  refreshPreview(): void {
     const rawValues: T = this.form.getRawValue();
     const language = this.defaultLanguage;
     if (language) {
@@ -152,8 +149,7 @@ export abstract class EntryContentDirective<T extends ModelData> extends FormSta
       const versionId = this.version ? this.version.id : this.modelsResourceService.NEW_VERSION_UUID;
       this.modelsResourceService.getVersionPreview(this.entry.id, versionId, dto)
         .subscribe((result: string) => {
-          result = result.replace(/\/assets\//g, `${environment.managerUrl}/assets/`);
-          this.safePreview = this.sanitizer.bypassSecurityTrustHtml(result);
+          this.preview.updateUrl(result.replace(/\/assets\//g, `${environment.managerUrl}/assets/`));
         });
     }
   }

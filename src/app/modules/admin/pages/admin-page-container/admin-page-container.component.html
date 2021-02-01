@@ -16,7 +16,7 @@
 <cm-header-nav mode="admin" (toggleSideNav)="matSidenav.toggle()" displaySearchBar="true"></cm-header-nav>
 
 <mat-sidenav-container>
-  <mat-sidenav [disableClose]="true" #matSidenav [mode]="sidenavMode$ | async">
+  <mat-sidenav [disableClose]="(sidenavMode$ | async) !== 'over'" #matSidenav [mode]="sidenavMode$ | async">
     <cm-side-nav #sidenav></cm-side-nav>
   </mat-sidenav>
 

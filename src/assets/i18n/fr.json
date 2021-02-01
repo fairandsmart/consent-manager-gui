@@ -233,12 +233,12 @@
       },
       "CONTENT": {
         "TITLE": {
-          "BASICINFO": "Contenu des informations de base",
-          "PROCESSING": "Contenu du traitement",
-          "PREFERENCE": "Contenu de la préférence",
-          "CONDITIONS": "Contenu des CGU",
-          "THEME": "Contenu du thème",
-          "EMAIL": "Contenu de l'email"
+          "basicinfo": "Contenu des informations de base",
+          "processing": "Contenu du traitement",
+          "preference": "Contenu de la préférence",
+          "conditions": "Contenu des CGU",
+          "theme": "Contenu du thème",
+          "email": "Contenu de l'email"
         },
         "SHOW": "Afficher dans les formulaires et les reçus",
         "HIDE": "N'afficher que dans les reçus",
@@ -260,7 +260,8 @@
           "PHONE": {
             "LABEL": "Numéro de téléphone"
           }
-        }
+        },
+        "SHOW_SIDE": "Afficher les détails"
       },
       "BASICINFO": {
         "SUBTITLES": {

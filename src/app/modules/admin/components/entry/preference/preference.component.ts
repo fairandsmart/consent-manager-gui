@@ -16,19 +16,17 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { EntryContentDirective } from '../entry-content/entry-content.directive';
 import {
-  ModelDataType,
   Preference,
   PREFERENCE_VALUE_TYPES,
   PreferenceValueType
 } from '../../../../../core/models/models';
 import { FormBuilder, FormControl, Validators } from '@angular/forms';
 import { ModelsResourceService } from '../../../../../core/http/models-resource.service';
-import { DomSanitizer } from '@angular/platform-browser';
 import { AlertService } from '../../../../../core/services/alert.service';
 import { MatChipInputEvent, MatChipList } from '@angular/material/chips';
 import { COMMA, ENTER } from '@angular/cdk/keycodes';
 import * as _ from 'lodash';
-import {ConfigService} from '../../../../../core/services/config.service';
+import { ConfigService } from '../../../../../core/services/config.service';
 import { BreakpointObserver } from '@angular/cdk/layout';
 
 @Component({
@@ -38,8 +36,8 @@ import { BreakpointObserver } from '@angular/cdk/layout';
 })
 export class PreferenceComponent extends EntryContentDirective<Preference> implements OnInit {
 
-  static CONTEXT = 'preference';
-  public readonly VALUE_TYPES = PREFERENCE_VALUE_TYPES;
+  public readonly VALUE_TYPES_LIST = PREFERENCE_VALUE_TYPES;
+  readonly VALUE_TYPES = PreferenceValueType;
 
   separatorKeysCodes: number[] = [ENTER, COMMA];
   optionsInputCtrl: FormControl;
@@ -51,14 +49,9 @@ export class PreferenceComponent extends EntryContentDirective<Preference> imple
     private fb: FormBuilder,
     modelsResourceService: ModelsResourceService,
     alertService: AlertService,
-    sanitizer: DomSanitizer,
     configService: ConfigService,
     breakpointObserver: BreakpointObserver) {
-    super(PreferenceComponent.CONTEXT, modelsResourceService, alertService, sanitizer, configService, breakpointObserver);
-  }
-
-  get type(): ModelDataType {
-    return 'preference';
+    super(modelsResourceService, alertService, configService, breakpointObserver);
   }
 
   ngOnInit(): void {
@@ -108,7 +101,7 @@ export class PreferenceComponent extends EntryContentDirective<Preference> imple
       this.form.get('defaultValues').updateValueAndValidity();
     });
 
-    this.form.get('includeDefault').valueChanges.subscribe(v => {
+    this.form.get('includeDefault').valueChanges.subscribe(() => {
       this.updateDefaultValuesValidators(this.form.get('valueType').value);
     });
     super.registerFormChanges();

@@ -17,7 +17,13 @@
   <mat-sidenav-content>
     <form *ngIf="form" [formGroup]="form">
       <mat-card>
-        <mat-card-title>{{'ENTRIES.EDITOR.CONTENT.TITLE.PREFERENCE' | translate}}</mat-card-title>
+        <mat-card-title class="page-title">
+          <span>{{'ENTRIES.EDITOR.CONTENT.TITLE.' + type | translate}}</span>
+          <div class="preview-toggler" *ngIf="!optionsNav.opened" (click)="optionsNav.toggle()">
+            <mat-icon>reorder</mat-icon>
+            {{'ENTRIES.EDITOR.CONTENT.SHOW_SIDE' | translate}}
+          </div>
+        </mat-card-title>
         <mat-card-content>
 
           <mat-card-subtitle>{{'ENTRIES.EDITOR.PREFERENCE.SUBTITLES.CONTENT' | translate}}</mat-card-subtitle>
@@ -35,7 +41,7 @@
           <mat-form-field appearance="outline">
             <mat-label>{{'ENTRIES.EDITOR.PREFERENCE.VALUE_TYPE.LABEL' | translate}}</mat-label>
             <mat-select formControlName="valueType" required>
-              <mat-option *ngFor="let type of VALUE_TYPES" [value]="type">
+              <mat-option *ngFor="let type of VALUE_TYPES_LIST" [value]="type">
                 {{'ENTRIES.EDITOR.PREFERENCE.VALUE_TYPE.VALUES.' + type | translate}}
               </mat-option>
             </mat-select>
@@ -45,7 +51,7 @@
             {{'ENTRIES.EDITOR.PREFERENCE.OPTIONAL.LABEL' | translate}}
           </mat-checkbox>
 
-          <div *ngIf="form.get('valueType').value && form.get('valueType').value !== 'FREE_TEXT'">
+          <div *ngIf="form.get('valueType').value && form.get('valueType').value !== VALUE_TYPES.FREE_TEXT">
             <mat-card-subtitle>{{'ENTRIES.EDITOR.PREFERENCE.SUBTITLES.OPTIONS' | translate}}</mat-card-subtitle>
 
             <div>
@@ -65,7 +71,7 @@
                     [matChipInputAddOnBlur]="false"
                     (matChipInputTokenEnd)="addOption($event)">
                 </mat-chip-list>
-                <mat-hint *ngIf="form.get('valueType').value === 'TOGGLE'">
+                <mat-hint *ngIf="form.get('valueType').value === VALUE_TYPES.TOGGLE">
                   {{'ENTRIES.EDITOR.PREFERENCE.OPTIONS.TOGGLE_HINT' | translate}}
                 </mat-hint>
                 <mat-error *ngIf="form.hasError('maxlength', ['options'])">
@@ -108,9 +114,8 @@
     </form>
   </mat-sidenav-content>
 
-  <mat-sidenav [disableClose]="true" #optionsNav opened [mode]="sideNavBehavior$ | async" position="end">
-    <cm-entry-info *ngIf="entry" [entry]="entry" [version]="version"
-                   (selectVersion)="selectVersion($event)"></cm-entry-info>
-    <cm-entry-preview [safePreview]="safePreview"></cm-entry-preview>
+  <mat-sidenav [disableClose]="(sideNavBehavior$ | async) !== 'over'" #optionsNav opened [mode]="sideNavBehavior$ | async" position="end">
+    <cm-entry-info *ngIf="entry" [entry]="entry" [version]="version" (selectVersion)="selectVersion($event)"></cm-entry-info>
+    <cm-entry-preview #preview (refreshPreview)="refreshPreview()"></cm-entry-preview>
   </mat-sidenav>
 </mat-sidenav-container>

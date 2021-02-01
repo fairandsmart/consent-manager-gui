@@ -17,7 +17,13 @@
   <mat-sidenav-content>
     <form *ngIf="form" [formGroup]="form">
       <mat-card>
-        <mat-card-title>{{'ENTRIES.EDITOR.CONTENT.TITLE.CONDITIONS' | translate}}</mat-card-title>
+        <mat-card-title class="page-title">
+          <span>{{'ENTRIES.EDITOR.CONTENT.TITLE.' + type | translate}}</span>
+          <div class="preview-toggler" *ngIf="!optionsNav.opened" (click)="optionsNav.toggle()">
+            <mat-icon>reorder</mat-icon>
+            {{'ENTRIES.EDITOR.CONTENT.SHOW_SIDE' | translate}}
+          </div>
+        </mat-card-title>
         <mat-card-content>
 
           <mat-card-subtitle>{{'ENTRIES.EDITOR.CONDITIONS.SUBTITLES.TITLE' | translate}}</mat-card-subtitle>
@@ -63,8 +69,8 @@
     </form>
   </mat-sidenav-content>
 
-  <mat-sidenav [disableClose]="true" #optionsNav opened [mode]="sideNavBehavior$ | async" position="end">
+  <mat-sidenav [disableClose]="(sideNavBehavior$ | async) !== 'over'" #optionsNav opened [mode]="sideNavBehavior$ | async" position="end">
     <cm-entry-info *ngIf="entry" [entry]="entry" [version]="version" (selectVersion)="selectVersion($event)"></cm-entry-info>
-    <cm-entry-preview [safePreview]="safePreview"></cm-entry-preview>
+    <cm-entry-preview #preview (refreshPreview)="refreshPreview()"></cm-entry-preview>
   </mat-sidenav>
 </mat-sidenav-container>

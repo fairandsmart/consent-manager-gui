@@ -15,7 +15,7 @@
   -->
 <ng-container *ngIf="(section.dataSource.connect() | async) as entries">
   <div class="section-toolbar">
-    <ng-container *ngIf="section.canAddMultiple === 'ALWAYS' || entries?.length === 0">
+    <ng-container *ngIf="section.canAddMultiple === ADD_OPTIONS.ALWAYS || entries?.length === 0">
       <ng-container *ngIf="section.types.length === 1; else addMultiple">
         <button [matTooltip]="'ENTRIES.BUTTON_ADD.' + section.types[0] | translate" mat-mini-fab
                 (click)="newEntry(section.types[0])">
@@ -34,7 +34,7 @@
         </mat-menu>
       </ng-template>
     </ng-container>
-    <ng-container *ngIf="section.canAddMultiple === 'ENTERPRISE' && entries?.length > 0">
+    <ng-container *ngIf="section.canAddMultiple === ADD_OPTIONS.ENTERPRISE && entries?.length > 0">
       <button [matTooltip]="'ENTRIES.BUTTON_ADD.' + section.types[0] | translate" mat-mini-fab
               (click)="displayAvailabilityWarning()">
         <mat-icon>add</mat-icon>

@@ -10,11 +10,13 @@ mat-sidenav-container {
   left: 0;
   right: 0;
   bottom: 0;
+
   mat-sidenav-content {
     padding: 0 2em;
     position: relative;
+
     form {
-      margin: 2em auto;
+      margin: 2em auto 1em;
       max-width: 750px;
     }
   }
@@ -26,6 +28,7 @@ mat-sidenav-container {
   flex-wrap: nowrap;
   justify-content: space-between;
   align-items: center;
+
   .preview-toggler {
     cursor: pointer;
     display: flex;
@@ -36,12 +39,15 @@ mat-sidenav-container {
     z-index: 1000;
     user-select: none;
     font-size: .7em;
+
     &:hover {
       background-color: #eee;
     }
+
     &:active {
       background-color: #ccc;
     }
+
     mat-icon {
       margin-left: .5em;
     }
@@ -50,17 +56,20 @@ mat-sidenav-container {
 
 mat-sidenav {
   overflow: hidden;
+
   ::ng-deep .mat-drawer-inner-container {
     width: 500px;
     box-sizing: border-box;
     padding-left: 1em;
     padding-right: 1em;
   }
+
   .preview-title-wrapper {
     display: flex;
     flex-direction: row;
     justify-content: space-between;
   }
+
   iframe {
     display: block;
     width: 100%;
