@@ -5,10 +5,10 @@
  * Copyright (C) 2020 - 2021 Fair And Smart
  * %%
  * This file is part of Right Consents Community Edition.
- * 
+ *
  * Right Consents Community Edition is published by FAIR AND SMART under the
  * GNU GENERAL PUBLIC LICENCE Version 3 (GPLv3) and a set of additional terms.
- * 
+ *
  * For more information, please see the “LICENSE” and “LICENSE.FAIRANDSMART”
  * files, or see https://www.fairandsmart.com/opensource/.
  * #L%
@@ -239,7 +239,7 @@ export class CollectFormCreatorPageComponent implements OnInit {
         this.preview();
       }
     });
-    this.form.at(FORM_CREATOR_STEP.OPTIONS).get('notify').valueChanges.subscribe((notify: boolean) => {
+    this.form.at(FORM_CREATOR_STEP.OPTIONS ).get('notify').valueChanges.subscribe((notify: boolean) => {
       if (notify) {
         this.form.at(FORM_CREATOR_STEP.OPTIONS).get('notificationModel')
           .setValidators([Validators.required, Validators.pattern(FIELD_VALIDATORS.key.pattern)]);

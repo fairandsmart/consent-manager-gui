@@ -114,9 +114,9 @@
 
         </mat-card-content>
         <mat-card-actions *ngIf="isLatestVersion()">
-          <button mat-button type="button" color="primary" [disabled]="form.disabled || !hasChanges" (click)="save()">{{'ENTRIES.EDITOR.BUTTONS.SAVE' | translate}}</button>
+          <button mat-button type="button" color="primary" [disabled]="form.disabled" (click)="save()">{{'ENTRIES.EDITOR.BUTTONS.SAVE' | translate}}</button>
           <ng-container *ngIf="version != null">
-            <button mat-button type="button" color="primary" [disabled]="form.disabled || version.status === STATUS.ACTIVE || hasChanges" (click)="activate()">{{'ENTRIES.EDITOR.BUTTONS.ACTIVATE' | translate}}</button>
+            <button mat-button type="button" color="primary" [disabled]="form.disabled" (click)="activate()">{{'ENTRIES.EDITOR.BUTTONS.ACTIVATE' | translate}}</button>
             <button mat-button type="button" color="warn" [disabled]="form.disabled || version.status !== STATUS.DRAFT" (click)="delete()">{{'ENTRIES.EDITOR.BUTTONS.DELETE' | translate}}</button>
           </ng-container>
         </mat-card-actions>

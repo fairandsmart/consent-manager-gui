@@ -25,7 +25,7 @@ import {ConfigService} from '../../../../../core/services/config.service';
 import { CoreService } from '../../../../../core/services/core.service';
 
 @Component({
-  selector: 'cm-conditions',
+  selector: 'cm-conditions-user',
   templateUrl: './conditions.component.html',
   styleUrls: ['../entry-card/entry-card.component.scss', './conditions.component.scss']
 })
