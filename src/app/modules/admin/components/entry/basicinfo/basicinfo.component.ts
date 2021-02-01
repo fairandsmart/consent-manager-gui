@@ -15,12 +15,11 @@
  */
 import { Component, OnInit } from '@angular/core';
 import { EntryContentDirective } from '../entry-content/entry-content.directive';
-import { BasicInfo, Controller, FIELD_VALIDATORS, ModelDataType } from '../../../../../core/models/models';
+import { BasicInfo, Controller, FIELD_VALIDATORS } from '../../../../../core/models/models';
 import { FormBuilder, Validators } from '@angular/forms';
 import { ModelsResourceService } from '../../../../../core/http/models-resource.service';
-import { DomSanitizer } from '@angular/platform-browser';
 import { AlertService } from '../../../../../core/services/alert.service';
-import {ConfigService} from '../../../../../core/services/config.service';
+import { ConfigService } from '../../../../../core/services/config.service';
 import { CoreService } from '../../../../../core/services/core.service';
 import { BreakpointObserver } from '@angular/cdk/layout';
 
@@ -31,21 +30,14 @@ import { BreakpointObserver } from '@angular/cdk/layout';
 })
 export class BasicinfoComponent extends EntryContentDirective<BasicInfo> implements OnInit {
 
-  static CONTEXT = 'Basic-Info';
-
   constructor(
     private fb: FormBuilder,
     modelsResourceService: ModelsResourceService,
     alertService: AlertService,
-    sanitizer: DomSanitizer,
     configService: ConfigService,
     private coreService: CoreService,
     breakpointObserver: BreakpointObserver) {
-    super(BasicinfoComponent.CONTEXT, modelsResourceService, alertService, sanitizer, configService, breakpointObserver);
-  }
-
-  get type(): ModelDataType {
-    return 'basicinfo';
+    super(modelsResourceService, alertService, configService, breakpointObserver);
   }
 
   ngOnInit(): void {

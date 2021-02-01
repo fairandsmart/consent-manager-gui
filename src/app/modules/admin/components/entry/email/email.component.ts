@@ -15,12 +15,11 @@
  */
 import { Component, OnInit } from '@angular/core';
 import { EntryContentDirective } from '../entry-content/entry-content.directive';
-import { Email, ModelDataType } from '../../../../../core/models/models';
+import { Email } from '../../../../../core/models/models';
 import { FormBuilder, Validators } from '@angular/forms';
 import { ModelsResourceService } from '../../../../../core/http/models-resource.service';
-import { DomSanitizer } from '@angular/platform-browser';
 import { AlertService } from '../../../../../core/services/alert.service';
-import {ConfigService} from '../../../../../core/services/config.service';
+import { ConfigService } from '../../../../../core/services/config.service';
 import { BreakpointObserver } from '@angular/cdk/layout';
 
 @Component({
@@ -30,20 +29,13 @@ import { BreakpointObserver } from '@angular/cdk/layout';
 })
 export class EmailComponent extends EntryContentDirective<Email> implements OnInit {
 
-  static CONTEXT = 'email';
-
   constructor(
     private fb: FormBuilder,
     modelsResourceService: ModelsResourceService,
     alertService: AlertService,
-    sanitizer: DomSanitizer,
     configService: ConfigService,
     breakpointObserver: BreakpointObserver) {
-    super(EmailComponent.CONTEXT, modelsResourceService, alertService, sanitizer, configService, breakpointObserver);
-  }
-
-  get type(): ModelDataType {
-    return 'email';
+    super(modelsResourceService, alertService, configService, breakpointObserver);
   }
 
   ngOnInit(): void {

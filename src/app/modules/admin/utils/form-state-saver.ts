@@ -5,10 +5,10 @@
  * Copyright (C) 2020 - 2021 Fair And Smart
  * %%
  * This file is part of Right Consents Community Edition.
- * 
+ *
  * Right Consents Community Edition is published by FAIR AND SMART under the
  * GNU GENERAL PUBLIC LICENCE Version 3 (GPLv3) and a set of additional terms.
- * 
+ *
  * For more information, please see the “LICENSE” and “LICENSE.FAIRANDSMART”
  * files, or see https://www.fairandsmart.com/opensource/.
  * #L%
@@ -24,7 +24,7 @@ export interface FormState {
  * Used for ModelData forms
  * This class handles an local auto-save feature on every input, allowing the user to restore the state of the form in case of
  * accidental refresh of network issues.
- * This keeps the last form opened in memory, across the all website
+ * This keeps the last form opened in memory, across the whole website
  */
 export abstract class FormStateSaver {
 
@@ -35,20 +35,23 @@ export abstract class FormStateSaver {
 
   public form: FormGroup;
 
-  protected constructor(private context: string) {
+  abstract type: string;
+  private contextId: string;
+
+  protected constructor() {
   }
 
   abstract notifyExistingFormState(): void;
   abstract registerFormChanges(): void;
 
   setContextId(id: string): void {
-    this.context += '.' + id;
+    this.contextId = this.type + '.' + id;
   }
 
   formStateChanged(): void {
     if (this.form.dirty) {
       const item: FormState = {
-        context: this.context,
+        context: this.contextId,
         formState: this.form.getRawValue()
       };
       window.localStorage.setItem(FormStateSaver.LS_KEY_FORMSTATE, JSON.stringify(item));
@@ -57,7 +60,7 @@ export abstract class FormStateSaver {
 
   checkFormState(): void {
     const savedState = this.getFormState();
-    if (!!savedState && savedState.context === this.context) {
+    if (!!savedState && savedState.context === this.contextId) {
       this.notifyExistingFormState();
     } else {
       this.registerFormChanges();
@@ -103,4 +106,3 @@ export abstract class FormStateSaver {
     }
   }
 }
-

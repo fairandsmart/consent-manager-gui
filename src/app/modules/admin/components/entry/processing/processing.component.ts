@@ -18,8 +18,6 @@ import { EntryContentDirective } from '../entry-content/entry-content.directive'
 import {
   Controller,
   FIELD_VALIDATORS,
-  ModelDataType,
-  ModelEntryDto,
   ModelVersionDto,
   Processing,
   PROCESSING_PURPOSES,
@@ -29,10 +27,9 @@ import {
 } from '../../../../../core/models/models';
 import { FormArray, FormBuilder, Validators } from '@angular/forms';
 import { ModelsResourceService } from '../../../../../core/http/models-resource.service';
-import { DomSanitizer } from '@angular/platform-browser';
 import { AlertService } from '../../../../../core/services/alert.service';
-import {TranslateService} from '@ngx-translate/core';
-import {ConfigService} from '../../../../../core/services/config.service';
+import { TranslateService } from '@ngx-translate/core';
+import { ConfigService } from '../../../../../core/services/config.service';
 import { BreakpointObserver } from '@angular/cdk/layout';
 
 @Component({
@@ -42,33 +39,21 @@ import { BreakpointObserver } from '@angular/cdk/layout';
 })
 export class ProcessingComponent extends EntryContentDirective<Processing> implements OnInit {
 
-  static CONTEXT = 'processing-form';
   readonly PURPOSES = PROCESSING_PURPOSES;
   readonly RETENTION_UNITS = RETENTION_UNITS;
 
-  availablePreferences: ModelEntryDto[];
-
   constructor(
-      private fb: FormBuilder,
-      modelsResourceService: ModelsResourceService,
-      alertService: AlertService,
-      sanitizer: DomSanitizer,
-      private translate: TranslateService,
-      configService: ConfigService,
-      breakpointObserver: BreakpointObserver) {
-    super(ProcessingComponent.CONTEXT, modelsResourceService, alertService, sanitizer, configService, breakpointObserver);
-  }
-
-  get type(): ModelDataType {
-    return 'processing';
+    private fb: FormBuilder,
+    modelsResourceService: ModelsResourceService,
+    alertService: AlertService,
+    private translate: TranslateService,
+    configService: ConfigService,
+    breakpointObserver: BreakpointObserver) {
+    super(modelsResourceService, alertService, configService, breakpointObserver);
   }
 
   ngOnInit(): void {
     super.ngOnInit();
-    this.modelsResourceService.listEntries({
-      types: ['preference'],
-      size: -1
-    }).subscribe((entries) => this.availablePreferences = entries.values);
   }
 
   protected initForm(): void {
@@ -100,7 +85,7 @@ export class ProcessingComponent extends EntryContentDirective<Processing> imple
     this.form.get('dataControllerVisible').disable();
     this.form.get('retention').valueChanges.subscribe((value) => {
       this.form.get('retention').get('fullText')
-        .patchValue(`${value.label} ${value.value} ${this.translate.instant('ENTRIES.EDITOR.PROCESSING.RETENTION.UNIT.VALUES.' + value.unit)}`, { emitEvent: false });
+        .patchValue(`${value.label} ${value.value} ${this.translate.instant('ENTRIES.EDITOR.PROCESSING.RETENTION.UNIT.VALUES.' + value.unit)}`, {emitEvent: false});
     });
     this.checkFormState();
   }
@@ -120,7 +105,7 @@ export class ProcessingComponent extends EntryContentDirective<Processing> imple
 
   protected setVersion(version: ModelVersionDto<Processing>, language: string = version.defaultLanguage): void {
     this.form.setControl('thirdParties', this.fb.array([]));
-    version.data[language].thirdParties.forEach(tp => this.addThirdParty());
+    version.data[language].thirdParties.forEach(() => this.addThirdParty());
     super.setVersion(version, language);
   }
 

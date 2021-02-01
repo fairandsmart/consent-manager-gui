@@ -233,12 +233,12 @@
       },
       "CONTENT": {
         "TITLE": {
-          "BASICINFO": "Basic Info content",
-          "PROCESSING": "Processing content",
-          "PREFERENCE": "Preference content",
-          "CONDITIONS": "Terms and Conditions content",
-          "THEME": "Theme content",
-          "EMAIL": "Email content"
+          "basicinfo": "Basic Info content",
+          "processing": "Processing content",
+          "preference": "Preference content",
+          "conditions": "Terms and Conditions content",
+          "theme": "Theme content",
+          "email": "Email content"
         },
         "SHOW": "Display in forms and receipts",
         "HIDE": "Display only in receipts",
@@ -260,7 +260,8 @@
           "PHONE": {
             "LABEL": "Phone number"
           }
-        }
+        },
+        "SHOW_SIDE": "Show details"
       },
       "BASICINFO": {
         "SUBTITLES": {

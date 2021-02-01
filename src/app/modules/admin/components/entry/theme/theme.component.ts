@@ -16,23 +16,19 @@
 import { Component, OnInit } from '@angular/core';
 import { EntryContentDirective } from '../entry-content/entry-content.directive';
 import {
-  ConsentFormOrientation,
   LOGO_POSITIONS,
   LogoPosition,
-  ModelDataType,
   PreviewDto,
-  PreviewType,
   Theme
 } from '../../../../../core/models/models';
-import { FormBuilder, FormControl, Validators } from '@angular/forms';
+import { FormBuilder, Validators } from '@angular/forms';
 import { ModelsResourceService } from '../../../../../core/http/models-resource.service';
 import * as CodeMirror from 'codemirror';
 import { Editor } from 'codemirror';
-import { DomSanitizer } from '@angular/platform-browser';
 import { AlertService } from '../../../../../core/services/alert.service';
 import { TranslateService } from '@ngx-translate/core';
 import { ThemeAutocomplete } from './_theme-autocomplete';
-import {ConfigService} from '../../../../../core/services/config.service';
+import { ConfigService } from '../../../../../core/services/config.service';
 import { BreakpointObserver } from '@angular/cdk/layout';
 
 @Component({
@@ -42,7 +38,6 @@ import { BreakpointObserver } from '@angular/cdk/layout';
 })
 export class ThemeComponent extends EntryContentDirective<Theme> implements OnInit {
 
-  static CONTEXT = 'theme';
   readonly LOGO_POSITIONS = LOGO_POSITIONS;
 
   readonly CODE_MIRROR_OPTIONS = {
@@ -60,7 +55,9 @@ export class ThemeComponent extends EntryContentDirective<Theme> implements OnIn
         const cur = cm.getCursor();
         const token = cm.getTokenAt(cur);
         const inner = CodeMirror.innerMode(cm.getMode(), token.state);
-        if (inner.mode.name !== 'css') { return; }
+        if (inner.mode.name !== 'css') {
+          return;
+        }
 
         if (token.type === 'keyword' && '!important'.indexOf(token.string) === 0) {
           return {
@@ -118,42 +115,18 @@ export class ThemeComponent extends EntryContentDirective<Theme> implements OnIn
     }
   };
 
-  previewTypeCtrl: FormControl;
-  orientationCtrl: FormControl;
-
   constructor(
     private fb: FormBuilder,
     modelsResourceService: ModelsResourceService,
     alertService: AlertService,
-    sanitizer: DomSanitizer,
     public translate: TranslateService,
     configService: ConfigService,
     breakpointObserver: BreakpointObserver) {
-    super(ThemeComponent.CONTEXT, modelsResourceService, alertService, sanitizer, configService, breakpointObserver);
-  }
-
-  get type(): ModelDataType {
-    return 'theme';
+    super(modelsResourceService, alertService, configService, breakpointObserver);
   }
 
   ngOnInit(): void {
     super.ngOnInit();
-    this.previewTypeCtrl = new FormControl(PreviewType.FORM, [Validators.required]);
-    this.orientationCtrl = new FormControl(ConsentFormOrientation.VERTICAL, [Validators.required]);
-    this.previewTypeCtrl.valueChanges.subscribe(value => {
-      if (value !== PreviewType.FORM) {
-        this.orientationCtrl.disable();
-        this.orientationCtrl.setValue(ConsentFormOrientation.VERTICAL);
-      } else {
-        this.orientationCtrl.enable();
-      }
-      this.refreshPreview();
-    });
-    this.orientationCtrl.valueChanges.subscribe(value => {
-      if (this.orientationCtrl.enabled) {
-        this.refreshPreview();
-      }
-    });
   }
 
   protected initForm(): void {
@@ -170,9 +143,9 @@ export class ThemeComponent extends EntryContentDirective<Theme> implements OnIn
   protected makePreviewDto(language, values): PreviewDto {
     return {
       language: language,
-      orientation: this.orientationCtrl.value,
+      orientation: this.preview.orientationCtrl.value,
       data: values,
-      previewType: this.previewTypeCtrl.value
+      previewType: this.preview.previewTypeCtrl.value
     };
   }
 }

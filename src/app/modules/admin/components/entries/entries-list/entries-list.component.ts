@@ -5,16 +5,16 @@
  * Copyright (C) 2020 - 2021 Fair And Smart
  * %%
  * This file is part of Right Consents Community Edition.
- * 
+ *
  * Right Consents Community Edition is published by FAIR AND SMART under the
  * GNU GENERAL PUBLIC LICENCE Version 3 (GPLv3) and a set of additional terms.
- * 
+ *
  * For more information, please see the “LICENSE” and “LICENSE.FAIRANDSMART”
  * files, or see https://www.fairandsmart.com/opensource/.
  * #L%
  */
 import { AfterViewInit, ChangeDetectorRef, Component, Input, OnInit, ViewChild } from '@angular/core';
-import { ConsentElementEntryDataSource, SectionConfig } from '../entries-library/entries-library.component';
+import { AddMultipleOption, ConsentElementEntryDataSource, SectionConfig } from '../entries-library/entries-library.component';
 import { tap } from 'rxjs/operators';
 import { ModelDataType, ModelEntryDto } from '../../../../../core/models/models';
 import { EntryEditorDialogComponent, EntryEditorDialogComponentData } from '../../entry/entry-editor-dialog/entry-editor-dialog.component';
@@ -32,6 +32,8 @@ import {ConfigService} from '../../../../../core/services/config.service';
   styleUrls: ['./entries-list.component.scss']
 })
 export class EntriesListComponent implements OnInit, AfterViewInit {
+
+  readonly ADD_OPTIONS = AddMultipleOption;
 
   // tslint:disable-next-line:no-input-rename
   @Input('config')
