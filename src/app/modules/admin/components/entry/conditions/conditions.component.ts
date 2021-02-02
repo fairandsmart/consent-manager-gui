@@ -58,9 +58,7 @@ export class ConditionsComponent extends EntryContentDirective<Conditions> imple
     this.form = this.fb.group({
       type: [this.type, [Validators.required]],
       title: ['', [Validators.required]],
-      body: ['', [Validators.required]],
-      acceptLabel: [''],
-      rejectLabel: ['']
+      body: ['', [Validators.required]]
     });
     this.checkFormState();
   }

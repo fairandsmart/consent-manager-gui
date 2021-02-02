@@ -41,6 +41,8 @@ import { FormUrlDialogComponent, FormUrlDialogComponentData } from '../../../com
 import { hasActiveVersion } from '../../../../../core/utils/model-entry.utils';
 import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
 import {ConfigService} from '../../../../../core/services/config.service';
+import {ConfirmDialogComponent} from '../../../../../core/components/confirm-dialog/confirm-dialog.component';
+import {TranslateService} from '@ngx-translate/core';
 
 enum FORM_CREATOR_STEP {
   ELEMENTS,
@@ -94,8 +96,32 @@ export class CollectFormCreatorPageComponent implements OnInit {
       icon: Icons.preference,
       displayDescription: false,
       listId: 'elements'
+    },
+    {
+      id: 'conditions',
+      types: ['conditions'],
+      canAddMultiple: AddMultipleOption.ALWAYS,
+      showSort: true,
+      draggingDisabled: false,
+      included: true,
+      icon: Icons.preference,
+      displayDescription: false,
+      listId: 'elements'
     }
   ];
+
+  get basicInfoConfig(): (SectionConfig & { draggingDisabled: boolean, included: boolean }) {
+    return this.elementsLibraryConfig[0];
+  }
+  get processingConfig(): (SectionConfig & { draggingDisabled: boolean, included: boolean }) {
+    return this.elementsLibraryConfig[1];
+  }
+  get preferencesConfig(): (SectionConfig & { draggingDisabled: boolean, included: boolean }) {
+    return this.elementsLibraryConfig[2];
+  }
+  get conditionsConfig(): (SectionConfig & { draggingDisabled: boolean, included: boolean }) {
+    return this.elementsLibraryConfig[3];
+  }
 
   public selectionConfig = [
     {
@@ -104,7 +130,7 @@ export class CollectFormCreatorPageComponent implements OnInit {
     },
     {
       id: 'elements',
-      sectionsId: ['processing', 'preferences']
+      sectionsId: ['processing', 'preferences', 'conditions']
     }
   ];
 
@@ -169,7 +195,8 @@ export class CollectFormCreatorPageComponent implements OnInit {
               private sanitizer: DomSanitizer,
               private dialog: MatDialog,
               private breakpointObserver: BreakpointObserver,
-              private configService: ConfigService) {
+              private configService: ConfigService,
+              private translate: TranslateService) {
     this.defaultLanguage = this.configService.config.language;
   }
 
@@ -189,13 +216,12 @@ export class CollectFormCreatorPageComponent implements OnInit {
     zip(...this.elementsLibraryConfig.map(c => this.modelsResource.listEntries({types: c.types, size: 1}))).pipe(
       tap((responses) => {
         const selected: { [id: string]: ModelEntryDto[] } = {...this.selectedElements};
-        responses.forEach((response, index) => {
-          if (response.totalCount === 1 && hasActiveVersion(response.values[0])) {
-            const config = this.elementsLibraryConfig[index];
-            selected[config.id] = response.values;
-            config.draggingDisabled = true;
-          }
-        });
+        const basicInfoIndexInResponse = this.elementsLibraryConfig.findIndex((c) => c.id === this.basicInfoConfig.id);
+        const basicInfoResponse = responses[basicInfoIndexInResponse];
+        if (basicInfoResponse?.totalCount === 1 && hasActiveVersion(basicInfoResponse.values[0])) {
+          selected[this.basicInfoConfig.id] = basicInfoResponse.values;
+          this.basicInfoConfig.draggingDisabled = true;
+        }
         this.setSelectedElements(selected);
       })
     ).subscribe();
@@ -257,6 +283,26 @@ export class CollectFormCreatorPageComponent implements OnInit {
   }
 
   elementDropped(event: CdkDragDrop<ModelEntryDto[]>): void {
+    if ((event.item.data.type === this.conditionsConfig.id && this.selectedElements.elements.length > 0) ||
+      event.item.data.type !== this.conditionsConfig.id && this.selectedElements.elements.find((elem) => elem.type === 'conditions')) {
+      this.dialog.open(ConfirmDialogComponent, {
+        data: {
+          content: this.translate.instant('FORM_CREATOR.FORM_TYPE_ERROR'),
+          title: this.translate.instant('FORM_CREATOR.CHANGE_FORM_TYPE')
+        }
+      }).afterClosed().subscribe((response) => {
+        if (response) {
+            event.container.data.splice(0, this.selectedElements.elements.length);
+            event.currentIndex = 0;
+            this.moveItem(event);
+        }
+      });
+    } else {
+      this.moveItem(event);
+    }
+  }
+
+  moveItem(event: CdkDragDrop<ModelEntryDto[]>): void {
     if (event.previousContainer === event.container) {
       moveItemInArray(event.container.data, event.previousIndex, event.currentIndex);
     } else {

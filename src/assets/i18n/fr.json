@@ -635,6 +635,8 @@
     "STEP_PREVIEW": "Prévisualisation",
     "BUTTON_LABEL_NEXT_STEP": "Suivant",
     "BUTTON_LABEL_PREVIOUS_STEP": "Précédent",
+    "FORM_TYPE_ERROR": "Vous ne pouvez pas ajouter de conditions avec des traitements ou des préférences. Confirmez pour retirer les éléments non compatibles.",
+    "CHANGE_FORM_TYPE": "Modifier le type de formulaire ?",
     "FORM": {
       "TITLE": "Génération du formulaire de consentement",
       "ELEMENTS_PANEL_TITLE": {
