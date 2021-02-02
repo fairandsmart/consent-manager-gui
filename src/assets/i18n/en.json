@@ -635,6 +635,8 @@
     "STEP_PREVIEW": "Preview",
     "BUTTON_LABEL_NEXT_STEP": "Next",
     "BUTTON_LABEL_PREVIOUS_STEP": "Previous",
+    "FORM_TYPE_ERROR": "You can't add conditions to a form containing processings or preferences. Click confirm to remove incompatible elements from the form.",
+    "CHANGE_FORM_TYPE": "Change the form type ?",
     "FORM": {
       "TITLE": "Form creator",
       "ELEMENTS_PANEL_TITLE": {
