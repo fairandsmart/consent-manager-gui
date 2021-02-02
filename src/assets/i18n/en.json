@@ -385,10 +385,13 @@
         },
         "OPTIONS": {
           "LABEL": "Options",
+          "REQUIRED": "This field is missing",
           "PLACEHOLDER": "Enter here your options",
           "TOGGLE_HINT": "Enter a first value for the \"off\" position, and a second one for the \"on\" position.",
           "SEPARATORS_HINT": "Separate values with a comma or a colon, or press Enter",
-          "LENGTH_ERROR": "Too many options. You must enter two values: the first for the \"off\" position, and a second one for the \"on\" position."
+          "MAX_LENGTH_ERROR": "Too many options. You must enter two values: the first for the \"off\" position, and a second one for the \"on\" position.",
+          "MIN_LENGTH_ERROR_CHECKBOXES": "You need to specify at least one option",
+          "MIN_LENGTH_ERROR": "You need to specify at least two option"
         },
         "INCLUDE_DEFAULT": {
           "LABEL": "I want to use a default parameter for this preference during my consent form creation"
