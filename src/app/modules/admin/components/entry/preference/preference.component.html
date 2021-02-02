@@ -74,8 +74,17 @@
                 <mat-hint *ngIf="form.get('valueType').value === VALUE_TYPES.TOGGLE">
                   {{'ENTRIES.EDITOR.PREFERENCE.OPTIONS.TOGGLE_HINT' | translate}}
                 </mat-hint>
+                <mat-error *ngIf="form.hasError('required', ['options'])">
+                  {{'ENTRIES.EDITOR.PREFERENCE.OPTIONS.REQUIRED' | translate}}
+                </mat-error>
                 <mat-error *ngIf="form.hasError('maxlength', ['options'])">
-                  {{'ENTRIES.EDITOR.PREFERENCE.OPTIONS.LENGTH_ERROR' | translate}}
+                  {{'ENTRIES.EDITOR.PREFERENCE.OPTIONS.MAX_LENGTH_ERROR' | translate}}
+                </mat-error>
+                <mat-error *ngIf="form.get('valueType').value === VALUE_TYPES.CHECKBOXES && form.hasError('minlength', ['options'])">
+                  {{'ENTRIES.EDITOR.PREFERENCE.OPTIONS.MIN_LENGTH_ERROR_CHECKBOXES' | translate}}
+                </mat-error>
+                <mat-error *ngIf="form.get('valueType').value !== VALUE_TYPES.CHECKBOXES && form.hasError('minlength', ['options'])">
+                  {{'ENTRIES.EDITOR.PREFERENCE.OPTIONS.MIN_LENGTH_ERROR' | translate}}
                 </mat-error>
               </mat-form-field>
             </div>

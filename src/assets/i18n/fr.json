@@ -385,10 +385,13 @@
         },
         "OPTIONS": {
           "LABEL": "Options",
+          "REQUIRED": "Ce champ est manquant",
           "PLACEHOLDER": "Entrez ici vos options",
           "TOGGLE_HINT": "Entrez une première valeur pour la position \"inactif\", et une seconde pour la position \"actif\".",
           "SEPARATORS_HINT": "Séparez les valeurs avec une virgule ou un point-virgule, ou appuyez sur la touche Entrée",
-          "LENGTH_ERROR": "Trop d'options. Vous devez choisir deux options: une pour l'état \"inactif\" et une seconde pour la position \"actif\""
+          "MAX_LENGTH_ERROR": "Trop d'options. Vous devez choisir deux options: une pour l'état \"inactif\" et une seconde pour la position \"actif\"",
+          "MIN_LENGTH_ERROR_CHECKBOXES": "Vous devez préciser au moins une option",
+          "MIN_LENGTH_ERROR": "Vous devez proposer au moins deux options"
         },
         "INCLUDE_DEFAULT": {
           "LABEL": "Je veux utiliser un paramètre par défaut pour cette préférence lors de la construction de mon formulaire de consentement"
