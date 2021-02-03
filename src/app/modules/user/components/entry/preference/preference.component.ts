@@ -21,7 +21,7 @@ import { FormControl, FormGroup } from '@angular/forms';
 import { KeycloakService } from 'keycloak-angular';
 import { ConsentsResourceService } from '../../../../../core/http/consents-resource.service';
 import { AlertService } from '../../../../../core/services/alert.service';
-import {ConfigService} from '../../../../../core/services/config.service';
+import { ConfigService } from '../../../../../core/services/config.service';
 import { CoreService } from '../../../../../core/services/core.service';
 
 @Component({

@@ -23,9 +23,9 @@ import { SubjectsResourceService } from '../../../../core/http/subjects-resource
 import { EMPTY } from 'rxjs';
 import { CoreTestingModule } from '../../../../testing/core-testing-module.spec';
 import { SideNavComponent } from '../../components/side-nav/side-nav.component';
+import { CoreService } from '../../../../core/services/core.service';
 import SpyObj = jasmine.SpyObj;
 import createSpyObj = jasmine.createSpyObj;
-import { CoreService } from '../../../../core/services/core.service';
 
 describe('AdminPageContainerComponent', () => {
   let component: AdminPageContainerComponent;

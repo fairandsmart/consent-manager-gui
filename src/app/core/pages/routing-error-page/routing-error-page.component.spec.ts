@@ -18,12 +18,12 @@ import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { RoutingErrorPageComponent } from './routing-error-page.component';
 import { CoreTestingModule } from '../../../testing/core-testing-module.spec';
 import { KeycloakService } from 'keycloak-angular';
-import SpyObj = jasmine.SpyObj;
-import createSpyObj = jasmine.createSpyObj;
 import { RouterTestingModule } from '@angular/router/testing';
 import { SubjectsResourceService } from '../../http/subjects-resource.service';
 import { EMPTY } from 'rxjs';
 import { CoreService } from '../../services/core.service';
+import SpyObj = jasmine.SpyObj;
+import createSpyObj = jasmine.createSpyObj;
 
 describe('RoutingErrorPageComponent', () => {
   let component: RoutingErrorPageComponent;

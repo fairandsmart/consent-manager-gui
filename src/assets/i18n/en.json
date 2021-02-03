@@ -107,7 +107,9 @@
       "ALREADY_SELECTED": "This entry is already selected",
       "NO_ACTIVE_VERSION": "You need to activate this entry before you can select it",
       "BAD_LANGUAGE": "This entry's language is not compatible with your version of Right Consents"
-    }
+    },
+    "MODEL_DELETION_SUCCESS": "The model entry was successfully deleted",
+    "MODEL_DELETION_ERROR": "Cannot delete an entry with existing records"
   },
   "CONFIRM_DIALOG": {
     "CONFIRM": "Confirm",
@@ -206,7 +208,9 @@
         "accept": "Yes",
         "refuse": "No"
       },
-      "EMPTY_LIST": "Nothing to display"
+      "EMPTY_LIST": "Nothing to display",
+      "EDIT_TOOLTIP": "Edit model info",
+      "DELETE_TOOLTIP": "Delete model"
     },
     "SORT": {
       "PREFIX": "Sort by:"
@@ -245,6 +249,10 @@
         "conditions": "Update terms and conditions",
         "theme": "Update theme",
         "email": "Update email"
+      },
+      "DELETION": {
+        "TITLE": "Delete model entry ?",
+        "CONTENT": "Are you sure you want to delete this entry ?"
       }
     },
     "PREVIEW": {

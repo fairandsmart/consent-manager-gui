@@ -19,15 +19,14 @@ import { ConditionsComponent } from './conditions.component';
 import { ReactiveFormsModule } from '@angular/forms';
 import { ModelsResourceService } from '../../../../../core/http/models-resource.service';
 import { CodemirrorModule } from '@ctrl/ngx-codemirror';
-import { EntryInfoComponent } from '../entry-info/entry-info.component';
 import { EntryPreviewComponent } from '../entry-preview/entry-preview.component';
 import { CoreTestingModule } from '../../../../../testing/core-testing-module.spec';
 import { RouterTestingModule } from '@angular/router/testing';
-import SpyObj = jasmine.SpyObj;
-import createSpyObj = jasmine.createSpyObj;
 import { ConfigServiceStubSpec } from '../../../../../testing/config-service-stub.spec';
 import { ConfigService } from '../../../../../core/services/config.service';
 import { ModelEntryStatus } from '../../../../../core/models/models';
+import SpyObj = jasmine.SpyObj;
+import createSpyObj = jasmine.createSpyObj;
 
 describe('ConditionsComponent', () => {
   let component: ConditionsComponent;
@@ -40,7 +39,7 @@ describe('ConditionsComponent', () => {
     configServiceStub = new ConfigServiceStubSpec();
 
     TestBed.configureTestingModule({
-      declarations: [ ConditionsComponent, EntryInfoComponent, EntryPreviewComponent ],
+      declarations: [ ConditionsComponent, EntryPreviewComponent ],
       imports: [ CoreTestingModule, RouterTestingModule, ReactiveFormsModule, CodemirrorModule ],
       providers: [
         {provide: ModelsResourceService, useValue: modelsResourceServiceSpy},

@@ -16,11 +16,11 @@
 import { Component, OnInit } from '@angular/core';
 import { EntryCardContentDirective } from '../entry-card-content/entry-card-content.directive';
 import { Processing } from '../../../../../core/models/models';
-import {TranslateService} from '@ngx-translate/core';
-import {KeycloakService} from 'keycloak-angular';
-import {ConsentsResourceService} from '../../../../../core/http/consents-resource.service';
-import {AlertService} from '../../../../../core/services/alert.service';
-import {ConfigService} from '../../../../../core/services/config.service';
+import { TranslateService } from '@ngx-translate/core';
+import { KeycloakService } from 'keycloak-angular';
+import { ConsentsResourceService } from '../../../../../core/http/consents-resource.service';
+import { AlertService } from '../../../../../core/services/alert.service';
+import { ConfigService } from '../../../../../core/services/config.service';
 import { CoreService } from '../../../../../core/services/core.service';
 
 @Component({

@@ -20,11 +20,10 @@ import { KeycloakService } from 'keycloak-angular';
 import { CoreTestingModule } from '../../../testing/core-testing-module.spec';
 import { RouterTestingModule } from '@angular/router/testing';
 import { SubjectsResourceService } from '../../http/subjects-resource.service';
-import { EMPTY, of } from 'rxjs';
+import { of } from 'rxjs';
+import { CoreService } from '../../services/core.service';
 import SpyObj = jasmine.SpyObj;
 import createSpyObj = jasmine.createSpyObj;
-import { TranslateService } from '@ngx-translate/core';
-import { CoreService } from '../../services/core.service';
 
 describe('HeaderNavComponent', () => {
   let component: HeaderNavComponent;

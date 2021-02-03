@@ -21,7 +21,7 @@ import { KeycloakService } from 'keycloak-angular';
 import { ConsentsResourceService } from '../../../../../core/http/consents-resource.service';
 import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
 import { AlertService } from '../../../../../core/services/alert.service';
-import {ConfigService} from '../../../../../core/services/config.service';
+import { ConfigService } from '../../../../../core/services/config.service';
 import { CoreService } from '../../../../../core/services/core.service';
 
 @Component({

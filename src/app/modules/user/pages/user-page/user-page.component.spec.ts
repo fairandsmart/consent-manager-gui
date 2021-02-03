@@ -19,11 +19,11 @@ import { UserPageComponent } from './user-page.component';
 import { CoreTestingModule } from '../../../../testing/core-testing-module.spec';
 import { RouterTestingModule } from '@angular/router/testing';
 import { KeycloakService } from 'keycloak-angular';
-import SpyObj = jasmine.SpyObj;
-import createSpyObj = jasmine.createSpyObj;
 import { SubjectsResourceService } from '../../../../core/http/subjects-resource.service';
 import { EMPTY } from 'rxjs';
 import { CoreService } from '../../../../core/services/core.service';
+import SpyObj = jasmine.SpyObj;
+import createSpyObj = jasmine.createSpyObj;
 
 describe('UserPageComponent', () => {
   let component: UserPageComponent;

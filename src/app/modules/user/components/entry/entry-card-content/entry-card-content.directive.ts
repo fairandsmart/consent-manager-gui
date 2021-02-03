@@ -32,7 +32,7 @@ import { KeycloakService } from 'keycloak-angular';
 import { ConsentsResourceService } from '../../../../../core/http/consents-resource.service';
 import { AlertService } from '../../../../../core/services/alert.service';
 import { FormControl } from '@angular/forms';
-import {ConfigService} from '../../../../../core/services/config.service';
+import { ConfigService } from '../../../../../core/services/config.service';
 import { CoreService } from '../../../../../core/services/core.service';
 import * as _ from 'lodash';
 

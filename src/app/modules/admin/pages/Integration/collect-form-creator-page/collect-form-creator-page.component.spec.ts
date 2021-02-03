@@ -5,10 +5,10 @@
  * Copyright (C) 2020 - 2021 Fair And Smart
  * %%
  * This file is part of Right Consents Community Edition.
- * 
+ *
  * Right Consents Community Edition is published by FAIR AND SMART under the
  * GNU GENERAL PUBLIC LICENCE Version 3 (GPLv3) and a set of additional terms.
- * 
+ *
  * For more information, please see the “LICENSE” and “LICENSE.FAIRANDSMART”
  * files, or see https://www.fairandsmart.com/opensource/.
  * #L%
@@ -22,10 +22,10 @@ import { EMPTY } from 'rxjs';
 import { NO_ERRORS_SCHEMA } from '@angular/core';
 import { ConsentsResourceService } from '../../../../../core/http/consents-resource.service';
 import { CoreTestingModule } from '../../../../../testing/core-testing-module.spec';
-import SpyObj = jasmine.SpyObj;
-import createSpyObj = jasmine.createSpyObj;
 import { ConfigServiceStubSpec } from '../../../../../testing/config-service-stub.spec';
 import { ConfigService } from '../../../../../core/services/config.service';
+import SpyObj = jasmine.SpyObj;
+import createSpyObj = jasmine.createSpyObj;
 
 describe('CollectFormCreatorPageComponent', () => {
   let component: CollectFormCreatorPageComponent;

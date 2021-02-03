@@ -18,16 +18,15 @@ import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { ProcessingComponent } from './processing.component';
 import { ReactiveFormsModule } from '@angular/forms';
 import { ModelsResourceService } from '../../../../../core/http/models-resource.service';
-import { EntryInfoComponent } from '../entry-info/entry-info.component';
 import { EntryPreviewComponent } from '../entry-preview/entry-preview.component';
 import { CoreTestingModule } from '../../../../../testing/core-testing-module.spec';
 import { RouterTestingModule } from '@angular/router/testing';
-import SpyObj = jasmine.SpyObj;
-import createSpyObj = jasmine.createSpyObj;
 import { EMPTY } from 'rxjs';
 import { ConfigServiceStubSpec } from '../../../../../testing/config-service-stub.spec';
 import { ConfigService } from '../../../../../core/services/config.service';
 import { ModelEntryStatus } from '../../../../../core/models/models';
+import SpyObj = jasmine.SpyObj;
+import createSpyObj = jasmine.createSpyObj;
 
 describe('ProcessingComponent', () => {
   let component: ProcessingComponent;
@@ -40,7 +39,7 @@ describe('ProcessingComponent', () => {
     configServiceStub = new ConfigServiceStubSpec();
 
     TestBed.configureTestingModule({
-      declarations: [ ProcessingComponent, EntryInfoComponent, EntryPreviewComponent ],
+      declarations: [ ProcessingComponent, EntryPreviewComponent ],
       imports: [ CoreTestingModule, RouterTestingModule, ReactiveFormsModule ],
       providers: [
         {provide: ModelsResourceService, useValue: modelsResourceServiceSpy},

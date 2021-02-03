@@ -15,12 +15,7 @@
  */
 import { Component, OnInit } from '@angular/core';
 import { EntryContentDirective } from '../entry-content/entry-content.directive';
-import {
-  LOGO_POSITIONS,
-  LogoPosition,
-  PreviewDto,
-  Theme
-} from '../../../../../core/models/models';
+import { LOGO_POSITIONS, LogoPosition, PreviewDto, Theme } from '../../../../../core/models/models';
 import { FormBuilder, Validators } from '@angular/forms';
 import { ModelsResourceService } from '../../../../../core/http/models-resource.service';
 import * as CodeMirror from 'codemirror';

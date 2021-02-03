@@ -15,10 +15,7 @@
  */
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
-import {
-  CONSENT_FORM_ORIENTATIONS, ConsentFormOrientation,
-  PREVIEW_TYPES, PreviewType,
-} from '../../../../../core/models/models';
+import { CONSENT_FORM_ORIENTATIONS, ConsentFormOrientation, PREVIEW_TYPES, PreviewType, } from '../../../../../core/models/models';
 import { FormControl, Validators } from '@angular/forms';
 
 @Component({
