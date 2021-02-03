@@ -192,6 +192,14 @@
       "version": {
         "LABEL": "Version"
       },
+      "creationDate": {
+        "LABEL": "Date de création",
+        "EMPTY": "Inconnue"
+      },
+      "modificationDate": {
+        "LABEL": "Date de modification",
+        "EMPTY": "Inconnue"
+      },
       "saveState": {
         "title": "Formulaire abandonné",
         "content": "Vous avez quitté la page sans sauvegarder les changements. Voulez-vous les restaurer ?",
@@ -199,6 +207,26 @@
         "refuse": "Non"
       },
       "EMPTY_LIST": "Aucun élément"
+    },
+    "SORT": {
+      "PREFIX": "Trier par :"
+    },
+    "FILTER": {
+      "LABEL": "Filtrer",
+      "APPLY": "Appliquer",
+      "KEYWORD": {
+        "LABEL": "Mot-clé"
+      },
+      "STATUS": {
+        "LABEL": "Statut",
+        "ACTIVE": "Actif",
+        "INACTIVE": "Inactif",
+        "INDIFFERENT": "Indifférent"
+      },
+      "LANGUAGE": {
+        "LABEL": "Langue",
+        "NONE": "Aucun"
+      }
     },
     "CREATE_BUTTON": "Nouvel élément",
     "DIALOG": {

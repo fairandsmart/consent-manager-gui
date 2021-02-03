@@ -6,13 +6,6 @@
   justify-content: space-between;
 }
 
-.sort-actions button {
-  color: $dark-secondary-text;
-  &[mat-icon-button]:hover {
-    background-color: mat-color($mat-light-theme-background, hover);
-  }
-}
-
 .mat-grid-list {
   &.loading {
     .mat-grid-tile {
@@ -43,4 +36,3 @@
     user-select: none;
   }
 }
-

@@ -192,6 +192,14 @@
       "version": {
         "LABEL": "Version"
       },
+      "creationDate": {
+        "LABEL": "Creation date",
+        "EMPTY": "Unknown"
+      },
+      "modificationDate": {
+        "LABEL": "Modification date",
+        "EMPTY": "Unknown"
+      },
       "saveState": {
         "title": "You left the page",
         "content": "You left the page without saving last time. Do you wish to restore the form you left ?",
@@ -199,6 +207,26 @@
         "refuse": "No"
       },
       "EMPTY_LIST": "Nothing to display"
+    },
+    "SORT": {
+      "PREFIX": "Sort by:"
+    },
+    "FILTER": {
+      "LABEL": "Filter",
+      "APPLY": "Apply",
+      "KEYWORD": {
+        "LABEL": "Keyword"
+      },
+      "STATUS": {
+        "LABEL": "Status",
+        "ACTIVE": "Active",
+        "INACTIVE": "Inactive",
+        "INDIFFERENT": "Indifferent"
+      },
+      "LANGUAGE": {
+        "LABEL": "Language",
+        "NONE": "None"
+      }
     },
     "CREATE_BUTTON": "New entry",
     "DIALOG": {

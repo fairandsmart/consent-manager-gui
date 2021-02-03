@@ -27,6 +27,7 @@ import SpyObj = jasmine.SpyObj;
 import createSpyObj = jasmine.createSpyObj;
 import { ConfigServiceStubSpec } from '../../../../../testing/config-service-stub.spec';
 import { ConfigService } from '../../../../../core/services/config.service';
+import { ModelEntryStatus } from '../../../../../core/models/models';
 
 describe('ConditionsComponent', () => {
   let component: ConditionsComponent;
@@ -58,7 +59,12 @@ describe('ConditionsComponent', () => {
       name: 'foo',
       description: 'bar',
       type: 'conditions',
-      versions: []
+      versions: [],
+      creationDate: 12,
+      modificationDate: 42,
+      status: ModelEntryStatus.ACTIVE,
+      defaultLanguage: 'fr',
+      availableLanguages: ['fr']
     };
     fixture.detectChanges();
   });

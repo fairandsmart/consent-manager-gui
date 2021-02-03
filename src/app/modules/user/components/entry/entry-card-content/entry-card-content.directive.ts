@@ -34,6 +34,7 @@ import { AlertService } from '../../../../../core/services/alert.service';
 import { FormControl } from '@angular/forms';
 import {ConfigService} from '../../../../../core/services/config.service';
 import { CoreService } from '../../../../../core/services/core.service';
+import * as _ from 'lodash';
 
 @Directive()
 export abstract class EntryCardContentDirective<T extends ModelData> implements OnInit {
@@ -77,7 +78,7 @@ export abstract class EntryCardContentDirective<T extends ModelData> implements 
     protected configService: ConfigService,
     protected coreService: CoreService
   ) {
-    this.defaultLanguage = this.configService.config.language;
+    this.defaultLanguage = this.configService.getDefaultLanguage();
     this.changed = new EventEmitter<void>();
   }
 
@@ -141,7 +142,7 @@ export abstract class EntryCardContentDirective<T extends ModelData> implements 
       return;
     }
     this.disableControl();
-    const element = this.entry.versions[this.entry.versions.length - 1].identifier;
+    const element = _.last(this.entry.versions).identifier;
     const context: ConsentContext = {
       subject: this.keycloakService.getUsername(),
       orientation: ConsentFormOrientation.VERTICAL,

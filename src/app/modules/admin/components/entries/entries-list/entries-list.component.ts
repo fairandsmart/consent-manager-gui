@@ -16,7 +16,7 @@
 import { AfterViewInit, ChangeDetectorRef, Component, Input, OnInit, ViewChild } from '@angular/core';
 import { AddMultipleOption, ConsentElementEntryDataSource, SectionConfig } from '../entries-library/entries-library.component';
 import { tap } from 'rxjs/operators';
-import { ModelDataType, ModelEntryDto } from '../../../../../core/models/models';
+import { ModelDataType } from '../../../../../core/models/models';
 import { EntryEditorDialogComponent, EntryEditorDialogComponentData } from '../../entry/entry-editor-dialog/entry-editor-dialog.component';
 import { MatPaginator } from '@angular/material/paginator';
 import { ModelsResourceService } from '../../../../../core/http/models-resource.service';
@@ -58,7 +58,7 @@ export class EntriesListComponent implements OnInit, AfterViewInit {
       this.section.dataSource = new ConsentElementEntryDataSource(this.modelsResource);
     }
     if (this.section.orderingOptions == null) {
-      this.section.orderingOptions = ['name', 'key'];
+      this.section.orderingOptions = ['name', 'key', 'creationDate', 'modificationDate'];
     }
     if (this.section.columns == null) {
       this.section.columns = 2;
@@ -89,16 +89,6 @@ export class EntriesListComponent implements OnInit, AfterViewInit {
 
   loadEntriesPage(): void {
     this.section.dataSource.loadPage(this.section.filter);
-  }
-
-  sortBy(order: keyof ModelEntryDto, config: SectionConfig): void {
-    config.filter.order = order;
-    this.loadEntriesPage();
-  }
-
-  toggleDirection(config: SectionConfig): void {
-    config.filter.direction = config.filter.direction === 'asc' ? 'desc' : 'asc';
-    this.loadEntriesPage();
   }
 
   newEntry(type: ModelDataType): void {

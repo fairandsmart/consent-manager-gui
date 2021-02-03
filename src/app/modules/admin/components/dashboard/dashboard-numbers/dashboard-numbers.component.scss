@@ -66,9 +66,3 @@ mat-card {
     }
   }
 }
-
-@media (min-width: 1000px) and (max-width: 1279px) {
-  .metrics-cards {
-    grid-template-columns: minmax(0,1fr) minmax(0,1fr) minmax(0,1fr);
-  }
-}

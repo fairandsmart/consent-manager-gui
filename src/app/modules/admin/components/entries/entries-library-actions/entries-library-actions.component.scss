@@ -1,0 +1,28 @@
+@import 'node_modules/@angular/material/theming';
+
+.entries-actions button {
+  color: $dark-secondary-text;
+
+  &[mat-icon-button]:hover {
+    background-color: mat-color($mat-light-theme-background, hover);
+  }
+}
+
+.entries-actions .mat-button {
+  padding: 0 8px;
+}
+
+.filter-element {
+  padding: 0 12px;
+}
+
+.apply-container {
+  display: flex;
+  width: 100%;
+
+  .mat-button {
+    margin: 0 12px;
+    padding: 0;
+    width: 100%;
+  }
+}

@@ -70,10 +70,9 @@ export class OperatorSubjectPageComponent implements OnInit {
     private translate: TranslateService,
     private consentsResource: ConsentsResourceService,
     private subjectsResource: SubjectsResourceService,
-    private configService: ConfigService,
-    private coreService: CoreService
+    private configService: ConfigService
   ) {
-    this.defaultLanguage = this.configService.config.language;
+    this.defaultLanguage = this.configService.getDefaultLanguage();
   }
 
   ngOnInit(): void {

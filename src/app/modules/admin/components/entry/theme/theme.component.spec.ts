@@ -23,10 +23,11 @@ import { EntryInfoComponent } from '../entry-info/entry-info.component';
 import { EntryPreviewComponent } from '../entry-preview/entry-preview.component';
 import { CoreTestingModule } from '../../../../../testing/core-testing-module.spec';
 import { RouterTestingModule } from '@angular/router/testing';
-import SpyObj = jasmine.SpyObj;
-import createSpyObj = jasmine.createSpyObj;
 import { ConfigServiceStubSpec } from '../../../../../testing/config-service-stub.spec';
 import { ConfigService } from '../../../../../core/services/config.service';
+import { ModelEntryStatus } from '../../../../../core/models/models';
+import SpyObj = jasmine.SpyObj;
+import createSpyObj = jasmine.createSpyObj;
 
 describe('ThemeComponent', () => {
   let component: ThemeComponent;
@@ -58,7 +59,12 @@ describe('ThemeComponent', () => {
       name: 'foo',
       description: 'bar',
       type: 'theme',
-      versions: []
+      versions: [],
+      creationDate: 12,
+      modificationDate: 42,
+      status: ModelEntryStatus.ACTIVE,
+      defaultLanguage: 'fr',
+      availableLanguages: ['fr']
     };
     fixture.detectChanges();
   });

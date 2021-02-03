@@ -40,22 +40,9 @@
         <mat-icon>add</mat-icon>
       </button>
     </ng-container>
-    <div *ngIf="section.showSort && entries.length > 0 && section.orderingOptions.length > 0" class="sort-actions">
-      <button mat-button [matMenuTriggerFor]="orderMenu">
-        {{'ENTRIES.COMMON.' + section.filter.order + '.LABEL' | translate}}
-      </button>
-      <mat-menu #orderMenu>
-        <ng-template matMenuContent>
-          <button mat-menu-item *ngFor="let option of section.orderingOptions"
-                  [disabled]="section.filter.order === option" (click)="sortBy(option, section)">
-            {{'ENTRIES.COMMON.' + option + '.LABEL' | translate}}
-          </button>
-        </ng-template>
-      </mat-menu>
-      <button (click)="toggleDirection(section)" mat-icon-button>
-        <mat-icon>{{section.filter.direction === 'asc' ? 'arrow_upward' : 'arrow_downward'}}</mat-icon>
-      </button>
-    </div>
+    <cm-entries-library-actions *ngIf="section.showActions"
+                        [config]="section"
+                        (loadQuery)="loadEntriesPage()"></cm-entries-library-actions>
   </div>
   <div *ngIf="entries.length > 0" class="entries-wrapper"
        [class.loading]="section.dataSource.loading$ | async">
