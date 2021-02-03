@@ -21,7 +21,8 @@ import {
   ModelVersionDto,
   ModelVersionDtoLight,
   ModelVersionStatus,
-  PreviewDto, PreviewType
+  PreviewDto,
+  PreviewType
 } from '../../../../../core/models/models';
 import { EMPTY, Observable, of } from 'rxjs';
 import { ModelsResourceService } from '../../../../../core/http/models-resource.service';
@@ -31,7 +32,7 @@ import { HttpErrorResponse } from '@angular/common/http';
 import { environment } from '../../../../../../environments/environment';
 import { AlertService } from '../../../../../core/services/alert.service';
 import { FormStateSaver } from '../../../utils/form-state-saver';
-import {ConfigService} from '../../../../../core/services/config.service';
+import { ConfigService } from '../../../../../core/services/config.service';
 import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
 import { MatSidenav } from '@angular/material/sidenav';
 import { EntryPreviewComponent } from '../entry-preview/entry-preview.component';

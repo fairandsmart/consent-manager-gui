@@ -20,8 +20,8 @@ import { SystemResourceService } from '../http/system-resource.service';
 import { ClientConfigDto } from '../models/models';
 import { map } from 'rxjs/operators';
 import * as _ from 'lodash';
-import {TranslateService} from '@ngx-translate/core';
-import {AlertService} from './alert.service';
+import { TranslateService } from '@ngx-translate/core';
+import { AlertService } from './alert.service';
 
 @Injectable()
 export class ConfigService implements CanLoad {

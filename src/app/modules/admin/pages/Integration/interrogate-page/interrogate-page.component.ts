@@ -21,7 +21,7 @@ import { map, tap } from 'rxjs/operators';
 import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { RecordsResourceService } from '../../../../../core/http/records-resource.service';
 import * as FileSaver from 'file-saver';
-import {ConfigService} from '../../../../../core/services/config.service';
+import { ConfigService } from '../../../../../core/services/config.service';
 
 @Component({
   selector: 'cm-interrogate-page',

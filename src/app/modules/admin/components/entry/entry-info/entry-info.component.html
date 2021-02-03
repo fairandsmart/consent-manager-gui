@@ -16,7 +16,8 @@
 <h2>
   <span class="title">{{'ENTRIES.EDITOR.INFORMATION.TITLE' | translate}}</span>
   <span>
-    <button mat-icon-button (click)="edit()"><mat-icon>edit</mat-icon></button>
+    <button matTooltip="{{'ENTRIES.COMMON.EDIT_TOOLTIP' | translate}}" mat-icon-button (click)="edit()"><mat-icon>edit</mat-icon></button>
+    <button matTooltip="{{'ENTRIES.COMMON.DELETE_TOOLTIP' | translate}}" mat-icon-button color="warn" (click)="delete()" *ngIf="entry?.type !== 'basicinfo' && (!hasActiveVersion || (hasRecord$ | async) === false)"><mat-icon>delete</mat-icon></button>
   </span>
 </h2>
 <dl *ngIf="entry">

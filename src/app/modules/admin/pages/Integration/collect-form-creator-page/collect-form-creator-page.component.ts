@@ -13,8 +13,8 @@
  * files, or see https://www.fairandsmart.com/opensource/.
  * #L%
  */
-import { Component, OnInit } from '@angular/core';
-import { ModelsResourceService } from '../../../../../core/http/models-resource.service';
+import {Component, OnInit} from '@angular/core';
+import {ModelsResourceService} from '../../../../../core/http/models-resource.service';
 import {
   CollectionMethod,
   CONSENT_FORM_ORIENTATIONS,
@@ -29,23 +29,23 @@ import {
   ModelFilter,
   RECEIPT_DISPLAY_TYPES
 } from '../../../../../core/models/models';
-import { debounceTime, tap } from 'rxjs/operators';
-import { merge, zip } from 'rxjs';
-import { CdkDragDrop, copyArrayItem, moveItemInArray } from '@angular/cdk/drag-drop';
-import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { ConsentsResourceService } from '../../../../../core/http/consents-resource.service';
-import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
-import { StepperSelectionEvent } from '@angular/cdk/stepper';
-import { AddMultipleOption, SectionConfig } from '../../../components/entries/entries-library/entries-library.component';
-import { environment } from '../../../../../../environments/environment';
+import {debounceTime, tap} from 'rxjs/operators';
+import {merge, zip} from 'rxjs';
+import {CdkDragDrop, copyArrayItem, moveItemInArray} from '@angular/cdk/drag-drop';
+import {FormArray, FormBuilder, FormGroup, Validators} from '@angular/forms';
+import {ConsentsResourceService} from '../../../../../core/http/consents-resource.service';
+import {DomSanitizer, SafeResourceUrl} from '@angular/platform-browser';
+import {StepperSelectionEvent} from '@angular/cdk/stepper';
+import {AddMultipleOption, SectionConfig} from '../../../components/entries/entries-library/entries-library.component';
+import {environment} from '../../../../../../environments/environment';
 import * as _ from 'lodash';
-import { MatDialog } from '@angular/material/dialog';
-import { FormUrlDialogComponent, FormUrlDialogComponentData } from '../../../components/form-url-dialog/form-url-dialog.component';
-import { hasActiveVersion } from '../../../../../core/utils/model-entry.utils';
-import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
-import { ConfigService } from '../../../../../core/services/config.service';
-import { ConfirmDialogComponent } from '../../../../../core/components/confirm-dialog/confirm-dialog.component';
-import { TranslateService } from '@ngx-translate/core';
+import {MatDialog} from '@angular/material/dialog';
+import {FormUrlDialogComponent, FormUrlDialogComponentData} from '../../../components/form-url-dialog/form-url-dialog.component';
+import {hasActiveVersion} from '../../../../../core/utils/model-entry.utils';
+import {BreakpointObserver, Breakpoints} from '@angular/cdk/layout';
+import {ConfigService} from '../../../../../core/services/config.service';
+import {ConfirmDialogComponent} from '../../../../../core/components/confirm-dialog/confirm-dialog.component';
+import {TranslateService} from '@ngx-translate/core';
 
 enum FORM_CREATOR_STEP {
   ELEMENTS,

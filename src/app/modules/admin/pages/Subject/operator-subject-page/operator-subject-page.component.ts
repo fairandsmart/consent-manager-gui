@@ -38,8 +38,7 @@ import { OperatorConditionsComponent } from '../../../components/operator/operat
 import { SubjectsResourceService } from '../../../../../core/http/subjects-resource.service';
 import { mergeMap } from 'rxjs/operators';
 import { SubjectInfosEditorDialogComponent } from '../../../components/operator/subject-infos-editor-dialog/subject-infos-editor-dialog.component';
-import {ConfigService} from '../../../../../core/services/config.service';
-import { CoreService } from '../../../../../core/services/core.service';
+import { ConfigService } from '../../../../../core/services/config.service';
 
 @Component({
   selector: 'cm-operator-subject-page',

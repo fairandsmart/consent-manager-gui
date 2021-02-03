@@ -22,9 +22,9 @@ import { MatPaginator } from '@angular/material/paginator';
 import { ModelsResourceService } from '../../../../../core/http/models-resource.service';
 import { MatDialog } from '@angular/material/dialog';
 import { ActivatedRoute, Router } from '@angular/router';
-import {MatSnackBar} from '@angular/material/snack-bar';
-import {TranslateService} from '@ngx-translate/core';
-import {ConfigService} from '../../../../../core/services/config.service';
+import { MatSnackBar } from '@angular/material/snack-bar';
+import { TranslateService } from '@ngx-translate/core';
+import { ConfigService } from '../../../../../core/services/config.service';
 
 @Component({
   selector: 'cm-entries-list',

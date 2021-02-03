@@ -19,7 +19,6 @@ import { ThemeComponent } from './theme.component';
 import { ReactiveFormsModule } from '@angular/forms';
 import { ModelsResourceService } from '../../../../../core/http/models-resource.service';
 import { CodemirrorModule } from '@ctrl/ngx-codemirror';
-import { EntryInfoComponent } from '../entry-info/entry-info.component';
 import { EntryPreviewComponent } from '../entry-preview/entry-preview.component';
 import { CoreTestingModule } from '../../../../../testing/core-testing-module.spec';
 import { RouterTestingModule } from '@angular/router/testing';
@@ -40,7 +39,7 @@ describe('ThemeComponent', () => {
     configServiceStub = new ConfigServiceStubSpec();
 
     TestBed.configureTestingModule({
-      declarations: [ ThemeComponent, EntryInfoComponent, EntryPreviewComponent ],
+      declarations: [ ThemeComponent, EntryPreviewComponent ],
       imports: [ CoreTestingModule, RouterTestingModule, ReactiveFormsModule, CodemirrorModule ],
       providers: [
         {provide: ModelsResourceService, useValue: modelsResourceServiceSpy},

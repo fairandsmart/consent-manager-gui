@@ -13,7 +13,7 @@
  * files, or see https://www.fairandsmart.com/opensource/.
  * #L%
  */
-import {Component} from '@angular/core';
+import { Component } from '@angular/core';
 import { AddMultipleOption, SectionConfig } from '../../../components/entries/entries-library/entries-library.component';
 import { environment } from '../../../../../../environments/environment';
 import { Icons } from '../../../../../core/models/models';

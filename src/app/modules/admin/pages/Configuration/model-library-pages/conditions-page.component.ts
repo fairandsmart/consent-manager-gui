@@ -14,8 +14,8 @@
  * #L%
  */
 import { Component } from '@angular/core';
-import {AddMultipleOption, SectionConfig} from '../../../components/entries/entries-library/entries-library.component';
-import {Icons} from '../../../../../core/models/models';
+import { AddMultipleOption, SectionConfig } from '../../../components/entries/entries-library/entries-library.component';
+import { Icons } from '../../../../../core/models/models';
 
 @Component({
   selector: 'cm-conditions-page',

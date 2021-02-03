@@ -15,11 +15,7 @@
  */
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { EntryContentDirective } from '../entry-content/entry-content.directive';
-import {
-  Preference,
-  PREFERENCE_VALUE_TYPES,
-  PreferenceValueType
-} from '../../../../../core/models/models';
+import { Preference, PREFERENCE_VALUE_TYPES, PreferenceValueType } from '../../../../../core/models/models';
 import { FormBuilder, FormControl, Validators } from '@angular/forms';
 import { ModelsResourceService } from '../../../../../core/http/models-resource.service';
 import { AlertService } from '../../../../../core/services/alert.service';

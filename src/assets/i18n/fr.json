@@ -107,7 +107,9 @@
       "ALREADY_SELECTED": "Cette entrée est déjà selectionnée",
       "NO_ACTIVE_VERSION": "Vous devez activer cette entrée avant de pouvoir la selectionner",
       "BAD_LANGUAGE": "Le language de cette entrée n'est pas compatible"
-    }
+    },
+    "MODEL_DELETION_SUCCESS": "Le modèle a été supprimé avec succès",
+    "MODEL_DELETION_ERROR": "Impossible de supprimer un modèle ayant des enregistrements"
   },
   "CONFIRM_DIALOG": {
     "CONFIRM": "Confirmer",
@@ -206,7 +208,9 @@
         "accept": "Oui",
         "refuse": "Non"
       },
-      "EMPTY_LIST": "Aucun élément"
+      "EMPTY_LIST": "Aucun élément",
+      "EDIT_TOOLTIP": "Modifier les informations du modèle",
+      "DELETE_TOOLTIP": "Supprimer le modèle"
     },
     "SORT": {
       "PREFIX": "Trier par :"
@@ -245,6 +249,10 @@
         "conditions": "Modification des CGU",
         "theme": "Modification du thème",
         "email": "Modification de l'email"
+      },
+      "DELETION": {
+        "TITLE": "Supprimer le modèle ?",
+        "CONTENT": "Êtes vous certain de vouloir supprimer ce modèle ?"
       }
     },
     "PREVIEW": {

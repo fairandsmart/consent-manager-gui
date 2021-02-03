@@ -20,7 +20,7 @@ import { ModelEntryDto, ModelVersionDto } from '../../../../../core/models/model
 import { ModelsResourceService } from '../../../../../core/http/models-resource.service';
 import { of } from 'rxjs';
 import * as _ from 'lodash';
-import {EntryContentDirective} from '../../../components/entry/entry-content/entry-content.directive';
+import { EntryContentDirective } from '../../../components/entry/entry-content/entry-content.directive';
 
 @Component({
   selector: 'cm-entry-page',
