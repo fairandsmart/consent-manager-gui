@@ -5,10 +5,10 @@
   Copyright (C) 2020 - 2021 Fair And Smart
   %%
   This file is part of Right Consents Community Edition.
-  
+
   Right Consents Community Edition is published by FAIR AND SMART under the
   GNU GENERAL PUBLIC LICENCE Version 3 (GPLv3) and a set of additional terms.
-  
+
   For more information, please see the “LICENSE” and “LICENSE.FAIRANDSMART”
   files, or see https://www.fairandsmart.com/opensource/.
   #L%
@@ -18,9 +18,6 @@
     <div class="entry-name" cmTextOverflow #name="cmTextOverflow"
           [matTooltip]="entry.name" matTooltipShowDelay="666"
           [matTooltipDisabled]="!name.overflowing">{{entry.name}}</div>
-    <div *ngIf="!showDetail && showKey" class="entry-info">
-      <span class="entry-key">{{entry.key}}</span>
-    </div>
   </mat-card-title>
   <mat-card-content>
     <div class="entry-description" matTooltipShowDelay="666"
@@ -34,10 +31,11 @@
         <mat-icon class="mat-icon-small" [matTooltip]="('ENTRY_CARD.ACTIVE.' + hasActiveVersion()) | translate">
           {{hasActiveVersion() ? 'check_circle' : 'unpublished'}}
         </mat-icon>
-        <span *ngIf="entry.versions?.length > 0" class="badge" [matTooltip]="'ENTRY_CARD.LANGUAGES_TOOLTIP' | translate">
+        <span *ngIf="entry.availableLanguages?.length > 0" class="badge" [matTooltip]="'ENTRY_CARD.LANGUAGES_TOOLTIP' | translate">
           {{languages()}}
         </span>
       </span>
+      <span class="entry-key" *ngIf="entry.modificationDate > 0">{{entry.modificationDate | date: 'short'}}</span>
       <span class="entry-key">{{entry.key}}</span>
     </div>
   </mat-card-content>

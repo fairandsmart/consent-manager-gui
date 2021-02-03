@@ -51,7 +51,7 @@ export class OperatorPreferencesComponent extends OperatorConsentListDirective i
     protected snackBar: MatSnackBar
   ) {
     super(modelsResource, subjectsResource, coreService, snackBar, translate);
-    this.defaultLanguage = this.configService.config.language;
+    this.defaultLanguage = this.configService.getDefaultLanguage();
   }
 
   ngOnInit(): void {

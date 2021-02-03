@@ -5,10 +5,10 @@
  * Copyright (C) 2020 - 2021 Fair And Smart
  * %%
  * This file is part of Right Consents Community Edition.
- * 
+ *
  * Right Consents Community Edition is published by FAIR AND SMART under the
  * GNU GENERAL PUBLIC LICENCE Version 3 (GPLv3) and a set of additional terms.
- * 
+ *
  * For more information, please see the “LICENSE” and “LICENSE.FAIRANDSMART”
  * files, or see https://www.fairandsmart.com/opensource/.
  * #L%
@@ -62,6 +62,13 @@ export enum Icons {
 
 /* Models */
 
+export enum ModelEntryStatus {
+  ACTIVE = 'ACTIVE',
+  INACTIVE = 'INACTIVE'
+}
+
+export const MODEL_ENTRY_STATUSES = Object.keys(ModelEntryStatus);
+
 export interface ModelEntryDto {
   id: string;
   key: string;
@@ -69,6 +76,11 @@ export interface ModelEntryDto {
   description: string;
   type: ModelDataType;
   versions: ModelVersionDtoLight[];
+  creationDate: number;
+  modificationDate: number;
+  status: ModelEntryStatus;
+  defaultLanguage: string;
+  availableLanguages: string[];
 }
 
 export interface CreateModelDto {
@@ -262,6 +274,9 @@ export interface PreviewDto {
 export interface ModelFilter {
   types?: ModelDataType[];
   keys?: string[];
+  keyword?: string;
+  statuses?: ModelEntryStatus[];
+  languages?: string[];
   page?: number;
   size?: number;
   order?: string;

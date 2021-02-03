@@ -38,7 +38,8 @@ interface CardData {
 })
 export class EntriesPageComponent implements OnInit, OnDestroy {
 
-  @ViewChildren(EntryCardComponent) entriesComponents: QueryList<EntryCardComponent>;
+  @ViewChildren(EntryCardComponent)
+  entriesComponents: QueryList<EntryCardComponent>;
   entriesWithUnsavedChanges: EntryCardComponent[];
 
   public elementsKeys: string[];

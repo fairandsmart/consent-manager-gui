@@ -11,3 +11,7 @@ cm-entry-card:not(.entry-card-selectable) {
     background-color: mat-color($mat-light-theme-background, disabled-button) !important;
   }
 }
+
+.section-toolbar {
+  justify-content: end;
+}

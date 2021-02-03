@@ -27,6 +27,7 @@ import createSpyObj = jasmine.createSpyObj;
 import { EMPTY } from 'rxjs';
 import { ConfigServiceStubSpec } from '../../../../../testing/config-service-stub.spec';
 import { ConfigService } from '../../../../../core/services/config.service';
+import { ModelEntryStatus } from '../../../../../core/models/models';
 
 describe('ProcessingComponent', () => {
   let component: ProcessingComponent;
@@ -59,7 +60,12 @@ describe('ProcessingComponent', () => {
       name: 'foo',
       description: 'bar',
       type: 'processing',
-      versions: []
+      versions: [],
+      creationDate: 12,
+      modificationDate: 42,
+      status: ModelEntryStatus.ACTIVE,
+      defaultLanguage: 'fr',
+      availableLanguages: ['fr']
     };
     fixture.detectChanges();
   });

@@ -27,7 +27,7 @@ import createSpyObj = jasmine.createSpyObj;
 import { SystemResourceService } from '../../../../../core/http/system-resource.service';
 import { ConfigServiceStubSpec } from '../../../../../testing/config-service-stub.spec';
 import { ConfigService } from '../../../../../core/services/config.service';
-import { ModelDataType, ModelVersionDtoLight } from '../../../../../core/models/models';
+import { ModelDataType, ModelEntryStatus, ModelVersionDtoLight } from '../../../../../core/models/models';
 
 describe('BasicinfoComponent', () => {
   let component: BasicinfoComponent;
@@ -59,7 +59,12 @@ describe('BasicinfoComponent', () => {
       name: 'foo',
       description: 'bar',
       type: 'basicinfo',
-      versions: []
+      versions: [],
+      creationDate: 12,
+      modificationDate: 42,
+      status: ModelEntryStatus.ACTIVE,
+      defaultLanguage: 'fr',
+      availableLanguages: ['fr']
     };
     fixture.detectChanges();
   });

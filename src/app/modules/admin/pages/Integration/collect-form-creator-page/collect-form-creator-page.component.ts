@@ -23,7 +23,10 @@ import {
   ConsentFormType,
   FIELD_VALIDATORS,
   Icons,
+  ModelDataType,
   ModelEntryDto,
+  ModelEntryStatus,
+  ModelFilter,
   RECEIPT_DISPLAY_TYPES
 } from '../../../../../core/models/models';
 import { debounceTime, tap } from 'rxjs/operators';
@@ -40,9 +43,9 @@ import { MatDialog } from '@angular/material/dialog';
 import { FormUrlDialogComponent, FormUrlDialogComponentData } from '../../../components/form-url-dialog/form-url-dialog.component';
 import { hasActiveVersion } from '../../../../../core/utils/model-entry.utils';
 import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
-import {ConfigService} from '../../../../../core/services/config.service';
-import {ConfirmDialogComponent} from '../../../../../core/components/confirm-dialog/confirm-dialog.component';
-import {TranslateService} from '@ngx-translate/core';
+import { ConfigService } from '../../../../../core/services/config.service';
+import { ConfirmDialogComponent } from '../../../../../core/components/confirm-dialog/confirm-dialog.component';
+import { TranslateService } from '@ngx-translate/core';
 
 enum FORM_CREATOR_STEP {
   ELEMENTS,
@@ -61,52 +64,54 @@ enum FORM_CREATOR_STEP {
 })
 export class CollectFormCreatorPageComponent implements OnInit {
 
-  readonly ICONS = Icons;
-
   public elementsLibraryConfig: (SectionConfig & { draggingDisabled: boolean, included: boolean })[] = [
     {
       id: 'infos',
       types: ['basicinfo'],
       canAddMultiple: environment.customization.multipleInfo,
-      showSort: environment.customization.multipleInfo === AddMultipleOption.ALWAYS,
+      showActions: environment.customization.multipleInfo === AddMultipleOption.ALWAYS,
       draggingDisabled: false,
       included: true,
       icon: Icons.basicinfo,
       displayDescription: false,
-      listId: 'infos'
+      listId: 'infos',
+      filter: this.makeDefaultFilter('basicinfo')
     },
     {
       id: 'processing',
       types: ['processing'],
       canAddMultiple: AddMultipleOption.ALWAYS,
-      showSort: true,
+      showActions: true,
       draggingDisabled: false,
       included: true,
       icon: Icons.processing,
       displayDescription: false,
-      listId: 'elements'
+      listId: 'elements',
+      filter: this.makeDefaultFilter('processing')
     },
     {
       id: 'preferences',
       types: ['preference'],
       canAddMultiple: AddMultipleOption.ALWAYS,
-      showSort: true,
+      showActions: true,
       draggingDisabled: false,
       included: true,
       icon: Icons.preference,
       displayDescription: false,
-      listId: 'elements'
+      listId: 'elements',
+      filter: this.makeDefaultFilter('preference')
     },
     {
       id: 'conditions',
       types: ['conditions'],
       canAddMultiple: AddMultipleOption.ALWAYS,
-      showSort: true,
+      showActions: true,
       draggingDisabled: false,
       included: true,
       icon: Icons.preference,
       displayDescription: false,
-      listId: 'elements'
+      listId: 'elements',
+      filter: this.makeDefaultFilter('conditions')
     }
   ];
 
@@ -144,9 +149,10 @@ export class CollectFormCreatorPageComponent implements OnInit {
       id: 'themes',
       types: ['theme'],
       canAddMultiple: AddMultipleOption.NEVER,
-      showSort: true,
+      showActions: true,
       icon: Icons.theme,
-      displayDescription: false
+      displayDescription: false,
+      filter: this.makeDefaultFilter('theme')
     }
   ];
 
@@ -157,24 +163,24 @@ export class CollectFormCreatorPageComponent implements OnInit {
       id: 'emails',
       types: ['email'],
       canAddMultiple: AddMultipleOption.NEVER,
-      showSort: true,
+      showActions: true,
       icon: Icons.email,
-      displayDescription: false
+      displayDescription: false,
+      filter: this.makeDefaultFilter('email')
     }
   ];
 
   public selectedEmail: { [id: string]: ModelEntryDto[] } = {emails: []};
 
-  public form: FormArray;
+  public form: FormArray;  public formUrl: SafeResourceUrl;
+  private previousContext: ConsentContext;
+  public currentStep: FORM_CREATOR_STEP;
+
+  public readonly ICONS = Icons;
   public readonly STEPS = FORM_CREATOR_STEP;
   public readonly ORIENTATIONS = CONSENT_FORM_ORIENTATIONS;
   public readonly RECEIPT_FORMATS = RECEIPT_DISPLAY_TYPES;
   public readonly VALIDITY_UNITS = ['D', 'W', 'M', 'Y'];
-
-  public formUrl: SafeResourceUrl;
-  private previousContext: ConsentContext;
-  public currentStep: FORM_CREATOR_STEP;
-
   private readonly defaultLanguage;
 
   private static formatValidity(validity, validityUnit): string {
@@ -197,7 +203,7 @@ export class CollectFormCreatorPageComponent implements OnInit {
               private breakpointObserver: BreakpointObserver,
               private configService: ConfigService,
               private translate: TranslateService) {
-    this.defaultLanguage = this.configService.config.language;
+    this.defaultLanguage = this.configService.getDefaultLanguage();
   }
 
   ngOnInit(): void {
@@ -351,6 +357,19 @@ export class CollectFormCreatorPageComponent implements OnInit {
     if (this.currentStep === FORM_CREATOR_STEP.PREVIEW) {
       this.preview();
     }
+  }
+
+  private makeDefaultFilter(type: ModelDataType): ModelFilter {
+    return {
+      types: [type],
+      page: 0,
+      size: 6,
+      order: 'name',
+      direction: 'asc',
+      keyword: '',
+      statuses: [ModelEntryStatus.ACTIVE],
+      languages: [this.configService.getDefaultLanguage()]
+    };
   }
 
   private buildContext(isPreview: boolean): ConsentContext {

@@ -127,8 +127,7 @@
       [config]="elementsLibraryConfig"
       [selected]="selectedElements"
       (selectedChange)="selectedElementsChange($event)"
-      [mode]="'drag'"
-      [showKeys]="false">
+      [mode]="'drag'">
     </cm-entries-library>
 
     <ng-container *ngIf="stepper.selectedIndex === STEPS.PREVIEW" [formGroup]="getFormGroup(form, STEPS.PREVIEW)">

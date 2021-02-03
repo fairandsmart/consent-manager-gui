@@ -10,5 +10,8 @@ cm-entry-card.cdk-drag-disabled {
   ::ng-deep mat-card {
     background-color: mat-color($mat-light-theme-background, disabled-button) !important;
   }
+}
 
+.section-toolbar {
+  justify-content: end;
 }

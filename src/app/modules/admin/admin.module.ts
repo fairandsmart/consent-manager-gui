@@ -60,6 +60,7 @@ import { InterrogatePageComponent } from './pages/Integration/interrogate-page/i
 import { DashboardChartComponent } from './components/dashboard/dashboard-chart/dashboard-chart.component';
 import { DashboardTopTableComponent } from './components/dashboard/dashboard-top-table/dashboard-top-table.component';
 import { DashboardNumbersComponent } from './components/dashboard/dashboard-numbers/dashboard-numbers.component';
+import { EntriesLibraryActionsComponent } from './components/entries/entries-library-actions/entries-library-actions.component';
 
 @NgModule({
   declarations: [
@@ -103,7 +104,8 @@ import { DashboardNumbersComponent } from './components/dashboard/dashboard-numb
     InterrogatePageComponent,
     DashboardChartComponent,
     DashboardTopTableComponent,
-    DashboardNumbersComponent
+    DashboardNumbersComponent,
+    EntriesLibraryActionsComponent
   ],
   imports: [
     AdminRoutingModule,

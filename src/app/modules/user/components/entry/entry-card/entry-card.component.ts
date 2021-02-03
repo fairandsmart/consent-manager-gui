@@ -25,7 +25,8 @@ import { EntryCardContentDirective } from '../entry-card-content/entry-card-cont
 })
 export class EntryCardComponent implements OnInit {
 
-  @ViewChild("itemCard") itemCard: EntryCardContentDirective<any>;
+  @ViewChild('itemCard')
+  itemCard: EntryCardContentDirective<any>;
 
   @Input()
   entry: ModelEntryDto;
@@ -50,7 +51,7 @@ export class EntryCardComponent implements OnInit {
       .subscribe((version) => this.active = version);
   }
 
-  notifyUnsavedChanges() {
+  notifyUnsavedChanges(): void {
     if (!this.autoSave) {
       this.unsavedChanged.emit();
     }

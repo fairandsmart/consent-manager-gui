@@ -41,7 +41,7 @@ export interface SectionConfig {
   id: string;
   types: ModelDataType[];
   canAddMultiple: AddMultipleOption;
-  showSort: boolean;
+  showActions: boolean;
   filter?: ModelFilter;
   dataSource?: ConsentElementEntryDataSource;
   orderingOptions?: (keyof ModelEntryDto)[];
@@ -74,9 +74,6 @@ export class EntriesLibraryComponent implements OnInit {
 
   @Output()
   selectedChange = new EventEmitter<{[id: string]: ModelEntryDto[]}>();
-
-  @Input()
-  showKeys = false;
 
   constructor() {}
 

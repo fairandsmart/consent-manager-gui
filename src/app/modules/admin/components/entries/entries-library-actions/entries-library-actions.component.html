@@ -1,0 +1,71 @@
+<!--
+  #%L
+  Right Consents, a Universal Consents & Preferences Management Platform.
+  %%
+  Copyright (C) 2020 - 2021 Fair And Smart
+  %%
+  This file is part of Right Consents Community Edition.
+
+  Right Consents Community Edition is published by FAIR AND SMART under the
+  GNU GENERAL PUBLIC LICENCE Version 3 (GPLv3) and a set of additional terms.
+
+  For more information, please see the “LICENSE” and “LICENSE.FAIRANDSMART”
+  files, or see https://www.fairandsmart.com/opensource/.
+  #L%
+  -->
+<div class="entries-actions">
+  <button mat-button [matMenuTriggerFor]="orderMenu">
+    {{'ENTRIES.SORT.PREFIX' | translate}} {{'ENTRIES.COMMON.' + section.filter.order + '.LABEL' | translate}}
+  </button>
+  <mat-menu #orderMenu>
+    <ng-template matMenuContent>
+      <button mat-menu-item *ngFor="let option of section.orderingOptions"
+              [disabled]="section.filter.order === option"
+              (click)="sortBy(option)">{{'ENTRIES.COMMON.' + option + '.LABEL' | translate}}</button>
+    </ng-template>
+  </mat-menu>
+  <button (click)="toggleDirection()" mat-icon-button>
+    <mat-icon>{{section.filter.direction === 'asc' ? 'arrow_upward' : 'arrow_downward'}}</mat-icon>
+  </button>
+
+  <button mat-button [matMenuTriggerFor]="filterMenu">
+    <mat-icon>filter_alt</mat-icon>
+    {{'ENTRIES.FILTER.LABEL' | translate}}
+  </button>
+  <mat-menu #filterMenu>
+    <ng-template matMenuContent>
+      <form *ngIf="form" [formGroup]="form" (click)="$event.stopPropagation()" (keydown)="$event.stopPropagation()">
+        <div class="filter-element">
+          <mat-form-field appearance="outline">
+            <mat-label>{{'ENTRIES.FILTER.KEYWORD.LABEL' | translate}}</mat-label>
+            <input matInput formControlName="keyword" autocomplete="off">
+          </mat-form-field>
+        </div>
+        <div class="filter-element">
+          <mat-form-field appearance="outline">
+            <mat-label>{{'ENTRIES.FILTER.STATUS.LABEL' | translate}}</mat-label>
+            <mat-select formControlName="statuses" multiple="true">
+              <mat-option *ngFor="let status of FILTER_STATUSES" [value]="status">
+                {{'ENTRIES.FILTER.STATUS.' + status | translate}}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
+        <div class="filter-element">
+          <mat-form-field appearance="outline">
+            <mat-label>{{'ENTRIES.FILTER.LANGUAGE.LABEL' | translate}}</mat-label>
+            <mat-select formControlName="languages" multiple="true">
+              <mat-option *ngFor="let language of LANGUAGES" [value]="language">
+                {{'COMMON.LANGUAGES.' + language.toUpperCase() | translate}}
+              </mat-option>
+              <mat-option value="">{{'ENTRIES.FILTER.LANGUAGE.NONE' | translate}}</mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
+        <div class="apply-container">
+          <button mat-button (click)="applyFilters()" color="primary">{{'ENTRIES.FILTER.APPLY' | translate}}</button>
+        </div>
+      </form>
+    </ng-template>
+  </mat-menu>
+</div>

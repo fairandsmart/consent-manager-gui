@@ -5,10 +5,10 @@
  * Copyright (C) 2020 - 2021 Fair And Smart
  * %%
  * This file is part of Right Consents Community Edition.
- * 
+ *
  * Right Consents Community Edition is published by FAIR AND SMART under the
  * GNU GENERAL PUBLIC LICENCE Version 3 (GPLv3) and a set of additional terms.
- * 
+ *
  * For more information, please see the “LICENSE” and “LICENSE.FAIRANDSMART”
  * files, or see https://www.fairandsmart.com/opensource/.
  * #L%
@@ -99,7 +99,7 @@ export class DashboardChartComponent implements OnInit {
 
   private formatDateLabel(timeScale: TimeScale, dateRef: number, length: number = 3): string {
     if (timeScale === TimeScale.WEEKS) {
-      return this.labelsTranslations.weeksPrefix + dateRef;
+      return this.labelsTranslations.weeksPrefix + (dateRef < 10 ? '0' + dateRef : dateRef);
     } else {
       let value = this.labelsTranslations[timeScale][dateRef - 1];
       if (length > 0 && value.length > length) {

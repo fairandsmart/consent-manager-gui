@@ -5,10 +5,10 @@
   Copyright (C) 2020 - 2021 Fair And Smart
   %%
   This file is part of Right Consents Community Edition.
-  
+
   Right Consents Community Edition is published by FAIR AND SMART under the
   GNU GENERAL PUBLIC LICENCE Version 3 (GPLv3) and a set of additional terms.
-  
+
   For more information, please see the “LICENSE” and “LICENSE.FAIRANDSMART”
   files, or see https://www.fairandsmart.com/opensource/.
   #L%
@@ -32,13 +32,11 @@
         <cm-entries-list-drag-and-drop *ngSwitchCase="'drag'"
                                        [ngModel]="selected[section.listId ? section.listId : section.id]"
                                        (ngModelChange)="selectedEntriesChange(section, $event)"
-                                       [config]="section"
-                                       [showKeys]="showKeys"></cm-entries-list-drag-and-drop>
+                                       [config]="section"></cm-entries-list-drag-and-drop>
         <cm-entries-list-select *ngSwitchCase="'select'"
                                 [ngModel]="selected[section.listId ? section.listId : section.id]"
                                 (ngModelChange)="selectedEntriesChange(section, $event)"
-                                [config]="section"
-                                [showKey]="showKeys"></cm-entries-list-select>
+                                [config]="section"></cm-entries-list-select>
       </ng-container>
     </div>
   </mat-expansion-panel>

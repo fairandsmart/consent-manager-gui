@@ -5,10 +5,10 @@
   Copyright (C) 2020 - 2021 Fair And Smart
   %%
   This file is part of Right Consents Community Edition.
-  
+
   Right Consents Community Edition is published by FAIR AND SMART under the
   GNU GENERAL PUBLIC LICENCE Version 3 (GPLv3) and a set of additional terms.
-  
+
   For more information, please see the “LICENSE” and “LICENSE.FAIRANDSMART”
   files, or see https://www.fairandsmart.com/opensource/.
   #L%
@@ -30,6 +30,12 @@
   </ng-container>
   <dt>{{'ENTRIES.COMMON.key.LABEL' | translate}}</dt>
   <dd>{{entry.key}}</dd>
+  <dt>{{'ENTRIES.COMMON.creationDate.LABEL' | translate}}</dt>
+  <dd *ngIf="entry.creationDate > 0">{{entry.creationDate | date: 'short'}}</dd>
+  <dd *ngIf="entry.creationDate === 0">{{'ENTRIES.COMMON.creationDate.EMPTY' | translate}}</dd>
+  <dt>{{'ENTRIES.COMMON.modificationDate.LABEL' | translate}}</dt>
+  <dd *ngIf="entry.modificationDate > 0">{{entry.modificationDate | date: 'short'}}</dd>
+  <dd *ngIf="entry.modificationDate === 0">{{'ENTRIES.COMMON.modificationDate.EMPTY' | translate}}</dd>
   <ng-container *ngIf="version">
     <dt>{{'ENTRIES.COMMON.version.LABEL' | translate}}</dt>
     <dd>v{{versionIndex()}} ({{'ENTRIES.STATUS.' + version.status | translate}}) <button *ngIf="version" mat-icon-button [matMenuTriggerFor]="historyMenu"><mat-icon>history</mat-icon></button></dd>

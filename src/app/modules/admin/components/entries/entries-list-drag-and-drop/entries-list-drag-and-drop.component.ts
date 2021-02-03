@@ -18,7 +18,7 @@ import { ModelEntryDto } from '../../../../../core/models/models';
 import { CdkDragDrop, transferArrayItem } from '@angular/cdk/drag-drop';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { EntriesListComponent } from '../entries-list/entries-list.component';
-import {getActiveVersion, hasActiveVersion} from '../../../../../core/utils/model-entry.utils';
+import { hasActiveVersion } from '../../../../../core/utils/model-entry.utils';
 
 @Component({
   selector: 'cm-entries-list-drag-and-drop',
@@ -38,9 +38,6 @@ export class EntriesListDragAndDropComponent extends EntriesListComponent implem
 
   @Input()
   disabled = false;
-
-  @Input()
-  showKeys = false;
 
   private onChange = (value: ModelEntryDto[]) => {};
 
@@ -73,7 +70,7 @@ export class EntriesListDragAndDropComponent extends EntriesListComponent implem
   }
 
   isLanguageCompatible(entry: ModelEntryDto): boolean {
-    return getActiveVersion(entry)?.availableLanguages.indexOf(this.configService.config.language) > -1;
+    return entry.availableLanguages?.indexOf(this.configService.getDefaultLanguage()) > -1;
   }
 
   isSelected(entry: ModelEntryDto): boolean {
