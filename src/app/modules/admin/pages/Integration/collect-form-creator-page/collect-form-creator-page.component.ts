@@ -108,7 +108,7 @@ export class CollectFormCreatorPageComponent implements OnInit {
       showActions: true,
       draggingDisabled: false,
       included: true,
-      icon: Icons.preference,
+      icon: Icons.conditions,
       displayDescription: false,
       listId: 'elements',
       filter: this.makeDefaultFilter('conditions')
