@@ -5,10 +5,10 @@
  * Copyright (C) 2020 - 2021 Fair And Smart
  * %%
  * This file is part of Right Consents Community Edition.
- * 
+ *
  * Right Consents Community Edition is published by FAIR AND SMART under the
  * GNU GENERAL PUBLIC LICENCE Version 3 (GPLv3) and a set of additional terms.
- * 
+ *
  * For more information, please see the “LICENSE” and “LICENSE.FAIRANDSMART”
  * files, or see https://www.fairandsmart.com/opensource/.
  * #L%
@@ -89,28 +89,28 @@ export class ThemeAutocomplete {
       css: '.controller-container',
       hints: {
         fr: 'Formulaire/Reçu - Bloc : responsable de traitement',
-        en: 'Form/Receipt - Block : data controller'
+        en: 'Form/Receipt - Block: data controller'
       }
     },
     {
       css: '.information-container',
       hints: {
         fr: 'Formulaire/Reçu - Bloc : informations additionnelles',
-        en: 'Form/Receipt - Block : additional information'
+        en: 'Form/Receipt - Block: additional information'
       }
     },
     {
       css: '.sensitive-container',
       hints: {
         fr: 'Formulaire/Reçu - Bloc : données sensibles',
-        en: 'Form/Receipt - Block : sensitive data'
+        en: 'Form/Receipt - Block: sensitive data'
       }
     },
     {
       css: '.third-parties-container',
       hints: {
         fr: 'Formulaire/Reçu - Bloc : tierces-parties',
-        en: 'Form/Receipt - Block : third parties'
+        en: 'Form/Receipt - Block: third parties'
       }
     },
     {
@@ -125,6 +125,34 @@ export class ThemeAutocomplete {
       hints: {
         fr: 'Formulaire/Reçu - Elément - Corps',
         en: 'Form/Receipt - Item - Body'
+      }
+    },
+    {
+      css: '.processing-data',
+      hints: {
+        fr: 'Formulaire/Reçu - Elément : traitement - Bloc des données',
+        en: 'Form/Receipt - Item: processing - Data block'
+      }
+    },
+    {
+      css: '.processing-retention',
+      hints: {
+        fr: 'Formulaire/Reçu - Elément : traitement - Bloc de durée de conservation',
+        en: 'Form/Receipt - Item: processing - Retention block'
+      }
+    },
+    {
+      css: '.processing-usage',
+      hints: {
+        fr: 'Formulaire/Reçu - Elément : traitement - Bloc de finalité',
+        en: 'Form/Receipt - Item: processing - Usage block'
+      }
+    },
+    {
+      css: '.processing-purposes',
+      hints: {
+        fr: 'Formulaire/Reçu - Elément : traitement - Bloc de catégories de finalité',
+        en: 'Form/Receipt - Item: processing - Purpose categories block'
       }
     },
     {
