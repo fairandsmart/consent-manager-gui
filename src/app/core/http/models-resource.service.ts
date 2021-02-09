@@ -56,6 +56,10 @@ export class ModelsResourceService {
     return this.http.put<ModelEntryDto>(`${this.ROOT}/${id}`, dto);
   }
 
+  deleteEntry(id: string): Observable<void> {
+    return this.http.delete<void>(`${this.ROOT}/${id}`);
+  }
+
   listVersions<T extends ModelData = ModelData>(id: string): Observable<ModelVersionDtoLight<T>[]> {
     return this.http.get<ModelVersionDtoLight<T>[]>(`${this.ROOT}/${id}/versions`);
   }
@@ -96,10 +100,6 @@ export class ModelsResourceService {
 
   deleteVersion(id: string, versionId: string): Observable<void> {
     return this.http.delete<void>(`${this.ROOT}/${id}/versions/${versionId}`);
-  }
-
-  deleteModel(id: string): Observable<void> {
-    return this.http.delete<void>(`${this.ROOT}/${id}`);
   }
 
 }

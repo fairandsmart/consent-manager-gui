@@ -15,9 +15,13 @@
   -->
 <h2>
   <span class="title">{{'ENTRIES.EDITOR.INFORMATION.TITLE' | translate}}</span>
-  <span>
-    <button matTooltip="{{'ENTRIES.COMMON.EDIT_TOOLTIP' | translate}}" mat-icon-button (click)="edit()"><mat-icon>edit</mat-icon></button>
-    <button matTooltip="{{'ENTRIES.COMMON.DELETE_TOOLTIP' | translate}}" mat-icon-button color="warn" (click)="delete()" *ngIf="entry?.type !== 'basicinfo' && (!hasActiveVersion || (hasRecord$ | async) === false)"><mat-icon>delete</mat-icon></button>
+  <span *ngIf="entry?.status !== Status.DELETED">
+    <button matTooltip="{{'ENTRIES.COMMON.EDIT_TOOLTIP' | translate}}" mat-icon-button (click)="editEntry()">
+      <mat-icon>edit</mat-icon>
+    </button>
+    <button matTooltip="{{'ENTRIES.COMMON.DELETE_TOOLTIP' | translate}}" mat-icon-button color="warn" (click)="deleteEntry()">
+      <mat-icon>delete</mat-icon>
+    </button>
   </span>
 </h2>
 <dl *ngIf="entry">
@@ -39,13 +43,18 @@
   <dd *ngIf="entry.modificationDate === 0">{{'ENTRIES.COMMON.modificationDate.EMPTY' | translate}}</dd>
   <ng-container *ngIf="version">
     <dt>{{'ENTRIES.COMMON.version.LABEL' | translate}}</dt>
-    <dd>v{{versionIndex()}} ({{'ENTRIES.STATUS.' + version.status | translate}}) <button *ngIf="version" mat-icon-button [matMenuTriggerFor]="historyMenu"><mat-icon>history</mat-icon></button></dd>
+    <dd>v{{getVersionIndex()}} ({{'ENTRIES.VERSION_STATUS.' + version.status | translate}})
+      <button *ngIf="version" mat-icon-button [matMenuTriggerFor]="historyMenu">
+        <mat-icon>history</mat-icon>
+      </button>
+    </dd>
   </ng-container>
 </dl>
 <mat-menu #historyMenu>
   <ng-template matMenuContent>
     <button mat-menu-item *ngFor="let v of entry?.versions; index as i"
-            (click)="selectVersion.emit(v)"
-            [disabled]="version?.id === v.id">v{{i+1}} ({{'ENTRIES.STATUS.' + v.status | translate}})</button>
+            (click)="selectVersion.emit(v)" [disabled]="version?.id === v.id">
+      v{{i + 1}} ({{'ENTRIES.VERSION_STATUS.' + v.status | translate}})
+    </button>
   </ng-template>
 </mat-menu>

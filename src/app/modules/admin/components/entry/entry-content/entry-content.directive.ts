@@ -18,6 +18,7 @@ import {
   ConsentFormOrientation,
   ModelData,
   ModelEntryDto,
+  ModelEntryStatus,
   ModelVersionDto,
   ModelVersionDtoLight,
   ModelVersionStatus,
@@ -77,6 +78,11 @@ export abstract class EntryContentDirective<T extends ModelData> extends FormSta
     this.initForm();
     if (this.version) {
       this.setVersion(this.version);
+    }
+    if (this.canBeEdited()) {
+      this.form.enable();
+    } else {
+      this.form.disable();
     }
   }
 
@@ -161,7 +167,7 @@ export abstract class EntryContentDirective<T extends ModelData> extends FormSta
 
   protected setVersion(version: ModelVersionDto<T>, language: string = version.defaultLanguage): void {
     this.version = version;
-    if (this.isLatestVersion()) {
+    if (this.canBeEdited()) {
       this.form.enable();
     } else {
       this.form.disable();
@@ -188,7 +194,7 @@ export abstract class EntryContentDirective<T extends ModelData> extends FormSta
     );
   }
 
-  save(): void {
+  saveVersion(): void {
     if (!this.hasChanges) {
       this.alertService.info('ALERT.NO_CHANGE');
       return;
@@ -216,10 +222,10 @@ export abstract class EntryContentDirective<T extends ModelData> extends FormSta
         this.alertService.success('ALERT.SAVE_SUCCESS', {snackBarConfig: {duration: 6000}});
         return this.updateVersion(version);
       })
-    ).subscribe(() => this.afterSave());
+    ).subscribe(() => this.afterSaveVersion());
   }
 
-  activate(): void {
+  activateVersion(): void {
     if (this.hasChanges) {
       this.alertService.error('ALERT.UNSAVED_CHANGES', 'Unsaved changes');
       return;
@@ -244,10 +250,10 @@ export abstract class EntryContentDirective<T extends ModelData> extends FormSta
         this.alertService.success('ALERT.ACTIVATION_SUCCESS');
         return this.updateVersion(version);
       })
-    ).subscribe(() => this.afterActivate());
+    ).subscribe(() => this.afterActivateVersion());
   }
 
-  delete(): void {
+  deleteVersion(): void {
     this.modelsResourceService.deleteVersion(this.entry.id, this.version.id).pipe(
       catchError((err) => {
         this.form.enable();
@@ -273,11 +279,12 @@ export abstract class EntryContentDirective<T extends ModelData> extends FormSta
         return EMPTY;
       }),
       mergeMap((version) => this.updateVersion(version))
-    ).subscribe(() => this.afterDelete());
+    ).subscribe(() => this.afterDeleteVersion());
   }
 
-  isLatestVersion(): boolean {
-    return this.entry && (this.entry.versions.length < 2 || _.last(this.entry.versions).id === this.version.id);
+  canBeEdited(): boolean {
+    return this.entry && this.entry.status !== ModelEntryStatus.DELETED
+      && (this.entry.versions.length < 2 || _.last(this.entry.versions).id === this.version.id);
   }
 
   registerFormChanges(): void {
@@ -288,8 +295,8 @@ export abstract class EntryContentDirective<T extends ModelData> extends FormSta
     return;
   }
 
-  protected afterActivate(): void {}
-  protected afterSave(): void {}
-  protected afterDelete(): void {}
+  protected afterActivateVersion(): void {}
+  protected afterSaveVersion(): void {}
+  protected afterDeleteVersion(): void {}
 
 }

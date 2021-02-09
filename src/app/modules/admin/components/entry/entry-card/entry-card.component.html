@@ -28,8 +28,8 @@
     </div>
     <div *ngIf="showDetail" class="entry-detail">
       <span>
-        <mat-icon class="mat-icon-small" [matTooltip]="('ENTRY_CARD.ACTIVE.' + hasActiveVersion()) | translate">
-          {{hasActiveVersion() ? 'check_circle' : 'unpublished'}}
+        <mat-icon class="mat-icon-small" [matTooltip]="('COMMON.ENTRY_STATUSES.' + entry.status) | translate">
+          {{entry.status === Status.ACTIVE ? 'check_circle' : 'unpublished'}}
         </mat-icon>
         <span *ngIf="entry.availableLanguages?.length > 0" class="badge" [matTooltip]="'ENTRY_CARD.LANGUAGES_TOOLTIP' | translate">
           {{languages()}}

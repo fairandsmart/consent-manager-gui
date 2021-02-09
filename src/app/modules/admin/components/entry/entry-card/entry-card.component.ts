@@ -24,6 +24,8 @@ import { ModelEntryDto, ModelEntryStatus } from '../../../../../core/models/mode
 })
 export class EntryCardComponent implements OnInit {
 
+  public readonly Status = ModelEntryStatus;
+
   @Input()
   entry: ModelEntryDto;
 
@@ -41,10 +43,6 @@ export class EntryCardComponent implements OnInit {
   constructor() { }
 
   ngOnInit(): void {
-  }
-
-  hasActiveVersion(): boolean {
-    return this.entry.status === ModelEntryStatus.ACTIVE;
   }
 
   languages(): string {

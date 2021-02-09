@@ -24,20 +24,18 @@
             {{'ENTRIES.EDITOR.CONTENT.SHOW_SIDE' | translate}}
           </div>
         </mat-card-title>
+
         <mat-card-content>
 
           <mat-card-subtitle>{{'ENTRIES.EDITOR.PREFERENCE.SUBTITLES.CONTENT' | translate}}</mat-card-subtitle>
-
           <mat-form-field appearance="outline">
             <mat-label>{{'ENTRIES.EDITOR.PREFERENCE.LABEL.LABEL' | translate}}</mat-label>
             <input matInput required formControlName="label" autocomplete="off">
           </mat-form-field>
-
           <mat-form-field appearance="outline">
             <mat-label>{{'ENTRIES.EDITOR.PREFERENCE.DESCRIPTION.LABEL' | translate}}</mat-label>
             <textarea matInput formControlName="description" cdkTextareaAutosize cdkAutosizeMinRows="5"></textarea>
           </mat-form-field>
-
           <mat-form-field appearance="outline">
             <mat-label>{{'ENTRIES.EDITOR.PREFERENCE.VALUE_TYPE.LABEL' | translate}}</mat-label>
             <mat-select formControlName="valueType" required>
@@ -46,7 +44,6 @@
               </mat-option>
             </mat-select>
           </mat-form-field>
-
           <mat-checkbox formControlName="optional">
             {{'ENTRIES.EDITOR.PREFERENCE.OPTIONAL.LABEL' | translate}}
           </mat-checkbox>
@@ -109,11 +106,12 @@
           </div>
 
         </mat-card-content>
-        <mat-card-actions *ngIf="isLatestVersion()">
-          <button mat-button type="button" color="primary" [disabled]="form.disabled" (click)="save()">{{'ENTRIES.EDITOR.BUTTONS.SAVE' | translate}}</button>
+
+        <mat-card-actions *ngIf="canBeEdited()">
+          <button mat-button type="button" color="primary" [disabled]="form.disabled" (click)="saveVersion()">{{'ENTRIES.EDITOR.BUTTONS.SAVE' | translate}}</button>
           <ng-container *ngIf="version != null">
-            <button mat-button type="button" color="primary" [disabled]="form.disabled" (click)="activate()">{{'ENTRIES.EDITOR.BUTTONS.ACTIVATE' | translate}}</button>
-            <button mat-button type="button" color="warn" [disabled]="form.disabled || version.status !== STATUS.DRAFT" (click)="delete()">{{'ENTRIES.EDITOR.BUTTONS.DELETE' | translate}}</button>
+            <button mat-button type="button" color="primary" [disabled]="form.disabled" (click)="activateVersion()">{{'ENTRIES.EDITOR.BUTTONS.ACTIVATE' | translate}}</button>
+            <button mat-button type="button" color="warn" [disabled]="form.disabled || version.status !== STATUS.DRAFT" (click)="deleteVersion()">{{'ENTRIES.EDITOR.BUTTONS.DELETE' | translate}}</button>
           </ng-container>
         </mat-card-actions>
       </mat-card>

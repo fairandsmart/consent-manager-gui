@@ -30,6 +30,7 @@
   "COMMON": {
     "BUTTONS": {
       "CANCEL": "Cancel",
+      "CONFIRM": "Confirm",
       "SAVE": "Save",
       "DELETE": "Delete",
       "CREATE": "Create",
@@ -54,6 +55,11 @@
       "EMAIL": "Email link",
       "RECEIPT": "Receipt link",
       "USER_PAGE": "User page"
+    },
+    "ENTRY_STATUSES": {
+      "ACTIVE": "Active",
+      "INACTIVE": "Inactive",
+      "DELETED": "Deleted"
     },
     "LANGUAGES": {
       "EN": "English",
@@ -86,7 +92,7 @@
   },
   "ALERT": {
     "BAD_VERSION": "Your backend version is outdated",
-    "NO_BASIC_INFO": "You cannot create, edit or interrogate processings without completing your basic informations",
+    "NO_BASIC_INFO": "You cannot create forms nor change or submit consents without completing your basic informations",
     "NO_BASIC_INFO_USER": "This feature is not yet available.",
     "NO_BASIC_INFO_CALL_TO_ACTION": "Click here to complete them",
     "NO_CHANGE": "No change",
@@ -102,18 +108,14 @@
     "DELETION_ERROR": "Cannot delete draft...",
     "RELOAD_ERROR": "Cannot reload latest version...",
     "AVAILABLE_IN_ENTERPRISE": "This feature is not available in the Community version.",
-    "DRAGGABLE": "Drag and drop this entry to the form",
+    "DRAGGABLE": "Drag and drop this model entry to the form",
     "NOT_DRAGGABLE_REASONS": {
-      "ALREADY_SELECTED": "This entry is already selected",
-      "NO_ACTIVE_VERSION": "You need to activate this entry before you can select it",
-      "BAD_LANGUAGE": "This entry's language is not compatible with your version of Right Consents"
+      "ALREADY_SELECTED": "This model entry is already selected",
+      "NO_ACTIVE_VERSION": "You cannot select this model entry because it is not active",
+      "BAD_LANGUAGE": "This model entry's language is not compatible with your version of Right Consents"
     },
-    "MODEL_DELETION_SUCCESS": "The model entry was successfully deleted",
-    "MODEL_DELETION_ERROR": "Cannot delete an entry with existing records"
-  },
-  "CONFIRM_DIALOG": {
-    "CONFIRM": "Confirm",
-    "CANCEL": "Cancel"
+    "ENTRY_DELETION_SUCCESS": "The model entry was successfully deleted",
+    "ENTRY_DELETION_ERROR": "Cannot delete this model entry"
   },
   "ROUTING": {
     "404": {
@@ -165,7 +167,7 @@
       "email": "New email",
       "MULTIPLE": "Add..."
     },
-    "STATUS": {
+    "VERSION_STATUS": {
       "ACTIVE": "Active",
       "DRAFT": "Draft",
       "ARCHIVED": "Archived"
@@ -204,7 +206,7 @@
       },
       "saveState": {
         "title": "You left the page",
-        "content": "You left the page without saving last time. Do you wish to restore the form you left ?",
+        "content": "You left the page without saving last time. Do you wish to restore the form you left?",
         "accept": "Yes",
         "refuse": "No"
       },
@@ -222,10 +224,7 @@
         "LABEL": "Keyword"
       },
       "STATUS": {
-        "LABEL": "Status",
-        "ACTIVE": "Active",
-        "INACTIVE": "Inactive",
-        "INDIFFERENT": "Indifferent"
+        "LABEL": "Status"
       },
       "LANGUAGE": {
         "LABEL": "Language",
@@ -238,7 +237,7 @@
         "basicinfo": "New basic info",
         "processing": "New processing",
         "preference": "New preference",
-        "consitions": "New terms and conditions",
+        "conditions": "New terms and conditions",
         "theme": "New theme",
         "email": "New email"
       },
@@ -251,8 +250,9 @@
         "email": "Update email"
       },
       "DELETION": {
-        "TITLE": "Delete model entry ?",
-        "CONTENT": "Are you sure you want to delete this entry ?"
+        "TITLE": "Delete model entry?",
+        "CONTENT": "Are you sure you want to delete this model entry? This operation cannot be undone.",
+        "HAS_RECORDS": "<br><br>The records associated with this model entry will be invalidated but not deleted."
       }
     },
     "PREVIEW": {
@@ -451,12 +451,6 @@
           "HINT": "Write your custom HTML or drop a HTML file",
           "AUTOCOMPLETE": "(toggle auto-completion with CTRL+E or CMD+E)"
         },
-        "ACCEPT": {
-          "LABEL": "\"Accept\" button label"
-        },
-        "REJECT": {
-          "LABEL": "\"Reject\" button label"
-        },
         "IFRAME": {
           "TITLE": "Preview"
         }
@@ -527,12 +521,6 @@
   },
   "ENTRY_CARD": {
     "LABEL_NO_DESCRIPTION": "No description",
-    "ACTIVE": {
-      "true": "Active",
-      "false": "Inactive"
-    },
-    "ACTIVE_VERSION": "Active",
-    "INACTIVE_VERSION": "Inactive",
     "LANGUAGES_TOOLTIP": "Language(s)"
   },
   "RECORDS": {
@@ -571,7 +559,8 @@
         "EXPIRED": "Expiration date reached",
         "INFO_SERIAL_ARCHIVED": "Basic info serial no more active",
         "BODY_SERIAL_ARCHIVED": "Body serial no more active",
-        "NOT_COMMITTED": "Non committed records are irrelevant"
+        "STILL_PENDING": "Record still waiting for validation",
+        "ENTRY_DELETED": "The model entry associated with this record has been deleted"
       },
       "PROCESSING_VALUE": {
         "LABEL": "Current value",
@@ -675,7 +664,7 @@
     "BUTTON_LABEL_NEXT_STEP": "Next",
     "BUTTON_LABEL_PREVIOUS_STEP": "Previous",
     "FORM_TYPE_ERROR": "You can't add conditions to a form containing processings or preferences. Click confirm to remove incompatible elements from the form.",
-    "CHANGE_FORM_TYPE": "Change the form type ?",
+    "CHANGE_FORM_TYPE": "Change the form type?",
     "FORM": {
       "TITLE": "Form creator",
       "ELEMENTS_PANEL_TITLE": {
@@ -832,7 +821,7 @@
         }
       },
       "DROP": {
-        "CONFIRM_TITLE": "Delete this API key ?",
+        "CONFIRM_TITLE": "Delete this API key?",
         "CONFIRM_CONTENT": "This operation is irreversible. Are you sure you want to delete this API key?",
         "CONFIRM_BUTTON": "Delete",
         "SUCCESS": "The API key has been deleted"

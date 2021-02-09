@@ -5,21 +5,21 @@
   Copyright (C) 2020 - 2021 Fair And Smart
   %%
   This file is part of Right Consents Community Edition.
-  
+
   Right Consents Community Edition is published by FAIR AND SMART under the
   GNU GENERAL PUBLIC LICENCE Version 3 (GPLv3) and a set of additional terms.
-  
+
   For more information, please see the “LICENSE” and “LICENSE.FAIRANDSMART”
   files, or see https://www.fairandsmart.com/opensource/.
   #L%
   -->
-<h2 mat-dialog-title>{{data.title | translate:data.titleParams }}</h2>
-<mat-dialog-content>{{data.content | translate:data.contentParams }}</mat-dialog-content>
+<h2 mat-dialog-title>{{data.title | translate:data.titleParams}}</h2>
+<mat-dialog-content [innerHTML]="data.content | translate:data.contentParams"></mat-dialog-content>
 <mat-dialog-actions class="btn-uppercase align-right">
   <button mat-button color="primary" *ngIf="!data.hideCancel"
-          [mat-dialog-close]="false">{{(data.cancel || 'CONFIRM_DIALOG.CANCEL') | translate}}
+          [mat-dialog-close]="false">{{(data.cancel || 'COMMON.BUTTONS.CANCEL') | translate}}
   </button>
   <button mat-button color="primary"
-          [mat-dialog-close]="true">{{(data.confirm || 'CONFIRM_DIALOG.CONFIRM') | translate}}
+          [mat-dialog-close]="true">{{(data.confirm || 'COMMON.BUTTONS.CONFIRM') | translate}}
   </button>
 </mat-dialog-actions>

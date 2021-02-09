@@ -13,7 +13,7 @@
  * files, or see https://www.fairandsmart.com/opensource/.
  * #L%
  */
-import { ModelData, ModelEntryDto, ModelVersionDtoLight, ModelVersionStatus } from '../models/models';
+import { ModelData, ModelEntryDto, ModelEntryStatus, ModelVersionDtoLight, ModelVersionStatus } from '../models/models';
 
 export function getActiveVersionIdentifier(model: ModelEntryDto): string {
   const activeVersion = getActiveVersion(model);
@@ -25,5 +25,5 @@ export function getActiveVersion<T extends ModelData = ModelData>(model: ModelEn
 }
 
 export function hasActiveVersion(model: ModelEntryDto): boolean {
-  return getActiveVersion(model) != null;
+  return model.status !== ModelEntryStatus.DELETED && getActiveVersion(model) != null;
 }

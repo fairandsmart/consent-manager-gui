@@ -43,7 +43,7 @@ export class SubjectsResourceService {
     return this.http.put<SubjectDto>(`${this.ROOT}/${subject.id}`, subject);
   }
 
-  listCustomerRecords(subject: string): Observable<RecordsMap> {
+  listSubjectRecords(subject: string): Observable<RecordsMap> {
     return this.http.get<RecordsMap>(`${this.ROOT}/${subject}/records`);
   }
 

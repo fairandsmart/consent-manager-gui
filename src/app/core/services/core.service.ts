@@ -22,7 +22,7 @@ export class CoreService {
     this.hasActiveBasicInfo$.subscribe((current) => this.hasActiveBasicInfo = current);
   }
 
-  checkBasicInfo() {
+  checkBasicInfo(): void {
     this.modelsResourceService.listEntries({types: ['basicinfo'], size: -1}).pipe(
       map((res) => res.values.some((info) => hasActiveVersion(info))),
     ).subscribe((hasActiveBasicInfo) => this.hasActiveBasicInfo$.next(hasActiveBasicInfo));

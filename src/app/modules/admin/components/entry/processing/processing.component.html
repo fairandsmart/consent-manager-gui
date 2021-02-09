@@ -24,6 +24,7 @@
             {{'ENTRIES.EDITOR.CONTENT.SHOW_SIDE' | translate}}
           </div>
         </mat-card-title>
+
         <mat-card-content>
 
           <mat-card-subtitle>{{'ENTRIES.EDITOR.PROCESSING.SUBTITLES.TITLE' | translate}}</mat-card-subtitle>
@@ -125,17 +126,18 @@
                 </div>
               </div>
             </mat-card-content>
-            <mat-card-actions *ngIf="isLatestVersion()">
+            <mat-card-actions *ngIf="canBeEdited()">
               <button mat-button (click)="addThirdParty()">{{'ENTRIES.EDITOR.PROCESSING.THIRD_PARTIES.BUTTON_ADD' | translate}}</button>
             </mat-card-actions>
           </mat-card>
 
         </mat-card-content>
-        <mat-card-actions *ngIf="isLatestVersion()">
-          <button mat-button type="button" color="primary" [disabled]="form.disabled" (click)="save()">{{'ENTRIES.EDITOR.BUTTONS.SAVE' | translate}}</button>
+
+        <mat-card-actions *ngIf="canBeEdited()">
+          <button mat-button type="button" color="primary" [disabled]="form.disabled" (click)="saveVersion()">{{'ENTRIES.EDITOR.BUTTONS.SAVE' | translate}}</button>
           <ng-container *ngIf="version != null">
-            <button mat-button type="button" color="primary" [disabled]="form.disabled" (click)="activate()">{{'ENTRIES.EDITOR.BUTTONS.ACTIVATE' | translate}}</button>
-            <button mat-button type="button" color="warn" [disabled]="form.disabled || version.status !== STATUS.DRAFT" (click)="delete()">{{'ENTRIES.EDITOR.BUTTONS.DELETE' | translate}}</button>
+            <button mat-button type="button" color="primary" [disabled]="form.disabled" (click)="activateVersion()">{{'ENTRIES.EDITOR.BUTTONS.ACTIVATE' | translate}}</button>
+            <button mat-button type="button" color="warn" [disabled]="form.disabled || version.status !== STATUS.DRAFT" (click)="deleteVersion()">{{'ENTRIES.EDITOR.BUTTONS.DELETE' | translate}}</button>
           </ng-container>
         </mat-card-actions>
       </mat-card>

@@ -112,11 +112,11 @@ export class BasicinfoComponent extends EntryContentDirective<BasicInfo> impleme
     return true;
   }
 
-  protected afterActivate(): void {
+  protected afterActivateVersion(): void {
     this.coreService.checkBasicInfo();
   }
 
-  protected afterDelete(): void {
+  protected afterDeleteVersion(): void {
     this.coreService.checkBasicInfo();
   }
 

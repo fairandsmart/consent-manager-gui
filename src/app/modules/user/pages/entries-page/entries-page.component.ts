@@ -66,7 +66,7 @@ export class EntriesPageComponent implements OnInit, OnDestroy {
           keys: this.elementsKeys,
           size: -1
         }),
-        this.subjectsResourceService.listCustomerRecords(this.keycloakService.getUsername())
+        this.subjectsResourceService.listSubjectRecords(this.keycloakService.getUsername())
       ]).pipe(
         map(([entries, records]: [CollectionPage<ModelEntryDto>, RecordsMap]) => {
           this.elementsKeys.forEach((key) => {

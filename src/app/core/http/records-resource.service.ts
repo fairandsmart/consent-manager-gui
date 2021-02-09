@@ -27,7 +27,7 @@ export class RecordsResourceService {
   constructor(private http: HttpClient) {
   }
 
-  listCustomerRecords(subject: string): Observable<RecordsMap> {
+  listSubjectRecords(subject: string): Observable<RecordsMap> {
     return this.http.get<RecordsMap>(`${this.ROOT}`, {params: {subject: subject}});
   }
 

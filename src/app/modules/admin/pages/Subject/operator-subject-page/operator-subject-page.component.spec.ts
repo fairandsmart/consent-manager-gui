@@ -38,8 +38,8 @@ describe('OperatorSubjectPageComponent', () => {
   let configServiceStub: ConfigServiceStubSpec;
 
   beforeEach(waitForAsync(() => {
-    consentsResourceServiceSpy =  createSpyObj<ConsentsResourceService>('ConsentsResourceService', ['generateToken', 'postConsent']);
-    subjectsResourceServiceSpy =  createSpyObj<SubjectsResourceService>('SubjectsResourceService', ['getSubject', 'listCustomerRecords', 'updateSubject', 'createSubject']);
+    consentsResourceServiceSpy = createSpyObj<ConsentsResourceService>('ConsentsResourceService', ['generateToken', 'postConsent']);
+    subjectsResourceServiceSpy = createSpyObj<SubjectsResourceService>('SubjectsResourceService', ['getSubject', 'listSubjectRecords', 'updateSubject', 'createSubject']);
     activatedRouteStub = new ActivatedRouteStubSpec({
       params: {
         subject: 'foobar'
@@ -48,8 +48,8 @@ describe('OperatorSubjectPageComponent', () => {
     configServiceStub = new ConfigServiceStubSpec();
 
     TestBed.configureTestingModule({
-      declarations: [ OperatorSubjectPageComponent ],
-      imports: [ CoreTestingModule, RouterTestingModule, HttpClientModule ],
+      declarations: [OperatorSubjectPageComponent],
+      imports: [CoreTestingModule, RouterTestingModule, HttpClientModule],
       providers: [
         {provide: ConsentsResourceService, useValue: consentsResourceServiceSpy},
         {provide: SubjectsResourceService, useValue: subjectsResourceServiceSpy},
@@ -57,7 +57,7 @@ describe('OperatorSubjectPageComponent', () => {
         {provide: ConfigService, useValue: configServiceStub}
       ]
     })
-    .compileComponents();
+      .compileComponents();
   }));
 
   beforeEach(() => {

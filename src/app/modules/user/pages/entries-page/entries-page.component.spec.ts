@@ -37,14 +37,14 @@ describe('EntriesPageComponent', () => {
 
   beforeEach(waitForAsync(() => {
     keycloakServiceSpy = createSpyObj<KeycloakService>('KeycloakService', ['getUsername']);
-    modelsResourceServiceSpy =  createSpyObj<ModelsResourceService>('ModelsResourceService', ['listEntries']);
-    subjectsResourceServiceSpy =  createSpyObj<SubjectsResourceService>('SubjectsResourceService', ['listCustomerRecords']);
-    alertServiceSpy =  createSpyObj<AlertService>('AlertService', ['error']);
-    configServiceSpy =  createSpyObj<ConfigService>('ConfigService', ['canLoad']);
+    modelsResourceServiceSpy = createSpyObj<ModelsResourceService>('ModelsResourceService', ['listEntries']);
+    subjectsResourceServiceSpy = createSpyObj<SubjectsResourceService>('SubjectsResourceService', ['listSubjectRecords']);
+    alertServiceSpy = createSpyObj<AlertService>('AlertService', ['error']);
+    configServiceSpy = createSpyObj<ConfigService>('ConfigService', ['canLoad']);
 
     TestBed.configureTestingModule({
-      declarations: [ EntriesPageComponent ],
-      imports: [ CoreTestingModule ],
+      declarations: [EntriesPageComponent],
+      imports: [CoreTestingModule],
       providers: [
         {provide: KeycloakService, useValue: keycloakServiceSpy},
         {provide: ModelsResourceService, useValue: modelsResourceServiceSpy},
@@ -53,13 +53,13 @@ describe('EntriesPageComponent', () => {
         {provide: ConfigService, useValue: configServiceSpy},
       ]
     })
-    .compileComponents();
+      .compileComponents();
   }));
 
   beforeEach(() => {
     keycloakServiceSpy.getUsername.and.returnValue('FOO BAR');
     modelsResourceServiceSpy.listEntries.and.returnValue(EMPTY);
-    subjectsResourceServiceSpy.listCustomerRecords.and.returnValue(EMPTY);
+    subjectsResourceServiceSpy.listSubjectRecords.and.returnValue(EMPTY);
     (configServiceSpy as any).config = {userPageElements: []};
 
     fixture = TestBed.createComponent(EntriesPageComponent);
