@@ -45,8 +45,8 @@
           <mat-form-field appearance="outline">
             <mat-label>{{'ENTRIES.FILTER.STATUS.LABEL' | translate}}</mat-label>
             <mat-select formControlName="statuses" multiple="true">
-              <mat-option *ngFor="let status of FILTER_STATUSES" [value]="status">
-                {{'ENTRIES.FILTER.STATUS.' + status | translate}}
+              <mat-option *ngFor="let status of STATUSES" [value]="status">
+                {{'COMMON.ENTRY_STATUSES.' + status | translate}}
               </mat-option>
             </mat-select>
           </mat-form-field>

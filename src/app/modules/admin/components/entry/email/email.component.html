@@ -24,6 +24,7 @@
             {{'ENTRIES.EDITOR.CONTENT.SHOW_SIDE' | translate}}
           </div>
         </mat-card-title>
+
         <mat-card-content>
 
           <mat-card-subtitle>{{'ENTRIES.EDITOR.EMAIL.SUBTITLES.META' | translate}}</mat-card-subtitle>
@@ -31,7 +32,6 @@
             <mat-label>{{'ENTRIES.EDITOR.EMAIL.SENDER.LABEL' | translate}}</mat-label>
             <input type="email" matInput required formControlName="sender" autocomplete="off">
           </mat-form-field>
-
           <mat-form-field appearance="outline">
             <mat-label>{{'ENTRIES.EDITOR.EMAIL.SUBJECT.LABEL' | translate}}</mat-label>
             <input matInput required formControlName="subject" autocomplete="off">
@@ -42,33 +42,30 @@
             <mat-label>{{'ENTRIES.EDITOR.EMAIL.TITLE.LABEL' | translate}}</mat-label>
             <input matInput required formControlName="title" autocomplete="off">
           </mat-form-field>
-
           <mat-form-field appearance="outline">
             <mat-label>{{'ENTRIES.EDITOR.EMAIL.BODY.LABEL' | translate}}</mat-label>
             <textarea matInput required formControlName="body" cdkTextareaAutosize cdkAutosizeMinRows="5"></textarea>
           </mat-form-field>
-
           <mat-form-field appearance="outline">
             <mat-label>{{'ENTRIES.EDITOR.EMAIL.BUTTON_LABEL.LABEL' | translate}}</mat-label>
             <input matInput required formControlName="buttonLabel" autocomplete="off">
           </mat-form-field>
-
           <mat-form-field appearance="outline">
             <mat-label>{{'ENTRIES.EDITOR.EMAIL.FOOTER.LABEL' | translate}}</mat-label>
             <textarea matInput required formControlName="footer" cdkTextareaAutosize cdkAutosizeMinRows="5"></textarea>
           </mat-form-field>
-
           <mat-form-field appearance="outline">
             <mat-label>{{'ENTRIES.EDITOR.EMAIL.SIGNATURE.LABEL' | translate}}</mat-label>
             <textarea matInput required formControlName="signature" cdkTextareaAutosize cdkAutosizeMinRows="5"></textarea>
           </mat-form-field>
 
         </mat-card-content>
-        <mat-card-actions *ngIf="isLatestVersion()">
-          <button mat-button type="button" color="primary" [disabled]="form.disabled" (click)="save()">{{'ENTRIES.EDITOR.BUTTONS.SAVE' | translate}}</button>
+
+        <mat-card-actions *ngIf="canBeEdited()">
+          <button mat-button type="button" color="primary" [disabled]="form.disabled" (click)="saveVersion()">{{'ENTRIES.EDITOR.BUTTONS.SAVE' | translate}}</button>
           <ng-container *ngIf="version != null">
-            <button mat-button type="button" color="primary" [disabled]="form.disabled" (click)="activate()">{{'ENTRIES.EDITOR.BUTTONS.ACTIVATE' | translate}}</button>
-            <button mat-button type="button" color="warn" [disabled]="form.disabled || version.status !== STATUS.DRAFT" (click)="delete()">{{'ENTRIES.EDITOR.BUTTONS.DELETE' | translate}}</button>
+            <button mat-button type="button" color="primary" [disabled]="form.disabled" (click)="activateVersion()">{{'ENTRIES.EDITOR.BUTTONS.ACTIVATE' | translate}}</button>
+            <button mat-button type="button" color="warn" [disabled]="form.disabled || version.status !== STATUS.DRAFT" (click)="deleteVersion()">{{'ENTRIES.EDITOR.BUTTONS.DELETE' | translate}}</button>
           </ng-container>
         </mat-card-actions>
       </mat-card>

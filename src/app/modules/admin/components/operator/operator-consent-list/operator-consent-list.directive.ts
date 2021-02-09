@@ -17,9 +17,10 @@ import { Directive, EventEmitter, Input, OnInit, Output, ViewChild } from '@angu
 import {
   CollectionPage,
   EntryRecord,
-  EntryRecordFilter,
   ModelDataType,
   ModelEntryDto,
+  ModelEntryStatus,
+  ModelFilter,
   ModelVersionDtoLight,
   ModelVersionStatus,
   OperatorLogElement,
@@ -37,7 +38,7 @@ import { CoreService } from '../../../../../core/services/core.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { TranslateService } from '@ngx-translate/core';
 
-class SubjectRecordDataSource extends CollectionDatasource<EntryRecord, EntryRecordFilter> {
+class SubjectRecordDataSource extends CollectionDatasource<EntryRecord, ModelFilter> {
 
   public records: RecordsMap = {};
 
@@ -45,7 +46,7 @@ class SubjectRecordDataSource extends CollectionDatasource<EntryRecord, EntryRec
     super();
   }
 
-  protected getPage(pageFilter: EntryRecordFilter): Observable<CollectionPage<EntryRecord>> {
+  protected getPage(pageFilter: ModelFilter): Observable<CollectionPage<EntryRecord>> {
     return this.modelsResource.listEntries(pageFilter).pipe(
       map((entries: CollectionPage<ModelEntryDto>) => {
         const values = [];
@@ -57,7 +58,7 @@ class SubjectRecordDataSource extends CollectionDatasource<EntryRecord, EntryRec
             type: entry.type,
             name: entry.name,
             identifier: activeVersion?.identifier,
-            active: activeVersion !== undefined,
+            active: entry.status === ModelEntryStatus.ACTIVE && activeVersion !== undefined,
             versionIndex: activeVersion !== undefined ? entry.versions.indexOf(activeVersion) + 1 : undefined
           };
           const recordsList = this.records[entry.key];
@@ -100,12 +101,9 @@ export abstract class OperatorConsentListDirective implements OnInit {
   public recordsSubject: Subject<RecordsMap> = new Subject<RecordsMap>();
   public recordsObservable: Observable<RecordsMap> = this.recordsSubject.asObservable();
 
-  public filter: EntryRecordFilter = {
+  public filter: ModelFilter = {
     page: 0,
     size: 10,
-    subject: undefined,
-    before: -1,
-    after: -1,
     order: 'key',
     direction: 'asc',
     types: []
@@ -131,7 +129,6 @@ export abstract class OperatorConsentListDirective implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    this.filter.subject = this.subject;
     this.filter.types.push(this.type);
     this.dataSource = new SubjectRecordDataSource(this.modelsResource);
     this.dataSource.paginator = this.paginator;
@@ -164,7 +161,7 @@ export abstract class OperatorConsentListDirective implements OnInit {
     this.reloadData();
   }
 
-  action(element: any) {
+  action(element: any): void {
     if (!this.coreService.hasActiveBasicInfo) {
       this.snackBar.open(this.translate.instant('ALERT.NO_BASIC_INFO'));
       throw new Error('No basic info');

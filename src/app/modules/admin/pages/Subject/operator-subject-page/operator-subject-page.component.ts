@@ -107,7 +107,7 @@ export class OperatorSubjectPageComponent implements OnInit {
   }
 
   reloadRecords(): void {
-    this.subjectsResource.listCustomerRecords(this.subject.name).subscribe((records) => {
+    this.subjectsResource.listSubjectRecords(this.subject.name).subscribe((records) => {
       this.records = records;
       this.processingComponent.updateRecords(records);
       this.preferencesComponent.updateRecords(records);

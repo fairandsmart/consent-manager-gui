@@ -30,6 +30,7 @@
   "COMMON": {
     "BUTTONS": {
       "CANCEL": "Annuler",
+      "CONFIRM": "Confirmer",
       "SAVE": "Enregistrer",
       "DELETE": "Supprimer",
       "CREATE": "Créer",
@@ -54,6 +55,11 @@
       "EMAIL": "Lien de l'email",
       "RECEIPT": "Lien du reçu",
       "USER_PAGE": "Interface utilisateur"
+    },
+    "ENTRY_STATUSES": {
+      "ACTIVE": "Actif",
+      "INACTIVE": "Inactif",
+      "DELETED": "Supprimé"
     },
     "LANGUAGES": {
       "EN": "Anglais",
@@ -86,7 +92,7 @@
   },
   "ALERT": {
     "BAD_VERSION": "La version du serveur utilisée n'est pas compatible",
-    "NO_BASIC_INFO": "Vous ne pouvez pas créer, interroger ou modifier des traitements sans avoir complété vos informations générales",
+    "NO_BASIC_INFO": "Vous ne pouvez pas créer de formulaire ni soumettre ou modifier de consentement sans avoir complété vos informations générales",
     "NO_BASIC_INFO_USER": "Cette fonctionnalité n'est pas encore disponible.",
     "NO_BASIC_INFO_CALL_TO_ACTION": "Cliquez ici pour les compléter",
     "NO_CHANGE": "Aucune modification",
@@ -102,18 +108,14 @@
     "DELETION_ERROR": "Impossible de supprimer le brouillon...",
     "RELOAD_ERROR": "Impossible de recharger la version la plus récente...",
     "AVAILABLE_IN_ENTERPRISE": "Cette fonctionnalité n'est pas disponible dans la version Communauté.",
-    "DRAGGABLE": "Glissez cette entrée dans le formulaire pour l'y ajouter",
+    "DRAGGABLE": "Glissez ce modèle dans le formulaire pour l'y ajouter",
     "NOT_DRAGGABLE_REASONS": {
-      "ALREADY_SELECTED": "Cette entrée est déjà selectionnée",
-      "NO_ACTIVE_VERSION": "Vous devez activer cette entrée avant de pouvoir la selectionner",
-      "BAD_LANGUAGE": "Le language de cette entrée n'est pas compatible"
+      "ALREADY_SELECTED": "Ce modèle est déjà sélectionné",
+      "NO_ACTIVE_VERSION": "Vous ne pouvez pas sélectionner ce modèle car il n'est pas actif",
+      "BAD_LANGUAGE": "Le language de ce modèle n'est pas compatible"
     },
-    "MODEL_DELETION_SUCCESS": "Le modèle a été supprimé avec succès",
-    "MODEL_DELETION_ERROR": "Impossible de supprimer un modèle ayant des enregistrements"
-  },
-  "CONFIRM_DIALOG": {
-    "CONFIRM": "Confirmer",
-    "CANCEL": "Annuler"
+    "ENTRY_DELETION_SUCCESS": "Le modèle a été supprimé avec succès",
+    "ENTRY_DELETION_ERROR": "Impossible de supprimer ce modèle"
   },
   "ROUTING": {
     "404": {
@@ -165,7 +167,7 @@
       "email": "Ajouter un email",
       "MULTIPLE": "Ajouter..."
     },
-    "STATUS": {
+    "VERSION_STATUS": {
       "ACTIVE": "Active",
       "DRAFT": "Brouillon",
       "ARCHIVED": "Archivée"
@@ -222,14 +224,11 @@
         "LABEL": "Mot-clé"
       },
       "STATUS": {
-        "LABEL": "Statut",
-        "ACTIVE": "Actif",
-        "INACTIVE": "Inactif",
-        "INDIFFERENT": "Indifférent"
+        "LABEL": "Statut"
       },
       "LANGUAGE": {
         "LABEL": "Langue",
-        "NONE": "Aucun"
+        "NONE": "Aucune"
       }
     },
     "CREATE_BUTTON": "Nouvel élément",
@@ -252,7 +251,8 @@
       },
       "DELETION": {
         "TITLE": "Supprimer le modèle ?",
-        "CONTENT": "Êtes vous certain de vouloir supprimer ce modèle ?"
+        "CONTENT": "Êtes-vous certain de vouloir supprimer ce modèle ? Cette opération est irréversible.",
+        "HAS_RECORDS": "<br><br>Les consentements associés à ce modèle seront invalidés mais non supprimés."
       }
     },
     "PREVIEW": {
@@ -451,12 +451,6 @@
           "HINT": "Renseignez votre contenu HTML ou déposez un fichier HTML",
           "AUTOCOMPLETE": "(profitez de l'auto-complétion grâce à CTRL+E ou CMD+E)"
         },
-        "ACCEPT": {
-          "LABEL": "Libellé du bouton \"Accepter\""
-        },
-        "REJECT": {
-          "LABEL": "Libellé du bouton \"Refuser\""
-        },
         "IFRAME": {
           "TITLE": "Prévisualisation"
         }
@@ -527,12 +521,6 @@
   },
   "ENTRY_CARD": {
     "LABEL_NO_DESCRIPTION": "Pas de description",
-    "ACTIVE": {
-      "true": "Actif",
-      "false": "Non actif"
-    },
-    "ACTIVE_VERSION": "Actif",
-    "INACTIVE_VERSION": "Non actif",
     "LANGUAGES_TOOLTIP": "Langue(s)"
   },
   "RECORDS": {
@@ -571,7 +559,8 @@
         "EXPIRED": "Date d'expiration atteinte",
         "INFO_SERIAL_ARCHIVED": "Numéro de série des informations générales inactif",
         "BODY_SERIAL_ARCHIVED": "Numéro de série de l'élément inactif",
-        "NOT_COMMITTED": "Les consentements non committés ne sont pas pertinents"
+        "STILL_PENDING": "Consentement en attente de validation",
+        "ENTRY_DELETED": "Le modèle lié à ce consentement a été supprimé"
       },
       "PROCESSING_VALUE": {
         "LABEL": "Valeur actuelle",

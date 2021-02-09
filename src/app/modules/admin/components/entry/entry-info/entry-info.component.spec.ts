@@ -34,7 +34,7 @@ describe('EntryInfoComponent', () => {
 
   beforeEach(waitForAsync(() => {
     recordServiceSpy = createSpyObj<RecordsResourceService>('RecordsResourceService', ['extractRecords']);
-    modelsResourceServiceSpy = createSpyObj<ModelsResourceService>('ModelsResourceService', ['deleteModel']);
+    modelsResourceServiceSpy = createSpyObj<ModelsResourceService>('ModelsResourceService', ['deleteEntry']);
     alertServiceSpy = createSpyObj<AlertService>('AlertService', ['error', 'success']);
     TestBed.configureTestingModule({
       declarations: [ EntryInfoComponent ],

@@ -64,7 +64,8 @@ export enum Icons {
 
 export enum ModelEntryStatus {
   ACTIVE = 'ACTIVE',
-  INACTIVE = 'INACTIVE'
+  INACTIVE = 'INACTIVE',
+  DELETED = 'DELETED'
 }
 
 export const MODEL_ENTRY_STATUSES = Object.keys(ModelEntryStatus);
@@ -221,8 +222,8 @@ export interface Conditions extends ModelData {
   type: 'conditions';
   title: string;
   body: string;
-  acceptLabel?: string;
-  rejectLabel?: string;
+  acceptLabel?: string; // deprecated
+  rejectLabel?: string; // deprecated
 }
 
 export enum LogoPosition {
@@ -371,6 +372,12 @@ export interface NotificationReport {
 
 /* Records */
 
+export enum RecordStates {
+  PENDING = 'PENDING',
+  COMMITTED = 'COMMITTED',
+  DELETED = 'DELETED'
+}
+
 export enum RecordStatus {
   VALID = 'VALID',
   OBSOLETE = 'OBSOLETE',
@@ -385,7 +392,8 @@ export enum RecordStatusExplanation {
   EXPIRED = 'EXPIRED',
   INFO_SERIAL_ARCHIVED = 'INFO_SERIAL_ARCHIVED',
   BODY_SERIAL_ARCHIVED = 'BODY_SERIAL_ARCHIVED',
-  NOT_COMMITTED = 'NOT_COMMITTED'
+  STILL_PENDING = 'STILL_PENDING',
+  ENTRY_DELETED = 'ENTRY_DELETED'
 }
 
 export interface RecordDto {
@@ -408,12 +416,11 @@ export interface RecordDto {
 export interface RecordFilter {
   page?: number;
   size?: number;
-  owner?: string;
   subject?: string;
-  status?: RecordStatus[];
+  states?: RecordStates[];
   infos?: string[];
   elements?: string[];
-  collectionMethod?: string;
+  collectionMethods?: CollectionMethod[];
   after?: number;
   before?: number;
   value?: string;
@@ -447,13 +454,6 @@ export interface EntryRecord {
   status?: RecordStatus;
   active: boolean;
   versionIndex: number;
-}
-
-export interface EntryRecordFilter extends ModelFilter {
-  order: string;
-  subject: string;
-  before?: number;
-  after?: number;
 }
 
 export interface OperatorLogElement {

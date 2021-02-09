@@ -16,7 +16,7 @@
 import { AfterViewInit, ChangeDetectorRef, Component, Input, OnInit, ViewChild } from '@angular/core';
 import { AddMultipleOption, ConsentElementEntryDataSource, SectionConfig } from '../entries-library/entries-library.component';
 import { tap } from 'rxjs/operators';
-import { ModelDataType } from '../../../../../core/models/models';
+import { ModelDataType, ModelEntryStatus } from '../../../../../core/models/models';
 import { EntryEditorDialogComponent, EntryEditorDialogComponentData } from '../../entry/entry-editor-dialog/entry-editor-dialog.component';
 import { MatPaginator } from '@angular/material/paginator';
 import { ModelsResourceService } from '../../../../../core/http/models-resource.service';
@@ -69,7 +69,10 @@ export class EntriesListComponent implements OnInit, AfterViewInit {
         page: 0,
         size: 12,
         order: 'name',
-        direction: 'asc'
+        direction: 'asc',
+        keyword: '',
+        statuses: [ModelEntryStatus.ACTIVE, ModelEntryStatus.INACTIVE],
+        languages: [this.configService.getDefaultLanguage(), '']
       };
     }
   }

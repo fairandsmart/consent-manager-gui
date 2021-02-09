@@ -27,6 +27,7 @@
         </mat-card-title>
 
         <mat-card-content>
+
           <mat-card-subtitle>{{'ENTRIES.EDITOR.CONDITIONS.SUBTITLES.TITLE' | translate}}</mat-card-subtitle>
           <mat-form-field appearance="outline">
             <mat-label>{{'ENTRIES.EDITOR.CONDITIONS.TITLE.LABEL' | translate}}</mat-label>
@@ -47,12 +48,11 @@
 
         </mat-card-content>
 
-
-        <mat-card-actions *ngIf="isLatestVersion()">
-          <button mat-button type="button" color="primary" [disabled]="form.disabled" (click)="save()">{{'ENTRIES.EDITOR.BUTTONS.SAVE' | translate}}</button>
+        <mat-card-actions *ngIf="canBeEdited()">
+          <button mat-button type="button" color="primary" [disabled]="form.disabled" (click)="saveVersion()">{{'ENTRIES.EDITOR.BUTTONS.SAVE' | translate}}</button>
           <ng-container *ngIf="version != null">
-            <button mat-button type="button" color="primary" [disabled]="form.disabled" (click)="activate()">{{'ENTRIES.EDITOR.BUTTONS.ACTIVATE' | translate}}</button>
-            <button mat-button type="button" color="warn" [disabled]="form.disabled || version.status !== STATUS.DRAFT" (click)="delete()">{{'ENTRIES.EDITOR.BUTTONS.DELETE' | translate}}</button>
+            <button mat-button type="button" color="primary" [disabled]="form.disabled" (click)="activateVersion()">{{'ENTRIES.EDITOR.BUTTONS.ACTIVATE' | translate}}</button>
+            <button mat-button type="button" color="warn" [disabled]="form.disabled || version.status !== STATUS.DRAFT" (click)="deleteVersion()">{{'ENTRIES.EDITOR.BUTTONS.DELETE' | translate}}</button>
           </ng-container>
         </mat-card-actions>
       </mat-card>

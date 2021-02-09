@@ -16,16 +16,15 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { EntryEditorDialogComponent, EntryEditorDialogComponentData } from '../entry-editor-dialog/entry-editor-dialog.component';
 import { MatDialog } from '@angular/material/dialog';
-import { ModelEntryDto, ModelVersionDto, ModelVersionDtoLight } from '../../../../../core/models/models';
+import { ModelEntryDto, ModelEntryStatus, ModelVersionDto, ModelVersionDtoLight } from '../../../../../core/models/models';
 import { ConfirmDialogComponent } from '../../../../../core/components/confirm-dialog/confirm-dialog.component';
 import { RecordsResourceService } from '../../../../../core/http/records-resource.service';
-import { filter, map, mergeMap } from 'rxjs/operators';
-import { Observable } from 'rxjs';
-import { hasActiveVersion } from '../../../../../core/utils/model-entry.utils';
+import { filter, mergeMap } from 'rxjs/operators';
 import { ModelsResourceService } from '../../../../../core/http/models-resource.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { AlertService } from '../../../../../core/services/alert.service';
 import { TranslateService } from '@ngx-translate/core';
+import { CoreService } from '../../../../../core/services/core.service';
 
 @Component({
   selector: 'cm-entry-info',
@@ -33,6 +32,8 @@ import { TranslateService } from '@ngx-translate/core';
   styleUrls: ['./entry-info.component.scss']
 })
 export class EntryInfoComponent implements OnInit {
+
+  public readonly Status = ModelEntryStatus;
 
   @Input()
   entry: ModelEntryDto;
@@ -46,11 +47,7 @@ export class EntryInfoComponent implements OnInit {
   @Input()
   showType = true;
 
-  hasRecord$: Observable<boolean>;
-
-  get hasActiveVersion(): boolean {
-    return this.entry && hasActiveVersion(this.entry);
-  }
+  hasRecord: boolean;
 
   constructor(
     private dialog: MatDialog,
@@ -59,22 +56,23 @@ export class EntryInfoComponent implements OnInit {
     private router: Router,
     private alertService: AlertService,
     private route: ActivatedRoute,
-    private translate: TranslateService
+    private translate: TranslateService,
+    private coreService: CoreService
   ) {
   }
 
   ngOnInit(): void {
-    this.hasRecord$ = this.recordService.extractRecords({
+    this.recordService.extractRecords({
         condition: {
           key: this.entry?.key,
           regexpValue: true,
           value: '.*'
         }
       }
-    ).pipe(map(response => response.length > 0));
+    ).subscribe(response => this.hasRecord = response.length > 0);
   }
 
-  edit(): void {
+  editEntry(): void {
     this.dialog.open<EntryEditorDialogComponent, EntryEditorDialogComponentData>(EntryEditorDialogComponent, {
       data: {entry: this.entry}
     }).afterClosed().subscribe((updatedEntry) => {
@@ -84,29 +82,34 @@ export class EntryInfoComponent implements OnInit {
     });
   }
 
-  delete(): void {
+  deleteEntry(): void {
     this.dialog.open(ConfirmDialogComponent, {
       data: {
         title: this.translate.instant('ENTRIES.DIALOG.DELETION.TITLE'),
-        content: this.translate.instant('ENTRIES.DIALOG.DELETION.CONTENT'),
+        content: this.translate.instant('ENTRIES.DIALOG.DELETION.CONTENT')
+          + (this.hasRecord ? this.translate.instant('ENTRIES.DIALOG.DELETION.HAS_RECORDS') : '')
       }
-    }).afterClosed()
-      .pipe(
-        filter((confirmed) => !!confirmed),
-        mergeMap(() => this.modelsResourceService.deleteModel(this.entry.id))
-      )
-      .subscribe({
-        next: () => {
-          this.alertService.success('ALERT.MODEL_DELETION_SUCCESS');
-          this.router.navigate(['..'], {relativeTo: this.route});
-        },
-        error: (err) => {
-          this.alertService.error('ALERT.MODEL_DELETION_ERROR', err);
+    }).afterClosed().pipe(
+      filter((confirmed) => !!confirmed),
+      mergeMap(() => this.modelsResourceService.deleteEntry(this.entry.id))
+    ).subscribe({
+      next: () => {
+        this.alertService.success('ALERT.ENTRY_DELETION_SUCCESS');
+        if (this.entry.type === 'basicinfo') {
+          this.coreService.checkBasicInfo();
         }
-      });
+        this.router.navigate(['..'], {relativeTo: this.route});
+      },
+      error: (err) => {
+        this.alertService.error('ALERT.ENTRY_DELETION_ERROR', err);
+        if (this.entry.type === 'basicinfo') {
+          this.coreService.checkBasicInfo();
+        }
+      }
+    });
   }
 
-  versionIndex(): number {
+  getVersionIndex(): number {
     return this.entry.versions.findIndex(v => v.id === this.version.id) + 1;
   }
 }

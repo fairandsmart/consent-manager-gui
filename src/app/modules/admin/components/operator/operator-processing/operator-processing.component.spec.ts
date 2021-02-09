@@ -5,10 +5,10 @@
  * Copyright (C) 2020 - 2021 Fair And Smart
  * %%
  * This file is part of Right Consents Community Edition.
- * 
+ *
  * Right Consents Community Edition is published by FAIR AND SMART under the
  * GNU GENERAL PUBLIC LICENCE Version 3 (GPLv3) and a set of additional terms.
- * 
+ *
  * For more information, please see the “LICENSE” and “LICENSE.FAIRANDSMART”
  * files, or see https://www.fairandsmart.com/opensource/.
  * #L%
@@ -30,23 +30,23 @@ describe('OperatorProcessingComponent', () => {
   let subjectsResourceServiceSpy: SpyObj<SubjectsResourceService>;
 
   beforeEach(waitForAsync(() => {
-    modelsResourceServiceSpy =  createSpyObj<ModelsResourceService>('ModelsResourceService', ['listEntries']);
-    subjectsResourceServiceSpy = createSpyObj<SubjectsResourceService>('SubjectsResourceService', ['listCustomerRecords']);
+    modelsResourceServiceSpy = createSpyObj<ModelsResourceService>('ModelsResourceService', ['listEntries']);
+    subjectsResourceServiceSpy = createSpyObj<SubjectsResourceService>('SubjectsResourceService', ['listSubjectRecords']);
 
     TestBed.configureTestingModule({
-      declarations: [ OperatorProcessingComponent ],
-      imports: [ CoreTestingModule ],
+      declarations: [OperatorProcessingComponent],
+      imports: [CoreTestingModule],
       providers: [
         {provide: ModelsResourceService, useValue: modelsResourceServiceSpy},
         {provide: SubjectsResourceService, useValue: subjectsResourceServiceSpy}
       ]
     })
-    .compileComponents();
+      .compileComponents();
   }));
 
   beforeEach(() => {
     modelsResourceServiceSpy.listEntries.and.returnValue(EMPTY);
-    subjectsResourceServiceSpy.listCustomerRecords.and.returnValue(EMPTY);
+    subjectsResourceServiceSpy.listSubjectRecords.and.returnValue(EMPTY);
 
     fixture = TestBed.createComponent(OperatorProcessingComponent);
     component = fixture.componentInstance;
