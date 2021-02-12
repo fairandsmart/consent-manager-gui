@@ -28,7 +28,7 @@ import {
 import { EMPTY, Observable, of } from 'rxjs';
 import { ModelsResourceService } from '../../../../../core/http/models-resource.service';
 import * as _ from 'lodash';
-import { catchError, debounceTime, distinctUntilChanged, map, mergeMap, startWith } from 'rxjs/operators';
+import { catchError, debounceTime, distinctUntilChanged, filter, map, mergeMap, startWith } from 'rxjs/operators';
 import { HttpErrorResponse } from '@angular/common/http';
 import { environment } from '../../../../../../environments/environment';
 import { AlertService } from '../../../../../core/services/alert.service';
@@ -165,14 +165,18 @@ export abstract class EntryContentDirective<T extends ModelData> extends FormSta
     this.modelsResourceService.getVersion<T>(this.entry.id, version.id).subscribe(v => this.setVersion(v, language));
   }
 
-  protected setVersion(version: ModelVersionDto<T>, language: string = version.defaultLanguage): void {
+  protected setVersion(version: ModelVersionDto<T>, language: string = version?.defaultLanguage || this.configService.getDefaultLanguage()): void {
     this.version = version;
     if (this.canBeEdited()) {
       this.form.enable();
     } else {
       this.form.disable();
     }
-    this.form.patchValue(this.version.data[language]);
+    if (this.version) {
+      this.form.patchValue(this.version.data[language]);
+    } else {
+      this.initForm();
+    }
     this.initialValue = _.cloneDeep(this.form.getRawValue());
   }
 
@@ -184,9 +188,7 @@ export abstract class EntryContentDirective<T extends ModelData> extends FormSta
       }),
       map((entry) => {
         this.entry = entry;
-        if (version) {
-          this.setVersion(version);
-        }
+        this.setVersion(version);
         this.clearSavedState();
         this.form.markAsPristine();
         return [entry, version];
@@ -253,8 +255,15 @@ export abstract class EntryContentDirective<T extends ModelData> extends FormSta
     ).subscribe(() => this.afterActivateVersion());
   }
 
-  deleteVersion(): void {
-    this.modelsResourceService.deleteVersion(this.entry.id, this.version.id).pipe(
+  deleteDraft(): void {
+    this.alertService.confirm({
+      data: {
+        title: 'ALERT.DRAFT_DELETION.CONFIRM',
+        content: 'ALERT.DRAFT_DELETION.CONFIRM_CONTENT'
+      }
+    }).afterClosed().pipe(
+      filter((confirm) => !!confirm),
+      mergeMap(() => this.modelsResourceService.deleteVersion(this.entry.id, this.version.id)),
       catchError((err) => {
         this.form.enable();
         this.alertService.error('ALERT.DELETION_ERROR', err);
@@ -262,7 +271,7 @@ export abstract class EntryContentDirective<T extends ModelData> extends FormSta
       }),
       mergeMap(() => {
         this.alertService.success('ALERT.DELETION_SUCCESS');
-        if (this.entry.versions.length > 2) {
+        if (this.entry.versions.length >= 2) {
           return this.modelsResourceService.getVersion(this.entry.id, this.entry.versions[this.entry.versions.length - 2].id);
         }
         return of(null);

@@ -5,19 +5,19 @@
  * Copyright (C) 2020 - 2021 Fair And Smart
  * %%
  * This file is part of Right Consents Community Edition.
- * 
+ *
  * Right Consents Community Edition is published by FAIR AND SMART under the
  * GNU GENERAL PUBLIC LICENCE Version 3 (GPLv3) and a set of additional terms.
- * 
+ *
  * For more information, please see the “LICENSE” and “LICENSE.FAIRANDSMART”
  * files, or see https://www.fairandsmart.com/opensource/.
  * #L%
  */
-import {CollectionViewer, DataSource} from '@angular/cdk/collections';
-import {Key} from '../../../../../core/models/models';
-import {BehaviorSubject, Observable, of} from 'rxjs';
-import {KeysResourceService} from '../../../../../core/http/keys-resource.service';
-import {catchError, filter, skip, takeUntil} from 'rxjs/operators';
+import { CollectionViewer, DataSource } from '@angular/cdk/collections';
+import { Key } from '../../../../../core/models/models';
+import { BehaviorSubject, Observable, of } from 'rxjs';
+import { KeysResourceService } from '../../../../../core/http/keys-resource.service';
+import { catchError, filter, skip, takeUntil } from 'rxjs/operators';
 
 export class KeysDataSource implements DataSource<Key> {
 

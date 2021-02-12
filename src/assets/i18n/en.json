@@ -115,7 +115,11 @@
       "BAD_LANGUAGE": "This model entry's language is not compatible with your version of Right Consents"
     },
     "ENTRY_DELETION_SUCCESS": "The model entry was successfully deleted",
-    "ENTRY_DELETION_ERROR": "Cannot delete this model entry"
+    "ENTRY_DELETION_ERROR": "Cannot delete this model entry",
+    "DRAFT_DELETION": {
+      "CONFIRM": "Are you sure ?",
+      "CONFIRM_CONTENT": "Unsaved changes will be lost"
+    }
   },
   "ROUTING": {
     "404": {

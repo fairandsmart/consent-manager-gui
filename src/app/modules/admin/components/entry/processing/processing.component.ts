@@ -103,9 +103,11 @@ export class ProcessingComponent extends EntryContentDirective<Processing> imple
     super.registerFormChanges();
   }
 
-  protected setVersion(version: ModelVersionDto<Processing>, language: string = version.defaultLanguage): void {
+  protected setVersion(version: ModelVersionDto<Processing>, language: string = version?.defaultLanguage || this.configService.getDefaultLanguage()): void {
     this.form.setControl('thirdParties', this.fb.array([]));
-    version.data[language].thirdParties.forEach(() => this.addThirdParty());
+    if (version) {
+      version.data[language].thirdParties.forEach(() => this.addThirdParty());
+    }
     super.setVersion(version, language);
   }
 

@@ -115,7 +115,11 @@
       "BAD_LANGUAGE": "Le language de ce modèle n'est pas compatible"
     },
     "ENTRY_DELETION_SUCCESS": "Le modèle a été supprimé avec succès",
-    "ENTRY_DELETION_ERROR": "Impossible de supprimer ce modèle"
+    "ENTRY_DELETION_ERROR": "Impossible de supprimer ce modèle",
+    "DRAFT_DELETION": {
+      "CONFIRM": "Êtes-vous sûr ?",
+      "CONFIRM_CONTENT": "Les données non enregistrées seront perdues"
+    }
   },
   "ROUTING": {
     "404": {
