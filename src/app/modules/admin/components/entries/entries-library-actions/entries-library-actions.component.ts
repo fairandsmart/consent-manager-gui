@@ -20,6 +20,7 @@ import { I18N_LANGUAGES } from '../../../../../core/constants/i18n';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { ConfigService } from '../../../../../core/services/config.service';
 import { MatMenu } from '@angular/material/menu';
+import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
   selector: 'cm-entries-library-actions',
@@ -44,17 +45,47 @@ export class EntriesLibraryActionsComponent implements OnInit, AfterViewInit {
   @ViewChild('filterMenu')
   public filterMenu: MatMenu;
 
-  constructor(protected configService: ConfigService, private fb: FormBuilder) {
+  private defaultForm = {
+    keyword: '',
+    statuses: [ModelEntryStatus.ACTIVE, ModelEntryStatus.INACTIVE],
+    languages: [this.configService.getDefaultLanguage(), '']
+  };
+
+  get isDefault(): boolean {
+    return Object.keys(this.form.getRawValue())
+      .every((field) => JSON.stringify(this.form.get(field).value) === JSON.stringify(this.defaultForm[field]));
+  }
+
+  constructor(protected configService: ConfigService, private fb: FormBuilder, private router: Router, private route: ActivatedRoute) {
     this.defaultLanguage = this.configService.getDefaultLanguage();
   }
 
   ngOnInit(): void {
+    // If a pre-set filter configuration is present, apply it (e.g. in the collect form page)
     this.form = this.fb.group({
-      keyword: [this.section.filter.keyword ? this.section.filter.keyword : ''],
-      statuses: [this.section.filter.statuses ? this.section.filter.statuses : [ModelEntryStatus.ACTIVE, ModelEntryStatus.INACTIVE]],
-      languages: [this.section.filter.languages ? this.section.filter.languages : [this.configService.getDefaultLanguage(), '']]
+      keyword: [this.section.filter.keyword ? this.section.filter.keyword : this.defaultForm.keyword],
+      statuses: [this.section.filter.statuses ? this.section.filter.statuses : this.defaultForm.statuses],
+      languages: [this.section.filter.languages ? this.section.filter.languages : this.defaultForm.languages]
     });
+    // Then set the pre-set filter as "default" for this page. Allows the "reset" button to behave properly
+    this.defaultForm = this.form.getRawValue();
     this.applyFilters();
+
+    if (this.section.persistFilters) {
+      // If the section is set to keep filters through navigation, set persistFilters to true.
+      this.route.queryParams.subscribe((params) => {
+        if (params.keyword) {
+          this.form.get('keyword').setValue(params.keyword);
+        }
+        if (params.statuses) {
+          this.form.get('statuses').setValue(params.statuses.split(','));
+        }
+        if (params.languages) {
+          this.form.get('languages').setValue(params.languages.split(','));
+        }
+        this.applyFilters();
+      });
+    }
   }
 
   ngAfterViewInit(): void {
@@ -83,7 +114,29 @@ export class EntriesLibraryActionsComponent implements OnInit, AfterViewInit {
     this.section.filter.languages = data.languages;
     this.loadQuery.emit();
     this.form.markAsPristine();
+    if (this.section.persistFilters) {
+      if (!this.isDefault) {
+        this.router.navigate([], {
+          relativeTo: this.route,
+          queryParams: { keyword: data.keyword, statuses: data.statuses.join(','), languages: data.languages.join(',') }
+        });
+      } else {
+        this.router.navigate([], {
+          relativeTo: this.route,
+          queryParams: {}
+        });
+      }
+    }
     this.form.enable();
+  }
+
+  resetFilters(): void {
+    this.form = this.fb.group({
+      keyword: [this.defaultForm.keyword],
+      statuses: [this.defaultForm.statuses],
+      languages: [this.defaultForm.languages]
+    });
+    this.applyFilters();
   }
 
 }

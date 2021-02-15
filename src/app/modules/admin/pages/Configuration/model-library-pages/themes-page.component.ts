@@ -33,7 +33,8 @@ export class ThemesPageComponent {
       canAddMultiple: AddMultipleOption.ALWAYS,
       showActions: true,
       icon: Icons.theme,
-      displayDescription: true
+      displayDescription: true,
+      persistFilters: true
     }
   ];
 

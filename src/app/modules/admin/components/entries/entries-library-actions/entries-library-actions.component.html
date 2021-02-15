@@ -64,6 +64,7 @@
         </div>
         <div class="apply-container">
           <button mat-button (click)="applyFilters()" color="primary">{{'ENTRIES.FILTER.APPLY' | translate}}</button>
+          <button mat-button (click)="resetFilters()" color="warn" *ngIf="!isDefault">{{'ENTRIES.FILTER.RESET' | translate}}</button>
         </div>
       </form>
     </ng-template>

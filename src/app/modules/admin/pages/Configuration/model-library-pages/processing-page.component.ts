@@ -33,7 +33,8 @@ export class ProcessingPageComponent {
       canAddMultiple: AddMultipleOption.ALWAYS,
       showActions: true,
       icon: Icons.processing,
-      displayDescription: true
+      displayDescription: true,
+      persistFilters: true
     }
   ];
 

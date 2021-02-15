@@ -33,7 +33,8 @@ export class EmailsPageComponent {
       canAddMultiple: AddMultipleOption.ALWAYS,
       showActions: true,
       icon: Icons.email,
-      displayDescription: true
+      displayDescription: true,
+      persistFilters: true
     }
   ];
 

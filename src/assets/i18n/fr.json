@@ -224,6 +224,7 @@
     "FILTER": {
       "LABEL": "Filtrer",
       "APPLY": "Appliquer",
+      "RESET": "Réinitialiser",
       "KEYWORD": {
         "LABEL": "Mot-clé"
       },

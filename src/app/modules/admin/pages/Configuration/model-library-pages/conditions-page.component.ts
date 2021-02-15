@@ -33,7 +33,8 @@ export class ConditionsPageComponent {
       canAddMultiple: AddMultipleOption.ALWAYS,
       showActions: true,
       icon: Icons.conditions,
-      displayDescription: true
+      displayDescription: true,
+      persistFilters: true
     }
   ];
 
