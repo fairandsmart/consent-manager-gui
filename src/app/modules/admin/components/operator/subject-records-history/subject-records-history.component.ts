@@ -5,10 +5,10 @@
  * Copyright (C) 2020 - 2021 Fair And Smart
  * %%
  * This file is part of Right Consents Community Edition.
- * 
+ *
  * Right Consents Community Edition is published by FAIR AND SMART under the
  * GNU GENERAL PUBLIC LICENCE Version 3 (GPLv3) and a set of additional terms.
- * 
+ *
  * For more information, please see the “LICENSE” and “LICENSE.FAIRANDSMART”
  * files, or see https://www.fairandsmart.com/opensource/.
  * #L%
@@ -16,20 +16,20 @@
 import { Component, Inject, OnInit, ViewChild } from '@angular/core';
 import { CollectionDatasource } from '../../../utils/collection-datasource';
 import {
-  CollectionPage,
-  ConsentTransaction,
   RecordDto,
   RecordFilter,
   RecordStatus
-} from '../../../../../core/models/models';
+} from '@fairandsmart/consent-manager/records';
 import { Observable, of } from 'rxjs';
 import { catchError, mergeMap, tap } from 'rxjs/operators';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { SubjectRecordApplyChangesDialogData } from '../subject-record-apply-changes-dialog/subject-record-apply-changes-dialog.component';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort, Sort } from '@angular/material/sort';
-import { ReceiptsResourceService } from '../../../../../core/http/receipts-resource.service';
 import * as FileSaver from 'file-saver';
+import { CollectionPage } from '@fairandsmart/consent-manager';
+import { ConsentTransaction } from '@fairandsmart/consent-manager/consents';
+import { generateReceiptToken, getReceiptPdf } from '@fairandsmart/consent-manager/receipts';
 
 class SubjectRecordsHistoryDataSource extends CollectionDatasource<RecordDto, RecordFilter> {
 
@@ -92,8 +92,7 @@ export class SubjectRecordsHistoryComponent implements OnInit {
   };
 
   constructor(private dialogRef: MatDialogRef<SubjectRecordsHistoryComponent, SubjectRecordApplyChangesDialogData>,
-              @Inject(MAT_DIALOG_DATA) public data: {subject: string, records: RecordDto[]},
-              private receiptResource: ReceiptsResourceService) {
+              @Inject(MAT_DIALOG_DATA) public data: {subject: string, records: RecordDto[]}) {
   }
 
   ngOnInit(): void {
@@ -135,9 +134,9 @@ export class SubjectRecordsHistoryComponent implements OnInit {
         transaction: element.transactionId
       }
     };
-    this.receiptResource.generateReceiptToken(transaction).pipe(
+    generateReceiptToken(transaction).pipe(
       mergeMap((token) => {
-        return this.receiptResource.getReceiptPdf(token, element.transaction);
+        return getReceiptPdf(token, element.transaction);
       }),
       tap((pdf: ArrayBuffer) => {
         const blob = new Blob([pdf], {type: 'application/pdf'});

@@ -14,9 +14,9 @@
  * #L%
  */
 import { Component, EventEmitter, Input, OnInit, Output, ViewChild } from '@angular/core';
-import { ModelEntryDto, ModelVersionDto, RecordDto } from '../../../../../core/models/models';
-import { ModelsResourceService } from '../../../../../core/http/models-resource.service';
 import { EntryCardContentDirective } from '../entry-card-content/entry-card-content.directive';
+import { getActiveVersion, ModelEntryDto, ModelVersionDto } from '@fairandsmart/consent-manager/models';
+import { RecordDto } from '@fairandsmart/consent-manager/records';
 
 @Component({
   selector: 'cm-entry-card',
@@ -42,12 +42,12 @@ export class EntryCardComponent implements OnInit {
   @Output()
   unsavedChanged: EventEmitter<void>;
 
-  constructor(public modelsResource: ModelsResourceService) {
+  constructor() {
     this.unsavedChanged = new EventEmitter<void>();
   }
 
   ngOnInit(): void {
-    this.modelsResource.getActiveVersion(this.entry.id)
+    getActiveVersion(this.entry.id)
       .subscribe((version) => this.active = version);
   }
 

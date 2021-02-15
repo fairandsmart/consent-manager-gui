@@ -20,34 +20,29 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { ChartsModule } from 'ng2-charts';
 import { RouterTestingModule } from '@angular/router/testing';
 import { CoreTestingModule } from '../../../../../testing/core-testing-module.spec';
-import { EMPTY } from 'rxjs';
-import { StatisticsResourceService } from '../../../../../core/http/statistics-resource.service';
+import { EMPTY, Observable } from 'rxjs';
 import createSpyObj = jasmine.createSpyObj;
 import SpyObj = jasmine.SpyObj;
+import { RightConsents } from '@fairandsmart/consent-manager';
 
 describe('DashboardPageComponent', () => {
   let component: DashboardPageComponent;
   let fixture: ComponentFixture<DashboardPageComponent>;
-  let statsResourceServiceSpy: SpyObj<StatisticsResourceService>;
 
   beforeEach(waitForAsync(() => {
-    statsResourceServiceSpy = createSpyObj<StatisticsResourceService>('StatisticsResourceService', ['getStats']);
-
     TestBed.configureTestingModule({
       declarations: [DashboardPageComponent],
       imports: [
         CoreTestingModule, FormsModule, ReactiveFormsModule, ChartsModule, RouterTestingModule
       ],
       providers: [
-        {provide: StatisticsResourceService, useValue: statsResourceServiceSpy},
       ]
     })
       .compileComponents();
   }));
 
   beforeEach(() => {
-    statsResourceServiceSpy.getStats.and.returnValue(EMPTY);
-
+    RightConsents.init({apiRoot: '', httpClient: () => new Observable()});
     fixture = TestBed.createComponent(DashboardPageComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();

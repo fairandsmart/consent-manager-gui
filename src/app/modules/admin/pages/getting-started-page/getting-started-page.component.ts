@@ -14,8 +14,8 @@
  * #L%
  */
 import { Component, OnInit } from '@angular/core';
-import { Icons } from '../../../../core/models/models';
 import { ActivatedRoute } from '@angular/router';
+import { Icons } from '../../../../core/models/common';
 
 @Component({
   selector: 'cm-getting-started-page',

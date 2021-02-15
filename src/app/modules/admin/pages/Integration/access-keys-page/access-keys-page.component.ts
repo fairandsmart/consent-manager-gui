@@ -15,13 +15,13 @@
  */
 import { AfterViewInit, Component, Inject, OnInit } from '@angular/core';
 import { MAT_DIALOG_DATA, MatDialog } from '@angular/material/dialog';
-import { Icons, Key } from '../../../../../core/models/models';
+import { createKey, deleteKey, Key } from '@fairandsmart/consent-manager/keys';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { KeysResourceService } from '../../../../../core/http/keys-resource.service';
 import { AlertService } from '../../../../../core/services/alert.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { TranslateService } from '@ngx-translate/core';
 import { KeysDataSource } from './keys-datasource';
+import { Icons } from '../../../../../core/models/common';
 
 @Component({
   selector: 'cm-keys',
@@ -39,14 +39,13 @@ export class AccessKeysPageComponent implements OnInit, AfterViewInit {
   readonly ICONS = Icons;
 
   constructor(
-    private keysResource: KeysResourceService,
     private dialog: MatDialog,
     private alertService: AlertService,
     private fb: FormBuilder) {
   }
 
   ngOnInit(): void {
-    this.dataSource = new KeysDataSource(this.keysResource);
+    this.dataSource = new KeysDataSource();
     this.loadKeys();
     this.form = this.fb.group({
       name: ['', [Validators.required, Validators.maxLength(25)]]
@@ -70,7 +69,7 @@ export class AccessKeysPageComponent implements OnInit, AfterViewInit {
       }
     }).afterClosed().subscribe(confirmed => {
       if (confirmed) {
-        this.keysResource.deleteKey(key.id).subscribe(() => {
+        deleteKey(key.id).subscribe(() => {
           this.alertService.success('API.KEYS.DROP.SUCCESS');
           this.loadKeys();
         });
@@ -82,7 +81,7 @@ export class AccessKeysPageComponent implements OnInit, AfterViewInit {
     if (this.form.valid) {
       this.form.disable();
       const name = this.form.get('name').value;
-      this.keysResource.createKey(name).subscribe(response => {
+      createKey(name).subscribe(response => {
         this.dialog.open(GeneratedKeyDialogComponent, {data: response});
         this.loadKeys();
         this.form.enable();

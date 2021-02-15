@@ -14,14 +14,14 @@
  * #L%
  */
 import { Component, OnInit } from '@angular/core';
-import { ModelsResourceService } from '../../../../../core/http/models-resource.service';
 import { Observable } from 'rxjs';
-import { ExtractionConfigDto, ExtractionResultDto, Icons, ModelEntryDto, Preference } from '../../../../../core/models/models';
 import { map, tap } from 'rxjs/operators';
 import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { RecordsResourceService } from '../../../../../core/http/records-resource.service';
 import * as FileSaver from 'file-saver';
 import { ConfigService } from '../../../../../core/services/config.service';
+import { Icons } from '../../../../../core/models/common';
+import { getActiveVersion, listEntries, ModelEntryDto, Preference } from '@fairandsmart/consent-manager/models';
+import { ExtractionConfigDto, ExtractionResultDto, extractRecords, extractRecordsCsv } from '@fairandsmart/consent-manager/records';
 
 @Component({
   selector: 'cm-interrogate-page',
@@ -53,8 +53,6 @@ export class InterrogatePageComponent implements OnInit {
   private readonly defaultLanguage;
 
   constructor(
-    private modelsResource: ModelsResourceService,
-    private recordsResource: RecordsResourceService,
     private fb: FormBuilder,
     private configService: ConfigService
   ) {
@@ -80,7 +78,7 @@ export class InterrogatePageComponent implements OnInit {
           this.form.get('value').setValue('');
           this.getValuesFormArray().clear();
           this.addValue();
-          this.options$ = this.modelsResource.getActiveVersion<Preference>(entry.id).pipe(
+          this.options$ = getActiveVersion<Preference>(entry.id).pipe(
             map((version) => version.data[this.defaultLanguage].options),
             tap((options) => {
               this.emptyOptions = options.length === 0;
@@ -90,7 +88,7 @@ export class InterrogatePageComponent implements OnInit {
       }
       this.form.markAsPristine();
     });
-    this.entries$ = this.modelsResource.listEntries({
+    this.entries$ = listEntries({
       size: -1,
       types: ['conditions', 'preference', 'processing'],
       order: 'name'
@@ -130,7 +128,7 @@ export class InterrogatePageComponent implements OnInit {
         regexpValue: regexpValue
       }
     };
-    this.records$ = this.recordsResource.extractRecords(this.currentConfig);
+    this.records$ = extractRecords(this.currentConfig);
   }
 
   getValuesFormArray(): FormArray {
@@ -146,7 +144,7 @@ export class InterrogatePageComponent implements OnInit {
   }
 
   exportResults(): void {
-    this.recordsResource.extractRecordsCsv(this.currentConfig).subscribe((csv) => {
+    extractRecordsCsv(this.currentConfig).subscribe((csv) => {
       const blob = new Blob([csv], {type: 'text/csv'});
       FileSaver.saveAs(blob, `results.csv`);
     });

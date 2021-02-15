@@ -23,18 +23,12 @@ import { TranslateModule } from '@ngx-translate/core';
 import { MAT_SNACK_BAR_DEFAULT_OPTIONS } from '@angular/material/snack-bar';
 import { ConfirmDialogComponent } from './components/confirm-dialog/confirm-dialog.component';
 import { AlertService } from './services/alert.service';
-import { ConsentsResourceService } from './http/consents-resource.service';
-import { KeysResourceService } from './http/keys-resource.service';
-import { ModelsResourceService } from './http/models-resource.service';
-import { RecordsResourceService } from './http/records-resource.service';
-import { SubjectsResourceService } from './http/subjects-resource.service';
 import { CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HeaderNavComponent } from './components/header-nav/header-nav.component';
 import { RouterModule } from '@angular/router';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { RoutingErrorPageComponent } from './pages/routing-error-page/routing-error-page.component';
-import { SystemResourceService } from './http/system-resource.service';
 import { ConfigService } from './services/config.service';
 
 @NgModule({
@@ -73,13 +67,7 @@ export class CoreModule {
         {provide: MAT_SNACK_BAR_DEFAULT_OPTIONS, useValue: {duration: 3000}},
         RolesGuardService,
         AlertService,
-        ConfigService,
-        ConsentsResourceService,
-        KeysResourceService,
-        ModelsResourceService,
-        RecordsResourceService,
-        SubjectsResourceService,
-        SystemResourceService
+        ConfigService
       ]
     };
   }

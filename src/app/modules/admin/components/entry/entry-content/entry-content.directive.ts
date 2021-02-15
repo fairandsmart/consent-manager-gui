@@ -14,19 +14,7 @@
  * #L%
  */
 import { Directive, Input, OnInit, ViewChild } from '@angular/core';
-import {
-  ConsentFormOrientation,
-  ModelData,
-  ModelEntryDto,
-  ModelEntryStatus,
-  ModelVersionDto,
-  ModelVersionDtoLight,
-  ModelVersionStatus,
-  PreviewDto,
-  PreviewType
-} from '../../../../../core/models/models';
 import { EMPTY, Observable, of } from 'rxjs';
-import { ModelsResourceService } from '../../../../../core/http/models-resource.service';
 import * as _ from 'lodash';
 import { catchError, debounceTime, distinctUntilChanged, filter, map, mergeMap, startWith } from 'rxjs/operators';
 import { HttpErrorResponse } from '@angular/common/http';
@@ -37,6 +25,16 @@ import { ConfigService } from '../../../../../core/services/config.service';
 import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
 import { MatSidenav } from '@angular/material/sidenav';
 import { EntryPreviewComponent } from '../entry-preview/entry-preview.component';
+import {
+  ModelData,
+  ModelEntryDto, ModelEntryStatus,
+  ModelVersionDto, ModelVersionDtoLight,
+  ModelVersionStatus,
+  PreviewDto,
+  PreviewType
+} from '@fairandsmart/consent-manager/models';
+import { ModelsResource } from '@fairandsmart/consent-manager';
+import { ConsentFormOrientation } from '@fairandsmart/consent-manager/consents';
 
 @Directive()
 export abstract class EntryContentDirective<T extends ModelData> extends FormStateSaver implements OnInit {
@@ -62,7 +60,6 @@ export abstract class EntryContentDirective<T extends ModelData> extends FormSta
   public type: string;
 
   protected constructor(
-    protected modelsResourceService: ModelsResourceService,
     protected alertService: AlertService,
     protected configService: ConfigService,
     protected breakpointObserver: BreakpointObserver
@@ -153,8 +150,8 @@ export abstract class EntryContentDirective<T extends ModelData> extends FormSta
     const language = this.defaultLanguage;
     if (language) {
       const dto: PreviewDto = this.makePreviewDto(language, rawValues);
-      const versionId = this.version ? this.version.id : this.modelsResourceService.NEW_VERSION_UUID;
-      this.modelsResourceService.getVersionPreview(this.entry.id, versionId, dto)
+      const versionId = this.version ? this.version.id : ModelsResource.NEW_VERSION_UUID;
+      ModelsResource.getVersionPreview(this.entry.id, versionId, dto)
         .subscribe((result: string) => {
           this.preview.updateUrl(result.replace(/\/assets\//g, `${environment.managerUrl}/assets/`));
         });
@@ -162,7 +159,7 @@ export abstract class EntryContentDirective<T extends ModelData> extends FormSta
   }
 
   public selectVersion(version: ModelVersionDtoLight, language: string = version.defaultLanguage): void {
-    this.modelsResourceService.getVersion<T>(this.entry.id, version.id).subscribe(v => this.setVersion(v, language));
+    ModelsResource.getVersion<T>(this.entry.id, version.id).subscribe(v => this.setVersion(v, language));
   }
 
   protected setVersion(version: ModelVersionDto<T>, language: string = version?.defaultLanguage || this.configService.getDefaultLanguage()): void {
@@ -181,7 +178,7 @@ export abstract class EntryContentDirective<T extends ModelData> extends FormSta
   }
 
   private updateVersion(version: ModelVersionDto<T>): Observable<[ModelEntryDto, ModelVersionDto<T>]> {
-    return this.modelsResourceService.getEntry(this.entry.id).pipe(
+    return ModelsResource.getEntry(this.entry.id).pipe(
       catchError((err) => {
         this.alertService.error('ALERT.UNKNOWN_ERROR', err);
         return EMPTY;
@@ -210,9 +207,9 @@ export abstract class EntryContentDirective<T extends ModelData> extends FormSta
       data: {[this.defaultLanguage]: data}
     };
     if (this.version?.status === ModelVersionStatus.DRAFT) {
-      obs = this.modelsResourceService.updateVersion<T>(this.entry.id, this.version.id, dto);
+      obs = ModelsResource.updateVersion<T>(this.entry.id, this.version.id, dto);
     } else {
-      obs = this.modelsResourceService.createVersion<T>(this.entry.id, dto);
+      obs = ModelsResource.createVersion<T>(this.entry.id, dto);
     }
     obs.pipe(
       catchError((err) => {
@@ -242,7 +239,7 @@ export abstract class EntryContentDirective<T extends ModelData> extends FormSta
       return;
     }
     this.form.disable();
-    this.modelsResourceService.updateVersionStatus<T>(this.entry.id, this.version.id, ModelVersionStatus.ACTIVE).pipe(
+    ModelsResource.updateVersionStatus<T>(this.entry.id, this.version.id, ModelVersionStatus.ACTIVE).pipe(
       catchError((err) => {
         this.form.enable();
         this.alertService.error('ALERT.ACTIVATION_ERROR', err);
@@ -263,7 +260,7 @@ export abstract class EntryContentDirective<T extends ModelData> extends FormSta
       }
     }).afterClosed().pipe(
       filter((confirm) => !!confirm),
-      mergeMap(() => this.modelsResourceService.deleteVersion(this.entry.id, this.version.id)),
+      mergeMap(() => ModelsResource.deleteVersion(this.entry.id, this.version.id)),
       catchError((err) => {
         this.form.enable();
         this.alertService.error('ALERT.DELETION_ERROR', err);
@@ -272,7 +269,7 @@ export abstract class EntryContentDirective<T extends ModelData> extends FormSta
       mergeMap(() => {
         this.alertService.success('ALERT.DELETION_SUCCESS');
         if (this.entry.versions.length >= 2) {
-          return this.modelsResourceService.getVersion(this.entry.id, this.entry.versions[this.entry.versions.length - 2].id);
+          return ModelsResource.getVersion(this.entry.id, this.entry.versions[this.entry.versions.length - 2].id);
         }
         return of(null);
       }),

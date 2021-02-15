@@ -17,34 +17,27 @@ import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 
 import { CollectFormCreatorPageComponent } from './collect-form-creator-page.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { ModelsResourceService } from '../../../../../core/http/models-resource.service';
-import { EMPTY } from 'rxjs';
+import { EMPTY, Observable } from 'rxjs';
 import { NO_ERRORS_SCHEMA } from '@angular/core';
-import { ConsentsResourceService } from '../../../../../core/http/consents-resource.service';
 import { CoreTestingModule } from '../../../../../testing/core-testing-module.spec';
 import { ConfigServiceStubSpec } from '../../../../../testing/config-service-stub.spec';
 import { ConfigService } from '../../../../../core/services/config.service';
 import SpyObj = jasmine.SpyObj;
 import createSpyObj = jasmine.createSpyObj;
+import { RightConsents } from '@fairandsmart/consent-manager';
 
 describe('CollectFormCreatorPageComponent', () => {
   let component: CollectFormCreatorPageComponent;
   let fixture: ComponentFixture<CollectFormCreatorPageComponent>;
-  let modelsResourceServiceSpy: SpyObj<ModelsResourceService>;
-  let consentsResourceServiceSpy: SpyObj<ConsentsResourceService>;
   let configServiceStub: ConfigServiceStubSpec;
 
   beforeEach(waitForAsync(() => {
-    modelsResourceServiceSpy =  createSpyObj<ModelsResourceService>('ModelsResourceService', ['listEntries']);
-    consentsResourceServiceSpy =  createSpyObj<ConsentsResourceService>('ConsentsResourceService', ['generateToken']);
     configServiceStub = new ConfigServiceStubSpec();
 
     TestBed.configureTestingModule({
       declarations: [ CollectFormCreatorPageComponent ],
       imports: [ CoreTestingModule, FormsModule, ReactiveFormsModule ],
       providers: [
-        {provide: ModelsResourceService, useValue: modelsResourceServiceSpy},
-        {provide: ConsentsResourceService, useValue: consentsResourceServiceSpy},
         {provide: ConfigService, useValue: configServiceStub}
       ],
       schemas: [ NO_ERRORS_SCHEMA ]
@@ -53,8 +46,7 @@ describe('CollectFormCreatorPageComponent', () => {
   }));
 
   beforeEach(() => {
-    modelsResourceServiceSpy.listEntries.and.returnValue(EMPTY);
-
+    RightConsents.init({apiRoot: '', httpClient: () => new Observable()});
     fixture = TestBed.createComponent(CollectFormCreatorPageComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();

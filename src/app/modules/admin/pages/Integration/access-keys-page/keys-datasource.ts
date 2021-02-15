@@ -13,11 +13,10 @@
  * files, or see https://www.fairandsmart.com/opensource/.
  * #L%
  */
-import { CollectionViewer, DataSource } from '@angular/cdk/collections';
-import { Key } from '../../../../../core/models/models';
-import { BehaviorSubject, Observable, of } from 'rxjs';
-import { KeysResourceService } from '../../../../../core/http/keys-resource.service';
-import { catchError, filter, skip, takeUntil } from 'rxjs/operators';
+import {CollectionViewer, DataSource} from '@angular/cdk/collections';
+import { Key, listKeys } from '@fairandsmart/consent-manager/keys';
+import {BehaviorSubject, Observable, of} from 'rxjs';
+import {catchError, filter, skip, takeUntil} from 'rxjs/operators';
 
 export class KeysDataSource implements DataSource<Key> {
 
@@ -26,7 +25,7 @@ export class KeysDataSource implements DataSource<Key> {
 
   public loading$ = this.loadingSubject.asObservable();
 
-  constructor(private keysResource: KeysResourceService) {
+  constructor() {
   }
 
   connect(collectionViewer: CollectionViewer): Observable<Key[] | ReadonlyArray<Key>> {
@@ -40,7 +39,7 @@ export class KeysDataSource implements DataSource<Key> {
 
   load(): void {
     this.loadingSubject.next(true);
-    this.keysResource.listKeys().pipe(
+    listKeys().pipe(
       takeUntil(this.loading$.pipe(
         skip(1),
         // Aborts request if loadPage() called up again before completion of previous

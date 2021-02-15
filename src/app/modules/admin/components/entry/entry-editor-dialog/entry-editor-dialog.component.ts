@@ -17,10 +17,18 @@ import { Component, Inject, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { Observable, Subject } from 'rxjs';
-import { CreateModelDto, FIELD_VALIDATORS, ModelDataType, ModelEntryDto, UpdateModelDto } from '../../../../../core/models/models';
-import { ModelsResourceService } from '../../../../../core/http/models-resource.service';
 import { HttpErrorResponse } from '@angular/common/http';
 import { mergeMap } from 'rxjs/operators';
+import { FIELD_VALIDATORS } from '../../../../../core/models/common';
+import {
+  createEntry,
+  CreateModelDto,
+  listEntries,
+  ModelDataType,
+  ModelEntryDto,
+  updateEntry,
+  UpdateModelDto
+} from '@fairandsmart/consent-manager/models';
 
 export interface EntryEditorDialogComponentData {
   entry: Partial<ModelEntryDto> & { type: ModelDataType };
@@ -43,8 +51,7 @@ export class EntryEditorDialogComponent implements OnInit {
 
   constructor(private dialogRef: MatDialogRef<EntryEditorDialogComponent, ModelEntryDto>,
               @Inject(MAT_DIALOG_DATA) public data: EntryEditorDialogComponentData,
-              private fb: FormBuilder,
-              private modelsResource: ModelsResourceService) {
+              private fb: FormBuilder) {
   }
 
   ngOnInit(): void {
@@ -73,11 +80,11 @@ export class EntryEditorDialogComponent implements OnInit {
   generateKey(): Observable<string> {
     return new Observable((observer) => {
       const rootKey = this.form.get('type').value;
-      this.modelsResource.listEntries({ types: [rootKey], size: -1 }).subscribe((entries) => {
+      listEntries({ types: [rootKey], size: -1 }).subscribe((entries) => {
         let increment = entries.values.length + 1;
         const keyCheck$ = new Subject<void>();
         keyCheck$.pipe(
-          mergeMap(() => this.modelsResource.listEntries({
+          mergeMap(() => listEntries({
             keys: [EntryEditorDialogComponent.formatKey(rootKey, increment)],
             size: -1
           })),
@@ -108,7 +115,7 @@ export class EntryEditorDialogComponent implements OnInit {
         name: formValue.name,
         description: formValue.description
       };
-      obs = this.modelsResource.updateEntry(this.data.entry.id, dto);
+      obs = updateEntry(this.data.entry.id, dto);
     } else {
       obs = this.generateKey().pipe(
         mergeMap((key) => {
@@ -118,7 +125,7 @@ export class EntryEditorDialogComponent implements OnInit {
             name: formValue.name,
             description: formValue.description
           };
-          return this.modelsResource.createEntry(dto);
+          return createEntry(dto);
         })
       );
     }

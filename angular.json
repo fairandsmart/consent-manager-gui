@@ -58,6 +58,7 @@
               "keycloak-js",
               "file-saver",
               "js-sha256",
+              "@fairandsmart/consent-manager",
               "@angular/common/locales/fr",
               "codemirror/mode/css/css",
               "codemirror/addon/lint/lint",

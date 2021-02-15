@@ -15,10 +15,9 @@
  */
 import { Component, OnInit } from '@angular/core';
 import { EntryCardContentDirective } from '../entry-card-content/entry-card-content.directive';
-import { Conditions } from '../../../../../core/models/models';
+import { Conditions } from '@fairandsmart/consent-manager/models';
 import { TranslateService } from '@ngx-translate/core';
 import { KeycloakService } from 'keycloak-angular';
-import { ConsentsResourceService } from '../../../../../core/http/consents-resource.service';
 import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
 import { AlertService } from '../../../../../core/services/alert.service';
 import { ConfigService } from '../../../../../core/services/config.service';
@@ -44,13 +43,12 @@ export class ConditionsComponent extends EntryCardContentDirective<Conditions> i
   constructor(
     translate: TranslateService,
     keycloakService: KeycloakService,
-    consentsResourceService: ConsentsResourceService,
     alertService: AlertService,
     private sanitizer: DomSanitizer,
     configService: ConfigService,
     coreService: CoreService
   ) {
-    super(translate, keycloakService, consentsResourceService, alertService, configService, coreService);
+    super(translate, keycloakService, alertService, configService, coreService);
   }
 
   ngOnInit(): void {

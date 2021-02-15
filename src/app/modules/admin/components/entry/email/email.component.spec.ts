@@ -16,32 +16,32 @@
 import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 
 import { EmailComponent } from './email.component';
-import { ModelsResourceService } from '../../../../../core/http/models-resource.service';
 import { ReactiveFormsModule } from '@angular/forms';
 import { EntryPreviewComponent } from '../entry-preview/entry-preview.component';
 import { CoreTestingModule } from '../../../../../testing/core-testing-module.spec';
 import { RouterTestingModule } from '@angular/router/testing';
 import { ConfigServiceStubSpec } from '../../../../../testing/config-service-stub.spec';
 import { ConfigService } from '../../../../../core/services/config.service';
-import { ModelEntryStatus } from '../../../../../core/models/models';
+import { ModelEntryStatus } from '@fairandsmart/consent-manager/models';
 import SpyObj = jasmine.SpyObj;
 import createSpyObj = jasmine.createSpyObj;
+import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
+import { RightConsents } from '@fairandsmart/consent-manager';
+import { Observable } from 'rxjs';
 
 describe('EmailComponent', () => {
   let component: EmailComponent;
   let fixture: ComponentFixture<EmailComponent>;
-  let modelsResourceServiceSpy: SpyObj<ModelsResourceService>;
   let configServiceStub: ConfigServiceStubSpec;
 
   beforeEach(waitForAsync(() => {
-    modelsResourceServiceSpy =  createSpyObj('ModelsResourceService', ['listEntries']);
     configServiceStub = new ConfigServiceStubSpec();
 
     TestBed.configureTestingModule({
       declarations: [ EmailComponent, EntryPreviewComponent ],
       imports: [ CoreTestingModule, RouterTestingModule, ReactiveFormsModule ],
+      schemas: [CUSTOM_ELEMENTS_SCHEMA],
       providers: [
-        {provide: ModelsResourceService, useValue: modelsResourceServiceSpy},
         {provide: ConfigService, useValue: configServiceStub}
       ]
     })
@@ -49,6 +49,7 @@ describe('EmailComponent', () => {
   }));
 
   beforeEach(() => {
+    RightConsents.init({apiRoot: '', httpClient: () => new Observable()});
     fixture = TestBed.createComponent(EmailComponent);
     component = fixture.componentInstance;
     component.entry = {

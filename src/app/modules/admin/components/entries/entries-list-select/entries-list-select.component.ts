@@ -14,10 +14,9 @@
  * #L%
  */
 import { ChangeDetectionStrategy, Component, forwardRef, Input, OnInit } from '@angular/core';
-import { ModelEntryDto } from '../../../../../core/models/models';
+import { ModelEntryDto, ModelEntryHelper } from '@fairandsmart/consent-manager/models';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { EntriesListComponent } from '../entries-list/entries-list.component';
-import { hasActiveVersion } from '../../../../../core/utils/model-entry.utils';
 
 @Component({
   selector: 'cm-entries-list-select',
@@ -69,7 +68,7 @@ export class EntriesListSelectComponent extends EntriesListComponent implements 
   }
 
   isSelectable(entry: ModelEntryDto): boolean {
-    return hasActiveVersion(entry);
+    return ModelEntryHelper.hasActiveVersion(entry);
   }
 
   isSelected(entry: ModelEntryDto): boolean {

@@ -19,8 +19,6 @@ import { UserPageComponent } from './user-page.component';
 import { CoreTestingModule } from '../../../../testing/core-testing-module.spec';
 import { RouterTestingModule } from '@angular/router/testing';
 import { KeycloakService } from 'keycloak-angular';
-import { SubjectsResourceService } from '../../../../core/http/subjects-resource.service';
-import { EMPTY } from 'rxjs';
 import { CoreService } from '../../../../core/services/core.service';
 import SpyObj = jasmine.SpyObj;
 import createSpyObj = jasmine.createSpyObj;
@@ -29,12 +27,10 @@ describe('UserPageComponent', () => {
   let component: UserPageComponent;
   let fixture: ComponentFixture<UserPageComponent>;
   let keycloakServiceSpy: SpyObj<KeycloakService>;
-  let subjectsResourceServiceSpy: SpyObj<SubjectsResourceService>;
   let coreServiceSpy: SpyObj<CoreService>;
 
   beforeEach(waitForAsync(() => {
     keycloakServiceSpy = createSpyObj<KeycloakService>('KeycloakService', ['getUsername', 'isUserInRole']);
-    subjectsResourceServiceSpy = createSpyObj<SubjectsResourceService>('SubjectsResourceService', ['listSubjects']);
     coreServiceSpy = createSpyObj<CoreService>('CoreService', ['checkBasicInfo']);
 
     TestBed.configureTestingModule({
@@ -42,7 +38,6 @@ describe('UserPageComponent', () => {
       imports: [ CoreTestingModule, RouterTestingModule ],
       providers: [
         {provide: KeycloakService, useValue: keycloakServiceSpy},
-        {provide: SubjectsResourceService, useValue: subjectsResourceServiceSpy},
         {provide: CoreService, useValue: coreServiceSpy}
       ]
     })
@@ -52,8 +47,6 @@ describe('UserPageComponent', () => {
   beforeEach(() => {
     keycloakServiceSpy.getUsername.and.returnValue('FOO BAR');
     keycloakServiceSpy.isUserInRole.and.returnValue(true);
-    subjectsResourceServiceSpy.listSubjects.and.returnValue(EMPTY);
-
     fixture = TestBed.createComponent(UserPageComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();

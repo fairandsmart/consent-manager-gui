@@ -15,7 +15,7 @@
  */
 import { Component } from '@angular/core';
 import { AddMultipleOption, SectionConfig } from '../../../components/entries/entries-library/entries-library.component';
-import { Icons } from '../../../../../core/models/models';
+import { Icons } from '../../../../../core/models/common';
 
 @Component({
   selector: 'cm-processing-page',

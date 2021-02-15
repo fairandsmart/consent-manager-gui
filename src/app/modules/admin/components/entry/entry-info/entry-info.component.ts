@@ -16,15 +16,20 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { EntryEditorDialogComponent, EntryEditorDialogComponentData } from '../entry-editor-dialog/entry-editor-dialog.component';
 import { MatDialog } from '@angular/material/dialog';
-import { ModelEntryDto, ModelEntryStatus, ModelVersionDto, ModelVersionDtoLight } from '../../../../../core/models/models';
+import {
+  deleteEntry,
+  ModelEntryDto,
+  ModelEntryStatus,
+  ModelVersionDto,
+  ModelVersionDtoLight,
+} from '@fairandsmart/consent-manager/models';
 import { ConfirmDialogComponent } from '../../../../../core/components/confirm-dialog/confirm-dialog.component';
-import { RecordsResourceService } from '../../../../../core/http/records-resource.service';
 import { filter, mergeMap } from 'rxjs/operators';
-import { ModelsResourceService } from '../../../../../core/http/models-resource.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { AlertService } from '../../../../../core/services/alert.service';
 import { TranslateService } from '@ngx-translate/core';
 import { CoreService } from '../../../../../core/services/core.service';
+import { extractRecords } from '@fairandsmart/consent-manager/records';
 
 @Component({
   selector: 'cm-entry-info',
@@ -51,8 +56,6 @@ export class EntryInfoComponent implements OnInit {
 
   constructor(
     private dialog: MatDialog,
-    private recordService: RecordsResourceService,
-    private modelsResourceService: ModelsResourceService,
     private router: Router,
     private alertService: AlertService,
     private route: ActivatedRoute,
@@ -62,7 +65,7 @@ export class EntryInfoComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.recordService.extractRecords({
+    extractRecords({
         condition: {
           key: this.entry?.key,
           regexpValue: true,
@@ -82,7 +85,7 @@ export class EntryInfoComponent implements OnInit {
     });
   }
 
-  deleteEntry(): void {
+  deleteModelEntry(): void {
     this.dialog.open(ConfirmDialogComponent, {
       data: {
         title: this.translate.instant('ENTRIES.DIALOG.DELETION.TITLE'),
@@ -91,7 +94,7 @@ export class EntryInfoComponent implements OnInit {
       }
     }).afterClosed().pipe(
       filter((confirmed) => !!confirmed),
-      mergeMap(() => this.modelsResourceService.deleteEntry(this.entry.id))
+      mergeMap(() => deleteEntry(this.entry.id))
     ).subscribe({
       next: () => {
         this.alertService.success('ALERT.ENTRY_DELETION_SUCCESS');

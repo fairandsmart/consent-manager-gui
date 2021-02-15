@@ -15,9 +15,8 @@
  */
 import { Component, OnInit } from '@angular/core';
 import { EntryContentDirective } from '../entry-content/entry-content.directive';
-import { Email } from '../../../../../core/models/models';
+import { Email } from '@fairandsmart/consent-manager/models';
 import { FormBuilder, Validators } from '@angular/forms';
-import { ModelsResourceService } from '../../../../../core/http/models-resource.service';
 import { AlertService } from '../../../../../core/services/alert.service';
 import { ConfigService } from '../../../../../core/services/config.service';
 import { BreakpointObserver } from '@angular/cdk/layout';
@@ -31,11 +30,10 @@ export class EmailComponent extends EntryContentDirective<Email> implements OnIn
 
   constructor(
     private fb: FormBuilder,
-    modelsResourceService: ModelsResourceService,
     alertService: AlertService,
     configService: ConfigService,
     breakpointObserver: BreakpointObserver) {
-    super(modelsResourceService, alertService, configService, breakpointObserver);
+    super(alertService, configService, breakpointObserver);
   }
 
   ngOnInit(): void {

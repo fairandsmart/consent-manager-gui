@@ -14,10 +14,7 @@
  * #L%
  */
 import { Component, OnDestroy, OnInit, QueryList, ViewChildren } from '@angular/core';
-import { ModelsResourceService } from '../../../../core/http/models-resource.service';
-import { SubjectsResourceService } from '../../../../core/http/subjects-resource.service';
 import { KeycloakService } from 'keycloak-angular';
-import { CollectionPage, ModelDataType, ModelEntryDto, RecordDto, RecordsMap } from '../../../../core/models/models';
 import { combineLatest, from, Subscription } from 'rxjs';
 import { map, mergeMap, toArray } from 'rxjs/operators';
 import * as _ from 'lodash';
@@ -25,6 +22,10 @@ import { ConfigService } from '../../../../core/services/config.service';
 import { EntryCardComponent } from '../../components/entry/entry-card/entry-card.component';
 import { AlertService } from '../../../../core/services/alert.service';
 import { TranslateService } from '@ngx-translate/core';
+import { listEntries, ModelDataType, ModelEntryDto } from '@fairandsmart/consent-manager/models';
+import { RecordDto, RecordsMap } from '@fairandsmart/consent-manager/records';
+import { listSubjectRecords } from '@fairandsmart/consent-manager/subjects';
+import { CollectionPage } from '@fairandsmart/consent-manager';
 
 interface CardData {
   entry: ModelEntryDto;
@@ -51,8 +52,6 @@ export class EntriesPageComponent implements OnInit, OnDestroy {
   }
 
   constructor(public keycloakService: KeycloakService,
-              public modelsResourceService: ModelsResourceService,
-              public subjectsResourceService: SubjectsResourceService,
               public configService: ConfigService,
               public alertService: AlertService,
               public translate: TranslateService) {
@@ -62,11 +61,11 @@ export class EntriesPageComponent implements OnInit, OnDestroy {
     this.elementsKeys = this.configService.config.userPageElements;
     this.subs.push(
       combineLatest([
-        this.modelsResourceService.listEntries({
+        listEntries({
           keys: this.elementsKeys,
           size: -1
         }),
-        this.subjectsResourceService.listSubjectRecords(this.keycloakService.getUsername())
+        listSubjectRecords(this.keycloakService.getUsername())
       ]).pipe(
         map(([entries, records]: [CollectionPage<ModelEntryDto>, RecordsMap]) => {
           this.elementsKeys.forEach((key) => {

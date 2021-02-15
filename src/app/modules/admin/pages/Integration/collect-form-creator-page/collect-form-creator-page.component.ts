@@ -14,26 +14,10 @@
  * #L%
  */
 import { Component, OnInit } from '@angular/core';
-import { ModelsResourceService } from '../../../../../core/http/models-resource.service';
-import {
-  CollectionMethod,
-  CONSENT_FORM_ORIENTATIONS,
-  ConsentContext,
-  ConsentFormOrientation,
-  ConsentFormType,
-  FIELD_VALIDATORS,
-  Icons,
-  ModelDataType,
-  ModelEntryDto,
-  ModelEntryStatus,
-  ModelFilter,
-  RECEIPT_DISPLAY_TYPES
-} from '../../../../../core/models/models';
 import { debounceTime, tap } from 'rxjs/operators';
 import { merge, zip } from 'rxjs';
 import { CdkDragDrop, copyArrayItem, moveItemInArray } from '@angular/cdk/drag-drop';
 import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { ConsentsResourceService } from '../../../../../core/http/consents-resource.service';
 import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
 import { StepperSelectionEvent } from '@angular/cdk/stepper';
 import { AddMultipleOption, SectionConfig } from '../../../components/entries/entries-library/entries-library.component';
@@ -41,11 +25,26 @@ import { environment } from '../../../../../../environments/environment';
 import * as _ from 'lodash';
 import { MatDialog } from '@angular/material/dialog';
 import { FormUrlDialogComponent, FormUrlDialogComponentData } from '../../../components/form-url-dialog/form-url-dialog.component';
-import { hasActiveVersion } from '../../../../../core/utils/model-entry.utils';
 import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
 import { ConfigService } from '../../../../../core/services/config.service';
 import { ConfirmDialogComponent } from '../../../../../core/components/confirm-dialog/confirm-dialog.component';
 import { TranslateService } from '@ngx-translate/core';
+import { FIELD_VALIDATORS, Icons } from '../../../../../core/models/common';
+import {
+  listEntries,
+  ModelDataType,
+  ModelEntryDto,
+  ModelEntryHelper,
+  ModelEntryStatus,
+  ModelFilter
+} from '@fairandsmart/consent-manager/models';
+import {
+  CONSENT_FORM_ORIENTATIONS,
+  ConsentContext,
+  ConsentFormOrientation, ConsentFormType, generateToken, getFormUrl,
+  RECEIPT_DISPLAY_TYPES
+} from '@fairandsmart/consent-manager/consents';
+import { CollectionMethod } from '@fairandsmart/consent-manager';
 
 enum FORM_CREATOR_STEP {
   ELEMENTS,
@@ -199,9 +198,7 @@ export class CollectFormCreatorPageComponent implements OnInit {
     return '';
   }
 
-  constructor(private consentsResource: ConsentsResourceService,
-              private modelsResource: ModelsResourceService,
-              private fb: FormBuilder,
+  constructor(private fb: FormBuilder,
               private sanitizer: DomSanitizer,
               private dialog: MatDialog,
               private breakpointObserver: BreakpointObserver,
@@ -223,14 +220,14 @@ export class CollectFormCreatorPageComponent implements OnInit {
         });
       })
     ).subscribe();
-    zip(...this.elementsLibraryConfig.map(c => this.modelsResource.listEntries(
+    zip(...this.elementsLibraryConfig.map(c => listEntries(
       {types: c.types, size: 1, statuses: [ModelEntryStatus.ACTIVE]}
     ))).pipe(
       tap((responses) => {
         const selected: { [id: string]: ModelEntryDto[] } = {...this.selectedElements};
         const basicInfoIndexInResponse = this.elementsLibraryConfig.findIndex((c) => c.id === this.basicInfoConfig.id);
         const basicInfoResponse = responses[basicInfoIndexInResponse];
-        if (basicInfoResponse?.totalCount === 1 && hasActiveVersion(basicInfoResponse.values[0])) {
+        if (basicInfoResponse?.totalCount === 1 && ModelEntryHelper.hasActiveVersion(basicInfoResponse.values[0])) {
           selected[this.basicInfoConfig.id] = basicInfoResponse.values;
           this.basicInfoConfig.draggingDisabled = true;
         }
@@ -347,8 +344,8 @@ export class CollectFormCreatorPageComponent implements OnInit {
       return;
     }
     this.previousContext = context;
-    this.consentsResource.generateToken(context).subscribe((token) => {
-      this.formUrl = this.sanitizer.bypassSecurityTrustResourceUrl(this.consentsResource.getFormUrl(token));
+    generateToken(context).subscribe((token) => {
+      this.formUrl = this.sanitizer.bypassSecurityTrustResourceUrl(getFormUrl(token));
     }, (err) => {
       console.error(err);
       this.formUrl = '';
@@ -442,9 +439,9 @@ export class CollectFormCreatorPageComponent implements OnInit {
     if (context === this.previousContext) {
       return;
     }
-    this.consentsResource.generateToken(context).subscribe((token) => {
+    generateToken(context).subscribe((token) => {
       this.form.enable();
-      const url = this.consentsResource.getFormUrl(token);
+      const url = getFormUrl(token);
       this.dialog.open<FormUrlDialogComponent, FormUrlDialogComponentData>(FormUrlDialogComponent, {
         width: '800px',
         data: {

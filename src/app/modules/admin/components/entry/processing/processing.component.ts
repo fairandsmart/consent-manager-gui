@@ -17,20 +17,19 @@ import { Component, OnInit } from '@angular/core';
 import { EntryContentDirective } from '../entry-content/entry-content.directive';
 import {
   Controller,
-  FIELD_VALIDATORS,
   ModelVersionDto,
   Processing,
   PROCESSING_PURPOSES,
   ProcessingPurpose,
   RETENTION_UNITS,
   RetentionUnit
-} from '../../../../../core/models/models';
+} from '@fairandsmart/consent-manager/models';
 import { FormArray, FormBuilder, Validators } from '@angular/forms';
-import { ModelsResourceService } from '../../../../../core/http/models-resource.service';
 import { AlertService } from '../../../../../core/services/alert.service';
 import { TranslateService } from '@ngx-translate/core';
 import { ConfigService } from '../../../../../core/services/config.service';
 import { BreakpointObserver } from '@angular/cdk/layout';
+import { FIELD_VALIDATORS } from '../../../../../core/models/common';
 
 @Component({
   selector: 'cm-processing',
@@ -44,12 +43,11 @@ export class ProcessingComponent extends EntryContentDirective<Processing> imple
 
   constructor(
     private fb: FormBuilder,
-    modelsResourceService: ModelsResourceService,
     alertService: AlertService,
     private translate: TranslateService,
     configService: ConfigService,
     breakpointObserver: BreakpointObserver) {
-    super(modelsResourceService, alertService, configService, breakpointObserver);
+    super(alertService, configService, breakpointObserver);
   }
 
   ngOnInit(): void {

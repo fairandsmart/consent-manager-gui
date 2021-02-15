@@ -15,18 +15,19 @@
  */
 import { ChangeDetectionStrategy, Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { Observable } from 'rxjs';
-import { CollectionPage, Icons, ModelDataType, ModelEntryDto, ModelFilter } from '../../../../../core/models/models';
-import { ModelsResourceService } from '../../../../../core/http/models-resource.service';
+import { listEntries, ModelDataType, ModelEntryDto, ModelFilter } from '@fairandsmart/consent-manager/models';
 import { CollectionDatasource } from '../../../utils/collection-datasource';
+import { Icons } from '../../../../../core/models/common';
+import { CollectionPage } from '@fairandsmart/consent-manager';
 
 export class ConsentElementEntryDataSource extends CollectionDatasource<ModelEntryDto, ModelFilter> {
 
-  constructor(private modelsResource: ModelsResourceService) {
+  constructor() {
     super();
   }
 
   protected getPage(pageFilter: ModelFilter): Observable<CollectionPage<ModelEntryDto>> {
-    return this.modelsResource.listEntries(pageFilter);
+    return listEntries(pageFilter);
   }
 
 }
