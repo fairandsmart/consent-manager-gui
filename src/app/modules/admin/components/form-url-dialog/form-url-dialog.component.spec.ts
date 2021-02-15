@@ -5,10 +5,10 @@
  * Copyright (C) 2020 - 2021 Fair And Smart
  * %%
  * This file is part of Right Consents Community Edition.
- * 
+ *
  * Right Consents Community Edition is published by FAIR AND SMART under the
  * GNU GENERAL PUBLIC LICENCE Version 3 (GPLv3) and a set of additional terms.
- * 
+ *
  * For more information, please see the “LICENSE” and “LICENSE.FAIRANDSMART”
  * files, or see https://www.fairandsmart.com/opensource/.
  * #L%
@@ -22,6 +22,8 @@ import { ClipboardModule } from '@angular/cdk/clipboard';
 import { CoreTestingModule } from '../../../../testing/core-testing-module.spec';
 import createSpyObj = jasmine.createSpyObj;
 import SpyObj = jasmine.SpyObj;
+import { RightConsents } from '@fairandsmart/consent-manager';
+import { Observable } from 'rxjs';
 
 describe('FormUrlDialogComponent', () => {
   let component: FormUrlDialogComponent;
@@ -49,6 +51,7 @@ describe('FormUrlDialogComponent', () => {
   }));
 
   beforeEach(() => {
+    RightConsents.init({apiRoot: '', httpClient: () => new Observable()});
     fixture = TestBed.createComponent(FormUrlDialogComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();

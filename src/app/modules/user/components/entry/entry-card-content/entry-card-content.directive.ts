@@ -14,27 +14,21 @@
  * #L%
  */
 import { Directive, EventEmitter, Input, OnInit, Output } from '@angular/core';
-import {
-  CollectionMethod,
-  ConsentContext,
-  ConsentFormOrientation,
-  ConsentFormType,
-  ModelData,
-  ModelEntryDto,
-  ModelVersionDto,
-  RecordDto
-} from '../../../../../core/models/models';
 import { TranslateService } from '@ngx-translate/core';
 import { catchError, mergeMap, tap } from 'rxjs/operators';
-import { HttpParams } from '@angular/common/http';
 import { EMPTY, Observable, throwError } from 'rxjs';
 import { KeycloakService } from 'keycloak-angular';
-import { ConsentsResourceService } from '../../../../../core/http/consents-resource.service';
 import { AlertService } from '../../../../../core/services/alert.service';
 import { FormControl } from '@angular/forms';
 import { ConfigService } from '../../../../../core/services/config.service';
 import { CoreService } from '../../../../../core/services/core.service';
 import * as _ from 'lodash';
+import { ModelData, ModelEntryDto, ModelVersionDto } from '@fairandsmart/consent-manager/models';
+import { RecordDto } from '@fairandsmart/consent-manager/records';
+import {
+  ConsentContext, ConsentFormOrientation, ConsentFormType, generateToken, postConsent
+} from '@fairandsmart/consent-manager/consents';
+import { CollectionMethod } from '@fairandsmart/consent-manager';
 
 @Directive()
 export abstract class EntryCardContentDirective<T extends ModelData> implements OnInit {
@@ -73,7 +67,6 @@ export abstract class EntryCardContentDirective<T extends ModelData> implements 
   protected constructor(
     protected translate: TranslateService,
     protected keycloakService: KeycloakService,
-    protected consentsResourceService: ConsentsResourceService,
     protected alertService: AlertService,
     protected configService: ConfigService,
     protected coreService: CoreService
@@ -162,12 +155,9 @@ export abstract class EntryCardContentDirective<T extends ModelData> implements 
       iframe: true,
       theme: ''
     };
-    return this.consentsResourceService.generateToken(context).pipe(
+    return generateToken(context).pipe(
       mergeMap((token) => {
-        const params: HttpParams = new HttpParams()
-          .append('token', token)
-          .append(element, newValue);
-        return this.consentsResourceService.postConsent(params);
+        return postConsent({ token, element: newValue });
       }),
       tap(() => {
         this.remoteValue = newValue;

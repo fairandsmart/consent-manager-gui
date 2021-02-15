@@ -15,9 +15,8 @@
  */
 import { Component, OnInit } from '@angular/core';
 import { EntryContentDirective } from '../entry-content/entry-content.directive';
-import { LOGO_POSITIONS, LogoPosition, PreviewDto, Theme } from '../../../../../core/models/models';
+import { LOGO_POSITIONS, LogoPosition, PreviewDto, Theme } from '@fairandsmart/consent-manager/models';
 import { FormBuilder, Validators } from '@angular/forms';
-import { ModelsResourceService } from '../../../../../core/http/models-resource.service';
 import * as CodeMirror from 'codemirror';
 import { Editor } from 'codemirror';
 import { AlertService } from '../../../../../core/services/alert.service';
@@ -112,12 +111,11 @@ export class ThemeComponent extends EntryContentDirective<Theme> implements OnIn
 
   constructor(
     private fb: FormBuilder,
-    modelsResourceService: ModelsResourceService,
     alertService: AlertService,
     public translate: TranslateService,
     configService: ConfigService,
     breakpointObserver: BreakpointObserver) {
-    super(modelsResourceService, alertService, configService, breakpointObserver);
+    super(alertService, configService, breakpointObserver);
   }
 
   ngOnInit(): void {

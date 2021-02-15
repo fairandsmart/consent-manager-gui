@@ -16,25 +16,20 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { InterrogatePageComponent } from './interrogate-page.component';
-import { ModelsResourceService } from '../../../../../core/http/models-resource.service';
-import { EMPTY } from 'rxjs';
-import { RecordsResourceService } from '../../../../../core/http/records-resource.service';
+import { EMPTY, Observable } from 'rxjs';
 import { CoreTestingModule } from '../../../../../testing/core-testing-module.spec';
 import { ConfigServiceStubSpec } from '../../../../../testing/config-service-stub.spec';
 import { ConfigService } from '../../../../../core/services/config.service';
 import SpyObj = jasmine.SpyObj;
 import createSpyObj = jasmine.createSpyObj;
+import { RightConsents } from '@fairandsmart/consent-manager';
 
 describe('InterrogatePageComponent', () => {
   let component: InterrogatePageComponent;
   let fixture: ComponentFixture<InterrogatePageComponent>;
-  let modelsResourceServiceSpy: SpyObj<ModelsResourceService>;
-  let recordsResourceServiceSpy: SpyObj<RecordsResourceService>;
   let configServiceStub: ConfigServiceStubSpec;
 
   beforeEach(async () => {
-    modelsResourceServiceSpy = createSpyObj<ModelsResourceService>('ModelsResourceService', ['listEntries']);
-    recordsResourceServiceSpy = createSpyObj<RecordsResourceService>('RecordsResourceService', ['extractRecords']);
     configServiceStub = new ConfigServiceStubSpec();
 
     await TestBed.configureTestingModule({
@@ -43,8 +38,6 @@ describe('InterrogatePageComponent', () => {
         CoreTestingModule
       ],
       providers: [
-        {provide: ModelsResourceService, useValue: modelsResourceServiceSpy},
-        {provide: RecordsResourceService, useValue: recordsResourceServiceSpy},
         {provide: ConfigService, useValue: configServiceStub}
       ]
     })
@@ -52,8 +45,7 @@ describe('InterrogatePageComponent', () => {
   });
 
   beforeEach(() => {
-    modelsResourceServiceSpy.listEntries.and.returnValue(EMPTY);
-
+    RightConsents.init({apiRoot: '', httpClient: () => new Observable()});
     fixture = TestBed.createComponent(InterrogatePageComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();

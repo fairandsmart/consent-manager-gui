@@ -15,8 +15,9 @@
  */
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
-import { CONSENT_FORM_ORIENTATIONS, ConsentFormOrientation, PREVIEW_TYPES, PreviewType, } from '../../../../../core/models/models';
+import { PREVIEW_TYPES, PreviewType, } from '@fairandsmart/consent-manager/models';
 import { FormControl, Validators } from '@angular/forms';
+import { CONSENT_FORM_ORIENTATIONS, ConsentFormOrientation } from '@fairandsmart/consent-manager/consents';
 
 @Component({
   selector: 'cm-entry-preview',

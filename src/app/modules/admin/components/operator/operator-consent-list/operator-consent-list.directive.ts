@@ -15,21 +15,16 @@
  */
 import { Directive, EventEmitter, Input, OnInit, Output, ViewChild } from '@angular/core';
 import {
-  CollectionPage,
-  EntryRecord,
+  listEntries,
   ModelDataType,
   ModelEntryDto,
   ModelEntryStatus,
   ModelFilter,
   ModelVersionDtoLight,
   ModelVersionStatus,
-  OperatorLogElement,
-  RecordsMap
-} from '../../../../../core/models/models';
+} from '@fairandsmart/consent-manager/models';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort, Sort } from '@angular/material/sort';
-import { ModelsResourceService } from '../../../../../core/http/models-resource.service';
-import { SubjectsResourceService } from '../../../../../core/http/subjects-resource.service';
 import { map, tap } from 'rxjs/operators';
 import { CollectionDatasource } from '../../../utils/collection-datasource';
 import { Observable, Subject } from 'rxjs';
@@ -37,17 +32,19 @@ import * as _ from 'lodash';
 import { CoreService } from '../../../../../core/services/core.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { TranslateService } from '@ngx-translate/core';
+import { EntryRecord, OperatorLogElement, RecordsMap } from '@fairandsmart/consent-manager/records';
+import { CollectionPage } from '@fairandsmart/consent-manager';
 
 class SubjectRecordDataSource extends CollectionDatasource<EntryRecord, ModelFilter> {
 
   public records: RecordsMap = {};
 
-  constructor(private modelsResource: ModelsResourceService) {
+  constructor() {
     super();
   }
 
   protected getPage(pageFilter: ModelFilter): Observable<CollectionPage<EntryRecord>> {
-    return this.modelsResource.listEntries(pageFilter).pipe(
+    return listEntries(pageFilter).pipe(
       map((entries: CollectionPage<ModelEntryDto>) => {
         const values = [];
         entries.values.forEach((entry) => {
@@ -121,8 +118,6 @@ export abstract class OperatorConsentListDirective implements OnInit {
   operatorAction = new EventEmitter<OperatorLogElement>();
 
   protected constructor(
-    protected modelsResource: ModelsResourceService,
-    protected subjectsResource: SubjectsResourceService,
     protected coreService: CoreService,
     protected snackBar: MatSnackBar,
     protected translate: TranslateService
@@ -130,7 +125,7 @@ export abstract class OperatorConsentListDirective implements OnInit {
 
   ngOnInit(): void {
     this.filter.types.push(this.type);
-    this.dataSource = new SubjectRecordDataSource(this.modelsResource);
+    this.dataSource = new SubjectRecordDataSource();
     this.dataSource.paginator = this.paginator;
     this.recordsObservable.subscribe((newRecords) => {
       this.dataSource.records = newRecords;

@@ -15,9 +15,8 @@
  */
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { EntryContentDirective } from '../entry-content/entry-content.directive';
-import { Preference, PREFERENCE_VALUE_TYPES, PreferenceValueType } from '../../../../../core/models/models';
+import { Preference, PREFERENCE_VALUE_TYPES, PreferenceValueType } from '@fairandsmart/consent-manager/models';
 import { FormBuilder, FormControl, Validators } from '@angular/forms';
-import { ModelsResourceService } from '../../../../../core/http/models-resource.service';
 import { AlertService } from '../../../../../core/services/alert.service';
 import { MatChipInputEvent, MatChipList } from '@angular/material/chips';
 import { COMMA, ENTER } from '@angular/cdk/keycodes';
@@ -43,11 +42,10 @@ export class PreferenceComponent extends EntryContentDirective<Preference> imple
 
   constructor(
     private fb: FormBuilder,
-    modelsResourceService: ModelsResourceService,
     alertService: AlertService,
     configService: ConfigService,
     breakpointObserver: BreakpointObserver) {
-    super(modelsResourceService, alertService, configService, breakpointObserver);
+    super(alertService, configService, breakpointObserver);
   }
 
   ngOnInit(): void {

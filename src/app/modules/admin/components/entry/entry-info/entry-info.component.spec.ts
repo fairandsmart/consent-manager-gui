@@ -17,31 +17,24 @@ import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 
 import { EntryInfoComponent } from './entry-info.component';
 import { CoreTestingModule } from '../../../../../testing/core-testing-module.spec';
-import { RecordsResourceService } from '../../../../../core/http/records-resource.service';
-import { ModelsResourceService } from '../../../../../core/http/models-resource.service';
 import { AlertService } from '../../../../../core/services/alert.service';
-import { of } from 'rxjs';
+import { Observable, of } from 'rxjs';
 import { RouterTestingModule } from '@angular/router/testing';
 import createSpyObj = jasmine.createSpyObj;
 import SpyObj = jasmine.SpyObj;
+import { RightConsents } from '@fairandsmart/consent-manager';
 
 describe('EntryInfoComponent', () => {
   let component: EntryInfoComponent;
   let fixture: ComponentFixture<EntryInfoComponent>;
-  let recordServiceSpy: SpyObj<RecordsResourceService>;
-  let modelsResourceServiceSpy: SpyObj<ModelsResourceService>;
   let alertServiceSpy: SpyObj<AlertService>;
 
   beforeEach(waitForAsync(() => {
-    recordServiceSpy = createSpyObj<RecordsResourceService>('RecordsResourceService', ['extractRecords']);
-    modelsResourceServiceSpy = createSpyObj<ModelsResourceService>('ModelsResourceService', ['deleteEntry']);
     alertServiceSpy = createSpyObj<AlertService>('AlertService', ['error', 'success']);
     TestBed.configureTestingModule({
       declarations: [ EntryInfoComponent ],
       imports: [ CoreTestingModule, RouterTestingModule ],
       providers: [
-        {provide: ModelsResourceService, useValue: modelsResourceServiceSpy},
-        {provide: RecordsResourceService, useValue: recordServiceSpy},
         {provide: AlertService, useValue: alertServiceSpy},
       ]
     })
@@ -49,7 +42,7 @@ describe('EntryInfoComponent', () => {
   }));
 
   beforeEach(() => {
-    recordServiceSpy.extractRecords.and.returnValue(of([]));
+    RightConsents.init({apiRoot: '', httpClient: () => new Observable()});
     fixture = TestBed.createComponent(EntryInfoComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();

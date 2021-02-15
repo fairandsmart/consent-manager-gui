@@ -15,11 +15,10 @@
  */
 import { Component, OnInit } from '@angular/core';
 import { EntryCardContentDirective } from '../entry-card-content/entry-card-content.directive';
-import { Preference, PreferenceValueType } from '../../../../../core/models/models';
+import { Preference, PreferenceValueType } from '@fairandsmart/consent-manager/models';
 import { TranslateService } from '@ngx-translate/core';
 import { FormControl, FormGroup } from '@angular/forms';
 import { KeycloakService } from 'keycloak-angular';
-import { ConsentsResourceService } from '../../../../../core/http/consents-resource.service';
 import { AlertService } from '../../../../../core/services/alert.service';
 import { ConfigService } from '../../../../../core/services/config.service';
 import { CoreService } from '../../../../../core/services/core.service';
@@ -38,12 +37,11 @@ export class PreferenceComponent extends EntryCardContentDirective<Preference> i
   constructor(
     translate: TranslateService,
     keycloakService: KeycloakService,
-    consentsResourceService: ConsentsResourceService,
     alertService: AlertService,
     configService: ConfigService,
     coreService: CoreService
   ) {
-    super(translate, keycloakService, consentsResourceService, alertService, configService, coreService);
+    super(translate, keycloakService, alertService, configService, coreService);
   }
 
   ngOnInit(): void {

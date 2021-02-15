@@ -17,31 +17,29 @@ import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 
 import { BasicinfoComponent } from './basicinfo.component';
 import { ReactiveFormsModule } from '@angular/forms';
-import { ModelsResourceService } from '../../../../../core/http/models-resource.service';
 import { EntryPreviewComponent } from '../entry-preview/entry-preview.component';
 import { CoreTestingModule } from '../../../../../testing/core-testing-module.spec';
 import { RouterTestingModule } from '@angular/router/testing';
 import { ConfigServiceStubSpec } from '../../../../../testing/config-service-stub.spec';
 import { ConfigService } from '../../../../../core/services/config.service';
-import { ModelEntryStatus } from '../../../../../core/models/models';
+import { ModelEntryStatus } from '@fairandsmart/consent-manager/models';
 import SpyObj = jasmine.SpyObj;
 import createSpyObj = jasmine.createSpyObj;
+import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 
 describe('BasicinfoComponent', () => {
   let component: BasicinfoComponent;
   let fixture: ComponentFixture<BasicinfoComponent>;
-  let modelsResourceServiceSpy: SpyObj<ModelsResourceService>;
   let configServiceStub: ConfigServiceStubSpec;
 
   beforeEach(waitForAsync(() => {
-    modelsResourceServiceSpy =  createSpyObj<ModelsResourceService>('ModelsResourceService', ['listEntries']);
     configServiceStub = new ConfigServiceStubSpec();
 
     TestBed.configureTestingModule({
       declarations: [ BasicinfoComponent, EntryPreviewComponent ],
       imports: [ CoreTestingModule, RouterTestingModule, ReactiveFormsModule ],
+      schemas: [CUSTOM_ELEMENTS_SCHEMA],
       providers: [
-        {provide: ModelsResourceService, useValue: modelsResourceServiceSpy},
         {provide: ConfigService, useValue: configServiceStub}
       ]
     })

@@ -13,7 +13,8 @@
  * files, or see https://www.fairandsmart.com/opensource/.
  * #L%
  */
-import { ClientConfigDto } from '../core/models/models';
+
+import { ClientConfigDto } from '@fairandsmart/consent-manager/system';
 
 export class ConfigServiceStubSpec {
 

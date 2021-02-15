@@ -15,13 +15,13 @@
  */
 import { Component, OnInit } from '@angular/core';
 import { EntryContentDirective } from '../entry-content/entry-content.directive';
-import { BasicInfo, Controller, FIELD_VALIDATORS } from '../../../../../core/models/models';
+import { BasicInfo, Controller } from '@fairandsmart/consent-manager/models';
 import { FormBuilder, Validators } from '@angular/forms';
-import { ModelsResourceService } from '../../../../../core/http/models-resource.service';
 import { AlertService } from '../../../../../core/services/alert.service';
 import { ConfigService } from '../../../../../core/services/config.service';
 import { CoreService } from '../../../../../core/services/core.service';
 import { BreakpointObserver } from '@angular/cdk/layout';
+import { FIELD_VALIDATORS } from '../../../../../core/models/common';
 
 @Component({
   selector: 'cm-basicinfo',
@@ -32,12 +32,11 @@ export class BasicinfoComponent extends EntryContentDirective<BasicInfo> impleme
 
   constructor(
     private fb: FormBuilder,
-    modelsResourceService: ModelsResourceService,
     alertService: AlertService,
     configService: ConfigService,
     private coreService: CoreService,
     breakpointObserver: BreakpointObserver) {
-    super(modelsResourceService, alertService, configService, breakpointObserver);
+    super(alertService, configService, breakpointObserver);
   }
 
   ngOnInit(): void {

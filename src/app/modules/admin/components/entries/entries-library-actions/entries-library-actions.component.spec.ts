@@ -20,7 +20,7 @@ import { CoreTestingModule } from '../../../../../testing/core-testing-module.sp
 import { ConfigServiceStubSpec } from '../../../../../testing/config-service-stub.spec';
 import { ConfigService } from '../../../../../core/services/config.service';
 import { AddMultipleOption } from '../entries-library/entries-library.component';
-import { ModelEntryStatus } from '../../../../../core/models/models';
+import { ModelEntryStatus } from '@fairandsmart/consent-manager/models';
 
 describe('EntriesLibraryActionsComponent', () => {
   let component: EntriesLibraryActionsComponent;

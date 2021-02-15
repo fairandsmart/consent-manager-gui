@@ -14,8 +14,7 @@
  * #L%
  */
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { StatsChart } from '../../../../../core/models/models';
-import { StatisticsResourceService } from '../../../../../core/http/statistics-resource.service';
+import { StatsChart, getStats } from '@fairandsmart/consent-manager/statistics';
 import { ChartConfig, DashboardChartComponent } from '../../../components/dashboard/dashboard-chart/dashboard-chart.component';
 import { DashboardTopTableComponent } from '../../../components/dashboard/dashboard-top-table/dashboard-top-table.component';
 import { DashboardNumbersComponent } from '../../../components/dashboard/dashboard-numbers/dashboard-numbers.component';
@@ -170,11 +169,11 @@ export class DashboardPageComponent implements OnInit {
   public topTable: DashboardTopTableComponent;
   public topStats: StatsChart;
 
-  constructor(public statsService: StatisticsResourceService) {
+  constructor() {
   }
 
   ngOnInit(): void {
-    this.statsService.getStats().subscribe(stats => {
+    getStats().subscribe(stats => {
       this.recordsStats = stats.records;
       this.subjectsStats = stats.subjects;
       this.totalStats = stats.total;

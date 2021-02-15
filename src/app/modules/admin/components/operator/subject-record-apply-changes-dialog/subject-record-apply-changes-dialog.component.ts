@@ -5,10 +5,10 @@
  * Copyright (C) 2020 - 2021 Fair And Smart
  * %%
  * This file is part of Right Consents Community Edition.
- * 
+ *
  * Right Consents Community Edition is published by FAIR AND SMART under the
  * GNU GENERAL PUBLIC LICENCE Version 3 (GPLv3) and a set of additional terms.
- * 
+ *
  * For more information, please see the “LICENSE” and “LICENSE.FAIRANDSMART”
  * files, or see https://www.fairandsmart.com/opensource/.
  * #L%
@@ -17,9 +17,7 @@ import { Component, Inject, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import * as _ from 'lodash';
-import { ModelsResourceService } from '../../../../../core/http/models-resource.service';
-import { ModelEntryDto } from '../../../../../core/models/models';
-import { getActiveVersion, hasActiveVersion } from '../../../../../core/utils/model-entry.utils';
+import { listEntries, ModelEntryDto, ModelEntryHelper } from '@fairandsmart/consent-manager/models';
 
 export interface SubjectRecordApplyChangesDialogData {
   recipient: string;
@@ -39,12 +37,11 @@ export class SubjectRecordApplyChangesDialogComponent implements OnInit {
 
   constructor(private dialogRef: MatDialogRef<SubjectRecordApplyChangesDialogComponent, SubjectRecordApplyChangesDialogData>,
               @Inject(MAT_DIALOG_DATA) public data: SubjectRecordApplyChangesDialogData,
-              private fb: FormBuilder,
-              private modelsService: ModelsResourceService) {}
+              private fb: FormBuilder) {}
 
   ngOnInit(): void {
-    this.modelsService.listEntries({types : ['email']}).subscribe( (result) => {
-      this.models = result.values.filter(value => hasActiveVersion(value));
+    listEntries({types : ['email']}).subscribe( (result) => {
+      this.models = result.values.filter(value => ModelEntryHelper.hasActiveVersion(value));
       if (result.totalCount === 0) {
         this.form.get('recipient').disable();
         this.form.get('model').disable();
@@ -80,7 +77,7 @@ export class SubjectRecordApplyChangesDialogComponent implements OnInit {
     const result = _.cloneDeep(this.data);
     if (this.form.get('notify').value) {
       result.recipient = this.form.get('recipient').value.trim();
-      result.model = getActiveVersion(this.form.get('model').value).identifier;
+      result.model = ModelEntryHelper.getActiveVersion(this.form.get('model').value).identifier;
     }
     this.dialogRef.close(result);
   }

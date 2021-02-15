@@ -17,15 +17,14 @@ import { Component, EventEmitter, Input, OnInit, Output, TemplateRef, ViewChild 
 import { KeycloakService } from 'keycloak-angular';
 import { Router } from '@angular/router';
 import { debounceTime, mergeMap } from 'rxjs/operators';
-import { SubjectsResourceService } from '../../http/subjects-resource.service';
 import { FormControl } from '@angular/forms';
 import { Observable, of } from 'rxjs';
-import { SubjectDto } from '../../models/models';
 import { I18N_LANGUAGES } from '../../constants/i18n';
 import { TranslateService } from '@ngx-translate/core';
 import { MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { environment } from '../../../../environments/environment';
 import { CoreService } from '../../services/core.service';
+import { listSubjects, SubjectDto } from '@fairandsmart/consent-manager/subjects';
 
 @Component({
   selector: 'cm-header-nav',
@@ -62,7 +61,6 @@ export class HeaderNavComponent implements OnInit {
   constructor(
     public keycloak: KeycloakService,
     private router: Router,
-    private subjectsService: SubjectsResourceService,
     private dialog: MatDialog,
     public translate: TranslateService,
     private coreService: CoreService
@@ -75,7 +73,7 @@ export class HeaderNavComponent implements OnInit {
       debounceTime(200),
       mergeMap((value: string) => {
         if (value.length > 1) {
-          return this.subjectsService.listSubjects(value);
+          return listSubjects(value);
         }
         return of([]);
       })

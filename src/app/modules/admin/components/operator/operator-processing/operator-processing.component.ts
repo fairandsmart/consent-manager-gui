@@ -14,10 +14,8 @@
  * #L%
  */
 import { Component, OnInit } from '@angular/core';
-import { ModelsResourceService } from '../../../../../core/http/models-resource.service';
-import { SubjectsResourceService } from '../../../../../core/http/subjects-resource.service';
 import { OperatorConsentListDirective } from '../operator-consent-list/operator-consent-list.directive';
-import { EntryRecord, Icons, RecordStatus } from '../../../../../core/models/models';
+import { EntryRecord, RecordStatus } from '@fairandsmart/consent-manager/records';
 import {
   SubjectRecordEditorDialogComponent,
   SubjectRecordEditorDialogData
@@ -27,6 +25,7 @@ import { SubjectRecordsHistoryComponent } from '../subject-records-history/subje
 import { CoreService } from '../../../../../core/services/core.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { TranslateService } from '@ngx-translate/core';
+import { Icons } from '../../../../../core/models/common';
 
 @Component({
   selector: 'cm-operator-processing',
@@ -40,14 +39,12 @@ export class OperatorProcessingComponent extends OperatorConsentListDirective im
   public pageSizeOptions = [10, 25, 50];
 
   constructor(
-    protected modelsResource: ModelsResourceService,
-    protected subjectsResource: SubjectsResourceService,
     private dialog: MatDialog,
     protected coreService: CoreService,
     protected snackBar: MatSnackBar,
     protected translate: TranslateService
   ) {
-    super(modelsResource, subjectsResource, coreService, snackBar, translate);
+    super(coreService, snackBar, translate);
   }
 
   ngOnInit(): void {

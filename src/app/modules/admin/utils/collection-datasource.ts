@@ -14,10 +14,10 @@
  * #L%
  */
 import { CollectionViewer, DataSource } from '@angular/cdk/collections';
-import { CollectionPage } from '../../../core/models/models';
 import { BehaviorSubject, Observable, of } from 'rxjs';
 import { MatPaginator } from '@angular/material/paginator';
 import { catchError, filter, first, skip, takeUntil, tap } from 'rxjs/operators';
+import { CollectionPage } from '@fairandsmart/consent-manager';
 
 export abstract class CollectionDatasource<T, F> implements DataSource<T> {
 

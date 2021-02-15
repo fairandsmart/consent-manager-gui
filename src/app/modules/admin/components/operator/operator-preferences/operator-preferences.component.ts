@@ -15,9 +15,7 @@
  */
 import { Component, OnInit } from '@angular/core';
 import { OperatorConsentListDirective } from '../operator-consent-list/operator-consent-list.directive';
-import { ModelsResourceService } from '../../../../../core/http/models-resource.service';
-import { SubjectsResourceService } from '../../../../../core/http/subjects-resource.service';
-import { Icons, Preference } from '../../../../../core/models/models';
+import { getActiveVersion, Preference } from '@fairandsmart/consent-manager/models';
 import {
   SubjectRecordEditorDialogComponent,
   SubjectRecordEditorDialogData
@@ -27,6 +25,7 @@ import { TranslateService } from '@ngx-translate/core';
 import {ConfigService} from '../../../../../core/services/config.service';
 import { CoreService } from '../../../../../core/services/core.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { Icons } from '../../../../../core/models/common';
 
 @Component({
   selector: 'cm-operator-preferences',
@@ -42,15 +41,13 @@ export class OperatorPreferencesComponent extends OperatorConsentListDirective i
   public pageSizeOptions = [10, 25, 50];
 
   constructor(
-    protected modelsResource: ModelsResourceService,
-    protected subjectsResource: SubjectsResourceService,
     private dialog: MatDialog,
     protected translate: TranslateService,
     private configService: ConfigService,
     protected coreService: CoreService,
     protected snackBar: MatSnackBar
   ) {
-    super(modelsResource, subjectsResource, coreService, snackBar, translate);
+    super(coreService, snackBar, translate);
     this.defaultLanguage = this.configService.getDefaultLanguage();
   }
 
@@ -61,7 +58,7 @@ export class OperatorPreferencesComponent extends OperatorConsentListDirective i
 
   action(element): void {
     super.action(element);
-    this.modelsResource.getActiveVersion(element.id).subscribe((version) => {
+    getActiveVersion(element.id).subscribe((version) => {
       let versionDto: Preference;
       if (version.data[this.translate.currentLang]) {
         versionDto = version.data[this.translate.currentLang] as Preference;

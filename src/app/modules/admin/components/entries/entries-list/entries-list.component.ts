@@ -16,10 +16,9 @@
 import { AfterViewInit, ChangeDetectorRef, Component, Input, OnInit, ViewChild } from '@angular/core';
 import { AddMultipleOption, ConsentElementEntryDataSource, SectionConfig } from '../entries-library/entries-library.component';
 import { tap } from 'rxjs/operators';
-import { ModelDataType, ModelEntryStatus } from '../../../../../core/models/models';
+import { ModelDataType, ModelEntryStatus } from '@fairandsmart/consent-manager/models';
 import { EntryEditorDialogComponent, EntryEditorDialogComponentData } from '../../entry/entry-editor-dialog/entry-editor-dialog.component';
 import { MatPaginator } from '@angular/material/paginator';
-import { ModelsResourceService } from '../../../../../core/http/models-resource.service';
 import { MatDialog } from '@angular/material/dialog';
 import { ActivatedRoute, Router } from '@angular/router';
 import { MatSnackBar } from '@angular/material/snack-bar';
@@ -43,7 +42,6 @@ export class EntriesListComponent implements OnInit, AfterViewInit {
   paginator!: MatPaginator;
 
   constructor(
-    private modelsResource: ModelsResourceService,
     private dialog: MatDialog,
     protected ref: ChangeDetectorRef,
     private route: ActivatedRoute,
@@ -55,7 +53,7 @@ export class EntriesListComponent implements OnInit, AfterViewInit {
 
   ngOnInit(): void {
     if (this.section.dataSource == null) {
-      this.section.dataSource = new ConsentElementEntryDataSource(this.modelsResource);
+      this.section.dataSource = new ConsentElementEntryDataSource();
     }
     if (this.section.orderingOptions == null) {
       this.section.orderingOptions = ['name', 'key', 'creationDate', 'modificationDate'];

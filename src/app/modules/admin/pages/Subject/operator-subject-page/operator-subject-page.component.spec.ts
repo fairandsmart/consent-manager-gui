@@ -19,27 +19,22 @@ import { OperatorSubjectPageComponent } from './operator-subject-page.component'
 import { RouterTestingModule } from '@angular/router/testing';
 import { CoreTestingModule } from '../../../../../testing/core-testing-module.spec';
 import { HttpClientModule } from '@angular/common/http';
-import { ConsentsResourceService } from '../../../../../core/http/consents-resource.service';
-import { SubjectsResourceService } from '../../../../../core/http/subjects-resource.service';
 import { ActivatedRouteStubSpec } from '../../../../../testing/activated-route-stub.spec';
 import { ActivatedRoute } from '@angular/router';
-import { EMPTY, of } from 'rxjs';
+import { EMPTY, Observable, of } from 'rxjs';
 import { ConfigServiceStubSpec } from '../../../../../testing/config-service-stub.spec';
 import { ConfigService } from '../../../../../core/services/config.service';
 import SpyObj = jasmine.SpyObj;
 import createSpyObj = jasmine.createSpyObj;
+import { RightConsents } from '@fairandsmart/consent-manager';
 
 describe('OperatorSubjectPageComponent', () => {
   let component: OperatorSubjectPageComponent;
   let fixture: ComponentFixture<OperatorSubjectPageComponent>;
-  let consentsResourceServiceSpy: SpyObj<ConsentsResourceService>;
-  let subjectsResourceServiceSpy: SpyObj<SubjectsResourceService>;
   let activatedRouteStub: ActivatedRouteStubSpec;
   let configServiceStub: ConfigServiceStubSpec;
 
   beforeEach(waitForAsync(() => {
-    consentsResourceServiceSpy = createSpyObj<ConsentsResourceService>('ConsentsResourceService', ['generateToken', 'postConsent']);
-    subjectsResourceServiceSpy = createSpyObj<SubjectsResourceService>('SubjectsResourceService', ['getSubject', 'listSubjectRecords', 'updateSubject', 'createSubject']);
     activatedRouteStub = new ActivatedRouteStubSpec({
       params: {
         subject: 'foobar'
@@ -51,8 +46,6 @@ describe('OperatorSubjectPageComponent', () => {
       declarations: [OperatorSubjectPageComponent],
       imports: [CoreTestingModule, RouterTestingModule, HttpClientModule],
       providers: [
-        {provide: ConsentsResourceService, useValue: consentsResourceServiceSpy},
-        {provide: SubjectsResourceService, useValue: subjectsResourceServiceSpy},
         {provide: ActivatedRoute, useValue: activatedRouteStub},
         {provide: ConfigService, useValue: configServiceStub}
       ]
@@ -61,10 +54,7 @@ describe('OperatorSubjectPageComponent', () => {
   }));
 
   beforeEach(() => {
-    consentsResourceServiceSpy.generateToken.and.returnValue(of('foobar'));
-    consentsResourceServiceSpy.postConsent.and.returnValue(of('foobar'));
-    subjectsResourceServiceSpy.getSubject.and.returnValue(EMPTY);
-
+    RightConsents.init({apiRoot: '', httpClient: () => new Observable()});
     fixture = TestBed.createComponent(OperatorSubjectPageComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();

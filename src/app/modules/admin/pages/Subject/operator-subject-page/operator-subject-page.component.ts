@@ -16,29 +16,27 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import {
-  CollectionMethod,
-  ConsentContext,
-  ConsentFormOrientation,
-  ConsentFormType,
-  OperatorLogElement,
-  RecordsMap,
-  SubjectDto
-} from '../../../../../core/models/models';
-import {
   SubjectRecordApplyChangesDialogComponent,
   SubjectRecordApplyChangesDialogData
 } from '../../../components/operator/subject-record-apply-changes-dialog/subject-record-apply-changes-dialog.component';
-import { HttpParams } from '@angular/common/http';
 import { MatDialog } from '@angular/material/dialog';
 import { TranslateService } from '@ngx-translate/core';
-import { ConsentsResourceService } from '../../../../../core/http/consents-resource.service';
 import { OperatorProcessingComponent } from '../../../components/operator/operator-processing/operator-processing.component';
 import { OperatorPreferencesComponent } from '../../../components/operator/operator-preferences/operator-preferences.component';
 import { OperatorConditionsComponent } from '../../../components/operator/operator-conditions/operator-conditions.component';
-import { SubjectsResourceService } from '../../../../../core/http/subjects-resource.service';
 import { mergeMap } from 'rxjs/operators';
 import { SubjectInfosEditorDialogComponent } from '../../../components/operator/subject-infos-editor-dialog/subject-infos-editor-dialog.component';
 import { ConfigService } from '../../../../../core/services/config.service';
+import { createSubject, getSubject, listSubjectRecords, SubjectDto, updateSubject } from '@fairandsmart/consent-manager/subjects';
+import { OperatorLogElement, RecordsMap } from '@fairandsmart/consent-manager/records';
+import {
+  ConsentContext,
+  ConsentFormOrientation,
+  ConsentFormType,
+  generateToken,
+  postConsent
+} from '@fairandsmart/consent-manager/consents';
+import { CollectionMethod } from '@fairandsmart/consent-manager';
 
 @Component({
   selector: 'cm-operator-subject-page',
@@ -67,8 +65,6 @@ export class OperatorSubjectPageComponent implements OnInit {
     private route: ActivatedRoute,
     private dialog: MatDialog,
     private translate: TranslateService,
-    private consentsResource: ConsentsResourceService,
-    private subjectsResource: SubjectsResourceService,
     private configService: ConfigService
   ) {
     this.defaultLanguage = this.configService.getDefaultLanguage();
@@ -77,7 +73,7 @@ export class OperatorSubjectPageComponent implements OnInit {
   ngOnInit(): void {
     this.route.paramMap.pipe(
       mergeMap((params) => {
-        return this.subjectsResource.getSubject(params.get('subject'));
+        return getSubject(params.get('subject'));
       }),
     ).subscribe((subject) => {
       this.subject = subject;
@@ -107,7 +103,7 @@ export class OperatorSubjectPageComponent implements OnInit {
   }
 
   reloadRecords(): void {
-    this.subjectsResource.listSubjectRecords(this.subject.name).subscribe((records) => {
+    listSubjectRecords(this.subject.name).subscribe((records) => {
       this.records = records;
       this.processingComponent.updateRecords(records);
       this.preferencesComponent.updateRecords(records);
@@ -120,9 +116,9 @@ export class OperatorSubjectPageComponent implements OnInit {
       .afterClosed().pipe(
       mergeMap((subject) => {
         if (subject.id) {
-          return this.subjectsResource.updateSubject(subject);
+          return updateSubject(subject);
         } else {
-          return this.subjectsResource.createSubject(subject);
+          return createSubject(subject);
         }
       })
     ).subscribe((subject) => this.subject = subject);
@@ -152,18 +148,21 @@ export class OperatorSubjectPageComponent implements OnInit {
           iframe: true
         };
 
-        this.consentsResource.generateToken(ctx).pipe(
+        generateToken(ctx).pipe(
           mergeMap((token) => {
-            let values: HttpParams = new HttpParams().append('token', token).append('comment', result.comment);
-            this.operatorLog.forEach(element => values = values.append(element.identifier, element.value));
-            return this.consentsResource.postConsent(values);
+            const values = {
+              token: token,
+              comment: result.comment
+            };
+            this.operatorLog.forEach(element => values[element.identifier] = element.value);
+            return postConsent(values);
           })
         ).subscribe(() => {
           this.operatorLog = [];
           this.reloadRecords();
 
           if (this.subject.creationTimestamp <= 0) {
-            this.subjectsResource.getSubject(this.subject.name).subscribe((subject) => this.subject = subject);
+            getSubject(this.subject.name).subscribe((subject) => this.subject = subject);
           }
         });
       }

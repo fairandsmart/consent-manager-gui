@@ -13,12 +13,11 @@
  * files, or see https://www.fairandsmart.com/opensource/.
  * #L%
  */
-import { ChangeDetectionStrategy, Component, forwardRef, Input, OnInit } from '@angular/core';
-import { ModelEntryDto } from '../../../../../core/models/models';
+import { Component, forwardRef, Input, OnInit } from '@angular/core';
+import { ModelEntryDto, ModelEntryHelper } from '@fairandsmart/consent-manager/models';
 import { CdkDragDrop, transferArrayItem } from '@angular/cdk/drag-drop';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { EntriesListComponent } from '../entries-list/entries-list.component';
-import { hasActiveVersion } from '../../../../../core/utils/model-entry.utils';
 
 @Component({
   selector: 'cm-entries-list-drag-and-drop',
@@ -66,7 +65,7 @@ export class EntriesListDragAndDropComponent extends EntriesListComponent implem
   }
 
   isDisabled(entry: ModelEntryDto): boolean {
-    return this.isSelected(entry) || !hasActiveVersion(entry) || !this.isLanguageCompatible(entry);
+    return this.isSelected(entry) || !ModelEntryHelper.hasActiveVersion(entry) || !this.isLanguageCompatible(entry);
   }
 
   isLanguageCompatible(entry: ModelEntryDto): boolean {
@@ -88,7 +87,7 @@ export class EntriesListDragAndDropComponent extends EntriesListComponent implem
     if (this.isSelected(entry)) {
       return 'ALERT.NOT_DRAGGABLE_REASONS.ALREADY_SELECTED';
     }
-    if (!hasActiveVersion(entry)) {
+    if (!ModelEntryHelper.hasActiveVersion(entry)) {
       return'ALERT.NOT_DRAGGABLE_REASONS.NO_ACTIVE_VERSION';
     }
     if (!this.isLanguageCompatible(entry)) {

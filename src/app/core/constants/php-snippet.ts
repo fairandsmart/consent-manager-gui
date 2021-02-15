@@ -13,8 +13,8 @@
  * files, or see https://www.fairandsmart.com/opensource/.
  * #L%
  */
-import { ConsentContext } from '../models/models';
 import { environment } from '../../../environments/environment';
+import { ConsentContext } from '@fairandsmart/consent-manager/consents';
 
 export const PHP_SNIPPET =
 `<?php

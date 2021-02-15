@@ -16,8 +16,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { map, mergeMap } from 'rxjs/operators';
-import { ModelEntryDto, ModelVersionDto } from '../../../../../core/models/models';
-import { ModelsResourceService } from '../../../../../core/http/models-resource.service';
+import { getEntry, getVersion, ModelEntryDto, ModelVersionDto } from '@fairandsmart/consent-manager/models';
 import { of } from 'rxjs';
 import * as _ from 'lodash';
 import { EntryContentDirective } from '../../../components/entry/entry-content/entry-content.directive';
@@ -39,16 +38,16 @@ export class ModelEntryPageComponent implements OnInit {
 
   childContext: EntryContentDirective<any>;
 
-  constructor(private route: ActivatedRoute, private modelsResource: ModelsResourceService) {
+  constructor(private route: ActivatedRoute) {
   }
 
   ngOnInit(): void {
     this.route.paramMap.pipe(
-      mergeMap((params) => this.modelsResource.getEntry(params.get('id'))),
+      mergeMap((params) => getEntry(params.get('id'))),
       mergeMap((entry: ModelEntryDto) => {
         const lastVersion = _.last(entry.versions);
         if (lastVersion) {
-          return this.modelsResource.getVersion(entry.id, lastVersion.id)
+          return getVersion(entry.id, lastVersion.id)
             .pipe(
               map((version) => ([entry, version]))
             );

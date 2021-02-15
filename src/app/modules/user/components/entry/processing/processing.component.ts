@@ -15,10 +15,9 @@
  */
 import { Component, OnInit } from '@angular/core';
 import { EntryCardContentDirective } from '../entry-card-content/entry-card-content.directive';
-import { Processing } from '../../../../../core/models/models';
+import { Processing } from '@fairandsmart/consent-manager/models';
 import { TranslateService } from '@ngx-translate/core';
 import { KeycloakService } from 'keycloak-angular';
-import { ConsentsResourceService } from '../../../../../core/http/consents-resource.service';
 import { AlertService } from '../../../../../core/services/alert.service';
 import { ConfigService } from '../../../../../core/services/config.service';
 import { CoreService } from '../../../../../core/services/core.service';
@@ -35,12 +34,11 @@ export class ProcessingComponent extends EntryCardContentDirective<Processing> i
   constructor(
     translate: TranslateService,
     keycloakService: KeycloakService,
-    consentsResourceService: ConsentsResourceService,
     alertService: AlertService,
     configService: ConfigService,
     coreService: CoreService
   ) {
-    super(translate, keycloakService, consentsResourceService, alertService, configService, coreService);
+    super(translate, keycloakService, alertService, configService, coreService);
   }
 
   ngOnInit(): void {
