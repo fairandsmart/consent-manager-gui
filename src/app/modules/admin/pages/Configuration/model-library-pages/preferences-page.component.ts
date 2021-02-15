@@ -33,7 +33,8 @@ export class PreferencesPageComponent {
       canAddMultiple: AddMultipleOption.ALWAYS,
       showActions: true,
       icon: Icons.preference,
-      displayDescription: true
+      displayDescription: true,
+      persistFilters: true
     }
   ];
 

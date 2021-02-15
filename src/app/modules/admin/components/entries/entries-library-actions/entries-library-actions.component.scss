@@ -18,11 +18,11 @@
 
 .apply-container {
   display: flex;
+  flex-direction: column;
   width: 100%;
 
   .mat-button {
     margin: 0 12px;
     padding: 0;
-    width: 100%;
   }
 }

@@ -50,6 +50,7 @@ export interface SectionConfig {
   displayDescription: boolean;
   columns?: number;
   listId?: string;
+  persistFilters?: boolean;
 }
 
 @Component({
@@ -78,8 +79,7 @@ export class EntriesLibraryComponent implements OnInit {
 
   constructor() {}
 
-  ngOnInit(): void {
-  }
+  ngOnInit(): void {}
 
   selectedEntriesChange(section: SectionConfig, event: ModelEntryDto[]): void {
     this.selected[section.listId ? section.listId : section.id] = event;

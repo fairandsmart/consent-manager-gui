@@ -20,6 +20,7 @@ import { CoreTestingModule } from '../../../../../testing/core-testing-module.sp
 import { ConfigServiceStubSpec } from '../../../../../testing/config-service-stub.spec';
 import { ConfigService } from '../../../../../core/services/config.service';
 import { AddMultipleOption } from '../entries-library/entries-library.component';
+import { RouterTestingModule } from '@angular/router/testing';
 import { ModelEntryStatus } from '@fairandsmart/consent-manager/models';
 
 describe('EntriesLibraryActionsComponent', () => {
@@ -32,7 +33,7 @@ describe('EntriesLibraryActionsComponent', () => {
 
     TestBed.configureTestingModule({
       declarations: [ EntriesLibraryActionsComponent ],
-      imports: [ CoreTestingModule ],
+      imports: [ CoreTestingModule, RouterTestingModule ],
       providers: [
         {provide: ConfigService, useValue: configServiceStub}
       ]

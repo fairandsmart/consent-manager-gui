@@ -224,6 +224,7 @@
     "FILTER": {
       "LABEL": "Filter",
       "APPLY": "Apply",
+      "RESET": "Reset",
       "KEYWORD": {
         "LABEL": "Keyword"
       },
