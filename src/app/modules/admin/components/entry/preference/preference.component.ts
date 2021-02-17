@@ -23,6 +23,8 @@ import { COMMA, ENTER } from '@angular/cdk/keycodes';
 import * as _ from 'lodash';
 import { ConfigService } from '../../../../../core/services/config.service';
 import { BreakpointObserver } from '@angular/cdk/layout';
+import { MatDialog } from '@angular/material/dialog';
+import { TranslateService } from '@ngx-translate/core';
 
 @Component({
   selector: 'cm-preference',
@@ -44,8 +46,10 @@ export class PreferenceComponent extends EntryContentDirective<Preference> imple
     private fb: FormBuilder,
     alertService: AlertService,
     configService: ConfigService,
-    breakpointObserver: BreakpointObserver) {
-    super(alertService, configService, breakpointObserver);
+    breakpointObserver: BreakpointObserver,
+    dialog: MatDialog,
+    translate: TranslateService) {
+    super(alertService, configService, breakpointObserver, dialog, translate);
   }
 
   ngOnInit(): void {

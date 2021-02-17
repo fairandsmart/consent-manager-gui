@@ -14,7 +14,7 @@
  * #L%
  */
 import { Directive, Input, OnInit, ViewChild } from '@angular/core';
-import { EMPTY, Observable, of } from 'rxjs';
+import { EMPTY, Observable, of, throwError } from 'rxjs';
 import * as _ from 'lodash';
 import { catchError, debounceTime, distinctUntilChanged, filter, map, mergeMap, startWith } from 'rxjs/operators';
 import { HttpErrorResponse } from '@angular/common/http';
@@ -27,14 +27,21 @@ import { MatSidenav } from '@angular/material/sidenav';
 import { EntryPreviewComponent } from '../entry-preview/entry-preview.component';
 import {
   ModelData,
-  ModelEntryDto, ModelEntryStatus,
-  ModelVersionDto, ModelVersionDtoLight,
+  ModelEntryDto,
+  ModelEntryHelper,
+  ModelEntryStatus,
+  ModelVersionDto,
+  ModelVersionDtoLight,
   ModelVersionStatus,
+  ModelVersionType,
   PreviewDto,
   PreviewType
 } from '@fairandsmart/consent-manager/models';
 import { ModelsResource } from '@fairandsmart/consent-manager';
 import { ConsentFormOrientation } from '@fairandsmart/consent-manager/consents';
+import { MatDialog } from '@angular/material/dialog';
+import { ModelVersionSelectorComponent } from '../../../pages/Configuration/model-version-selector/model-version-selector.component';
+import { TranslateService } from '@ngx-translate/core';
 
 @Directive()
 export abstract class EntryContentDirective<T extends ModelData> extends FormStateSaver implements OnInit {
@@ -62,7 +69,9 @@ export abstract class EntryContentDirective<T extends ModelData> extends FormSta
   protected constructor(
     protected alertService: AlertService,
     protected configService: ConfigService,
-    protected breakpointObserver: BreakpointObserver
+    protected breakpointObserver: BreakpointObserver,
+    protected dialog: MatDialog,
+    protected translate: TranslateService
   ) {
     super();
     this.defaultLanguage = configService.config.language;
@@ -162,7 +171,8 @@ export abstract class EntryContentDirective<T extends ModelData> extends FormSta
     ModelsResource.getVersion<T>(this.entry.id, version.id).subscribe(v => this.setVersion(v, language));
   }
 
-  protected setVersion(version: ModelVersionDto<T>, language: string = version?.defaultLanguage || this.configService.getDefaultLanguage()): void {
+  protected setVersion(version: ModelVersionDto<T>,
+                       language: string = version?.defaultLanguage || this.configService.getDefaultLanguage()): void {
     this.version = version;
     if (this.canBeEdited()) {
       this.form.enable();
@@ -238,11 +248,47 @@ export abstract class EntryContentDirective<T extends ModelData> extends FormSta
       this.alertService.error('ALERT.ALREADY_ACTIVE', 'Already active');
       return;
     }
+    let versionTypeSelector$ = of(true);
+    if (ModelEntryHelper.hasActiveVersion(this.entry)) {
+      versionTypeSelector$ = this.dialog.open(ModelVersionSelectorComponent).afterClosed();
+    }
     this.form.disable();
-    ModelsResource.updateVersionStatus<T>(this.entry.id, this.version.id, ModelVersionStatus.ACTIVE).pipe(
+    versionTypeSelector$.pipe(
+      mergeMap((upgradeVersion) => {
+        if (!ModelEntryHelper.hasActiveVersion(this.entry)) {
+          // First version
+          return of({});
+        } else if (upgradeVersion) {
+          // Upgrade to major version
+          return this.alertService.confirm({data: {
+              title: this.translate.instant('ENTRIES.DIALOG.UPGRADE_VERSION.CONFIRM_TITLE'),
+              content: this.translate.instant('ENTRIES.DIALOG.UPGRADE_VERSION.CONFIRM_CONTENT'),
+          }}).afterClosed()
+            .pipe(mergeMap((confirmed) => {
+              if (confirmed) {
+                this.version.type = ModelVersionType.MAJOR;
+                return ModelsResource.updateVersionType<T>(this.entry.id, this.version.id, ModelVersionType.MAJOR);
+              } else {
+                return throwError(new Error('aborted'));
+              }
+            }));
+        } else {
+          // Upgrade to minor version
+          if (this.version.type === ModelVersionType.MAJOR) {
+            this.version.type = ModelVersionType.MINOR;
+            return ModelsResource.updateVersionType<T>(this.entry.id, this.version.id, ModelVersionType.MINOR);
+          }
+          return of({});
+        }
+      }),
+      mergeMap(() => ModelsResource.updateVersionStatus<T>(this.entry.id, this.version.id, ModelVersionStatus.ACTIVE)),
       catchError((err) => {
+        if (err.message === 'aborted') {
+          this.alertService.error('ALERT.ACTIVATION_ABORTED', err);
+        } else {
+          this.alertService.error('ALERT.ACTIVATION_ERROR', err);
+        }
         this.form.enable();
-        this.alertService.error('ALERT.ACTIVATION_ERROR', err);
         return EMPTY;
       }),
       mergeMap((version) => {

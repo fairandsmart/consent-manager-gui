@@ -22,6 +22,7 @@ import {
   ModelEntryStatus,
   ModelVersionDto,
   ModelVersionDtoLight,
+  ModelVersionType,
 } from '@fairandsmart/consent-manager/models';
 import { ConfirmDialogComponent } from '../../../../../core/components/confirm-dialog/confirm-dialog.component';
 import { filter, mergeMap } from 'rxjs/operators';
@@ -30,6 +31,7 @@ import { AlertService } from '../../../../../core/services/alert.service';
 import { TranslateService } from '@ngx-translate/core';
 import { CoreService } from '../../../../../core/services/core.service';
 import { extractRecords } from '@fairandsmart/consent-manager/records';
+import * as _ from 'lodash';
 
 @Component({
   selector: 'cm-entry-info',
@@ -112,7 +114,16 @@ export class EntryInfoComponent implements OnInit {
     });
   }
 
-  getVersionIndex(): number {
-    return this.entry.versions.findIndex(v => v.id === this.version.id) + 1;
+  getVersionIndex(version = this.version): string | number {
+    const vIdx = this.entry.versions.findIndex(v => v.id === version.id);
+    const majorVersions = this.entry.versions.filter((v, idx) => v.type === ModelVersionType.MAJOR || idx === 0);
+    if (version.type === ModelVersionType.MINOR) {
+      let majorIdx = _.findLastIndex(this.entry.versions, {type: ModelVersionType.MAJOR}, vIdx);
+      if (majorIdx === -1) { majorIdx = 0; }
+      const majorVersion = majorVersions.findIndex((v) => v === this.entry.versions[majorIdx]);
+      return (majorVersion + 1) + '.' + (vIdx - majorIdx);
+    } else {
+      return (majorVersions.findIndex(v => v.id === version.id) + 1) + '.0';
+    }
   }
 }

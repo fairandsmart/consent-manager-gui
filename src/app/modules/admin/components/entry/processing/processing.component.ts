@@ -30,6 +30,7 @@ import { TranslateService } from '@ngx-translate/core';
 import { ConfigService } from '../../../../../core/services/config.service';
 import { BreakpointObserver } from '@angular/cdk/layout';
 import { FIELD_VALIDATORS } from '../../../../../core/models/common';
+import { MatDialog } from '@angular/material/dialog';
 
 @Component({
   selector: 'cm-processing',
@@ -44,10 +45,11 @@ export class ProcessingComponent extends EntryContentDirective<Processing> imple
   constructor(
     private fb: FormBuilder,
     alertService: AlertService,
-    private translate: TranslateService,
+    protected translate: TranslateService,
     configService: ConfigService,
-    breakpointObserver: BreakpointObserver) {
-    super(alertService, configService, breakpointObserver);
+    breakpointObserver: BreakpointObserver,
+    dialog: MatDialog) {
+    super(alertService, configService, breakpointObserver, dialog, translate);
   }
 
   ngOnInit(): void {

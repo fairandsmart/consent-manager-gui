@@ -20,6 +20,8 @@ import { FormBuilder, Validators } from '@angular/forms';
 import { AlertService } from '../../../../../core/services/alert.service';
 import { ConfigService } from '../../../../../core/services/config.service';
 import { BreakpointObserver } from '@angular/cdk/layout';
+import { MatDialog } from '@angular/material/dialog';
+import { TranslateService } from '@ngx-translate/core';
 
 @Component({
   selector: 'cm-email',
@@ -32,8 +34,10 @@ export class EmailComponent extends EntryContentDirective<Email> implements OnIn
     private fb: FormBuilder,
     alertService: AlertService,
     configService: ConfigService,
-    breakpointObserver: BreakpointObserver) {
-    super(alertService, configService, breakpointObserver);
+    breakpointObserver: BreakpointObserver,
+    dialog: MatDialog,
+    translate: TranslateService) {
+    super(alertService, configService, breakpointObserver, dialog, translate);
   }
 
   ngOnInit(): void {
