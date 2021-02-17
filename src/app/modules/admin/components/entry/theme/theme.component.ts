@@ -24,6 +24,7 @@ import { TranslateService } from '@ngx-translate/core';
 import { ThemeAutocomplete } from './_theme-autocomplete';
 import { ConfigService } from '../../../../../core/services/config.service';
 import { BreakpointObserver } from '@angular/cdk/layout';
+import { MatDialog } from '@angular/material/dialog';
 
 @Component({
   selector: 'cm-theme',
@@ -112,10 +113,11 @@ export class ThemeComponent extends EntryContentDirective<Theme> implements OnIn
   constructor(
     private fb: FormBuilder,
     alertService: AlertService,
-    public translate: TranslateService,
+    protected translate: TranslateService,
     configService: ConfigService,
-    breakpointObserver: BreakpointObserver) {
-    super(alertService, configService, breakpointObserver);
+    breakpointObserver: BreakpointObserver,
+    dialog: MatDialog) {
+    super(alertService, configService, breakpointObserver, dialog, translate);
   }
 
   ngOnInit(): void {

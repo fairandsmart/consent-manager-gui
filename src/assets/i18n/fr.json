@@ -116,6 +116,7 @@
     },
     "ENTRY_DELETION_SUCCESS": "Le modèle a été supprimé avec succès",
     "ENTRY_DELETION_ERROR": "Impossible de supprimer ce modèle",
+    "ACTIVATION_ABORTED": "Activation annulée",
     "DRAFT_DELETION": {
       "CONFIRM": "Êtes-vous sûr ?",
       "CONFIRM_CONTENT": "Les données non enregistrées seront perdues"
@@ -258,6 +259,15 @@
         "TITLE": "Supprimer le modèle ?",
         "CONTENT": "Êtes-vous certain de vouloir supprimer ce modèle ? Cette opération est irréversible.",
         "HAS_RECORDS": "<br><br>Les consentements associés à ce modèle seront invalidés mais non supprimés."
+      },
+      "UPGRADE_VERSION": {
+        "TITLE": "Voulez-vous activer une version majeure ?",
+        "CONTENT_1": "En activant la version comme version majeure, tous les enregistrements collectés auparavant pour ce modèle seront invalidés et obsolètes.",
+        "CONTENT_2": "Si la version reste mineure, les consentements resteront valides.",
+        "TO_MAJOR": "Créer une version majeure",
+        "TO_MINOR": "Créer une version mineure",
+        "CONFIRM_TITLE": "Êtes-vous sûr ?",
+        "CONFIRM_CONTENT": "En activant cette version en tant que version majeure, les enregistrements collectés de ce modèle deviendront obsolètes."
       }
     },
     "PREVIEW": {
