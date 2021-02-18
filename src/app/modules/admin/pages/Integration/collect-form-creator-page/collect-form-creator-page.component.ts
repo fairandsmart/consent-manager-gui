@@ -72,7 +72,7 @@ export class CollectFormCreatorPageComponent implements OnInit {
       draggingDisabled: false,
       included: true,
       icon: Icons.basicinfo,
-      displayDescription: false,
+      fullSize: false,
       listId: 'infos',
       filter: this.makeDefaultFilter('basicinfo')
     },
@@ -84,7 +84,7 @@ export class CollectFormCreatorPageComponent implements OnInit {
       draggingDisabled: false,
       included: true,
       icon: Icons.processing,
-      displayDescription: false,
+      fullSize: false,
       listId: 'elements',
       filter: this.makeDefaultFilter('processing')
     },
@@ -96,7 +96,7 @@ export class CollectFormCreatorPageComponent implements OnInit {
       draggingDisabled: false,
       included: true,
       icon: Icons.preference,
-      displayDescription: false,
+      fullSize: false,
       listId: 'elements',
       filter: this.makeDefaultFilter('preference')
     },
@@ -108,7 +108,7 @@ export class CollectFormCreatorPageComponent implements OnInit {
       draggingDisabled: false,
       included: true,
       icon: Icons.conditions,
-      displayDescription: false,
+      fullSize: false,
       listId: 'elements',
       filter: this.makeDefaultFilter('conditions')
     }
@@ -153,7 +153,7 @@ export class CollectFormCreatorPageComponent implements OnInit {
       canAddMultiple: AddMultipleOption.NEVER,
       showActions: true,
       icon: Icons.theme,
-      displayDescription: false,
+      fullSize: false,
       filter: this.makeDefaultFilter('theme')
     }
   ];
@@ -167,7 +167,7 @@ export class CollectFormCreatorPageComponent implements OnInit {
       canAddMultiple: AddMultipleOption.NEVER,
       showActions: true,
       icon: Icons.email,
-      displayDescription: false,
+      fullSize: false,
       filter: this.makeDefaultFilter('email')
     }
   ];

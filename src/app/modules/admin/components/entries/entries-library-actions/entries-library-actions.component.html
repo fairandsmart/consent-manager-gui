@@ -13,60 +13,64 @@
   files, or see https://www.fairandsmart.com/opensource/.
   #L%
   -->
-<div class="entries-actions">
-  <button mat-button [matMenuTriggerFor]="orderMenu">
-    {{'ENTRIES.SORT.PREFIX' | translate}} {{'ENTRIES.COMMON.' + section.filter.order + '.LABEL' | translate}}
-  </button>
-  <mat-menu #orderMenu>
-    <ng-template matMenuContent>
-      <button mat-menu-item *ngFor="let option of section.orderingOptions"
-              [disabled]="section.filter.order === option"
-              (click)="sortBy(option)">{{'ENTRIES.COMMON.' + option + '.LABEL' | translate}}</button>
-    </ng-template>
-  </mat-menu>
-  <button (click)="toggleDirection()" mat-icon-button>
-    <mat-icon>{{section.filter.direction === 'asc' ? 'arrow_upward' : 'arrow_downward'}}</mat-icon>
-  </button>
+<div [class]="'entries-actions' + (section.fullSize ? ' two-lines' : ' one-line')">
+  <div class="entries-filter">
+    <button mat-button [matMenuTriggerFor]="filterMenu">
+      <mat-icon>filter_alt</mat-icon>
+      {{'ENTRIES.FILTER.LABEL' | translate}}
+    </button>
+    <mat-menu #filterMenu>
+      <ng-template matMenuContent>
+        <form *ngIf="form" [formGroup]="form" (click)="$event.stopPropagation()" (keydown)="$event.stopPropagation()">
+          <div class="filter-element">
+            <mat-form-field appearance="outline">
+              <mat-label>{{'ENTRIES.FILTER.KEYWORD.LABEL' | translate}}</mat-label>
+              <input matInput formControlName="keyword" autocomplete="off">
+            </mat-form-field>
+          </div>
+          <div class="filter-element">
+            <mat-form-field appearance="outline">
+              <mat-label>{{'ENTRIES.FILTER.STATUS.LABEL' | translate}}</mat-label>
+              <mat-select formControlName="statuses" multiple="true">
+                <mat-option *ngFor="let status of STATUSES" [value]="status">
+                  {{'COMMON.ENTRY_STATUSES.' + status | translate}}
+                </mat-option>
+              </mat-select>
+            </mat-form-field>
+          </div>
+          <div class="filter-element">
+            <mat-form-field appearance="outline">
+              <mat-label>{{'ENTRIES.FILTER.LANGUAGE.LABEL' | translate}}</mat-label>
+              <mat-select formControlName="languages" multiple="true">
+                <mat-option *ngFor="let language of LANGUAGES" [value]="language">
+                  {{'COMMON.LANGUAGES.' + language.toUpperCase() | translate}}
+                </mat-option>
+                <mat-option value="">{{'ENTRIES.FILTER.LANGUAGE.NONE' | translate}}</mat-option>
+              </mat-select>
+            </mat-form-field>
+          </div>
+          <div class="apply-container">
+            <button mat-button (click)="applyFilters()" color="primary">{{'ENTRIES.FILTER.APPLY' | translate}}</button>
+            <button mat-button (click)="resetFilters()" color="warn" *ngIf="!isDefault">{{'ENTRIES.FILTER.RESET' | translate}}</button>
+          </div>
+        </form>
+      </ng-template>
+    </mat-menu>
+  </div>
 
-  <button mat-button [matMenuTriggerFor]="filterMenu">
-    <mat-icon>filter_alt</mat-icon>
-    {{'ENTRIES.FILTER.LABEL' | translate}}
-  </button>
-  <mat-menu #filterMenu>
-    <ng-template matMenuContent>
-      <form *ngIf="form" [formGroup]="form" (click)="$event.stopPropagation()" (keydown)="$event.stopPropagation()">
-        <div class="filter-element">
-          <mat-form-field appearance="outline">
-            <mat-label>{{'ENTRIES.FILTER.KEYWORD.LABEL' | translate}}</mat-label>
-            <input matInput formControlName="keyword" autocomplete="off">
-          </mat-form-field>
-        </div>
-        <div class="filter-element">
-          <mat-form-field appearance="outline">
-            <mat-label>{{'ENTRIES.FILTER.STATUS.LABEL' | translate}}</mat-label>
-            <mat-select formControlName="statuses" multiple="true">
-              <mat-option *ngFor="let status of STATUSES" [value]="status">
-                {{'COMMON.ENTRY_STATUSES.' + status | translate}}
-              </mat-option>
-            </mat-select>
-          </mat-form-field>
-        </div>
-        <div class="filter-element">
-          <mat-form-field appearance="outline">
-            <mat-label>{{'ENTRIES.FILTER.LANGUAGE.LABEL' | translate}}</mat-label>
-            <mat-select formControlName="languages" multiple="true">
-              <mat-option *ngFor="let language of LANGUAGES" [value]="language">
-                {{'COMMON.LANGUAGES.' + language.toUpperCase() | translate}}
-              </mat-option>
-              <mat-option value="">{{'ENTRIES.FILTER.LANGUAGE.NONE' | translate}}</mat-option>
-            </mat-select>
-          </mat-form-field>
-        </div>
-        <div class="apply-container">
-          <button mat-button (click)="applyFilters()" color="primary">{{'ENTRIES.FILTER.APPLY' | translate}}</button>
-          <button mat-button (click)="resetFilters()" color="warn" *ngIf="!isDefault">{{'ENTRIES.FILTER.RESET' | translate}}</button>
-        </div>
-      </form>
-    </ng-template>
-  </mat-menu>
+  <div class="entries-sort">
+    <button mat-button [matMenuTriggerFor]="orderMenu">
+      {{'ENTRIES.SORT.PREFIX' | translate}} {{'ENTRIES.COMMON.' + section.filter.order + '.LABEL' | translate}}
+    </button>
+    <mat-menu #orderMenu>
+      <ng-template matMenuContent>
+        <button mat-menu-item *ngFor="let option of section.orderingOptions"
+                [disabled]="section.filter.order === option"
+                (click)="sortBy(option)">{{'ENTRIES.COMMON.' + option + '.LABEL' | translate}}</button>
+      </ng-template>
+    </mat-menu>
+    <button (click)="toggleDirection()" mat-icon-button>
+      <mat-icon>{{section.filter.direction === 'asc' ? 'arrow_upward' : 'arrow_downward'}}</mat-icon>
+    </button>
+  </div>
 </div>
