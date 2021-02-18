@@ -54,7 +54,7 @@
   <ng-template matMenuContent>
     <button mat-menu-item *ngFor="let v of entry?.versions; index as i"
             (click)="selectVersion.emit(v)" [disabled]="version?.id === v.id">
-      v{{i + 1}} ({{'ENTRIES.VERSION_STATUS.' + v.status | translate}})
+      v{{getVersionIndex(v)}} ({{'ENTRIES.VERSION_STATUS.' + v.status | translate}})
     </button>
   </ng-template>
 </mat-menu>

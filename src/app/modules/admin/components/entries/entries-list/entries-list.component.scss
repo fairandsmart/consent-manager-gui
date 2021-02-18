@@ -36,3 +36,12 @@
     user-select: none;
   }
 }
+
+.spinner {
+  position: absolute;
+  z-index: 100;
+  justify-content: center;
+  display: flex;
+  width: 100%;
+  margin: 16px -24px;
+}

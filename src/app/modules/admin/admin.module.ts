@@ -61,6 +61,7 @@ import { DashboardChartComponent } from './components/dashboard/dashboard-chart/
 import { DashboardTopTableComponent } from './components/dashboard/dashboard-top-table/dashboard-top-table.component';
 import { DashboardNumbersComponent } from './components/dashboard/dashboard-numbers/dashboard-numbers.component';
 import { EntriesLibraryActionsComponent } from './components/entries/entries-library-actions/entries-library-actions.component';
+import { ModelVersionSelectorComponent } from './pages/Configuration/model-version-selector/model-version-selector.component';
 
 @NgModule({
   declarations: [
@@ -105,7 +106,8 @@ import { EntriesLibraryActionsComponent } from './components/entries/entries-lib
     DashboardChartComponent,
     DashboardTopTableComponent,
     DashboardNumbersComponent,
-    EntriesLibraryActionsComponent
+    EntriesLibraryActionsComponent,
+    ModelVersionSelectorComponent
   ],
   imports: [
     AdminRoutingModule,

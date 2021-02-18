@@ -44,6 +44,10 @@
                         [config]="section"
                         (loadQuery)="loadEntriesPage()"></cm-entries-library-actions>
   </div>
+
+  <div class="spinner" *ngIf="section.dataSource?.loading$ | async">
+    <mat-spinner diameter="50"></mat-spinner>
+  </div>
   <div *ngIf="entries.length > 0" class="entries-wrapper"
        [class.loading]="section.dataSource.loading$ | async">
     <cm-entry-card *ngFor="let entry of entries"

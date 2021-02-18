@@ -34,7 +34,7 @@ export class BasicinfoPageComponent {
       canAddMultiple: environment.customization.multipleInfo,
       showActions: environment.customization.multipleInfo === AddMultipleOption.ALWAYS,
       icon: Icons.basicinfo,
-      displayDescription: true,
+      fullSize: true,
       persistFilters: true
     }
   ];

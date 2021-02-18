@@ -8,6 +8,16 @@
   }
 }
 
+.entries-actions.two-lines {
+  text-align: end;
+}
+
+.entries-actions.one-line {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+
 .entries-actions .mat-button {
   padding: 0 8px;
 }

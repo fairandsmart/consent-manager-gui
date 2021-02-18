@@ -22,6 +22,8 @@ import { ConfigService } from '../../../../../core/services/config.service';
 import { CoreService } from '../../../../../core/services/core.service';
 import { BreakpointObserver } from '@angular/cdk/layout';
 import { FIELD_VALIDATORS } from '../../../../../core/models/common';
+import { MatDialog } from '@angular/material/dialog';
+import { TranslateService } from '@ngx-translate/core';
 
 @Component({
   selector: 'cm-basicinfo',
@@ -35,8 +37,10 @@ export class BasicinfoComponent extends EntryContentDirective<BasicInfo> impleme
     alertService: AlertService,
     configService: ConfigService,
     private coreService: CoreService,
-    breakpointObserver: BreakpointObserver) {
-    super(alertService, configService, breakpointObserver);
+    breakpointObserver: BreakpointObserver,
+    dialog: MatDialog,
+    translate: TranslateService) {
+    super(alertService, configService, breakpointObserver, dialog, translate);
   }
 
   ngOnInit(): void {
