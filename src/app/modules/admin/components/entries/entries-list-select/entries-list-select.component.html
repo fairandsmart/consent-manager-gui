@@ -19,6 +19,10 @@
                         [config]="section"
                         (loadQuery)="loadEntriesPage()"></cm-entries-library-actions>
   </div>
+
+  <div class="spinner" *ngIf="section.dataSource?.loading$ | async">
+    <mat-spinner diameter="50"></mat-spinner>
+  </div>
   <mat-grid-list *ngIf="entries.length > 0" [cols]="section.columns" gutterSize="10" rowHeight="80"
                  [class.loading]="section.dataSource.loading$ | async">
     <mat-grid-tile *ngFor="let entry of entries">

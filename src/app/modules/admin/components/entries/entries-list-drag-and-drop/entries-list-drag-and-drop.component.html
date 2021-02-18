@@ -19,6 +19,10 @@
                         [config]="section"
                         (loadQuery)="loadEntriesPage()"></cm-entries-library-actions>
   </div>
+
+  <div class="spinner" *ngIf="section.dataSource?.loading$ | async">
+    <mat-spinner diameter="50"></mat-spinner>
+  </div>
   <div cdkDropList
        [id]="'available-' + section.id"
        [cdkDropListConnectedTo]="['selected-' + (section.listId ? section.listId : section.id)]"
@@ -36,8 +40,8 @@
                        [entry]="entry"></cm-entry-card>
       </mat-grid-tile>
     </mat-grid-list>
-    <p *ngIf="entries.length === 0" class="empty-hint">{{'ENTRIES.COMMON.EMPTY_LIST' | translate}}</p>
   </div>
+  <p *ngIf="entries.length === 0" class="empty-hint">{{'ENTRIES.COMMON.EMPTY_LIST' | translate}}</p>
 </ng-container>
 <mat-paginator [class.single-page]="paginator.pageIndex === 0 && !paginator.hasNextPage()"
                #paginator="matPaginator" [hidePageSize]="true" [pageIndex]="section.filter.page"

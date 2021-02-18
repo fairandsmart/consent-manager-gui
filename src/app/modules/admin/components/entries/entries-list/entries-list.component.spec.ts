@@ -60,7 +60,7 @@ describe('EntriesListComponent', () => {
       types: ['basicinfo'],
       canAddMultiple: AddMultipleOption.ALWAYS,
       showActions: true,
-      displayDescription: false,
+      fullSize: false,
     };
 
     // fixture.detectChanges();

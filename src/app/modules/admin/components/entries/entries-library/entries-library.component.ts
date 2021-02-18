@@ -47,7 +47,7 @@ export interface SectionConfig {
   dataSource?: ConsentElementEntryDataSource;
   orderingOptions?: (keyof ModelEntryDto)[];
   icon?: Icons;
-  displayDescription: boolean;
+  fullSize: boolean;
   columns?: number;
   listId?: string;
   persistFilters?: boolean;

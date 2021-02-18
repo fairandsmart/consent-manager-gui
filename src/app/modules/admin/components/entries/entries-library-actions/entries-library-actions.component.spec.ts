@@ -49,7 +49,7 @@ describe('EntriesLibraryActionsComponent', () => {
       types: ['processing'],
       canAddMultiple: AddMultipleOption.ALWAYS,
       showActions: true,
-      displayDescription: false,
+      fullSize: false,
       filter: {
         statuses: [ModelEntryStatus.ACTIVE],
         languages: ['fr']
