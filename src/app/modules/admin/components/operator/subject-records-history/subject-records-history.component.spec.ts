@@ -20,7 +20,6 @@ import { CoreTestingModule } from '../../../../../testing/core-testing-module.sp
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import SpyObj = jasmine.SpyObj;
 import createSpyObj = jasmine.createSpyObj;
-import { EMPTY } from 'rxjs';
 
 describe('SubjectRecordsHistoryComponent', () => {
   let component: SubjectRecordsHistoryComponent;

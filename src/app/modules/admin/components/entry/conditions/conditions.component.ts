@@ -19,7 +19,6 @@ import { Conditions } from '@fairandsmart/consent-manager/models';
 import { FormBuilder, Validators } from '@angular/forms';
 import { AlertService } from '../../../../../core/services/alert.service';
 import { ConfigService } from '../../../../../core/services/config.service';
-import { BreakpointObserver } from '@angular/cdk/layout';
 import { MatDialog } from '@angular/material/dialog';
 import { TranslateService } from '@ngx-translate/core';
 
@@ -46,10 +45,9 @@ export class ConditionsComponent extends EntryContentDirective<Conditions> imple
     private fb: FormBuilder,
     alertService: AlertService,
     configService: ConfigService,
-    breakpointObserver: BreakpointObserver,
     dialog: MatDialog,
     translate: TranslateService) {
-    super(alertService, configService, breakpointObserver, dialog, translate);
+    super(alertService, configService, dialog, translate);
   }
 
   ngOnInit(): void {

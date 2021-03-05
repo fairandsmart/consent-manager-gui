@@ -16,9 +16,7 @@
 import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 
 import { OperatorConditionsComponent } from './operator-conditions.component';
-import { EMPTY, Observable } from 'rxjs';
-import SpyObj = jasmine.SpyObj;
-import createSpyObj = jasmine.createSpyObj;
+import { Observable } from 'rxjs';
 import { CoreTestingModule } from '../../../../../testing/core-testing-module.spec';
 import { RightConsents } from '@fairandsmart/consent-manager';
 

@@ -1,0 +1,63 @@
+<!--
+  #%L
+  Right Consents, a Universal Consents & Preferences Management Platform.
+  %%
+  Copyright (C) 2020 - 2021 Fair And Smart
+  %%
+  This file is part of Right Consents Community Edition.
+
+  Right Consents Community Edition is published by FAIR AND SMART under the
+  GNU GENERAL PUBLIC LICENCE Version 3 (GPLv3) and a set of additional terms.
+
+  For more information, please see the “LICENSE” and “LICENSE.FAIRANDSMART”
+  files, or see https://www.fairandsmart.com/opensource/.
+  #L%
+  -->
+<mat-sidenav-container>
+  <mat-sidenav-content *ngIf="entry">
+    <div class="editor-wrapper">
+      <mat-card>
+        <mat-card-title class="page-title">
+          <span class="title-button">
+            <button mat-icon-button routerLink="../">
+              <mat-icon>arrow_back</mat-icon>
+            </button>
+            <span>{{'ENTRIES.EDITOR.CONTENT.TITLE.' + entry.type | translate}}</span>
+          </span>
+          <div class="preview-toggler" *ngIf="!optionsNav.opened" (click)="optionsNav.toggle()">
+            <mat-icon>reorder</mat-icon>
+            {{'ENTRIES.EDITOR.CONTENT.SHOW_SIDE' | translate}}
+          </div>
+        </mat-card-title>
+
+        <mat-card-content>
+          <ng-content></ng-content>
+        </mat-card-content>
+
+        <mat-card-actions *ngIf="displayActions">
+          <button mat-button type="button" color="primary" [disabled]="disableSave" (click)="saveVersion.emit()">
+            {{'ENTRIES.EDITOR.BUTTONS.SAVE' | translate}}
+          </button>
+          <ng-container *ngIf="version != null">
+            <button mat-button type="button" color="primary" [disabled]="disableActivate" (click)="activateVersion.emit()">
+              {{'ENTRIES.EDITOR.BUTTONS.ACTIVATE' | translate}}
+            </button>
+            <button mat-button type="button" color="warn" [disabled]="disableDelete" (click)="deleteDraft.emit()">
+              {{'ENTRIES.EDITOR.BUTTONS.DELETE' | translate}}
+            </button>
+          </ng-container>
+        </mat-card-actions>
+      </mat-card>
+      <div class="back-button-wrapper">
+        <button mat-button color="primary" routerLink="../">{{'COMMON.BUTTONS.BACK' | translate}}</button>
+      </div>
+    </div>
+  </mat-sidenav-content>
+
+  <mat-sidenav [disableClose]="(sideNavBehavior$ | async) !== 'over'" #optionsNav opened
+               [mode]="sideNavBehavior$ | async" position="end">
+    <cm-entry-info *ngIf="entry" [entry]="entry" [version]="version"
+                   (selectVersion)="selectVersion.emit($event)"></cm-entry-info>
+    <cm-entry-preview #preview (refreshPreview)="refreshPreview.emit()" [withControls]="withPreviewControl"></cm-entry-preview>
+  </mat-sidenav>
+</mat-sidenav-container>

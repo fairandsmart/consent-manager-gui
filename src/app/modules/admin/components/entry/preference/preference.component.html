@@ -13,116 +13,94 @@
   files, or see https://www.fairandsmart.com/opensource/.
   #L%
   -->
-<mat-sidenav-container>
-  <mat-sidenav-content>
-    <form *ngIf="form" [formGroup]="form">
-      <mat-card>
-        <mat-card-title class="page-title">
-          <span>{{'ENTRIES.EDITOR.CONTENT.TITLE.' + type | translate}}</span>
-          <div class="preview-toggler" *ngIf="!optionsNav.opened" (click)="optionsNav.toggle()">
-            <mat-icon>reorder</mat-icon>
-            {{'ENTRIES.EDITOR.CONTENT.SHOW_SIDE' | translate}}
-          </div>
-        </mat-card-title>
+<cm-entry-editor-container #container
+                           [entry]="entry" [version]="version" [displayActions]="canBeEdited()"
+                           [disableSave]="disableSave()" [disableActivate]="disableActivate()"
+                           [disableDelete]="disableDelete()" (saveVersion)="saveVersion()"
+                           (activateVersion)="activateVersion()" (deleteDraft)="deleteDraft()"
+                           (refreshPreview)="refreshPreview()" (selectVersion)="selectVersion($event)">
+  <form *ngIf="form" [formGroup]="form">
 
-        <mat-card-content>
+    <mat-card-subtitle>{{'ENTRIES.EDITOR.PREFERENCE.SUBTITLES.CONTENT' | translate}}</mat-card-subtitle>
+    <mat-form-field appearance="outline">
+      <mat-label>{{'ENTRIES.EDITOR.PREFERENCE.LABEL.LABEL' | translate}}</mat-label>
+      <input matInput required formControlName="label" autocomplete="off">
+    </mat-form-field>
+    <mat-form-field appearance="outline">
+      <mat-label>{{'ENTRIES.EDITOR.PREFERENCE.DESCRIPTION.LABEL' | translate}}</mat-label>
+      <textarea matInput formControlName="description" cdkTextareaAutosize cdkAutosizeMinRows="5"></textarea>
+    </mat-form-field>
+    <mat-form-field appearance="outline">
+      <mat-label>{{'ENTRIES.EDITOR.PREFERENCE.VALUE_TYPE.LABEL' | translate}}</mat-label>
+      <mat-select formControlName="valueType" required>
+        <mat-option *ngFor="let type of VALUE_TYPES_LIST" [value]="type">
+          {{'ENTRIES.EDITOR.PREFERENCE.VALUE_TYPE.VALUES.' + type | translate}}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+    <mat-checkbox formControlName="optional">
+      {{'ENTRIES.EDITOR.PREFERENCE.OPTIONAL.LABEL' | translate}}
+    </mat-checkbox>
 
-          <mat-card-subtitle>{{'ENTRIES.EDITOR.PREFERENCE.SUBTITLES.CONTENT' | translate}}</mat-card-subtitle>
-          <mat-form-field appearance="outline">
-            <mat-label>{{'ENTRIES.EDITOR.PREFERENCE.LABEL.LABEL' | translate}}</mat-label>
-            <input matInput required formControlName="label" autocomplete="off">
-          </mat-form-field>
-          <mat-form-field appearance="outline">
-            <mat-label>{{'ENTRIES.EDITOR.PREFERENCE.DESCRIPTION.LABEL' | translate}}</mat-label>
-            <textarea matInput formControlName="description" cdkTextareaAutosize cdkAutosizeMinRows="5"></textarea>
-          </mat-form-field>
-          <mat-form-field appearance="outline">
-            <mat-label>{{'ENTRIES.EDITOR.PREFERENCE.VALUE_TYPE.LABEL' | translate}}</mat-label>
-            <mat-select formControlName="valueType" required>
-              <mat-option *ngFor="let type of VALUE_TYPES_LIST" [value]="type">
-                {{'ENTRIES.EDITOR.PREFERENCE.VALUE_TYPE.VALUES.' + type | translate}}
-              </mat-option>
-            </mat-select>
-          </mat-form-field>
-          <mat-checkbox formControlName="optional">
-            {{'ENTRIES.EDITOR.PREFERENCE.OPTIONAL.LABEL' | translate}}
-          </mat-checkbox>
+    <div *ngIf="form.get('valueType').value && form.get('valueType').value !== VALUE_TYPES.FREE_TEXT">
+      <mat-card-subtitle>{{'ENTRIES.EDITOR.PREFERENCE.SUBTITLES.OPTIONS' | translate}}</mat-card-subtitle>
 
-          <div *ngIf="form.get('valueType').value && form.get('valueType').value !== VALUE_TYPES.FREE_TEXT">
-            <mat-card-subtitle>{{'ENTRIES.EDITOR.PREFERENCE.SUBTITLES.OPTIONS' | translate}}</mat-card-subtitle>
-
-            <div>
-              <mat-form-field appearance="outline">
-                <mat-label>{{'ENTRIES.EDITOR.PREFERENCE.OPTIONS.LABEL' | translate}}</mat-label>
-                <mat-chip-list #optionsChipList required [matTooltip]="'ENTRIES.EDITOR.PREFERENCE.OPTIONS.SEPARATORS_HINT' | translate">
-                  <mat-chip *ngFor="let option of form.get('options').value" [selectable]="true"
-                            [removable]="true" (removed)="removeOption(option)">
-                    {{option}}
-                    <mat-icon matChipRemove>cancel</mat-icon>
-                  </mat-chip>
-                  <input
-                    [placeholder]="'ENTRIES.EDITOR.PREFERENCE.OPTIONS.PLACEHOLDER' | translate"
-                    [formControl]="optionsInputCtrl"
-                    [matChipInputFor]="optionsChipList"
-                    [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
-                    [matChipInputAddOnBlur]="false"
-                    (matChipInputTokenEnd)="addOption($event)">
-                </mat-chip-list>
-                <mat-hint *ngIf="form.get('valueType').value === VALUE_TYPES.TOGGLE">
-                  {{'ENTRIES.EDITOR.PREFERENCE.OPTIONS.TOGGLE_HINT' | translate}}
-                </mat-hint>
-                <mat-error *ngIf="form.hasError('required', ['options'])">
-                  {{'ENTRIES.EDITOR.PREFERENCE.OPTIONS.REQUIRED' | translate}}
-                </mat-error>
-                <mat-error *ngIf="form.hasError('maxlength', ['options'])">
-                  {{'ENTRIES.EDITOR.PREFERENCE.OPTIONS.MAX_LENGTH_ERROR' | translate}}
-                </mat-error>
-                <mat-error *ngIf="form.get('valueType').value === VALUE_TYPES.CHECKBOXES && form.hasError('minlength', ['options'])">
-                  {{'ENTRIES.EDITOR.PREFERENCE.OPTIONS.MIN_LENGTH_ERROR_CHECKBOXES' | translate}}
-                </mat-error>
-                <mat-error *ngIf="form.get('valueType').value !== VALUE_TYPES.CHECKBOXES && form.hasError('minlength', ['options'])">
-                  {{'ENTRIES.EDITOR.PREFERENCE.OPTIONS.MIN_LENGTH_ERROR' | translate}}
-                </mat-error>
-              </mat-form-field>
-            </div>
-
-            <mat-checkbox formControlName="includeDefault">
-              {{'ENTRIES.EDITOR.PREFERENCE.INCLUDE_DEFAULT.LABEL' | translate}}
-            </mat-checkbox>
-
-            <div *ngIf="form.get('includeDefault').value">
-              <mat-form-field appearance="outline">
-                <mat-label>{{'ENTRIES.EDITOR.PREFERENCE.DEFAULT_VALUE.LABEL' | translate}}</mat-label>
-                <mat-select formControlName="defaultValues" required multiple="true">
-                  <mat-option *ngFor="let value of form.get('options').value" [value]="value">
-                    {{value}}
-                  </mat-option>
-                </mat-select>
-                <mat-error *ngIf="form.hasError('maxlength', ['defaultValues'])">
-                  {{'ENTRIES.EDITOR.PREFERENCE.DEFAULT_VALUE.LENGTH_ERROR' | translate}}
-                </mat-error>
-              </mat-form-field>
-            </div>
-          </div>
-
-        </mat-card-content>
-
-        <mat-card-actions *ngIf="canBeEdited()">
-          <button mat-button type="button" color="primary" [disabled]="form.disabled" (click)="saveVersion()">{{'ENTRIES.EDITOR.BUTTONS.SAVE' | translate}}</button>
-          <ng-container *ngIf="version != null">
-            <button mat-button type="button" color="primary" [disabled]="form.disabled" (click)="activateVersion()">{{'ENTRIES.EDITOR.BUTTONS.ACTIVATE' | translate}}</button>
-            <button mat-button type="button" color="warn" [disabled]="form.disabled || version.status !== STATUS.DRAFT" (click)="deleteVersion()">{{'ENTRIES.EDITOR.BUTTONS.DELETE' | translate}}</button>
-          </ng-container>
-        </mat-card-actions>
-      </mat-card>
-      <div class="back-button-wrapper">
-        <button mat-button color="primary" routerLink="../">{{'COMMON.BUTTONS.BACK' | translate}}</button>
+      <div>
+        <mat-form-field appearance="outline">
+          <mat-label>{{'ENTRIES.EDITOR.PREFERENCE.OPTIONS.LABEL' | translate}}</mat-label>
+          <mat-chip-list #optionsChipList required [disabled]="optionsInputCtrl.disabled"
+                         [matTooltip]="'ENTRIES.EDITOR.PREFERENCE.OPTIONS.SEPARATORS_HINT' | translate">
+            <mat-chip *ngFor="let option of form.get('options').value" [selectable]="optionsInputCtrl.enabled"
+                      [removable]="optionsInputCtrl.enabled" (removed)="removeOption(option)">
+              {{option}}
+              <mat-icon matChipRemove *ngIf="optionsInputCtrl.enabled">cancel</mat-icon>
+            </mat-chip>
+            <input
+              [placeholder]="'ENTRIES.EDITOR.PREFERENCE.OPTIONS.PLACEHOLDER' | translate"
+              [formControl]="optionsInputCtrl"
+              [matChipInputFor]="optionsChipList"
+              [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
+              [matChipInputAddOnBlur]="false"
+              (matChipInputTokenEnd)="addOption($event)">
+          </mat-chip-list>
+          <mat-hint *ngIf="form.get('valueType').value === VALUE_TYPES.TOGGLE">
+            {{'ENTRIES.EDITOR.PREFERENCE.OPTIONS.TOGGLE_HINT' | translate}}
+          </mat-hint>
+          <mat-error *ngIf="form.hasError('required', ['options'])">
+            {{'ENTRIES.EDITOR.PREFERENCE.OPTIONS.REQUIRED' | translate}}
+          </mat-error>
+          <mat-error *ngIf="form.hasError('maxlength', ['options'])">
+            {{'ENTRIES.EDITOR.PREFERENCE.OPTIONS.MAX_LENGTH_ERROR' | translate}}
+          </mat-error>
+          <mat-error
+            *ngIf="form.get('valueType').value === VALUE_TYPES.CHECKBOXES && form.hasError('minlength', ['options'])">
+            {{'ENTRIES.EDITOR.PREFERENCE.OPTIONS.MIN_LENGTH_ERROR_CHECKBOXES' | translate}}
+          </mat-error>
+          <mat-error
+            *ngIf="form.get('valueType').value !== VALUE_TYPES.CHECKBOXES && form.hasError('minlength', ['options'])">
+            {{'ENTRIES.EDITOR.PREFERENCE.OPTIONS.MIN_LENGTH_ERROR' | translate}}
+          </mat-error>
+        </mat-form-field>
       </div>
-    </form>
-  </mat-sidenav-content>
 
-  <mat-sidenav [disableClose]="(sideNavBehavior$ | async) !== 'over'" #optionsNav opened [mode]="sideNavBehavior$ | async" position="end">
-    <cm-entry-info *ngIf="entry" [entry]="entry" [version]="version" (selectVersion)="selectVersion($event)"></cm-entry-info>
-    <cm-entry-preview #preview (refreshPreview)="refreshPreview()"></cm-entry-preview>
-  </mat-sidenav>
-</mat-sidenav-container>
+      <mat-checkbox formControlName="includeDefault">
+        {{'ENTRIES.EDITOR.PREFERENCE.INCLUDE_DEFAULT.LABEL' | translate}}
+      </mat-checkbox>
+
+      <div *ngIf="form.get('includeDefault').value">
+        <mat-form-field appearance="outline">
+          <mat-label>{{'ENTRIES.EDITOR.PREFERENCE.DEFAULT_VALUE.LABEL' | translate}}</mat-label>
+          <mat-select formControlName="defaultValues" required multiple="true">
+            <mat-option *ngFor="let value of form.get('options').value" [value]="value">
+              {{value}}
+            </mat-option>
+          </mat-select>
+          <mat-error *ngIf="form.hasError('maxlength', ['defaultValues'])">
+            {{'ENTRIES.EDITOR.PREFERENCE.DEFAULT_VALUE.LENGTH_ERROR' | translate}}
+          </mat-error>
+        </mat-form-field>
+      </div>
+    </div>
+
+  </form>
+</cm-entry-editor-container>

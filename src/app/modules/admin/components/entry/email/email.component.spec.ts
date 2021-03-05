@@ -23,8 +23,6 @@ import { RouterTestingModule } from '@angular/router/testing';
 import { ConfigServiceStubSpec } from '../../../../../testing/config-service-stub.spec';
 import { ConfigService } from '../../../../../core/services/config.service';
 import { ModelEntryStatus } from '@fairandsmart/consent-manager/models';
-import SpyObj = jasmine.SpyObj;
-import createSpyObj = jasmine.createSpyObj;
 import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { RightConsents } from '@fairandsmart/consent-manager';
 import { Observable } from 'rxjs';

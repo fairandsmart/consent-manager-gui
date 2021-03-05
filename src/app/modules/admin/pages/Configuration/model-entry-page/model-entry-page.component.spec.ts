@@ -18,9 +18,6 @@ import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { ModelEntryPageComponent } from './model-entry-page.component';
 import { ActivatedRoute } from '@angular/router';
 import { ActivatedRouteStubSpec } from '../../../../../testing/activated-route-stub.spec';
-import { EMPTY } from 'rxjs';
-import SpyObj = jasmine.SpyObj;
-import createSpyObj = jasmine.createSpyObj;
 
 describe('ModelEntryPageComponent', () => {
   let component: ModelEntryPageComponent;

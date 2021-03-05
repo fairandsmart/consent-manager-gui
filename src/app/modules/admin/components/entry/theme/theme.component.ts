@@ -21,10 +21,9 @@ import * as CodeMirror from 'codemirror';
 import { Editor } from 'codemirror';
 import { AlertService } from '../../../../../core/services/alert.service';
 import { TranslateService } from '@ngx-translate/core';
-import { ThemeAutocomplete } from './_theme-autocomplete';
 import { ConfigService } from '../../../../../core/services/config.service';
-import { BreakpointObserver } from '@angular/cdk/layout';
 import { MatDialog } from '@angular/material/dialog';
+import { ThemeAutocomplete } from '@fairandsmart/consent-manager/css-autocomplete';
 
 @Component({
   selector: 'cm-theme',
@@ -115,9 +114,8 @@ export class ThemeComponent extends EntryContentDirective<Theme> implements OnIn
     alertService: AlertService,
     protected translate: TranslateService,
     configService: ConfigService,
-    breakpointObserver: BreakpointObserver,
     dialog: MatDialog) {
-    super(alertService, configService, breakpointObserver, dialog, translate);
+    super(alertService, configService, dialog, translate);
   }
 
   ngOnInit(): void {
@@ -136,11 +134,15 @@ export class ThemeComponent extends EntryContentDirective<Theme> implements OnIn
   }
 
   protected makePreviewDto(language, values): PreviewDto {
-    return {
-      language: language,
-      orientation: this.preview.orientationCtrl.value,
-      data: values,
-      previewType: this.preview.previewTypeCtrl.value
-    };
+    if (this.container?.preview?.orientationCtrl) {
+      return {
+        language: language,
+        orientation: this.container.preview.orientationCtrl.value,
+        data: values,
+        previewType: this.container.preview.previewTypeCtrl.value
+      };
+    } else {
+      return super.makePreviewDto(language, values);
+    }
   }
 }

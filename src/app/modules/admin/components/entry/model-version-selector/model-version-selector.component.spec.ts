@@ -1,7 +1,6 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { ModelVersionSelectorComponent } from './model-version-selector.component';
-import { TranslateModule } from '@ngx-translate/core';
 import { CoreTestingModule } from '../../../../../testing/core-testing-module.spec';
 
 describe('ModelVersionSelectorComponent', () => {

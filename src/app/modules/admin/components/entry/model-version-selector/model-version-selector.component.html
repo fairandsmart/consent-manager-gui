@@ -1,0 +1,11 @@
+<h2>{{'ENTRIES.DIALOG.UPGRADE_VERSION.TITLE' | translate}}</h2>
+<p>{{'ENTRIES.DIALOG.UPGRADE_VERSION.CONTENT_1' | translate}}</p>
+<p>{{'ENTRIES.DIALOG.UPGRADE_VERSION.CONTENT_2' | translate}}</p>
+<div class="actions">
+  <button mat-stroked-button color="primary" [mat-dialog-close]="TYPES.MINOR">
+    {{'ENTRIES.DIALOG.UPGRADE_VERSION.TO_MINOR' | translate}}
+  </button>
+  <button mat-stroked-button color="accent"  [mat-dialog-close]="TYPES.MAJOR">
+    {{'ENTRIES.DIALOG.UPGRADE_VERSION.TO_MAJOR' | translate}}
+  </button>
+</div>

@@ -13,28 +13,23 @@
  * files, or see https://www.fairandsmart.com/opensource/.
  * #L%
  */
-import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
+import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { OperatorProcessingComponent } from './operator-processing.component';
-import { CoreTestingModule } from '../../../../../testing/core-testing-module.spec';
+import { EntryEditorContainerComponent } from './entry-editor-container.component';
 
-describe('OperatorProcessingComponent', () => {
-  let component: OperatorProcessingComponent;
-  let fixture: ComponentFixture<OperatorProcessingComponent>;
+describe('EntryEditorContainerComponent', () => {
+  let component: EntryEditorContainerComponent;
+  let fixture: ComponentFixture<EntryEditorContainerComponent>;
 
-  beforeEach(waitForAsync(() => {
-
-    TestBed.configureTestingModule({
-      declarations: [OperatorProcessingComponent],
-      imports: [CoreTestingModule],
-      providers: [
-      ]
+  beforeEach(async () => {
+    await TestBed.configureTestingModule({
+      declarations: [ EntryEditorContainerComponent ]
     })
-      .compileComponents();
-  }));
+    .compileComponents();
+  });
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(OperatorProcessingComponent);
+    fixture = TestBed.createComponent(EntryEditorContainerComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

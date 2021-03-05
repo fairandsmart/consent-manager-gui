@@ -18,7 +18,7 @@ import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { EntryInfoComponent } from './entry-info.component';
 import { CoreTestingModule } from '../../../../../testing/core-testing-module.spec';
 import { AlertService } from '../../../../../core/services/alert.service';
-import { Observable, of } from 'rxjs';
+import { Observable } from 'rxjs';
 import { RouterTestingModule } from '@angular/router/testing';
 import createSpyObj = jasmine.createSpyObj;
 import SpyObj = jasmine.SpyObj;

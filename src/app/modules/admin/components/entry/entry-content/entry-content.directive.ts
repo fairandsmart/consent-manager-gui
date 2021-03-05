@@ -22,9 +22,6 @@ import { environment } from '../../../../../../environments/environment';
 import { AlertService } from '../../../../../core/services/alert.service';
 import { FormStateSaver } from '../../../utils/form-state-saver';
 import { ConfigService } from '../../../../../core/services/config.service';
-import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
-import { MatSidenav } from '@angular/material/sidenav';
-import { EntryPreviewComponent } from '../entry-preview/entry-preview.component';
 import {
   ModelData,
   ModelEntryDto,
@@ -40,8 +37,9 @@ import {
 import { ModelsResource } from '@fairandsmart/consent-manager';
 import { ConsentFormOrientation } from '@fairandsmart/consent-manager/consents';
 import { MatDialog } from '@angular/material/dialog';
-import { ModelVersionSelectorComponent } from '../../../pages/Configuration/model-version-selector/model-version-selector.component';
+import { ModelVersionSelectorComponent } from '../model-version-selector/model-version-selector.component';
 import { TranslateService } from '@ngx-translate/core';
+import { EntryEditorContainerComponent } from '../entry-editor-container/entry-editor-container.component';
 
 @Directive()
 export abstract class EntryContentDirective<T extends ModelData> extends FormStateSaver implements OnInit {
@@ -53,12 +51,8 @@ export abstract class EntryContentDirective<T extends ModelData> extends FormSta
   version: ModelVersionDto<T>;
   initialValue: T;
 
-  @ViewChild('optionsNav', {static: true})
-  sidenav: MatSidenav;
-  sideNavBehavior$: Observable<'side' | 'over'>;
-
-  @ViewChild('preview')
-  preview: EntryPreviewComponent;
+  @ViewChild('container')
+  container: EntryEditorContainerComponent;
 
   private readonly previewDelay = 500;
   private readonly defaultLanguage;
@@ -69,27 +63,21 @@ export abstract class EntryContentDirective<T extends ModelData> extends FormSta
   protected constructor(
     protected alertService: AlertService,
     protected configService: ConfigService,
-    protected breakpointObserver: BreakpointObserver,
     protected dialog: MatDialog,
     protected translate: TranslateService
   ) {
     super();
-    this.defaultLanguage = configService.config.language;
+    this.defaultLanguage = configService.getDefaultLanguage();
   }
 
   ngOnInit(): void {
     this.type = this.entry.type;
-    this.initResponsiveSideNav();
     this.setContextId(this.entry?.key || ''); // disambiguation of the context to avoid cross-entry form state saving
     this.initForm();
     if (this.version) {
       this.setVersion(this.version);
     }
-    if (this.canBeEdited()) {
-      this.form.enable();
-    } else {
-      this.form.disable();
-    }
+    this.enableFormIfAllowed();
   }
 
   get hasChanges(): boolean {
@@ -97,24 +85,6 @@ export abstract class EntryContentDirective<T extends ModelData> extends FormSta
   }
 
   protected abstract initForm(): void;
-
-  private initResponsiveSideNav(): void {
-    this.sideNavBehavior$ = this.breakpointObserver.observe([Breakpoints.Small, Breakpoints.XSmall]).pipe(
-      map((state) => {
-        if (state.matches) {
-          if (this.sidenav && this.sidenav.opened) {
-            this.sidenav.close();
-          }
-          return 'over';
-        } else {
-          if (this.sidenav && !this.sidenav.opened) {
-            this.sidenav.open();
-          }
-          return 'side';
-        }
-      })
-    );
-  }
 
   notifyExistingFormState(): void {
     this.alertService.confirm({
@@ -162,7 +132,7 @@ export abstract class EntryContentDirective<T extends ModelData> extends FormSta
       const versionId = this.version ? this.version.id : ModelsResource.NEW_VERSION_UUID;
       ModelsResource.getVersionPreview(this.entry.id, versionId, dto)
         .subscribe((result: string) => {
-          this.preview.updateUrl(result.replace(/\/assets\//g, `${environment.managerUrl}/assets/`));
+          this.container.preview.updateUrl(result.replace(/\/assets\//g, `${environment.managerUrl}/assets/`));
         });
     }
   }
@@ -174,11 +144,7 @@ export abstract class EntryContentDirective<T extends ModelData> extends FormSta
   protected setVersion(version: ModelVersionDto<T>,
                        language: string = version?.defaultLanguage || this.configService.getDefaultLanguage()): void {
     this.version = version;
-    if (this.canBeEdited()) {
-      this.form.enable();
-    } else {
-      this.form.disable();
-    }
+    this.enableFormIfAllowed();
     if (this.version) {
       this.form.patchValue(this.version.data[language]);
     } else {
@@ -223,7 +189,7 @@ export abstract class EntryContentDirective<T extends ModelData> extends FormSta
     }
     obs.pipe(
       catchError((err) => {
-        this.form.enable();
+        this.enableFormIfAllowed();
         this.alertService.error('ALERT.SAVE_ERROR', err);
         return EMPTY;
       }),
@@ -248,17 +214,17 @@ export abstract class EntryContentDirective<T extends ModelData> extends FormSta
       this.alertService.error('ALERT.ALREADY_ACTIVE', 'Already active');
       return;
     }
-    let versionTypeSelector$ = of(true);
+    let versionTypeSelector$ = of(null);
     if (ModelEntryHelper.hasActiveVersion(this.entry)) {
-      versionTypeSelector$ = this.dialog.open(ModelVersionSelectorComponent).afterClosed();
+      versionTypeSelector$ = this.dialog.open<ModelVersionSelectorComponent, ModelVersionType>(ModelVersionSelectorComponent).afterClosed();
     }
     this.form.disable();
     versionTypeSelector$.pipe(
-      mergeMap((upgradeVersion) => {
+      mergeMap((versionType) => {
         if (!ModelEntryHelper.hasActiveVersion(this.entry)) {
           // First version
           return of({});
-        } else if (upgradeVersion) {
+        } else if (versionType === ModelVersionType.MAJOR) {
           // Upgrade to major version
           return this.alertService.confirm({data: {
               title: this.translate.instant('ENTRIES.DIALOG.UPGRADE_VERSION.CONFIRM_TITLE'),
@@ -272,7 +238,7 @@ export abstract class EntryContentDirective<T extends ModelData> extends FormSta
                 return throwError(new Error('aborted'));
               }
             }));
-        } else {
+        } else if (versionType === ModelVersionType.MINOR) {
           // Upgrade to minor version
           if (this.version.type === ModelVersionType.MAJOR) {
             this.version.type = ModelVersionType.MINOR;
@@ -280,6 +246,7 @@ export abstract class EntryContentDirective<T extends ModelData> extends FormSta
           }
           return of({});
         }
+        return throwError(new Error('aborted'));
       }),
       mergeMap(() => ModelsResource.updateVersionStatus<T>(this.entry.id, this.version.id, ModelVersionStatus.ACTIVE)),
       catchError((err) => {
@@ -288,7 +255,7 @@ export abstract class EntryContentDirective<T extends ModelData> extends FormSta
         } else {
           this.alertService.error('ALERT.ACTIVATION_ERROR', err);
         }
-        this.form.enable();
+        this.enableFormIfAllowed();
         return EMPTY;
       }),
       mergeMap((version) => {
@@ -308,7 +275,7 @@ export abstract class EntryContentDirective<T extends ModelData> extends FormSta
       filter((confirm) => !!confirm),
       mergeMap(() => ModelsResource.deleteVersion(this.entry.id, this.version.id)),
       catchError((err) => {
-        this.form.enable();
+        this.enableFormIfAllowed();
         this.alertService.error('ALERT.DELETION_ERROR', err);
         return EMPTY;
       }),
@@ -322,12 +289,11 @@ export abstract class EntryContentDirective<T extends ModelData> extends FormSta
       catchError((err: HttpErrorResponse) => {
         if (err.status === 404) {
           this.version = null;
-          this.form.enable();
           this.initForm();
         } else {
-          this.form.enable();
           this.alertService.error('ALERT.RELOAD_ERROR', err);
         }
+        this.enableFormIfAllowed();
         return EMPTY;
       }),
       mergeMap((version) => this.updateVersion(version))
@@ -337,6 +303,14 @@ export abstract class EntryContentDirective<T extends ModelData> extends FormSta
   canBeEdited(): boolean {
     return this.entry && this.entry.status !== ModelEntryStatus.DELETED
       && (this.entry.versions.length < 2 || _.last(this.entry.versions).id === this.version.id);
+  }
+
+  enableFormIfAllowed(): void {
+    if (this.canBeEdited()) {
+      this.form.enable();
+    } else {
+      this.form.disable();
+    }
   }
 
   registerFormChanges(): void {
@@ -350,5 +324,17 @@ export abstract class EntryContentDirective<T extends ModelData> extends FormSta
   protected afterActivateVersion(): void {}
   protected afterSaveVersion(): void {}
   protected afterDeleteVersion(): void {}
+
+  disableSave(): boolean {
+    return this.form?.invalid;
+  }
+
+  disableActivate(): boolean {
+    return this.version?.status !== this.STATUS.DRAFT;
+  }
+
+  disableDelete(): boolean {
+    return this.form?.disabled || this.version?.status !== this.STATUS.DRAFT;
+  }
 
 }

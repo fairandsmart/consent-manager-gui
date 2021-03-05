@@ -28,7 +28,6 @@ import { FormArray, FormBuilder, Validators } from '@angular/forms';
 import { AlertService } from '../../../../../core/services/alert.service';
 import { TranslateService } from '@ngx-translate/core';
 import { ConfigService } from '../../../../../core/services/config.service';
-import { BreakpointObserver } from '@angular/cdk/layout';
 import { FIELD_VALIDATORS } from '../../../../../core/models/common';
 import { MatDialog } from '@angular/material/dialog';
 
@@ -47,9 +46,8 @@ export class ProcessingComponent extends EntryContentDirective<Processing> imple
     alertService: AlertService,
     protected translate: TranslateService,
     configService: ConfigService,
-    breakpointObserver: BreakpointObserver,
     dialog: MatDialog) {
-    super(alertService, configService, breakpointObserver, dialog, translate);
+    super(alertService, configService, dialog, translate);
   }
 
   ngOnInit(): void {
@@ -103,7 +101,8 @@ export class ProcessingComponent extends EntryContentDirective<Processing> imple
     super.registerFormChanges();
   }
 
-  protected setVersion(version: ModelVersionDto<Processing>, language: string = version?.defaultLanguage || this.configService.getDefaultLanguage()): void {
+  protected setVersion(version: ModelVersionDto<Processing>,
+                       language: string = version?.defaultLanguage || this.configService.getDefaultLanguage()): void {
     this.form.setControl('thirdParties', this.fb.array([]));
     if (version) {
       version.data[language].thirdParties.forEach(() => this.addThirdParty());
@@ -113,6 +112,7 @@ export class ProcessingComponent extends EntryContentDirective<Processing> imple
 
   restoreFormArray(controlName: string, state: any[]): void {
     if (controlName === 'thirdParties') {
+      this.form.controls.thirdParties = this.fb.array([]);
       state.forEach(() => this.addThirdParty());
       this.getThirdParties().setValue(state);
     }
@@ -143,17 +143,19 @@ export class ProcessingComponent extends EntryContentDirective<Processing> imple
     if (this.isDataControllerEmpty(dataController)) {
       this.form.get('dataControllerVisible').setValue(false);
       this.form.get('dataControllerVisible').disable();
-    } else {
+    } else if (this.form.enabled) {
       this.form.get('dataControllerVisible').enable();
     }
   }
 
   private isDataControllerEmpty(dataController: Controller): boolean {
-    if (this.form.contains('dataController')) {
-      return !['company', 'info', 'address', 'email', 'phoneNumber']
-        .some(k => dataController[k] != null && dataController[k].length > 0);
-    }
-    return true;
+    return !['company', 'info', 'address', 'email', 'phoneNumber']
+      .some(k => dataController[k] != null && dataController[k].length > 0);
+  }
+
+  enableFormIfAllowed(): void {
+    super.enableFormIfAllowed();
+    this.dataControllerChange(this.form.get('dataController').value);
   }
 
 }

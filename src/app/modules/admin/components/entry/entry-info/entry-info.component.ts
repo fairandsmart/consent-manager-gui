@@ -52,7 +52,7 @@ export class EntryInfoComponent implements OnInit {
   selectVersion = new EventEmitter<ModelVersionDtoLight>();
 
   @Input()
-  showType = true;
+  showType = false;
 
   hasRecord: boolean;
 
@@ -114,7 +114,10 @@ export class EntryInfoComponent implements OnInit {
     });
   }
 
-  getVersionIndex(version = this.version): string | number {
+  getVersionIndex(version?: ModelVersionDtoLight): string | number {
+    if (!version) {
+      version = this.version;
+    }
     const vIdx = this.entry.versions.findIndex(v => v.id === version.id);
     const majorVersions = this.entry.versions.filter((v, idx) => v.type === ModelVersionType.MAJOR || idx === 0);
     if (version.type === ModelVersionType.MINOR) {
@@ -126,4 +129,5 @@ export class EntryInfoComponent implements OnInit {
       return (majorVersions.findIndex(v => v.id === version.id) + 1) + '.0';
     }
   }
+
 }

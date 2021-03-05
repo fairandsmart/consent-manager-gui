@@ -18,11 +18,8 @@ import { ActivatedRouteStubSpec } from '../../../../../testing/activated-route-s
 import { RouterTestingModule } from '@angular/router/testing';
 import { ReactiveFormsModule } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
-import { EMPTY } from 'rxjs';
 import { AccessKeysPageComponent } from './access-keys-page.component';
 import { CoreTestingModule } from '../../../../../testing/core-testing-module.spec';
-import SpyObj = jasmine.SpyObj;
-import createSpyObj = jasmine.createSpyObj;
 
 describe('AccessKeysPageComponent', () => {
   let component: AccessKeysPageComponent;

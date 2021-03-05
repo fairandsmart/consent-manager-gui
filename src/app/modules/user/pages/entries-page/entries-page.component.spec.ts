@@ -17,7 +17,6 @@ import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 
 import { EntriesPageComponent } from './entries-page.component';
 import { KeycloakService } from 'keycloak-angular';
-import { EMPTY } from 'rxjs';
 import { CoreTestingModule } from '../../../../testing/core-testing-module.spec';
 import { AlertService } from '../../../../core/services/alert.service';
 import { ConfigService } from '../../../../core/services/config.service';

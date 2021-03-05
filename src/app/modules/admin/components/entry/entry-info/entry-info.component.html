@@ -44,7 +44,7 @@
   <ng-container *ngIf="version">
     <dt>{{'ENTRIES.COMMON.version.LABEL' | translate}}</dt>
     <dd>v{{getVersionIndex()}} ({{'ENTRIES.VERSION_STATUS.' + version.status | translate}})
-      <button *ngIf="version" mat-icon-button [matMenuTriggerFor]="historyMenu">
+      <button mat-icon-button [matMenuTriggerFor]="historyMenu">
         <mat-icon>history</mat-icon>
       </button>
     </dd>

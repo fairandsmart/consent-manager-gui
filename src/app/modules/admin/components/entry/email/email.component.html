@@ -13,70 +13,45 @@
   files, or see https://www.fairandsmart.com/opensource/.
   #L%
   -->
-<mat-sidenav-container>
-  <mat-sidenav-content>
-    <form *ngIf="form" [formGroup]="form">
-      <mat-card>
-        <mat-card-title class="page-title">
-          <span>{{'ENTRIES.EDITOR.CONTENT.TITLE.' + type | translate}}</span>
-          <div class="preview-toggler" *ngIf="!optionsNav.opened" (click)="optionsNav.toggle()">
-            <mat-icon>reorder</mat-icon>
-            {{'ENTRIES.EDITOR.CONTENT.SHOW_SIDE' | translate}}
-          </div>
-        </mat-card-title>
+<cm-entry-editor-container #container
+                           [entry]="entry" [version]="version" [displayActions]="canBeEdited()"
+                           [disableSave]="disableSave()" [disableActivate]="disableActivate()"
+                           [disableDelete]="disableDelete()" (saveVersion)="saveVersion()"
+                           (activateVersion)="activateVersion()" (deleteDraft)="deleteDraft()"
+                           (refreshPreview)="refreshPreview()" (selectVersion)="selectVersion($event)">
+  <form *ngIf="form" [formGroup]="form">
 
-        <mat-card-content>
+    <mat-card-subtitle>{{'ENTRIES.EDITOR.EMAIL.SUBTITLES.META' | translate}}</mat-card-subtitle>
+    <mat-form-field appearance="outline">
+      <mat-label>{{'ENTRIES.EDITOR.EMAIL.SENDER.LABEL' | translate}}</mat-label>
+      <input type="email" matInput required formControlName="sender" autocomplete="off">
+    </mat-form-field>
+    <mat-form-field appearance="outline">
+      <mat-label>{{'ENTRIES.EDITOR.EMAIL.SUBJECT.LABEL' | translate}}</mat-label>
+      <input matInput required formControlName="subject" autocomplete="off">
+    </mat-form-field>
 
-          <mat-card-subtitle>{{'ENTRIES.EDITOR.EMAIL.SUBTITLES.META' | translate}}</mat-card-subtitle>
-          <mat-form-field appearance="outline">
-            <mat-label>{{'ENTRIES.EDITOR.EMAIL.SENDER.LABEL' | translate}}</mat-label>
-            <input type="email" matInput required formControlName="sender" autocomplete="off">
-          </mat-form-field>
-          <mat-form-field appearance="outline">
-            <mat-label>{{'ENTRIES.EDITOR.EMAIL.SUBJECT.LABEL' | translate}}</mat-label>
-            <input matInput required formControlName="subject" autocomplete="off">
-          </mat-form-field>
+    <mat-card-subtitle>{{'ENTRIES.EDITOR.EMAIL.SUBTITLES.CONTENT' | translate}}</mat-card-subtitle>
+    <mat-form-field appearance="outline">
+      <mat-label>{{'ENTRIES.EDITOR.EMAIL.TITLE.LABEL' | translate}}</mat-label>
+      <input matInput required formControlName="title" autocomplete="off">
+    </mat-form-field>
+    <mat-form-field appearance="outline">
+      <mat-label>{{'ENTRIES.EDITOR.EMAIL.BODY.LABEL' | translate}}</mat-label>
+      <textarea matInput required formControlName="body" cdkTextareaAutosize cdkAutosizeMinRows="5"></textarea>
+    </mat-form-field>
+    <mat-form-field appearance="outline">
+      <mat-label>{{'ENTRIES.EDITOR.EMAIL.BUTTON_LABEL.LABEL' | translate}}</mat-label>
+      <input matInput required formControlName="buttonLabel" autocomplete="off">
+    </mat-form-field>
+    <mat-form-field appearance="outline">
+      <mat-label>{{'ENTRIES.EDITOR.EMAIL.FOOTER.LABEL' | translate}}</mat-label>
+      <textarea matInput required formControlName="footer" cdkTextareaAutosize cdkAutosizeMinRows="5"></textarea>
+    </mat-form-field>
+    <mat-form-field appearance="outline">
+      <mat-label>{{'ENTRIES.EDITOR.EMAIL.SIGNATURE.LABEL' | translate}}</mat-label>
+      <textarea matInput required formControlName="signature" cdkTextareaAutosize cdkAutosizeMinRows="5"></textarea>
+    </mat-form-field>
 
-          <mat-card-subtitle>{{'ENTRIES.EDITOR.EMAIL.SUBTITLES.CONTENT' | translate}}</mat-card-subtitle>
-          <mat-form-field appearance="outline">
-            <mat-label>{{'ENTRIES.EDITOR.EMAIL.TITLE.LABEL' | translate}}</mat-label>
-            <input matInput required formControlName="title" autocomplete="off">
-          </mat-form-field>
-          <mat-form-field appearance="outline">
-            <mat-label>{{'ENTRIES.EDITOR.EMAIL.BODY.LABEL' | translate}}</mat-label>
-            <textarea matInput required formControlName="body" cdkTextareaAutosize cdkAutosizeMinRows="5"></textarea>
-          </mat-form-field>
-          <mat-form-field appearance="outline">
-            <mat-label>{{'ENTRIES.EDITOR.EMAIL.BUTTON_LABEL.LABEL' | translate}}</mat-label>
-            <input matInput required formControlName="buttonLabel" autocomplete="off">
-          </mat-form-field>
-          <mat-form-field appearance="outline">
-            <mat-label>{{'ENTRIES.EDITOR.EMAIL.FOOTER.LABEL' | translate}}</mat-label>
-            <textarea matInput required formControlName="footer" cdkTextareaAutosize cdkAutosizeMinRows="5"></textarea>
-          </mat-form-field>
-          <mat-form-field appearance="outline">
-            <mat-label>{{'ENTRIES.EDITOR.EMAIL.SIGNATURE.LABEL' | translate}}</mat-label>
-            <textarea matInput required formControlName="signature" cdkTextareaAutosize cdkAutosizeMinRows="5"></textarea>
-          </mat-form-field>
-
-        </mat-card-content>
-
-        <mat-card-actions *ngIf="canBeEdited()">
-          <button mat-button type="button" color="primary" [disabled]="form.disabled" (click)="saveVersion()">{{'ENTRIES.EDITOR.BUTTONS.SAVE' | translate}}</button>
-          <ng-container *ngIf="version != null">
-            <button mat-button type="button" color="primary" [disabled]="form.disabled" (click)="activateVersion()">{{'ENTRIES.EDITOR.BUTTONS.ACTIVATE' | translate}}</button>
-            <button mat-button type="button" color="warn" [disabled]="form.disabled || version.status !== STATUS.DRAFT" (click)="deleteDraft()">{{'ENTRIES.EDITOR.BUTTONS.DELETE' | translate}}</button>
-          </ng-container>
-        </mat-card-actions>
-      </mat-card>
-      <div class="back-button-wrapper">
-        <button mat-button color="primary" routerLink="../">{{'COMMON.BUTTONS.BACK' | translate}}</button>
-      </div>
-    </form>
-  </mat-sidenav-content>
-
-  <mat-sidenav [disableClose]="(sideNavBehavior$ | async) !== 'over'" #optionsNav opened [mode]="sideNavBehavior$ | async" position="end">
-    <cm-entry-info *ngIf="entry" [entry]="entry" [version]="version" (selectVersion)="selectVersion($event)"></cm-entry-info>
-    <cm-entry-preview #preview (refreshPreview)="refreshPreview()"></cm-entry-preview>
-  </mat-sidenav>
-</mat-sidenav-container>
+  </form>
+</cm-entry-editor-container>
