@@ -19,7 +19,6 @@ import { SubjectRecordApplyChangesDialogComponent } from './subject-record-apply
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { ReactiveFormsModule } from '@angular/forms';
 import { CoreTestingModule } from '../../../../../testing/core-testing-module.spec';
-import { EMPTY } from 'rxjs';
 import SpyObj = jasmine.SpyObj;
 import createSpyObj = jasmine.createSpyObj;
 

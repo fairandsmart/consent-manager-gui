@@ -19,7 +19,6 @@ import { AdminPageContainerComponent } from './admin-page-container.component';
 import { RouterTestingModule } from '@angular/router/testing';
 import { KeycloakService } from 'keycloak-angular';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
-import { EMPTY } from 'rxjs';
 import { CoreTestingModule } from '../../../../testing/core-testing-module.spec';
 import { SideNavComponent } from '../../components/side-nav/side-nav.component';
 import { CoreService } from '../../../../core/services/core.service';

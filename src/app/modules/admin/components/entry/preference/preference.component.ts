@@ -22,7 +22,6 @@ import { MatChipInputEvent, MatChipList } from '@angular/material/chips';
 import { COMMA, ENTER } from '@angular/cdk/keycodes';
 import * as _ from 'lodash';
 import { ConfigService } from '../../../../../core/services/config.service';
-import { BreakpointObserver } from '@angular/cdk/layout';
 import { MatDialog } from '@angular/material/dialog';
 import { TranslateService } from '@ngx-translate/core';
 
@@ -46,20 +45,15 @@ export class PreferenceComponent extends EntryContentDirective<Preference> imple
     private fb: FormBuilder,
     alertService: AlertService,
     configService: ConfigService,
-    breakpointObserver: BreakpointObserver,
     dialog: MatDialog,
     translate: TranslateService) {
-    super(alertService, configService, breakpointObserver, dialog, translate);
+    super(alertService, configService, dialog, translate);
   }
 
   ngOnInit(): void {
     this.optionsInputCtrl = new FormControl('', Validators.required);
+    this.optionsInputCtrl.disable();
     super.ngOnInit();
-    this.form.get('options').statusChanges.subscribe(status => {
-      if (this.optionsChipList) {
-        this.optionsChipList.errorState = status === 'INVALID';
-      }
-    });
   }
 
   protected initForm(): void {
@@ -72,6 +66,11 @@ export class PreferenceComponent extends EntryContentDirective<Preference> imple
       options: [[], [Validators.required, Validators.minLength(1)]],
       includeDefault: [true, [Validators.required]],
       defaultValues: [[]]
+    });
+    this.form.get('options').statusChanges.subscribe(status => {
+      if (this.optionsChipList) {
+        this.optionsChipList.errorState = status === 'INVALID';
+      }
     });
     this.checkFormState();
   }
@@ -140,4 +139,14 @@ export class PreferenceComponent extends EntryContentDirective<Preference> imple
     }
     this.form.get('defaultValues').updateValueAndValidity();
   }
+
+  enableFormIfAllowed(): void {
+    super.enableFormIfAllowed();
+    if (this.canBeEdited()) {
+      this.optionsInputCtrl.enable();
+    } else {
+      this.optionsInputCtrl.disable();
+    }
+  }
+
 }

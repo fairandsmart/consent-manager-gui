@@ -16,9 +16,7 @@
 import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 
 import { OperatorPreferencesComponent } from './operator-preferences.component';
-import SpyObj = jasmine.SpyObj;
-import createSpyObj = jasmine.createSpyObj;
-import { EMPTY, Observable } from 'rxjs';
+import { Observable } from 'rxjs';
 import { CoreTestingModule } from '../../../../../testing/core-testing-module.spec';
 import { ConfigServiceStubSpec } from '../../../../../testing/config-service-stub.spec';
 import { ConfigService } from '../../../../../core/services/config.service';

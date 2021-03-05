@@ -13,142 +13,126 @@
   files, or see https://www.fairandsmart.com/opensource/.
   #L%
   -->
-<mat-sidenav-container>
-  <mat-sidenav-content>
-    <form *ngIf="form" [formGroup]="form">
-      <mat-card>
-        <mat-card-title class="page-title">
-          <span>{{'ENTRIES.EDITOR.CONTENT.TITLE.' + type | translate}}</span>
-          <div class="preview-toggler" *ngIf="!optionsNav.opened" (click)="optionsNav.toggle()">
-            <mat-icon>reorder</mat-icon>
-            {{'ENTRIES.EDITOR.CONTENT.SHOW_SIDE' | translate}}
+<cm-entry-editor-container #container
+                           [entry]="entry" [version]="version" [displayActions]="canBeEdited()"
+                           [disableSave]="disableSave()" [disableActivate]="disableActivate()"
+                           [disableDelete]="disableDelete()" (saveVersion)="saveVersion()"
+                           (activateVersion)="activateVersion()" (deleteDraft)="deleteDraft()"
+                           (refreshPreview)="refreshPreview()" (selectVersion)="selectVersion($event)">
+  <form *ngIf="form" [formGroup]="form">
+
+    <mat-card-subtitle>{{'ENTRIES.EDITOR.PROCESSING.SUBTITLES.TITLE' | translate}}</mat-card-subtitle>
+    <mat-form-field appearance="outline">
+      <mat-label>{{'ENTRIES.EDITOR.PROCESSING.TITLE.LABEL' | translate}}</mat-label>
+      <input matInput required formControlName="title" autocomplete="off">
+    </mat-form-field>
+
+    <mat-card-subtitle>{{'ENTRIES.EDITOR.PROCESSING.SUBTITLES.DATA' | translate}}</mat-card-subtitle>
+    <mat-form-field appearance="outline">
+      <mat-label>{{'ENTRIES.EDITOR.PROCESSING.DATA.LABEL' | translate}}</mat-label>
+      <textarea matInput required formControlName="data" cdkTextareaAutosize cdkAutosizeMinRows="5"></textarea>
+    </mat-form-field>
+
+    <mat-card-subtitle>{{'ENTRIES.EDITOR.PROCESSING.SUBTITLES.RETENTION' | translate}}</mat-card-subtitle>
+    <div class="retention-fields" formGroupName="retention">
+      <mat-form-field class="description" appearance="outline">
+        <mat-label>{{'ENTRIES.EDITOR.PROCESSING.RETENTION.BODY.LABEL' | translate}}</mat-label>
+        <textarea matInput required formControlName="label" cdkTextareaAutosize cdkAutosizeMinRows="1"></textarea>
+      </mat-form-field>
+      <mat-form-field class="value" appearance="outline">
+        <mat-label>{{'ENTRIES.EDITOR.PROCESSING.RETENTION.VALUE.LABEL' | translate}}</mat-label>
+        <input type="number" matInput required formControlName="value" autocomplete="off" min="1">
+      </mat-form-field>
+      <mat-form-field class="unit" appearance="outline">
+        <mat-label>{{'ENTRIES.EDITOR.PROCESSING.RETENTION.UNIT.LABEL' | translate}}</mat-label>
+        <mat-select formControlName="unit" required multiple="false">
+          <mat-option *ngFor="let unit of RETENTION_UNITS" [value]="unit">
+            {{'ENTRIES.EDITOR.PROCESSING.RETENTION.UNIT.VALUES.' + unit | translate}}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+    </div>
+
+    <mat-card-subtitle>{{'ENTRIES.EDITOR.PROCESSING.SUBTITLES.USAGE' | translate}}</mat-card-subtitle>
+    <mat-form-field appearance="outline">
+      <mat-label>{{'ENTRIES.EDITOR.PROCESSING.USAGE.LABEL' | translate}}</mat-label>
+      <textarea matInput required formControlName="usage" cdkTextareaAutosize cdkAutosizeMinRows="5"></textarea>
+    </mat-form-field>
+
+    <mat-card-subtitle>{{'ENTRIES.EDITOR.PROCESSING.SUBTITLES.ADDITIONAL' | translate}}</mat-card-subtitle>
+    <mat-form-field appearance="outline">
+      <mat-label>{{'ENTRIES.EDITOR.PROCESSING.PURPOSE.LABEL' | translate}}</mat-label>
+      <mat-select formControlName="purposes" required multiple="true" (ngModelChange)="purposesChange($event)">
+        <mat-option *ngFor="let purpose of PURPOSES"
+                    [value]="purpose">{{'ENTRIES.EDITOR.PROCESSING.PURPOSE.VALUES.' + purpose | translate}}</mat-option>
+      </mat-select>
+    </mat-form-field>
+    <mat-checkbox
+      formControlName="containsSensitiveData">{{'ENTRIES.EDITOR.PROCESSING.SENSITIVE.LABEL' | translate}}</mat-checkbox>
+    <mat-checkbox
+      formControlName="containsMedicalData">{{'ENTRIES.EDITOR.PROCESSING.MEDICAL.LABEL' | translate}}</mat-checkbox>
+
+    <div formGroupName="dataController">
+      <mat-card-subtitle>{{'ENTRIES.EDITOR.CONTENT.DATA_CONTROLLER.TITLE' | translate}}
+        <span
+          class="subtitle-optional">{{'ENTRIES.EDITOR.CONTENT.DATA_CONTROLLER.SUBTITLE_OPTIONAL' | translate}}</span>
+      </mat-card-subtitle>
+      <mat-form-field appearance="outline">
+        <mat-label>{{'ENTRIES.EDITOR.CONTENT.DATA_CONTROLLER.COMPANY.LABEL' | translate}}</mat-label>
+        <input matInput formControlName="company" autocomplete="off">
+      </mat-form-field>
+      <mat-form-field appearance="outline">
+        <mat-label>{{'ENTRIES.EDITOR.CONTENT.DATA_CONTROLLER.INFO.LABEL' | translate}}</mat-label>
+        <input matInput formControlName="info" autocomplete="off">
+      </mat-form-field>
+      <mat-form-field appearance="outline">
+        <mat-label>{{'ENTRIES.EDITOR.CONTENT.DATA_CONTROLLER.ADDRESS.LABEL' | translate}}</mat-label>
+        <input matInput formControlName="address" autocomplete="off">
+      </mat-form-field>
+      <mat-form-field appearance="outline">
+        <mat-label>{{'ENTRIES.EDITOR.CONTENT.DATA_CONTROLLER.EMAIL.LABEL' | translate}}</mat-label>
+        <input type="email" matInput formControlName="email" autocomplete="off">
+      </mat-form-field>
+      <mat-form-field appearance="outline">
+        <mat-label>{{'ENTRIES.EDITOR.CONTENT.DATA_CONTROLLER.PHONE.LABEL' | translate}}</mat-label>
+        <input type="tel" matInput formControlName="phoneNumber" autocomplete="off">
+      </mat-form-field>
+    </div>
+
+    <mat-radio-group formControlName="dataControllerVisible">
+      <mat-radio-button [value]="true">{{'ENTRIES.EDITOR.CONTENT.SHOW' | translate}}</mat-radio-button>
+      <mat-radio-button [value]="false">{{'ENTRIES.EDITOR.CONTENT.HIDE' | translate}}</mat-radio-button>
+    </mat-radio-group>
+
+    <mat-card *ngIf="form.controls.purposes.value.includes('CONSENT_THIRD_PART_SHARING')" class="third-parties-card">
+      <mat-card-title>{{'ENTRIES.EDITOR.PROCESSING.THIRD_PARTIES.LABEL' | translate}}</mat-card-title>
+      <mat-card-content>
+        <div *ngIf="getThirdParties().controls.length == 0"
+             class="third-parties-empty">{{'ENTRIES.EDITOR.PROCESSING.THIRD_PARTIES.EMPTY' | translate}}</div>
+        <div *ngIf="getThirdParties().controls.length > 0" formArrayName="thirdParties">
+          <div *ngFor="let control of getThirdParties().controls; let index = index" class="third-party"
+               [formGroupName]="index">
+            <div class="third-party-fields">
+              <mat-form-field appearance="outline">
+                <mat-label>{{'ENTRIES.EDITOR.PROCESSING.THIRD_PARTIES.NAME' | translate}}</mat-label>
+                <input matInput formControlName="name" autocomplete="off">
+              </mat-form-field>
+              <mat-form-field appearance="outline" class="third-party-description">
+                <mat-label>{{'ENTRIES.EDITOR.PROCESSING.THIRD_PARTIES.VALUE' | translate}}</mat-label>
+                <input matInput formControlName="value" autocomplete="off">
+              </mat-form-field>
+            </div>
+            <button mat-icon-button (click)="removeThirdParty(index)">
+              <mat-icon>delete</mat-icon>
+            </button>
           </div>
-        </mat-card-title>
+        </div>
+      </mat-card-content>
+      <mat-card-actions *ngIf="canBeEdited()">
+        <button mat-button
+                (click)="addThirdParty()">{{'ENTRIES.EDITOR.PROCESSING.THIRD_PARTIES.BUTTON_ADD' | translate}}</button>
+      </mat-card-actions>
+    </mat-card>
 
-        <mat-card-content>
-
-          <mat-card-subtitle>{{'ENTRIES.EDITOR.PROCESSING.SUBTITLES.TITLE' | translate}}</mat-card-subtitle>
-          <mat-form-field appearance="outline">
-            <mat-label>{{'ENTRIES.EDITOR.PROCESSING.TITLE.LABEL' | translate}}</mat-label>
-            <input matInput required formControlName="title" autocomplete="off">
-          </mat-form-field>
-
-          <mat-card-subtitle>{{'ENTRIES.EDITOR.PROCESSING.SUBTITLES.DATA' | translate}}</mat-card-subtitle>
-          <mat-form-field appearance="outline">
-            <mat-label>{{'ENTRIES.EDITOR.PROCESSING.DATA.LABEL' | translate}}</mat-label>
-            <textarea matInput required formControlName="data" cdkTextareaAutosize cdkAutosizeMinRows="5"></textarea>
-          </mat-form-field>
-
-          <mat-card-subtitle>{{'ENTRIES.EDITOR.PROCESSING.SUBTITLES.RETENTION' | translate}}</mat-card-subtitle>
-          <div class="retention-fields" formGroupName="retention">
-            <mat-form-field class="description" appearance="outline">
-              <mat-label>{{'ENTRIES.EDITOR.PROCESSING.RETENTION.BODY.LABEL' | translate}}</mat-label>
-              <textarea matInput required formControlName="label" cdkTextareaAutosize cdkAutosizeMinRows="1"></textarea>
-            </mat-form-field>
-            <mat-form-field class="value" appearance="outline">
-              <mat-label>{{'ENTRIES.EDITOR.PROCESSING.RETENTION.VALUE.LABEL' | translate}}</mat-label>
-              <input type="number" matInput required formControlName="value" autocomplete="off" min="1">
-            </mat-form-field>
-            <mat-form-field class="unit" appearance="outline">
-              <mat-label>{{'ENTRIES.EDITOR.PROCESSING.RETENTION.UNIT.LABEL' | translate}}</mat-label>
-              <mat-select formControlName="unit" required multiple="false">
-                <mat-option *ngFor="let unit of RETENTION_UNITS" [value]="unit">
-                  {{'ENTRIES.EDITOR.PROCESSING.RETENTION.UNIT.VALUES.' + unit | translate}}
-                </mat-option>
-              </mat-select>
-            </mat-form-field>
-          </div>
-
-          <mat-card-subtitle>{{'ENTRIES.EDITOR.PROCESSING.SUBTITLES.USAGE' | translate}}</mat-card-subtitle>
-          <mat-form-field appearance="outline">
-            <mat-label>{{'ENTRIES.EDITOR.PROCESSING.USAGE.LABEL' | translate}}</mat-label>
-            <textarea matInput required formControlName="usage" cdkTextareaAutosize cdkAutosizeMinRows="5"></textarea>
-          </mat-form-field>
-
-          <mat-card-subtitle>{{'ENTRIES.EDITOR.PROCESSING.SUBTITLES.ADDITIONAL' | translate}}</mat-card-subtitle>
-          <mat-form-field appearance="outline">
-            <mat-label>{{'ENTRIES.EDITOR.PROCESSING.PURPOSE.LABEL' | translate}}</mat-label>
-            <mat-select formControlName="purposes" required multiple="true" (ngModelChange)="purposesChange($event)">
-              <mat-option *ngFor="let purpose of PURPOSES" [value]="purpose">{{'ENTRIES.EDITOR.PROCESSING.PURPOSE.VALUES.' + purpose | translate}}</mat-option>
-            </mat-select>
-          </mat-form-field>
-          <mat-checkbox formControlName="containsSensitiveData">{{'ENTRIES.EDITOR.PROCESSING.SENSITIVE.LABEL' | translate}}</mat-checkbox>
-          <mat-checkbox formControlName="containsMedicalData">{{'ENTRIES.EDITOR.PROCESSING.MEDICAL.LABEL' | translate}}</mat-checkbox>
-
-          <div formGroupName="dataController">
-            <mat-card-subtitle>{{'ENTRIES.EDITOR.CONTENT.DATA_CONTROLLER.TITLE' | translate}}
-              <span class="subtitle-optional">{{'ENTRIES.EDITOR.CONTENT.DATA_CONTROLLER.SUBTITLE_OPTIONAL' | translate}}</span>
-            </mat-card-subtitle>
-            <mat-form-field appearance="outline">
-              <mat-label>{{'ENTRIES.EDITOR.CONTENT.DATA_CONTROLLER.COMPANY.LABEL' | translate}}</mat-label>
-              <input matInput formControlName="company" autocomplete="off">
-            </mat-form-field>
-            <mat-form-field appearance="outline">
-              <mat-label>{{'ENTRIES.EDITOR.CONTENT.DATA_CONTROLLER.INFO.LABEL' | translate}}</mat-label>
-              <input matInput formControlName="info" autocomplete="off">
-            </mat-form-field>
-            <mat-form-field appearance="outline">
-              <mat-label>{{'ENTRIES.EDITOR.CONTENT.DATA_CONTROLLER.ADDRESS.LABEL' | translate}}</mat-label>
-              <input matInput formControlName="address" autocomplete="off">
-            </mat-form-field>
-            <mat-form-field appearance="outline">
-              <mat-label>{{'ENTRIES.EDITOR.CONTENT.DATA_CONTROLLER.EMAIL.LABEL' | translate}}</mat-label>
-              <input type="email" matInput formControlName="email" autocomplete="off">
-            </mat-form-field>
-            <mat-form-field appearance="outline">
-              <mat-label>{{'ENTRIES.EDITOR.CONTENT.DATA_CONTROLLER.PHONE.LABEL' | translate}}</mat-label>
-              <input type="tel" matInput formControlName="phoneNumber" autocomplete="off">
-            </mat-form-field>
-          </div>
-
-          <mat-radio-group formControlName="dataControllerVisible">
-            <mat-radio-button [value]="true">{{'ENTRIES.EDITOR.CONTENT.SHOW' | translate}}</mat-radio-button>
-            <mat-radio-button [value]="false">{{'ENTRIES.EDITOR.CONTENT.HIDE' | translate}}</mat-radio-button>
-          </mat-radio-group>
-
-          <mat-card *ngIf="form.controls.purposes.value.includes('CONSENT_THIRD_PART_SHARING')" class="third-parties-card">
-            <mat-card-title>{{'ENTRIES.EDITOR.PROCESSING.THIRD_PARTIES.LABEL' | translate}}</mat-card-title>
-            <mat-card-content>
-              <div *ngIf="getThirdParties().controls.length == 0" class="third-parties-empty">{{'ENTRIES.EDITOR.PROCESSING.THIRD_PARTIES.EMPTY' | translate}}</div>
-              <div *ngIf="getThirdParties().controls.length > 0" formArrayName="thirdParties">
-                <div *ngFor="let control of getThirdParties().controls; let index = index" class="third-party" [formGroupName]="index">
-                  <div class="third-party-fields">
-                    <mat-form-field appearance="outline">
-                      <mat-label>{{'ENTRIES.EDITOR.PROCESSING.THIRD_PARTIES.NAME' | translate}}</mat-label>
-                      <input matInput formControlName="name" autocomplete="off">
-                    </mat-form-field>
-                    <mat-form-field appearance="outline" class="third-party-description">
-                      <mat-label>{{'ENTRIES.EDITOR.PROCESSING.THIRD_PARTIES.VALUE' | translate}}</mat-label>
-                      <input matInput formControlName="value" autocomplete="off">
-                    </mat-form-field>
-                  </div>
-                  <button mat-icon-button (click)="removeThirdParty(index)"><mat-icon>delete</mat-icon></button>
-                </div>
-              </div>
-            </mat-card-content>
-            <mat-card-actions *ngIf="canBeEdited()">
-              <button mat-button (click)="addThirdParty()">{{'ENTRIES.EDITOR.PROCESSING.THIRD_PARTIES.BUTTON_ADD' | translate}}</button>
-            </mat-card-actions>
-          </mat-card>
-
-        </mat-card-content>
-
-        <mat-card-actions *ngIf="canBeEdited()">
-          <button mat-button type="button" color="primary" [disabled]="form.disabled" (click)="saveVersion()">{{'ENTRIES.EDITOR.BUTTONS.SAVE' | translate}}</button>
-          <ng-container *ngIf="version != null">
-            <button mat-button type="button" color="primary" [disabled]="form.disabled" (click)="activateVersion()">{{'ENTRIES.EDITOR.BUTTONS.ACTIVATE' | translate}}</button>
-            <button mat-button type="button" color="warn" [disabled]="form.disabled || version.status !== STATUS.DRAFT" (click)="deleteDraft()">{{'ENTRIES.EDITOR.BUTTONS.DELETE' | translate}}</button>
-          </ng-container>
-        </mat-card-actions>
-      </mat-card>
-      <div class="back-button-wrapper">
-        <button mat-button color="primary" routerLink="../">{{'COMMON.BUTTONS.BACK' | translate}}</button>
-      </div>
-    </form>
-  </mat-sidenav-content>
-
-  <mat-sidenav [disableClose]="(sideNavBehavior$ | async) !== 'over'" #optionsNav opened [mode]="sideNavBehavior$ | async" position="end">
-    <cm-entry-info *ngIf="entry" [entry]="entry" [version]="version" (selectVersion)="selectVersion($event)"></cm-entry-info>
-    <cm-entry-preview #preview (refreshPreview)="refreshPreview()"></cm-entry-preview>
-  </mat-sidenav>
-</mat-sidenav-container>
+  </form>
+</cm-entry-editor-container>

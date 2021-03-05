@@ -17,13 +17,11 @@ import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 
 import { CollectFormCreatorPageComponent } from './collect-form-creator-page.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { EMPTY, Observable } from 'rxjs';
+import { Observable } from 'rxjs';
 import { NO_ERRORS_SCHEMA } from '@angular/core';
 import { CoreTestingModule } from '../../../../../testing/core-testing-module.spec';
 import { ConfigServiceStubSpec } from '../../../../../testing/config-service-stub.spec';
 import { ConfigService } from '../../../../../core/services/config.service';
-import SpyObj = jasmine.SpyObj;
-import createSpyObj = jasmine.createSpyObj;
 import { RightConsents } from '@fairandsmart/consent-manager';
 
 describe('CollectFormCreatorPageComponent', () => {

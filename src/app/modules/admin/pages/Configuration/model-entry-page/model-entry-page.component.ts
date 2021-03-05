@@ -19,7 +19,6 @@ import { map, mergeMap } from 'rxjs/operators';
 import { getEntry, getVersion, ModelEntryDto, ModelVersionDto } from '@fairandsmart/consent-manager/models';
 import { of } from 'rxjs';
 import * as _ from 'lodash';
-import { EntryContentDirective } from '../../../components/entry/entry-content/entry-content.directive';
 
 @Component({
   selector: 'cm-entry-page',
@@ -35,8 +34,6 @@ export class ModelEntryPageComponent implements OnInit {
   entry: ModelEntryDto;
 
   latest: ModelVersionDto<any>;
-
-  childContext: EntryContentDirective<any>;
 
   constructor(private route: ActivatedRoute) {
   }

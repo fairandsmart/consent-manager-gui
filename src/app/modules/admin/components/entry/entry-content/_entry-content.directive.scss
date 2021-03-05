@@ -15,7 +15,7 @@ mat-sidenav-container {
     padding: 0 2em;
     position: relative;
 
-    form {
+    .editor-wrapper {
       margin: 2em auto 1em;
       max-width: 750px;
     }
@@ -28,6 +28,11 @@ mat-sidenav-container {
   flex-wrap: nowrap;
   justify-content: space-between;
   align-items: center;
+
+  .title-button {
+    display: flex;
+    align-items: center;
+  }
 
   .preview-toggler {
     cursor: pointer;
@@ -147,4 +152,12 @@ mat-radio-button {
 
 mat-radio-button:last-child {
   margin-right: 0;
+}
+
+::ng-deep .mat-checkbox-layout {
+  white-space: normal !important;
+}
+
+::ng-deep .mat-checkbox-inner-container {
+  margin-top: 3px !important;
 }

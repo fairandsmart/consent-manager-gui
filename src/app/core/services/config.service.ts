@@ -22,7 +22,9 @@ import { TranslateService } from '@ngx-translate/core';
 import { AlertService } from './alert.service';
 import { ClientConfigDto, getClientConfig } from '@fairandsmart/consent-manager/system';
 
-@Injectable()
+@Injectable({
+  providedIn: 'root'
+})
 export class ConfigService implements CanLoad {
 
   public config: ClientConfigDto;

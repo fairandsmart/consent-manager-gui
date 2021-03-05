@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { ModelVersionType } from '@fairandsmart/consent-manager/models';
 
 @Component({
   selector: 'cm-model-version-selector',
@@ -6,6 +7,8 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./model-version-selector.component.scss']
 })
 export class ModelVersionSelectorComponent implements OnInit {
+
+  readonly TYPES = ModelVersionType;
 
   constructor() { }
 

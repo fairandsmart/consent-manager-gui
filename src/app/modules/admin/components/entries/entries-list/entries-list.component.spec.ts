@@ -20,13 +20,11 @@ import { RouterTestingModule } from '@angular/router/testing';
 import { FormsModule } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { ActivatedRouteStubSpec } from '../../../../../testing/activated-route-stub.spec';
-import { EMPTY, Observable } from 'rxjs';
+import { Observable } from 'rxjs';
 import { CoreTestingModule } from '../../../../../testing/core-testing-module.spec';
 import { AddMultipleOption } from '../entries-library/entries-library.component';
 import { ConfigServiceStubSpec } from '../../../../../testing/config-service-stub.spec';
 import { ConfigService } from '../../../../../core/services/config.service';
-import createSpyObj = jasmine.createSpyObj;
-import SpyObj = jasmine.SpyObj;
 import { RightConsents } from '@fairandsmart/consent-manager';
 
 describe('EntriesListComponent', () => {

@@ -20,9 +20,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { ChartsModule } from 'ng2-charts';
 import { RouterTestingModule } from '@angular/router/testing';
 import { CoreTestingModule } from '../../../../../testing/core-testing-module.spec';
-import { EMPTY, Observable } from 'rxjs';
-import createSpyObj = jasmine.createSpyObj;
-import SpyObj = jasmine.SpyObj;
+import { Observable } from 'rxjs';
 import { RightConsents } from '@fairandsmart/consent-manager';
 
 describe('DashboardPageComponent', () => {

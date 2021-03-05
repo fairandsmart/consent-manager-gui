@@ -21,11 +21,9 @@ import { CoreTestingModule } from '../../../../../testing/core-testing-module.sp
 import { HttpClientModule } from '@angular/common/http';
 import { ActivatedRouteStubSpec } from '../../../../../testing/activated-route-stub.spec';
 import { ActivatedRoute } from '@angular/router';
-import { EMPTY, Observable, of } from 'rxjs';
+import { Observable } from 'rxjs';
 import { ConfigServiceStubSpec } from '../../../../../testing/config-service-stub.spec';
 import { ConfigService } from '../../../../../core/services/config.service';
-import SpyObj = jasmine.SpyObj;
-import createSpyObj = jasmine.createSpyObj;
 import { RightConsents } from '@fairandsmart/consent-manager';
 
 describe('OperatorSubjectPageComponent', () => {

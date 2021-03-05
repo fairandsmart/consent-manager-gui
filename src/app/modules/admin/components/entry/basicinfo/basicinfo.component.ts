@@ -20,7 +20,6 @@ import { FormBuilder, Validators } from '@angular/forms';
 import { AlertService } from '../../../../../core/services/alert.service';
 import { ConfigService } from '../../../../../core/services/config.service';
 import { CoreService } from '../../../../../core/services/core.service';
-import { BreakpointObserver } from '@angular/cdk/layout';
 import { FIELD_VALIDATORS } from '../../../../../core/models/common';
 import { MatDialog } from '@angular/material/dialog';
 import { TranslateService } from '@ngx-translate/core';
@@ -37,10 +36,9 @@ export class BasicinfoComponent extends EntryContentDirective<BasicInfo> impleme
     alertService: AlertService,
     configService: ConfigService,
     private coreService: CoreService,
-    breakpointObserver: BreakpointObserver,
     dialog: MatDialog,
     translate: TranslateService) {
-    super(alertService, configService, breakpointObserver, dialog, translate);
+    super(alertService, configService, dialog, translate);
   }
 
   ngOnInit(): void {
@@ -102,17 +100,19 @@ export class BasicinfoComponent extends EntryContentDirective<BasicInfo> impleme
     if (this.isDataControllerEmpty(dataController)) {
       this.form.get('dataControllerVisible').setValue(false);
       this.form.get('dataControllerVisible').disable();
-    } else {
+    } else if (this.form.enabled) {
       this.form.get('dataControllerVisible').enable();
     }
   }
 
   private isDataControllerEmpty(dataController: Controller): boolean {
-    if (this.form.contains('dataController')) {
-      return !['company', 'info', 'address', 'email', 'phoneNumber']
-        .some(k => dataController[k] != null && dataController[k].length > 0);
-    }
-    return true;
+    return !['company', 'info', 'address', 'email', 'phoneNumber']
+      .some(k => dataController[k] != null && dataController[k].length > 0);
+  }
+
+  enableFormIfAllowed(): void {
+    super.enableFormIfAllowed();
+    this.dataControllerChange(this.form.get('dataController').value);
   }
 
   protected afterActivateVersion(): void {

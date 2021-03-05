@@ -13,68 +13,44 @@
   files, or see https://www.fairandsmart.com/opensource/.
   #L%
   -->
-<mat-sidenav-container>
-  <mat-sidenav-content>
-    <form *ngIf="form" [formGroup]="form">
-      <mat-card>
-        <mat-card-title class="page-title">
-          <span>{{'ENTRIES.EDITOR.CONTENT.TITLE.' + type | translate}}</span>
-          <div class="preview-toggler" *ngIf="!optionsNav.opened" (click)="optionsNav.toggle()">
-            <mat-icon>reorder</mat-icon>
-            {{'ENTRIES.EDITOR.CONTENT.SHOW_SIDE' | translate}}
-          </div>
-        </mat-card-title>
+<cm-entry-editor-container #container
+                           [entry]="entry" [version]="version" [displayActions]="canBeEdited()"
+                           [disableSave]="disableSave()" [disableActivate]="disableActivate()"
+                           [disableDelete]="disableDelete()" (saveVersion)="saveVersion()"
+                           (activateVersion)="activateVersion()" (deleteDraft)="deleteDraft()"
+                           (refreshPreview)="refreshPreview()" (selectVersion)="selectVersion($event)"
+                           [withPreviewControl]="true">
+  <form *ngIf="form" [formGroup]="form">
 
-        <mat-card-content>
+    <mat-card-subtitle>{{'ENTRIES.EDITOR.THEME.SUBTITLES.LOGO' | translate}}</mat-card-subtitle>
+    <mat-form-field appearance="outline">
+      <mat-label>{{'ENTRIES.EDITOR.THEME.LOGO.PATH.LABEL' | translate}}</mat-label>
+      <input matInput formControlName="logoPath" autocomplete="off">
+    </mat-form-field>
+    <mat-form-field appearance="outline">
+      <mat-label>{{'ENTRIES.EDITOR.THEME.LOGO.ALT_TEXT.LABEL' | translate}}</mat-label>
+      <input matInput formControlName="logoAltText" autocomplete="off">
+    </mat-form-field>
+    <mat-form-field appearance="outline">
+      <mat-label>{{'ENTRIES.EDITOR.THEME.LOGO.POSITION.LABEL' | translate}}</mat-label>
+      <mat-select formControlName="logoPosition" required>
+        <mat-option *ngFor="let position of LOGO_POSITIONS" [value]="position">
+          {{'ENTRIES.EDITOR.THEME.LOGO.POSITION.VALUES.' + position | translate}}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
 
-          <mat-card-subtitle>{{'ENTRIES.EDITOR.THEME.SUBTITLES.LOGO' | translate}}</mat-card-subtitle>
-          <mat-form-field appearance="outline">
-            <mat-label>{{'ENTRIES.EDITOR.THEME.LOGO.PATH.LABEL' | translate}}</mat-label>
-            <input matInput formControlName="logoPath" autocomplete="off">
-          </mat-form-field>
-          <mat-form-field appearance="outline">
-            <mat-label>{{'ENTRIES.EDITOR.THEME.LOGO.ALT_TEXT.LABEL' | translate}}</mat-label>
-            <input matInput formControlName="logoAltText" autocomplete="off">
-          </mat-form-field>
-          <mat-form-field appearance="outline">
-            <mat-label>{{'ENTRIES.EDITOR.THEME.LOGO.POSITION.LABEL' | translate}}</mat-label>
-            <mat-select formControlName="logoPosition" required>
-              <mat-option *ngFor="let position of LOGO_POSITIONS" [value]="position">
-                {{'ENTRIES.EDITOR.THEME.LOGO.POSITION.VALUES.' + position | translate}}
-              </mat-option>
-            </mat-select>
-          </mat-form-field>
+    <mat-card-subtitle>{{'ENTRIES.EDITOR.THEME.SUBTITLES.CSS' | translate}}</mat-card-subtitle>
+    <div class="codemirror-wrapper">
+      <p class="code-input-label">
+        <span>{{'ENTRIES.EDITOR.THEME.CSS.LABEL' | translate}}</span>
+        <span class="mat-caption">
+          <br>{{'ENTRIES.EDITOR.THEME.CSS.HINT' | translate}}
+          <br>{{'ENTRIES.EDITOR.THEME.CSS.AUTOCOMPLETE' | translate}}
+        </span>
+      </p>
+      <ngx-codemirror formControlName="css" name="css" [options]="CODE_MIRROR_OPTIONS"></ngx-codemirror>
+    </div>
 
-          <mat-card-subtitle>{{'ENTRIES.EDITOR.THEME.SUBTITLES.CSS' | translate}}</mat-card-subtitle>
-          <div class="codemirror-wrapper">
-            <p class="code-input-label">
-              <span>{{'ENTRIES.EDITOR.THEME.CSS.LABEL' | translate}}</span>
-              <span class="mat-caption">
-                <br>{{'ENTRIES.EDITOR.THEME.CSS.HINT' | translate}}
-                <br>{{'ENTRIES.EDITOR.THEME.CSS.AUTOCOMPLETE' | translate}}
-              </span>
-            </p>
-            <ngx-codemirror formControlName="css" name="css" [options]="CODE_MIRROR_OPTIONS"></ngx-codemirror>
-          </div>
-
-        </mat-card-content>
-
-        <mat-card-actions *ngIf="canBeEdited()">
-          <button mat-button type="button" color="primary" [disabled]="form.disabled" (click)="saveVersion()">{{'ENTRIES.EDITOR.BUTTONS.SAVE' | translate}}</button>
-          <ng-container *ngIf="version != null">
-            <button mat-button type="button" color="primary" [disabled]="form.disabled" (click)="activateVersion()">{{'ENTRIES.EDITOR.BUTTONS.ACTIVATE' | translate}}</button>
-            <button mat-button type="button" color="warn" [disabled]="form.disabled || version.status !== STATUS.DRAFT" (click)="deleteDraft()">{{'ENTRIES.EDITOR.BUTTONS.DELETE' | translate}}</button>
-          </ng-container>
-        </mat-card-actions>
-      </mat-card>
-      <div class="back-button-wrapper">
-        <button mat-button color="primary" routerLink="../">{{'COMMON.BUTTONS.BACK' | translate}}</button>
-      </div>
-    </form>
-  </mat-sidenav-content>
-
-  <mat-sidenav [disableClose]="(sideNavBehavior$ | async) !== 'over'" #optionsNav opened [mode]="sideNavBehavior$ | async" position="end">
-    <cm-entry-info *ngIf="entry" [entry]="entry" [showType]="false" [version]="version" (selectVersion)="selectVersion($event)"></cm-entry-info>
-    <cm-entry-preview #preview (refreshPreview)="refreshPreview()" [withControls]="true"></cm-entry-preview>
-  </mat-sidenav>
-</mat-sidenav-container>
+  </form>
+</cm-entry-editor-container>

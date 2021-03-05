@@ -61,7 +61,8 @@ import { DashboardChartComponent } from './components/dashboard/dashboard-chart/
 import { DashboardTopTableComponent } from './components/dashboard/dashboard-top-table/dashboard-top-table.component';
 import { DashboardNumbersComponent } from './components/dashboard/dashboard-numbers/dashboard-numbers.component';
 import { EntriesLibraryActionsComponent } from './components/entries/entries-library-actions/entries-library-actions.component';
-import { ModelVersionSelectorComponent } from './pages/Configuration/model-version-selector/model-version-selector.component';
+import { ModelVersionSelectorComponent } from './components/entry/model-version-selector/model-version-selector.component';
+import { EntryEditorContainerComponent } from './components/entry/entry-editor-container/entry-editor-container.component';
 
 @NgModule({
   declarations: [
@@ -107,7 +108,8 @@ import { ModelVersionSelectorComponent } from './pages/Configuration/model-versi
     DashboardTopTableComponent,
     DashboardNumbersComponent,
     EntriesLibraryActionsComponent,
-    ModelVersionSelectorComponent
+    ModelVersionSelectorComponent,
+    EntryEditorContainerComponent
   ],
   imports: [
     AdminRoutingModule,
