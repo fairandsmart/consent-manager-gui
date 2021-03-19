@@ -61,8 +61,6 @@ export class BasicinfoComponent extends EntryContentDirective<BasicInfo> impleme
       dataControllerVisible: [false],
       jurisdiction: [''],
       jurisdictionVisible: [false],
-      collectionMethod: [''],
-      collectionMethodVisible: [false],
       scope: [''],
       scopeVisible: [false],
       shortNoticeLink: [''],
@@ -72,7 +70,6 @@ export class BasicinfoComponent extends EntryContentDirective<BasicInfo> impleme
     });
     this.form.get('dataControllerVisible').disable();
     this.form.get('jurisdictionVisible').disable();
-    this.form.get('collectionMethodVisible').disable();
     this.form.get('scopeVisible').disable();
     this.form.get('shortNoticeLinkVisible').disable();
     this.checkFormState();
@@ -80,7 +77,6 @@ export class BasicinfoComponent extends EntryContentDirective<BasicInfo> impleme
 
   registerFormChanges(): void {
     this.form.get('jurisdiction').valueChanges.subscribe(v => this.optionalFieldChange(v, 'jurisdictionVisible'));
-    this.form.get('collectionMethod').valueChanges.subscribe(v => this.optionalFieldChange(v, 'collectionMethodVisible'));
     this.form.get('scope').valueChanges.subscribe(v => this.optionalFieldChange(v, 'scopeVisible'));
     this.form.get('shortNoticeLink').valueChanges.subscribe(v => this.optionalFieldChange(v, 'shortNoticeLinkVisible'));
     this.form.get('dataController').valueChanges.subscribe(v => this.dataControllerChange(v));

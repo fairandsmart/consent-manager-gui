@@ -31,12 +31,10 @@ import { createSubject, getSubject, listSubjectRecords, SubjectDto, updateSubjec
 import { OperatorLogElement, RecordsMap } from '@fairandsmart/consent-manager/records';
 import {
   ConsentContext,
-  ConsentFormOrientation,
-  ConsentFormType,
   generateToken,
   postConsent
 } from '@fairandsmart/consent-manager/consents';
-import { CollectionMethod } from '@fairandsmart/consent-manager';
+import { FormLayoutOrientation } from '@fairandsmart/consent-manager/models';
 
 @Component({
   selector: 'cm-operator-subject-page',
@@ -131,21 +129,24 @@ export class OperatorSubjectPageComponent implements OnInit {
       .afterClosed().subscribe((result) => {
       if (result) {
         const ctx: ConsentContext = {
+          layoutData: {
+            type: 'layout',
+            orientation: FormLayoutOrientation.VERTICAL,
+            existingElementsVisible: true,
+            elements: this.operatorLog.map(e => e.identifier),
+            includeIFrameResizer: true,
+            info: '',
+            notification: result.model,
+          },
+          origin: 'operator',
           subject: this.subject.name,
-          orientation: ConsentFormOrientation.VERTICAL,
-          info: '',
-          elements: this.operatorLog.map(e => e.identifier),
           callback: '',
           language: this.defaultLanguage,
-          formType: ConsentFormType.FULL,
           userinfos: {},
           attributes: {},
-          notificationModel: result.model,
           notificationRecipient: result.model ? result.recipient : '',
-          collectionMethod: CollectionMethod.OPERATOR,
           author: '',
           preview: false,
-          iframe: true
         };
 
         generateToken(ctx).pipe(

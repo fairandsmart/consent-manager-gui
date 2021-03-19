@@ -23,6 +23,7 @@ import { AlertService } from '../../../../../core/services/alert.service';
 import { FormStateSaver } from '../../../utils/form-state-saver';
 import { ConfigService } from '../../../../../core/services/config.service';
 import {
+  FormLayoutOrientation,
   ModelData,
   ModelEntryDto,
   ModelEntryHelper,
@@ -35,7 +36,6 @@ import {
   PreviewType
 } from '@fairandsmart/consent-manager/models';
 import { ModelsResource } from '@fairandsmart/consent-manager';
-import { ConsentFormOrientation } from '@fairandsmart/consent-manager/consents';
 import { MatDialog } from '@angular/material/dialog';
 import { ModelVersionSelectorComponent } from '../model-version-selector/model-version-selector.component';
 import { TranslateService } from '@ngx-translate/core';
@@ -118,7 +118,7 @@ export abstract class EntryContentDirective<T extends ModelData> extends FormSta
   protected makePreviewDto(language, values): PreviewDto {
     return {
       language: language,
-      orientation: ConsentFormOrientation.VERTICAL,
+      orientation: FormLayoutOrientation.VERTICAL,
       data: values,
       previewType: PreviewType.FORM
     };
