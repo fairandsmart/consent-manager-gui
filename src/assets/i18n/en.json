@@ -734,10 +734,10 @@
       "RECEIPT_FORMAT": {
         "LABEL": "Receipt format",
         "VALUES": {
-          "HTML": "HTML page",
-          "XML": "XML file",
-          "PDF": "PDF file",
-          "TEXT": "Plain text"
+          "TEXT/HTML": "HTML page",
+          "APPLICATION/XML": "XML file",
+          "APPLICATION/PDF": "PDF file",
+          "TEXT/PLAIN": "Plain text"
         }
       },
       "NOTIFICATION_RECIPIENT": {

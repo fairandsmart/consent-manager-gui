@@ -15,9 +15,8 @@
  */
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
-import { PREVIEW_TYPES, PreviewType, } from '@fairandsmart/consent-manager/models';
+import { FormLayoutOrientation, PREVIEW_TYPES, PreviewType, } from '@fairandsmart/consent-manager/models';
 import { FormControl, Validators } from '@angular/forms';
-import { CONSENT_FORM_ORIENTATIONS, ConsentFormOrientation } from '@fairandsmart/consent-manager/consents';
 
 @Component({
   selector: 'cm-entry-preview',
@@ -27,7 +26,7 @@ import { CONSENT_FORM_ORIENTATIONS, ConsentFormOrientation } from '@fairandsmart
 export class EntryPreviewComponent implements OnInit {
 
   readonly PREVIEW_TYPES = PREVIEW_TYPES;
-  readonly ORIENTATIONS = CONSENT_FORM_ORIENTATIONS;
+  readonly ORIENTATIONS = FormLayoutOrientation;
 
   @Input()
   withControls = false;
@@ -44,11 +43,11 @@ export class EntryPreviewComponent implements OnInit {
   ngOnInit(): void {
     if (this.withControls) {
       this.previewTypeCtrl = new FormControl(PreviewType.FORM, [Validators.required]);
-      this.orientationCtrl = new FormControl(ConsentFormOrientation.VERTICAL, [Validators.required]);
+      this.orientationCtrl = new FormControl(FormLayoutOrientation.VERTICAL, [Validators.required]);
       this.previewTypeCtrl.valueChanges.subscribe(value => {
         if (value !== PreviewType.FORM) {
           this.orientationCtrl.disable();
-          this.orientationCtrl.setValue(ConsentFormOrientation.VERTICAL);
+          this.orientationCtrl.setValue(FormLayoutOrientation.VERTICAL);
         } else {
           this.orientationCtrl.enable();
         }

@@ -90,7 +90,7 @@
               </div>
               <mat-form-field appearance="fill">
                 <mat-label>{{'FORM_CREATOR.FORM.RECEIPT_FORMAT.LABEL' | translate}}</mat-label>
-                <mat-select formControlName="receiptDisplayType" required>
+                <mat-select formControlName="desiredReceiptMimeType" required>
                   <mat-option *ngFor="let type of RECEIPT_FORMATS" [value]="type">{{'FORM_CREATOR.FORM.RECEIPT_FORMAT.VALUES.' + type.toUpperCase() | translate}}</mat-option>
                 </mat-select>
               </mat-form-field>
@@ -138,7 +138,9 @@
       <mat-form-field appearance="fill">
         <mat-label>{{'FORM_CREATOR.FORM.ORIENTATION.LABEL' | translate}}</mat-label>
         <mat-select formControlName="orientation" required>
-          <mat-option *ngFor="let orientation of ORIENTATIONS" [value]="orientation">{{'FORM_CREATOR.FORM.ORIENTATION.VALUES.' + orientation | translate}}</mat-option>
+          <mat-option *ngFor="let orientation of ORIENTATIONS" [value]="orientation">
+            {{'FORM_CREATOR.FORM.ORIENTATION.VALUES.' + orientation | translate}}
+          </mat-option>
         </mat-select>
       </mat-form-field>
       <div class="checkbox-wrapper">

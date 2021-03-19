@@ -23,12 +23,11 @@ import { FormControl } from '@angular/forms';
 import { ConfigService } from '../../../../../core/services/config.service';
 import { CoreService } from '../../../../../core/services/core.service';
 import * as _ from 'lodash';
-import { ModelData, ModelEntryDto, ModelVersionDto } from '@fairandsmart/consent-manager/models';
+import { FormLayoutOrientation, ModelData, ModelEntryDto, ModelVersionDto } from '@fairandsmart/consent-manager/models';
 import { RecordDto } from '@fairandsmart/consent-manager/records';
 import {
-  ConsentContext, ConsentFormOrientation, ConsentFormType, generateToken, postConsent
+  ConsentContext, generateToken, postConsent
 } from '@fairandsmart/consent-manager/consents';
-import { CollectionMethod } from '@fairandsmart/consent-manager';
 
 @Directive()
 export abstract class EntryCardContentDirective<T extends ModelData> implements OnInit {
@@ -138,22 +137,25 @@ export abstract class EntryCardContentDirective<T extends ModelData> implements 
     const element = _.last(this.entry.versions).identifier;
     const context: ConsentContext = {
       subject: this.keycloakService.getUsername(),
-      orientation: ConsentFormOrientation.VERTICAL,
-      info: '',
-      elements: [element],
       callback: '',
       validity: '',
       language: this.defaultLanguage,
-      formType: ConsentFormType.FULL,
       userinfos: {},
       attributes: {},
-      notificationModel: '',
       notificationRecipient: '',
-      collectionMethod: CollectionMethod.USER_PAGE,
+      origin: 'user-page',
       author: this.keycloakService.getUsername(),
       preview: false,
-      iframe: true,
-      theme: ''
+      layoutData: {
+        type: 'layout',
+        orientation: FormLayoutOrientation.VERTICAL,
+        info: '',
+        elements: [element],
+        existingElementsVisible: true,
+        notification: '',
+        theme: '',
+        includeIFrameResizer: true,
+      }
     };
     return generateToken(context).pipe(
       mergeMap((token) => {

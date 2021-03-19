@@ -65,7 +65,7 @@ class SubjectRecordDataSource extends CollectionDatasource<EntryRecord, ModelFil
             result.recordCreation = record.creationTimestamp;
             result.recordExpiration = record.expirationTimestamp;
             result.comment = record.comment;
-            result.collectionMethod = record.collectionMethod;
+            result.origin = record.origin;
             result.status = record.status;
           }
           values.push(result);

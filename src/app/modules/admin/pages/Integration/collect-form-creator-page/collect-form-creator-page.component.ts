@@ -31,20 +31,17 @@ import { ConfirmDialogComponent } from '../../../../../core/components/confirm-d
 import { TranslateService } from '@ngx-translate/core';
 import { FIELD_VALIDATORS, Icons } from '../../../../../core/models/common';
 import {
+  CONSENT_FORM_ORIENTATIONS,
+  FormLayout,
+  FormLayoutOrientation,
   listEntries,
   ModelDataType,
   ModelEntryDto,
   ModelEntryHelper,
   ModelEntryStatus,
-  ModelFilter
+  ModelFilter, RECEIPT_DISPLAY_TYPES
 } from '@fairandsmart/consent-manager/models';
-import {
-  CONSENT_FORM_ORIENTATIONS,
-  ConsentContext,
-  ConsentFormOrientation, ConsentFormType, generateToken, getFormUrl,
-  RECEIPT_DISPLAY_TYPES
-} from '@fairandsmart/consent-manager/consents';
-import { CollectionMethod } from '@fairandsmart/consent-manager';
+import { ConsentContext, generateToken, getFormUrl } from '@fairandsmart/consent-manager/consents';
 
 enum FORM_CREATOR_STEP {
   ELEMENTS,
@@ -245,7 +242,7 @@ export class CollectFormCreatorPageComponent implements OnInit {
         acceptAllVisible: [false, [Validators.required]],
         acceptAllText: [''],
         footerOnTop: [false, [Validators.required]],
-        orientation: [ConsentFormOrientation.VERTICAL, [Validators.required]],
+        orientation: [FormLayoutOrientation.VERTICAL, [Validators.required]],
       }),
       this.fb.group({
         subject: ['', [Validators.required]],
@@ -253,9 +250,9 @@ export class CollectFormCreatorPageComponent implements OnInit {
         validity: [6, [Validators.required, Validators.min(1)]],
         validityUnit: ['M', [Validators.required]],
         validityVisible: [true],
-        receiptDisplayType: ['HTML', [Validators.required]],
+        desiredReceiptMimeType: ['HTML', [Validators.required]],
         notify: [true],
-        notificationModel: ['', [Validators.required, Validators.pattern(FIELD_VALIDATORS.key.pattern)]],
+        notification: ['', [Validators.required, Validators.pattern(FIELD_VALIDATORS.key.pattern)]],
         notificationRecipient: ['', [Validators.required, Validators.email]]
       })
     ]);
@@ -276,17 +273,17 @@ export class CollectFormCreatorPageComponent implements OnInit {
     });
     this.form.at(FORM_CREATOR_STEP.OPTIONS).get('notify').valueChanges.subscribe((notify: boolean) => {
       if (notify) {
-        this.form.at(FORM_CREATOR_STEP.OPTIONS).get('notificationModel')
+        this.form.at(FORM_CREATOR_STEP.OPTIONS).get('notification')
           .setValidators([Validators.required, Validators.pattern(FIELD_VALIDATORS.key.pattern)]);
         this.form.at(FORM_CREATOR_STEP.OPTIONS).get('notificationRecipient')
           .setValidators([Validators.required, Validators.email]);
       } else {
-        this.form.at(FORM_CREATOR_STEP.OPTIONS).get('notificationModel').clearValidators();
+        this.form.at(FORM_CREATOR_STEP.OPTIONS).get('notification').clearValidators();
         this.form.at(FORM_CREATOR_STEP.OPTIONS).get('notificationRecipient').clearValidators();
         this.setSelectedEmail({emails: []});
         this.form.at(FORM_CREATOR_STEP.OPTIONS).get('notificationRecipient').setValue('');
       }
-      this.form.at(FORM_CREATOR_STEP.OPTIONS).get('notificationModel').updateValueAndValidity();
+      this.form.at(FORM_CREATOR_STEP.OPTIONS).get('notification').updateValueAndValidity();
       this.form.at(FORM_CREATOR_STEP.OPTIONS).get('notificationRecipient').updateValueAndValidity();
     });
   }
@@ -376,34 +373,37 @@ export class CollectFormCreatorPageComponent implements OnInit {
   }
 
   private buildContext(isPreview: boolean): ConsentContext {
-    const formValue: Partial<ConsentContext & { forceDisplay: boolean, validityUnit: string }> = {
+    const formValue: Partial<ConsentContext & FormLayout & { forceDisplay: boolean, validityUnit: string }> = {
       ...(this.form.at(FORM_CREATOR_STEP.OPTIONS) as FormGroup).getRawValue(),
       ...(this.form.at(FORM_CREATOR_STEP.ELEMENTS) as FormGroup).getRawValue(),
       ...(this.form.at(FORM_CREATOR_STEP.PREVIEW) as FormGroup).getRawValue()
     };
     return {
       subject: formValue.subject,
-      orientation: formValue.orientation,
-      info: formValue.info,
-      elements: formValue.elements,
       callback: '',
       validity: CollectFormCreatorPageComponent.formatValidity(formValue.validity, formValue.validityUnit),
-      validityVisible: formValue.validityVisible,
       language: formValue.language,
-      formType: formValue.forceDisplay ? ConsentFormType.FULL : ConsentFormType.PARTIAL,
-      receiptDisplayType: formValue.receiptDisplayType,
       userinfos: {},
       attributes: {},
-      notificationModel: formValue.notificationModel,
       notificationRecipient: formValue.notificationRecipient,
-      collectionMethod: CollectionMethod.WEBFORM,
       author: '',
       preview: isPreview,
-      iframe: true,
-      theme: formValue.theme,
-      acceptAllVisible: formValue.acceptAllVisible,
-      acceptAllText: formValue.acceptAllText,
-      footerOnTop: formValue.footerOnTop
+      origin: 'webform',
+      layoutData: {
+        type: 'layout',
+        theme: formValue.theme,
+        existingElementsVisible: formValue.forceDisplay,
+        acceptAllVisible: formValue.acceptAllVisible,
+        acceptAllText: formValue.acceptAllText,
+        footerOnTop: formValue.footerOnTop,
+        notification: formValue.notification,
+        desiredReceiptMimeType: formValue.desiredReceiptMimeType,
+        validityVisible: formValue.validityVisible,
+        elements: formValue.elements,
+        orientation: formValue.orientation,
+        info: formValue.info,
+        includeIFrameResizer: true,
+      }
     };
   }
 
@@ -425,7 +425,7 @@ export class CollectFormCreatorPageComponent implements OnInit {
 
   private setSelectedEmail(selected: { [id: string]: ModelEntryDto[] }): void {
     this.selectedEmail = selected;
-    this.form.at(FORM_CREATOR_STEP.OPTIONS).get('notificationModel')
+    this.form.at(FORM_CREATOR_STEP.OPTIONS).get('notification')
       .setValue(this.selectedEmail.emails?.[0]?.key || '');
   }
 

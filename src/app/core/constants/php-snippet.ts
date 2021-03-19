@@ -15,7 +15,6 @@
  */
 import { environment } from '../../../environments/environment';
 import { ConsentContext } from '@fairandsmart/consent-manager/consents';
-
 export const PHP_SNIPPET =
 `<?php
 function getConfig()
@@ -35,15 +34,18 @@ function getFormUrl()
 {
     $context = [
         "subject" => "$$SUBJECT$$",
-        "orientation" => "$$ORIENTATION$$",
-        "info" => "$$INFO$$",
-        "elements" => array($$ELEMENTS$$),
         "callback" => "$$CALLBACK$$",
         "language" => "$$LANGUAGE$$",
         "validity" => "$$VALIDITY$$",
-        "formType" => "$$FORM_TYPE$$",
-        "theme" => "$$THEME$$",
-        "iframe" => $$IFRAME$$
+        "layoutData" => [
+          "type" => "layout",
+          "info" => "$$INFO$$",
+          "elements" => array($$ELEMENTS$$),
+          "includeIFrameResizer" => $$IFRAME$$,
+          "existingElementsVisible" => $$FORM_TYPE$$,
+          "orientation" => "$$ORIENTATION$$",
+          "theme" => "$$THEME$$",
+         ]
     ];
 
     $curl = curl_init();
@@ -96,14 +98,14 @@ export function getPhpSnippetFromContext(context: ConsentContext): string {
     .replace('$$API_URL$$', environment.managerUrl)
     .replace('$$PRIVATE_API_URL$$', environment.managerPrivateUrl)
     .replace('$$SUBJECT$$', context.subject)
-    .replace('$$ORIENTATION$$', context.orientation)
-    .replace('$$INFO$$', context.info)
-    .replace('$$ELEMENTS$$', `"${context.elements.join('","')}"`)
     .replace('$$CALLBACK$$', context.callback)
     .replace('$$LANGUAGE$$', context.language)
     .replace('$$VALIDITY$$', context.validity)
-    .replace('$$FORM_TYPE$$', context.formType)
-    .replace('$$THEME$$', context.theme)
-    .replace('$$IFRAME$$', String(context.iframe))
+    .replace('$$ELEMENTS$$', `"${context.layoutData.elements.join('","')}"`)
+    .replace('$$FORM_TYPE$$', String(context.layoutData.existingElementsVisible))
+    .replace('$$THEME$$', context.layoutData.theme)
+    .replace('$$IFRAME$$', String(context.layoutData.includeIFrameResizer))
+    .replace('$$ORIENTATION$$', context.layoutData.orientation)
+    .replace('$$INFO$$', context.layoutData.info)
     ;
 }
