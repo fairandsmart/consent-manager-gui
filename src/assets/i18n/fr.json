@@ -847,6 +847,7 @@
     "TITLE": "Interroger",
     "ENTRY": "Élément",
     "VALUE": "Valeur",
+    "ADD_VALUE": "Ajouter une valeur",
     "NO_RESULTS": "Pas de résultats",
     "SUBJECT_ID_HEADER": "Identifiant",
     "SUBJECT_NAME_HEADER": "Nom",

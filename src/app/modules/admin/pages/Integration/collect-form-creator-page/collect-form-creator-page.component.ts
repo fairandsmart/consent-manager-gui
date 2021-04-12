@@ -32,6 +32,7 @@ import { TranslateService } from '@ngx-translate/core';
 import { FIELD_VALIDATORS, Icons } from '../../../../../core/models/common';
 import {
   CONSENT_FORM_ORIENTATIONS,
+  ConsentOrigin,
   FormLayout,
   FormLayoutOrientation,
   listEntries,
@@ -39,7 +40,8 @@ import {
   ModelEntryDto,
   ModelEntryHelper,
   ModelEntryStatus,
-  ModelFilter, RECEIPT_DISPLAY_TYPES
+  ModelFilter,
+  RECEIPT_DISPLAY_TYPES
 } from '@fairandsmart/consent-manager/models';
 import { ConsentContext, generateToken, getFormUrl } from '@fairandsmart/consent-manager/consents';
 
@@ -184,15 +186,7 @@ export class CollectFormCreatorPageComponent implements OnInit {
   private readonly defaultLanguage;
 
   private static formatValidity(validity, validityUnit): string {
-    if (validity) {
-      if (validityUnit === 'W') {
-        const days: number = validity * 7;
-        return `P${days}D`;
-      } else {
-        return `P${validity}${validityUnit}`;
-      }
-    }
-    return '';
+    return validity ? `P${validity}${validityUnit}` : '';
   }
 
   constructor(private fb: FormBuilder,
@@ -388,7 +382,7 @@ export class CollectFormCreatorPageComponent implements OnInit {
       notificationRecipient: formValue.notificationRecipient,
       author: '',
       preview: isPreview,
-      origin: 'webform',
+      origin: ConsentOrigin.WEBFORM,
       layoutData: {
         type: 'layout',
         theme: formValue.theme,

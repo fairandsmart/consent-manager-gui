@@ -63,10 +63,14 @@
                 <mat-label>{{'INTERROGATE.VALUE' | translate}} ({{index + 1}})</mat-label>
                 <input matInput type="text" [formControlName]="index" autocomplete="off">
               </mat-form-field>
-              <button *ngIf="index !== 0 || !last" type="button" color="accent" mat-icon-button (click)="removeValue(index)"><mat-icon>remove_circle</mat-icon></button>
+              <button *ngIf="index !== 0 || !last" type="button" color="accent" mat-icon-button (click)="removeValue(index)">
+                <mat-icon>remove_circle</mat-icon>
+              </button>
             </div>
             <div>
-              <button class="add-value" type="button" mat-button color="accent" (click)="addValue()"><mat-icon>add_circle</mat-icon> Ajouter une valeur</button>
+              <button class="add-value" type="button" mat-button color="accent" (click)="addValue()">
+                <mat-icon>add_circle</mat-icon>{{'INTERROGATE.ADD_VALUE' | translate}}
+              </button>
             </div>
           </ng-container>
           <ng-container *ngIf="options.length > 0" formArrayName="values">

@@ -151,8 +151,6 @@ export class DashboardPageComponent implements OnInit {
     }
   };
 
-  public labelsTranslations;
-
   @ViewChild('recordsChart')
   public recordsChart: DashboardChartComponent;
   public recordsStats: StatsChart;

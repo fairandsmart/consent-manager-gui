@@ -34,7 +34,6 @@ export class DashboardChartComponent implements OnInit {
   @Input()
   public name;
 
-  @Input()
   public labelsTranslations;
 
   public timeScale: TimeScale;

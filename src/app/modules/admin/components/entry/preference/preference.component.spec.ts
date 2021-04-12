@@ -20,7 +20,6 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { EntryPreviewComponent } from '../entry-preview/entry-preview.component';
 import { CoreTestingModule } from '../../../../../testing/core-testing-module.spec';
 import { RouterTestingModule } from '@angular/router/testing';
-import { EMPTY } from 'rxjs';
 import { ConfigServiceStubSpec } from '../../../../../testing/config-service-stub.spec';
 import { ConfigService } from '../../../../../core/services/config.service';
 import { ModelEntryStatus } from '@fairandsmart/consent-manager/models';
