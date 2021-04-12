@@ -20,7 +20,7 @@ import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import * as FileSaver from 'file-saver';
 import { ConfigService } from '../../../../../core/services/config.service';
 import { Icons } from '../../../../../core/models/common';
-import { getActiveVersion, listEntries, ModelEntryDto, Preference } from '@fairandsmart/consent-manager/models';
+import { getActiveVersion, listEntries, ModelEntryDto, ModelEntryStatus, Preference } from '@fairandsmart/consent-manager/models';
 import { ExtractionConfigDto, ExtractionResultDto, extractRecords, extractRecordsCsv } from '@fairandsmart/consent-manager/records';
 
 @Component({
@@ -91,7 +91,8 @@ export class InterrogatePageComponent implements OnInit {
     this.entries$ = listEntries({
       size: -1,
       types: ['conditions', 'preference', 'processing'],
-      order: 'name'
+      order: 'name',
+      statuses: [ModelEntryStatus.ACTIVE]
     }).pipe(
       map((response) => {
         return {

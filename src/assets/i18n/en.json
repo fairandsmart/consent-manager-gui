@@ -847,6 +847,7 @@
     "TITLE": "Search",
     "ENTRY": "Entry",
     "VALUE": "Value",
+    "ADD_VALUE": "Add value",
     "NO_RESULTS": "No results",
     "SUBJECT_ID_HEADER": "ID",
     "SUBJECT_NAME_HEADER": "Name",

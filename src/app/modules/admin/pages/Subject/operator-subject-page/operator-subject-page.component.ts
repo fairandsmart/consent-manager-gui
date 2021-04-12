@@ -29,12 +29,8 @@ import { SubjectInfosEditorDialogComponent } from '../../../components/operator/
 import { ConfigService } from '../../../../../core/services/config.service';
 import { createSubject, getSubject, listSubjectRecords, SubjectDto, updateSubject } from '@fairandsmart/consent-manager/subjects';
 import { OperatorLogElement, RecordsMap } from '@fairandsmart/consent-manager/records';
-import {
-  ConsentContext,
-  generateToken,
-  postConsent
-} from '@fairandsmart/consent-manager/consents';
-import { FormLayoutOrientation } from '@fairandsmart/consent-manager/models';
+import { ConsentContext, generateToken, postConsent } from '@fairandsmart/consent-manager/consents';
+import { ConsentOrigin, FormLayoutOrientation } from '@fairandsmart/consent-manager/models';
 
 @Component({
   selector: 'cm-operator-subject-page',
@@ -138,7 +134,7 @@ export class OperatorSubjectPageComponent implements OnInit {
             info: '',
             notification: result.model,
           },
-          origin: 'operator',
+          origin: ConsentOrigin.OPERATOR,
           subject: this.subject.name,
           callback: '',
           language: this.defaultLanguage,

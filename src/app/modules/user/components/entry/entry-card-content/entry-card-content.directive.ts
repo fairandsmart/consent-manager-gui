@@ -23,11 +23,9 @@ import { FormControl } from '@angular/forms';
 import { ConfigService } from '../../../../../core/services/config.service';
 import { CoreService } from '../../../../../core/services/core.service';
 import * as _ from 'lodash';
-import { FormLayoutOrientation, ModelData, ModelEntryDto, ModelVersionDto } from '@fairandsmart/consent-manager/models';
+import { ConsentOrigin, FormLayoutOrientation, ModelData, ModelEntryDto, ModelVersionDto } from '@fairandsmart/consent-manager/models';
 import { RecordDto } from '@fairandsmart/consent-manager/records';
-import {
-  ConsentContext, generateToken, postConsent
-} from '@fairandsmart/consent-manager/consents';
+import { ConsentContext, generateToken, postConsent } from '@fairandsmart/consent-manager/consents';
 
 @Directive()
 export abstract class EntryCardContentDirective<T extends ModelData> implements OnInit {
@@ -143,7 +141,7 @@ export abstract class EntryCardContentDirective<T extends ModelData> implements 
       userinfos: {},
       attributes: {},
       notificationRecipient: '',
-      origin: 'user-page',
+      origin: ConsentOrigin.USER,
       author: this.keycloakService.getUsername(),
       preview: false,
       layoutData: {

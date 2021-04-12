@@ -19,7 +19,6 @@
     <cm-dashboard-chart #recordsChart
                         *ngIf="recordsStats"
                         name="RECORDS"
-                        [labelsTranslations]="labelsTranslations"
                         [stats]="recordsStats"
                         [chartConfig]="CHART_OPTIONS.unstackedChart"
                         [chartColors]="CHART_COLORS_SET"></cm-dashboard-chart>
@@ -36,7 +35,6 @@
     <cm-dashboard-chart #subjectsChart
                         *ngIf="subjectsStats"
                         name="SUBJECTS"
-                        [labelsTranslations]="labelsTranslations"
                         [stats]="subjectsStats"
                         [chartConfig]="CHART_OPTIONS.lineChart"
                         [chartColors]="CHART_COLORS_SET"></cm-dashboard-chart>
