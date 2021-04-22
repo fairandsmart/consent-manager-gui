@@ -177,6 +177,7 @@
       "DRAFT": "Draft",
       "ARCHIVED": "Archived"
     },
+    "VERSION_SERIAL": "Serial Number",
     "COMMON": {
       "id": {
         "LABEL": "Id"

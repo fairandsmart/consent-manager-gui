@@ -177,6 +177,7 @@
       "DRAFT": "Brouillon",
       "ARCHIVED": "Archivée"
     },
+    "VERSION_SERIAL": "Numéro de série",
     "COMMON": {
       "id": {
         "LABEL": "Id"

@@ -43,7 +43,7 @@
   <dd *ngIf="entry.modificationDate === 0">{{'ENTRIES.COMMON.modificationDate.EMPTY' | translate}}</dd>
   <ng-container *ngIf="version">
     <dt>{{'ENTRIES.COMMON.version.LABEL' | translate}}</dt>
-    <dd>v{{getVersionIndex()}} ({{'ENTRIES.VERSION_STATUS.' + version.status | translate}})
+    <dd>v{{getVersionIndex()}} ({{version.serial}}) - {{'ENTRIES.VERSION_STATUS.' + version.status | translate}}
       <button mat-icon-button [matMenuTriggerFor]="historyMenu">
         <mat-icon>history</mat-icon>
       </button>
@@ -54,7 +54,7 @@
   <ng-template matMenuContent>
     <button mat-menu-item *ngFor="let v of entry?.versions; index as i"
             (click)="selectVersion.emit(v)" [disabled]="version?.id === v.id">
-      v{{getVersionIndex(v)}} ({{'ENTRIES.VERSION_STATUS.' + v.status | translate}})
+      v{{getVersionIndex(v)}} ({{v.serial}}) - {{'ENTRIES.VERSION_STATUS.' + v.status | translate}}
     </button>
   </ng-template>
 </mat-menu>
