@@ -244,7 +244,7 @@ export class CollectFormCreatorPageComponent implements OnInit {
         validity: [6, [Validators.required, Validators.min(1)]],
         validityUnit: ['M', [Validators.required]],
         validityVisible: [true],
-        desiredReceiptMimeType: ['HTML', [Validators.required]],
+        desiredReceiptMimeType: ['text/html', [Validators.required]],
         notify: [true],
         notification: ['', [Validators.required, Validators.pattern(FIELD_VALIDATORS.key.pattern)]],
         notificationRecipient: ['', [Validators.required, Validators.email]]
