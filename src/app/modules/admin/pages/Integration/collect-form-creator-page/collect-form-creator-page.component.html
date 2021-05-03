@@ -38,10 +38,10 @@
                 <span>{{'ENTRIES.' + config.id + '.EMPTY' | translate}}</span>
               </mat-card>
               <cm-entry-card *ngFor="let entry of selectedElements[config.id]"
-                              cdkDrag
-                              [selectable]="isSelectionDraggable(config)"
-                              [cdkDragData]="entry"
-                              [entry]="entry"></cm-entry-card>
+                             cdkDrag
+                             [selectable]="isSelectionDraggable(config)"
+                             [cdkDragData]="entry"
+                             [entry]="entry"></cm-entry-card>
             </div>
             <div *ngIf="isSelectionExcluded(config)" class="form-container">
               <mat-card class="excluded-hint">{{'ENTRIES.' + config.id + '.EXCLUDED' | translate}}</mat-card>
@@ -93,6 +93,14 @@
                 <mat-select formControlName="desiredReceiptMimeType" required>
                   <mat-option *ngFor="let type of RECEIPT_FORMATS" [value]="type">{{'FORM_CREATOR.FORM.RECEIPT_FORMAT.VALUES.' + type.toUpperCase() | translate}}</mat-option>
                 </mat-select>
+              </mat-form-field>
+              <mat-form-field appearance="fill">
+                <mat-label>{{'FORM_CREATOR.FORM.IFRAME_ORIGIN.LABEL' | translate}}</mat-label>
+                <input formControlName="iframeOrigin" matInput autocomplete="off" />
+              </mat-form-field>
+              <mat-form-field appearance="fill">
+                <mat-label>{{'FORM_CREATOR.FORM.CALLBACK.LABEL' | translate}}</mat-label>
+                <input formControlName="callback" matInput autocomplete="off" />
               </mat-form-field>
               <div class="checkbox-wrapper">
                 <mat-checkbox formControlName="notify">{{'FORM_CREATOR.FORM.NOTIFICATION_RECIPIENT.NOTIFY_CHECKBOX_LABEL' | translate}}</mat-checkbox>

@@ -741,6 +741,12 @@
           "TEXT/PLAIN": "Plain text"
         }
       },
+      "IFRAME_ORIGIN": {
+        "LABEL": "Parent window domain"
+      },
+      "CALLBACK": {
+        "LABEL": "Callback URL"
+      },
       "NOTIFICATION_RECIPIENT": {
         "NOTIFY_CHECKBOX_LABEL": "I would like to notify the user by email following the submission of the form",
         "LABEL": "Email recipient",

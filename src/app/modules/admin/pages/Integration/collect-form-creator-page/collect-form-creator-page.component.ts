@@ -245,9 +245,11 @@ export class CollectFormCreatorPageComponent implements OnInit {
         validityUnit: ['M', [Validators.required]],
         validityVisible: [true],
         desiredReceiptMimeType: ['text/html', [Validators.required]],
-        notify: [true],
-        notification: ['', [Validators.required, Validators.pattern(FIELD_VALIDATORS.key.pattern)]],
-        notificationRecipient: ['', [Validators.required, Validators.email]]
+        iframeOrigin: [''],
+        callback: [''],
+        notify: [false],
+        notification: [''],
+        notificationRecipient: ['']
       })
     ]);
     merge(
@@ -374,7 +376,8 @@ export class CollectFormCreatorPageComponent implements OnInit {
     };
     return {
       subject: formValue.subject,
-      callback: '',
+      callback: formValue.callback,
+      iframeOrigin: formValue.iframeOrigin,
       validity: CollectFormCreatorPageComponent.formatValidity(formValue.validity, formValue.validityUnit),
       language: formValue.language,
       userinfos: {},
