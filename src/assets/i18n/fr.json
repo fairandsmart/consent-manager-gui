@@ -741,6 +741,12 @@
           "TEXT/PLAIN": "Plein texte"
         }
       },
+      "IFRAME_ORIGIN": {
+        "LABEL": "Domaine de la fenêtre parent"
+      },
+      "CALLBACK": {
+        "LABEL": "URL de callback"
+      },
       "NOTIFICATION_RECIPIENT": {
         "NOTIFY_CHECKBOX_LABEL": "Je souhaite notifier l'utilisateur par email suite à la soumission du formulaire",
         "LABEL": "Destinataire de l'email",
