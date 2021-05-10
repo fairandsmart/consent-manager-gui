@@ -95,12 +95,12 @@
                 </mat-select>
               </mat-form-field>
               <mat-form-field appearance="fill">
-                <mat-label>{{'FORM_CREATOR.FORM.IFRAME_ORIGIN.LABEL' | translate}}</mat-label>
-                <input formControlName="iframeOrigin" matInput autocomplete="off" />
-              </mat-form-field>
-              <mat-form-field appearance="fill">
                 <mat-label>{{'FORM_CREATOR.FORM.CALLBACK.LABEL' | translate}}</mat-label>
                 <input formControlName="callback" matInput autocomplete="off" />
+              </mat-form-field>
+              <mat-form-field appearance="fill" *ngIf="form.at(STEPS.OPTIONS).get('callback').value">
+                <mat-label>{{'FORM_CREATOR.FORM.IFRAME_ORIGIN.LABEL' | translate}}</mat-label>
+                <input formControlName="iframeOrigin" matInput autocomplete="off" />
               </mat-form-field>
               <div class="checkbox-wrapper">
                 <mat-checkbox formControlName="notify">{{'FORM_CREATOR.FORM.NOTIFICATION_RECIPIENT.NOTIFY_CHECKBOX_LABEL' | translate}}</mat-checkbox>

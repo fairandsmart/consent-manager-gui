@@ -245,8 +245,8 @@ export class CollectFormCreatorPageComponent implements OnInit {
         validityUnit: ['M', [Validators.required]],
         validityVisible: [true],
         desiredReceiptMimeType: ['text/html', [Validators.required]],
-        iframeOrigin: [''],
         callback: [''],
+        iframeOrigin: [''],
         notify: [false],
         notification: [''],
         notificationRecipient: ['']
