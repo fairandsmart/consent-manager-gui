@@ -123,8 +123,16 @@
     }
   },
   "ROUTING": {
+    "401": {
+      "TITLE": "Permissions insuffisantes",
+      "BODY": "Vous n'avez pas les permissions nécessaires pour visualiser ce contenu, merci de vous authentifier en utilisant un compte avec les privilèges adaptés."
+    },
+    "403": {
+      "TITLE": "Permissions insuffisantes",
+      "BODY": "Vous n'avez pas les permissions nécessaires pour visualiser ce contenu, merci de vous authentifier en utilisant un compte avec les privilèges adaptés."
+    },
     "404": {
-      "TITLE": "404 Page introuvable",
+      "TITLE": "Page introuvable",
       "BODY": "Ceci n'est pas la page que vous recherchez."
     }
   },

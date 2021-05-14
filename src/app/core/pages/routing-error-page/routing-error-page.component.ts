@@ -14,6 +14,7 @@
  * #L%
  */
 import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'cm-routing-error-page',
@@ -22,7 +23,11 @@ import { Component, OnInit } from '@angular/core';
 })
 export class RoutingErrorPageComponent implements OnInit {
 
-  constructor() { }
+  public type: number = 404;
+
+  constructor(router: ActivatedRoute) {
+    router.queryParams.subscribe((data) => this.type = data.type || 404);
+  }
 
   ngOnInit(): void {
   }

@@ -14,7 +14,7 @@
  * #L%
  */
 import { Injectable } from '@angular/core';
-import { CanLoad, Route, UrlSegment, UrlTree } from '@angular/router';
+import { CanLoad, Route, Router, UrlSegment, UrlTree } from '@angular/router';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 import * as _ from 'lodash';
@@ -31,10 +31,17 @@ export class ConfigService implements CanLoad {
 
   constructor(
     private translateService: TranslateService,
-    private alertService: AlertService) {
+    private alertService: AlertService,
+    private router: Router) {
   }
 
   canLoad(route: Route, segments: UrlSegment[]): Observable<boolean | UrlTree> | Promise<boolean | UrlTree> | boolean | UrlTree {
+    return this.init().then(() => {
+      return this.checkRouteConditions(route);
+    });
+  }
+
+  init(): Promise<boolean> {
     if (this.config == null) {
       return getClientConfig().pipe(
         map(config => {
@@ -44,11 +51,11 @@ export class ConfigService implements CanLoad {
             return false;
           }
           this.translateService.setDefaultLang(this.config.language);
-          return this.checkRouteConditions(route);
+          return true;
         })
-      );
+      ).toPromise();
     } else {
-      return this.checkRouteConditions(route);
+      return Promise.resolve(false);
     }
   }
 
@@ -56,14 +63,23 @@ export class ConfigService implements CanLoad {
     return this.config?.language;
   }
 
-  private checkRouteConditions(route: Route): boolean {
+  public getRoleMapping(role: string): string {
+    console.log("role key: " + role + ", role value: " + this.config?.rolesMapping[role]);
+    return this.config?.rolesMapping[role];
+  }
+
+  private checkRouteConditions(route: Route): boolean | UrlTree {
     if (route.data == null || route.data.config == null) {
       return true;
     }
     const conditions: Partial<ClientConfigDto> = route.data.config;
-    return !_.some(conditions, (expectedValue, key) => {
+    const canLoad = !_.some(conditions, (expectedValue, key) => {
       return !_.isEqual(this.config[key], expectedValue);
     });
+    if (!canLoad) {
+      return this.router.createUrlTree(['error'], {queryParams: {type: 401}});
+    }
+    return true;
   }
 
 }

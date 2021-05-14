@@ -30,30 +30,6 @@ export class AppComponent {
 
   constructor(private translate: TranslateService, private http: HttpClient) {
     this.i18nInitialisation();
-    RightConsents.init({
-      apiRoot: environment.managerUrl,
-      httpClient: this.createHttpClient()
-    });
-  }
-
-  createHttpClient(): RcHttpClient {
-    return <T>(config: RcHttpClientConfig) => {
-      let req: HttpRequest<T>;
-      if (config.method === 'POST' || config.method === 'PUT') {
-        req = new HttpRequest<T>(config.method, config.url, config.body, {
-          responseType: config.responseType,
-          headers: new HttpHeaders(config.headers),
-          params: new HttpParams({fromObject: config.params}),
-        });
-      } else if (config.method === 'DELETE' || config.method === 'GET') {
-        req = new HttpRequest<T>(config.method, config.url, {
-          responseType: config.responseType as any,
-          headers: new HttpHeaders(config.headers),
-          params: new HttpParams({fromObject: config.params}),
-        });
-      }
-      return this.http.request<T>(req).pipe(filter((ev) => ev.type === HttpEventType.Response), map((res: HttpResponse<T>) => res.body));
-    };
   }
 
   i18nInitialisation(): void {
