@@ -36,7 +36,7 @@ import localeFr from '@angular/common/locales/fr';
 import { CoreModule } from './core/core.module';
 import {environment} from '../environments/environment';
 import { ConfigService } from './core/services/config.service';
-import { RcHttpClient, RcHttpClientConfig, RightConsents } from '../../../consent-manager-lib/lib';
+import { RcHttpClient, RcHttpClientConfig, RightConsents } from '@fairandsmart/consent-manager';
 import { filter, map } from 'rxjs/operators';
 
 const keycloakService = new KeycloakService();
