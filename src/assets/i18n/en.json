@@ -123,8 +123,16 @@
     }
   },
   "ROUTING": {
+    "401": {
+      "TITLE": "Unauthorized Content",
+      "BODY": "You have not the authorisation to see that content, please login using an account with sufficient permissions."
+    },
+    "403": {
+      "TITLE": "Unauthorized Content",
+      "BODY": "You have not the authorisation to see that content, please login using an account with sufficient permissions."
+    },
     "404": {
-      "TITLE": "404 Not Found",
+      "TITLE": "Page Not Found",
       "BODY": "This is not the page you are looking for."
     }
   },

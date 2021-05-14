@@ -14,7 +14,7 @@
  * #L%
  */
 import { Injectable } from '@angular/core';
-import { CanLoad, Route, UrlSegment, UrlTree } from '@angular/router';
+import { CanLoad, Route, Router, UrlSegment, UrlTree } from '@angular/router';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 import * as _ from 'lodash';
@@ -56,7 +56,12 @@ export class ConfigService implements CanLoad {
     return this.config?.language;
   }
 
-  private checkRouteConditions(route: Route): boolean {
+  public getRoleMapping(role: string): string {
+    console.log("role key: " + role + ", role value: " + this.config?.rolesMapping[role]);
+    return this.config?.rolesMapping[role];
+  }
+
+  private checkRouteConditions(route: Route): boolean | UrlTree {
     if (route.data == null || route.data.config == null) {
       return true;
     }

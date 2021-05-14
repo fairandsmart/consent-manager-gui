@@ -14,7 +14,7 @@
  * #L%
  */
 import { BrowserModule } from '@angular/platform-browser';
-import { ApplicationRef, DoBootstrap, LOCALE_ID, NgModule } from '@angular/core';
+import { ApplicationRef, DoBootstrap, Injector, LOCALE_ID, NgModule } from '@angular/core';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
