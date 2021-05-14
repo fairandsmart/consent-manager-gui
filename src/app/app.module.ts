@@ -21,13 +21,23 @@ import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { KeycloakAngularModule, KeycloakService } from 'keycloak-angular';
 import { KEYCLOAK_CONFIG } from '../keycloak-config';
-import { HttpClient, HttpClientModule } from '@angular/common/http';
+import {
+  HttpClient,
+  HttpClientModule,
+  HttpEventType,
+  HttpHeaders,
+  HttpParams,
+  HttpRequest, HttpResponse
+} from '@angular/common/http';
 import { TranslateLoader, TranslateModule, TranslateService } from '@ngx-translate/core';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 import { registerLocaleData } from '@angular/common';
 import localeFr from '@angular/common/locales/fr';
 import { CoreModule } from './core/core.module';
 import {environment} from '../environments/environment';
+import { ConfigService } from './core/services/config.service';
+import { RcHttpClient, RcHttpClientConfig, RightConsents } from '../../../consent-manager-lib/lib';
+import { filter, map } from 'rxjs/operators';
 
 const keycloakService = new KeycloakService();
 
@@ -77,12 +87,44 @@ registerLocaleData(localeFr, environment.customization?.defaultLanguage || 'fr')
   ]
 })
 export class AppModule implements DoBootstrap {
+
+  constructor(private injector: Injector) {}
+
   ngDoBootstrap(appRef: ApplicationRef): void {
+    const configService = this.injector.get(ConfigService);
     keycloakService
       .init(KEYCLOAK_CONFIG)
+      .then(() => {
+        RightConsents.init({
+          apiRoot: environment.managerUrl,
+          httpClient: this.createHttpClient()
+        });
+        return configService.init();
+      })
       .then(() => {
         appRef.bootstrap(AppComponent);
       })
       .catch(error => console.error('[ngDoBootstrap] init Keycloak failed', error));
+  }
+
+  createHttpClient(): RcHttpClient {
+    const http = this.injector.get(HttpClient);
+    return <T>(config: RcHttpClientConfig) => {
+      let req: HttpRequest<T>;
+      if (config.method === 'POST' || config.method === 'PUT') {
+        req = new HttpRequest<T>(config.method, config.url, config.body, {
+          responseType: config.responseType,
+          headers: new HttpHeaders(config.headers),
+          params: new HttpParams({fromObject: config.params}),
+        });
+      } else if (config.method === 'DELETE' || config.method === 'GET') {
+        req = new HttpRequest<T>(config.method, config.url, {
+          responseType: config.responseType as any,
+          headers: new HttpHeaders(config.headers),
+          params: new HttpParams({fromObject: config.params}),
+        });
+      }
+      return http.request<T>(req).pipe(filter((ev) => ev.type === HttpEventType.Response), map((res: HttpResponse<T>) => res.body));
+    };
   }
 }

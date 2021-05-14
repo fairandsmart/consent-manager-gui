@@ -31,10 +31,17 @@ export class ConfigService implements CanLoad {
 
   constructor(
     private translateService: TranslateService,
-    private alertService: AlertService) {
+    private alertService: AlertService,
+    private router: Router) {
   }
 
   canLoad(route: Route, segments: UrlSegment[]): Observable<boolean | UrlTree> | Promise<boolean | UrlTree> | boolean | UrlTree {
+    return this.init().then(() => {
+      return this.checkRouteConditions(route);
+    });
+  }
+
+  init(): Promise<boolean> {
     if (this.config == null) {
       return getClientConfig().pipe(
         map(config => {
@@ -44,11 +51,11 @@ export class ConfigService implements CanLoad {
             return false;
           }
           this.translateService.setDefaultLang(this.config.language);
-          return this.checkRouteConditions(route);
+          return true;
         })
-      );
+      ).toPromise();
     } else {
-      return this.checkRouteConditions(route);
+      return Promise.resolve(false);
     }
   }
 
@@ -66,9 +73,13 @@ export class ConfigService implements CanLoad {
       return true;
     }
     const conditions: Partial<ClientConfigDto> = route.data.config;
-    return !_.some(conditions, (expectedValue, key) => {
+    const canLoad = !_.some(conditions, (expectedValue, key) => {
       return !_.isEqual(this.config[key], expectedValue);
     });
+    if (!canLoad) {
+      return this.router.createUrlTree(['error'], {queryParams: {type: 401}});
+    }
+    return true;
   }
 
 }

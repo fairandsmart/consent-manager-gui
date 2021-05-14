@@ -29,7 +29,7 @@ export class RolesGuardService implements CanActivate {
     if ((route.data.roles as string[]).some(r => this.keycloak.isUserInRole(this.config.getRoleMapping(r)))) {
       return true;
     } else {
-      return this.router.createUrlTree(['']);
+      return this.router.createUrlTree(['error'], {queryParams: {type: 403}});
     }
   }
 

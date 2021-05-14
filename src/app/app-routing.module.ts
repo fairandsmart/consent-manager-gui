@@ -33,7 +33,7 @@ const routes: Routes = [
     canLoad: [ConfigService],
     canActivate: [RolesGuardService],
     data: {
-      roles: ['admin']
+      roles: ['admin', 'operator']
     }
   },
   {
@@ -47,13 +47,17 @@ const routes: Routes = [
     }
   },
   {
-    path: '**',
+    path: 'error',
     component: RoutingErrorPageComponent
+  },
+  {
+    path: '**',
+    redirectTo: 'error'
   }
 ];
 
 @NgModule({
-  imports: [RouterModule.forRoot(routes)],
+  imports: [RouterModule.forRoot(routes, {enableTracing: true})],
   exports: [RouterModule]
 })
 export class AppRoutingModule {
