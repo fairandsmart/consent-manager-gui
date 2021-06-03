@@ -52,7 +52,7 @@ export class DashboardChartComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.timeScale = TimeScale.DAYS;
+    this.timeScale = TimeScale.MONTHS;
     this.translate.onLangChange.subscribe(() => this.updateTranslations());
     this.updateTranslations();
   }
