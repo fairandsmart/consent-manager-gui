@@ -60,6 +60,11 @@
     </mat-form-field>
 
     <mat-card-subtitle>{{'ENTRIES.EDITOR.PROCESSING.SUBTITLES.ADDITIONAL' | translate}}</mat-card-subtitle>
+    <mat-checkbox
+      formControlName="containsSensitiveData">{{'ENTRIES.EDITOR.PROCESSING.SENSITIVE.LABEL' | translate}}</mat-checkbox>
+    <mat-checkbox
+      formControlName="containsMedicalData">{{'ENTRIES.EDITOR.PROCESSING.MEDICAL.LABEL' | translate}}</mat-checkbox>
+
     <mat-form-field appearance="outline">
       <mat-label>{{'ENTRIES.EDITOR.PROCESSING.PURPOSE.LABEL' | translate}}</mat-label>
       <mat-select formControlName="purposes" required multiple="true" (ngModelChange)="purposesChange($event)">
@@ -67,10 +72,36 @@
                     [value]="purpose">{{'ENTRIES.EDITOR.PROCESSING.PURPOSE.VALUES.' + purpose | translate}}</mat-option>
       </mat-select>
     </mat-form-field>
-    <mat-checkbox
-      formControlName="containsSensitiveData">{{'ENTRIES.EDITOR.PROCESSING.SENSITIVE.LABEL' | translate}}</mat-checkbox>
-    <mat-checkbox
-      formControlName="containsMedicalData">{{'ENTRIES.EDITOR.PROCESSING.MEDICAL.LABEL' | translate}}</mat-checkbox>
+
+    <mat-card *ngIf="form.controls.purposes.value.includes('CONSENT_THIRD_PART_SHARING')" class="third-parties-card">
+      <mat-card-title>{{'ENTRIES.EDITOR.PROCESSING.THIRD_PARTIES.LABEL' | translate}}</mat-card-title>
+      <mat-card-content>
+        <div *ngIf="getThirdParties().controls.length == 0"
+             class="third-parties-empty">{{'ENTRIES.EDITOR.PROCESSING.THIRD_PARTIES.EMPTY' | translate}}</div>
+        <div *ngIf="getThirdParties().controls.length > 0" formArrayName="thirdParties">
+          <div *ngFor="let control of getThirdParties().controls; let index = index" class="third-party"
+               [formGroupName]="index">
+            <div class="third-party-fields">
+              <mat-form-field appearance="outline">
+                <mat-label>{{'ENTRIES.EDITOR.PROCESSING.THIRD_PARTIES.NAME' | translate}}</mat-label>
+                <input matInput formControlName="name" autocomplete="off">
+              </mat-form-field>
+              <mat-form-field appearance="outline" class="third-party-description">
+                <mat-label>{{'ENTRIES.EDITOR.PROCESSING.THIRD_PARTIES.VALUE' | translate}}</mat-label>
+                <input matInput formControlName="value" autocomplete="off">
+              </mat-form-field>
+            </div>
+            <button mat-icon-button (click)="removeThirdParty(index)">
+              <mat-icon>delete</mat-icon>
+            </button>
+          </div>
+        </div>
+      </mat-card-content>
+      <mat-card-actions *ngIf="canBeEdited()">
+        <button mat-button
+                (click)="addThirdParty()">{{'ENTRIES.EDITOR.PROCESSING.THIRD_PARTIES.BUTTON_ADD' | translate}}</button>
+      </mat-card-actions>
+    </mat-card>
 
     <div formGroupName="dataController">
       <mat-card-subtitle>{{'ENTRIES.EDITOR.CONTENT.DATA_CONTROLLER.TITLE' | translate}}
@@ -103,36 +134,6 @@
       <mat-radio-button [value]="true">{{'ENTRIES.EDITOR.CONTENT.SHOW' | translate}}</mat-radio-button>
       <mat-radio-button [value]="false">{{'ENTRIES.EDITOR.CONTENT.HIDE' | translate}}</mat-radio-button>
     </mat-radio-group>
-
-    <mat-card *ngIf="form.controls.purposes.value.includes('CONSENT_THIRD_PART_SHARING')" class="third-parties-card">
-      <mat-card-title>{{'ENTRIES.EDITOR.PROCESSING.THIRD_PARTIES.LABEL' | translate}}</mat-card-title>
-      <mat-card-content>
-        <div *ngIf="getThirdParties().controls.length == 0"
-             class="third-parties-empty">{{'ENTRIES.EDITOR.PROCESSING.THIRD_PARTIES.EMPTY' | translate}}</div>
-        <div *ngIf="getThirdParties().controls.length > 0" formArrayName="thirdParties">
-          <div *ngFor="let control of getThirdParties().controls; let index = index" class="third-party"
-               [formGroupName]="index">
-            <div class="third-party-fields">
-              <mat-form-field appearance="outline">
-                <mat-label>{{'ENTRIES.EDITOR.PROCESSING.THIRD_PARTIES.NAME' | translate}}</mat-label>
-                <input matInput formControlName="name" autocomplete="off">
-              </mat-form-field>
-              <mat-form-field appearance="outline" class="third-party-description">
-                <mat-label>{{'ENTRIES.EDITOR.PROCESSING.THIRD_PARTIES.VALUE' | translate}}</mat-label>
-                <input matInput formControlName="value" autocomplete="off">
-              </mat-form-field>
-            </div>
-            <button mat-icon-button (click)="removeThirdParty(index)">
-              <mat-icon>delete</mat-icon>
-            </button>
-          </div>
-        </div>
-      </mat-card-content>
-      <mat-card-actions *ngIf="canBeEdited()">
-        <button mat-button
-                (click)="addThirdParty()">{{'ENTRIES.EDITOR.PROCESSING.THIRD_PARTIES.BUTTON_ADD' | translate}}</button>
-      </mat-card-actions>
-    </mat-card>
 
   </form>
 </cm-entry-editor-container>
