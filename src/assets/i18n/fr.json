@@ -488,7 +488,7 @@
           "LABEL": "Adresse email de l'expéditeur"
         },
         "SUBJECT": {
-          "LABEL": "Sujet"
+          "LABEL": "Objet"
         },
         "TITLE": {
           "LABEL": "Titre"
