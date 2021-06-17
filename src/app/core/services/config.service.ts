@@ -64,7 +64,6 @@ export class ConfigService implements CanLoad {
   }
 
   public getRoleMapping(role: string): string {
-    console.log("role key: " + role + ", role value: " + this.config?.rolesMapping[role]);
     return this.config?.rolesMapping[role];
   }
 
