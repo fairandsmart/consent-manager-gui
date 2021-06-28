@@ -200,7 +200,7 @@ export abstract class EntryContentDirective<T extends ModelData> extends FormSta
     ).subscribe(() => this.afterSaveVersion());
   }
 
-  activateVersion(): void {
+  activateVersion(forceVersion?: 'minor' | 'major'): void {
     if (this.hasChanges) {
       this.alertService.error('ALERT.UNSAVED_CHANGES', 'Unsaved changes');
       return;
@@ -215,7 +215,7 @@ export abstract class EntryContentDirective<T extends ModelData> extends FormSta
       return;
     }
     let versionTypeSelector$ = of(null);
-    if (ModelEntryHelper.hasActiveVersion(this.entry)) {
+    if (ModelEntryHelper.hasActiveVersion(this.entry) && !forceVersion) {
       versionTypeSelector$ = this.dialog.open<ModelVersionSelectorComponent, ModelVersionType>(ModelVersionSelectorComponent).afterClosed();
     }
     this.form.disable();
@@ -224,7 +224,7 @@ export abstract class EntryContentDirective<T extends ModelData> extends FormSta
         if (!ModelEntryHelper.hasActiveVersion(this.entry)) {
           // First version
           return of({});
-        } else if (versionType === ModelVersionType.MAJOR) {
+        } else if (versionType === ModelVersionType.MAJOR || forceVersion === 'major') {
           // Upgrade to major version
           return this.alertService.confirm({data: {
               title: this.translate.instant('ENTRIES.DIALOG.UPGRADE_VERSION.CONFIRM_TITLE'),
@@ -238,9 +238,9 @@ export abstract class EntryContentDirective<T extends ModelData> extends FormSta
                 return throwError(new Error('aborted'));
               }
             }));
-        } else if (versionType === ModelVersionType.MINOR) {
+        } else if (versionType === ModelVersionType.MINOR || forceVersion === 'minor') {
           // Upgrade to minor version
-          if (this.version.type === ModelVersionType.MAJOR) {
+          if (this.version.type === ModelVersionType.MAJOR || forceVersion === 'minor') {
             this.version.type = ModelVersionType.MINOR;
             return ModelsResource.updateVersionType<T>(this.entry.id, this.version.id, ModelVersionType.MINOR);
           }

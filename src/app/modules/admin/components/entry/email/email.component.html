@@ -17,7 +17,7 @@
                            [entry]="entry" [version]="version" [displayActions]="canBeEdited()"
                            [disableSave]="disableSave()" [disableActivate]="disableActivate()"
                            [disableDelete]="disableDelete()" (saveVersion)="saveVersion()"
-                           (activateVersion)="activateVersion()" (deleteDraft)="deleteDraft()"
+                           (activateVersion)="activateVersion('minor')" (deleteDraft)="deleteDraft()"
                            (refreshPreview)="refreshPreview()" (selectVersion)="selectVersion($event)">
   <form *ngIf="form" [formGroup]="form">
 
