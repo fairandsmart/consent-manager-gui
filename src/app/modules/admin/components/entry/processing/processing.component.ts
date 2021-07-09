@@ -13,8 +13,8 @@
  * files, or see https://www.fairandsmart.com/opensource/.
  * #L%
  */
-import { Component, OnInit } from '@angular/core';
-import { EntryContentDirective } from '../entry-content/entry-content.directive';
+import {Component, OnInit} from '@angular/core';
+import {EntryContentDirective} from '../entry-content/entry-content.directive';
 import {
   Controller,
   ModelVersionDto,
@@ -24,12 +24,12 @@ import {
   RETENTION_UNITS,
   RetentionUnit
 } from '@fairandsmart/consent-manager/models';
-import { FormArray, FormBuilder, Validators } from '@angular/forms';
-import { AlertService } from '../../../../../core/services/alert.service';
-import { TranslateService } from '@ngx-translate/core';
-import { ConfigService } from '../../../../../core/services/config.service';
-import { FIELD_VALIDATORS } from '../../../../../core/models/common';
-import { MatDialog } from '@angular/material/dialog';
+import {FormArray, FormBuilder, Validators} from '@angular/forms';
+import {AlertService} from '../../../../../core/services/alert.service';
+import {TranslateService} from '@ngx-translate/core';
+import {ConfigService} from '../../../../../core/services/config.service';
+import {FIELD_VALIDATORS} from '../../../../../core/models/common';
+import {MatDialog} from '@angular/material/dialog';
 
 @Component({
   selector: 'cm-processing',
@@ -79,7 +79,6 @@ export class ProcessingComponent extends EntryContentDirective<Processing> imple
       dataControllerVisible: [false],
       thirdParties: this.fb.array([])
     });
-    this.form.get('containsMedicalData').disable();
     this.form.get('dataControllerVisible').disable();
     this.form.get('retention').valueChanges.subscribe((value) => {
       this.form.get('retention').get('fullText')
@@ -90,12 +89,11 @@ export class ProcessingComponent extends EntryContentDirective<Processing> imple
 
   registerFormChanges(): void {
     this.form.get('containsSensitiveData').valueChanges.subscribe(v => {
-      if (v) {
-        this.form.get('containsMedicalData').enable();
-      } else {
-        this.form.get('containsMedicalData').disable();
-        this.form.get('containsMedicalData').setValue(false);
-      }
+        if (v) {
+          this.form.get('containsMedicalData').enable();
+        } else {
+          this.form.get('containsMedicalData').setValue(false);
+        }
     });
     this.form.get('dataController').valueChanges.subscribe(v => this.dataControllerChange(v));
     super.registerFormChanges();
