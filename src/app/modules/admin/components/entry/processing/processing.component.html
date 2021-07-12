@@ -62,7 +62,7 @@
     <mat-card-subtitle>{{'ENTRIES.EDITOR.PROCESSING.SUBTITLES.ADDITIONAL' | translate}}</mat-card-subtitle>
     <mat-checkbox
       formControlName="containsSensitiveData">{{'ENTRIES.EDITOR.PROCESSING.SENSITIVE.LABEL' | translate}}</mat-checkbox>
-    <mat-checkbox [disabled]="form.controls.containsSensitiveData.value === false"
+    <mat-checkbox [disabled]="getSensitiveData().value === false"
       formControlName="containsMedicalData">{{'ENTRIES.EDITOR.PROCESSING.MEDICAL.LABEL' | translate}}</mat-checkbox>
 
     <mat-form-field appearance="outline">

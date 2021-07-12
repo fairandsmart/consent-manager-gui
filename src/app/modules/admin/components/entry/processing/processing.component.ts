@@ -24,7 +24,7 @@ import {
   RETENTION_UNITS,
   RetentionUnit
 } from '@fairandsmart/consent-manager/models';
-import {FormArray, FormBuilder, Validators} from '@angular/forms';
+import {FormArray, FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {AlertService} from '../../../../../core/services/alert.service';
 import {TranslateService} from '@ngx-translate/core';
 import {ConfigService} from '../../../../../core/services/config.service';
@@ -118,6 +118,10 @@ export class ProcessingComponent extends EntryContentDirective<Processing> imple
 
   getThirdParties(): FormArray {
     return this.form.controls.thirdParties as FormArray;
+  }
+  
+  getSensitiveData(): FormGroup {
+    return this.form.controls.containsSensitiveData as FormGroup;
   }
 
   addThirdParty(): void {
