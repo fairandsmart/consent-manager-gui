@@ -18,7 +18,7 @@ import { debounceTime, tap } from 'rxjs/operators';
 import { merge, zip } from 'rxjs';
 import { CdkDragDrop, copyArrayItem, moveItemInArray } from '@angular/cdk/drag-drop';
 import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
+import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
 import { StepperSelectionEvent } from '@angular/cdk/stepper';
 import { AddMultipleOption, SectionConfig } from '../../../components/entries/entries-library/entries-library.component';
 import { environment } from '../../../../../../environments/environment';
@@ -43,7 +43,7 @@ import {
   ModelFilter,
   RECEIPT_DISPLAY_TYPES
 } from '@fairandsmart/consent-manager/models';
-import { ConsentContext, generateToken, getFormUrl } from '@fairandsmart/consent-manager/consents';
+import { ConsentContext, createTransactionJson, getSubmitFormPreview } from '@fairandsmart/consent-manager/consents';
 
 enum FORM_CREATOR_STEP {
   ELEMENTS,
@@ -174,7 +174,7 @@ export class CollectFormCreatorPageComponent implements OnInit {
   public selectedEmail: { [id: string]: ModelEntryDto[] } = {emails: []};
 
   public form: FormArray;
-  public formUrl: SafeResourceUrl;
+  public safePreview: SafeHtml;
   private previousContext: ConsentContext;
   public currentStep: FORM_CREATOR_STEP;
 
@@ -263,7 +263,7 @@ export class CollectFormCreatorPageComponent implements OnInit {
       this.form.at(FORM_CREATOR_STEP.PREVIEW).get('orientation').valueChanges,
     ).subscribe(() => {
       if (this.currentStep === FORM_CREATOR_STEP.PREVIEW && this.previousContext != null
-        && !_.isEqual(this.buildContext(true), this.previousContext)) {
+        && !_.isEqual(this.buildContext(), this.previousContext)) {
         this.preview();
       }
     });
@@ -332,16 +332,16 @@ export class CollectFormCreatorPageComponent implements OnInit {
     if (this.form.at(FORM_CREATOR_STEP.ELEMENTS).invalid || this.form.at(FORM_CREATOR_STEP.PREVIEW).invalid) {
       return;
     }
-    const context: ConsentContext = this.buildContext(true);
+    const context: ConsentContext = this.buildContext();
     if (_.isEqual(context, this.previousContext)) {
       return;
     }
     this.previousContext = context;
-    generateToken(context).subscribe((token) => {
-      this.formUrl = this.sanitizer.bypassSecurityTrustResourceUrl(getFormUrl(token));
+    getSubmitFormPreview(context, this.translate.currentLang).subscribe((html) => {
+      this.safePreview = this.sanitizer.bypassSecurityTrustHtml(html.replace(/\/assets\//g, `${environment.managerUrl}/assets/`));
     }, (err) => {
       console.error(err);
-      this.formUrl = '';
+      this.safePreview = '';
     });
   }
 
@@ -368,7 +368,7 @@ export class CollectFormCreatorPageComponent implements OnInit {
     };
   }
 
-  private buildContext(isPreview: boolean): ConsentContext {
+  private buildContext(): ConsentContext {
     const formValue: Partial<ConsentContext & FormLayout & { forceDisplay: boolean, validityUnit: string }> = {
       ...(this.form.at(FORM_CREATOR_STEP.OPTIONS) as FormGroup).getRawValue(),
       ...(this.form.at(FORM_CREATOR_STEP.ELEMENTS) as FormGroup).getRawValue(),
@@ -384,7 +384,6 @@ export class CollectFormCreatorPageComponent implements OnInit {
       attributes: {},
       notificationRecipient: formValue.notificationRecipient,
       author: '',
-      preview: isPreview,
       origin: ConsentOrigin.WEBFORM,
       layoutData: {
         type: 'layout',
@@ -432,13 +431,12 @@ export class CollectFormCreatorPageComponent implements OnInit {
       return;
     }
     this.form.disable();
-    const context: ConsentContext = this.buildContext(false);
+    const context: ConsentContext = this.buildContext();
     if (context === this.previousContext) {
       return;
     }
-    generateToken(context).subscribe((token) => {
+    createTransactionJson(context, this.translate.currentLang).subscribe((url) => {
       this.form.enable();
-      const url = getFormUrl(token);
       this.dialog.open<FormUrlDialogComponent, FormUrlDialogComponentData>(FormUrlDialogComponent, {
         width: '800px',
         data: {

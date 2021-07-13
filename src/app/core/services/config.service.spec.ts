@@ -17,6 +17,7 @@ import { TestBed } from '@angular/core/testing';
 
 import { ConfigService } from './config.service';
 import { CoreTestingModule } from '../../testing/core-testing-module.spec';
+import { RouterTestingModule } from '@angular/router/testing';
 
 describe('ConfigService', () => {
   let service: ConfigService;
@@ -24,11 +25,8 @@ describe('ConfigService', () => {
   beforeEach(() => {
 
     TestBed.configureTestingModule({
-      imports: [
-        CoreTestingModule
-      ],
-      providers: [
-      ]
+      imports: [ CoreTestingModule, RouterTestingModule ],
+      providers: []
     });
 
     service = TestBed.inject(ConfigService);

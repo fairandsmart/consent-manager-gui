@@ -21,6 +21,7 @@ import { RolesGuardService } from './roles-guard.service';
 import { RouterTestingModule } from '@angular/router/testing';
 import SpyObj = jasmine.SpyObj;
 import createSpyObj = jasmine.createSpyObj;
+import { CoreTestingModule } from '../../testing/core-testing-module.spec';
 
 describe('HomeGuardService', () => {
   let service: HomeGuardService;
@@ -30,7 +31,7 @@ describe('HomeGuardService', () => {
     keycloakServiceSpy = createSpyObj('KeycloakService', ['getUsername']);
 
     TestBed.configureTestingModule({
-      imports: [ RouterTestingModule ],
+      imports: [ CoreTestingModule, RouterTestingModule ],
       providers: [
         RolesGuardService,
         {provide: KeycloakService, useValue: keycloakServiceSpy}

@@ -77,7 +77,7 @@ export class SubjectRecordApplyChangesDialogComponent implements OnInit {
     const result = _.cloneDeep(this.data);
     if (this.form.get('notify').value) {
       result.recipient = this.form.get('recipient').value.trim();
-      result.model = ModelEntryHelper.getActiveVersion(this.form.get('model').value).identifier;
+      result.model = this.form.get('model').value.key;
     }
     this.dialogRef.close(result);
   }

@@ -16,10 +16,6 @@
 import { Component } from '@angular/core';
 import { TranslateService } from '@ngx-translate/core';
 import { I18N_DEFAULT_LANGUAGE, I18N_LANGUAGES } from './core/constants/i18n';
-import { environment } from '../environments/environment';
-import { HttpClient, HttpEvent, HttpEventType, HttpHeaders, HttpParams, HttpRequest, HttpResponse } from '@angular/common/http';
-import { RcHttpClient, RcHttpClientConfig, RightConsents } from '@fairandsmart/consent-manager';
-import { filter, map } from 'rxjs/operators';
 
 @Component({
   selector: 'cm-root',
@@ -28,7 +24,7 @@ import { filter, map } from 'rxjs/operators';
 })
 export class AppComponent {
 
-  constructor(private translate: TranslateService, private http: HttpClient) {
+  constructor(private translate: TranslateService) {
     this.i18nInitialisation();
   }
 

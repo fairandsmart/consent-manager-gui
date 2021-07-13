@@ -23,7 +23,7 @@ import { ActivatedRoute } from '@angular/router';
 })
 export class RoutingErrorPageComponent implements OnInit {
 
-  public type: number = 404;
+  public type = 404;
 
   constructor(router: ActivatedRoute) {
     router.queryParams.subscribe((data) => this.type = data.type || 404);

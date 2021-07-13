@@ -54,8 +54,8 @@
         </mat-step>
 
         <mat-step [label]="'FORM_CREATOR.STEP_PREVIEW' | translate">
-          <mat-card *ngIf="formUrl" class="form-preview">
-            <iframe [src]="formUrl"></iframe>
+          <mat-card *ngIf="safePreview" class="form-preview">
+            <iframe [srcdoc]="safePreview"></iframe>
           </mat-card>
           <div class="step-actions">
             <button mat-button color="primary" matStepperPrevious>{{'FORM_CREATOR.BUTTON_LABEL_PREVIOUS_STEP' | translate}}</button>

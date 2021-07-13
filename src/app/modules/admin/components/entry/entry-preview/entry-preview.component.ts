@@ -61,8 +61,8 @@ export class EntryPreviewComponent implements OnInit {
     }
   }
 
-  updateUrl(url: string): void {
-    this.safePreview = this.sanitizer.bypassSecurityTrustHtml(url);
+  updateHtml(html: string): void {
+    this.safePreview = this.sanitizer.bypassSecurityTrustHtml(html);
   }
 
 }
