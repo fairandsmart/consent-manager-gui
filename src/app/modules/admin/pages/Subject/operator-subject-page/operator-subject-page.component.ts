@@ -29,7 +29,11 @@ import { SubjectInfosEditorDialogComponent } from '../../../components/operator/
 import { ConfigService } from '../../../../../core/services/config.service';
 import { createSubject, getSubject, listSubjectRecords, SubjectDto, updateSubject } from '@fairandsmart/consent-manager/subjects';
 import { OperatorLogElement, RecordsMap } from '@fairandsmart/consent-manager/records';
-import { ConsentContext, generateToken, postConsent } from '@fairandsmart/consent-manager/consents';
+import {
+  ConsentContext,
+  createTransactionJson,
+  postSubmissionValuesHtml
+} from '@fairandsmart/consent-manager/consents';
 import { ConsentOrigin, FormLayoutOrientation } from '@fairandsmart/consent-manager/models';
 
 @Component({
@@ -129,7 +133,7 @@ export class OperatorSubjectPageComponent implements OnInit {
             type: 'layout',
             orientation: FormLayoutOrientation.VERTICAL,
             existingElementsVisible: true,
-            elements: this.operatorLog.map(e => e.identifier),
+            elements: this.operatorLog.map(e => e.key),
             includeIFrameResizer: true,
             info: '',
             notification: result.model,
@@ -141,18 +145,15 @@ export class OperatorSubjectPageComponent implements OnInit {
           userinfos: {},
           attributes: {},
           notificationRecipient: result.model ? result.recipient : '',
-          author: '',
-          preview: false,
+          author: ''
         };
 
-        generateToken(ctx).pipe(
-          mergeMap((token) => {
-            const values = {
-              token: token,
-              comment: result.comment
-            };
+        createTransactionJson(ctx, this.translate.currentLang).pipe(
+          mergeMap((url) => {
+            const values = { comment: result.comment };
             this.operatorLog.forEach(element => values[element.identifier] = element.value);
-            return postConsent(values);
+            const txid = url.split('?')[0].split('/').pop();
+            return postSubmissionValuesHtml(txid, values);
           })
         ).subscribe(() => {
           this.operatorLog = [];

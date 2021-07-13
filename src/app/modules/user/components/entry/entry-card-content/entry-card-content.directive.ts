@@ -25,7 +25,11 @@ import { CoreService } from '../../../../../core/services/core.service';
 import * as _ from 'lodash';
 import { ConsentOrigin, FormLayoutOrientation, ModelData, ModelEntryDto, ModelVersionDto } from '@fairandsmart/consent-manager/models';
 import { RecordDto } from '@fairandsmart/consent-manager/records';
-import { ConsentContext, generateToken, postConsent } from '@fairandsmart/consent-manager/consents';
+import {
+  ConsentContext,
+  createTransactionJson,
+  postSubmissionValuesHtml
+} from '@fairandsmart/consent-manager/consents';
 
 @Directive()
 export abstract class EntryCardContentDirective<T extends ModelData> implements OnInit {
@@ -132,7 +136,7 @@ export abstract class EntryCardContentDirective<T extends ModelData> implements 
       return;
     }
     this.disableControl();
-    const element = _.last(this.entry.versions).identifier;
+    const element = _.last(this.entry.versions);
     const context: ConsentContext = {
       subject: this.keycloakService.getUsername(),
       callback: '',
@@ -143,21 +147,24 @@ export abstract class EntryCardContentDirective<T extends ModelData> implements 
       notificationRecipient: '',
       origin: ConsentOrigin.USER,
       author: this.keycloakService.getUsername(),
-      preview: false,
       layoutData: {
         type: 'layout',
         orientation: FormLayoutOrientation.VERTICAL,
         info: '',
-        elements: [element],
+        elements: [this.entry.key],
         existingElementsVisible: true,
         notification: '',
         theme: '',
         includeIFrameResizer: true,
       }
     };
-    return generateToken(context).pipe(
-      mergeMap((token) => {
-        return postConsent({ token, element: newValue });
+
+    return createTransactionJson(context, this.translate.currentLang).pipe(
+      mergeMap((url) => {
+        const values = {};
+        values[element.identifier] = newValue;
+        const txid = url.split('?')[0].split('/').pop();
+        return postSubmissionValuesHtml(txid, values);
       }),
       tap(() => {
         this.remoteValue = newValue;

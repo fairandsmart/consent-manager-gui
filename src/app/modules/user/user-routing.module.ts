@@ -25,12 +25,12 @@ const routes: Routes = [
     children: [
       {
         path: '',
-        redirectTo: 'me',
-        pathMatch: 'full'
+        component: EntriesPageComponent
       },
       {
-        path: 'me',
-        component: EntriesPageComponent
+        path: 'me', // Legacy path
+        redirectTo: '',
+        pathMatch: 'full'
       }
     ]
   }

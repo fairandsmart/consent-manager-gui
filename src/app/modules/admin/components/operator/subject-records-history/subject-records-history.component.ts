@@ -21,15 +21,14 @@ import {
   RecordStatus
 } from '@fairandsmart/consent-manager/records';
 import { Observable, of } from 'rxjs';
-import { catchError, mergeMap, tap } from 'rxjs/operators';
+import { catchError, tap } from 'rxjs/operators';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { SubjectRecordApplyChangesDialogData } from '../subject-record-apply-changes-dialog/subject-record-apply-changes-dialog.component';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort, Sort } from '@angular/material/sort';
 import * as FileSaver from 'file-saver';
 import { CollectionPage } from '@fairandsmart/consent-manager';
-import { ConsentTransaction } from '@fairandsmart/consent-manager/consents';
-import { generateReceiptToken, getReceiptPdf } from '@fairandsmart/consent-manager/receipts';
+import { getReceiptPdf } from '@fairandsmart/consent-manager/receipts';
 
 class SubjectRecordsHistoryDataSource extends CollectionDatasource<RecordDto, RecordFilter> {
 
@@ -127,17 +126,7 @@ export class SubjectRecordsHistoryComponent implements OnInit {
   }
 
   openReceipt(element): void {
-    const transaction: ConsentTransaction = {
-      subject: this.data.subject,
-      transaction: element.transaction,
-      claims: {
-        transaction: element.transactionId
-      }
-    };
-    generateReceiptToken(transaction).pipe(
-      mergeMap((token) => {
-        return getReceiptPdf(token, element.transaction);
-      }),
+    getReceiptPdf(element.transaction, '').pipe(
       tap((pdf: ArrayBuffer) => {
         const blob = new Blob([pdf], {type: 'application/pdf'});
         FileSaver.saveAs(blob, 'receipt.pdf');

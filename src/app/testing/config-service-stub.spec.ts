@@ -21,7 +21,8 @@ export class ConfigServiceStubSpec {
   public config: ClientConfigDto = {
     userPageEnabled: false,
     userPageElements: [],
-    language: 'fr'
+    language: 'fr',
+    rolesMapping: {}
   };
 
   public getDefaultLanguage(): string {
