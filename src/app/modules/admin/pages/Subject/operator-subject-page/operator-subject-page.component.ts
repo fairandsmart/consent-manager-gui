@@ -27,9 +27,16 @@ import { OperatorConditionsComponent } from '../../../components/operator/operat
 import { mergeMap } from 'rxjs/operators';
 import { SubjectInfosEditorDialogComponent } from '../../../components/operator/subject-infos-editor-dialog/subject-infos-editor-dialog.component';
 import { ConfigService } from '../../../../../core/services/config.service';
-import { createSubject, getSubject, listSubjectRecords, SubjectDto, updateSubject } from '@fairandsmart/consent-manager/subjects';
+import {
+  createSubject,
+  getSubject,
+  listSubjectRecords,
+  SubjectDto,
+  updateSubject
+} from '@fairandsmart/consent-manager/subjects';
 import { OperatorLogElement, RecordsMap } from '@fairandsmart/consent-manager/records';
 import {
+  Confirmation,
   ConsentContext,
   createTransactionJson,
   postSubmissionValuesHtml
@@ -145,7 +152,8 @@ export class OperatorSubjectPageComponent implements OnInit {
           userinfos: {},
           attributes: {},
           notificationRecipient: result.model ? result.recipient : '',
-          author: ''
+          author: '',
+          confirmation: Confirmation.NONE
         };
 
         createTransactionJson(ctx, this.translate.currentLang).pipe(

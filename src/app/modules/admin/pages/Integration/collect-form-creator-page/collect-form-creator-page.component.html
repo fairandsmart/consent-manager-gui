@@ -95,6 +95,12 @@
                 </mat-select>
               </mat-form-field>
               <mat-form-field appearance="fill">
+                <mat-label>{{'FORM_CREATOR.FORM.CONFIRMATION_TYPE.LABEL' | translate}}</mat-label>
+                <mat-select formControlName="confirmation" required>
+                  <mat-option *ngFor="let type of CONFIRMATION_TYPES" [value]="type">{{'FORM_CREATOR.FORM.CONFIRMATION_TYPE.VALUES.' + type.toUpperCase() | translate}}</mat-option>
+                </mat-select>
+              </mat-form-field>
+              <mat-form-field appearance="fill">
                 <mat-label>{{'FORM_CREATOR.FORM.CALLBACK.LABEL' | translate}}</mat-label>
                 <input formControlName="callback" matInput autocomplete="off" />
               </mat-form-field>

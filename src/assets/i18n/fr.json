@@ -749,6 +749,19 @@
           "TEXT/PLAIN": "Plein texte"
         }
       },
+      "CONFIRMATION_TYPE": {
+        "LABEL": "Méthode de confirmation",
+        "VALUES": {
+          "NONE": "Aucune",
+          "FORM_CODE": "Code envoyé par formulaire",
+          "EMAIL_CODE": "Code envoyé par email",
+          "SMS_CODE": "Code envoyé par SMS",
+          "SIGNATURE": "Signature",
+          "AUDIO_RECORD": "Enregistrement audio",
+          "VIDEO_RECORD": "Enregistrement vidéo",
+          "DIGITAL_SIGNATURE": "Signature numérique"
+        }
+      },
       "CALLBACK": {
         "LABEL": "URL de callback"
       },

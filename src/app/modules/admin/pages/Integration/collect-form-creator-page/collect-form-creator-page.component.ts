@@ -43,7 +43,12 @@ import {
   ModelFilter,
   RECEIPT_DISPLAY_TYPES
 } from '@fairandsmart/consent-manager/models';
-import { ConsentContext, createTransactionJson, getSubmitFormPreview } from '@fairandsmart/consent-manager/consents';
+import {
+  Confirmation, CONFIRMATION_TYPES,
+  ConsentContext,
+  createTransactionJson,
+  getSubmitFormPreview
+} from '@fairandsmart/consent-manager/consents';
 
 enum FORM_CREATOR_STEP {
   ELEMENTS,
@@ -183,6 +188,7 @@ export class CollectFormCreatorPageComponent implements OnInit {
   public readonly ORIENTATIONS = CONSENT_FORM_ORIENTATIONS;
   public readonly RECEIPT_FORMATS = RECEIPT_DISPLAY_TYPES;
   public readonly VALIDITY_UNITS = ['D', 'W', 'M', 'Y'];
+  public readonly CONFIRMATION_TYPES = CONFIRMATION_TYPES;
   private readonly defaultLanguage;
 
   private static formatValidity(validity, validityUnit): string {
@@ -249,7 +255,8 @@ export class CollectFormCreatorPageComponent implements OnInit {
         iframeOrigin: [''],
         notify: [false],
         notification: [''],
-        notificationRecipient: ['']
+        notificationRecipient: [''],
+        confirmation: [Confirmation.NONE, [Validators.required]]
       })
     ]);
     merge(
@@ -385,6 +392,7 @@ export class CollectFormCreatorPageComponent implements OnInit {
       notificationRecipient: formValue.notificationRecipient,
       author: '',
       origin: ConsentOrigin.WEBFORM,
+      confirmation: formValue.confirmation,
       layoutData: {
         type: 'layout',
         theme: formValue.theme,

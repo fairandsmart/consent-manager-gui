@@ -26,6 +26,7 @@ import * as _ from 'lodash';
 import { ConsentOrigin, FormLayoutOrientation, ModelData, ModelEntryDto, ModelVersionDto } from '@fairandsmart/consent-manager/models';
 import { RecordDto } from '@fairandsmart/consent-manager/records';
 import {
+  Confirmation,
   ConsentContext,
   createTransactionJson,
   postSubmissionValuesHtml
@@ -147,6 +148,7 @@ export abstract class EntryCardContentDirective<T extends ModelData> implements 
       notificationRecipient: '',
       origin: ConsentOrigin.USER,
       author: this.keycloakService.getUsername(),
+      confirmation: Confirmation.NONE,
       layoutData: {
         type: 'layout',
         orientation: FormLayoutOrientation.VERTICAL,
