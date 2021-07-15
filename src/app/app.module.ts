@@ -124,7 +124,15 @@ export class AppModule implements DoBootstrap {
           params: new HttpParams({fromObject: config.params}),
         });
       }
-      return http.request<T>(req).pipe(filter((ev) => ev.type === HttpEventType.Response), map((res: HttpResponse<T>) => res.body));
+      return http.request<T>(req).pipe(filter((ev) => ev.type === HttpEventType.Response), map((res: HttpResponse<T>) => {
+        if (config.options?.data?.extractResponseHeaders === true) {
+          return {
+            body: res.body,
+            headers: res.headers
+          } as any;
+        }
+        return res.body;
+      }));
     };
   }
 }

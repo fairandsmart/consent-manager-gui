@@ -49,6 +49,7 @@ import {
   createTransactionJson,
   getSubmitFormPreview
 } from '@fairandsmart/consent-manager/consents';
+import { HttpHeaders } from '@angular/common/http';
 
 enum FORM_CREATOR_STEP {
   ELEMENTS,
@@ -443,12 +444,13 @@ export class CollectFormCreatorPageComponent implements OnInit {
     if (context === this.previousContext) {
       return;
     }
-    createTransactionJson(context, this.translate.currentLang).subscribe((url) => {
+    // @ts-ignore
+    createTransactionJson(context, this.translate.currentLang, { data: { extractResponseHeaders: true } }).subscribe((res: { body: string, headers: HttpHeaders}) => {
       this.form.enable();
       this.dialog.open<FormUrlDialogComponent, FormUrlDialogComponentData>(FormUrlDialogComponent, {
         width: '800px',
         data: {
-          url: url,
+          url: res.headers.get('Location'),
           context: context
         }
       });
