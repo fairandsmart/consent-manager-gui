@@ -109,7 +109,7 @@ export class PreferenceComponent extends EntryContentDirective<Preference> imple
     const value = ($event.value || '').trim().toLowerCase();
     if (value) {
       const values: string[] = _.cloneDeep(this.form.get('options').value) || [];
-      if (value.length > 0 && values.findIndex((v) => v.trim().toLowerCase() == value) === -1) {
+      if (value.length > 0 && values.findIndex((v) => v.trim().toLowerCase() === value) === -1) {
         values.push($event.value);
         this.form.get('options').setValue(values);
       }
