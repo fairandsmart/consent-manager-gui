@@ -49,7 +49,7 @@ export class SubjectRecordApplyChangesDialogComponent implements OnInit {
     });
     this.form = this.fb.group({
       comment: [''],
-      notify: [false],
+      notify: [true],
       recipient: [''],
       model: ['']
     });
