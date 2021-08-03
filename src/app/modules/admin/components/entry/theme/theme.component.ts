@@ -24,6 +24,7 @@ import { TranslateService } from '@ngx-translate/core';
 import { ConfigService } from '../../../../../core/services/config.service';
 import { MatDialog } from '@angular/material/dialog';
 import { ThemeAutocomplete } from '@fairandsmart/consent-manager/css-autocomplete';
+import { AceConfigInterface } from "ngx-ace-wrapper";
 
 @Component({
   selector: 'cm-theme',
@@ -34,79 +35,8 @@ export class ThemeComponent extends EntryContentDirective<Theme> implements OnIn
 
   readonly LOGO_POSITIONS = LOGO_POSITIONS;
 
-  readonly CODE_MIRROR_OPTIONS = {
-    lineNumbers: true,
-    mode: 'css',
-    gutters: ['CodeMirror-lint-markers'],
-    lint: true,
-    extraKeys: {
-      'Ctrl-Space': 'autocomplete',
-      'Ctrl-E': 'autocomplete',
-      'Cmd-E': 'autocomplete'
-    },
-    hintOptions: {
-      hint: (cm: Editor) => {
-        const cur = cm.getCursor();
-        const token = cm.getTokenAt(cur);
-        const inner = CodeMirror.innerMode(cm.getMode(), token.state);
-        if (inner.mode.name !== 'css') {
-          return;
-        }
-
-        if (token.type === 'keyword' && '!important'.indexOf(token.string) === 0) {
-          return {
-            list: ['!important'],
-            from: CodeMirror.Pos(cur.line, token.start),
-            to: CodeMirror.Pos(cur.line, token.end)
-          };
-        }
-
-        const spec = (window.CodeMirror as any).resolveMode('text/css');
-        const st = inner.state.state;
-        let result = [];
-        if (st === 'top') {
-          result.push(...ThemeAutocomplete.createSnippets(this.translate.currentLang));
-        } else {
-          if (st === 'pseudo' || token.type === 'variable-3') {
-          } else if (st === 'block' || st === 'maybeprop') {
-            result.push(...Object.keys(spec.propertyKeywords));
-          } else if (st === 'prop' || st === 'parens' || st === 'at' || st === 'params') {
-            result.push(...Object.keys(spec.valueKeywords));
-            result.push(...Object.keys(spec.colorKeywords));
-          } else if (st === 'media' || st === 'media_parens') {
-            result.push(...Object.keys(spec.mediaTypes));
-            result.push(...Object.keys(spec.mediaFeatures));
-          }
-        }
-
-        const start = token.start;
-        const end = cur.ch;
-        const word = token.string.slice(0, end - start).toLowerCase();
-        if (word?.length > 0) {
-          result = result.filter(i => {
-            if (typeof i === 'string') {
-              return i.startsWith(word);
-            } else {
-              return i.text?.startsWith(word) || i.displayText?.toLowerCase().includes(word);
-            }
-          });
-        }
-
-        if (result.length) {
-          result.sort((a, b) => {
-            const aText = (a.displayText ? a.displayText : a).toLowerCase();
-            const bText = (b.displayText ? b.displayText : b).toLowerCase();
-            return aText.localeCompare(bText);
-          });
-
-          return {
-            list: result,
-            from: CodeMirror.Pos(cur.line, start),
-            to: CodeMirror.Pos(cur.line, end)
-          };
-        }
-      }
-    }
+  readonly ACE_OPTIONS: AceConfigInterface = {
+    enableBasicAutocompletion: true,
   };
 
   constructor(

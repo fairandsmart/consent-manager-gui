@@ -28,7 +28,7 @@
     </mat-form-field>
 
     <mat-card-subtitle>{{'ENTRIES.EDITOR.CONDITIONS.SUBTITLES.BODY' | translate}}</mat-card-subtitle>
-    <div class="codemirror-wrapper">
+    <div class="ace-editor-wrapper">
       <p class="code-input-label">
         <span class="required-field">{{'ENTRIES.EDITOR.CONDITIONS.BODY.LABEL' | translate}}</span>
         <span class="mat-caption">
@@ -36,7 +36,7 @@
           <br>{{'ENTRIES.EDITOR.CONDITIONS.BODY.AUTOCOMPLETE' | translate}}
         </span>
       </p>
-      <ngx-codemirror formControlName="body" name="body" [options]="CODE_MIRROR_OPTIONS"></ngx-codemirror>
+      <cm-ace-editor mode="html" [config]="ACE_OPTIONS" theme="eclipse" formControlName="body"></cm-ace-editor>
     </div>
 
   </form>

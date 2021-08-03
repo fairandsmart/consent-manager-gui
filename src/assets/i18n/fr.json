@@ -473,7 +473,7 @@
         "BODY": {
           "LABEL": "CGU/CGS",
           "HINT": "Renseignez votre contenu HTML ou déposez un fichier HTML",
-          "AUTOCOMPLETE": "(profitez de l'auto-complétion grâce à CTRL+E ou CMD+E)"
+          "AUTOCOMPLETE": "(profitez de l'auto-complétion grâce à CTRL+ESPACE ou CMD+ESPACE)"
         },
         "IFRAME": {
           "TITLE": "Prévisualisation"
@@ -530,7 +530,7 @@
         "CSS": {
           "LABEL": "Style",
           "HINT": "Renseignez votre style CSS ou déposez un fichier CSS",
-          "AUTOCOMPLETE": "(profitez de l'auto-complétion grâce à CTRL+E ou CMD+E pour vous aider à paramétrer le style des éléments du formulaire)"
+          "AUTOCOMPLETE": "(profitez de l'auto-complétion grâce à CTRL+ESPACE ou CMD+ESPACE pour vous aider à paramétrer le style des éléments du formulaire)"
         },
         "PREVIEW": {
           "LABEL": "Cible de la prévisualisation",

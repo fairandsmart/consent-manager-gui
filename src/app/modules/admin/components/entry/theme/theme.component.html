@@ -41,7 +41,7 @@
     </mat-form-field>
 
     <mat-card-subtitle>{{'ENTRIES.EDITOR.THEME.SUBTITLES.CSS' | translate}}</mat-card-subtitle>
-    <div class="codemirror-wrapper">
+    <div class="ace-editor-wrapper">
       <p class="code-input-label">
         <span>{{'ENTRIES.EDITOR.THEME.CSS.LABEL' | translate}}</span>
         <span class="mat-caption">
@@ -49,7 +49,7 @@
           <br>{{'ENTRIES.EDITOR.THEME.CSS.AUTOCOMPLETE' | translate}}
         </span>
       </p>
-      <ngx-codemirror formControlName="css" name="css" [options]="CODE_MIRROR_OPTIONS"></ngx-codemirror>
+      <cm-ace-editor [mode]="'css'" [config]="ACE_OPTIONS" theme="eclipse" formControlName="css"></cm-ace-editor>
     </div>
 
   </form>

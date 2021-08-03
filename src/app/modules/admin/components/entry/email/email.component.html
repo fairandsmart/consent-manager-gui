@@ -36,22 +36,41 @@
       <mat-label>{{'ENTRIES.EDITOR.EMAIL.TITLE.LABEL' | translate}}</mat-label>
       <input matInput required formControlName="title" autocomplete="off">
     </mat-form-field>
-    <mat-form-field appearance="outline">
-      <mat-label>{{'ENTRIES.EDITOR.EMAIL.BODY.LABEL' | translate}}</mat-label>
-      <textarea matInput required formControlName="body" cdkTextareaAutosize cdkAutosizeMinRows="5"></textarea>
-    </mat-form-field>
+
+    <div class="editor email" fxLayout="column">
+      <p class="code-input-label">
+        <span class="required-field">{{'ENTRIES.EDITOR.EMAIL.BODY.LABEL' | translate}}</span>
+        <span class="mat-caption">
+          <br>{{'ENTRIES.EDITOR.CONDITIONS.BODY.AUTOCOMPLETE' | translate}}
+        </span>
+      </p>
+      <cm-ace-editor mode="html" [height]="200" [config]="{enableBasicAutocompletion: true}" theme="eclipse" formControlName="body" required></cm-ace-editor>
+    </div>
+
     <mat-form-field appearance="outline">
       <mat-label>{{'ENTRIES.EDITOR.EMAIL.BUTTON_LABEL.LABEL' | translate}}</mat-label>
       <input matInput required formControlName="buttonLabel" autocomplete="off">
     </mat-form-field>
-    <mat-form-field appearance="outline">
-      <mat-label>{{'ENTRIES.EDITOR.EMAIL.FOOTER.LABEL' | translate}}</mat-label>
-      <textarea matInput required formControlName="footer" cdkTextareaAutosize cdkAutosizeMinRows="5"></textarea>
-    </mat-form-field>
-    <mat-form-field appearance="outline">
-      <mat-label>{{'ENTRIES.EDITOR.EMAIL.SIGNATURE.LABEL' | translate}}</mat-label>
-      <textarea matInput required formControlName="signature" cdkTextareaAutosize cdkAutosizeMinRows="5"></textarea>
-    </mat-form-field>
+
+    <div class="editor email" fxLayout="column">
+      <p class="code-input-label">
+        <span class="required-field">{{'ENTRIES.EDITOR.EMAIL.FOOTER.LABEL' | translate}}</span>
+        <span class="mat-caption">
+          <br>{{'ENTRIES.EDITOR.CONDITIONS.BODY.AUTOCOMPLETE' | translate}}
+        </span>
+      </p>
+      <cm-ace-editor mode="html" [height]="200" [config]="{enableBasicAutocompletion: true}" theme="eclipse" formControlName="footer" required></cm-ace-editor>
+    </div>
+
+    <div class="editor email" fxLayout="column">
+      <p class="code-input-label">
+        <span class="required-field">{{'ENTRIES.EDITOR.EMAIL.SIGNATURE.LABEL' | translate}}</span>
+        <span class="mat-caption">
+          <br>{{'ENTRIES.EDITOR.CONDITIONS.BODY.AUTOCOMPLETE' | translate}}
+        </span>
+      </p>
+      <cm-ace-editor mode="html" [height]="200" [config]="{enableBasicAutocompletion: true}" theme="eclipse" formControlName="signature" required></cm-ace-editor>
+    </div>
 
   </form>
 </cm-entry-editor-container>
