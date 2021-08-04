@@ -19,6 +19,7 @@ import { ConsentContext } from '@fairandsmart/consent-manager/consents';
 import { getPhpSnippetFromContext } from '../../../../core/constants/php-snippet';
 import { getCurlSnippetFromContext } from '../../../../core/constants/curl-snippet';
 import { environment } from '../../../../../environments/environment';
+import {AceConfigInterface} from "ngx-ace-wrapper";
 
 export interface FormUrlDialogComponentData {
   url: string;
@@ -32,9 +33,8 @@ export interface FormUrlDialogComponentData {
 })
 export class FormUrlDialogComponent {
 
-  readonly CODE_MIRROR_OPTIONS_PHP = {
-    mode: 'php',
-    readOnly: true
+  readonly ACE_OPTIONS: AceConfigInterface = {
+    readOnly: true,
   };
 
   snippet: {

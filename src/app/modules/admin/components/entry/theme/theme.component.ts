@@ -17,13 +17,10 @@ import { Component, OnInit } from '@angular/core';
 import { EntryContentDirective } from '../entry-content/entry-content.directive';
 import { LOGO_POSITIONS, LogoPosition, PreviewDto, Theme } from '@fairandsmart/consent-manager/models';
 import { FormBuilder, Validators } from '@angular/forms';
-import * as CodeMirror from 'codemirror';
-import { Editor } from 'codemirror';
 import { AlertService } from '../../../../../core/services/alert.service';
 import { TranslateService } from '@ngx-translate/core';
 import { ConfigService } from '../../../../../core/services/config.service';
 import { MatDialog } from '@angular/material/dialog';
-import { ThemeAutocomplete } from '@fairandsmart/consent-manager/css-autocomplete';
 import { AceConfigInterface } from "ngx-ace-wrapper";
 
 @Component({
