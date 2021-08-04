@@ -1,4 +1,5 @@
 @import 'node_modules/@angular/material/theming';
+@import "src/variables";
 
 :host {
   display: block;
@@ -160,4 +161,31 @@ mat-radio-button:last-child {
 
 ::ng-deep .mat-checkbox-inner-container {
   margin-top: 3px !important;
+}
+
+.editor {
+  width: 100%;
+  min-height: 500px;
+
+  cm-ace-editor {
+    border: 2px solid rgba(0, 0, 0, 0.12);
+    &:hover {
+      border: 2px solid rgba(0, 0, 0, 0.87);
+    }
+    &:focus-within {
+      border: 2px solid mat-color($app-primary);
+    }
+
+    &.ng-invalid {
+      border: 2px solid mat-color($mat-red, 800) !important;
+    }
+  }
+
+  &.email {
+    min-height: 200px;
+    margin-bottom: 1.5em;
+    border-radius: 5px;
+    overflow: hidden;
+    transition: all .25s ease;
+  }
 }
