@@ -47,7 +47,6 @@ import { SubjectRecordApplyChangesDialogComponent } from './components/operator/
 import { CoreModule } from '../../core/core.module';
 import { ClipboardModule } from '@angular/cdk/clipboard';
 import { ChartsModule } from 'ng2-charts';
-import { CodemirrorModule } from '@ctrl/ngx-codemirror';
 import { AdminRoutingModule } from './admin-routing.module';
 import { OperatorProcessingComponent } from './components/operator/operator-processing/operator-processing.component';
 import { OperatorConditionsComponent } from './components/operator/operator-conditions/operator-conditions.component';
@@ -117,7 +116,6 @@ import { EntryEditorContainerComponent } from './components/entry/entry-editor-c
     SharedModule,
     ClipboardModule,
     ChartsModule,
-    CodemirrorModule
   ]
 })
 export class AdminModule { }

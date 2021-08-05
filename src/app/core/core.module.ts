@@ -30,13 +30,16 @@ import { RouterModule } from '@angular/router';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { RoutingErrorPageComponent } from './pages/routing-error-page/routing-error-page.component';
 import { ConfigService } from './services/config.service';
+import { AceEditorComponent } from './components/ace-editor/ace-editor.component';
+import { AceModule } from "ngx-ace-wrapper";
 
 @NgModule({
   declarations: [
     HeaderNavComponent,
     HealthErrorComponent,
     ConfirmDialogComponent,
-    RoutingErrorPageComponent
+    RoutingErrorPageComponent,
+    AceEditorComponent
   ],
   imports: [
     CommonModule,
@@ -45,7 +48,8 @@ import { ConfigService } from './services/config.service';
     ReactiveFormsModule,
     MaterialModule,
     TranslateModule,
-    FlexLayoutModule
+    FlexLayoutModule,
+    AceModule
   ],
   exports: [
     CommonModule,
@@ -55,7 +59,8 @@ import { ConfigService } from './services/config.service';
     MaterialModule,
     TranslateModule,
     FlexLayoutModule,
-    HeaderNavComponent
+    HeaderNavComponent,
+    AceEditorComponent
   ]
 })
 export class CoreModule {

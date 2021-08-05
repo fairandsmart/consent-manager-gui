@@ -35,7 +35,7 @@
       <ng-template matTabContent>
         <p class="mat-body-2">{{'FORM_CREATOR.API_URL.SNIPPET_PHP.HINT' | translate}}</p>
         <div>
-          <ngx-codemirror [options]="CODE_MIRROR_OPTIONS_PHP" [ngModel]="snippet.php"></ngx-codemirror>
+          <cm-ace-editor [mode]="'php'" [config]="ACE_OPTIONS" theme="eclipse" [ngModel]="snippet.php"></cm-ace-editor>
         </div>
         <button mat-button [cdkCopyToClipboard]="snippet.php"><mat-icon>content_copy</mat-icon> {{'COMMON.BUTTONS.COPY' | translate}}</button>
       </ng-template>

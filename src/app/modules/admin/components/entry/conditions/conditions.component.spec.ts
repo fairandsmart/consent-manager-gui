@@ -17,7 +17,6 @@ import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 
 import { ConditionsComponent } from './conditions.component';
 import { ReactiveFormsModule } from '@angular/forms';
-import { CodemirrorModule } from '@ctrl/ngx-codemirror';
 import { EntryPreviewComponent } from '../entry-preview/entry-preview.component';
 import { CoreTestingModule } from '../../../../../testing/core-testing-module.spec';
 import { RouterTestingModule } from '@angular/router/testing';
@@ -25,6 +24,7 @@ import { ConfigServiceStubSpec } from '../../../../../testing/config-service-stu
 import { ConfigService } from '../../../../../core/services/config.service';
 import { ModelEntryStatus } from '@fairandsmart/consent-manager/models';
 import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
+import {AceModule} from 'ngx-ace-wrapper';
 
 describe('ConditionsComponent', () => {
   let component: ConditionsComponent;
@@ -36,7 +36,7 @@ describe('ConditionsComponent', () => {
 
     TestBed.configureTestingModule({
       declarations: [ ConditionsComponent, EntryPreviewComponent ],
-      imports: [ CoreTestingModule, RouterTestingModule, ReactiveFormsModule, CodemirrorModule ],
+      imports: [ CoreTestingModule, RouterTestingModule, ReactiveFormsModule, AceModule ],
       schemas: [CUSTOM_ELEMENTS_SCHEMA],
       providers: [
         {provide: ConfigService, useValue: configServiceStub}

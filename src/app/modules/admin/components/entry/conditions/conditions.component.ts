@@ -21,6 +21,7 @@ import { AlertService } from '../../../../../core/services/alert.service';
 import { ConfigService } from '../../../../../core/services/config.service';
 import { MatDialog } from '@angular/material/dialog';
 import { TranslateService } from '@ngx-translate/core';
+import {AceConfigInterface} from "ngx-ace-wrapper";
 
 @Component({
   selector: 'cm-conditions',
@@ -29,16 +30,12 @@ import { TranslateService } from '@ngx-translate/core';
 })
 export class ConditionsComponent extends EntryContentDirective<Conditions> implements OnInit {
 
-  readonly CODE_MIRROR_OPTIONS = {
-    lineNumbers: true,
-    mode: 'htmlmixed',
-    gutters: ['CodeMirror-lint-markers'],
-    lint: true,
-    extraKeys: {
-      'Ctrl-Space': 'autocomplete',
-      'Ctrl-E': 'autocomplete',
-      'Cmd-E': 'autocomplete'
-    }
+
+  readonly ACE_OPTIONS: AceConfigInterface = {
+    enableBasicAutocompletion: true,
+    overwrite: false,
+    wrapBehavioursEnabled: false,
+    useWorker: false
   };
 
   constructor(

@@ -473,7 +473,7 @@
         "BODY": {
           "LABEL": "Terms and Conditions",
           "HINT": "Write your custom HTML or drop a HTML file",
-          "AUTOCOMPLETE": "(toggle auto-completion with CTRL+E or CMD+E)"
+          "AUTOCOMPLETE": "(toggle auto-completion with CTRL+SPACE or CMD+SPACE)"
         },
         "IFRAME": {
           "TITLE": "Preview"
@@ -530,7 +530,7 @@
         "CSS": {
           "LABEL": "Style",
           "HINT": "Write your custom CSS or drop a CSS file",
-          "AUTOCOMPLETE": "(toggle auto-completion with CTRL+E or CMD+E to help you stylize the form elements)"
+          "AUTOCOMPLETE": "(toggle auto-completion with CTRL+SPACE or CMD+SPACE to help you stylize the form elements)"
         },
         "PREVIEW": {
           "LABEL": "Preview target",

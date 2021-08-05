@@ -16,15 +16,6 @@ code {
   word-break: break-all;
 }
 
-ngx-codemirror {
-  display: block;
-  margin-bottom: 1em;
-  ::ng-deep .CodeMirror {
-    background-color: mat-color($mat-gray, 100);
-    border: 1px solid $dark-dividers;
-  }
-}
-
 mat-tab-group ::ng-deep .mat-tab-body-wrapper {
   margin-top: 1em;
   button.mat-button {
