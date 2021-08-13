@@ -19,7 +19,7 @@ import { ConsentContext } from '@fairandsmart/consent-manager/consents';
 import { getPhpSnippetFromContext } from '../../../../core/constants/php-snippet';
 import { getCurlSnippetFromContext } from '../../../../core/constants/curl-snippet';
 import { environment } from '../../../../../environments/environment';
-import {AceConfigInterface} from "ngx-ace-wrapper";
+import {AceConfigInterface} from 'ngx-ace-wrapper';
 
 export interface FormUrlDialogComponentData {
   url: string;
