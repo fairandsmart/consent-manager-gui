@@ -13,7 +13,7 @@
  * files, or see https://www.fairandsmart.com/opensource/.
  * #L%
  */
-import { Component, OnInit } from '@angular/core';
+import { AfterViewInit, Component, OnInit } from '@angular/core';
 import { EntryContentDirective } from '../entry-content/entry-content.directive';
 import { LOGO_POSITIONS, LogoPosition, PreviewDto, Theme } from '@fairandsmart/consent-manager/models';
 import { FormBuilder, Validators } from '@angular/forms';
@@ -22,13 +22,16 @@ import { TranslateService } from '@ngx-translate/core';
 import { ConfigService } from '../../../../../core/services/config.service';
 import { MatDialog } from '@angular/material/dialog';
 import { AceConfigInterface } from 'ngx-ace-wrapper';
+import { CSS_HINTS } from '@fairandsmart/consent-manager/css-autocomplete';
+// @ts-ignore
+import ace from 'brace';
 
 @Component({
   selector: 'cm-theme',
   templateUrl: './theme.component.html',
   styleUrls: ['../entry-content/_entry-content.directive.scss', './theme.component.scss']
 })
-export class ThemeComponent extends EntryContentDirective<Theme> implements OnInit {
+export class ThemeComponent extends EntryContentDirective<Theme> implements OnInit, AfterViewInit {
 
   readonly LOGO_POSITIONS = LOGO_POSITIONS;
 
@@ -47,6 +50,46 @@ export class ThemeComponent extends EntryContentDirective<Theme> implements OnIn
 
   ngOnInit(): void {
     super.ngOnInit();
+  }
+
+  ngAfterViewInit(): void {
+    const langTools = ace.acequire('ace/ext/language_tools');
+    const translate = this.translate;
+    const completer = {
+      // tslint:disable-next-line:only-arrow-functions typedef
+      getCompletions: function(editor, session, pos, prefix, callback) {
+        const suggestions = CSS_HINTS
+          .filter(el => el.value.startsWith(prefix) ||
+            el.context[translate.currentLang].toLocaleLowerCase().startsWith(prefix) ||
+            el.position[translate.currentLang].toLocaleLowerCase().startsWith(prefix) ||
+            (el.description !== undefined && el.description[translate.currentLang].toLocaleLowerCase().startsWith(prefix)))
+          .map(el => {
+            return {
+              value: el.value,
+              meta: el.context[translate.currentLang],
+              type: 'cm-class',
+              context: el.context[translate.currentLang],
+              position: el.position[translate.currentLang],
+              description: el.description ? el.description[translate.currentLang] : ''
+            };
+          })
+          .sort((a, b) => {
+            return a.context.localeCompare(b.context) || a.position.localeCompare(b.position) ||
+              a.description.localeCompare(b.description) || a.value.localeCompare(b.value);
+          });
+        callback(null, suggestions);
+      },
+      getDocTooltip: (item) => {
+        if (item.type === 'cm-class' && !item.docHTML) {
+          if (item.description !== undefined && item.description !== '') {
+            item.docHTML = `<b>${item.context}</b><hr><b>${item.position}:</b> ${item.description}`;
+          } else {
+            item.docHTML = `<b>${item.context}</b><hr><b>${item.position}</b>`;
+          }
+        }
+      }
+    };
+    langTools.addCompleter(completer);
   }
 
   protected initForm(): void {

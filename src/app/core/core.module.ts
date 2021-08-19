@@ -31,7 +31,7 @@ import { FlexLayoutModule } from '@angular/flex-layout';
 import { RoutingErrorPageComponent } from './pages/routing-error-page/routing-error-page.component';
 import { ConfigService } from './services/config.service';
 import { AceEditorComponent } from './components/ace-editor/ace-editor.component';
-import { AceModule } from "ngx-ace-wrapper";
+import { AceModule } from 'ngx-ace-wrapper';
 
 @NgModule({
   declarations: [

@@ -21,7 +21,7 @@ import { AlertService } from '../../../../../core/services/alert.service';
 import { ConfigService } from '../../../../../core/services/config.service';
 import { MatDialog } from '@angular/material/dialog';
 import { TranslateService } from '@ngx-translate/core';
-import {AceConfigInterface} from "ngx-ace-wrapper";
+import { AceConfigInterface } from 'ngx-ace-wrapper';
 
 @Component({
   selector: 'cm-conditions',
