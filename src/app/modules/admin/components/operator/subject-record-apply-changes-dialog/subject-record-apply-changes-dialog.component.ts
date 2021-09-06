@@ -21,8 +21,8 @@ import { listEntries, ModelEntryDto, ModelEntryHelper } from '@fairandsmart/cons
 
 export interface SubjectRecordApplyChangesDialogData {
   recipient: string;
-  model: string;
-  comment: string;
+  email?: string;
+  comment?: string;
 }
 
 @Component({
@@ -33,7 +33,7 @@ export interface SubjectRecordApplyChangesDialogData {
 export class SubjectRecordApplyChangesDialogComponent implements OnInit {
 
   public form: FormGroup;
-  public models: ModelEntryDto[];
+  public emails: ModelEntryDto[] = [];
 
   constructor(private dialogRef: MatDialogRef<SubjectRecordApplyChangesDialogComponent, SubjectRecordApplyChangesDialogData>,
               @Inject(MAT_DIALOG_DATA) public data: SubjectRecordApplyChangesDialogData,
@@ -41,27 +41,27 @@ export class SubjectRecordApplyChangesDialogComponent implements OnInit {
 
   ngOnInit(): void {
     listEntries({types : ['email']}).subscribe( (result) => {
-      this.models = result.values.filter(value => ModelEntryHelper.hasActiveVersion(value));
+      this.emails = result.values.filter(value => ModelEntryHelper.hasActiveVersion(value));
       if (result.totalCount === 0) {
         this.form.get('recipient').disable();
-        this.form.get('model').disable();
+        this.form.get('email').disable();
       }
     });
     this.form = this.fb.group({
       comment: [''],
       notify: [true],
       recipient: [''],
-      model: ['']
+      email: ['']
     });
     this.form.get('notify').valueChanges.subscribe(notify => {
       if (notify) {
         this.form.get('recipient').setValidators([Validators.email, Validators.required]);
-        this.form.get('model').setValidators(Validators.required);
+        this.form.get('email').setValidators(Validators.required);
       } else {
         this.form.get('recipient').clearValidators();
         this.form.get('recipient').updateValueAndValidity();
-        this.form.get('model').clearValidators();
-        this.form.get('model').updateValueAndValidity();
+        this.form.get('email').clearValidators();
+        this.form.get('email').updateValueAndValidity();
       }
     });
     this.form.patchValue(this.data);
@@ -77,7 +77,7 @@ export class SubjectRecordApplyChangesDialogComponent implements OnInit {
     const result = _.cloneDeep(this.data);
     if (this.form.get('notify').value) {
       result.recipient = this.form.get('recipient').value.trim();
-      result.model = this.form.get('model').value.key;
+      result.email = this.form.get('email').value.key;
     }
     this.dialogRef.close(result);
   }
