@@ -15,7 +15,7 @@
  */
 import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 
-import { BasicinfoComponent } from './basicinfo.component';
+import { InformationComponent } from './information.component';
 import { ReactiveFormsModule } from '@angular/forms';
 import { EntryPreviewComponent } from '../entry-preview/entry-preview.component';
 import { CoreTestingModule } from '../../../../../testing/core-testing-module.spec';
@@ -25,16 +25,16 @@ import { ConfigService } from '../../../../../core/services/config.service';
 import { ModelEntryStatus } from '@fairandsmart/consent-manager/models';
 import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 
-describe('BasicinfoComponent', () => {
-  let component: BasicinfoComponent;
-  let fixture: ComponentFixture<BasicinfoComponent>;
+describe('InformationComponent', () => {
+  let component: InformationComponent;
+  let fixture: ComponentFixture<InformationComponent>;
   let configServiceStub: ConfigServiceStubSpec;
 
   beforeEach(waitForAsync(() => {
     configServiceStub = new ConfigServiceStubSpec();
 
     TestBed.configureTestingModule({
-      declarations: [ BasicinfoComponent, EntryPreviewComponent ],
+      declarations: [ InformationComponent, EntryPreviewComponent ],
       imports: [ CoreTestingModule, RouterTestingModule, ReactiveFormsModule ],
       schemas: [CUSTOM_ELEMENTS_SCHEMA],
       providers: [
@@ -45,14 +45,14 @@ describe('BasicinfoComponent', () => {
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(BasicinfoComponent);
+    fixture = TestBed.createComponent(InformationComponent);
     component = fixture.componentInstance;
     component.entry = {
       id: 'foo',
       key: 'bar',
       name: 'foo',
       description: 'bar',
-      type: 'basicinfo',
+      type: 'information',
       versions: [],
       creationDate: 12,
       modificationDate: 42,

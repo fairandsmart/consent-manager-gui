@@ -19,21 +19,21 @@ import { environment } from '../../../../../../environments/environment';
 import { Icons } from '../../../../../core/models/common';
 
 @Component({
-  selector: 'cm-basicinfo-page',
+  selector: 'cm-information-page',
   template: `
     <cm-entries-library [config]="config" [expandable]="false"></cm-entries-library>
   `,
   styleUrls: ['./_entries-page.scss']
 })
-export class BasicinfoPageComponent {
+export class InformationPageComponent {
 
   public config: SectionConfig[] = [
     {
       id: 'infos',
-      types: ['basicinfo'],
+      types: ['information'],
       canAddMultiple: environment.customization.multipleInfo,
       showActions: environment.customization.multipleInfo === AddMultipleOption.ALWAYS,
-      icon: Icons.basicinfo,
+      icon: Icons.information,
       fullSize: true,
       persistFilters: true
     }

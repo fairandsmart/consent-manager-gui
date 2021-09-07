@@ -33,7 +33,7 @@ describe('AdminPageContainerComponent', () => {
 
   beforeEach(waitForAsync(() => {
     keycloakServiceSpy = createSpyObj<KeycloakService>('KeycloakService', ['getUsername', 'isUserInRole']);
-    coreServiceSpy = createSpyObj<CoreService>('CoreService', ['checkBasicInfo']);
+    coreServiceSpy = createSpyObj<CoreService>('CoreService', ['checkInfo']);
 
     TestBed.configureTestingModule({
       declarations: [ AdminPageContainerComponent, SideNavComponent ],

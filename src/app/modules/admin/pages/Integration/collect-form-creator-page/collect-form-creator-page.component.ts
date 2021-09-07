@@ -71,15 +71,15 @@ export class CollectFormCreatorPageComponent implements OnInit {
   public elementsLibraryConfig: (SectionConfig & { draggingDisabled: boolean, included: boolean })[] = [
     {
       id: 'infos',
-      types: ['basicinfo'],
+      types: ['information'],
       canAddMultiple: environment.customization.multipleInfo,
       showActions: environment.customization.multipleInfo === AddMultipleOption.ALWAYS,
       draggingDisabled: false,
       included: true,
-      icon: Icons.basicinfo,
+      icon: Icons.information,
       fullSize: false,
       listId: 'infos',
-      filter: this.makeDefaultFilter('basicinfo')
+      filter: this.makeDefaultFilter('information')
     },
     {
       id: 'processing',
@@ -119,7 +119,7 @@ export class CollectFormCreatorPageComponent implements OnInit {
     }
   ];
 
-  get basicInfoConfig(): (SectionConfig & { draggingDisabled: boolean, included: boolean }) {
+  get informationConfig(): (SectionConfig & { draggingDisabled: boolean, included: boolean }) {
     return this.elementsLibraryConfig[0];
   }
 
@@ -223,11 +223,11 @@ export class CollectFormCreatorPageComponent implements OnInit {
     ))).pipe(
       tap((responses) => {
         const selected: { [id: string]: ModelEntryDto[] } = {...this.selectedElements};
-        const basicInfoIndexInResponse = this.elementsLibraryConfig.findIndex((c) => c.id === this.basicInfoConfig.id);
-        const basicInfoResponse = responses[basicInfoIndexInResponse];
-        if (basicInfoResponse?.totalCount === 1 && ModelEntryHelper.hasActiveVersion(basicInfoResponse.values[0])) {
-          selected[this.basicInfoConfig.id] = basicInfoResponse.values;
-          this.basicInfoConfig.draggingDisabled = true;
+        const informationIndexInResponse = this.elementsLibraryConfig.findIndex((c) => c.id === this.informationConfig.id);
+        const informationResponse = responses[informationIndexInResponse];
+        if (informationResponse?.totalCount === 1 && ModelEntryHelper.hasActiveVersion(informationResponse.values[0])) {
+          selected[this.informationConfig.id] = informationResponse.values;
+          this.informationConfig.draggingDisabled = true;
         }
         this.setSelectedElements(selected);
       })
@@ -445,6 +445,7 @@ export class CollectFormCreatorPageComponent implements OnInit {
       return;
     }
     // @ts-ignore
+    // tslint:disable-next-line:max-line-length
     createTransactionJson(context, this.translate.currentLang, { data: { extractResponseHeaders: true } }).subscribe((res: { body: string, headers: HttpHeaders}) => {
       this.form.enable();
       this.dialog.open<FormUrlDialogComponent, FormUrlDialogComponentData>(FormUrlDialogComponent, {

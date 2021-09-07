@@ -34,7 +34,7 @@ export const FIELD_VALIDATORS = {
 };
 
 export enum Icons {
-  basicinfo = 'info',
+  information = 'info',
   processing = 'fact_check',
   preference = 'favorite',
   conditions = 'text_snippet',

@@ -42,7 +42,7 @@
       "SEARCH": "Rechercher"
     },
     "ENTRY_TYPES": {
-      "BASICINFO": "Informations",
+      "INFORMATION": "Informations",
       "PROCESSING": "Traitement",
       "PREFERENCE": "Préférence",
       "CONDITIONS": "CGU/CGS",
@@ -92,9 +92,9 @@
   },
   "ALERT": {
     "BAD_VERSION": "La version du serveur utilisée n'est pas compatible",
-    "NO_BASIC_INFO": "Vous ne pouvez pas créer de formulaire ni soumettre ou modifier de consentement sans avoir complété vos informations générales",
-    "NO_BASIC_INFO_USER": "Cette fonctionnalité n'est pas encore disponible.",
-    "NO_BASIC_INFO_CALL_TO_ACTION": "Cliquez ici pour les compléter",
+    "NO_INFORMATION": "Vous ne pouvez pas créer de formulaire ni soumettre ou modifier de consentement sans avoir complété vos informations",
+    "NO_INFORMATION_USER": "Cette fonctionnalité n'est pas encore disponible.",
+    "NO_INFORMATION_CALL_TO_ACTION": "Cliquez ici pour les compléter",
     "NO_CHANGE": "Aucune modification",
     "FORM_ERROR": "Il y a des erreurs dans le formulaire, modifications non enregistrées",
     "UNSAVED_CHANGES": "Il y a des modifications non enregistrées, enregistrez le brouillon avant de l'activer",
@@ -139,9 +139,9 @@
   "ENTRIES": {
     "TITLE": "Éléments",
     "infos": {
-      "PANEL_TITLE": "Informations générales",
-      "PANEL_DESCRIPTION_HTML": "<div>Voici les informations générales que vous avez paramétrées.</div><div>Cela permet d'informer vos utilisateurs de votre politique de confidentialité, par exemple.</div><div>Vous ne pouvez en créer qu'un seul modèle.</div>",
-      "EMPTY": "Commencez par spécifier les informations générales..."
+      "PANEL_TITLE": "Informations",
+      "PANEL_DESCRIPTION_HTML": "<div>Voici les informations que vous avez paramétrées.</div><div>Cela permet d'informer vos utilisateurs de votre politique de confidentialité, par exemple.</div><div>Vous ne pouvez en créer qu'un seul modèle.</div>",
+      "EMPTY": "Commencez par spécifier des informations..."
     },
     "processing": {
       "PANEL_TITLE": "Bibliothèque de traitements",
@@ -172,7 +172,7 @@
       "EMPTY": "Commencez par ajouter un traitement ou une préférence..."
     },
     "BUTTON_ADD": {
-      "basicinfo": "Ajouter des informations de base",
+      "information": "Ajouter des informations",
       "processing": "Ajouter un traitement",
       "preference": "Ajouter une préférence",
       "conditions": "Ajouter des CGU",
@@ -249,7 +249,7 @@
     "CREATE_BUTTON": "Nouvel élément",
     "DIALOG": {
       "TITLE_NEW": {
-        "basicinfo": "Nouvelles informations de base",
+        "information": "Nouvelles informations",
         "processing": "Nouveau traitement",
         "preference": "Nouvelle préférence",
         "conditions": "Nouvelles CGU",
@@ -257,7 +257,7 @@
         "email": "Nouvel email"
       },
       "TITLE_UPDATE": {
-        "basicinfo": "Modification des informations de base",
+        "information": "Modification des informations",
         "processing": "Modification du traitement",
         "preference": "Modification de la préférence",
         "conditions": "Modification des CGU",
@@ -284,7 +284,7 @@
       "NO_LANGUAGE": "Sélectionnez une langue pour afficher la prévisualisation."
     },
     "EDITOR": {
-      "INFORMATION": {
+      "GLOBAL_INFORMATION": {
         "TITLE": "Informations"
       },
       "BUTTONS": {
@@ -294,7 +294,7 @@
       },
       "CONTENT": {
         "TITLE": {
-          "basicinfo": "Contenu des informations de base",
+          "information": "Contenu des informations",
           "processing": "Contenu du traitement",
           "preference": "Contenu de la préférence",
           "conditions": "Contenu des CGU",
@@ -305,7 +305,7 @@
         "HIDE": "N'afficher que dans les reçus",
         "DATA_CONTROLLER": {
           "TITLE": "Responsable de traitement",
-          "SUBTITLE_OPTIONAL": "(si différent de celui indiqué dans les informations générales)",
+          "SUBTITLE_OPTIONAL": "(si différent de celui indiqué dans les informations)",
           "COMPANY": {
             "LABEL": "Entreprise"
           },
@@ -324,7 +324,7 @@
         },
         "SHOW_SIDE": "Afficher les détails"
       },
-      "BASICINFO": {
+      "INFORMATION": {
         "SUBTITLES": {
           "TEXT": "Titre, en-tête et pied de page",
           "ADDITIONAL": "Informations additionnelles",
@@ -581,7 +581,7 @@
         "LATEST_VALID": "Consentement valide le plus récent",
         "OBSOLETE": "Un consentement valide plus récent existe",
         "EXPIRED": "Date d'expiration atteinte",
-        "INFO_SERIAL_ARCHIVED": "Numéro de série des informations générales inactif",
+        "INFO_SERIAL_ARCHIVED": "Numéro de série des informations inactif",
         "BODY_SERIAL_ARCHIVED": "Numéro de série de l'élément inactif",
         "STILL_PENDING": "Consentement en attente de validation",
         "ENTRY_DELETED": "Le modèle lié à ce consentement a été supprimé"
@@ -692,7 +692,7 @@
     "FORM": {
       "TITLE": "Génération du formulaire de consentement",
       "ELEMENTS_PANEL_TITLE": {
-        "infos": "Informations générales",
+        "infos": "Informations",
         "elements": "Traitements et préférences affichés"
       },
       "FOOTER_ON_TOP": {

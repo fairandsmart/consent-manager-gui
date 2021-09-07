@@ -47,9 +47,9 @@
     </mat-menu>
   </span>
 </mat-toolbar>
-<mat-toolbar color="warn" *ngIf="(hasActiveBasicInfo$ | async) === false && mode === 'admin'">
-  <span class="warning-content">{{'ALERT.NO_BASIC_INFO' | translate}}</span>
-  <button mat-stroked-button class="warning-button" [routerLink]="['configuration', 'basicinfo']">{{'ALERT.NO_BASIC_INFO_CALL_TO_ACTION' | translate }}</button>
+<mat-toolbar color="warn" *ngIf="(hasActiveInfo$ | async) === false && mode === 'admin'">
+  <span class="warning-content">{{'ALERT.NO_INFORMATION' | translate}}</span>
+  <button mat-stroked-button class="warning-button" [routerLink]="['configuration', 'information']">{{'ALERT.NO_INFORMATION_CALL_TO_ACTION' | translate }}</button>
 </mat-toolbar>
 <mat-autocomplete #subjectsAuto="matAutocomplete" (optionSelected)="search()">
   <mat-option *ngFor="let subject of filteredSubjects | async" [value]="subject.name">

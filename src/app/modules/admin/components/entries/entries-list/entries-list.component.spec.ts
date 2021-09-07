@@ -55,7 +55,7 @@ describe('EntriesListComponent', () => {
     component = fixture.componentInstance;
     component.section = {
       id: 'infos',
-      types: ['basicinfo'],
+      types: ['information'],
       canAddMultiple: AddMultipleOption.ALWAYS,
       showActions: true,
       fullSize: false,

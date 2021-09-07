@@ -157,9 +157,9 @@ export abstract class OperatorConsentListDirective implements OnInit {
   }
 
   action(element: any): void {
-    if (!this.coreService.hasActiveBasicInfo) {
-      this.snackBar.open(this.translate.instant('ALERT.NO_BASIC_INFO'));
-      throw new Error('No basic info');
+    if (!this.coreService.hasActiveInfo) {
+      this.snackBar.open(this.translate.instant('ALERT.NO_INFORMATION'));
+      throw new Error('No info');
     }
   }
 

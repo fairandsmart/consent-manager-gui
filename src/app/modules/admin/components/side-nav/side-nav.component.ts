@@ -56,8 +56,8 @@ export class SideNavComponent implements OnInit {
         },
         {
           title: 'NAV.CATEGORIES.MODELS.INFO',
-          link: '/admin/configuration/basicinfo',
-          icon: Icons.basicinfo
+          link: '/admin/configuration/information',
+          icon: Icons.information
         },
         {
           title: 'NAV.CATEGORIES.MODELS.PROCESSING',

@@ -100,15 +100,15 @@ export class EntryInfoComponent implements OnInit {
     ).subscribe({
       next: () => {
         this.alertService.success('ALERT.ENTRY_DELETION_SUCCESS');
-        if (this.entry.type === 'basicinfo') {
-          this.coreService.checkBasicInfo();
+        if (this.entry.type === 'information') {
+          this.coreService.checkInfo();
         }
         this.router.navigate(['..'], {relativeTo: this.route});
       },
       error: (err) => {
         this.alertService.error('ALERT.ENTRY_DELETION_ERROR', err);
-        if (this.entry.type === 'basicinfo') {
-          this.coreService.checkBasicInfo();
+        if (this.entry.type === 'information') {
+          this.coreService.checkInfo();
         }
       }
     });

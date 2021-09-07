@@ -15,7 +15,7 @@
  */
 import { Component, OnInit } from '@angular/core';
 import { EntryContentDirective } from '../entry-content/entry-content.directive';
-import { BasicInfo, Controller } from '@fairandsmart/consent-manager/models';
+import { Information, Controller } from '@fairandsmart/consent-manager/models';
 import { FormBuilder, Validators } from '@angular/forms';
 import { AlertService } from '../../../../../core/services/alert.service';
 import { ConfigService } from '../../../../../core/services/config.service';
@@ -25,11 +25,11 @@ import { MatDialog } from '@angular/material/dialog';
 import { TranslateService } from '@ngx-translate/core';
 
 @Component({
-  selector: 'cm-basicinfo',
-  templateUrl: './basicinfo.component.html',
-  styleUrls: ['../entry-content/_entry-content.directive.scss', './basicinfo.component.scss']
+  selector: 'cm-information',
+  templateUrl: './information.component.html',
+  styleUrls: ['../entry-content/_entry-content.directive.scss', './information.component.scss']
 })
-export class BasicinfoComponent extends EntryContentDirective<BasicInfo> implements OnInit {
+export class InformationComponent extends EntryContentDirective<Information> implements OnInit {
 
   constructor(
     private fb: FormBuilder,
@@ -83,7 +83,7 @@ export class BasicinfoComponent extends EntryContentDirective<BasicInfo> impleme
     super.registerFormChanges();
   }
 
-  private optionalFieldChange(value: string, linkedControllerName: keyof BasicInfo): void {
+  private optionalFieldChange(value: string, linkedControllerName: keyof Information): void {
     if (value.length > 0) {
       this.form.get(linkedControllerName).enable();
     } else {
@@ -112,11 +112,11 @@ export class BasicinfoComponent extends EntryContentDirective<BasicInfo> impleme
   }
 
   protected afterActivateVersion(): void {
-    this.coreService.checkBasicInfo();
+    this.coreService.checkInfo();
   }
 
   protected afterDeleteVersion(): void {
-    this.coreService.checkBasicInfo();
+    this.coreService.checkInfo();
   }
 
 }

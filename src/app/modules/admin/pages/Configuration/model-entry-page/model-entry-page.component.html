@@ -15,8 +15,8 @@
   -->
 
 <ng-container [ngSwitch]="entry?.type">
-  <ng-container *ngSwitchCase="'basicinfo'">
-    <cm-basicinfo [entry]="entry" [version]="latest"></cm-basicinfo>
+  <ng-container *ngSwitchCase="'information'">
+    <cm-information [entry]="entry" [version]="latest"></cm-information>
   </ng-container>
   <ng-container *ngSwitchCase="'processing'">
     <cm-processing [entry]="entry" [version]="latest"></cm-processing>
