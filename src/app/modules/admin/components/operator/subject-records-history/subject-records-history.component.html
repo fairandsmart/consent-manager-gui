@@ -75,7 +75,7 @@
       <th mat-header-cell *matHeaderCellDef>{{'RECORDS.COMMON.NOTIFICATION.LABEL' | translate}}</th>
       <td mat-cell *matCellDef="let element">
         <ng-container *ngIf="element.notificationReports.length > 0; else none"></ng-container>
-          <div *ngFor="let notif of element.notificationReports">
+          <div *ngFor="let notif of filterNotificationReports(element.notificationReports)">
             {{'RECORDS.COMMON.NOTIFICATION.TYPE.' + notif.type | translate}}
             <span *ngIf="notif.type !== 'NONE'">: {{'RECORDS.COMMON.NOTIFICATION.STATUS.' + notif.status | translate}}</span>
           </div>

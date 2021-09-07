@@ -16,6 +16,8 @@
 import { Component, Inject, OnInit, ViewChild } from '@angular/core';
 import { CollectionDatasource } from '../../../utils/collection-datasource';
 import {
+  NotificationReport,
+  NotificationReportType,
   RecordDto,
   RecordFilter,
   RecordStatus
@@ -67,6 +69,8 @@ class SubjectRecordsHistoryDataSource extends CollectionDatasource<RecordDto, Re
   styleUrls: ['../operator-consent-list/_operator-consent-list.directive.scss', './subject-records-history.component.scss']
 })
 export class SubjectRecordsHistoryComponent implements OnInit {
+
+  readonly NOTIFICATION_CHANNELS = Object.keys(NotificationReportType);
 
   @ViewChild(MatPaginator, {static: true})
   public paginator: MatPaginator;
@@ -123,6 +127,17 @@ export class SubjectRecordsHistoryComponent implements OnInit {
 
   getRecordStatus(element): string {
     return element.status === RecordStatus.VALID && element.value === 'accepted' ? 'VALID' : 'INVALID';
+  }
+
+  filterNotificationReports(allReports: NotificationReport[]): NotificationReport[] {
+    const currentReports: NotificationReport[] = [];
+    this.NOTIFICATION_CHANNELS.forEach((channel) => {
+      const reports = allReports.filter((report) => report.type === channel);
+      if (reports.length > 0) {
+        currentReports.push(reports.pop());
+      }
+    });
+    return currentReports;
   }
 
   openReceipt(element): void {
