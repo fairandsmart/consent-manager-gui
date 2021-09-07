@@ -54,8 +54,8 @@ export class HeaderNavComponent implements OnInit {
 
   @Input() mode: 'admin' | 'user';
 
-  get hasActiveBasicInfo$(): Observable<boolean> {
-    return this.coreService.hasActiveBasicInfo$;
+  get hasActiveInfo$(): Observable<boolean> {
+    return this.coreService.hasActiveInfo$;
   }
 
   constructor(
@@ -68,7 +68,7 @@ export class HeaderNavComponent implements OnInit {
 
   ngOnInit(): void {
     this.searchCtrl = new FormControl();
-    this.coreService.checkBasicInfo();
+    this.coreService.checkInfo();
     this.filteredSubjects = this.searchCtrl.valueChanges.pipe(
       debounceTime(200),
       mergeMap((value: string) => {

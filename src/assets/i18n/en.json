@@ -11,7 +11,7 @@
       "MODELS": {
         "LABEL": "Configuration",
         "GETTING_STARTED": "Getting started",
-        "INFO": "Basic Information",
+        "INFO": "Information",
         "PROCESSING": "Processings",
         "PREFERENCES": "Preferences",
         "CONDITIONS": "Terms & Conditions",
@@ -42,7 +42,7 @@
       "SEARCH": "Search"
     },
     "ENTRY_TYPES": {
-      "BASICINFO": "Basic Info",
+      "INFORMATION": "Information",
       "PROCESSING": "Processing",
       "PREFERENCE": "Preference",
       "CONDITIONS": "Terms and Conditions",
@@ -92,9 +92,9 @@
   },
   "ALERT": {
     "BAD_VERSION": "Your backend version is outdated",
-    "NO_BASIC_INFO": "You cannot create forms nor change or submit consents without completing your basic informations",
-    "NO_BASIC_INFO_USER": "This feature is not yet available.",
-    "NO_BASIC_INFO_CALL_TO_ACTION": "Click here to complete them",
+    "NO_INFORMATION": "You cannot create forms nor change or submit consents without completing your informations",
+    "NO_INFORMATION_USER": "This feature is not yet available.",
+    "NO_INFORMATION_CALL_TO_ACTION": "Click here to complete them",
     "NO_CHANGE": "No change",
     "FORM_ERROR": "There are errors in the form, changes not saved",
     "UNSAVED_CHANGES": "Unsaved changes, cannot activate draft",
@@ -139,9 +139,9 @@
   "ENTRIES": {
     "TITLE": "Entries",
     "infos": {
-      "PANEL_TITLE": "Basic information",
+      "PANEL_TITLE": "Information",
       "PANEL_DESCRIPTION_HTML": "<div>Here are the information you created.</div><div>This is meant to inform your users about your privacy policy, for example.</div><div>You can only create one information entry.</div>",
-      "EMPTY": "First, add basic information..."
+      "EMPTY": "First, add information..."
     },
     "processing": {
       "PANEL_TITLE": "Processings library",
@@ -172,7 +172,7 @@
       "EMPTY": "First, add a processing or a preference..."
     },
     "BUTTON_ADD": {
-      "basicinfo": "New basic information",
+      "information": "New information",
       "processing": "New processing",
       "preference": "New preference",
       "conditions": "New terms and conditions",
@@ -249,7 +249,7 @@
     "CREATE_BUTTON": "New entry",
     "DIALOG": {
       "TITLE_NEW": {
-        "basicinfo": "New basic info",
+        "information": "New information",
         "processing": "New processing",
         "preference": "New preference",
         "conditions": "New terms and conditions",
@@ -257,7 +257,7 @@
         "email": "New email"
       },
       "TITLE_UPDATE": {
-        "basicinfo": "Update basic info",
+        "information": "Update information",
         "processing": "Update processing",
         "preference": "Update preference",
         "conditions": "Update terms and conditions",
@@ -284,7 +284,7 @@
       "NO_LANGUAGE": "Select a language to display the preview."
     },
     "EDITOR": {
-      "INFORMATION": {
+      "GLOBAL_INFORMATION": {
         "TITLE": "Information"
       },
       "BUTTONS": {
@@ -294,7 +294,7 @@
       },
       "CONTENT": {
         "TITLE": {
-          "basicinfo": "Basic Info content",
+          "information": "Information content",
           "processing": "Processing content",
           "preference": "Preference content",
           "conditions": "Terms and Conditions content",
@@ -305,7 +305,7 @@
         "HIDE": "Display only in receipts",
         "DATA_CONTROLLER": {
           "TITLE": "Data controller",
-          "SUBTITLE_OPTIONAL": "(if different from the one in the basic information)",
+          "SUBTITLE_OPTIONAL": "(if different from the one in the information)",
           "COMPANY": {
             "LABEL": "Company"
           },
@@ -324,7 +324,7 @@
         },
         "SHOW_SIDE": "Show details"
       },
-      "BASICINFO": {
+      "INFORMATION": {
         "SUBTITLES": {
           "TEXT": "Title, header and footer",
           "ADDITIONAL": "Additional information",
@@ -581,7 +581,7 @@
         "LATEST_VALID": "Most recent valid record",
         "OBSOLETE": "A more recent valid record exists",
         "EXPIRED": "Expiration date reached",
-        "INFO_SERIAL_ARCHIVED": "Basic info serial no more active",
+        "INFO_SERIAL_ARCHIVED": "Information serial no more active",
         "BODY_SERIAL_ARCHIVED": "Body serial no more active",
         "STILL_PENDING": "Record still waiting for validation",
         "ENTRY_DELETED": "The model entry associated with this record has been deleted"
@@ -692,7 +692,7 @@
     "FORM": {
       "TITLE": "Form creator",
       "ELEMENTS_PANEL_TITLE": {
-        "infos": "Basic info",
+        "infos": "Information",
         "elements": "Displayed processings and preferences"
       },
       "FOOTER_ON_TOP": {

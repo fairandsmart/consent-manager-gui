@@ -131,8 +131,8 @@ export abstract class EntryCardContentDirective<T extends ModelData> implements 
     if (this.remoteValue === newValue) {
       return;
     }
-    if (this.coreService.hasActiveBasicInfo === false) {
-      this.alertService.error(this.translate.instant('ALERT.NO_BASIC_INFO_USER'), new Error('No basic info'));
+    if (this.coreService.hasActiveInfo === false) {
+      this.alertService.error(this.translate.instant('ALERT.NO_INFORMATION_USER'), new Error('No info'));
       this.resetState();
       return;
     }

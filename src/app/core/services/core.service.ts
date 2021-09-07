@@ -7,21 +7,21 @@ import { listEntries, ModelEntryHelper } from '@fairandsmart/consent-manager/mod
   providedIn: 'root'
 })
 export class CoreService {
-  hasActiveBasicInfo$: Subject<boolean>;
-  hasActiveBasicInfo: boolean;
+  hasActiveInfo$: Subject<boolean>;
+  hasActiveInfo: boolean;
 
   constructor() {
     this.initWatchers();
   }
 
   initWatchers(): void {
-    this.hasActiveBasicInfo$ = new Subject<boolean>();
-    this.hasActiveBasicInfo$.subscribe((current) => this.hasActiveBasicInfo = current);
+    this.hasActiveInfo$ = new Subject<boolean>();
+    this.hasActiveInfo$.subscribe((current) => this.hasActiveInfo = current);
   }
 
-  checkBasicInfo(): void {
-    listEntries({types: ['basicinfo'], size: -1}).pipe(
+  checkInfo(): void {
+    listEntries({types: ['information'], size: -1}).pipe(
       map((res) => res.values.some((info) => ModelEntryHelper.hasActiveVersion(info))),
-    ).subscribe((hasActiveBasicInfo) => this.hasActiveBasicInfo$.next(hasActiveBasicInfo));
+    ).subscribe((hasActiveInfo) => this.hasActiveInfo$.next(hasActiveInfo));
   }
 }

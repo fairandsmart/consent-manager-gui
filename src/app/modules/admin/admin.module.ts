@@ -22,7 +22,7 @@ import { EntriesListComponent } from './components/entries/entries-list/entries-
 import { EntriesListDragAndDropComponent } from './components/entries/entries-list-drag-and-drop/entries-list-drag-and-drop.component';
 import { EntriesListSelectComponent } from './components/entries/entries-list-select/entries-list-select.component';
 import { ModelEntryPageComponent } from './pages/Configuration/model-entry-page/model-entry-page.component';
-import { BasicinfoComponent } from './components/entry/basicinfo/basicinfo.component';
+import { InformationComponent } from './components/entry/information/information.component';
 import { ProcessingComponent } from './components/entry/processing/processing.component';
 import { ConditionsComponent } from './components/entry/conditions/conditions.component';
 import { EntryEditorDialogComponent } from './components/entry/entry-editor-dialog/entry-editor-dialog.component';
@@ -39,7 +39,7 @@ import { PreferenceComponent } from './components/entry/preference/preference.co
 import { PreferencesPageComponent } from './pages/Configuration/model-library-pages/preferences-page.component';
 import { DashboardPageComponent } from './pages/Home/dashboard-page/dashboard-page.component';
 import { ConditionsPageComponent } from './pages/Configuration/model-library-pages/conditions-page.component';
-import { BasicinfoPageComponent } from './pages/Configuration/model-library-pages/basicinfo-page.component';
+import { InformationPageComponent } from './pages/Configuration/model-library-pages/information-page.component';
 import { ProcessingPageComponent } from './pages/Configuration/model-library-pages/processing-page.component';
 import { GeneratedKeyDialogComponent, AccessKeysPageComponent } from './pages/Integration/access-keys-page/access-keys-page.component';
 import { SubjectRecordEditorDialogComponent } from './components/operator/subject-record-editor-dialog/subject-record-editor-dialog.component';
@@ -72,7 +72,7 @@ import { EntryEditorContainerComponent } from './components/entry/entry-editor-c
     EntriesListDragAndDropComponent,
     EntriesListSelectComponent,
     ModelEntryPageComponent,
-    BasicinfoComponent,
+    InformationComponent,
     ProcessingComponent,
     ConditionsComponent,
     EntryEditorDialogComponent,
@@ -89,7 +89,7 @@ import { EntryEditorContainerComponent } from './components/entry/entry-editor-c
     PreferencesPageComponent,
     DashboardPageComponent,
     ConditionsPageComponent,
-    BasicinfoPageComponent,
+    InformationPageComponent,
     ProcessingPageComponent,
     AccessKeysPageComponent,
     GeneratedKeyDialogComponent,
