@@ -52,6 +52,7 @@ export class OperatorSubjectPageComponent implements OnInit {
 
   private readonly defaultLanguage;
 
+  private subjectName: string;
   public subject: SubjectDto;
   public records: RecordsMap;
   public operatorLog: OperatorLogElement[] = [];
@@ -78,10 +79,22 @@ export class OperatorSubjectPageComponent implements OnInit {
   ngOnInit(): void {
     this.route.paramMap.pipe(
       mergeMap((params) => {
-        return getSubject(params.get('subject'));
+        this.subjectName = params.get('subject');
+        return getSubject(this.subjectName);
       }),
     ).subscribe((subject) => {
       this.subject = subject;
+      this.records = {};
+      this.operatorLog = [];
+      this.reloadRecords();
+    }, (err) => {
+      this.subject = {
+        id: null,
+        name: this.subjectName,
+        creationTimestamp: 0,
+        emailAddress: null,
+        defaultLanguage: null
+      };
       this.records = {};
       this.operatorLog = [];
       this.reloadRecords();
@@ -132,7 +145,7 @@ export class OperatorSubjectPageComponent implements OnInit {
   submitLog(): void {
     this.dialog.open<SubjectRecordApplyChangesDialogComponent, SubjectRecordApplyChangesDialogData>(
       SubjectRecordApplyChangesDialogComponent,
-      {data: {recipient: this.subject.emailAddress, model: '', comment: ''}})
+      {data: {recipient: this.subject.emailAddress}})
       .afterClosed().subscribe((result) => {
       if (result) {
         const ctx: ConsentContext = {
@@ -143,7 +156,7 @@ export class OperatorSubjectPageComponent implements OnInit {
             elements: this.operatorLog.map(e => e.key),
             includeIFrameResizer: true,
             info: '',
-            notification: result.model,
+            notification: result.email,
           },
           origin: ConsentOrigin.OPERATOR,
           subject: this.subject.name,
@@ -151,7 +164,7 @@ export class OperatorSubjectPageComponent implements OnInit {
           language: this.defaultLanguage,
           userinfos: {},
           attributes: {},
-          notificationRecipient: result.model ? result.recipient : '',
+          notificationRecipient: result.email ? result.recipient : '',
           author: '',
           confirmation: Confirmation.NONE
         };
