@@ -20,11 +20,17 @@ import { CdkDragDrop, copyArrayItem, moveItemInArray } from '@angular/cdk/drag-d
 import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
 import { StepperSelectionEvent } from '@angular/cdk/stepper';
-import { AddMultipleOption, SectionConfig } from '../../../components/entries/entries-library/entries-library.component';
+import {
+  AddMultipleOption,
+  SectionConfig
+} from '../../../components/entries/entries-library/entries-library.component';
 import { environment } from '../../../../../../environments/environment';
 import * as _ from 'lodash';
 import { MatDialog } from '@angular/material/dialog';
-import { FormUrlDialogComponent, FormUrlDialogComponentData } from '../../../components/form-url-dialog/form-url-dialog.component';
+import {
+  FormUrlDialogComponent,
+  FormUrlDialogComponentData
+} from '../../../components/form-url-dialog/form-url-dialog.component';
 import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
 import { ConfigService } from '../../../../../core/services/config.service';
 import { ConfirmDialogComponent } from '../../../../../core/components/confirm-dialog/confirm-dialog.component';
@@ -44,10 +50,13 @@ import {
   RECEIPT_DISPLAY_TYPES
 } from '@fairandsmart/consent-manager/models';
 import {
-  Confirmation, CONFIRMATION_TYPES,
+  Confirmation,
+  CONFIRMATION_TYPES,
+  ConfirmationConfigKeys,
   ConsentContext,
   createTransactionJson,
-  getSubmitFormPreview
+  getSubmitFormPreview,
+  UserInfosKeys
 } from '@fairandsmart/consent-manager/consents';
 import { HttpHeaders } from '@angular/common/http';
 
@@ -190,6 +199,9 @@ export class CollectFormCreatorPageComponent implements OnInit {
   public readonly RECEIPT_FORMATS = RECEIPT_DISPLAY_TYPES;
   public readonly VALIDITY_UNITS = ['D', 'W', 'M', 'Y'];
   public readonly CONFIRMATION_TYPES = CONFIRMATION_TYPES;
+  public readonly CONFIRMATION = Confirmation;
+  public readonly CONFIRMATION_CONFIG_KEYS = ConfirmationConfigKeys;
+  public readonly USER_INFOS_KEYS = UserInfosKeys;
   private readonly defaultLanguage;
 
   private static formatValidity(validity, validityUnit): string {
@@ -256,10 +268,18 @@ export class CollectFormCreatorPageComponent implements OnInit {
         iframeOrigin: [''],
         notify: [false],
         notification: [''],
-        notificationRecipient: [''],
         confirmation: [Confirmation.NONE, [Validators.required]]
       })
     ]);
+
+    const userInfos = this.fb.group({});
+    userInfos.addControl(this.USER_INFOS_KEYS.EMAIL_KEY, this.fb.control(''));
+    (this.form.at(FORM_CREATOR_STEP.OPTIONS) as FormGroup).addControl('userinfos', userInfos);
+
+    const confirmationConfig = this.fb.group({});
+    confirmationConfig.addControl(this.CONFIRMATION_CONFIG_KEYS.SENDER_EMAIL_KEY, this.fb.control(''));
+    (this.form.at(FORM_CREATOR_STEP.OPTIONS) as FormGroup).addControl('confirmationConfig', confirmationConfig);
+
     merge(
       this.form.at(FORM_CREATOR_STEP.PREVIEW).get('language').valueChanges,
       this.form.at(FORM_CREATOR_STEP.PREVIEW).get('theme').valueChanges,
@@ -279,17 +299,36 @@ export class CollectFormCreatorPageComponent implements OnInit {
       if (notify) {
         this.form.at(FORM_CREATOR_STEP.OPTIONS).get('notification')
           .setValidators([Validators.required, Validators.pattern(FIELD_VALIDATORS.key.pattern)]);
-        this.form.at(FORM_CREATOR_STEP.OPTIONS).get('notificationRecipient')
-          .setValidators([Validators.required, Validators.email]);
       } else {
         this.form.at(FORM_CREATOR_STEP.OPTIONS).get('notification').clearValidators();
-        this.form.at(FORM_CREATOR_STEP.OPTIONS).get('notificationRecipient').clearValidators();
         this.setSelectedEmail({emails: []});
-        this.form.at(FORM_CREATOR_STEP.OPTIONS).get('notificationRecipient').setValue('');
       }
       this.form.at(FORM_CREATOR_STEP.OPTIONS).get('notification').updateValueAndValidity();
-      this.form.at(FORM_CREATOR_STEP.OPTIONS).get('notificationRecipient').updateValueAndValidity();
+      this.updateEmailValidators(notify || this.form.at(FORM_CREATOR_STEP.OPTIONS).get('confirmation').value === Confirmation.EMAIL_CODE);
     });
+    this.form.at(FORM_CREATOR_STEP.OPTIONS).get('confirmation').valueChanges.subscribe((confirmation: Confirmation) => {
+      if (confirmation === Confirmation.EMAIL_CODE) {
+        this.form.at(FORM_CREATOR_STEP.OPTIONS).get('confirmationConfig')
+          .get(this.CONFIRMATION_CONFIG_KEYS.SENDER_EMAIL_KEY).setValidators([Validators.required, Validators.email]);
+      } else {
+        this.form.at(FORM_CREATOR_STEP.OPTIONS).get('confirmationConfig')
+          .get(this.CONFIRMATION_CONFIG_KEYS.SENDER_EMAIL_KEY).clearValidators();
+      }
+      this.form.at(FORM_CREATOR_STEP.OPTIONS).get('confirmationConfig')
+        .get(this.CONFIRMATION_CONFIG_KEYS.SENDER_EMAIL_KEY).updateValueAndValidity();
+      this.updateEmailValidators(this.form.at(FORM_CREATOR_STEP.OPTIONS).get('notification').value
+        || confirmation === Confirmation.EMAIL_CODE);
+    });
+  }
+
+  updateEmailValidators(isRequired: boolean): void {
+    if (isRequired) {
+      this.form.at(FORM_CREATOR_STEP.OPTIONS).get('userinfos').get(this.USER_INFOS_KEYS.EMAIL_KEY)
+        .setValidators([Validators.required, Validators.email]);
+    } else {
+      this.form.at(FORM_CREATOR_STEP.OPTIONS).get('userinfos').get(this.USER_INFOS_KEYS.EMAIL_KEY).clearValidators();
+    }
+    this.form.at(FORM_CREATOR_STEP.OPTIONS).get('userinfos').get(this.USER_INFOS_KEYS.EMAIL_KEY).updateValueAndValidity();
   }
 
   elementDropped(event: CdkDragDrop<ModelEntryDto[]>): void {
@@ -388,12 +427,12 @@ export class CollectFormCreatorPageComponent implements OnInit {
       iframeOrigin: formValue.iframeOrigin,
       validity: CollectFormCreatorPageComponent.formatValidity(formValue.validity, formValue.validityUnit),
       language: formValue.language,
-      userinfos: {},
+      userinfos: formValue.userinfos,
       attributes: {},
-      notificationRecipient: formValue.notificationRecipient,
       author: '',
       origin: ConsentOrigin.WEBFORM,
       confirmation: formValue.confirmation,
+      confirmationConfig: formValue.confirmationConfig,
       layoutData: {
         type: 'layout',
         theme: formValue.theme,
