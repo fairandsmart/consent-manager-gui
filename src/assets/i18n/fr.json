@@ -707,7 +707,7 @@
         }
       },
       "SUBJECT": {
-        "LABEL": "Identifiant client",
+        "LABEL": "Identifiant du client",
         "REQUIRED": "Vous devez préciser un identifiant"
       },
       "ORIENTATION": {
@@ -762,18 +762,25 @@
           "DIGITAL_SIGNATURE": "Signature numérique"
         }
       },
+      "SENDER_EMAIL": {
+        "LABEL": "Adresse email émettrice du code de confirmation",
+        "REQUIRED": "Vous devez préciser une adresse email",
+        "EMAIL_INVALID": "Vous devez préciser une adresse email valide"
+      },
       "CALLBACK": {
         "LABEL": "URL de callback"
       },
       "IFRAME_ORIGIN": {
         "LABEL": "Domaine de la fenêtre parent"
       },
-      "NOTIFICATION_RECIPIENT": {
-        "NOTIFY_CHECKBOX_LABEL": "Je souhaite notifier l'utilisateur par email suite à la soumission du formulaire",
-        "LABEL": "Destinataire de l'email",
-        "REQUIRED": "Vous devez préciser le destinataire",
-        "EMAIL_INVALID": "Vous devez préciser une adresse email valide",
+      "NOTIFY": {
+        "NOTIFY_CHECKBOX_LABEL": "Notifier l'utilisateur par email suite à la soumission du formulaire",
         "MODEL_REQUIRED": "Vous devez sélectionner un modèle d'email"
+      },
+      "USER_EMAIL": {
+        "LABEL": "Adresse email du client",
+        "REQUIRED": "Vous devez préciser une adresse email",
+        "EMAIL_INVALID": "Vous devez préciser une adresse email valide"
       },
       "THEME": {
         "LABEL": "Thème (facultatif)",

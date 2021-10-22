@@ -145,7 +145,6 @@ export abstract class EntryCardContentDirective<T extends ModelData> implements 
       language: this.defaultLanguage,
       userinfos: {},
       attributes: {},
-      notificationRecipient: '',
       origin: ConsentOrigin.USER,
       author: this.keycloakService.getUsername(),
       confirmation: Confirmation.NONE,

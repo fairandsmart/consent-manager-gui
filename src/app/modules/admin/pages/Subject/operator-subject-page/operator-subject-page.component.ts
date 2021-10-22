@@ -39,7 +39,8 @@ import {
   Confirmation,
   ConsentContext,
   createTransactionJson,
-  postSubmissionValuesHtml
+  postSubmissionValuesHtml,
+  UserInfosKeys
 } from '@fairandsmart/consent-manager/consents';
 import { ConsentOrigin, FormLayoutOrientation } from '@fairandsmart/consent-manager/models';
 
@@ -164,10 +165,13 @@ export class OperatorSubjectPageComponent implements OnInit {
           language: this.defaultLanguage,
           userinfos: {},
           attributes: {},
-          notificationRecipient: result.email ? result.recipient : '',
           author: '',
           confirmation: Confirmation.NONE
         };
+
+        if (result.email) {
+          ctx.userinfos[UserInfosKeys.EMAIL_KEY] = result.recipient;
+        }
 
         createTransactionJson(ctx, this.translate.currentLang).pipe(
           mergeMap((url) => {

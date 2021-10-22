@@ -762,18 +762,25 @@
           "DIGITAL_SIGNATURE": "Digital signature"
         }
       },
+      "SENDER_EMAIL": {
+        "LABEL": "Confirmation code sender email address",
+        "REQUIRED": "Please specify an email address",
+        "EMAIL_INVALID": "Please specify a valid email address"
+      },
       "CALLBACK": {
         "LABEL": "Callback URL"
       },
       "IFRAME_ORIGIN": {
         "LABEL": "Parent window domain"
       },
-      "NOTIFICATION_RECIPIENT": {
-        "NOTIFY_CHECKBOX_LABEL": "I would like to notify the user by email following the submission of the form",
-        "LABEL": "Email recipient",
-        "REQUIRED": "Please specify the email address",
-        "EMAIL_INVALID": "Please specify a valid email address",
+      "NOTIFY": {
+        "NOTIFY_CHECKBOX_LABEL": "Notify the user by email after the submission of the form",
         "MODEL_REQUIRED": "Please select an email model"
+      },
+      "USER_EMAIL": {
+        "LABEL": "Customer email address",
+        "REQUIRED": "Please specify an email address",
+        "EMAIL_INVALID": "Please specify a valid email address"
       },
       "THEME": {
         "LABEL": "Theme (optional)",
