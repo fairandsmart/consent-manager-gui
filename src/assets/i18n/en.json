@@ -740,15 +740,6 @@
           "DOWNLOAD": "Download"
         }
       },
-      "RECEIPT_FORMAT": {
-        "LABEL": "Receipt format",
-        "VALUES": {
-          "TEXT/HTML": "HTML page",
-          "APPLICATION/XML": "XML file",
-          "APPLICATION/PDF": "PDF file",
-          "TEXT/PLAIN": "Plain text"
-        }
-      },
       "CONFIRMATION_TYPE": {
         "LABEL": "Confirmation method",
         "VALUES": {
