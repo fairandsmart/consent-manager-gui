@@ -46,8 +46,7 @@ import {
   ModelEntryDto,
   ModelEntryHelper,
   ModelEntryStatus,
-  ModelFilter,
-  RECEIPT_DISPLAY_TYPES
+  ModelFilter
 } from '@fairandsmart/consent-manager/models';
 import {
   Confirmation,
@@ -196,7 +195,6 @@ export class CollectFormCreatorPageComponent implements OnInit {
   public readonly ICONS = Icons;
   public readonly STEPS = FORM_CREATOR_STEP;
   public readonly ORIENTATIONS = CONSENT_FORM_ORIENTATIONS;
-  public readonly RECEIPT_FORMATS = RECEIPT_DISPLAY_TYPES;
   public readonly VALIDITY_UNITS = ['D', 'W', 'M', 'Y'];
   public readonly CONFIRMATION_TYPES = CONFIRMATION_TYPES;
   public readonly CONFIRMATION = Confirmation;
@@ -263,7 +261,6 @@ export class CollectFormCreatorPageComponent implements OnInit {
         validity: [6, [Validators.required, Validators.min(1)]],
         validityUnit: ['M', [Validators.required]],
         validityVisible: [true],
-        desiredReceiptMimeType: ['text/html', [Validators.required]],
         callback: [''],
         iframeOrigin: [''],
         notify: [false],
@@ -441,7 +438,6 @@ export class CollectFormCreatorPageComponent implements OnInit {
         acceptAllText: formValue.acceptAllText,
         footerOnTop: formValue.footerOnTop,
         notification: formValue.notification,
-        desiredReceiptMimeType: formValue.desiredReceiptMimeType,
         validityVisible: formValue.validityVisible,
         elements: formValue.elements,
         orientation: formValue.orientation,

@@ -740,15 +740,6 @@
           "DOWNLOAD": "Télécharger"
         }
       },
-      "RECEIPT_FORMAT": {
-        "LABEL": "Format du reçu",
-        "VALUES": {
-          "TEXT/HTML": "Page HTML",
-          "APPLICATION/XML": "Fichier XML",
-          "APPLICATION/PDF": "Fichier PDF",
-          "TEXT/PLAIN": "Plein texte"
-        }
-      },
       "CONFIRMATION_TYPE": {
         "LABEL": "Méthode de confirmation",
         "VALUES": {
