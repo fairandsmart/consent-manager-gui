@@ -34,7 +34,7 @@ export class AceEditorComponent implements ControlValueAccessor, Validator {
   onChange;
   onTouched;
   onValidatorChange;
-  value: string = '';
+  value: '';
   init = false;
 
   registerOnChange(fn: any): void {
@@ -45,7 +45,7 @@ export class AceEditorComponent implements ControlValueAccessor, Validator {
     this.onTouched = fn;
   }
 
-  valueChange(value) {
+  valueChange(value): void {
     if (this.init && this.value !== value) {
       this.value = value;
       this.onChange(this.value);

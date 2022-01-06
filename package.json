@@ -12,7 +12,8 @@
     "maven-build": "ng build --configuration docker",
     "docker-build": "npm run maven-build",
     "maven-test": "ng test --code-coverage",
-    "docker-test": "npm run maven-test"
+    "docker-test": "npm run maven-test",
+    "sonar": "sonar-scanner"
   },
   "private": true,
   "dependencies": {
@@ -27,7 +28,7 @@
     "@angular/platform-browser": "^11.0.9",
     "@angular/platform-browser-dynamic": "^11.0.9",
     "@angular/router": "^11.0.9",
-    "@fairandsmart/consent-manager": "^1.2.7",
+    "@fairandsmart/consent-manager": "1.2.7",
     "@ngrx/effects": "^10.1.2",
     "@ngrx/store": "^10.1.2",
     "@ngx-translate/core": "^13.0.0",
@@ -63,7 +64,9 @@
     "karma-coverage": "~2.0.3",
     "karma-jasmine": "~4.0.0",
     "karma-jasmine-html-reporter": "^1.5.0",
+    "karma-sonarqube-unit-reporter": "^0.0.23",
     "protractor": "~7.0.0",
+    "sonar-scanner": "3.1.0",
     "ts-node": "~8.3.0",
     "tslint": "~6.1.3",
     "typescript": "~4.0.5"

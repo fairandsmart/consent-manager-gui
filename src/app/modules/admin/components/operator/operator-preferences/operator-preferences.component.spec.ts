@@ -41,7 +41,7 @@ describe('OperatorPreferencesComponent', () => {
     }));
 
     beforeEach(() => {
-      RightConsents.init({apiRoot: '', httpClient: () => new Observable()});
+        RightConsents.init({apiRoot: '', httpClient: () => new Observable()});
         fixture = TestBed.createComponent(OperatorPreferencesComponent);
         component = fixture.componentInstance;
         fixture.detectChanges();

@@ -6,6 +6,7 @@ module.exports = function (config) {
     basePath: '',
     frameworks: ['jasmine', '@angular-devkit/build-angular'],
     plugins: [
+      require('karma-sonarqube-unit-reporter'),
       require('karma-jasmine'),
       require('karma-chrome-launcher'),
       require('karma-jasmine-html-reporter'),
@@ -16,16 +17,21 @@ module.exports = function (config) {
       clearContext: false // leave Jasmine Spec Runner output visible in browser
     },
     coverageReporter: {
-      dir: require('path').join(__dirname, './coverage/consent-manager-gui'),
+      dir: require('path').join(__dirname, './reports'),
       reporters: [
-        { type: 'html', subdir: 'html' },
-        { type: 'cobertura', subdir: '.', file: 'cobertura-coverage.xml' },
-        {type: 'lcovonly', subdir: '.', file: 'lcov.info'},
-        { type: 'clover', subdir: '.', file: 'clover.xml' },
-        { type: 'text-summary', subdir: '.', file: 'text-summary.txt' }
+        {type: 'html', subdir: 'html'},
+        {type: 'cobertura', subdir: 'cobertura', file: 'cobertura-coverage.xml'},
+        {type: 'lcovonly', subdir: 'lcov', file: 'lcov.info'},
+        {type: 'clover', subdir: 'clover', file: 'clover.xml'},
+        {type: 'text-summary', subdir: 'coverage', file: 'summary.txt'}
       ]
     },
-    reporters: ['progress', 'kjhtml'],
+    reporters: ['progress', 'kjhtml', 'sonarqubeUnit', 'coverage'],
+    sonarQubeUnitReporter: {
+      sonarQubeVersion: 'LATEST',
+      outputFile: 'reports/ut/ut_report.xml',
+      useBrowserName: false
+    },
     port: 9876,
     colors: true,
     logLevel: config.LOG_INFO,

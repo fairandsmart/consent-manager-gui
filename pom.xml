@@ -26,6 +26,17 @@
         <version.npm>6.12.0</version.npm>
         <version.sortpom-maven-plugin>2.12.0</version.sortpom-maven-plugin>
         <version.versions-maven-plugin>2.8.1</version.versions-maven-plugin>
+
+        <sonar.sources>src</sonar.sources>
+        <sonar.tests>src</sonar.tests>
+        <sonar.exclusions>**/*.spec.ts,**/*test.ts,**/*.js</sonar.exclusions>
+        <sonar.test.inclusions>**/*.spec.ts,**/*test.ts</sonar.test.inclusions>
+        <sonar.coverage.exclusions>**/*.js,src/main.ts,src/polyfills.ts,**/*environment*.ts,**/*module.ts</sonar.coverage.exclusions>
+        <sonar.dependencyCheck.htmlReportPath>target/dependency-check-report.html</sonar.dependencyCheck.htmlReportPath>
+        <sonar.dependencyCheck.jsonReportPath>target/dependency-check-report.json</sonar.dependencyCheck.jsonReportPath>
+        <sonar.javascript.lcov.reportPaths>reports/lcov/lcov.info</sonar.javascript.lcov.reportPaths>
+        <sonar.testExecutionReportPaths>reports/ut/ut_report.xml</sonar.testExecutionReportPaths>
+
     </properties>
     <build>
         <plugins>
@@ -48,6 +59,9 @@
                 <configuration>
                     <filesets>
                         <fileset>
+                            <directory>coverage</directory>
+                        </fileset>
+                        <fileset>
                             <directory>dist</directory>
                         </fileset>
                         <fileset>
@@ -57,7 +71,7 @@
                             <directory>.scannerwork</directory>
                         </fileset>
                         <fileset>
-                            <directory>coverage</directory>
+                            <directory>reports</directory>
                         </fileset>
                     </filesets>
                 </configuration>
@@ -126,6 +140,16 @@
                         <phase>initialize</phase>
                         <configuration>
                             <arguments>install</arguments>
+                        </configuration>
+                    </execution>
+                    <execution>
+                        <id>npm lint</id>
+                        <goals>
+                            <goal>npm</goal>
+                        </goals>
+                        <phase>process-sources</phase>
+                        <configuration>
+                            <arguments>run lint</arguments>
                         </configuration>
                     </execution>
                     <execution>
