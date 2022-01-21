@@ -139,7 +139,7 @@
   "ENTRIES": {
     "TITLE": "Entries",
     "infos": {
-      "PANEL_TITLE": "Information",
+      "PANEL_TITLE": "Information library",
       "PANEL_DESCRIPTION_HTML": "<div>Here are the information you created.</div><div>This is meant to inform your users about your privacy policy, for example.</div><div>You can only create one information entry.</div>",
       "EMPTY": "First, add information..."
     },
@@ -465,6 +465,7 @@
         "SUBTITLES": {
           "TITLE": "Page title",
           "BODY": "Body",
+          "BEHAVIOUR": "Behaviour",
           "BUTTONS": "Buttons"
         },
         "TITLE": {
@@ -474,6 +475,9 @@
           "LABEL": "Terms and Conditions",
           "HINT": "Write your custom HTML or drop a HTML file",
           "AUTOCOMPLETE": "(toggle auto-completion with CTRL+SPACE or CMD+SPACE)"
+        },
+        "REFUSABLE": {
+          "LABEL": "These Terms and Conditions can be refused"
         },
         "IFRAME": {
           "TITLE": "Preview"
@@ -687,8 +691,12 @@
     "STEP_PREVIEW": "Preview",
     "BUTTON_LABEL_NEXT_STEP": "Next",
     "BUTTON_LABEL_PREVIOUS_STEP": "Previous",
-    "FORM_TYPE_ERROR": "You can't add conditions to a form containing processings or preferences. Click confirm to remove incompatible elements from the form.",
-    "CHANGE_FORM_TYPE": "Change the form type?",
+    "FORM_TYPE_ERROR": "You can't add conditions to a form containing processings, preferences or other conditions. Click confirm to remove incompatible elements from the form.",
+    "CHANGE_FORM_TYPE": "Change the form?",
+    "ADDED_PROCESSING": {
+      "WARNING": "Warning",
+      "INFORMATION_MANDATORY": "Informations are mandatory for forms containing processings."
+    },
     "FORM": {
       "TITLE": "Form creator",
       "ELEMENTS_PANEL_TITLE": {
@@ -696,7 +704,7 @@
         "elements": "Displayed processings and preferences"
       },
       "FOOTER_ON_TOP": {
-        "LABEL": "Always display the submit form button"
+        "LABEL": " The footer must always be visible (sticky positioning)"
       },
       "ACCEPT_ALL": {
         "DISPLAY": {
@@ -705,6 +713,15 @@
         "BUTTON_LABEL": {
           "LABEL": "\"Accept all\" button label"
         }
+      },
+      "SUBMIT_LABEL": {
+        "LABEL": "\"Submit\" button label"
+      },
+      "CANCELLABLE": {
+        "LABEL": "This form is cancellable"
+      },
+      "CANCEL_LABEL": {
+        "LABEL": "\"Cancel\" button label"
       },
       "SUBJECT": {
         "LABEL": "Customer ID",
@@ -757,6 +774,9 @@
         "LABEL": "Confirmation code sender email address",
         "REQUIRED": "Please specify an email address",
         "EMAIL_INVALID": "Please specify a valid email address"
+      },
+      "UPDATABLE": {
+        "LABEL": "Consents may be changed afterwards"
       },
       "CALLBACK": {
         "LABEL": "Callback URL"

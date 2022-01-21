@@ -8,6 +8,7 @@ export const environment: AppEnvironment = {
   authClientId: 'PUT_AUTH_CLIENTID_HERE',
   managerUrl: 'PUT_MANAGER_URI_HERE',
   managerPrivateUrl: 'PUT_MANAGER_PRIVATE_URI_HERE',
+  catalogUrl: 'http://localhost:8191',
   customization: {
     headerLogoUrl: 'PUT_HEADER_LOGO_URI_HERE',
     headerLogoStyle: 'PUT_HEADER_LOGO_STYLE_HERE',

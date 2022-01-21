@@ -42,7 +42,7 @@ describe('EntryInfoComponent', () => {
   }));
 
   beforeEach(() => {
-    RightConsents.init({apiRoot: '', httpClient: () => new Observable()});
+    RightConsents.init({apiRoot: '', httpClient: () => new Observable(), catalogRoot: ''});
     fixture = TestBed.createComponent(EntryInfoComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();

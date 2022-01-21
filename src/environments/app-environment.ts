@@ -7,6 +7,7 @@ export interface AppEnvironment {
   authClientId: string;
   managerUrl: string;
   managerPrivateUrl: string; // used by code snippets if they run on a specific private network
+  catalogUrl: string;
   customization: AppCustomization;
 }
 

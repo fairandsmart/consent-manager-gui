@@ -40,7 +40,7 @@ describe('DashboardPageComponent', () => {
   }));
 
   beforeEach(() => {
-    RightConsents.init({apiRoot: '', httpClient: () => new Observable()});
+    RightConsents.init({apiRoot: '', httpClient: () => new Observable(), catalogRoot: ''});
     fixture = TestBed.createComponent(DashboardPageComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();

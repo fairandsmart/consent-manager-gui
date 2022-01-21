@@ -26,6 +26,7 @@ import {
   listEntries,
   ModelDataType,
   ModelEntryDto,
+  setDefaultInfoModel,
   updateEntry,
   UpdateModelDto
 } from '@fairandsmart/consent-manager/models';
@@ -130,6 +131,9 @@ export class EntryEditorDialogComponent implements OnInit {
       );
     }
     obs.subscribe((entry) => {
+      if (entry.type === 'information') {
+        setDefaultInfoModel(entry.key, entry.key, entry.key).subscribe();
+      }
       this.dialogRef.close(entry);
     }, (err: HttpErrorResponse) => {
       console.error(err);
