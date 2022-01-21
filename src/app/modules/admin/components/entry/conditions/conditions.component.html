@@ -39,5 +39,10 @@
       <cm-ace-editor mode="html" [config]="ACE_OPTIONS" theme="eclipse" formControlName="body"></cm-ace-editor>
     </div>
 
+    <mat-card-subtitle>{{'ENTRIES.EDITOR.CONDITIONS.SUBTITLES.BEHAVIOUR' | translate}}</mat-card-subtitle>
+    <div class="checkbox-wrapper">
+      <mat-checkbox formControlName="refusable">{{'ENTRIES.EDITOR.CONDITIONS.REFUSABLE.LABEL' | translate}}</mat-checkbox>
+    </div>
+
   </form>
 </cm-entry-editor-container>

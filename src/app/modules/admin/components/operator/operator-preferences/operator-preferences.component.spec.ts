@@ -23,31 +23,31 @@ import { ConfigService } from '../../../../../core/services/config.service';
 import { RightConsents } from '@fairandsmart/consent-manager';
 
 describe('OperatorPreferencesComponent', () => {
-    let component: OperatorPreferencesComponent;
-    let fixture: ComponentFixture<OperatorPreferencesComponent>;
-    let configServiceStub: ConfigServiceStubSpec;
+  let component: OperatorPreferencesComponent;
+  let fixture: ComponentFixture<OperatorPreferencesComponent>;
+  let configServiceStub: ConfigServiceStubSpec;
 
-    beforeEach(waitForAsync(() => {
-        configServiceStub = new ConfigServiceStubSpec();
+  beforeEach(waitForAsync(() => {
+    configServiceStub = new ConfigServiceStubSpec();
 
-        TestBed.configureTestingModule({
-            declarations: [OperatorPreferencesComponent],
-            imports: [CoreTestingModule],
-            providers: [
-                {provide: ConfigService, useValue: configServiceStub}
-            ]
-        })
-            .compileComponents();
-    }));
+    TestBed.configureTestingModule({
+      declarations: [OperatorPreferencesComponent],
+      imports: [CoreTestingModule],
+      providers: [
+        {provide: ConfigService, useValue: configServiceStub}
+      ]
+    })
+      .compileComponents();
+  }));
 
-    beforeEach(() => {
-        RightConsents.init({apiRoot: '', httpClient: () => new Observable()});
-        fixture = TestBed.createComponent(OperatorPreferencesComponent);
-        component = fixture.componentInstance;
-        fixture.detectChanges();
-    });
+  beforeEach(() => {
+    RightConsents.init({apiRoot: '', httpClient: () => new Observable(), catalogRoot: ''});
+    fixture = TestBed.createComponent(OperatorPreferencesComponent);
+    component = fixture.componentInstance;
+    fixture.detectChanges();
+  });
 
-    it('should create', () => {
-        expect(component).toBeTruthy();
-    });
+  it('should create', () => {
+    expect(component).toBeTruthy();
+  });
 });

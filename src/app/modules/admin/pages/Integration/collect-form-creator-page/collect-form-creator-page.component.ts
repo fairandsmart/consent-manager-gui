@@ -191,6 +191,8 @@ export class CollectFormCreatorPageComponent implements OnInit {
   public safePreview: SafeHtml;
   private previousContext: ConsentContext;
   public currentStep: FORM_CREATOR_STEP;
+  public hasCondition = false;
+  public hasProcessing = false;
 
   public readonly ICONS = Icons;
   public readonly STEPS = FORM_CREATOR_STEP;
@@ -237,14 +239,13 @@ export class CollectFormCreatorPageComponent implements OnInit {
         const informationResponse = responses[informationIndexInResponse];
         if (informationResponse?.totalCount === 1 && ModelEntryHelper.hasActiveVersion(informationResponse.values[0])) {
           selected[this.informationConfig.id] = informationResponse.values;
-          this.informationConfig.draggingDisabled = true;
         }
         this.setSelectedElements(selected);
       })
     ).subscribe();
     this.form = this.fb.array([
       this.fb.group({
-        info: ['', [Validators.required, Validators.pattern(FIELD_VALIDATORS.key.pattern)]],
+        info: [[], [Validators.pattern(FIELD_VALIDATORS.key.pattern), Validators.maxLength(1)]],
         elements: [[], [Validators.required, Validators.pattern(FIELD_VALIDATORS.elementsKeys.pattern)]]
       }),
       this.fb.group({
@@ -252,6 +253,9 @@ export class CollectFormCreatorPageComponent implements OnInit {
         theme: ['', [Validators.pattern(FIELD_VALIDATORS.key.pattern)]],
         acceptAllVisible: [false, [Validators.required]],
         acceptAllText: [''],
+        submitText: [''],
+        cancellable: [false],
+        cancelText: [''],
         footerOnTop: [false, [Validators.required]],
         orientation: [FormLayoutOrientation.VERTICAL, [Validators.required]],
       }),
@@ -261,6 +265,7 @@ export class CollectFormCreatorPageComponent implements OnInit {
         validity: [6, [Validators.required, Validators.min(1)]],
         validityUnit: ['M', [Validators.required]],
         validityVisible: [true],
+        updatable: [true],
         callback: [''],
         iframeOrigin: [''],
         notify: [false],
@@ -282,6 +287,13 @@ export class CollectFormCreatorPageComponent implements OnInit {
       this.form.at(FORM_CREATOR_STEP.PREVIEW).get('theme').valueChanges,
       this.form.at(FORM_CREATOR_STEP.PREVIEW).get('acceptAllVisible').valueChanges,
       this.form.at(FORM_CREATOR_STEP.PREVIEW).get('acceptAllText').valueChanges.pipe(
+        debounceTime(500)
+      ),
+      this.form.at(FORM_CREATOR_STEP.PREVIEW).get('submitText').valueChanges.pipe(
+        debounceTime(500)
+      ),
+      this.form.at(FORM_CREATOR_STEP.PREVIEW).get('cancellable').valueChanges,
+      this.form.at(FORM_CREATOR_STEP.PREVIEW).get('cancelText').valueChanges.pipe(
         debounceTime(500)
       ),
       this.form.at(FORM_CREATOR_STEP.PREVIEW).get('footerOnTop').valueChanges,
@@ -316,6 +328,7 @@ export class CollectFormCreatorPageComponent implements OnInit {
       this.updateEmailValidators(this.form.at(FORM_CREATOR_STEP.OPTIONS).get('notification').value
         || confirmation === Confirmation.EMAIL_CODE);
     });
+    this.form.at(FORM_CREATOR_STEP.PREVIEW).get('cancellable').valueChanges.subscribe((value) => this.updateCancellable(value));
   }
 
   updateEmailValidators(isRequired: boolean): void {
@@ -330,7 +343,8 @@ export class CollectFormCreatorPageComponent implements OnInit {
 
   elementDropped(event: CdkDragDrop<ModelEntryDto[]>): void {
     if ((event.item.data.type === this.conditionsConfig.id && this.selectedElements.elements.length > 0) ||
-      event.item.data.type !== this.conditionsConfig.id && this.selectedElements.elements.find((elem) => elem.type === 'conditions')) {
+      event.item.data.type !== this.conditionsConfig.id && event.item.data.type !== 'information'
+      && this.selectedElements.elements.find((elem) => elem.type === 'conditions')) {
       this.dialog.open(ConfirmDialogComponent, {
         data: {
           content: this.translate.instant('FORM_CREATOR.FORM_TYPE_ERROR'),
@@ -395,6 +409,7 @@ export class CollectFormCreatorPageComponent implements OnInit {
       this.updateAcceptAll();
     }
     if (this.currentStep === FORM_CREATOR_STEP.PREVIEW) {
+      this.updateCancellable(this.form.at(FORM_CREATOR_STEP.PREVIEW).get('cancellable').value);
       this.preview();
     }
   }
@@ -420,6 +435,7 @@ export class CollectFormCreatorPageComponent implements OnInit {
     };
     return {
       subject: formValue.subject,
+      updatable: formValue.updatable,
       callback: formValue.callback,
       iframeOrigin: formValue.iframeOrigin,
       validity: CollectFormCreatorPageComponent.formatValidity(formValue.validity, formValue.validityUnit),
@@ -437,11 +453,14 @@ export class CollectFormCreatorPageComponent implements OnInit {
         acceptAllVisible: formValue.acceptAllVisible,
         acceptAllText: formValue.acceptAllText,
         footerOnTop: formValue.footerOnTop,
+        submitText: formValue.submitText,
+        cancellable: formValue.cancellable,
+        cancelText: formValue.cancelText,
         notification: formValue.notification,
         validityVisible: formValue.validityVisible,
         elements: formValue.elements,
         orientation: formValue.orientation,
-        info: formValue.info,
+        info: formValue.info?.[0] || '',
         includeIFrameResizer: true,
       }
     };
@@ -450,9 +469,25 @@ export class CollectFormCreatorPageComponent implements OnInit {
   private setSelectedElements(selected: { [id: string]: ModelEntryDto[] }): void {
     this.selectedElements = selected;
     this.form.at(FORM_CREATOR_STEP.ELEMENTS).patchValue({
-      info: this.selectedElements.infos.map(e => e.key)?.[0] || '',
+      info: this.selectedElements.infos.map(e => e.key),
       elements: this.selectedElements.elements.map(e => e.key)
     });
+    this.hasCondition = this.selectedElements.elements.find(e => e.type === 'conditions') !== undefined;
+    const hadProcessingBefore = this.hasProcessing;
+    this.hasProcessing = this.selectedElements.elements.find(e => e.type === 'processing') !== undefined;
+    this.form.at(FORM_CREATOR_STEP.ELEMENTS).get('info').setValidators(this.hasProcessing ?
+      [Validators.required, Validators.pattern(FIELD_VALIDATORS.key.pattern), Validators.maxLength(1)]
+      : [Validators.pattern(FIELD_VALIDATORS.key.pattern), Validators.maxLength(1)]);
+    this.form.at(FORM_CREATOR_STEP.ELEMENTS).get('info').updateValueAndValidity();
+    if (this.hasProcessing && !hadProcessingBefore) {
+      this.dialog.open(ConfirmDialogComponent, {
+        data: {
+          content: this.translate.instant('FORM_CREATOR.ADDED_PROCESSING.INFORMATION_MANDATORY'),
+          title: this.translate.instant('FORM_CREATOR.ADDED_PROCESSING.WARNING'),
+          hideCancel: true,
+        }
+      });
+    }
     this.updateAcceptAll();
   }
 
@@ -520,4 +555,11 @@ export class CollectFormCreatorPageComponent implements OnInit {
       this.form.at(FORM_CREATOR_STEP.PREVIEW).get('acceptAllVisible').disable();
     }
   }
-}
+
+  private updateCancellable(value): void {
+    if (value) {
+      this.form.at(FORM_CREATOR_STEP.PREVIEW).get('cancelText').enable();
+    } else {
+      this.form.at(FORM_CREATOR_STEP.PREVIEW).get('cancelText').disable();
+    }
+  }}

@@ -37,7 +37,7 @@ describe('OperatorConditionsComponent', () => {
 
   beforeEach(() => {
 
-    RightConsents.init({apiRoot: '', httpClient: () => new Observable()});
+    RightConsents.init({apiRoot: '', httpClient: () => new Observable(), catalogRoot: ''});
     fixture = TestBed.createComponent(OperatorConditionsComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();

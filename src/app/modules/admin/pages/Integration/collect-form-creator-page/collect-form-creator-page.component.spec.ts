@@ -44,7 +44,7 @@ describe('CollectFormCreatorPageComponent', () => {
   }));
 
   beforeEach(() => {
-    RightConsents.init({apiRoot: '', httpClient: () => new Observable()});
+    RightConsents.init({apiRoot: '', httpClient: () => new Observable(), catalogRoot: ''});
     fixture = TestBed.createComponent(CollectFormCreatorPageComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();

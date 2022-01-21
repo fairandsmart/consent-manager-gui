@@ -139,7 +139,7 @@
   "ENTRIES": {
     "TITLE": "Éléments",
     "infos": {
-      "PANEL_TITLE": "Informations",
+      "PANEL_TITLE": "Bibliothèque d'informations",
       "PANEL_DESCRIPTION_HTML": "<div>Voici les informations que vous avez paramétrées.</div><div>Cela permet d'informer vos utilisateurs de votre politique de confidentialité, par exemple.</div><div>Vous ne pouvez en créer qu'un seul modèle.</div>",
       "EMPTY": "Commencez par spécifier des informations..."
     },
@@ -465,6 +465,7 @@
         "SUBTITLES": {
           "TITLE": "Titre de la page",
           "BODY": "Corps",
+          "BEHAVIOUR": "Comportement",
           "BUTTONS": "Boutons"
         },
         "TITLE": {
@@ -474,6 +475,9 @@
           "LABEL": "CGU/CGS",
           "HINT": "Renseignez votre contenu HTML ou déposez un fichier HTML",
           "AUTOCOMPLETE": "(profitez de l'auto-complétion grâce à CTRL+ESPACE ou CMD+ESPACE)"
+        },
+        "REFUSABLE": {
+          "LABEL": "Ces CGU peuvent être refusées"
         },
         "IFRAME": {
           "TITLE": "Prévisualisation"
@@ -687,8 +691,12 @@
     "STEP_PREVIEW": "Prévisualisation",
     "BUTTON_LABEL_NEXT_STEP": "Suivant",
     "BUTTON_LABEL_PREVIOUS_STEP": "Précédent",
-    "FORM_TYPE_ERROR": "Vous ne pouvez pas ajouter de conditions avec des traitements ou des préférences. Confirmez pour retirer les éléments non compatibles.",
-    "CHANGE_FORM_TYPE": "Modifier le type de formulaire ?",
+    "FORM_TYPE_ERROR": "Vous ne pouvez pas ajouter de conditions avec des traitements, des préférences ou d'autres conditions. Confirmez pour retirer les éléments non compatibles.",
+    "CHANGE_FORM_TYPE": "Modifier le formulaire ?",
+    "ADDED_PROCESSING": {
+      "WARNING": "Attention",
+      "INFORMATION_MANDATORY": "Les formulaires contenant des traitements doivent obligatoirement posséder des informations."
+    },
     "FORM": {
       "TITLE": "Génération du formulaire de consentement",
       "ELEMENTS_PANEL_TITLE": {
@@ -696,7 +704,7 @@
         "elements": "Traitements et préférences affichés"
       },
       "FOOTER_ON_TOP": {
-        "LABEL": "Toujours afficher le bouton de soumission du formulaire"
+        "LABEL": " Le pied de page doit toujours être visible (positionnement adhérent)"
       },
       "ACCEPT_ALL": {
         "DISPLAY": {
@@ -705,6 +713,15 @@
         "BUTTON_LABEL": {
           "LABEL": "Libellé du bouton \"Tout accepter\""
         }
+      },
+      "SUBMIT_LABEL": {
+        "LABEL": "Libellé du bouton \"Soumettre\""
+      },
+      "CANCELLABLE": {
+        "LABEL": "Ce formulaire est annulable"
+      },
+      "CANCEL_LABEL": {
+        "LABEL": "Libellé du bouton \"Annuler\""
       },
       "SUBJECT": {
         "LABEL": "Identifiant du client",
@@ -757,6 +774,9 @@
         "LABEL": "Adresse email émettrice du code de confirmation",
         "REQUIRED": "Vous devez préciser une adresse email",
         "EMAIL_INVALID": "Vous devez préciser une adresse email valide"
+      },
+      "UPDATABLE": {
+        "LABEL": "Les consentements peuvent être modifiés"
       },
       "CALLBACK": {
         "LABEL": "URL de callback"

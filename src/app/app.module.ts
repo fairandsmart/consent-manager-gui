@@ -97,7 +97,8 @@ export class AppModule implements DoBootstrap {
       .then(() => {
         RightConsents.init({
           apiRoot: environment.managerUrl,
-          httpClient: this.createHttpClient()
+          httpClient: this.createHttpClient(),
+          catalogRoot: environment.catalogUrl,
         });
         return configService.init();
       })

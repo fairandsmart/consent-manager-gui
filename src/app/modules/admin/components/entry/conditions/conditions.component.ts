@@ -30,7 +30,6 @@ import { AceConfigInterface } from 'ngx-ace-wrapper';
 })
 export class ConditionsComponent extends EntryContentDirective<Conditions> implements OnInit {
 
-
   readonly ACE_OPTIONS: AceConfigInterface = {
     enableBasicAutocompletion: true,
     overwrite: false,
@@ -55,7 +54,8 @@ export class ConditionsComponent extends EntryContentDirective<Conditions> imple
     this.form = this.fb.group({
       type: [this.type, [Validators.required]],
       title: ['', [Validators.required]],
-      body: ['', [Validators.required]]
+      body: ['', [Validators.required]],
+      refusable: [false],
     });
     this.checkFormState();
   }
