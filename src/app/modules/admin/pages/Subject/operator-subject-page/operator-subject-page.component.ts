@@ -17,7 +17,7 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import {
   SubjectRecordApplyChangesDialogComponent,
-  SubjectRecordApplyChangesDialogData
+  SubjectRecordApplyChangesDialogDataOutput
 } from '../../../components/operator/subject-record-apply-changes-dialog/subject-record-apply-changes-dialog.component';
 import { MatDialog } from '@angular/material/dialog';
 import { TranslateService } from '@ngx-translate/core';
@@ -42,7 +42,12 @@ import {
   postSubmissionValuesHtml,
   UserInfosKeys
 } from '@fairandsmart/consent-manager/consents';
-import { ConsentOrigin, FormLayoutOrientation } from '@fairandsmart/consent-manager/models';
+import {
+  ConsentOrigin,
+  DefaultInfoTag,
+  FormLayoutOrientation,
+  listEntries
+} from '@fairandsmart/consent-manager/models';
 
 @Component({
   selector: 'cm-operator-subject-page',
@@ -88,7 +93,7 @@ export class OperatorSubjectPageComponent implements OnInit {
       this.records = {};
       this.operatorLog = [];
       this.reloadRecords();
-    }, (err) => {
+    }, () => {
       this.subject = {
         id: null,
         name: this.subjectName,
@@ -144,52 +149,60 @@ export class OperatorSubjectPageComponent implements OnInit {
   }
 
   submitLog(): void {
-    this.dialog.open<SubjectRecordApplyChangesDialogComponent, SubjectRecordApplyChangesDialogData>(
-      SubjectRecordApplyChangesDialogComponent,
-      {data: {recipient: this.subject.emailAddress}})
-      .afterClosed().subscribe((result) => {
-      if (result) {
-        const ctx: ConsentContext = {
-          layoutData: {
-            type: 'layout',
-            orientation: FormLayoutOrientation.VERTICAL,
-            existingElementsVisible: true,
-            elements: this.operatorLog.map(e => e.key),
-            includeIFrameResizer: true,
-            info: '',
-            notification: result.email,
-          },
-          origin: ConsentOrigin.OPERATOR,
-          subject: this.subject.name,
-          callback: '',
-          language: this.defaultLanguage,
-          userinfos: {},
-          attributes: {},
-          author: '',
-          confirmation: Confirmation.NONE
-        };
+    listEntries({types: ['information'], tags: [DefaultInfoTag.DEFAULT_INFO_OPERATOR]})
+      .subscribe((infos) => {
+        if (infos.totalCount === 0) {
+          console.error('Missing information');
+          throw new Error('Missing information');
+        } else {
+          this.dialog.open<SubjectRecordApplyChangesDialogComponent, SubjectRecordApplyChangesDialogDataOutput>(
+            SubjectRecordApplyChangesDialogComponent,
+            {data: {recipient: this.subject.emailAddress}})
+            .afterClosed().subscribe((result) => {
+            if (result) {
+              const ctx: ConsentContext = {
+                layoutData: {
+                  type: 'layout',
+                  orientation: FormLayoutOrientation.VERTICAL,
+                  existingElementsVisible: true,
+                  elements: this.operatorLog.map(e => e.key),
+                  includeIFrameResizer: true,
+                  info: infos.values[0].key,
+                  notification: result.email,
+                },
+                origin: ConsentOrigin.OPERATOR,
+                subject: this.subject.name,
+                callback: '',
+                language: this.defaultLanguage,
+                userinfos: {},
+                attributes: {},
+                author: '',
+                confirmation: Confirmation.NONE
+              };
 
-        if (result.email) {
-          ctx.userinfos[UserInfosKeys.EMAIL_KEY] = result.recipient;
+              if (result.email) {
+                ctx.userinfos[UserInfosKeys.EMAIL_KEY] = result.recipient;
+              }
+
+              createTransactionJson(ctx, this.translate.currentLang).pipe(
+                mergeMap((url) => {
+                  const values = {comment: result.comment};
+                  this.operatorLog.forEach(element => values[element.identifier] = element.value);
+                  const txid = url.split('?')[0].split('/').pop();
+                  return postSubmissionValuesHtml(txid, values);
+                })
+              ).subscribe(() => {
+                this.operatorLog = [];
+                this.reloadRecords();
+
+                if (this.subject.creationTimestamp <= 0) {
+                  getSubject(this.subject.name).subscribe((subject) => this.subject = subject);
+                }
+              });
+            }
+          });
         }
-
-        createTransactionJson(ctx, this.translate.currentLang).pipe(
-          mergeMap((url) => {
-            const values = { comment: result.comment };
-            this.operatorLog.forEach(element => values[element.identifier] = element.value);
-            const txid = url.split('?')[0].split('/').pop();
-            return postSubmissionValuesHtml(txid, values);
-          })
-        ).subscribe(() => {
-          this.operatorLog = [];
-          this.reloadRecords();
-
-          if (this.subject.creationTimestamp <= 0) {
-            getSubject(this.subject.name).subscribe((subject) => this.subject = subject);
-          }
-        });
-      }
-    });
+      });
   }
 
 }

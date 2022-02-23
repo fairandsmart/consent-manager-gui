@@ -16,11 +16,14 @@
 import { Component, Inject, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
-import * as _ from 'lodash';
 import { listEntries, ModelEntryDto, ModelEntryHelper } from '@fairandsmart/consent-manager/models';
 
-export interface SubjectRecordApplyChangesDialogData {
+export interface SubjectRecordApplyChangesDialogDataInput {
   recipient: string;
+}
+
+export interface SubjectRecordApplyChangesDialogDataOutput {
+  recipient?: string;
   email?: string;
   comment?: string;
 }
@@ -35,8 +38,8 @@ export class SubjectRecordApplyChangesDialogComponent implements OnInit {
   public form: FormGroup;
   public emails: ModelEntryDto[] = [];
 
-  constructor(private dialogRef: MatDialogRef<SubjectRecordApplyChangesDialogComponent, SubjectRecordApplyChangesDialogData>,
-              @Inject(MAT_DIALOG_DATA) public data: SubjectRecordApplyChangesDialogData,
+  constructor(private dialogRef: MatDialogRef<SubjectRecordApplyChangesDialogComponent, SubjectRecordApplyChangesDialogDataOutput>,
+              @Inject(MAT_DIALOG_DATA) public data: SubjectRecordApplyChangesDialogDataInput,
               private fb: FormBuilder) {}
 
   ngOnInit(): void {
@@ -74,7 +77,7 @@ export class SubjectRecordApplyChangesDialogComponent implements OnInit {
       return;
     }
     this.form.disable();
-    const result = _.cloneDeep(this.data);
+    const result: SubjectRecordApplyChangesDialogDataOutput = { comment: this.form.get('comment').value };
     if (this.form.get('notify').value) {
       result.recipient = this.form.get('recipient').value.trim();
       result.email = this.form.get('email').value.key;

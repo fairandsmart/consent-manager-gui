@@ -31,6 +31,9 @@ export class EntryCardComponent implements OnInit {
   @Input()
   entry: ModelEntryDto;
 
+  @Input()
+  info: ModelEntryDto;
+
   active: ModelVersionDto<any>;
 
   @Input()

@@ -16,26 +16,29 @@
 <div class="user-page">
   <div class="user-details">
     <mat-icon>account_circle</mat-icon>
-    <h3>{{username}}</h3>
+    <h3>{{ username }}</h3>
+  </div>
+  <div class="user-infos" *ngIf="infoVersion">
+    <cm-infos [infoVersion]="infoVersion"></cm-infos>
   </div>
   <div class="user-processing">
     <mat-card>
-      <h2>{{'USER.CONSENTS.TITLE' | translate}}</h2>
-      <p>{{'USER.CONSENTS.HINT' | translate}}</p>
-      <cm-entry-card [autoSave]="true"  [entry]="card.entry" [record]="card.record" *ngFor="let card of filterCards(data, 'conditions')"></cm-entry-card>
-      <cm-entry-card [autoSave]="true" [entry]="card.entry" [record]="card.record" *ngFor="let card of filterCards(data, 'processing')"></cm-entry-card>
+      <h2>{{ 'USER.CONSENTS.TITLE' | translate }}</h2>
+      <p>{{ 'USER.CONSENTS.HINT' | translate }}</p>
+      <cm-entry-card [autoSave]="true" [entry]="card.entry" [info]="infoEntry" [record]="card.record" *ngFor="let card of filterCards(data, 'conditions')"></cm-entry-card>
+      <cm-entry-card [autoSave]="true" [entry]="card.entry" [info]="infoEntry" [record]="card.record" *ngFor="let card of filterCards(data, 'processing')"></cm-entry-card>
     </mat-card>
   </div>
   <div class="user-preferences">
     <mat-card>
-      <h2>{{'USER.PREFERENCES.TITLE' | translate}}</h2>
-      <p>{{'USER.PREFERENCES.HINT' | translate}}</p>
-      <cm-entry-card (unsavedChanged)="updateUnsavedChanges()" [entry]="card.entry" [record]="card.record" *ngFor="let card of filterCards(data, 'preference')"></cm-entry-card>
+      <h2>{{ 'USER.PREFERENCES.TITLE' | translate }}</h2>
+      <p>{{ 'USER.PREFERENCES.HINT' | translate }}</p>
+      <cm-entry-card (unsavedChanged)="updateUnsavedChanges()" [entry]="card.entry" [info]="infoEntry" [record]="card.record" *ngFor="let card of filterCards(data, 'preference')"></cm-entry-card>
     </mat-card>
   </div>
 </div>
 <div class="save-toolbar" [ngClass]="{'visible': entriesWithUnsavedChanges?.length}">
-  <span>{{'USER.SAVE.UNSAVED_CHANGES' | translate}}</span>
-  <button mat-button (click)="resetChanges()">{{'USER.SAVE.RESET' | translate}}</button>
-  <button mat-raised-button color="primary" (click)="saveChanges()">{{'USER.SAVE.SAVE' | translate}}</button>
+  <span>{{ 'USER.SAVE.UNSAVED_CHANGES' | translate }}</span>
+  <button mat-button (click)="resetChanges()">{{ 'USER.SAVE.RESET' | translate }}</button>
+  <button mat-raised-button color="primary" (click)="saveChanges()">{{ 'USER.SAVE.SAVE' | translate }}</button>
 </div>

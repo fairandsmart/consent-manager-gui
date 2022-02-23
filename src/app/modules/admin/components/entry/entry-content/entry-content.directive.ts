@@ -159,7 +159,7 @@ export abstract class EntryContentDirective<T extends ModelData> extends FormSta
         this.alertService.error('ALERT.UNKNOWN_ERROR', err);
         return EMPTY;
       }),
-      map((entry) => {
+      map((entry: ModelEntryDto) => {
         this.entry = entry;
         this.setVersion(version);
         this.clearSavedState();
@@ -258,7 +258,7 @@ export abstract class EntryContentDirective<T extends ModelData> extends FormSta
         this.enableFormIfAllowed();
         return EMPTY;
       }),
-      mergeMap((version) => {
+      mergeMap((version: ModelVersionDto<T>) => {
         this.alertService.success('ALERT.ACTIVATION_SUCCESS');
         return this.updateVersion(version);
       })
@@ -296,7 +296,7 @@ export abstract class EntryContentDirective<T extends ModelData> extends FormSta
         this.enableFormIfAllowed();
         return EMPTY;
       }),
-      mergeMap((version) => this.updateVersion(version))
+      mergeMap((version: ModelVersionDto<T>) => this.updateVersion(version))
     ).subscribe(() => this.afterDeleteVersion());
   }
 
