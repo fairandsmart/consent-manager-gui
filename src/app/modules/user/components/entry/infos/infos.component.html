@@ -1,0 +1,49 @@
+<mat-card *ngIf="infos">
+  <h2 *ngIf="infos['title']">
+    {{ infos['title'] }}
+  </h2>
+  <mat-card-content>
+    <div class="user-infos-header" *ngIf="infos['header']">
+      {{ infos['header'] }}
+    </div>
+    <div class="user-infos-privacy" *ngIf="infos['privacyPolicyUrl']">
+      <a [href]="infos['privacyPolicyUrl']">
+        {{ infos['customPrivacyPolicyText'] ? infos['customPrivacyPolicyText'] : ('USER.PRIVACY_POLICY' | translate) }}
+      </a>
+    </div>
+    <div class="user-infos-privacy" *ngIf="infos['shortNoticeLinkVisible'] && infos['shortNoticeLink']">
+      <a [href]="infos['shortNoticeLink']">
+        {{ 'USER.SHORT_PRIVACY_POLICY' | translate }}
+      </a>
+    </div>
+    <mat-card class="user-infos-dataController" *ngIf="infos['dataControllerVisible'] && infos['dataController']">
+      <mat-card-content>
+        <div class="user-infos-controller">{{ 'USER.CONTROLLER_TITLE' | translate}}</div>
+        <div class="user-infos-company" *ngIf="infos['dataController']['company']">
+          {{ infos['dataController']['company'] }}
+        </div>
+        <div class="user-infos-info" *ngIf="infos['dataController']['info']">
+          {{ infos['dataController']['info'] }}
+        </div>
+        <div class="user-infos-address" *ngIf="infos['dataController']['address']">
+          {{ infos['dataController']['address'] }}
+        </div>
+        <div class="user-infos-email" *ngIf="infos['dataController']['email']">
+          {{ infos['dataController']['email'] }}
+        </div>
+        <div class="user-infos-phoneNumber" *ngIf="infos['dataController']['phoneNumber']">
+          {{ infos['dataController']['phoneNumber'] }}
+        </div>
+      </mat-card-content>
+    </mat-card>
+    <div class="user-infos-element" *ngIf="infos['scopeVisible'] && infos['scope']">
+      {{ infos['scope'] }}
+    </div>
+    <div class="user-infos-element" *ngIf="infos['jurisdictionVisible'] && infos['jurisdiction']">
+      {{ infos['jurisdiction'] }}
+    </div>
+    <div class="user-infos-element" *ngIf="infos['footer']">
+      {{ infos['footer'] }}
+    </div>
+  </mat-card-content>
+</mat-card>

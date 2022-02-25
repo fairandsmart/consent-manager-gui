@@ -25,7 +25,6 @@ import {
 import { Observable, of } from 'rxjs';
 import { catchError, tap } from 'rxjs/operators';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
-import { SubjectRecordApplyChangesDialogData } from '../subject-record-apply-changes-dialog/subject-record-apply-changes-dialog.component';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort, Sort } from '@angular/material/sort';
 import * as FileSaver from 'file-saver';
@@ -63,6 +62,11 @@ class SubjectRecordsHistoryDataSource extends CollectionDatasource<RecordDto, Re
 
 }
 
+export interface SubjectRecordsHistoryData {
+  subject: string;
+  records: RecordDto[];
+}
+
 @Component({
   selector: 'cm-subject-records-history',
   templateUrl: './subject-records-history.component.html',
@@ -94,8 +98,8 @@ export class SubjectRecordsHistoryComponent implements OnInit {
     direction: 'desc'
   };
 
-  constructor(private dialogRef: MatDialogRef<SubjectRecordsHistoryComponent, SubjectRecordApplyChangesDialogData>,
-              @Inject(MAT_DIALOG_DATA) public data: {subject: string, records: RecordDto[]}) {
+  constructor(private dialogRef: MatDialogRef<SubjectRecordsHistoryComponent, SubjectRecordsHistoryData>,
+              @Inject(MAT_DIALOG_DATA) public data: SubjectRecordsHistoryData) {
   }
 
   ngOnInit(): void {

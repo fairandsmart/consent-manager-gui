@@ -22,7 +22,14 @@ import { ConfigService } from '../../../../core/services/config.service';
 import { EntryCardComponent } from '../../components/entry/entry-card/entry-card.component';
 import { AlertService } from '../../../../core/services/alert.service';
 import { TranslateService } from '@ngx-translate/core';
-import { listEntries, ModelDataType, ModelEntryDto } from '@fairandsmart/consent-manager/models';
+import {
+  DefaultInfoTag,
+  getVersion,
+  listEntries,
+  ModelDataType,
+  ModelEntryDto,
+  ModelVersionDto
+} from '@fairandsmart/consent-manager/models';
 import { RecordDto, RecordsMap } from '@fairandsmart/consent-manager/records';
 import { listSubjectRecords } from '@fairandsmart/consent-manager/subjects';
 import { CollectionPage } from '@fairandsmart/consent-manager';
@@ -42,6 +49,9 @@ export class EntriesPageComponent implements OnInit, OnDestroy {
   @ViewChildren(EntryCardComponent)
   entriesComponents: QueryList<EntryCardComponent>;
   entriesWithUnsavedChanges: EntryCardComponent[];
+
+  infoEntry: ModelEntryDto;
+  infoVersion: ModelVersionDto;
 
   public elementsKeys: string[];
   public data: CardData[] = [];
@@ -65,9 +75,20 @@ export class EntriesPageComponent implements OnInit, OnDestroy {
           keys: this.elementsKeys,
           size: -1
         }),
+        listEntries({
+          types: ['information'],
+          tags: [DefaultInfoTag.DEFAULT_INFO_USER]
+        }),
         listSubjectRecords(this.keycloakService.getUsername())
       ]).pipe(
-        map(([entries, records]: [CollectionPage<ModelEntryDto>, RecordsMap]) => {
+        map(([entries, infos, records]: [CollectionPage<ModelEntryDto>, CollectionPage<ModelEntryDto>, RecordsMap]) => {
+          if (infos.totalCount > 0) {
+            this.infoEntry = infos.values[0];
+            getVersion(infos.values[0].id, _.last(infos.values[0].versions).id)
+              .subscribe((version) => {
+                this.infoVersion = version;
+              });
+          }
           this.elementsKeys.forEach((key) => {
             this.data.push({
               entry: entries.values.find(entry => entry.key === key),

@@ -23,6 +23,7 @@ import { ProcessingComponent } from './components/entry/processing/processing.co
 import { SharedModule } from '../../shared/shared.module';
 import { PreferenceComponent } from './components/entry/preference/preference.component';
 import { ConditionsComponent } from './components/entry/conditions/conditions.component';
+import { InfosComponent } from './components/entry/infos/infos.component';
 
 @NgModule({
   declarations: [
@@ -31,7 +32,8 @@ import { ConditionsComponent } from './components/entry/conditions/conditions.co
     EntryCardComponent,
     ProcessingComponent,
     PreferenceComponent,
-    ConditionsComponent
+    ConditionsComponent,
+    InfosComponent
   ],
   imports: [
     UserRoutingModule,

@@ -23,7 +23,13 @@ import { FormControl } from '@angular/forms';
 import { ConfigService } from '../../../../../core/services/config.service';
 import { CoreService } from '../../../../../core/services/core.service';
 import * as _ from 'lodash';
-import { ConsentOrigin, FormLayoutOrientation, ModelData, ModelEntryDto, ModelVersionDto } from '@fairandsmart/consent-manager/models';
+import {
+  ConsentOrigin,
+  FormLayoutOrientation,
+  ModelData,
+  ModelEntryDto,
+  ModelVersionDto
+} from '@fairandsmart/consent-manager/models';
 import { RecordDto } from '@fairandsmart/consent-manager/records';
 import {
   Confirmation,
@@ -39,6 +45,9 @@ export abstract class EntryCardContentDirective<T extends ModelData> implements 
 
   @Input()
   entry: ModelEntryDto;
+
+  @Input()
+  info: ModelEntryDto;
 
   @Input()
   version: ModelVersionDto<T>;
@@ -57,7 +66,9 @@ export abstract class EntryCardContentDirective<T extends ModelData> implements 
   changed: EventEmitter<void>;
 
   get hasUnsavedChange(): boolean {
-    if (this.autoSave) { return false; }
+    if (this.autoSave) {
+      return false;
+    }
     if (this.remoteValue === undefined) {
       const newValue = this.serializeValue();
       return (typeof newValue === 'object' && newValue !== null) || (typeof newValue === 'string' && newValue.length > 0);
@@ -90,6 +101,7 @@ export abstract class EntryCardContentDirective<T extends ModelData> implements 
   }
 
   abstract parseValue(): any;
+
   abstract serializeValue(): string;
 
   getData(): T {
@@ -151,7 +163,7 @@ export abstract class EntryCardContentDirective<T extends ModelData> implements 
       layoutData: {
         type: 'layout',
         orientation: FormLayoutOrientation.VERTICAL,
-        info: '',
+        info: this.info ? this.info.key : '',
         elements: [this.entry.key],
         existingElementsVisible: true,
         notification: '',
