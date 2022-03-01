@@ -254,7 +254,7 @@ export class CollectFormCreatorPageComponent implements OnInit {
         acceptAllVisible: [false, [Validators.required]],
         acceptAllText: [''],
         submitText: [''],
-        cancellable: [false],
+        cancelVisible: [false],
         cancelText: [''],
         footerOnTop: [false, [Validators.required]],
         orientation: [FormLayoutOrientation.VERTICAL, [Validators.required]],
@@ -292,7 +292,7 @@ export class CollectFormCreatorPageComponent implements OnInit {
       this.form.at(FORM_CREATOR_STEP.PREVIEW).get('submitText').valueChanges.pipe(
         debounceTime(500)
       ),
-      this.form.at(FORM_CREATOR_STEP.PREVIEW).get('cancellable').valueChanges,
+      this.form.at(FORM_CREATOR_STEP.PREVIEW).get('cancelVisible').valueChanges,
       this.form.at(FORM_CREATOR_STEP.PREVIEW).get('cancelText').valueChanges.pipe(
         debounceTime(500)
       ),
@@ -328,7 +328,7 @@ export class CollectFormCreatorPageComponent implements OnInit {
       this.updateEmailValidators(this.form.at(FORM_CREATOR_STEP.OPTIONS).get('notification').value
         || confirmation === Confirmation.EMAIL_CODE);
     });
-    this.form.at(FORM_CREATOR_STEP.PREVIEW).get('cancellable').valueChanges.subscribe((value) => this.updateCancellable(value));
+    this.form.at(FORM_CREATOR_STEP.PREVIEW).get('cancelVisible').valueChanges.subscribe((value) => this.updateCancellable(value));
   }
 
   updateEmailValidators(isRequired: boolean): void {
@@ -409,7 +409,7 @@ export class CollectFormCreatorPageComponent implements OnInit {
       this.updateAcceptAll();
     }
     if (this.currentStep === FORM_CREATOR_STEP.PREVIEW) {
-      this.updateCancellable(this.form.at(FORM_CREATOR_STEP.PREVIEW).get('cancellable').value);
+      this.updateCancellable(this.form.at(FORM_CREATOR_STEP.PREVIEW).get('cancelVisible').value);
       this.preview();
     }
   }
@@ -454,7 +454,7 @@ export class CollectFormCreatorPageComponent implements OnInit {
         acceptAllText: formValue.acceptAllText,
         footerOnTop: formValue.footerOnTop,
         submitText: formValue.submitText,
-        cancellable: formValue.cancellable,
+        cancelVisible: formValue.cancelVisible,
         cancelText: formValue.cancelText,
         notification: formValue.notification,
         validityVisible: formValue.validityVisible,

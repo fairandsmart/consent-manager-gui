@@ -68,6 +68,14 @@
         <mat-step [label]="'FORM_CREATOR.STEP_OPTIONS' | translate" [stepControl]="form.at(STEPS.OPTIONS)">
           <mat-card [formGroup]="getFormGroup(form, STEPS.OPTIONS)">
             <mat-card-content>
+              <mat-form-field appearance="fill">
+                <mat-label>{{'FORM_CREATOR.FORM.SUBJECT.LABEL' | translate}}</mat-label>
+                <input formControlName="subject" matInput required autocomplete="off" />
+                <mat-error *ngIf="form.hasError('required', [STEPS.OPTIONS, 'subject'])">
+                  {{'FORM_CREATOR.FORM.SUBJECT.REQUIRED' | translate }}
+                </mat-error>
+              </mat-form-field>
+
               <div class="consent-validity-wrapper">
                 <mat-form-field appearance="fill">
                   <mat-label>{{'FORM_CREATOR.FORM.VALIDITY.LABEL' | translate}}</mat-label>
@@ -125,14 +133,6 @@
                   {{'FORM_CREATOR.FORM.NOTIFY.MODEL_REQUIRED' | translate }}
                 </mat-error>
               </div>
-
-              <mat-form-field appearance="fill">
-                <mat-label>{{'FORM_CREATOR.FORM.SUBJECT.LABEL' | translate}}</mat-label>
-                <input formControlName="subject" matInput required autocomplete="off" />
-                <mat-error *ngIf="form.hasError('required', [STEPS.OPTIONS, 'subject'])">
-                  {{'FORM_CREATOR.FORM.SUBJECT.REQUIRED' | translate }}
-                </mat-error>
-              </mat-form-field>
 
               <ng-container formGroupName="userinfos">
                 <mat-form-field appearance="fill" *ngIf="form.at(STEPS.OPTIONS).get('notify').value || form.at(STEPS.OPTIONS).get('confirmation').value === CONFIRMATION.EMAIL_CODE">
@@ -195,15 +195,14 @@
         <input matInput formControlName="acceptAllText" autocomplete="off">
       </mat-form-field>
 
-      <div class="checkbox-wrapper">
-        <mat-checkbox formControlName="cancellable">{{'FORM_CREATOR.FORM.CANCELLABLE.LABEL' | translate}}</mat-checkbox>
-      </div>
-
       <mat-form-field appearance="outline">
         <mat-label>{{'FORM_CREATOR.FORM.SUBMIT_LABEL.LABEL' | translate}}</mat-label>
         <input matInput formControlName="submitText" autocomplete="off">
       </mat-form-field>
 
+      <div class="checkbox-wrapper">
+        <mat-checkbox formControlName="cancelVisible">{{'FORM_CREATOR.FORM.CANCELLABLE.LABEL' | translate}}</mat-checkbox>
+      </div>
       <mat-form-field appearance="outline">
         <mat-label>{{'FORM_CREATOR.FORM.CANCEL_LABEL.LABEL' | translate}}</mat-label>
         <input matInput formControlName="cancelText" autocomplete="off">
