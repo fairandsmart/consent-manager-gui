@@ -347,6 +347,17 @@
             </roles>
             <timezone>+1</timezone>
         </developer>
+        <developer>
+            <id>jbouton</id>
+            <name>Jérémy Bouton</name>
+            <email>jeremy.bouton@fairandsmart.com</email>
+            <organization>Fair And Smart</organization>
+            <organizationUrl>https://www.fairandsmart.com</organizationUrl>
+            <roles>
+                <role>developer</role>
+            </roles>
+            <timezone>+1</timezone>
+        </developer>
     </developers>
     <scm>
         <connection>scm:git:ssh://git@gitlab.fairandsmart.tech:10022/fairandsmart/${project.artifactId}</connection>
