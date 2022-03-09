@@ -20,8 +20,8 @@ import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import * as FileSaver from 'file-saver';
 import { ConfigService } from '../../../../../core/services/config.service';
 import { Icons } from '../../../../../core/models/common';
-import { getActiveVersion, listEntries, ModelEntryDto, ModelEntryStatus, Preference } from '@fairandsmart/consent-manager/models';
-import { ExtractionConfigDto, ExtractionResultDto, extractRecords, extractRecordsCsv } from '@fairandsmart/consent-manager/records';
+import { getActiveVersion, listEntries, ModelEntryDto, ModelEntryStatus, Preference } from '@fairandsmart/consents-ce/models';
+import { ExtractionConfigDto, ExtractionResultDto, extractRecords, extractRecordsCsv } from '@fairandsmart/consents-ce/records';
 
 @Component({
   selector: 'cm-interrogate-page',

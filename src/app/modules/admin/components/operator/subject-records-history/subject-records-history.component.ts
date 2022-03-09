@@ -21,15 +21,15 @@ import {
   RecordDto,
   RecordFilter,
   RecordStatus
-} from '@fairandsmart/consent-manager/records';
+} from '@fairandsmart/consents-ce/records';
 import { Observable, of } from 'rxjs';
 import { catchError, tap } from 'rxjs/operators';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort, Sort } from '@angular/material/sort';
 import * as FileSaver from 'file-saver';
-import { CollectionPage } from '@fairandsmart/consent-manager';
-import { getReceiptPdf } from '@fairandsmart/consent-manager/receipts';
+import { CollectionPage } from '@fairandsmart/consents-ce';
+import { getReceiptPdf } from '@fairandsmart/consents-ce/receipts';
 
 class SubjectRecordsHistoryDataSource extends CollectionDatasource<RecordDto, RecordFilter> {
 

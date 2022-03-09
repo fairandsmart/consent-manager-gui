@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Subject } from 'rxjs';
 import { map } from 'rxjs/operators';
-import { listEntries, ModelEntryHelper } from '@fairandsmart/consent-manager/models';
+import { listEntries, ModelEntryHelper } from '@fairandsmart/consents-ce/models';
 
 @Injectable({
   providedIn: 'root'

@@ -14,7 +14,7 @@
  * #L%
  */
 import {CollectionViewer, DataSource} from '@angular/cdk/collections';
-import { Key, listKeys } from '@fairandsmart/consent-manager/keys';
+import { Key, listKeys } from '@fairandsmart/consents-ce/keys';
 import {BehaviorSubject, Observable, of} from 'rxjs';
 import {catchError, filter, skip, takeUntil} from 'rxjs/operators';
 

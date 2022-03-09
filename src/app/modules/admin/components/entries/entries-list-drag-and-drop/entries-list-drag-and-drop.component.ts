@@ -14,7 +14,7 @@
  * #L%
  */
 import { Component, forwardRef, Input, OnInit } from '@angular/core';
-import { ModelEntryDto, ModelEntryHelper } from '@fairandsmart/consent-manager/models';
+import { ModelEntryDto, ModelEntryHelper } from '@fairandsmart/consents-ce/models';
 import { CdkDragDrop, transferArrayItem } from '@angular/cdk/drag-drop';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { EntriesListComponent } from '../entries-list/entries-list.component';

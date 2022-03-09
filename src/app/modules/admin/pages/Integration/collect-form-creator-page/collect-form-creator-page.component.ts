@@ -47,7 +47,7 @@ import {
   ModelEntryHelper,
   ModelEntryStatus,
   ModelFilter
-} from '@fairandsmart/consent-manager/models';
+} from '@fairandsmart/consents-ce/models';
 import {
   Confirmation,
   CONFIRMATION_TYPES,
@@ -56,7 +56,7 @@ import {
   createTransactionJson,
   getSubmitFormPreview,
   UserInfosKeys
-} from '@fairandsmart/consent-manager/consents';
+} from '@fairandsmart/consents-ce/consents';
 import { HttpHeaders } from '@angular/common/http';
 
 enum FORM_CREATOR_STEP {

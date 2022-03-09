@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ModelVersionType } from '@fairandsmart/consent-manager/models';
+import { ModelVersionType } from '@fairandsmart/consents-ce/models';
 
 @Component({
   selector: 'cm-model-version-selector',

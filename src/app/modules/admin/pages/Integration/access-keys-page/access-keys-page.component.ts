@@ -15,7 +15,7 @@
  */
 import { AfterViewInit, Component, Inject, OnInit } from '@angular/core';
 import { MAT_DIALOG_DATA, MatDialog } from '@angular/material/dialog';
-import { createKey, deleteKey, Key } from '@fairandsmart/consent-manager/keys';
+import { createKey, deleteKey, Key } from '@fairandsmart/consents-ce/keys';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { AlertService } from '../../../../../core/services/alert.service';
 import { MatSnackBar } from '@angular/material/snack-bar';

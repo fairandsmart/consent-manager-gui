@@ -15,14 +15,14 @@
  */
 import { AfterViewInit, Component, OnInit } from '@angular/core';
 import { EntryContentDirective } from '../entry-content/entry-content.directive';
-import { LOGO_POSITIONS, LogoPosition, PreviewDto, Theme } from '@fairandsmart/consent-manager/models';
+import { LOGO_POSITIONS, LogoPosition, PreviewDto, Theme } from '@fairandsmart/consents-ce/models';
 import { FormBuilder, Validators } from '@angular/forms';
 import { AlertService } from '../../../../../core/services/alert.service';
 import { TranslateService } from '@ngx-translate/core';
 import { ConfigService } from '../../../../../core/services/config.service';
 import { MatDialog } from '@angular/material/dialog';
 import { AceConfigInterface } from 'ngx-ace-wrapper';
-import { CSS_HINTS } from '@fairandsmart/consent-manager/css-autocomplete';
+import { CSS_HINTS } from '@fairandsmart/consents-ce/css-autocomplete';
 // @ts-ignore
 import ace from 'brace';
 

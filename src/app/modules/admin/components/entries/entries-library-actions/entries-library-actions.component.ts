@@ -15,7 +15,7 @@
  */
 import { AfterViewInit, Component, EventEmitter, Input, OnInit, Output, ViewChild } from '@angular/core';
 import { SectionConfig } from '../entries-library/entries-library.component';
-import { ModelEntryDto, ModelEntryStatus } from '@fairandsmart/consent-manager/models';
+import { ModelEntryDto, ModelEntryStatus } from '@fairandsmart/consents-ce/models';
 import { I18N_LANGUAGES } from '../../../../../core/constants/i18n';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { ConfigService } from '../../../../../core/services/config.service';

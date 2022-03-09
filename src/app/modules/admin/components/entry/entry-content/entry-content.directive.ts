@@ -34,8 +34,8 @@ import {
   ModelVersionType,
   PreviewDto,
   PreviewType
-} from '@fairandsmart/consent-manager/models';
-import { ModelsResource } from '@fairandsmart/consent-manager';
+} from '@fairandsmart/consents-ce/models';
+import { ModelsResource } from '@fairandsmart/consents-ce';
 import { MatDialog } from '@angular/material/dialog';
 import { ModelVersionSelectorComponent } from '../model-version-selector/model-version-selector.component';
 import { TranslateService } from '@ngx-translate/core';

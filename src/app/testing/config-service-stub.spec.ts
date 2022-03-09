@@ -14,7 +14,7 @@
  * #L%
  */
 
-import { ClientConfigDto } from '@fairandsmart/consent-manager/system';
+import { ClientConfigDto } from '@fairandsmart/consents-ce/system';
 
 export class ConfigServiceStubSpec {
 

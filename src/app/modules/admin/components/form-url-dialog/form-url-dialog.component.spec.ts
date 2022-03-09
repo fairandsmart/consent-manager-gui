@@ -22,7 +22,7 @@ import { ClipboardModule } from '@angular/cdk/clipboard';
 import { CoreTestingModule } from '../../../../testing/core-testing-module.spec';
 import createSpyObj = jasmine.createSpyObj;
 import SpyObj = jasmine.SpyObj;
-import { RightConsents } from '@fairandsmart/consent-manager';
+import { RightConsents } from '@fairandsmart/consents-ce';
 import { Observable } from 'rxjs';
 
 describe('FormUrlDialogComponent', () => {

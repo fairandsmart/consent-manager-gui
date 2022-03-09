@@ -29,7 +29,7 @@ import {
   setDefaultInfoModel,
   updateEntry,
   UpdateModelDto
-} from '@fairandsmart/consent-manager/models';
+} from '@fairandsmart/consents-ce/models';
 
 export interface EntryEditorDialogComponentData {
   entry: Partial<ModelEntryDto> & { type: ModelDataType };

@@ -22,7 +22,7 @@ import { CoreTestingModule } from '../../../../../testing/core-testing-module.sp
 import { RouterTestingModule } from '@angular/router/testing';
 import { ConfigServiceStubSpec } from '../../../../../testing/config-service-stub.spec';
 import { ConfigService } from '../../../../../core/services/config.service';
-import { ModelEntryStatus } from '@fairandsmart/consent-manager/models';
+import { ModelEntryStatus } from '@fairandsmart/consents-ce/models';
 import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 
 describe('PreferenceComponent', () => {

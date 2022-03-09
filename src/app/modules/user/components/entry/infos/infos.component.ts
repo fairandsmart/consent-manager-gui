@@ -1,6 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { TranslateService } from '@ngx-translate/core';
-import { Information, ModelVersionDto } from '@fairandsmart/consent-manager/models';
+import { Information, ModelVersionDto } from '@fairandsmart/consents-ce/models';
 import { ConfigService } from '../../../../../core/services/config.service';
 
 @Component({
@@ -25,7 +25,7 @@ export class InfosComponent implements OnInit {
 
   ngOnInit(): void {
     this.defaultLanguage = this.configService.getDefaultLanguage();
-    this.translate.onLangChange.subscribe((lang) => this.updateLang(lang));
+    this.translate.onLangChange.subscribe((lang) => this.updateLang(lang?.lang || 'fr'));
     this.updateLang(this.translate.currentLang);
   }
 

@@ -15,7 +15,7 @@
  */
 import { Component, OnInit } from '@angular/core';
 import { OperatorConsentListDirective } from '../operator-consent-list/operator-consent-list.directive';
-import { EntryRecord, RecordStatus } from '@fairandsmart/consent-manager/records';
+import { EntryRecord, RecordStatus } from '@fairandsmart/consents-ce/records';
 import {
   SubjectRecordEditorDialogComponent,
   SubjectRecordEditorDialogData

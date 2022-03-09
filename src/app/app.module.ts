@@ -36,7 +36,7 @@ import localeFr from '@angular/common/locales/fr';
 import { CoreModule } from './core/core.module';
 import {environment} from '../environments/environment';
 import { ConfigService } from './core/services/config.service';
-import { RcHttpClient, RcHttpClientConfig, RightConsents } from '@fairandsmart/consent-manager';
+import { RcHttpClient, RcHttpClientConfig, RightConsents } from '@fairandsmart/consents-ce';
 import { filter, map } from 'rxjs/operators';
 
 const keycloakService = new KeycloakService();
@@ -98,7 +98,6 @@ export class AppModule implements DoBootstrap {
         RightConsents.init({
           apiRoot: environment.managerUrl,
           httpClient: this.createHttpClient(),
-          catalogRoot: environment.catalogUrl,
         });
         return configService.init();
       })

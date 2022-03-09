@@ -29,10 +29,10 @@ import {
   ModelDataType,
   ModelEntryDto,
   ModelVersionDto
-} from '@fairandsmart/consent-manager/models';
-import { RecordDto, RecordsMap } from '@fairandsmart/consent-manager/records';
-import { listSubjectRecords } from '@fairandsmart/consent-manager/subjects';
-import { CollectionPage } from '@fairandsmart/consent-manager';
+} from '@fairandsmart/consents-ce/models';
+import { RecordDto, RecordsMap } from '@fairandsmart/consents-ce/records';
+import { listSubjectRecords } from '@fairandsmart/consents-ce/subjects';
+import { CollectionPage } from '@fairandsmart/consents-ce';
 
 interface CardData {
   entry: ModelEntryDto;

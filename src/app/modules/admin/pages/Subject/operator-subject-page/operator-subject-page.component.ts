@@ -33,21 +33,21 @@ import {
   listSubjectRecords,
   SubjectDto,
   updateSubject
-} from '@fairandsmart/consent-manager/subjects';
-import { OperatorLogElement, RecordsMap } from '@fairandsmart/consent-manager/records';
+} from '@fairandsmart/consents-ce/subjects';
+import { OperatorLogElement, RecordsMap } from '@fairandsmart/consents-ce/records';
 import {
   Confirmation,
   ConsentContext,
   createTransactionJson,
   postSubmissionValuesHtml,
   UserInfosKeys
-} from '@fairandsmart/consent-manager/consents';
+} from '@fairandsmart/consents-ce/consents';
 import {
   ConsentOrigin,
   DefaultInfoTag,
   FormLayoutOrientation,
   listEntries
-} from '@fairandsmart/consent-manager/models';
+} from '@fairandsmart/consents-ce/models';
 
 @Component({
   selector: 'cm-operator-subject-page',

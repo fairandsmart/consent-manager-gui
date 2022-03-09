@@ -14,7 +14,7 @@
  * #L%
  */
 import { ChangeDetectionStrategy, Component, HostBinding, Input, OnInit } from '@angular/core';
-import { ModelEntryDto, ModelEntryStatus } from '@fairandsmart/consent-manager/models';
+import { ModelEntryDto, ModelEntryStatus } from '@fairandsmart/consents-ce/models';
 
 @Component({
   selector: 'cm-entry-card',

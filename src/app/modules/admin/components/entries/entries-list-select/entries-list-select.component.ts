@@ -14,7 +14,7 @@
  * #L%
  */
 import { ChangeDetectionStrategy, Component, forwardRef, Input, OnInit } from '@angular/core';
-import { ModelEntryDto, ModelEntryHelper } from '@fairandsmart/consent-manager/models';
+import { ModelEntryDto, ModelEntryHelper } from '@fairandsmart/consents-ce/models';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { EntriesListComponent } from '../entries-list/entries-list.component';
 

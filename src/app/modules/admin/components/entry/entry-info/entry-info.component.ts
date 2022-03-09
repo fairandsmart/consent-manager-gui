@@ -23,14 +23,14 @@ import {
   ModelVersionDto,
   ModelVersionDtoLight,
   ModelVersionType,
-} from '@fairandsmart/consent-manager/models';
+} from '@fairandsmart/consents-ce/models';
 import { ConfirmDialogComponent } from '../../../../../core/components/confirm-dialog/confirm-dialog.component';
 import { filter, mergeMap } from 'rxjs/operators';
 import { ActivatedRoute, Router } from '@angular/router';
 import { AlertService } from '../../../../../core/services/alert.service';
 import { TranslateService } from '@ngx-translate/core';
 import { CoreService } from '../../../../../core/services/core.service';
-import { extractRecords } from '@fairandsmart/consent-manager/records';
+import { extractRecords } from '@fairandsmart/consents-ce/records';
 import * as _ from 'lodash';
 
 @Component({

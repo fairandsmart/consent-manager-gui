@@ -15,7 +15,7 @@
  */
 import { Component, Inject, OnInit } from '@angular/core';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
-import { SubjectDto } from '@fairandsmart/consent-manager/subjects';
+import { SubjectDto } from '@fairandsmart/consents-ce/subjects';
 import { FormControl, Validators } from '@angular/forms';
 import * as _ from 'lodash';
 

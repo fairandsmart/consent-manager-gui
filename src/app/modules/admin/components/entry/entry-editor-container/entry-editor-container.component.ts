@@ -14,7 +14,7 @@
  * #L%
  */
 import { Component, EventEmitter, Input, OnInit, Output, ViewChild } from '@angular/core';
-import { ModelEntryDto, ModelVersionDto, ModelVersionDtoLight } from '@fairandsmart/consent-manager/models';
+import { ModelEntryDto, ModelVersionDto, ModelVersionDtoLight } from '@fairandsmart/consents-ce/models';
 import { MatSidenav } from '@angular/material/sidenav';
 import { Observable } from 'rxjs';
 import { EntryPreviewComponent } from '../entry-preview/entry-preview.component';

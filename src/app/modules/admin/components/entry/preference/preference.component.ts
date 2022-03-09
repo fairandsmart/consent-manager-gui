@@ -15,7 +15,7 @@
  */
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { EntryContentDirective } from '../entry-content/entry-content.directive';
-import { Preference, PREFERENCE_VALUE_TYPES, PreferenceValueType } from '@fairandsmart/consent-manager/models';
+import { Preference, PREFERENCE_VALUE_TYPES, PreferenceValueType } from '@fairandsmart/consents-ce/models';
 import { FormBuilder, FormControl, Validators } from '@angular/forms';
 import { AlertService } from '../../../../../core/services/alert.service';
 import { MatChipInputEvent, MatChipList } from '@angular/material/chips';

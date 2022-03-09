@@ -14,7 +14,7 @@
  * #L%
  */
 import { environment } from '../../../environments/environment';
-import { ConsentContext } from '@fairandsmart/consent-manager/consents';
+import { ConsentContext } from '@fairandsmart/consents-ce/consents';
 
 export const CURL_SNIPPET =
 `curl '$$API_URL$$/consents/token' \\

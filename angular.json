@@ -39,7 +39,7 @@
               "keycloak-js",
               "file-saver",
               "js-sha256",
-              "@fairandsmart/consent-manager",
+              "@fairandsmart/consents-ce",
               "@angular/common/locales/fr",
               "chart.js",
               "brace-extra",

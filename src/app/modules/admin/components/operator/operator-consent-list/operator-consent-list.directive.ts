@@ -22,7 +22,7 @@ import {
   ModelFilter,
   ModelVersionDtoLight,
   ModelVersionStatus,
-} from '@fairandsmart/consent-manager/models';
+} from '@fairandsmart/consents-ce/models';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort, Sort } from '@angular/material/sort';
 import { map, tap } from 'rxjs/operators';
@@ -32,8 +32,8 @@ import * as _ from 'lodash';
 import { CoreService } from '../../../../../core/services/core.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { TranslateService } from '@ngx-translate/core';
-import { EntryRecord, OperatorLogElement, RecordsMap } from '@fairandsmart/consent-manager/records';
-import { CollectionPage } from '@fairandsmart/consent-manager';
+import { EntryRecord, OperatorLogElement, RecordsMap } from '@fairandsmart/consents-ce/records';
+import { CollectionPage } from '@fairandsmart/consents-ce';
 
 class SubjectRecordDataSource extends CollectionDatasource<EntryRecord, ModelFilter> {
 

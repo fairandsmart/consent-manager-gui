@@ -16,8 +16,8 @@
 import { Component, Inject, OnInit } from '@angular/core';
 import { FormControl } from '@angular/forms';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
-import { EntryRecord, OperatorLogElement } from '@fairandsmart/consent-manager/records';
-import { PreferenceValueType } from '@fairandsmart/consent-manager/models';
+import { EntryRecord, OperatorLogElement } from '@fairandsmart/consents-ce/records';
+import { PreferenceValueType } from '@fairandsmart/consents-ce/models';
 
 export interface SubjectRecordEditorDialogData {
   record: EntryRecord;

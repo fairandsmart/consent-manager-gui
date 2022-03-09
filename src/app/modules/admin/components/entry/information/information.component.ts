@@ -15,7 +15,7 @@
  */
 import { Component, OnInit } from '@angular/core';
 import { EntryContentDirective } from '../entry-content/entry-content.directive';
-import { Information, Controller } from '@fairandsmart/consent-manager/models';
+import { Information, Controller } from '@fairandsmart/consents-ce/models';
 import { FormBuilder, Validators } from '@angular/forms';
 import { AlertService } from '../../../../../core/services/alert.service';
 import { ConfigService } from '../../../../../core/services/config.service';

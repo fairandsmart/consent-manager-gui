@@ -15,8 +15,8 @@
  */
 import { Component, EventEmitter, Input, OnInit, Output, ViewChild } from '@angular/core';
 import { EntryCardContentDirective } from '../entry-card-content/entry-card-content.directive';
-import { getActiveVersion, ModelEntryDto, ModelVersionDto } from '@fairandsmart/consent-manager/models';
-import { RecordDto } from '@fairandsmart/consent-manager/records';
+import { getActiveVersion, ModelEntryDto, ModelVersionDto } from '@fairandsmart/consents-ce/models';
+import { RecordDto } from '@fairandsmart/consents-ce/records';
 
 @Component({
   selector: 'cm-entry-card',

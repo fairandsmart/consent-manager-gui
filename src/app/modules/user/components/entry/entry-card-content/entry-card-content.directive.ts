@@ -29,14 +29,14 @@ import {
   ModelData,
   ModelEntryDto,
   ModelVersionDto
-} from '@fairandsmart/consent-manager/models';
-import { RecordDto } from '@fairandsmart/consent-manager/records';
+} from '@fairandsmart/consents-ce/models';
+import { RecordDto } from '@fairandsmart/consents-ce/records';
 import {
   Confirmation,
   ConsentContext,
   createTransactionJson,
   postSubmissionValuesHtml
-} from '@fairandsmart/consent-manager/consents';
+} from '@fairandsmart/consents-ce/consents';
 
 @Directive()
 export abstract class EntryCardContentDirective<T extends ModelData> implements OnInit {

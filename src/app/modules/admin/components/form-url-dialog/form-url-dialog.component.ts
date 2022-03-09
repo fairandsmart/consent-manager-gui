@@ -15,7 +15,7 @@
  */
 import { Component, Inject } from '@angular/core';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
-import { ConsentContext } from '@fairandsmart/consent-manager/consents';
+import { ConsentContext } from '@fairandsmart/consents-ce/consents';
 import { getPhpSnippetFromContext } from '../../../../core/constants/php-snippet';
 import { getCurlSnippetFromContext } from '../../../../core/constants/curl-snippet';
 import { environment } from '../../../../../environments/environment';

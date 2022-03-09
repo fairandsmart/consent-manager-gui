@@ -18,7 +18,7 @@ import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { OperatorConditionsComponent } from './operator-conditions.component';
 import { Observable } from 'rxjs';
 import { CoreTestingModule } from '../../../../../testing/core-testing-module.spec';
-import { RightConsents } from '@fairandsmart/consent-manager';
+import { RightConsents } from '@fairandsmart/consents-ce';
 
 describe('OperatorConditionsComponent', () => {
   let component: OperatorConditionsComponent;

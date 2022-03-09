@@ -24,7 +24,7 @@ import { ActivatedRoute } from '@angular/router';
 import { Observable } from 'rxjs';
 import { ConfigServiceStubSpec } from '../../../../../testing/config-service-stub.spec';
 import { ConfigService } from '../../../../../core/services/config.service';
-import { RightConsents } from '@fairandsmart/consent-manager';
+import { RightConsents } from '@fairandsmart/consents-ce';
 
 describe('OperatorSubjectPageComponent', () => {
   let component: OperatorSubjectPageComponent;

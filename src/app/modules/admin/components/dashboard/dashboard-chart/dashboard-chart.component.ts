@@ -18,7 +18,7 @@ import * as _ from 'lodash';
 import { TranslateService } from '@ngx-translate/core';
 import {ChartOptions, ChartType} from 'chart.js';
 import {Colors} from 'ng2-charts';
-import { TimeScale, TIME_SCALES, StatsChart, StatsData } from '@fairandsmart/consent-manager/statistics';
+import { TimeScale, TIME_SCALES, StatsChart, StatsData } from '@fairandsmart/consents-ce/statistics';
 
 export type ChartConfig = {chartType: ChartType, chartOptions: ChartOptions};
 

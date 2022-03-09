@@ -15,7 +15,7 @@
  */
 import { Component, OnInit } from '@angular/core';
 import { EntryCardContentDirective } from '../entry-card-content/entry-card-content.directive';
-import { Conditions } from '@fairandsmart/consent-manager/models';
+import { Conditions } from '@fairandsmart/consents-ce/models';
 import { TranslateService } from '@ngx-translate/core';
 import { KeycloakService } from 'keycloak-angular';
 import { DomSanitizer, SafeHtml } from '@angular/platform-browser';

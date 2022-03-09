@@ -15,10 +15,10 @@
  */
 import { ChangeDetectionStrategy, Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { Observable } from 'rxjs';
-import { listEntries, ModelDataType, ModelEntryDto, ModelFilter } from '@fairandsmart/consent-manager/models';
+import { listEntries, ModelDataType, ModelEntryDto, ModelFilter } from '@fairandsmart/consents-ce/models';
 import { CollectionDatasource } from '../../../utils/collection-datasource';
 import { Icons } from '../../../../../core/models/common';
-import { CollectionPage } from '@fairandsmart/consent-manager';
+import { CollectionPage } from '@fairandsmart/consents-ce';
 
 export class ConsentElementEntryDataSource extends CollectionDatasource<ModelEntryDto, ModelFilter> {
 

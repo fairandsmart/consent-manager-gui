@@ -21,7 +21,7 @@ import { ChartsModule } from 'ng2-charts';
 import { RouterTestingModule } from '@angular/router/testing';
 import { CoreTestingModule } from '../../../../../testing/core-testing-module.spec';
 import { Observable } from 'rxjs';
-import { RightConsents } from '@fairandsmart/consent-manager';
+import { RightConsents } from '@fairandsmart/consents-ce';
 
 describe('DashboardPageComponent', () => {
   let component: DashboardPageComponent;

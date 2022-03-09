@@ -22,7 +22,7 @@ import { NO_ERRORS_SCHEMA } from '@angular/core';
 import { CoreTestingModule } from '../../../../../testing/core-testing-module.spec';
 import { ConfigServiceStubSpec } from '../../../../../testing/config-service-stub.spec';
 import { ConfigService } from '../../../../../core/services/config.service';
-import { RightConsents } from '@fairandsmart/consent-manager';
+import { RightConsents } from '@fairandsmart/consents-ce';
 
 describe('CollectFormCreatorPageComponent', () => {
   let component: CollectFormCreatorPageComponent;

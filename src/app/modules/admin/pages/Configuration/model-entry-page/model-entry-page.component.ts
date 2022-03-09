@@ -16,7 +16,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { map, mergeMap } from 'rxjs/operators';
-import { getEntry, getVersion, ModelEntryDto, ModelVersionDto } from '@fairandsmart/consent-manager/models';
+import { getEntry, getVersion, ModelEntryDto, ModelVersionDto } from '@fairandsmart/consents-ce/models';
 import { of } from 'rxjs';
 import * as _ from 'lodash';
 

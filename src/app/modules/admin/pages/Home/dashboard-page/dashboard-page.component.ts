@@ -14,7 +14,7 @@
  * #L%
  */
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { StatsChart, getStats } from '@fairandsmart/consent-manager/statistics';
+import { StatsChart, getStats } from '@fairandsmart/consents-ce/statistics';
 import { ChartConfig, DashboardChartComponent } from '../../../components/dashboard/dashboard-chart/dashboard-chart.component';
 import { DashboardTopTableComponent } from '../../../components/dashboard/dashboard-top-table/dashboard-top-table.component';
 import { DashboardNumbersComponent } from '../../../components/dashboard/dashboard-numbers/dashboard-numbers.component';

@@ -20,7 +20,7 @@ import { map } from 'rxjs/operators';
 import * as _ from 'lodash';
 import { TranslateService } from '@ngx-translate/core';
 import { AlertService } from './alert.service';
-import { ClientConfigDto, getClientConfig } from '@fairandsmart/consent-manager/system';
+import { ClientConfigDto, getClientConfig } from '@fairandsmart/consents-ce/system';
 
 @Injectable({
   providedIn: 'root'

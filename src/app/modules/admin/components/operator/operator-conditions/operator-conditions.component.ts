@@ -15,7 +15,7 @@
  */
 import { Component, OnInit } from '@angular/core';
 import { OperatorConsentListDirective } from '../operator-consent-list/operator-consent-list.directive';
-import { RecordStatus } from '@fairandsmart/consent-manager/records';
+import { RecordStatus } from '@fairandsmart/consents-ce/records';
 import { CoreService } from '../../../../../core/services/core.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { TranslateService } from '@ngx-translate/core';

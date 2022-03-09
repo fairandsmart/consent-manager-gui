@@ -25,7 +25,7 @@ import { CoreTestingModule } from '../../../../../testing/core-testing-module.sp
 import { AddMultipleOption } from '../entries-library/entries-library.component';
 import { ConfigServiceStubSpec } from '../../../../../testing/config-service-stub.spec';
 import { ConfigService } from '../../../../../core/services/config.service';
-import { RightConsents } from '@fairandsmart/consent-manager';
+import { RightConsents } from '@fairandsmart/consents-ce';
 
 describe('EntriesListComponent', () => {
   let component: EntriesListComponent;

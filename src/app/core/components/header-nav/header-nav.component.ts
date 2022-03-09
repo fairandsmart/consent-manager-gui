@@ -24,7 +24,7 @@ import { TranslateService } from '@ngx-translate/core';
 import { MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { environment } from '../../../../environments/environment';
 import { CoreService } from '../../services/core.service';
-import { listSubjects, SubjectDto } from '@fairandsmart/consent-manager/subjects';
+import { listSubjects, SubjectDto } from '@fairandsmart/consents-ce/subjects';
 
 @Component({
   selector: 'cm-header-nav',

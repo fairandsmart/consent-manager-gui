@@ -15,7 +15,7 @@
  */
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
-import { FormLayoutOrientation, PREVIEW_TYPES, PreviewType, } from '@fairandsmart/consent-manager/models';
+import { FormLayoutOrientation, PREVIEW_TYPES, PreviewType, } from '@fairandsmart/consents-ce/models';
 import { FormControl, Validators } from '@angular/forms';
 
 @Component({

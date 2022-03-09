@@ -14,7 +14,7 @@
  * #L%
  */
 import { environment } from '../../../environments/environment';
-import { ConsentContext } from '@fairandsmart/consent-manager/consents';
+import { ConsentContext } from '@fairandsmart/consents-ce/consents';
 export const PHP_SNIPPET =
 `<?php
 function getConfig()

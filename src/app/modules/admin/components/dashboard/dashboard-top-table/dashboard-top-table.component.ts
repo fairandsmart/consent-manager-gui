@@ -14,7 +14,7 @@
  * #L%
  */
 import { Component, Input, OnInit } from '@angular/core';
-import { StatsChart } from '@fairandsmart/consent-manager/statistics';
+import { StatsChart } from '@fairandsmart/consents-ce/statistics';
 
 interface TopRow {
   rank: number;

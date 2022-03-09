@@ -17,7 +17,7 @@ import { CollectionViewer, DataSource } from '@angular/cdk/collections';
 import { BehaviorSubject, Observable, of } from 'rxjs';
 import { MatPaginator } from '@angular/material/paginator';
 import { catchError, filter, first, skip, takeUntil, tap } from 'rxjs/operators';
-import { CollectionPage } from '@fairandsmart/consent-manager';
+import { CollectionPage } from '@fairandsmart/consents-ce';
 
 export abstract class CollectionDatasource<T, F> implements DataSource<T> {
 

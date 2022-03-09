@@ -21,7 +21,7 @@ import { ConfigServiceStubSpec } from '../../../../../testing/config-service-stu
 import { ConfigService } from '../../../../../core/services/config.service';
 import { AddMultipleOption } from '../entries-library/entries-library.component';
 import { RouterTestingModule } from '@angular/router/testing';
-import { ModelEntryStatus } from '@fairandsmart/consent-manager/models';
+import { ModelEntryStatus } from '@fairandsmart/consents-ce/models';
 
 describe('EntriesLibraryActionsComponent', () => {
   let component: EntriesLibraryActionsComponent;
