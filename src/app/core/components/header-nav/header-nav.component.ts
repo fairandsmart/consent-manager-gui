@@ -98,6 +98,6 @@ export class HeaderNavComponent implements OnInit {
   }
 
   getHomeUrl(): string {
-    return this.keycloak.isUserInRole('admin') ? '/admin/home' : '/user';
+    return this.keycloak.isUserInRole('admin') || this.keycloak.isUserInRole('operator') ? '/admin/home' : '/user';
   }
 }
