@@ -15,7 +15,12 @@
  */
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
-import { FormLayoutOrientation, PREVIEW_TYPES, PreviewType, } from '@fairandsmart/consents-ce/models';
+import {
+  CONSENT_FORM_ORIENTATIONS,
+  FormLayoutOrientation,
+  PREVIEW_TYPES,
+  PreviewType,
+} from '@fairandsmart/consents-ce/models';
 import { FormControl, Validators } from '@angular/forms';
 
 @Component({
@@ -26,7 +31,7 @@ import { FormControl, Validators } from '@angular/forms';
 export class EntryPreviewComponent implements OnInit {
 
   readonly PREVIEW_TYPES = PREVIEW_TYPES;
-  readonly ORIENTATIONS = FormLayoutOrientation;
+  readonly ORIENTATIONS = CONSENT_FORM_ORIENTATIONS;
 
   @Input()
   withControls = false;

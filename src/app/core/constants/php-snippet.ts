@@ -35,17 +35,31 @@ function getFormUrl()
     $context = [
         "subject" => "$$SUBJECT$$",
         "callback" => "$$CALLBACK$$",
+        "iframeOrigin" => "$$IFRAME_ORIGIN$$",
         "language" => "$$LANGUAGE$$",
+        "origin" => "$$ORIGIN$$",
         "validity" => "$$VALIDITY$$",
+        "updatable" => $$UPDATABLE$$,
+        "author" => "$$AUTHOR$$",
+        "confirmation" => "$$CONFIRMATION$$",
+        "attachFormReceipt" => $$ATTACH_FORM_RECEIPT$$,
         "layoutData" => [
           "type" => "layout",
-          "info" => "$$INFO$$",
-          "elements" => array($$ELEMENTS$$),
-          "includeIFrameResizer" => $$IFRAME$$,
-          "existingElementsVisible" => $$FORM_TYPE$$,
+          "info" => "$$LAYOUT_INFO$$",
+          "elements" => array($$LAYOUT_ELEMENTS$$),
+          "theme" => "$$LAYOUT_THEME$$",
+          "notification" => "$$LAYOUT_NOTIFICATION$$",
           "orientation" => "$$ORIENTATION$$",
-          "theme" => "$$THEME$$",
-         ]
+          "existingElementsVisible" => $$EXISTING_VISIBLE$$,
+          "validityVisible" => $$VALIDITY_VISIBLE$$,
+          "includeIFrameResizer" => $$IFRAME_RESIZER$$,
+          "acceptAllVisible" => $$ACCEPT_ALL_VISIBLE$$,
+          "acceptAllText" => "$$ACCEPT_ALL_TEXT$$",
+          "submitText" => "$$SUBMIT_TEXT$$",
+          "cancelVisible" => $$CANCEL_VISIBLE$$,
+          "cancelText" => "$$CANCEL_TEXT$$",
+          "footerOnTop" => $$STICKY_FOOTER$$,
+        ]
     ];
 
     $curl = curl_init();
@@ -99,13 +113,29 @@ export function getPhpSnippetFromContext(context: ConsentContext): string {
     .replace('$$PRIVATE_API_URL$$', environment.managerPrivateUrl)
     .replace('$$SUBJECT$$', context.subject)
     .replace('$$CALLBACK$$', context.callback)
+    .replace('$$IFRAME_ORIGIN$$', context.iframeOrigin)
     .replace('$$LANGUAGE$$', context.language)
+    .replace('$$ORIGIN$$', context.origin)
     .replace('$$VALIDITY$$', context.validity)
-    .replace('$$ELEMENTS$$', `"${context.layoutData.elements.join('","')}"`)
-    .replace('$$FORM_TYPE$$', String(context.layoutData.existingElementsVisible))
-    .replace('$$THEME$$', context.layoutData.theme)
-    .replace('$$IFRAME$$', String(context.layoutData.includeIFrameResizer))
+    .replace('$$UPDATABLE$$', String(context.updatable))
+    // .replace('$$USER_INFOS$$', context.userinfos) // TODO
+    // .replace('$$ATTRIBUTES$$', context.attributes) // TODO
+    .replace('$$AUTHOR$$', context.author)
+    .replace('$$CONFIRMATION$$', context.confirmation)
+    .replace('$$ATTACH_FORM_RECEIPT$$', String(context.attachFormReceipt))
+    .replace('$$LAYOUT_INFO$$', context.layoutData.info)
+    .replace('$$LAYOUT_ELEMENTS$$', `"${context.layoutData.elements.join('","')}"`)
+    .replace('$$LAYOUT_THEME$$', context.layoutData.theme)
+    .replace('$$LAYOUT_NOTIFICATION$$', context.layoutData.notification)
     .replace('$$ORIENTATION$$', context.layoutData.orientation)
-    .replace('$$INFO$$', context.layoutData.info)
+    .replace('$$EXISTING_VISIBLE$$', String(context.layoutData.existingElementsVisible))
+    .replace('$$VALIDITY_VISIBLE$$', String(context.layoutData.validityVisible))
+    .replace('$$IFRAME_RESIZER$$', String(context.layoutData.includeIFrameResizer))
+    .replace('$$ACCEPT_ALL_VISIBLE$$', String(context.layoutData.acceptAllVisible))
+    .replace('$$ACCEPT_ALL_TEXT$$', context.layoutData.acceptAllText)
+    .replace('$$SUBMIT_TEXT$$', context.layoutData.submitText)
+    .replace('$$CANCEL_VISIBLE$$', String(context.layoutData.cancelVisible))
+    .replace('$$CANCEL_TEXT$$', context.layoutData.cancelText)
+    .replace('$$STICKY_FOOTER$$', String(context.layoutData.footerOnTop))
     ;
 }
