@@ -52,7 +52,7 @@ describe('OperatorSubjectPageComponent', () => {
   }));
 
   beforeEach(() => {
-    RightConsents.init({apiRoot: '', httpClient: () => new Observable(), catalogRoot: ''});
+    RightConsents.init({apiRoot: '', httpClient: () => new Observable()});
     fixture = TestBed.createComponent(OperatorSubjectPageComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();

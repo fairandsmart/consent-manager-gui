@@ -47,7 +47,7 @@ describe('EmailComponent', () => {
   }));
 
   beforeEach(() => {
-    RightConsents.init({apiRoot: '', httpClient: () => new Observable(), catalogRoot: ''});
+    RightConsents.init({apiRoot: '', httpClient: () => new Observable()});
     fixture = TestBed.createComponent(EmailComponent);
     component = fixture.componentInstance;
     component.entry = {

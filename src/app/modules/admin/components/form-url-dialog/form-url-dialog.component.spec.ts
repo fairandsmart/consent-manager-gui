@@ -53,7 +53,7 @@ describe('FormUrlDialogComponent', () => {
   }));
 
   beforeEach(() => {
-    RightConsents.init({apiRoot: '', httpClient: () => new Observable(), catalogRoot: ''});
+    RightConsents.init({apiRoot: '', httpClient: () => new Observable()});
     fixture = TestBed.createComponent(FormUrlDialogComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();

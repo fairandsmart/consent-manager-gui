@@ -50,7 +50,7 @@ describe('EntriesListComponent', () => {
 
   beforeEach(() => {
 
-    RightConsents.init({apiRoot: '', httpClient: () => new Observable(), catalogRoot: ''});
+    RightConsents.init({apiRoot: '', httpClient: () => new Observable()});
     fixture = TestBed.createComponent(EntriesListComponent);
     component = fixture.componentInstance;
     component.section = {

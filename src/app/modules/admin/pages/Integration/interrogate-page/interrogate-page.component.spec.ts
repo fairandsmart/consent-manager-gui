@@ -43,7 +43,7 @@ describe('InterrogatePageComponent', () => {
   });
 
   beforeEach(() => {
-    RightConsents.init({apiRoot: '', httpClient: () => new Observable(), catalogRoot: ''});
+    RightConsents.init({apiRoot: '', httpClient: () => new Observable()});
     fixture = TestBed.createComponent(InterrogatePageComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
