@@ -15,11 +15,13 @@
  */
 import { Component, OnInit } from '@angular/core';
 import { OperatorConsentListDirective } from '../operator-consent-list/operator-consent-list.directive';
-import { RecordStatus } from '@fairandsmart/consents-ce/records';
+import { EntryRecord, RecordStatus } from '@fairandsmart/consents-ce/records';
 import { CoreService } from '../../../../../core/services/core.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { TranslateService } from '@ngx-translate/core';
 import { Icons } from '../../../../../core/models/common';
+import { SubjectRecordsHistoryComponent } from '../subject-records-history/subject-records-history.component';
+import { MatDialog } from '@angular/material/dialog';
 
 @Component({
   selector: 'cm-operator-conditions',
@@ -29,15 +31,14 @@ import { Icons } from '../../../../../core/models/common';
 export class OperatorConditionsComponent extends OperatorConsentListDirective implements OnInit {
 
   readonly ICONS = Icons;
-  public displayedColumns = [
-    'key', 'name', 'version', 'recordCreation', 'status'
-  ];
+  public displayedColumns = ['key', 'name', 'version', 'recordCreation', 'status', 'history'];
   public pageSizeOptions = [10, 25, 50];
 
   constructor(
     protected coreService: CoreService,
     protected snackBar: MatSnackBar,
-    protected translate: TranslateService
+    protected translate: TranslateService,
+    private dialog: MatDialog,
   ) {
     super(coreService, snackBar, translate);
   }
@@ -53,6 +54,16 @@ export class OperatorConditionsComponent extends OperatorConsentListDirective im
     } else {
       return '-';
     }
+  }
+
+  showHistory(element: EntryRecord): void {
+    this.dialog.open<SubjectRecordsHistoryComponent>(SubjectRecordsHistoryComponent, {
+      data: {subject: this.subject, records: this.records[element.key]?.slice().reverse()}
+    });
+  }
+
+  hasHistory(element: EntryRecord): boolean {
+    return this.records[element.key]?.length > 0;
   }
 
   getRecordStatus(element): string {
