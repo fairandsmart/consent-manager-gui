@@ -42,7 +42,6 @@ function getFormUrl()
         "updatable" => $$UPDATABLE$$,
         "author" => "$$AUTHOR$$",
         "confirmation" => "$$CONFIRMATION$$",
-        "attachFormReceipt" => $$ATTACH_FORM_RECEIPT$$,
         "layoutData" => [
           "type" => "layout",
           "info" => "$$LAYOUT_INFO$$",
@@ -122,7 +121,6 @@ export function getPhpSnippetFromContext(context: ConsentContext): string {
     // .replace('$$ATTRIBUTES$$', context.attributes) // TODO
     .replace('$$AUTHOR$$', context.author)
     .replace('$$CONFIRMATION$$', context.confirmation)
-    .replace('$$ATTACH_FORM_RECEIPT$$', String(context.attachFormReceipt))
     .replace('$$LAYOUT_INFO$$', context.layoutData.info)
     .replace('$$LAYOUT_ELEMENTS$$', `"${context.layoutData.elements.join('","')}"`)
     .replace('$$LAYOUT_THEME$$', context.layoutData.theme)
