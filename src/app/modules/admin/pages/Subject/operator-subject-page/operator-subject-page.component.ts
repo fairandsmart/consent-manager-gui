@@ -168,7 +168,6 @@ export class OperatorSubjectPageComponent implements OnInit {
                   elements: this.operatorLog.map(e => e.key),
                   includeIFrameResizer: true,
                   info: infos.values[0].key,
-                  notification: result.email,
                 },
                 origin: ConsentOrigin.OPERATOR,
                 subject: this.subject.name,
@@ -177,7 +176,9 @@ export class OperatorSubjectPageComponent implements OnInit {
                 userinfos: {},
                 attributes: {},
                 author: '',
-                confirmation: Confirmation.NONE
+                confirmation: Confirmation.NONE,
+                notification: result.email,
+                theme: '',
               };
 
               if (result.email) {

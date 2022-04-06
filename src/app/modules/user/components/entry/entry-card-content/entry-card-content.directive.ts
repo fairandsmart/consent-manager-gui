@@ -160,14 +160,14 @@ export abstract class EntryCardContentDirective<T extends ModelData> implements 
       origin: ConsentOrigin.USER,
       author: this.keycloakService.getUsername(),
       confirmation: Confirmation.NONE,
+      notification: '',
+      theme: '',
       layoutData: {
         type: 'layout',
         orientation: FormLayoutOrientation.VERTICAL,
         info: this.info ? this.info.key : '',
         elements: [this.entry.key],
         existingElementsVisible: true,
-        notification: '',
-        theme: '',
         includeIFrameResizer: true,
       }
     };

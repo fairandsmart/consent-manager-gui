@@ -42,12 +42,12 @@ function getFormUrl()
         "updatable" => $$UPDATABLE$$,
         "author" => "$$AUTHOR$$",
         "confirmation" => "$$CONFIRMATION$$",
+        "theme" => "$$LAYOUT_THEME$$",
+        "notification" => "$$LAYOUT_NOTIFICATION$$",
         "layoutData" => [
           "type" => "layout",
           "info" => "$$LAYOUT_INFO$$",
           "elements" => array($$LAYOUT_ELEMENTS$$),
-          "theme" => "$$LAYOUT_THEME$$",
-          "notification" => "$$LAYOUT_NOTIFICATION$$",
           "orientation" => "$$ORIENTATION$$",
           "existingElementsVisible" => $$EXISTING_VISIBLE$$,
           "validityVisible" => $$VALIDITY_VISIBLE$$,
@@ -121,10 +121,10 @@ export function getPhpSnippetFromContext(context: ConsentContext): string {
     // .replace('$$ATTRIBUTES$$', context.attributes) // TODO
     .replace('$$AUTHOR$$', context.author)
     .replace('$$CONFIRMATION$$', context.confirmation)
+    .replace('$$LAYOUT_THEME$$', context.theme)
+    .replace('$$LAYOUT_NOTIFICATION$$', context.notification)
     .replace('$$LAYOUT_INFO$$', context.layoutData.info)
     .replace('$$LAYOUT_ELEMENTS$$', `"${context.layoutData.elements.join('","')}"`)
-    .replace('$$LAYOUT_THEME$$', context.layoutData.theme)
-    .replace('$$LAYOUT_NOTIFICATION$$', context.layoutData.notification)
     .replace('$$ORIENTATION$$', context.layoutData.orientation)
     .replace('$$EXISTING_VISIBLE$$', String(context.layoutData.existingElementsVisible))
     .replace('$$VALIDITY_VISIBLE$$', String(context.layoutData.validityVisible))
