@@ -30,7 +30,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { AlertService } from '../../../../../core/services/alert.service';
 import { TranslateService } from '@ngx-translate/core';
 import { CoreService } from '../../../../../core/services/core.service';
-import { extractRecords } from '@fairandsmart/consents-ce/records';
+import { ExtractionConfigOperator, extractRecords } from '@fairandsmart/consents-ce/records';
 import * as _ from 'lodash';
 
 @Component({
@@ -68,13 +68,18 @@ export class EntryInfoComponent implements OnInit {
 
   ngOnInit(): void {
     extractRecords({
-        condition: {
-          key: this.entry?.key,
-          regexpValue: true,
-          value: '.*'
-        }
+        page: 0,
+        size: 10,
+        operator: ExtractionConfigOperator.AND,
+        conditions: [
+          {
+            key: this.entry?.key,
+            value: '.*',
+            regexpValue: true
+          }
+        ]
       }
-    ).subscribe(response => this.hasRecord = response.length > 0);
+    ).subscribe(response => this.hasRecord = response.totalCount > 0);
   }
 
   editEntry(): void {

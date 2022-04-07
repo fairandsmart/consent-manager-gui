@@ -704,7 +704,7 @@
         "elements": "Displayed processings and preferences"
       },
       "FOOTER_ON_TOP": {
-        "LABEL": " The footer must always be visible (sticky positioning)"
+        "LABEL": "The footer must always be visible (sticky positioning)"
       },
       "ACCEPT_ALL": {
         "DISPLAY": {
