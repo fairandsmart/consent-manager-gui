@@ -91,19 +91,58 @@
     <button mat-flat-button color="primary" type="submit">{{'COMMON.BUTTONS.SEARCH' | translate}}</button>
   </form>
 
-  <div *ngIf="records$ | async as records" class="table-wrapper mat-elevation-z2">
-    <table mat-table [dataSource]="records">
-      <mat-text-column name="subjectId" [headerText]="'INTERROGATE.SUBJECT_ID_HEADER' | translate"></mat-text-column>
-      <mat-text-column name="subjectName" [headerText]="'INTERROGATE.SUBJECT_NAME_HEADER' | translate"></mat-text-column>
-      <mat-text-column name="subjectEmail" [headerText]="'INTERROGATE.SUBJECT_EMAIL_HEADER' | translate"></mat-text-column>
-      <mat-text-column name="recordKey" [headerText]="'INTERROGATE.RECORD_KEY_HEADER' | translate"></mat-text-column>
-      <mat-text-column name="recordSerial" [headerText]="'INTERROGATE.RECORD_SERIAL_HEADER' | translate"></mat-text-column>
-      <mat-text-column name="recordValue" [headerText]="'INTERROGATE.RECORD_VALUE_HEADER' | translate"></mat-text-column>
+  <div class="table-wrapper mat-elevation-z2">
+    <div class="progress-bar-container" *ngIf="dataSource.loading$ | async">
+      <mat-progress-bar mode="indeterminate"></mat-progress-bar>
+    </div>
+
+    <table mat-table [dataSource]="dataSource">
+
+      <ng-container matColumnDef="subjectId">
+        <th mat-header-cell *matHeaderCellDef>{{'INTERROGATE.SUBJECT_ID_HEADER' | translate}}</th>
+        <td mat-cell *matCellDef="let element">{{element.subjectId}}</td>
+      </ng-container>
+
+      <ng-container matColumnDef="subjectName">
+        <th mat-header-cell *matHeaderCellDef>{{'INTERROGATE.SUBJECT_NAME_HEADER' | translate}}</th>
+        <td mat-cell *matCellDef="let element">{{element.subjectName}}</td>
+      </ng-container>
+
+      <ng-container matColumnDef="subjectEmail">
+        <th mat-header-cell *matHeaderCellDef>{{'INTERROGATE.SUBJECT_EMAIL_HEADER' | translate}}</th>
+        <td mat-cell *matCellDef="let element">{{element.subjectEmail}}</td>
+      </ng-container>
+
+      <ng-container matColumnDef="recordKey">
+        <th mat-header-cell *matHeaderCellDef>{{'INTERROGATE.RECORD_KEY_HEADER' | translate}}</th>
+        <td mat-cell *matCellDef="let element">{{element.records[0].recordKey}}</td>
+      </ng-container>
+
+      <ng-container matColumnDef="recordSerial">
+        <th mat-header-cell *matHeaderCellDef>{{'INTERROGATE.RECORD_SERIAL_HEADER' | translate}}</th>
+        <td mat-cell *matCellDef="let element">{{element.records[0].recordSerial}}</td>
+      </ng-container>
+
+      <ng-container matColumnDef="recordValue">
+        <th mat-header-cell *matHeaderCellDef>{{'INTERROGATE.RECORD_VALUE_HEADER' | translate}}</th>
+        <td mat-cell *matCellDef="let element">{{element.records[0].recordValue}}</td>
+      </ng-container>
 
       <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
       <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
     </table>
-    <div class="no-results" *ngIf="records.length === 0">{{'INTERROGATE.NO_RESULTS' | translate}}</div>
+
+    <div *ngIf="dataSource.response$ | async as response">
+      <div class="no-results" *ngIf="response.values.length === 0">
+        {{'INTERROGATE.NO_RESULTS' | translate}}
+      </div>
+    </div>
+
+    <mat-paginator [pageSizeOptions]="pageSizeOptions"
+                   [pageIndex]="filter.page"
+                   [pageSize]="filter.size"
+                   showFirstLastButtons></mat-paginator>
+
     <mat-toolbar>
       <mat-toolbar-row>
         <span fxFlex></span>

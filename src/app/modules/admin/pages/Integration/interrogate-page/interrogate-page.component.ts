@@ -13,15 +13,43 @@
  * files, or see https://www.fairandsmart.com/opensource/.
  * #L%
  */
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { Observable } from 'rxjs';
 import { map, tap } from 'rxjs/operators';
 import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import * as FileSaver from 'file-saver';
 import { ConfigService } from '../../../../../core/services/config.service';
 import { Icons } from '../../../../../core/models/common';
-import { getActiveVersion, listEntries, ModelEntryDto, ModelEntryStatus, Preference } from '@fairandsmart/consents-ce/models';
-import { ExtractionConfigDto, ExtractionResultDto, extractRecords, extractRecordsCsv } from '@fairandsmart/consents-ce/records';
+import {
+  getActiveVersion,
+  listEntries,
+  ModelEntryDto,
+  ModelEntryStatus,
+  Preference
+} from '@fairandsmart/consents-ce/models';
+import {
+  ExtractionConfigOperator,
+  ExtractionFilter,
+  ExtractionResultDto,
+  extractRecords,
+  extractRecordsCsv
+} from '@fairandsmart/consents-ce/records';
+import { CollectionDatasource } from '../../../utils/collection-datasource';
+import { CollectionPage } from '@fairandsmart/consents-ce';
+import * as _ from 'lodash';
+import { MatPaginator } from '@angular/material/paginator';
+
+export class ExtractionDataSource extends CollectionDatasource<ExtractionResultDto, ExtractionFilter> {
+
+  constructor() {
+    super();
+  }
+
+  protected getPage(pageFilter: ExtractionFilter): Observable<CollectionPage<ExtractionResultDto>> {
+    return extractRecords(pageFilter);
+  }
+
+}
 
 @Component({
   selector: 'cm-interrogate-page',
@@ -38,19 +66,35 @@ export class InterrogatePageComponent implements OnInit {
 
   options$: Observable<string[]>;
 
-  records$: Observable<ExtractionResultDto[]>;
+  @ViewChild(MatPaginator, {static: true})
+  public paginator: MatPaginator;
+
+  dataSource: ExtractionDataSource;
 
   form: FormGroup;
 
   emptyOptions: boolean;
-
-  private currentConfig: ExtractionConfigDto;
 
   readonly ICONS = Icons;
 
   readonly displayedColumns = ['subjectName', 'subjectEmail', 'recordKey', 'recordSerial', 'recordValue'];
 
   private readonly defaultLanguage;
+
+  public pageSizeOptions = [10, 25, 50];
+
+  public filter: ExtractionFilter = {
+    page: 0,
+    size: 25,
+    operator: ExtractionConfigOperator.AND,
+    conditions: [
+      {
+        key: '',
+        value: '',
+        regexpValue: false
+      }
+    ]
+  };
 
   constructor(
     private fb: FormBuilder,
@@ -60,6 +104,8 @@ export class InterrogatePageComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.dataSource = new ExtractionDataSource();
+    this.dataSource.paginator = this.paginator;
     this.form = this.fb.group({
       entry: [null, Validators.required],
       value: [''],
@@ -102,6 +148,13 @@ export class InterrogatePageComponent implements OnInit {
         };
       })
     );
+    this.paginator.page.pipe(
+      tap((e) => {
+        this.filter.size = e.pageSize;
+        this.filter.page = e.pageIndex;
+        this.dataSource.loadPage(this.filter);
+      })
+    ).subscribe();
   }
 
   search(): void {
@@ -122,14 +175,10 @@ export class InterrogatePageComponent implements OnInit {
       regexpValue = false;
       value = this.form.get('value').value;
     }
-    this.currentConfig = {
-      condition: {
-        key: this.form.get('entry').value.key,
-        value: value,
-        regexpValue: regexpValue
-      }
-    };
-    this.records$ = extractRecords(this.currentConfig);
+    this.filter.conditions[0].key = this.form.get('entry').value.key;
+    this.filter.conditions[0].value = value;
+    this.filter.conditions[0].regexpValue = regexpValue;
+    this.dataSource.loadPage(this.filter);
   }
 
   getValuesFormArray(): FormArray {
@@ -145,8 +194,11 @@ export class InterrogatePageComponent implements OnInit {
   }
 
   exportResults(): void {
-    extractRecordsCsv(this.currentConfig).subscribe((csv) => {
-      const blob = new Blob([csv], {type: 'text/csv'});
+    const filter = _.cloneDeep(this.filter);
+    filter.page = 0;
+    filter.size = 10000;
+    extractRecordsCsv(filter).subscribe((csv) => {
+      const blob = new Blob([csv], { type: 'text/csv' });
       FileSaver.saveAs(blob, `results.csv`);
     });
   }
