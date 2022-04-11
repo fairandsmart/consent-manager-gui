@@ -44,7 +44,8 @@
           <br>{{'ENTRIES.EDITOR.CONDITIONS.BODY.AUTOCOMPLETE' | translate}}
         </span>
       </p>
-      <cm-ace-editor mode="html" [height]="200" [config]="{enableBasicAutocompletion: true}" theme="eclipse" formControlName="body" required></cm-ace-editor>
+      <cm-ace-editor mode="html" [height]="200" [config]="{enableBasicAutocompletion: true}" theme="eclipse"
+                     formControlName="body" required [disabled]="!canBeEdited()"></cm-ace-editor>
     </div>
 
     <mat-form-field appearance="outline">
@@ -59,7 +60,8 @@
           <br>{{'ENTRIES.EDITOR.CONDITIONS.BODY.AUTOCOMPLETE' | translate}}
         </span>
       </p>
-      <cm-ace-editor mode="html" [height]="200" [config]="{enableBasicAutocompletion: true}" theme="eclipse" formControlName="footer" required></cm-ace-editor>
+      <cm-ace-editor mode="html" [height]="200" [config]="{enableBasicAutocompletion: true}" theme="eclipse"
+                     formControlName="footer" required [disabled]="!canBeEdited()"></cm-ace-editor>
     </div>
 
     <div class="editor email" fxLayout="column">
@@ -69,7 +71,8 @@
           <br>{{'ENTRIES.EDITOR.CONDITIONS.BODY.AUTOCOMPLETE' | translate}}
         </span>
       </p>
-      <cm-ace-editor mode="html" [height]="200" [config]="{enableBasicAutocompletion: true}" theme="eclipse" formControlName="signature" required></cm-ace-editor>
+      <cm-ace-editor mode="html" [height]="200" [config]="{enableBasicAutocompletion: true}" theme="eclipse"
+                     formControlName="signature" required [disabled]="!canBeEdited()"></cm-ace-editor>
     </div>
 
   </form>

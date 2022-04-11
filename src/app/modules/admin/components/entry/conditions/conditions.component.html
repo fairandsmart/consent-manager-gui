@@ -36,7 +36,7 @@
           <br>{{'ENTRIES.EDITOR.CONDITIONS.BODY.AUTOCOMPLETE' | translate}}
         </span>
       </p>
-      <cm-ace-editor mode="html" [config]="ACE_OPTIONS" theme="eclipse" formControlName="body"></cm-ace-editor>
+      <cm-ace-editor mode="html" [config]="ACE_OPTIONS" theme="eclipse" formControlName="body" [disabled]="!canBeEdited()"></cm-ace-editor>
     </div>
 
     <mat-card-subtitle>{{'ENTRIES.EDITOR.CONDITIONS.SUBTITLES.BEHAVIOUR' | translate}}</mat-card-subtitle>

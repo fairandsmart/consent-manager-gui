@@ -91,7 +91,7 @@
                 <input matInput formControlName="value" autocomplete="off">
               </mat-form-field>
             </div>
-            <button mat-icon-button (click)="removeThirdParty(index)">
+            <button mat-icon-button *ngIf="canBeEdited()" (click)="removeThirdParty(index)">
               <mat-icon>delete</mat-icon>
             </button>
           </div>

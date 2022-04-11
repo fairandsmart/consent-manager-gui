@@ -89,10 +89,12 @@ export class ProcessingComponent extends EntryContentDirective<Processing> imple
 
   registerFormChanges(): void {
     this.form.get('containsSensitiveData').valueChanges.subscribe(v => {
-        if (v) {
-          this.form.get('containsMedicalData').enable();
-        } else {
-          this.form.get('containsMedicalData').setValue(false);
+        if (this.canBeEdited()) {
+          if (v) {
+            this.form.get('containsMedicalData').enable();
+          } else {
+            this.form.get('containsMedicalData').setValue(false);
+          }
         }
     });
     this.form.get('dataController').valueChanges.subscribe(v => this.dataControllerChange(v));
@@ -142,11 +144,13 @@ export class ProcessingComponent extends EntryContentDirective<Processing> imple
   }
 
   private dataControllerChange(dataController: Controller): void {
-    if (this.isDataControllerEmpty(dataController)) {
-      this.form.get('dataControllerVisible').setValue(false);
-      this.form.get('dataControllerVisible').disable();
-    } else if (this.form.enabled) {
-      this.form.get('dataControllerVisible').enable();
+    if (this.canBeEdited()) {
+        if (this.isDataControllerEmpty(dataController)) {
+        this.form.get('dataControllerVisible').setValue(false);
+        this.form.get('dataControllerVisible').disable();
+      } else if (this.form.enabled) {
+        this.form.get('dataControllerVisible').enable();
+      }
     }
   }
 
