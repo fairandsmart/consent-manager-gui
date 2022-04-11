@@ -84,20 +84,24 @@ export class InformationComponent extends EntryContentDirective<Information> imp
   }
 
   private optionalFieldChange(value: string, linkedControllerName: keyof Information): void {
-    if (value.length > 0) {
-      this.form.get(linkedControllerName).enable();
-    } else {
-      this.form.get(linkedControllerName).setValue(false);
-      this.form.get(linkedControllerName).disable();
+    if (this.canBeEdited()) {
+      if (value.length > 0) {
+        this.form.get(linkedControllerName).enable();
+      } else {
+        this.form.get(linkedControllerName).setValue(false);
+        this.form.get(linkedControllerName).disable();
+      }
     }
   }
 
   private dataControllerChange(dataController: Controller): void {
-    if (this.isDataControllerEmpty(dataController)) {
-      this.form.get('dataControllerVisible').setValue(false);
-      this.form.get('dataControllerVisible').disable();
-    } else if (this.form.enabled) {
-      this.form.get('dataControllerVisible').enable();
+    if (this.canBeEdited()) {
+      if (this.isDataControllerEmpty(dataController)) {
+        this.form.get('dataControllerVisible').setValue(false);
+        this.form.get('dataControllerVisible').disable();
+      } else if (this.form.enabled) {
+        this.form.get('dataControllerVisible').enable();
+      }
     }
   }
 

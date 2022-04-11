@@ -49,7 +49,7 @@
           <br>{{'ENTRIES.EDITOR.THEME.CSS.AUTOCOMPLETE' | translate}}
         </span>
       </p>
-      <cm-ace-editor [mode]="'css'" [config]="ACE_OPTIONS" theme="eclipse" formControlName="css"></cm-ace-editor>
+      <cm-ace-editor [mode]="'css'" [config]="ACE_OPTIONS" theme="eclipse" formControlName="css" [disabled]="!canBeEdited()"></cm-ace-editor>
     </div>
 
   </form>
