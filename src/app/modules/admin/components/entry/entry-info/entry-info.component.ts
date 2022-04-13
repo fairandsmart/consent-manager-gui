@@ -32,6 +32,8 @@ import { TranslateService } from '@ngx-translate/core';
 import { CoreService } from '../../../../../core/services/core.service';
 import { ExtractionConfigOperator, extractRecords } from '@fairandsmart/consents-ce/records';
 import * as _ from 'lodash';
+import { KeycloakService } from 'keycloak-angular';
+import { ConfigService } from '../../../../../core/services/config.service';
 
 @Component({
   selector: 'cm-entry-info',
@@ -62,7 +64,9 @@ export class EntryInfoComponent implements OnInit {
     private alertService: AlertService,
     private route: ActivatedRoute,
     private translate: TranslateService,
-    private coreService: CoreService
+    private coreService: CoreService,
+    private keycloak: KeycloakService,
+    private configService: ConfigService,
   ) {
   }
 
@@ -80,6 +84,11 @@ export class EntryInfoComponent implements OnInit {
         ]
       }
     ).subscribe(response => this.hasRecord = response.totalCount > 0);
+  }
+
+  canBeEdited(): boolean {
+    return this.keycloak.isUserInRole(this.configService.getRoleMapping('admin')) && this.entry
+      && this.entry.status !== ModelEntryStatus.DELETED;
   }
 
   editEntry(): void {

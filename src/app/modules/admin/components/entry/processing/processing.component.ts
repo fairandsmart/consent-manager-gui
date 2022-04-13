@@ -30,6 +30,7 @@ import {TranslateService} from '@ngx-translate/core';
 import {ConfigService} from '../../../../../core/services/config.service';
 import {FIELD_VALIDATORS} from '../../../../../core/models/common';
 import {MatDialog} from '@angular/material/dialog';
+import { KeycloakService } from 'keycloak-angular';
 
 @Component({
   selector: 'cm-processing',
@@ -46,8 +47,9 @@ export class ProcessingComponent extends EntryContentDirective<Processing> imple
     alertService: AlertService,
     protected translate: TranslateService,
     configService: ConfigService,
+    keycloak: KeycloakService,
     dialog: MatDialog) {
-    super(alertService, configService, dialog, translate);
+    super(alertService, configService, keycloak, dialog, translate);
   }
 
   ngOnInit(): void {

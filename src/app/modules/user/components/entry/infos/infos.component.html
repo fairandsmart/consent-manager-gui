@@ -1,49 +1,49 @@
-<mat-card *ngIf="infos">
-  <h2 *ngIf="infos['title']">
-    {{ infos['title'] }}
+<mat-card *ngIf="getData()">
+  <h2 *ngIf="getData()['title']">
+    {{ getData()['title'] }}
   </h2>
   <mat-card-content>
-    <div class="user-infos-header" *ngIf="infos['header']">
-      {{ infos['header'] }}
+    <div class="user-infos-header" *ngIf="getData()['header']">
+      {{ getData()['header'] }}
     </div>
-    <div class="user-infos-privacy" *ngIf="infos['privacyPolicyUrl']">
-      <a [href]="infos['privacyPolicyUrl']">
-        {{ infos['customPrivacyPolicyText'] ? infos['customPrivacyPolicyText'] : ('USER.PRIVACY_POLICY' | translate) }}
+    <div class="user-infos-privacy" *ngIf="getData()['privacyPolicyUrl']">
+      <a [href]="getData()['privacyPolicyUrl']">
+        {{ getData()['customPrivacyPolicyText'] ? getData()['customPrivacyPolicyText'] : ('USER.PRIVACY_POLICY' | translate) }}
       </a>
     </div>
-    <div class="user-infos-privacy" *ngIf="infos['shortNoticeLinkVisible'] && infos['shortNoticeLink']">
-      <a [href]="infos['shortNoticeLink']">
+    <div class="user-infos-privacy" *ngIf="getData()['shortNoticeLinkVisible'] && getData()['shortNoticeLink']">
+      <a [href]="getData()['shortNoticeLink']">
         {{ 'USER.SHORT_PRIVACY_POLICY' | translate }}
       </a>
     </div>
-    <mat-card class="user-infos-dataController" *ngIf="infos['dataControllerVisible'] && infos['dataController']">
+    <mat-card class="user-infos-dataController" *ngIf="getData()['dataControllerVisible'] && getData()['dataController']">
       <mat-card-content>
         <div class="user-infos-controller">{{ 'USER.CONTROLLER_TITLE' | translate}}</div>
-        <div class="user-infos-company" *ngIf="infos['dataController']['company']">
-          {{ infos['dataController']['company'] }}
+        <div class="user-infos-company" *ngIf="getData()['dataController']['company']">
+          {{ getData()['dataController']['company'] }}
         </div>
-        <div class="user-infos-info" *ngIf="infos['dataController']['info']">
-          {{ infos['dataController']['info'] }}
+        <div class="user-infos-info" *ngIf="getData()['dataController']['info']">
+          {{ getData()['dataController']['info'] }}
         </div>
-        <div class="user-infos-address" *ngIf="infos['dataController']['address']">
-          {{ infos['dataController']['address'] }}
+        <div class="user-infos-address" *ngIf="getData()['dataController']['address']">
+          {{ getData()['dataController']['address'] }}
         </div>
-        <div class="user-infos-email" *ngIf="infos['dataController']['email']">
-          {{ infos['dataController']['email'] }}
+        <div class="user-infos-email" *ngIf="getData()['dataController']['email']">
+          {{ getData()['dataController']['email'] }}
         </div>
-        <div class="user-infos-phoneNumber" *ngIf="infos['dataController']['phoneNumber']">
-          {{ infos['dataController']['phoneNumber'] }}
+        <div class="user-infos-phoneNumber" *ngIf="getData()['dataController']['phoneNumber']">
+          {{ getData()['dataController']['phoneNumber'] }}
         </div>
       </mat-card-content>
     </mat-card>
-    <div class="user-infos-element" *ngIf="infos['scopeVisible'] && infos['scope']">
-      {{ infos['scope'] }}
+    <div class="user-infos-element" *ngIf="getData()['scopeVisible'] && getData()['scope']">
+      {{ getData()['scope'] }}
     </div>
-    <div class="user-infos-element" *ngIf="infos['jurisdictionVisible'] && infos['jurisdiction']">
-      {{ infos['jurisdiction'] }}
+    <div class="user-infos-element" *ngIf="getData()['jurisdictionVisible'] && getData()['jurisdiction']">
+      {{ getData()['jurisdiction'] }}
     </div>
-    <div class="user-infos-element" *ngIf="infos['footer']">
-      {{ infos['footer'] }}
+    <div class="user-infos-element" *ngIf="getData()['footer']">
+      {{ getData()['footer'] }}
     </div>
   </mat-card-content>
 </mat-card>

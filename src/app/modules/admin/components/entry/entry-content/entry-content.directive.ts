@@ -40,6 +40,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { ModelVersionSelectorComponent } from '../model-version-selector/model-version-selector.component';
 import { TranslateService } from '@ngx-translate/core';
 import { EntryEditorContainerComponent } from '../entry-editor-container/entry-editor-container.component';
+import { KeycloakService } from 'keycloak-angular';
 
 @Directive()
 export abstract class EntryContentDirective<T extends ModelData> extends FormStateSaver implements OnInit {
@@ -63,6 +64,7 @@ export abstract class EntryContentDirective<T extends ModelData> extends FormSta
   protected constructor(
     protected alertService: AlertService,
     protected configService: ConfigService,
+    protected keycloak: KeycloakService,
     protected dialog: MatDialog,
     protected translate: TranslateService
   ) {
@@ -301,7 +303,8 @@ export abstract class EntryContentDirective<T extends ModelData> extends FormSta
   }
 
   canBeEdited(): boolean {
-    return this.entry && this.entry.status !== ModelEntryStatus.DELETED
+    return this.keycloak.isUserInRole(this.configService.getRoleMapping('admin')) && this.entry
+      && this.entry.status !== ModelEntryStatus.DELETED
       && (this.entry.versions.length < 2 || _.last(this.entry.versions).id === this.version.id);
   }
 

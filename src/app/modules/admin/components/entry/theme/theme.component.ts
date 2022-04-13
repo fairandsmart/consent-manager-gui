@@ -25,6 +25,7 @@ import { AceConfigInterface } from 'ngx-ace-wrapper';
 import { CSS_HINTS } from '@fairandsmart/consents-ce/css-autocomplete';
 // @ts-ignore
 import ace from 'brace';
+import { KeycloakService } from 'keycloak-angular';
 
 @Component({
   selector: 'cm-theme',
@@ -44,8 +45,9 @@ export class ThemeComponent extends EntryContentDirective<Theme> implements OnIn
     alertService: AlertService,
     protected translate: TranslateService,
     configService: ConfigService,
+    keycloak: KeycloakService,
     dialog: MatDialog) {
-    super(alertService, configService, dialog, translate);
+    super(alertService, configService, keycloak, dialog, translate);
   }
 
   ngOnInit(): void {

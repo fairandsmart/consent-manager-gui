@@ -454,7 +454,7 @@
           "MIN_LENGTH_ERROR": "Vous devez proposer au moins deux options"
         },
         "INCLUDE_DEFAULT": {
-          "LABEL": "Je veux utiliser un paramètre par défaut pour cette préférence lors de la construction de mon formulaire de consentement"
+          "LABEL": "Utiliser une réponse par défaut pour cette préférence"
         },
         "DEFAULT_VALUE": {
           "LABEL": "Réponse par défaut",

@@ -454,7 +454,7 @@
           "MIN_LENGTH_ERROR": "You need to specify at least two option"
         },
         "INCLUDE_DEFAULT": {
-          "LABEL": "I want to use a default parameter for this preference during my consent form creation"
+          "LABEL": "Use a default answer for this preference"
         },
         "DEFAULT_VALUE": {
           "LABEL": "Default answer",

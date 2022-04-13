@@ -29,6 +29,7 @@ import { AccessKeysPageComponent } from './pages/Integration/access-keys-page/ac
 import { OperatorSubjectPageComponent } from './pages/Subject/operator-subject-page/operator-subject-page.component';
 import { GettingStartedPageComponent } from './pages/getting-started-page/getting-started-page.component';
 import { InterrogatePageComponent } from './pages/Integration/interrogate-page/interrogate-page.component';
+import { RolesGuardService } from '../../core/guards/roles-guard.service';
 
 const routes: Routes = [
   {
@@ -102,7 +103,11 @@ const routes: Routes = [
           },
           {
             path: 'security',
-            component: AccessKeysPageComponent
+            component: AccessKeysPageComponent,
+            canActivate: [RolesGuardService],
+            data: {
+              roles: ['admin']
+            }
           }
         ]
       }

@@ -30,11 +30,13 @@
         </ng-container>
       </mat-list-item>
       <span *ngIf="section?.sub" class="sub-sections">
-        <mat-list-item *ngFor="let subSection of section.sub" class="sub-section">
-          <button mat-button (click)="selectSubSection(section)" [routerLink]="subSection.link" routerLinkActive="active-link">
-            <mat-icon *ngIf="subSection.icon">{{subSection.icon}}</mat-icon> {{subSection.title | translate}}
-          </button>
-        </mat-list-item>
+        <ng-container *ngFor="let subSection of section.sub">
+          <mat-list-item *ngIf="!subSection.adminOnly || isUserAdmin()" class="sub-section">
+            <button mat-button (click)="selectSubSection(section)" [routerLink]="subSection.link" routerLinkActive="active-link">
+              <mat-icon *ngIf="subSection.icon">{{subSection.icon}}</mat-icon> {{subSection.title | translate}}
+            </button>
+          </mat-list-item>
+        </ng-container>
       </span>
     </span>
   </ng-container>

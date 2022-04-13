@@ -15,31 +15,34 @@
   -->
 <ng-container *ngIf="(section.dataSource.connect() | async) as entries">
   <div class="section-toolbar">
-    <ng-container *ngIf="section.canAddMultiple === ADD_OPTIONS.ALWAYS || entries?.length === 0">
-      <ng-container *ngIf="section.types.length === 1; else addMultiple">
+    <ng-container *ngIf="isUserAdmin(); else noButton">
+      <ng-container *ngIf="isUserAdmin() && section.canAddMultiple === ADD_OPTIONS.ALWAYS || entries?.length === 0">
+        <ng-container *ngIf="section.types.length === 1; else addMultiple">
+          <button [matTooltip]="'ENTRIES.BUTTON_ADD.' + section.types[0] | translate" mat-mini-fab
+                  (click)="newEntry(section.types[0])">
+            <mat-icon>add</mat-icon>
+          </button>
+        </ng-container>
+        <ng-template #addMultiple>
+          <button [matTooltip]="'ENTRIES.BUTTON_ADD.MULTIPLE' | translate" mat-mini-fab
+                  [matMenuTriggerFor]="addMultipleMenu">
+            <mat-icon>add</mat-icon>
+          </button>
+          <mat-menu #addMultipleMenu>
+            <button mat-menu-item *ngFor="let type of section.types" (click)="newEntry(type)">
+              {{'ENTRIES.BUTTON_ADD.' + type | translate}}
+            </button>
+          </mat-menu>
+        </ng-template>
+      </ng-container>
+      <ng-container *ngIf="isUserAdmin() && section.canAddMultiple === ADD_OPTIONS.ENTERPRISE && entries?.length > 0">
         <button [matTooltip]="'ENTRIES.BUTTON_ADD.' + section.types[0] | translate" mat-mini-fab
-                (click)="newEntry(section.types[0])">
+                (click)="displayAvailabilityWarning()">
           <mat-icon>add</mat-icon>
         </button>
       </ng-container>
-      <ng-template #addMultiple>
-        <button [matTooltip]="'ENTRIES.BUTTON_ADD.MULTIPLE' | translate" mat-mini-fab
-                [matMenuTriggerFor]="addMultipleMenu">
-          <mat-icon>add</mat-icon>
-        </button>
-        <mat-menu #addMultipleMenu>
-          <button mat-menu-item *ngFor="let type of section.types" (click)="newEntry(type)">
-            {{'ENTRIES.BUTTON_ADD.' + type | translate}}
-          </button>
-        </mat-menu>
-      </ng-template>
     </ng-container>
-    <ng-container *ngIf="section.canAddMultiple === ADD_OPTIONS.ENTERPRISE && entries?.length > 0">
-      <button [matTooltip]="'ENTRIES.BUTTON_ADD.' + section.types[0] | translate" mat-mini-fab
-              (click)="displayAvailabilityWarning()">
-        <mat-icon>add</mat-icon>
-      </button>
-    </ng-container>
+    <ng-template #noButton>&nbsp;</ng-template>
     <cm-entries-library-actions *ngIf="section.showActions"
                         [config]="section"
                         (loadQuery)="loadEntriesPage()"></cm-entries-library-actions>

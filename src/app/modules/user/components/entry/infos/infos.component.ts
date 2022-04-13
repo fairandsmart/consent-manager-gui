@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { ChangeDetectorRef, Component, Input, OnInit } from '@angular/core';
 import { TranslateService } from '@ngx-translate/core';
 import { Information, ModelVersionDto } from '@fairandsmart/consents-ce/models';
 import { ConfigService } from '../../../../../core/services/config.service';
@@ -14,26 +14,22 @@ export class InfosComponent implements OnInit {
   infoVersion: ModelVersionDto;
 
   defaultLanguage: string;
-  infos: Information;
-
-  get currentLang(): string {
-    return this.translate.currentLang;
-  }
 
   constructor(public configService: ConfigService,
-              public translate: TranslateService) { }
+              public translate: TranslateService,
+              protected ref: ChangeDetectorRef,
+  ) {
+  }
 
   ngOnInit(): void {
     this.defaultLanguage = this.configService.getDefaultLanguage();
-    this.translate.onLangChange.subscribe((lang) => this.updateLang(lang?.lang || 'fr'));
-    this.updateLang(this.translate.currentLang);
   }
 
-  updateLang(lang: string): void {
-    if (this.infoVersion.availableLanguages.includes(lang)) {
-      this.infos = this.infoVersion.data[lang] as Information;
+  getData(): Information {
+    if (this.infoVersion.availableLanguages.includes(this.translate.currentLang)) {
+      return this.infoVersion.data[this.translate.currentLang] as Information;
     } else {
-      this.infos = this.infoVersion.data[this.defaultLanguage] as Information;
+      return this.infoVersion.data[this.defaultLanguage] as Information;
     }
   }
 }
