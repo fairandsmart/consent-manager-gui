@@ -14,7 +14,7 @@
   #L%
   -->
 <mat-toolbar color="primary">
-  <button mat-icon-button (click)="toggleSideNav.emit()"><mat-icon>menu</mat-icon></button>
+  <button mat-icon-button (click)="toggleSideNav.emit()" [disabled]="mode === 'user'"><mat-icon>menu</mat-icon></button>
   <img class="title-img" alt="Logo" [style]="CUSTOMIZATION.headerLogoStyle" [src]="CUSTOMIZATION.headerLogoUrl" [routerLink]="getHomeUrl()">
   <span class="spacer"></span>
   <ng-container *ngIf="displaySearchBar">

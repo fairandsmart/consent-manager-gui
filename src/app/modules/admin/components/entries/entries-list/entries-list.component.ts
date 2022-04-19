@@ -24,6 +24,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { TranslateService } from '@ngx-translate/core';
 import { ConfigService } from '../../../../../core/services/config.service';
+import { KeycloakService } from 'keycloak-angular';
 
 @Component({
   selector: 'cm-entries-list',
@@ -48,7 +49,8 @@ export class EntriesListComponent implements OnInit, AfterViewInit {
     private router: Router,
     private snackBar: MatSnackBar,
     protected translate: TranslateService,
-    protected configService: ConfigService
+    protected configService: ConfigService,
+    private keycloak: KeycloakService,
     ) {}
 
   ngOnInit(): void {
@@ -86,6 +88,10 @@ export class EntriesListComponent implements OnInit, AfterViewInit {
       })
     ).subscribe();
     this.loadEntriesPage();
+  }
+
+  isUserAdmin(): boolean {
+    return this.keycloak.isUserInRole(this.configService.getRoleMapping('admin'));
   }
 
   loadEntriesPage(): void {

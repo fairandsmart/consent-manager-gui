@@ -23,6 +23,7 @@ import { CoreService } from '../../../../../core/services/core.service';
 import { FIELD_VALIDATORS } from '../../../../../core/models/common';
 import { MatDialog } from '@angular/material/dialog';
 import { TranslateService } from '@ngx-translate/core';
+import { KeycloakService } from 'keycloak-angular';
 
 @Component({
   selector: 'cm-information',
@@ -36,9 +37,10 @@ export class InformationComponent extends EntryContentDirective<Information> imp
     alertService: AlertService,
     configService: ConfigService,
     private coreService: CoreService,
+    keycloak: KeycloakService,
     dialog: MatDialog,
     translate: TranslateService) {
-    super(alertService, configService, dialog, translate);
+    super(alertService, configService, keycloak, dialog, translate);
   }
 
   ngOnInit(): void {

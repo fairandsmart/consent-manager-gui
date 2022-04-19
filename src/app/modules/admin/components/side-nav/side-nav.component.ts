@@ -17,6 +17,8 @@ import { Component, OnInit } from '@angular/core';
 import { filter } from 'rxjs/operators';
 import { NavigationEnd, Router } from '@angular/router';
 import { Icons } from '../../../../core/models/common';
+import { ConfigService } from '../../../../core/services/config.service';
+import { KeycloakService } from 'keycloak-angular';
 
 export interface NavSection {
   title: string;
@@ -29,6 +31,7 @@ export interface SideNavSubSection {
   title: string;
   link: string;
   icon?: Icons;
+  adminOnly?: boolean;
 }
 
 @Component({
@@ -108,14 +111,17 @@ export class SideNavComponent implements OnInit {
         {
           title: 'NAV.CATEGORIES.INTEGRATION.SECURITY',
           link: '/admin/integration/security',
-          icon: Icons.security
+          icon: Icons.security,
+          adminOnly: true
         },
       ]
     }
   ];
 
   constructor(
-    private router: Router
+    private router: Router,
+    protected configService: ConfigService,
+    private keycloak: KeycloakService,
   ) { }
 
   ngOnInit(): void {
@@ -161,6 +167,10 @@ export class SideNavComponent implements OnInit {
     this.SECTIONS.forEach(s => {
       s.expanded = s === section;
     });
+  }
+
+  isUserAdmin(): boolean {
+    return this.keycloak.isUserInRole(this.configService.getRoleMapping('admin'));
   }
 
 }

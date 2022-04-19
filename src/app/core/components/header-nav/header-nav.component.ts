@@ -25,6 +25,7 @@ import { MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { environment } from '../../../../environments/environment';
 import { CoreService } from '../../services/core.service';
 import { listSubjects, SubjectDto } from '@fairandsmart/consents-ce/subjects';
+import { ConfigService } from '../../services/config.service';
 
 @Component({
   selector: 'cm-header-nav',
@@ -63,8 +64,10 @@ export class HeaderNavComponent implements OnInit {
     private router: Router,
     private dialog: MatDialog,
     public translate: TranslateService,
-    private coreService: CoreService
-  ) { }
+    private coreService: CoreService,
+    private config: ConfigService
+  ) {
+  }
 
   ngOnInit(): void {
     this.searchCtrl = new FormControl();
@@ -98,6 +101,7 @@ export class HeaderNavComponent implements OnInit {
   }
 
   getHomeUrl(): string {
-    return this.keycloak.isUserInRole('admin') || this.keycloak.isUserInRole('operator') ? '/admin/home' : '/user';
+    return this.keycloak.isUserInRole(this.config.getRoleMapping('admin'))
+    || this.keycloak.isUserInRole(this.config.getRoleMapping('operator')) ? '/admin/home' : '/user';
   }
 }

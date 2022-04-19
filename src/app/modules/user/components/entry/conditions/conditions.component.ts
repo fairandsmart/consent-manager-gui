@@ -44,9 +44,9 @@ export class ConditionsComponent extends EntryCardContentDirective<Conditions> i
     translate: TranslateService,
     keycloakService: KeycloakService,
     alertService: AlertService,
-    private sanitizer: DomSanitizer,
     configService: ConfigService,
-    coreService: CoreService
+    coreService: CoreService,
+    private sanitizer: DomSanitizer
   ) {
     super(translate, keycloakService, alertService, configService, coreService);
   }

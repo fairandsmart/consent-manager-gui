@@ -24,6 +24,7 @@ import * as _ from 'lodash';
 import { ConfigService } from '../../../../../core/services/config.service';
 import { MatDialog } from '@angular/material/dialog';
 import { TranslateService } from '@ngx-translate/core';
+import { KeycloakService } from 'keycloak-angular';
 
 @Component({
   selector: 'cm-preference',
@@ -45,9 +46,10 @@ export class PreferenceComponent extends EntryContentDirective<Preference> imple
     private fb: FormBuilder,
     alertService: AlertService,
     configService: ConfigService,
+    keycloak: KeycloakService,
     dialog: MatDialog,
     translate: TranslateService) {
-    super(alertService, configService, dialog, translate);
+    super(alertService, configService, keycloak, dialog, translate);
   }
 
   ngOnInit(): void {

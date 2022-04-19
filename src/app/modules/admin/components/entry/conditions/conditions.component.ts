@@ -22,6 +22,7 @@ import { ConfigService } from '../../../../../core/services/config.service';
 import { MatDialog } from '@angular/material/dialog';
 import { TranslateService } from '@ngx-translate/core';
 import { AceConfigInterface } from 'ngx-ace-wrapper';
+import { KeycloakService } from 'keycloak-angular';
 
 @Component({
   selector: 'cm-conditions',
@@ -41,9 +42,10 @@ export class ConditionsComponent extends EntryContentDirective<Conditions> imple
     private fb: FormBuilder,
     alertService: AlertService,
     configService: ConfigService,
+    keycloak: KeycloakService,
     dialog: MatDialog,
     translate: TranslateService) {
-    super(alertService, configService, dialog, translate);
+    super(alertService, configService, keycloak, dialog, translate);
   }
 
   ngOnInit(): void {
