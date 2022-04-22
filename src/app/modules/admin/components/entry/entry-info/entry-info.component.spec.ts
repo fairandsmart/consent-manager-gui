@@ -23,18 +23,22 @@ import { RouterTestingModule } from '@angular/router/testing';
 import createSpyObj = jasmine.createSpyObj;
 import SpyObj = jasmine.SpyObj;
 import { RightConsents } from '@fairandsmart/consents-ce';
+import { KeycloakService } from 'keycloak-angular';
 
 describe('EntryInfoComponent', () => {
   let component: EntryInfoComponent;
   let fixture: ComponentFixture<EntryInfoComponent>;
+  let keycloakServiceSpy: SpyObj<KeycloakService>;
   let alertServiceSpy: SpyObj<AlertService>;
 
   beforeEach(waitForAsync(() => {
+    keycloakServiceSpy = createSpyObj('KeycloakService', ['isUserInRole']);
     alertServiceSpy = createSpyObj<AlertService>('AlertService', ['error', 'success']);
     TestBed.configureTestingModule({
       declarations: [ EntryInfoComponent ],
       imports: [ CoreTestingModule, RouterTestingModule ],
       providers: [
+        {provide: KeycloakService, useValue: keycloakServiceSpy},
         {provide: AlertService, useValue: alertServiceSpy},
       ]
     })

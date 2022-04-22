@@ -13,7 +13,7 @@
  * files, or see https://www.fairandsmart.com/opensource/.
  * #L%
  */
-import { Directive, Input, OnInit, ViewChild } from '@angular/core';
+import { ChangeDetectorRef, Directive, Input, OnInit, ViewChild } from '@angular/core';
 import { EMPTY, Observable, of, throwError } from 'rxjs';
 import * as _ from 'lodash';
 import { catchError, debounceTime, distinctUntilChanged, filter, map, mergeMap, startWith } from 'rxjs/operators';
@@ -66,7 +66,8 @@ export abstract class EntryContentDirective<T extends ModelData> extends FormSta
     protected configService: ConfigService,
     protected keycloak: KeycloakService,
     protected dialog: MatDialog,
-    protected translate: TranslateService
+    protected translate: TranslateService,
+    protected cd: ChangeDetectorRef
   ) {
     super();
     this.defaultLanguage = configService.getDefaultLanguage();
@@ -80,6 +81,7 @@ export abstract class EntryContentDirective<T extends ModelData> extends FormSta
       this.setVersion(this.version);
     }
     this.enableFormIfAllowed();
+    this.cd.detectChanges();
   }
 
   get hasChanges(): boolean {
@@ -318,6 +320,9 @@ export abstract class EntryContentDirective<T extends ModelData> extends FormSta
 
   registerFormChanges(): void {
     this.initPreview();
+    this.form.valueChanges.subscribe((value) => {
+      this.cd.detectChanges();
+    });
   }
 
   restoreFormArray(controlName: string, state: any[]): void {

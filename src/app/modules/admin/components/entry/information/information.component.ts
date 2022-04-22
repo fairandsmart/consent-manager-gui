@@ -13,7 +13,7 @@
  * files, or see https://www.fairandsmart.com/opensource/.
  * #L%
  */
-import { Component, OnInit } from '@angular/core';
+import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import { EntryContentDirective } from '../entry-content/entry-content.directive';
 import { Information, Controller } from '@fairandsmart/consents-ce/models';
 import { FormBuilder, Validators } from '@angular/forms';
@@ -39,8 +39,9 @@ export class InformationComponent extends EntryContentDirective<Information> imp
     private coreService: CoreService,
     keycloak: KeycloakService,
     dialog: MatDialog,
-    translate: TranslateService) {
-    super(alertService, configService, keycloak, dialog, translate);
+    translate: TranslateService,
+    cd: ChangeDetectorRef) {
+    super(alertService, configService, keycloak, dialog, translate, cd);
   }
 
   ngOnInit(): void {

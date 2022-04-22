@@ -25,13 +25,18 @@ import { ConfigService } from '../../../../../core/services/config.service';
 import { ModelEntryStatus } from '@fairandsmart/consents-ce/models';
 import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import {AceModule} from 'ngx-ace-wrapper';
+import { KeycloakService } from 'keycloak-angular';
+import SpyObj = jasmine.SpyObj;
+import createSpyObj = jasmine.createSpyObj;
 
 describe('ConditionsComponent', () => {
   let component: ConditionsComponent;
   let fixture: ComponentFixture<ConditionsComponent>;
+  let keycloakServiceSpy: SpyObj<KeycloakService>;
   let configServiceStub: ConfigServiceStubSpec;
 
   beforeEach(waitForAsync(() => {
+    keycloakServiceSpy = createSpyObj('KeycloakService', ['isUserInRole']);
     configServiceStub = new ConfigServiceStubSpec();
 
     TestBed.configureTestingModule({
@@ -39,6 +44,7 @@ describe('ConditionsComponent', () => {
       imports: [ CoreTestingModule, RouterTestingModule, ReactiveFormsModule, AceModule ],
       schemas: [CUSTOM_ELEMENTS_SCHEMA],
       providers: [
+        {provide: KeycloakService, useValue: keycloakServiceSpy},
         {provide: ConfigService, useValue: configServiceStub}
       ]
     })

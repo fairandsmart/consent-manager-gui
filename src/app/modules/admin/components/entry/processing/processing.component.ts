@@ -13,8 +13,8 @@
  * files, or see https://www.fairandsmart.com/opensource/.
  * #L%
  */
-import {Component, OnInit} from '@angular/core';
-import {EntryContentDirective} from '../entry-content/entry-content.directive';
+import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
+import { EntryContentDirective } from '../entry-content/entry-content.directive';
 import {
   Controller,
   ModelVersionDto,
@@ -24,12 +24,12 @@ import {
   RETENTION_UNITS,
   RetentionUnit
 } from '@fairandsmart/consents-ce/models';
-import {FormArray, FormBuilder, FormGroup, Validators} from '@angular/forms';
-import {AlertService} from '../../../../../core/services/alert.service';
-import {TranslateService} from '@ngx-translate/core';
-import {ConfigService} from '../../../../../core/services/config.service';
-import {FIELD_VALIDATORS} from '../../../../../core/models/common';
-import {MatDialog} from '@angular/material/dialog';
+import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { AlertService } from '../../../../../core/services/alert.service';
+import { TranslateService } from '@ngx-translate/core';
+import { ConfigService } from '../../../../../core/services/config.service';
+import { FIELD_VALIDATORS } from '../../../../../core/models/common';
+import { MatDialog } from '@angular/material/dialog';
 import { KeycloakService } from 'keycloak-angular';
 
 @Component({
@@ -48,12 +48,14 @@ export class ProcessingComponent extends EntryContentDirective<Processing> imple
     protected translate: TranslateService,
     configService: ConfigService,
     keycloak: KeycloakService,
-    dialog: MatDialog) {
-    super(alertService, configService, keycloak, dialog, translate);
+    dialog: MatDialog,
+    cd: ChangeDetectorRef) {
+    super(alertService, configService, keycloak, dialog, translate, cd);
   }
 
   ngOnInit(): void {
     super.ngOnInit();
+    this.cd.detectChanges();
   }
 
   protected initForm(): void {
@@ -82,23 +84,26 @@ export class ProcessingComponent extends EntryContentDirective<Processing> imple
       thirdParties: this.fb.array([])
     });
     this.form.get('dataControllerVisible').disable();
-    this.form.get('retention').valueChanges.subscribe((value) => {
-      this.form.get('retention').get('fullText')
-        .patchValue(`${value.label} ${value.value} ${this.translate.instant('ENTRIES.EDITOR.PROCESSING.RETENTION.UNIT.VALUES.' + value.unit)}`, {emitEvent: false});
-    });
     this.checkFormState();
   }
 
   registerFormChanges(): void {
-    this.form.get('containsSensitiveData').valueChanges.subscribe(v => {
-        if (this.canBeEdited()) {
-          if (v) {
-            this.form.get('containsMedicalData').enable();
-          } else {
-            this.form.get('containsMedicalData').setValue(false);
-          }
-        }
+    this.form.get('retention').valueChanges.subscribe((value) => {
+      this.form.get('retention').get('fullText').setValue(
+        `${value.label} ${value.value} ${this.translate.instant('ENTRIES.EDITOR.PROCESSING.RETENTION.UNIT.VALUES.' + value.unit)}`,
+        {emitEvent: false});
     });
+
+    this.form.get('containsSensitiveData').valueChanges.subscribe(v => {
+      if (this.canBeEdited()) {
+        if (v) {
+          this.form.get('containsMedicalData').enable();
+        } else {
+          this.form.get('containsMedicalData').setValue(false);
+        }
+      }
+    });
+
     this.form.get('dataController').valueChanges.subscribe(v => this.dataControllerChange(v));
     super.registerFormChanges();
   }
@@ -147,7 +152,7 @@ export class ProcessingComponent extends EntryContentDirective<Processing> imple
 
   private dataControllerChange(dataController: Controller): void {
     if (this.canBeEdited()) {
-        if (this.isDataControllerEmpty(dataController)) {
+      if (this.isDataControllerEmpty(dataController)) {
         this.form.get('dataControllerVisible').setValue(false);
         this.form.get('dataControllerVisible').disable();
       } else if (this.form.enabled) {
