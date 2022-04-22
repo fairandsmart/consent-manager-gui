@@ -26,13 +26,18 @@ import { ModelEntryStatus } from '@fairandsmart/consents-ce/models';
 import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { RightConsents } from '@fairandsmart/consents-ce';
 import { Observable } from 'rxjs';
+import { KeycloakService } from 'keycloak-angular';
+import SpyObj = jasmine.SpyObj;
+import createSpyObj = jasmine.createSpyObj;
 
 describe('EmailComponent', () => {
   let component: EmailComponent;
   let fixture: ComponentFixture<EmailComponent>;
+  let keycloakServiceSpy: SpyObj<KeycloakService>;
   let configServiceStub: ConfigServiceStubSpec;
 
   beforeEach(waitForAsync(() => {
+    keycloakServiceSpy = createSpyObj('KeycloakService', ['isUserInRole']);
     configServiceStub = new ConfigServiceStubSpec();
 
     TestBed.configureTestingModule({
@@ -40,6 +45,7 @@ describe('EmailComponent', () => {
       imports: [ CoreTestingModule, RouterTestingModule, ReactiveFormsModule ],
       schemas: [CUSTOM_ELEMENTS_SCHEMA],
       providers: [
+        {provide: KeycloakService, useValue: keycloakServiceSpy},
         {provide: ConfigService, useValue: configServiceStub}
       ]
     })

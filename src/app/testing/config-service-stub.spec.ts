@@ -29,4 +29,7 @@ export class ConfigServiceStubSpec {
     return this.config.language;
   }
 
+  public getRoleMapping(role: string): string {
+    return undefined;
+  }
 }

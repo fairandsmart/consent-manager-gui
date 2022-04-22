@@ -13,7 +13,7 @@
  * files, or see https://www.fairandsmart.com/opensource/.
  * #L%
  */
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { ChangeDetectorRef, Component, OnInit, ViewChild } from '@angular/core';
 import { EntryContentDirective } from '../entry-content/entry-content.directive';
 import { Preference, PREFERENCE_VALUE_TYPES, PreferenceValueType } from '@fairandsmart/consents-ce/models';
 import { FormBuilder, FormControl, Validators } from '@angular/forms';
@@ -48,14 +48,16 @@ export class PreferenceComponent extends EntryContentDirective<Preference> imple
     configService: ConfigService,
     keycloak: KeycloakService,
     dialog: MatDialog,
-    translate: TranslateService) {
-    super(alertService, configService, keycloak, dialog, translate);
+    translate: TranslateService,
+    cd: ChangeDetectorRef) {
+    super(alertService, configService, keycloak, dialog, translate, cd);
   }
 
   ngOnInit(): void {
     this.optionsInputCtrl = new FormControl('', Validators.required);
     this.optionsInputCtrl.disable();
     super.ngOnInit();
+    this.cd.detectChanges();
   }
 
   protected initForm(): void {
@@ -69,15 +71,16 @@ export class PreferenceComponent extends EntryContentDirective<Preference> imple
       includeDefault: [true, [Validators.required]],
       defaultValues: [[]]
     });
+    this.checkFormState();
+  }
+
+  registerFormChanges(): void {
     this.form.get('options').statusChanges.subscribe(status => {
       if (this.optionsChipList) {
         this.optionsChipList.errorState = status === 'INVALID';
       }
     });
-    this.checkFormState();
-  }
 
-  registerFormChanges(): void {
     this.form.get('valueType').valueChanges.subscribe(v => {
       if (v === PreferenceValueType.FREE_TEXT) {
         this.form.get('options').setValue([]);

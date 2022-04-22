@@ -13,7 +13,7 @@
  * files, or see https://www.fairandsmart.com/opensource/.
  * #L%
  */
-import { AfterViewInit, Component, OnInit } from '@angular/core';
+import { AfterViewInit, ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import { EntryContentDirective } from '../entry-content/entry-content.directive';
 import { LOGO_POSITIONS, LogoPosition, PreviewDto, Theme } from '@fairandsmart/consents-ce/models';
 import { FormBuilder, Validators } from '@angular/forms';
@@ -46,8 +46,9 @@ export class ThemeComponent extends EntryContentDirective<Theme> implements OnIn
     protected translate: TranslateService,
     configService: ConfigService,
     keycloak: KeycloakService,
-    dialog: MatDialog) {
-    super(alertService, configService, keycloak, dialog, translate);
+    dialog: MatDialog,
+    cd: ChangeDetectorRef) {
+    super(alertService, configService, keycloak, dialog, translate, cd);
   }
 
   ngOnInit(): void {

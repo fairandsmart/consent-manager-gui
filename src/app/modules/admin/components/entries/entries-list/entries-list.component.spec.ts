@@ -26,14 +26,19 @@ import { AddMultipleOption } from '../entries-library/entries-library.component'
 import { ConfigServiceStubSpec } from '../../../../../testing/config-service-stub.spec';
 import { ConfigService } from '../../../../../core/services/config.service';
 import { RightConsents } from '@fairandsmart/consents-ce';
+import { KeycloakService } from 'keycloak-angular';
+import SpyObj = jasmine.SpyObj;
+import createSpyObj = jasmine.createSpyObj;
 
 describe('EntriesListComponent', () => {
   let component: EntriesListComponent;
   let fixture: ComponentFixture<EntriesListComponent>;
+  let keycloakServiceSpy: SpyObj<KeycloakService>;
   let activatedRouteStub: ActivatedRouteStubSpec;
   let configServiceStub: ConfigServiceStubSpec;
 
   beforeEach(waitForAsync(() => {
+    keycloakServiceSpy = createSpyObj('KeycloakService', ['isUserInRole']);
     activatedRouteStub = new ActivatedRouteStubSpec();
     configServiceStub = new ConfigServiceStubSpec();
 
@@ -41,6 +46,7 @@ describe('EntriesListComponent', () => {
       declarations: [ EntriesListComponent ],
       imports: [ CoreTestingModule, RouterTestingModule, FormsModule ],
       providers: [
+        {provide: KeycloakService, useValue: keycloakServiceSpy},
         {provide: ActivatedRoute, useValue: activatedRouteStub},
         {provide: ConfigService, useValue: configServiceStub}
       ]
