@@ -40,8 +40,11 @@ function getFormUrl()
         "origin" => "$$ORIGIN$$",
         "validity" => "$$VALIDITY$$",
         "updatable" => $$UPDATABLE$$,
+        "userinfos" => $$USER_INFOS$$,
+        "attributes" => $$ATTRIBUTES$$,
         "author" => "$$AUTHOR$$",
         "confirmation" => "$$CONFIRMATION$$",
+        "confirmationConfig" => $$CONFIRMATION_CONFIG$$,
         "theme" => "$$LAYOUT_THEME$$",
         "notification" => "$$LAYOUT_NOTIFICATION$$",
         "layoutData" => [
@@ -106,6 +109,14 @@ function getFormUrl()
 </body>
 </html>`;
 
+function objectToPhp(object: { [key: string]: string }): string {
+  let result = '';
+  Object.keys(object).forEach((key) => {
+    result += `\t\t\t"${key}" => "${object[key]}",\n`;
+  });
+  return `[\n${result}\t\t]`;
+}
+
 export function getPhpSnippetFromContext(context: ConsentContext): string {
   return PHP_SNIPPET
     .replace('$$API_URL$$', environment.managerUrl)
@@ -117,10 +128,11 @@ export function getPhpSnippetFromContext(context: ConsentContext): string {
     .replace('$$ORIGIN$$', context.origin)
     .replace('$$VALIDITY$$', context.validity)
     .replace('$$UPDATABLE$$', String(context.updatable))
-    // .replace('$$USER_INFOS$$', context.userinfos) // TODO
-    // .replace('$$ATTRIBUTES$$', context.attributes) // TODO
+    .replace('$$USER_INFOS$$', objectToPhp(context.userinfos))
+    .replace('$$ATTRIBUTES$$', objectToPhp(context.attributes))
     .replace('$$AUTHOR$$', context.author)
     .replace('$$CONFIRMATION$$', context.confirmation)
+    .replace('$$CONFIRMATION_CONFIG$$', objectToPhp(context.confirmationConfig))
     .replace('$$LAYOUT_THEME$$', context.theme)
     .replace('$$LAYOUT_NOTIFICATION$$', context.notification)
     .replace('$$LAYOUT_INFO$$', context.layoutData.info)

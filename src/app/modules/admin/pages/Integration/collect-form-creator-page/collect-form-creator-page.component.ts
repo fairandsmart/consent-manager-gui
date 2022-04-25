@@ -131,7 +131,7 @@ export class CollectFormCreatorPageComponent implements OnInit {
     return this.elementsLibraryConfig[0];
   }
 
-  get processingConfig(): (SectionConfig & { draggingDisabled: boolean, included: boolean }) {
+  get processingsConfig(): (SectionConfig & { draggingDisabled: boolean, included: boolean }) {
     return this.elementsLibraryConfig[1];
   }
 
@@ -516,7 +516,7 @@ export class CollectFormCreatorPageComponent implements OnInit {
     }
     // @ts-ignore
     // tslint:disable-next-line:max-line-length
-    createTransactionJson(context, this.translate.currentLang, { data: { extractResponseHeaders: true } }).subscribe((res: { body: string, headers: HttpHeaders}) => {
+    createTransactionJson(context, this.translate.currentLang, {data: {extractResponseHeaders: true}}).subscribe((res: { body: string, headers: HttpHeaders }) => {
       this.form.enable();
       this.dialog.open<FormUrlDialogComponent, FormUrlDialogComponentData>(FormUrlDialogComponent, {
         width: '800px',
@@ -562,4 +562,5 @@ export class CollectFormCreatorPageComponent implements OnInit {
     } else {
       this.form.at(FORM_CREATOR_STEP.PREVIEW).get('cancelText').disable();
     }
-  }}
+  }
+}
