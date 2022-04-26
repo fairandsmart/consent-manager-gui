@@ -111,9 +111,11 @@ function getFormUrl()
 
 function objectToPhp(object: { [key: string]: string }): string {
   let result = '';
-  Object.keys(object).forEach((key) => {
-    result += `\t\t\t"${key}" => "${object[key]}",\n`;
-  });
+  if (object) {
+    Object.keys(object).forEach((key) => {
+      result += `\t\t\t"${key}" => "${object[key]}",\n`;
+    });
+  }
   return `[\n${result}\t\t]`;
 }
 
