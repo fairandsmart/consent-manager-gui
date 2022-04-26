@@ -16,6 +16,8 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { EntryEditorContainerComponent } from './entry-editor-container.component';
+import { CoreTestingModule } from '../../../../../testing/core-testing-module.spec';
+import { EntryPreviewComponent } from '../entry-preview/entry-preview.component';
 
 describe('EntryEditorContainerComponent', () => {
   let component: EntryEditorContainerComponent;
@@ -23,7 +25,8 @@ describe('EntryEditorContainerComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ EntryEditorContainerComponent ]
+      declarations: [ EntryEditorContainerComponent, EntryPreviewComponent ],
+      imports: [ CoreTestingModule ]
     })
     .compileComponents();
   });

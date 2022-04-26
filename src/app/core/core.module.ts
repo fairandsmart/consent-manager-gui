@@ -60,6 +60,7 @@ import { AceModule } from 'ngx-ace-wrapper';
     TranslateModule,
     FlexLayoutModule,
     HeaderNavComponent,
+    AceModule,
     AceEditorComponent
   ]
 })

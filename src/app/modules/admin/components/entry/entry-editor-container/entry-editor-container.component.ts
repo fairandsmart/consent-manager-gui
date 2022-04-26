@@ -64,7 +64,7 @@ export class EntryEditorContainerComponent implements OnInit {
   @Output()
   selectVersion: EventEmitter<ModelVersionDtoLight> = new EventEmitter<ModelVersionDtoLight>();
 
-  @ViewChild('optionsNav', {static: true})
+  @ViewChild('optionsNav', {read: MatSidenav, static: true})
   sidenav: MatSidenav;
   sideNavBehavior$: Observable<'side' | 'over'>;
 

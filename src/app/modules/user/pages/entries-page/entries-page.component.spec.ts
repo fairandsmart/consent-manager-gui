@@ -22,6 +22,8 @@ import { AlertService } from '../../../../core/services/alert.service';
 import { ConfigService } from '../../../../core/services/config.service';
 import SpyObj = jasmine.SpyObj;
 import createSpyObj = jasmine.createSpyObj;
+import { RightConsents } from '@fairandsmart/consents-ce';
+import { Observable } from 'rxjs';
 
 describe('EntriesPageComponent', () => {
   let component: EntriesPageComponent;
@@ -50,6 +52,7 @@ describe('EntriesPageComponent', () => {
   beforeEach(() => {
     keycloakServiceSpy.getUsername.and.returnValue('FOO BAR');
     (configServiceSpy as any).config = {userPageElements: []};
+    RightConsents.init({apiRoot: '', httpClient: () => new Observable()});
 
     fixture = TestBed.createComponent(EntriesPageComponent);
     component = fixture.componentInstance;
