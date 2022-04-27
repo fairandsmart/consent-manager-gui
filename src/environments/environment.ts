@@ -8,7 +8,7 @@ import {AddMultipleOption} from '../app/modules/admin/components/entries/entries
 export const environment: AppEnvironment = {
   production: false,
   authUrl: 'http://localhost:8080/auth',
-  authRealm: 'FairAndSmart',
+  authRealm: 'RightConsents',
   authClientId: 'consent-manager-gui',
   managerUrl: 'http://localhost:8087',
   managerPrivateUrl: 'http://localhost:8087',
