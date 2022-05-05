@@ -367,7 +367,8 @@
           "DATA": "Processed data",
           "RETENTION": "Data retention period",
           "USAGE": "Purpose",
-          "ADDITIONAL": "Additional information"
+          "ADDITIONAL": "Additional information",
+          "BEHAVIOUR": "Behaviour"
         },
         "TITLE": {
           "LABEL": "Processing label"
@@ -416,6 +417,9 @@
           "VALUE": "Description",
           "BUTTON_ADD": "Add third party",
           "EMPTY": "There is no third party yet."
+        },
+        "REFUSABLE": {
+          "LABEL": "This processing can be refused"
         }
       },
       "PREFERENCE": {
