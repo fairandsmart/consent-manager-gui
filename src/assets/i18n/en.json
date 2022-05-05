@@ -643,7 +643,8 @@
           "INVALID_RECIPIENT": "Invalid recipient",
           "MAILBOX_FULL": "Mailbox full",
           "ERROR": "Error",
-          "PENDING": "Pending"
+          "PENDING": "Pending",
+          "NONE": "Not sent (no model defined)"
         },
         "EMPTY": "None"
       },

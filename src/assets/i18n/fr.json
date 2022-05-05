@@ -643,7 +643,8 @@
           "INVALID_RECIPIENT": "Destinataire invalide",
           "MAILBOX_FULL": "Boîte de réception pleine",
           "ERROR": "Erreur",
-          "PENDING": "En cours d'envoi"
+          "PENDING": "En cours d'envoi",
+          "NONE": "Non envoyé (aucun modèle défini)"
         },
         "EMPTY": "Aucune"
       },
