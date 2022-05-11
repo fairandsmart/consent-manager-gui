@@ -936,6 +936,8 @@
     "MISSING_INFO": "Aucune information disponible.",
     "ACCEPT": "J'accepte",
     "REFUSE": "Je refuse",
+    "UNANSWERED": "Sans réponse",
+    "ACCEPTED": "Accepté",
     "SAVE": {
       "SUCCESS": "Modifications sauvegardées",
       "ERROR": "Une erreur inattendue est survenue",

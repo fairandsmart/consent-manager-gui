@@ -31,6 +31,8 @@ export class ProcessingComponent extends EntryCardContentDirective<Processing> i
 
   showDetails: boolean;
 
+  disabled = false;
+
   constructor(
     translate: TranslateService,
     keycloakService: KeycloakService,
@@ -43,6 +45,15 @@ export class ProcessingComponent extends EntryCardContentDirective<Processing> i
 
   ngOnInit(): void {
     super.ngOnInit();
+    if (!this.getData().refusable) {
+      this.disabled = this.control.value;
+      this.control.valueChanges.subscribe((value) => {
+        if (value && !this.disabled) {
+          this.disableControl();
+          this.disabled = true;
+        }
+      });
+    }
   }
 
   parseValue(): boolean {
