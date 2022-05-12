@@ -81,7 +81,8 @@ export class ProcessingComponent extends EntryContentDirective<Processing> imple
         phoneNumber: ['', Validators.pattern(FIELD_VALIDATORS.phone.pattern)]
       }),
       dataControllerVisible: [false],
-      thirdParties: this.fb.array([])
+      thirdParties: this.fb.array([]),
+      refusable: [true],
     });
     this.form.get('dataControllerVisible').disable();
     this.checkFormState();

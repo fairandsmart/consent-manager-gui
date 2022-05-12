@@ -367,7 +367,8 @@
           "DATA": "Données traitées",
           "RETENTION": "Durée de conservation des données",
           "USAGE": "Finalité du traitement",
-          "ADDITIONAL": "Informations additionnelles"
+          "ADDITIONAL": "Informations additionnelles",
+          "BEHAVIOUR": "Comportement"
         },
         "TITLE": {
           "LABEL": "Libellé du traitement"
@@ -416,6 +417,9 @@
           "VALUE": "Description",
           "BUTTON_ADD": "Ajouter une tierce-partie",
           "EMPTY": "Aucune tierce-partie pour le moment."
+        },
+        "REFUSABLE": {
+          "LABEL": "Ce traitement peut être refusé"
         }
       },
       "PREFERENCE": {
@@ -933,6 +937,8 @@
     "MISSING_INFO": "Aucune information disponible.",
     "ACCEPT": "J'accepte",
     "REFUSE": "Je refuse",
+    "UNANSWERED": "Sans réponse",
+    "ACCEPTED": "Accepté",
     "SAVE": {
       "SUCCESS": "Modifications sauvegardées",
       "ERROR": "Une erreur inattendue est survenue",

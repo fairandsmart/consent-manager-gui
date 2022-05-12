@@ -367,7 +367,8 @@
           "DATA": "Processed data",
           "RETENTION": "Data retention period",
           "USAGE": "Purpose",
-          "ADDITIONAL": "Additional information"
+          "ADDITIONAL": "Additional information",
+          "BEHAVIOUR": "Behaviour"
         },
         "TITLE": {
           "LABEL": "Processing label"
@@ -416,6 +417,9 @@
           "VALUE": "Description",
           "BUTTON_ADD": "Add third party",
           "EMPTY": "There is no third party yet."
+        },
+        "REFUSABLE": {
+          "LABEL": "This processing can be refused"
         }
       },
       "PREFERENCE": {
@@ -933,6 +937,8 @@
     "MISSING_INFO": "No information available.",
     "ACCEPT": "I accept",
     "REFUSE": "I refuse",
+    "UNANSWERED": "Unanswered",
+    "ACCEPTED": "Accepted",
     "SAVE": {
       "SUCCESS": "Changes saved",
       "ERROR": "An unexpected error occurred",
