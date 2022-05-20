@@ -34,13 +34,14 @@ function getFormUrl()
 {
     $context = [
         "subject" => "$$SUBJECT$$",
+        "object" => "$$OBJECT$$",
         "callback" => "$$CALLBACK$$",
         "iframeOrigin" => "$$IFRAME_ORIGIN$$",
         "language" => "$$LANGUAGE$$",
         "origin" => "$$ORIGIN$$",
         "validity" => "$$VALIDITY$$",
         "updatable" => $$UPDATABLE$$,
-        "userinfos" => $$USER_INFOS$$,
+        "subjectInfos" => $$SUBJECT_INFOS$$,
         "attributes" => $$ATTRIBUTES$$,
         "author" => "$$AUTHOR$$",
         "confirmation" => "$$CONFIRMATION$$",
@@ -124,13 +125,14 @@ export function getPhpSnippetFromContext(context: ConsentContext): string {
     .replace('$$API_URL$$', environment.managerUrl)
     .replace('$$PRIVATE_API_URL$$', environment.managerPrivateUrl)
     .replace('$$SUBJECT$$', context.subject)
+    .replace('$$OBJECT$$', context.object)
     .replace('$$CALLBACK$$', context.callback)
     .replace('$$IFRAME_ORIGIN$$', context.iframeOrigin)
     .replace('$$LANGUAGE$$', context.language)
     .replace('$$ORIGIN$$', context.origin)
     .replace('$$VALIDITY$$', context.validity)
     .replace('$$UPDATABLE$$', String(context.updatable))
-    .replace('$$USER_INFOS$$', objectToPhp(context.userinfos))
+    .replace('SUBJECT_INFOS$$', objectToPhp(context.subjectInfos))
     .replace('$$ATTRIBUTES$$', objectToPhp(context.attributes))
     .replace('$$AUTHOR$$', context.author)
     .replace('$$CONFIRMATION$$', context.confirmation)

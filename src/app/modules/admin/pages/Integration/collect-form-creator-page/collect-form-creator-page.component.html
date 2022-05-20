@@ -76,6 +76,11 @@
                 </mat-error>
               </mat-form-field>
 
+              <mat-form-field appearance="fill">
+                <mat-label>{{'FORM_CREATOR.FORM.OBJECT.LABEL' | translate}}</mat-label>
+                <input formControlName="object" matInput autocomplete="off" />
+              </mat-form-field>
+
               <div class="consent-validity-wrapper">
                 <mat-form-field appearance="fill">
                   <mat-label>{{'FORM_CREATOR.FORM.VALIDITY.LABEL' | translate}}</mat-label>
@@ -134,14 +139,14 @@
                 </mat-error>
               </div>
 
-              <ng-container formGroupName="userinfos">
+              <ng-container formGroupName="subjectInfos">
                 <mat-form-field appearance="fill" *ngIf="form.at(STEPS.OPTIONS).get('notify').value || form.at(STEPS.OPTIONS).get('confirmation').value === CONFIRMATION.EMAIL_CODE">
                   <mat-label>{{'FORM_CREATOR.FORM.USER_EMAIL.LABEL' | translate}}</mat-label>
-                  <input type="email" matInput [formControlName]="USER_INFOS_KEYS.EMAIL_KEY" autocomplete="off" email required />
-                  <mat-error *ngIf="form.hasError('required', [STEPS.OPTIONS, 'userinfos', USER_INFOS_KEYS.EMAIL_KEY])">
+                  <input type="email" matInput [formControlName]="SUBJECT_INFOS_KEYS.EMAIL_KEY" autocomplete="off" email required />
+                  <mat-error *ngIf="form.hasError('required', [STEPS.OPTIONS, 'subjectInfos', SUBJECT_INFOS_KEYS.EMAIL_KEY])">
                     {{'FORM_CREATOR.FORM.USER_EMAIL.REQUIRED' | translate }}
                   </mat-error>
-                  <mat-error *ngIf="form.hasError('email', [STEPS.OPTIONS, 'userinfos', USER_INFOS_KEYS.EMAIL_KEY])">
+                  <mat-error *ngIf="form.hasError('email', [STEPS.OPTIONS, 'subjectInfos', SUBJECT_INFOS_KEYS.EMAIL_KEY])">
                     {{'FORM_CREATOR.FORM.USER_EMAIL.EMAIL_INVALID' | translate }}
                   </mat-error>
                 </mat-form-field>

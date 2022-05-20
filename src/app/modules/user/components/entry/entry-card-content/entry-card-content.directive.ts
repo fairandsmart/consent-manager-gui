@@ -155,7 +155,7 @@ export abstract class EntryCardContentDirective<T extends ModelData> implements 
       callback: '',
       validity: '',
       language: this.defaultLanguage,
-      userinfos: {},
+      subjectInfos: {},
       attributes: {},
       origin: ConsentOrigin.USER,
       author: this.keycloakService.getUsername(),

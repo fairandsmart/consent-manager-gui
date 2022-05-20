@@ -37,7 +37,7 @@ export class OperatorPreferencesComponent extends OperatorConsentListDirective i
   readonly ICONS = Icons;
   private readonly defaultLanguage;
 
-  public displayedColumns = ['key', 'name', 'value', 'recordCreation', 'actions'];
+  public displayedColumns = ['key', 'name', 'value', 'object', 'recordCreation', 'actions'];
   public pageSizeOptions = [10, 25, 50];
 
   constructor(
@@ -56,8 +56,7 @@ export class OperatorPreferencesComponent extends OperatorConsentListDirective i
     super.ngOnInit();
   }
 
-  action(element): void {
-    super.action(element);
+  edit(element): void {
     getActiveVersion(element.id).subscribe((version) => {
       let versionDto: Preference;
       if (version.data[this.translate.currentLang]) {

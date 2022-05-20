@@ -40,7 +40,7 @@ import {
   ConsentContext,
   createTransactionJson,
   postSubmissionValuesHtml,
-  UserInfosKeys
+  SubjectInfosKeys
 } from '@fairandsmart/consents-ce/consents';
 import {
   ConsentOrigin,
@@ -171,9 +171,10 @@ export class OperatorSubjectPageComponent implements OnInit {
                 },
                 origin: ConsentOrigin.OPERATOR,
                 subject: this.subject.name,
+                object: result.object,
                 callback: '',
                 language: this.defaultLanguage,
-                userinfos: {},
+                subjectInfos: {},
                 attributes: {},
                 author: '',
                 confirmation: Confirmation.NONE,
@@ -182,7 +183,7 @@ export class OperatorSubjectPageComponent implements OnInit {
               };
 
               if (result.email) {
-                ctx.userinfos[UserInfosKeys.EMAIL_KEY] = result.recipient;
+                ctx.subjectInfos[SubjectInfosKeys.EMAIL_KEY] = result.recipient;
               }
 
               createTransactionJson(ctx, this.translate.currentLang).pipe(
