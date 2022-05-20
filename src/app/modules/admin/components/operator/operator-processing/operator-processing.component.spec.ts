@@ -17,6 +17,7 @@ import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 
 import { OperatorProcessingComponent } from './operator-processing.component';
 import { CoreTestingModule } from '../../../../../testing/core-testing-module.spec';
+import { RouterTestingModule } from '@angular/router/testing';
 
 describe('OperatorProcessingComponent', () => {
   let component: OperatorProcessingComponent;
@@ -26,7 +27,7 @@ describe('OperatorProcessingComponent', () => {
 
     TestBed.configureTestingModule({
       declarations: [OperatorProcessingComponent],
-      imports: [CoreTestingModule],
+      imports: [CoreTestingModule, RouterTestingModule],
       providers: [
       ]
     })

@@ -26,6 +26,8 @@ import { CoreService } from '../../../../../core/services/core.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { TranslateService } from '@ngx-translate/core';
 import { Icons } from '../../../../../core/models/common';
+import { getActiveVersion, Processing } from '@fairandsmart/consents-ce/models';
+import { ConfigService } from '../../../../../core/services/config.service';
 
 @Component({
   selector: 'cm-operator-processing',
@@ -35,6 +37,8 @@ import { Icons } from '../../../../../core/models/common';
 export class OperatorProcessingComponent extends OperatorConsentListDirective implements OnInit {
 
   readonly ICONS = Icons;
+  private readonly defaultLanguage;
+
   public displayedColumns = ['key', 'name', 'collectionMethod', 'recordExpiration', 'status', 'history', 'actions'];
   public pageSizeOptions = [10, 25, 50];
 
@@ -42,9 +46,11 @@ export class OperatorProcessingComponent extends OperatorConsentListDirective im
     private dialog: MatDialog,
     protected coreService: CoreService,
     protected snackBar: MatSnackBar,
-    protected translate: TranslateService
+    protected translate: TranslateService,
+    private configService: ConfigService
   ) {
     super(coreService, snackBar, translate);
+    this.defaultLanguage = this.configService.getDefaultLanguage();
   }
 
   ngOnInit(): void {
@@ -54,13 +60,21 @@ export class OperatorProcessingComponent extends OperatorConsentListDirective im
 
   action(element: EntryRecord): void {
     super.action(element);
-    this.dialog.open<SubjectRecordEditorDialogComponent, SubjectRecordEditorDialogData>(SubjectRecordEditorDialogComponent, {
-      data: {
-        record: element,
-        options: ['refused', 'accepted']
+    getActiveVersion(element.id).subscribe((version) => {
+      let versionDto: Processing;
+      if (version.data[this.translate.currentLang]) {
+        versionDto = version.data[this.translate.currentLang] as Processing;
+      } else {
+        versionDto = version.data[this.defaultLanguage] as Processing;
       }
-    }).afterClosed().subscribe((result) => {
-      this.operatorAction.emit(result);
+      this.dialog.open<SubjectRecordEditorDialogComponent, SubjectRecordEditorDialogData>(SubjectRecordEditorDialogComponent, {
+        data: {
+          record: element,
+          options: versionDto.refusable ? ['refused', 'accepted'] : ['accepted']
+        }
+      }).afterClosed().subscribe((result) => {
+        this.operatorAction.emit(result);
+      });
     });
   }
 

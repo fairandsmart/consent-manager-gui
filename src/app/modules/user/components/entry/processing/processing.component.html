@@ -20,9 +20,21 @@
   </div>
   <div class="model-action">
     <div class="user-input">
-      <label>{{'USER.REFUSE' | translate}}</label>
-      <mat-slide-toggle [formControl]="control"></mat-slide-toggle>
-      <label>{{'USER.ACCEPT' | translate}}</label>
+      <ng-container *ngIf="getData().refusable; else unrefusable">
+        <label>{{'USER.REFUSE' | translate}}</label>
+        <mat-slide-toggle [formControl]="control"></mat-slide-toggle>
+        <label>{{'USER.ACCEPT' | translate}}</label>
+      </ng-container>
+      <ng-template #unrefusable>
+        <ng-container *ngIf="!disabled; else accepted">
+          <label>{{'USER.UNANSWERED' | translate}}</label>
+          <mat-slide-toggle [formControl]="control"></mat-slide-toggle>
+          <label>{{'USER.ACCEPT' | translate}}</label>
+        </ng-container>
+        <ng-template #accepted>
+          <label>{{'USER.ACCEPTED' | translate}}</label>
+        </ng-template>
+      </ng-template>
     </div>
   </div>
 </div>
