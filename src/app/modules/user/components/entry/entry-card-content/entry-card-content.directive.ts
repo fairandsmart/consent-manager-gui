@@ -143,11 +143,6 @@ export abstract class EntryCardContentDirective<T extends ModelData> implements 
     if (this.remoteValue === newValue) {
       return;
     }
-    if (this.coreService.hasActiveInfo === false) {
-      this.alertService.error(this.translate.instant('ALERT.NO_INFORMATION_USER'), new Error('No info'));
-      this.resetState();
-      return;
-    }
     this.disableControl();
     const element = _.last(this.entry.versions);
     const context: ConsentContext = {

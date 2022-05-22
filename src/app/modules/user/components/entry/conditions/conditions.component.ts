@@ -32,6 +32,8 @@ export class ConditionsComponent extends EntryCardContentDirective<Conditions> i
 
   showDetails: boolean;
 
+  disabled = false;
+
   get body(): SafeHtml {
     if (this.getData()?.body) {
       return this.sanitizer.bypassSecurityTrustHtml(this.getData().body);
@@ -53,6 +55,15 @@ export class ConditionsComponent extends EntryCardContentDirective<Conditions> i
 
   ngOnInit(): void {
     super.ngOnInit();
+    if (!this.getData().refusable) {
+      this.disabled = this.control.value;
+      this.control.valueChanges.subscribe((value) => {
+        if (value && !this.disabled) {
+          this.disableControl();
+          this.disabled = true;
+        }
+      });
+    }
   }
 
   enableControl(): void {

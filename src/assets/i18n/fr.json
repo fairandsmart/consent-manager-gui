@@ -54,7 +54,7 @@
       "OPERATOR": "Opérateur",
       "EMAIL": "Lien de l'email",
       "RECEIPT": "Lien du reçu",
-      "USER_PAGE": "Interface utilisateur"
+      "USER": "Interface utilisateur"
     },
     "ENTRY_STATUSES": {
       "ACTIVE": "Actif",

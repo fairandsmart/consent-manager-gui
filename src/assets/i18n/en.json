@@ -54,7 +54,7 @@
       "OPERATOR": "Operator",
       "EMAIL": "Email link",
       "RECEIPT": "Receipt link",
-      "USER_PAGE": "User page"
+      "USER": "User page"
     },
     "ENTRY_STATUSES": {
       "ACTIVE": "Active",
