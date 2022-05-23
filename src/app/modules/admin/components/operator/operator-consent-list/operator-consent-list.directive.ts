@@ -34,7 +34,8 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 import { TranslateService } from '@ngx-translate/core';
 import {
   EntryRecord,
-  OperatorLogElement, RECORD_IDENTIFIER_DEFAULT,
+  OperatorLogElement,
+  RECORD_IDENTIFIER_DEFAULT,
   RECORD_IDENTIFIER_SEPARATOR,
   RecordsMap
 } from '@fairandsmart/consents-ce/records';

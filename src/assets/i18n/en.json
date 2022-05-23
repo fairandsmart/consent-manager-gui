@@ -940,6 +940,7 @@
     "SHORT_PRIVACY_POLICY": "Simplified privacy policy",
     "CONTROLLER_TITLE": "Data controller",
     "MISSING_INFO": "No information available.",
+    "OBJECT": "Ref",
     "ACCEPT": "I accept",
     "REFUSE": "I refuse",
     "UNANSWERED": "Unanswered",

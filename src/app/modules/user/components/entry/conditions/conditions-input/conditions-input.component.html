@@ -14,7 +14,9 @@
   #L%
   -->
 <div class="model-action">
-  <div class="record-object">({{object}})</div>
+  <div class="record-object">
+    <ng-container *ngIf="object !== 'undefined'">{{'USER.OBJECT' | translate}} : {{object}}</ng-container>
+  </div>
 
   <div class="user-input user-input-wrapper">
     <ng-container *ngIf="refusable; else unrefusable">

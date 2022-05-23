@@ -14,7 +14,9 @@
   #L%
   -->
 <div class="model-action" *ngIf="control">
-  <div class="record-object">({{object}})</div>
+  <div class="record-object">
+    <ng-container *ngIf="object !== 'undefined'">{{'USER.OBJECT' | translate}} : {{object}}</ng-container>
+  </div>
 
   <form *ngIf="getData()?.valueType" class="answer-container user-input-wrapper">
 
