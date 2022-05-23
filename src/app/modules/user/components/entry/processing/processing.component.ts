@@ -13,14 +13,14 @@
  * files, or see https://www.fairandsmart.com/opensource/.
  * #L%
  */
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, QueryList, ViewChildren } from '@angular/core';
 import { EntryCardContentDirective } from '../entry-card-content/entry-card-content.directive';
 import { Processing } from '@fairandsmart/consents-ce/models';
 import { TranslateService } from '@ngx-translate/core';
 import { KeycloakService } from 'keycloak-angular';
 import { AlertService } from '../../../../../core/services/alert.service';
 import { ConfigService } from '../../../../../core/services/config.service';
-import { CoreService } from '../../../../../core/services/core.service';
+import { ProcessingInputComponent } from './processing-input/processing-input.component';
 
 @Component({
   selector: 'cm-processing-user',
@@ -31,37 +31,16 @@ export class ProcessingComponent extends EntryCardContentDirective<Processing> i
 
   showDetails: boolean;
 
-  disabled = false;
+  @ViewChildren(ProcessingInputComponent)
+  itemInputs: QueryList<ProcessingInputComponent>;
 
   constructor(
     translate: TranslateService,
     keycloakService: KeycloakService,
     alertService: AlertService,
-    configService: ConfigService,
-    coreService: CoreService
+    configService: ConfigService
   ) {
-    super(translate, keycloakService, alertService, configService, coreService);
-  }
-
-  ngOnInit(): void {
-    super.ngOnInit();
-    if (!this.getData().refusable) {
-      this.disabled = this.control.value;
-      this.control.valueChanges.subscribe((value) => {
-        if (value && !this.disabled) {
-          this.disableControl();
-          this.disabled = true;
-        }
-      });
-    }
-  }
-
-  parseValue(): boolean {
-    return this.remoteValue === 'accepted';
-  }
-
-  serializeValue(): string {
-    return this.control.value ? 'accepted' : 'refused';
+    super(translate, keycloakService, alertService, configService);
   }
 
 }

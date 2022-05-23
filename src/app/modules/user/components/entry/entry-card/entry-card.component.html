@@ -16,10 +16,10 @@
 <div *ngIf="active">
   <ng-container [ngSwitch]="entry?.type">
     <cm-processing-user #itemCard (changed)="notifyUnsavedChanges()" [autoSave]="autoSave" [entry]="entry" [info]="info"
-                        [version]="active" [record]="record" *ngSwitchCase="'processing'"> </cm-processing-user>
+                        [version]="active" [recordsMap]="recordsMap" *ngSwitchCase="'processing'"></cm-processing-user>
     <cm-preference-user #itemCard (changed)="notifyUnsavedChanges()" [autoSave]="autoSave" [entry]="entry" [info]="info"
-                        [version]="active" [record]="record" *ngSwitchCase="'preference'"></cm-preference-user>
+                        [version]="active" [recordsMap]="recordsMap" *ngSwitchCase="'preference'"></cm-preference-user>
     <cm-conditions-user #itemCard (changed)="notifyUnsavedChanges()" [autoSave]="autoSave" [entry]="entry" [info]="info"
-                        [version]="active" [record]="record" *ngSwitchCase="'conditions'"></cm-conditions-user>
+                        [version]="active" [recordsMap]="recordsMap" *ngSwitchCase="'conditions'"></cm-conditions-user>
   </ng-container>
 </div>

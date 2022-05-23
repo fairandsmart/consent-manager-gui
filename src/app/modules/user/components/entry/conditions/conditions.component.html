@@ -18,34 +18,23 @@
     <mat-icon (click)="showDetails = !showDetails">help_outline</mat-icon>
     {{getData()?.title}}
   </div>
-  <div class="model-action">
-    <div class="user-input">
-      <ng-container *ngIf="getData().refusable; else unrefusable">
-        <label>{{'USER.REFUSE' | translate}}</label>
-        <mat-slide-toggle [formControl]="control"></mat-slide-toggle>
-        <label>{{'USER.ACCEPT' | translate}}</label>
-      </ng-container>
-      <ng-template #unrefusable>
-        <ng-container *ngIf="!disabled; else accepted">
-          <label>{{'USER.UNANSWERED' | translate}}</label>
-          <mat-slide-toggle [formControl]="control"></mat-slide-toggle>
-          <label>{{'USER.ACCEPT' | translate}}</label>
-        </ng-container>
-        <ng-template #accepted>
-          <label>{{'USER.ACCEPTED' | translate}}</label>
-        </ng-template>
-      </ng-template>
-    </div>
-  </div>
+
+  <cm-conditions-input *ngFor="let objectKey of objectKeys(recordsMap)" [refusable]="getData()?.refusable"
+                       [recordValue]="recordsMap[objectKey].value" [autoSave]="autoSave" [object]="objectKey"
+                       [infoKey]="info ? info.key : ''" [entryKey]="entry?.key" [version]="version"
+                       (changed)="notifyUnsavedChanges()"></cm-conditions-input>
 </div>
 
 <mat-accordion>
   <mat-expansion-panel [expanded]="showDetails">
+
     <mat-expansion-panel-header>
       <mat-panel-title>
         {{'USER.DETAILS' | translate}}
       </mat-panel-title>
     </mat-expansion-panel-header>
+
     <div [innerHTML]="body" class="conditions-body"></div>
+
   </mat-expansion-panel>
 </mat-accordion>

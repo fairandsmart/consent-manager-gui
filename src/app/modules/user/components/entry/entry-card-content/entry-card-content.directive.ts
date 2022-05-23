@@ -13,35 +13,28 @@
  * files, or see https://www.fairandsmart.com/opensource/.
  * #L%
  */
-import { Directive, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { Directive, EventEmitter, Input, OnInit, Output, QueryList, ViewChildren } from '@angular/core';
 import { TranslateService } from '@ngx-translate/core';
-import { catchError, mergeMap, tap } from 'rxjs/operators';
-import { EMPTY, Observable, throwError } from 'rxjs';
 import { KeycloakService } from 'keycloak-angular';
 import { AlertService } from '../../../../../core/services/alert.service';
-import { FormControl } from '@angular/forms';
 import { ConfigService } from '../../../../../core/services/config.service';
-import { CoreService } from '../../../../../core/services/core.service';
-import * as _ from 'lodash';
 import {
-  ConsentOrigin,
-  FormLayoutOrientation,
   ModelData,
   ModelEntryDto,
   ModelVersionDto
 } from '@fairandsmart/consents-ce/models';
-import { RecordDto } from '@fairandsmart/consents-ce/records';
-import {
-  Confirmation,
-  ConsentContext,
-  createTransactionJson,
-  postSubmissionValuesHtml
-} from '@fairandsmart/consents-ce/consents';
+import { RECORD_IDENTIFIER_DEFAULT, RecordDto } from '@fairandsmart/consents-ce/records';
+import { EntryCardInputDirective } from './entry-card-input.directive';
 
 @Directive()
 export abstract class EntryCardContentDirective<T extends ModelData> implements OnInit {
 
   private readonly defaultLanguage;
+
+  public readonly objectKeys = Object.keys;
+
+  @ViewChildren(EntryCardInputDirective)
+  itemInputs: QueryList<EntryCardInputDirective<T>>;
 
   @Input()
   entry: ModelEntryDto;
@@ -53,11 +46,7 @@ export abstract class EntryCardContentDirective<T extends ModelData> implements 
   version: ModelVersionDto<T>;
 
   @Input()
-  record: RecordDto;
-
-  remoteValue: string;
-
-  control: FormControl;
+  recordsMap: { [key: string]: RecordDto };
 
   @Input()
   autoSave: boolean;
@@ -65,44 +54,43 @@ export abstract class EntryCardContentDirective<T extends ModelData> implements 
   @Output()
   changed: EventEmitter<void>;
 
-  get hasUnsavedChange(): boolean {
-    if (this.autoSave) {
-      return false;
-    }
-    if (this.remoteValue === undefined) {
-      const newValue = this.serializeValue();
-      return (typeof newValue === 'object' && newValue !== null) || (typeof newValue === 'string' && newValue.length > 0);
-    } else {
-      return this.remoteValue !== this.serializeValue();
-    }
-  }
+  data: T;
 
   protected constructor(
     protected translate: TranslateService,
     protected keycloakService: KeycloakService,
     protected alertService: AlertService,
-    protected configService: ConfigService,
-    protected coreService: CoreService
+    protected configService: ConfigService
   ) {
     this.defaultLanguage = this.configService.getDefaultLanguage();
     this.changed = new EventEmitter<void>();
   }
 
   ngOnInit(): void {
-    this.remoteValue = this.record?.value;
-    const state = this.parseValue();
-    this.control = new FormControl(state);
-    this.control.valueChanges.subscribe(() => {
-      this.changed.emit();
-      if (this.autoSave) {
-        this.doAutoSave();
-      }
-    });
+    if (!(RECORD_IDENTIFIER_DEFAULT in this.recordsMap)) {
+      this.recordsMap[RECORD_IDENTIFIER_DEFAULT] = {
+        bodyKey: '',
+        comment: '',
+        creationTimestamp: 0,
+        expirationTimestamp: 0,
+        notificationReports: [],
+        origin: '',
+        serial: '',
+        status: undefined,
+        statusExplanation: undefined,
+        subject: '',
+        transaction: '',
+        type: '',
+        value: ''
+      };
+    }
   }
 
-  abstract parseValue(): any;
-
-  abstract serializeValue(): string;
+  notifyUnsavedChanges(): void {
+    if (!this.autoSave) {
+      this.changed.emit();
+    }
+  }
 
   getData(): T {
     if (this.version.data[this.translate.currentLang]) {
@@ -110,80 +98,6 @@ export abstract class EntryCardContentDirective<T extends ModelData> implements 
     } else {
       return this.version.data[this.defaultLanguage];
     }
-  }
-
-  public resetState(): void {
-    const state = this.parseValue();
-    this.control.setValue(state, {emitEvent: false});
-  }
-
-  protected enableControl(): void {
-    this.control.enable({emitEvent: false});
-  }
-
-  protected disableControl(): void {
-    this.control.disable({emitEvent: false});
-  }
-
-  protected doAutoSave(): void {
-    this.saveChanges().pipe(
-      tap(() => {
-        // Success
-        this.alertService.success('USER.SAVE.SUCCESS');
-      }),
-      catchError((err) => {
-        this.alertService.error('USER.SAVE.ERROR', err);
-        return EMPTY;
-      })
-    ).subscribe();
-  }
-
-  public saveChanges(): Observable<string> {
-    const newValue = this.serializeValue();
-    if (this.remoteValue === newValue) {
-      return;
-    }
-    this.disableControl();
-    const element = _.last(this.entry.versions);
-    const context: ConsentContext = {
-      subject: this.keycloakService.getUsername(),
-      callback: '',
-      validity: '',
-      language: this.defaultLanguage,
-      subjectInfos: {},
-      attributes: {},
-      origin: ConsentOrigin.USER,
-      author: this.keycloakService.getUsername(),
-      confirmation: Confirmation.NONE,
-      notification: '',
-      theme: '',
-      layoutData: {
-        type: 'layout',
-        orientation: FormLayoutOrientation.VERTICAL,
-        info: this.info ? this.info.key : '',
-        elements: [this.entry.key],
-        existingElementsVisible: true,
-        includeIFrameResizer: true,
-      }
-    };
-
-    return createTransactionJson(context, this.translate.currentLang).pipe(
-      mergeMap((url) => {
-        const values = {};
-        values[element.identifier] = newValue;
-        const txid = url.split('?')[0].split('/').pop();
-        return postSubmissionValuesHtml(txid, values);
-      }),
-      tap(() => {
-        this.remoteValue = newValue;
-        this.enableControl();
-      }),
-      catchError((err) => {
-        this.resetState();
-        this.enableControl();
-        return throwError(err);
-      })
-    );
   }
 
 }
