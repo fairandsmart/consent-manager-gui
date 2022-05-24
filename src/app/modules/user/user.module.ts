@@ -24,6 +24,9 @@ import { SharedModule } from '../../shared/shared.module';
 import { PreferenceComponent } from './components/entry/preference/preference.component';
 import { ConditionsComponent } from './components/entry/conditions/conditions.component';
 import { InfosComponent } from './components/entry/infos/infos.component';
+import { ProcessingInputComponent } from './components/entry/processing/processing-input/processing-input.component';
+import { PreferenceInputComponent } from './components/entry/preference/preference-input/preference-input.component';
+import { ConditionsInputComponent } from './components/entry/conditions/conditions-input/conditions-input.component';
 
 @NgModule({
   declarations: [
@@ -33,7 +36,10 @@ import { InfosComponent } from './components/entry/infos/infos.component';
     ProcessingComponent,
     PreferenceComponent,
     ConditionsComponent,
-    InfosComponent
+    InfosComponent,
+    ProcessingInputComponent,
+    PreferenceInputComponent,
+    ConditionsInputComponent
   ],
   imports: [
     UserRoutingModule,

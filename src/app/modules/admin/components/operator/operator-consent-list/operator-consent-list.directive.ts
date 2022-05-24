@@ -32,43 +32,64 @@ import * as _ from 'lodash';
 import { CoreService } from '../../../../../core/services/core.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { TranslateService } from '@ngx-translate/core';
-import { EntryRecord, OperatorLogElement, RecordsMap } from '@fairandsmart/consents-ce/records';
+import {
+  EntryRecord,
+  OperatorLogElement,
+  RECORD_IDENTIFIER_DEFAULT,
+  RECORD_IDENTIFIER_SEPARATOR,
+  RecordsMap
+} from '@fairandsmart/consents-ce/records';
 import { CollectionPage } from '@fairandsmart/consents-ce';
 
 class SubjectRecordDataSource extends CollectionDatasource<EntryRecord, ModelFilter> {
 
   public records: RecordsMap = {};
 
-  constructor() {
+  constructor(public subject: string) {
     super();
+  }
+
+  private initEntryRecord(entry: ModelEntryDto, activeVersion: ModelVersionDtoLight): EntryRecord {
+    return {
+      id: entry.id,
+      key: entry.key,
+      subject: this.subject,
+      recordIdentifier: entry.key + RECORD_IDENTIFIER_SEPARATOR + this.subject + RECORD_IDENTIFIER_SEPARATOR + RECORD_IDENTIFIER_DEFAULT,
+      type: entry.type,
+      name: entry.name,
+      identifier: activeVersion?.identifier,
+      active: entry.status === ModelEntryStatus.ACTIVE && activeVersion !== undefined,
+      versionIndex: activeVersion !== undefined ? entry.versions.indexOf(activeVersion) + 1 : undefined
+    };
   }
 
   protected getPage(pageFilter: ModelFilter): Observable<CollectionPage<EntryRecord>> {
     return listEntries(pageFilter).pipe(
       map((entries: CollectionPage<ModelEntryDto>) => {
-        const values = [];
+        const values: EntryRecord[] = [];
         entries.values.forEach((entry) => {
           const activeVersion: ModelVersionDtoLight = entry.versions.find(v => v.status === ModelVersionStatus.ACTIVE);
-          const result: EntryRecord = {
-            id: entry.id,
-            key: entry.key,
-            type: entry.type,
-            name: entry.name,
-            identifier: activeVersion?.identifier,
-            active: entry.status === ModelEntryStatus.ACTIVE && activeVersion !== undefined,
-            versionIndex: activeVersion !== undefined ? entry.versions.indexOf(activeVersion) + 1 : undefined
-          };
-          const recordsList = this.records[entry.key];
-          if (recordsList && recordsList.length > 0) {
-            const record = _.last(recordsList);
-            result.value = record.value;
-            result.recordCreation = record.creationTimestamp;
-            result.recordExpiration = record.expirationTimestamp;
-            result.comment = record.comment;
-            result.origin = record.origin;
-            result.status = record.status;
+          const recordsKeys = Object.keys(this.records).filter(key => key.startsWith(entry.key + RECORD_IDENTIFIER_SEPARATOR));
+          if (recordsKeys.length > 0) {
+            recordsKeys.forEach(recordKey => {
+              const recordsList = this.records[recordKey];
+              if (recordsList && recordsList.length > 0) {
+                const record = _.last(recordsList);
+                const result: EntryRecord = this.initEntryRecord(entry, activeVersion);
+                result.object = recordKey.split(RECORD_IDENTIFIER_SEPARATOR)[2];
+                result.recordIdentifier = recordKey;
+                result.value = record.value;
+                result.recordCreation = record.creationTimestamp;
+                result.recordExpiration = record.expirationTimestamp;
+                result.comment = record.comment;
+                result.origin = record.origin;
+                result.status = record.status;
+                values.push(result);
+              }
+            });
+          } else {
+            values.push(this.initEntryRecord(entry, activeVersion));
           }
-          values.push(result);
         });
         const collection: CollectionPage<EntryRecord> = {
           page: entries.page,
@@ -125,7 +146,7 @@ export abstract class OperatorConsentListDirective implements OnInit {
 
   ngOnInit(): void {
     this.filter.types.push(this.type);
-    this.dataSource = new SubjectRecordDataSource();
+    this.dataSource = new SubjectRecordDataSource(this.subject);
     this.dataSource.paginator = this.paginator;
     this.recordsObservable.subscribe((newRecords) => {
       this.dataSource.records = newRecords;
@@ -156,11 +177,8 @@ export abstract class OperatorConsentListDirective implements OnInit {
     this.reloadData();
   }
 
-  action(element: any): void {
-    if (!this.coreService.hasActiveInfo) {
-      this.snackBar.open(this.translate.instant('ALERT.NO_INFORMATION'));
-      throw new Error('No info');
-    }
+  preventDefaultAndPropagation($event: MouseEvent): void {
+    $event.preventDefault();
+    $event.stopPropagation();
   }
-
 }

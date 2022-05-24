@@ -37,7 +37,7 @@ export class EntryCardComponent implements OnInit {
   active: ModelVersionDto<any>;
 
   @Input()
-  record: RecordDto;
+  recordsMap: { [key: string]: RecordDto };
 
   @Input()
   autoSave: boolean;

@@ -21,15 +21,12 @@ mat-card {
 
 .model-entry {
   padding: 1em 0;
-  display: flex;
-  justify-content: space-between;
 
   .model-name {
     font-weight: bold;
     letter-spacing: 1px;
     display: flex;
     align-items: center;
-    width: 50%;
 
     &.vertical {
       flex-direction: column;
@@ -54,28 +51,41 @@ mat-card {
       }
     }
   }
+}
 
-  .model-action {
-    font-weight: 300;
-    margin-left: 2em;
-    width: 50%;
+.model-action {
+  font-weight: 300;
+  margin-left: 2em;
+  display: flex;
+  flex-direction: row;
+  width: 100%;
 
-    ul {
-      padding: 0;
+  ul {
+    padding: 0;
+  }
+
+  .record-object {
+    width: 30%;
+    text-align: left;
+    padding-left: 8px;
+  }
+
+  .user-input-wrapper {
+    width: 60%;
+    justify-content: end;
+  }
+
+  .user-input {
+    align-self: end;
+    display: flex;
+    flex-direction: row;
+
+    mat-slide-toggle {
+      margin: 0 .7em;
     }
 
-    .user-input {
+    label {
       align-self: center;
-      display: flex;
-      flex-direction: row;
-
-      mat-slide-toggle {
-        margin: 0 .7em;
-      }
-
-      label {
-        align-self: center;
-      }
     }
   }
 }

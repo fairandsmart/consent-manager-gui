@@ -55,7 +55,7 @@ import {
   ConsentContext,
   createTransactionJson,
   getSubmitFormPreview,
-  UserInfosKeys
+  SubjectInfosKeys
 } from '@fairandsmart/consents-ce/consents';
 import { HttpHeaders } from '@angular/common/http';
 
@@ -201,7 +201,7 @@ export class CollectFormCreatorPageComponent implements OnInit {
   public readonly CONFIRMATION_TYPES = CONFIRMATION_TYPES;
   public readonly CONFIRMATION = Confirmation;
   public readonly CONFIRMATION_CONFIG_KEYS = ConfirmationConfigKeys;
-  public readonly USER_INFOS_KEYS = UserInfosKeys;
+  public readonly SUBJECT_INFOS_KEYS = SubjectInfosKeys;
   private readonly defaultLanguage;
 
   private static formatValidity(validity, validityUnit): string {
@@ -261,6 +261,7 @@ export class CollectFormCreatorPageComponent implements OnInit {
       }),
       this.fb.group({
         subject: ['', [Validators.required]],
+        object: [''],
         forceDisplay: [true, [Validators.required]],
         validity: [6, [Validators.required, Validators.min(1)]],
         validityUnit: ['M', [Validators.required]],
@@ -274,9 +275,9 @@ export class CollectFormCreatorPageComponent implements OnInit {
       })
     ]);
 
-    const userInfos = this.fb.group({});
-    userInfos.addControl(this.USER_INFOS_KEYS.EMAIL_KEY, this.fb.control(''));
-    (this.form.at(FORM_CREATOR_STEP.OPTIONS) as FormGroup).addControl('userinfos', userInfos);
+    const subjectInfos = this.fb.group({});
+    subjectInfos.addControl(this.SUBJECT_INFOS_KEYS.EMAIL_KEY, this.fb.control(''));
+    (this.form.at(FORM_CREATOR_STEP.OPTIONS) as FormGroup).addControl('subjectInfos', subjectInfos);
 
     const confirmationConfig = this.fb.group({});
     confirmationConfig.addControl(this.CONFIRMATION_CONFIG_KEYS.SENDER_EMAIL_KEY, this.fb.control(''));
@@ -333,12 +334,12 @@ export class CollectFormCreatorPageComponent implements OnInit {
 
   updateEmailValidators(isRequired: boolean): void {
     if (isRequired) {
-      this.form.at(FORM_CREATOR_STEP.OPTIONS).get('userinfos').get(this.USER_INFOS_KEYS.EMAIL_KEY)
+      this.form.at(FORM_CREATOR_STEP.OPTIONS).get('subjectInfos').get(this.SUBJECT_INFOS_KEYS.EMAIL_KEY)
         .setValidators([Validators.required, Validators.email]);
     } else {
-      this.form.at(FORM_CREATOR_STEP.OPTIONS).get('userinfos').get(this.USER_INFOS_KEYS.EMAIL_KEY).clearValidators();
+      this.form.at(FORM_CREATOR_STEP.OPTIONS).get('subjectInfos').get(this.SUBJECT_INFOS_KEYS.EMAIL_KEY).clearValidators();
     }
-    this.form.at(FORM_CREATOR_STEP.OPTIONS).get('userinfos').get(this.USER_INFOS_KEYS.EMAIL_KEY).updateValueAndValidity();
+    this.form.at(FORM_CREATOR_STEP.OPTIONS).get('subjectInfos').get(this.SUBJECT_INFOS_KEYS.EMAIL_KEY).updateValueAndValidity();
   }
 
   elementDropped(event: CdkDragDrop<ModelEntryDto[]>): void {
@@ -435,12 +436,13 @@ export class CollectFormCreatorPageComponent implements OnInit {
     };
     return {
       subject: formValue.subject,
+      object: formValue.object,
       updatable: formValue.updatable,
       callback: formValue.callback,
       iframeOrigin: formValue.iframeOrigin,
       validity: CollectFormCreatorPageComponent.formatValidity(formValue.validity, formValue.validityUnit),
       language: formValue.language,
-      userinfos: formValue.userinfos,
+      subjectInfos: formValue.subjectInfos,
       attributes: {},
       author: '',
       origin: ConsentOrigin.WEBFORM,
