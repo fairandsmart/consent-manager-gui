@@ -1,0 +1,38 @@
+<!--
+  #%L
+  Right Consents, a Universal Consents & Preferences Management Platform.
+  %%
+  Copyright (C) 2020 - 2021 Fair And Smart
+  %%
+  This file is part of Right Consents Community Edition.
+
+  Right Consents Community Edition is published by FAIR AND SMART under the
+  GNU GENERAL PUBLIC LICENCE Version 3 (GPLv3) and a set of additional terms.
+
+  For more information, please see the “LICENSE” and “LICENSE.FAIRANDSMART”
+  files, or see https://www.fairandsmart.com/opensource/.
+  #L%
+  -->
+<div class="model-action">
+  <div class="record-object">
+    <ng-container *ngIf="object !== 'undefined'">{{'USER.OBJECT' | translate}} : {{object}}</ng-container>
+  </div>
+
+  <div class="user-input user-input-wrapper">
+    <ng-container *ngIf="refusable; else unrefusable">
+      <label>{{'USER.REFUSE' | translate}}</label>
+      <mat-slide-toggle [formControl]="control"></mat-slide-toggle>
+      <label>{{'USER.ACCEPT' | translate}}</label>
+    </ng-container>
+    <ng-template #unrefusable>
+      <ng-container *ngIf="!disabled; else accepted">
+        <label>{{'USER.UNANSWERED' | translate}}</label>
+        <mat-slide-toggle [formControl]="control"></mat-slide-toggle>
+        <label>{{'USER.ACCEPT' | translate}}</label>
+      </ng-container>
+      <ng-template #accepted>
+        <label>{{'USER.ACCEPTED' | translate}}</label>
+      </ng-template>
+    </ng-template>
+  </div>
+</div>

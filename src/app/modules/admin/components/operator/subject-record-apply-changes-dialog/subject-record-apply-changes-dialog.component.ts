@@ -23,6 +23,7 @@ export interface SubjectRecordApplyChangesDialogDataInput {
 }
 
 export interface SubjectRecordApplyChangesDialogDataOutput {
+  object?: string;
   recipient?: string;
   email?: string;
   comment?: string;
@@ -51,6 +52,7 @@ export class SubjectRecordApplyChangesDialogComponent implements OnInit {
       }
     });
     this.form = this.fb.group({
+      object: [''],
       comment: [''],
       notify: [true],
       recipient: [''],
@@ -78,6 +80,9 @@ export class SubjectRecordApplyChangesDialogComponent implements OnInit {
     }
     this.form.disable();
     const result: SubjectRecordApplyChangesDialogDataOutput = { comment: this.form.get('comment').value };
+    if (this.form.get('object').value) {
+      result.object = this.form.get('object').value;
+    }
     if (this.form.get('notify').value) {
       result.recipient = this.form.get('recipient').value.trim();
       result.email = this.form.get('email').value.key;

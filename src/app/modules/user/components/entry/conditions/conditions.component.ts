@@ -13,7 +13,7 @@
  * files, or see https://www.fairandsmart.com/opensource/.
  * #L%
  */
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, QueryList, ViewChildren } from '@angular/core';
 import { EntryCardContentDirective } from '../entry-card-content/entry-card-content.directive';
 import { Conditions } from '@fairandsmart/consents-ce/models';
 import { TranslateService } from '@ngx-translate/core';
@@ -21,7 +21,7 @@ import { KeycloakService } from 'keycloak-angular';
 import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
 import { AlertService } from '../../../../../core/services/alert.service';
 import { ConfigService } from '../../../../../core/services/config.service';
-import { CoreService } from '../../../../../core/services/core.service';
+import { ConditionsInputComponent } from './conditions-input/conditions-input.component';
 
 @Component({
   selector: 'cm-conditions-user',
@@ -31,6 +31,9 @@ import { CoreService } from '../../../../../core/services/core.service';
 export class ConditionsComponent extends EntryCardContentDirective<Conditions> implements OnInit {
 
   showDetails: boolean;
+
+  @ViewChildren(ConditionsInputComponent)
+  itemInputs: QueryList<ConditionsInputComponent>;
 
   get body(): SafeHtml {
     if (this.getData()?.body) {
@@ -45,32 +48,9 @@ export class ConditionsComponent extends EntryCardContentDirective<Conditions> i
     keycloakService: KeycloakService,
     alertService: AlertService,
     configService: ConfigService,
-    coreService: CoreService,
     private sanitizer: DomSanitizer
   ) {
-    super(translate, keycloakService, alertService, configService, coreService);
+    super(translate, keycloakService, alertService, configService);
   }
 
-  ngOnInit(): void {
-    super.ngOnInit();
-  }
-
-  enableControl(): void {
-    if (this.remoteValue === 'accepted') {
-      return;
-    }
-    this.control.enable({emitEvent: false});
-  }
-
-  parseValue(): any {
-    const isAccepted = this.remoteValue === 'accepted';
-    return {
-      value: isAccepted,
-      disabled: isAccepted
-    };
-  }
-
-  serializeValue(): string {
-    return this.control.value ? 'accepted' : 'refused';
-  }
 }

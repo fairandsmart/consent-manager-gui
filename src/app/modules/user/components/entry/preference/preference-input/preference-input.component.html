@@ -1,0 +1,68 @@
+<!--
+  #%L
+  Right Consents, a Universal Consents & Preferences Management Platform.
+  %%
+  Copyright (C) 2020 - 2021 Fair And Smart
+  %%
+  This file is part of Right Consents Community Edition.
+
+  Right Consents Community Edition is published by FAIR AND SMART under the
+  GNU GENERAL PUBLIC LICENCE Version 3 (GPLv3) and a set of additional terms.
+
+  For more information, please see the “LICENSE” and “LICENSE.FAIRANDSMART”
+  files, or see https://www.fairandsmart.com/opensource/.
+  #L%
+  -->
+<div class="model-action" *ngIf="control">
+  <div class="record-object">
+    <ng-container *ngIf="object !== 'undefined'">{{'USER.OBJECT' | translate}} : {{object}}</ng-container>
+  </div>
+
+  <form *ngIf="getData()?.valueType" class="answer-container user-input-wrapper">
+
+    <div *ngIf="getData()?.valueType === TYPES.TOGGLE">
+      <div class="user-input">
+        <label>{{getData().options[0]}}</label>
+        <mat-slide-toggle [formControl]="control" ></mat-slide-toggle>
+        <label>{{getData().options[1]}}</label>
+      </div>
+    </div>
+
+    <div *ngIf="getData()?.valueType === TYPES.CHECKBOXES">
+      <ul [formGroup]="checkboxesGroup">
+        <li *ngFor="let option of getData().options; index as index">
+          <mat-checkbox [formControlName]="option">{{option}}</mat-checkbox>
+        </li>
+      </ul>
+    </div>
+
+    <div *ngIf="getData()?.valueType === TYPES.RADIO_BUTTONS">
+      <mat-radio-group [formControl]="control">
+        <ul>
+          <li *ngFor="let option of getData().options">
+            <mat-radio-button [value]="option">{{option}}</mat-radio-button>
+          </li>
+        </ul>
+      </mat-radio-group>
+    </div>
+
+    <div *ngIf="getData()?.valueType === TYPES.LIST_SINGLE || getData()?.valueType === TYPES.LIST_MULTI">
+      <mat-form-field appearance="outline">
+        <mat-label>{{'ENTRIES.EDITOR.PREFERENCE.OPTIONS.LABEL' | translate}}</mat-label>
+        <mat-select [multiple]="getData().valueType === TYPES.LIST_MULTI" [formControl]="control">
+          <mat-option *ngFor="let option of getData()?.options" [value]="option">
+            {{option}}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+    </div>
+
+    <div *ngIf="getData()?.valueType === TYPES.FREE_TEXT">
+      <mat-form-field appearance="outline">
+        <mat-label>{{'ENTRIES.EDITOR.PREFERENCE.OPTIONS.LABEL' | translate}}</mat-label>
+        <input [formControl]="control" matInput autocomplete="off">
+      </mat-form-field>
+    </div>
+
+  </form>
+</div>

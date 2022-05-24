@@ -31,52 +31,50 @@
            matSortDisableClear="true">
 
       <ng-container matColumnDef="key">
-        <th class="data-column" mat-header-cell mat-sort-header *matHeaderCellDef>{{'RECORDS.COMMON.KEY.LABEL' | translate}}</th>
-        <td class="data-column" mat-cell *matCellDef="let element">{{element.key}}</td>
+        <th class="medium-column" mat-header-cell mat-sort-header *matHeaderCellDef>{{'RECORDS.COMMON.KEY.LABEL' | translate}}</th>
+        <td class="medium-column" mat-cell *matCellDef="let element">{{element.key}}</td>
       </ng-container>
 
       <ng-container matColumnDef="name">
-        <th class="name-column" mat-header-cell mat-sort-header *matHeaderCellDef>{{'RECORDS.COMMON.NAME.LABEL' | translate}}</th>
-        <td class="name-column" mat-cell *matCellDef="let element">{{element.name}}</td>
+        <th class="large-column" mat-header-cell mat-sort-header *matHeaderCellDef>{{'RECORDS.COMMON.NAME.LABEL' | translate}}</th>
+        <td class="large-column" mat-cell *matCellDef="let element">{{element.name}}</td>
       </ng-container>
 
       <ng-container matColumnDef="collectionMethod">
-        <th class="data-column" mat-header-cell *matHeaderCellDef>{{'RECORDS.COMMON.COLLECTION_METHOD.LABEL' | translate}}</th>
-        <td class="data-column" mat-cell *matCellDef="let element">
-          {{element.collectionMethod ? ('COMMON.COLLECTION_METHODS.' + element.collectionMethod | translate) : '-'}}
+        <th class="medium-column" mat-header-cell *matHeaderCellDef>{{'RECORDS.COMMON.COLLECTION_METHOD.LABEL' | translate}}</th>
+        <td class="medium-column" mat-cell *matCellDef="let element">
+          {{element.origin ? ('COMMON.COLLECTION_METHODS.' + element.origin | translate) : '-'}}
+        </td>
+      </ng-container>
+
+      <ng-container matColumnDef="object">
+        <th class="medium-column" mat-header-cell *matHeaderCellDef>{{'RECORDS.COMMON.OBJECT.LABEL' | translate}}</th>
+        <td class="medium-column" mat-cell *matCellDef="let element">
+          {{element.object ? element.object : '-'}}
         </td>
       </ng-container>
 
       <ng-container matColumnDef="recordExpiration">
-        <th class="data-column" mat-header-cell *matHeaderCellDef>{{'RECORDS.COMMON.PROCESSING_DATE.LABEL' | translate}}</th>
-        <td class="data-column" mat-cell *matCellDef="let element">
+        <th class="medium-column" mat-header-cell *matHeaderCellDef>{{'RECORDS.COMMON.PROCESSING_DATE.LABEL' | translate}}</th>
+        <td class="medium-column" mat-cell *matCellDef="let element">
           {{element.recordExpiration > 0 ? (element.recordExpiration | date:'shortDate') : '-'}}
         </td>
       </ng-container>
 
       <ng-container matColumnDef="status">
-        <th class="status-column" mat-header-cell *matHeaderCellDef>{{'RECORDS.COMMON.STATUS.LABEL' | translate}}</th>
-        <td class="status-column" mat-cell *matCellDef="let element">
+        <th class="small-column" mat-header-cell *matHeaderCellDef>{{'RECORDS.COMMON.STATUS.LABEL' | translate}}</th>
+        <td class="small-column" mat-cell *matCellDef="let element">
           <span [attr.record-status]="element.status" [attr.record-value]="element.value">
             {{'RECORDS.COMMON.STATUS.' + getRecordStatus(element) | translate}}
           </span>
         </td>
       </ng-container>
 
-      <ng-container matColumnDef="history">
-        <th mat-header-cell *matHeaderCellDef>{{'RECORDS.COMMON.HISTORY.LABEL' | translate}}</th>
-        <td mat-cell *matCellDef="let element">
-          <button mat-icon-button (click)="showHistory(element)" [disabled]="!hasHistory(element)">
-            <mat-icon>topic</mat-icon>
-          </button>
-        </td>
-      </ng-container>
-
       <ng-container matColumnDef="actions">
-        <th mat-header-cell *matHeaderCellDef>{{'RECORDS.COMMON.EDIT.LABEL' | translate}}</th>
-        <td mat-cell *matCellDef="let element">
-          <button mat-icon-button (click)="action(element)" [disabled]="!element.active">
-            <mat-icon>edit</mat-icon>
+        <th mat-header-cell *matHeaderCellDef>{{'RECORDS.COMMON.ACTIONS.LABEL' | translate}}</th>
+        <td mat-cell *matCellDef="let element" (click)="preventDefaultAndPropagation($event)">
+          <button mat-icon-button [matMenuTriggerFor]="menu" [matMenuTriggerData]="{element: element}">
+            <mat-icon>more_vert</mat-icon>
           </button>
         </td>
       </ng-container>
@@ -96,5 +94,18 @@
                    [pageIndex]="filter.page"
                    [pageSize]="filter.size"
                    showFirstLastButtons></mat-paginator>
+
+    <mat-menu #menu="matMenu">
+      <ng-template matMenuContent let-element="element">
+        <button mat-menu-item (click)="showHistory(element)" [disabled]="!hasHistory(element)">
+          <mat-icon>history</mat-icon>
+          {{'RECORDS.COMMON.ACTIONS.HISTORY' | translate}}
+        </button>
+        <button mat-menu-item (click)="edit(element)" [disabled]="!element.active">
+          <mat-icon>edit</mat-icon>
+          {{'RECORDS.COMMON.ACTIONS.EDIT' | translate}}
+        </button>
+      </ng-template>
+    </mat-menu>
   </div>
 </div>

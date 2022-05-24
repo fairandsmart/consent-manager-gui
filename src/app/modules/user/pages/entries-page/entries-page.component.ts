@@ -16,7 +16,7 @@
 import { Component, OnDestroy, OnInit, QueryList, ViewChildren } from '@angular/core';
 import { KeycloakService } from 'keycloak-angular';
 import { combineLatest, from, Subscription } from 'rxjs';
-import { map, mergeMap, toArray } from 'rxjs/operators';
+import { concatAll, map, mergeMap, toArray } from 'rxjs/operators';
 import * as _ from 'lodash';
 import { ConfigService } from '../../../../core/services/config.service';
 import { EntryCardComponent } from '../../components/entry/entry-card/entry-card.component';
@@ -30,13 +30,13 @@ import {
   ModelEntryDto,
   ModelVersionDto
 } from '@fairandsmart/consents-ce/models';
-import { RecordDto, RecordsMap } from '@fairandsmart/consents-ce/records';
+import { RECORD_IDENTIFIER_SEPARATOR, RecordDto, RecordsMap } from '@fairandsmart/consents-ce/records';
 import { listSubjectRecords } from '@fairandsmart/consents-ce/subjects';
 import { CollectionPage } from '@fairandsmart/consents-ce';
 
 interface CardData {
   entry: ModelEntryDto;
-  record: RecordDto;
+  recordsMap: { [key: string]: RecordDto };
 }
 
 @Component({
@@ -90,9 +90,13 @@ export class EntriesPageComponent implements OnInit, OnDestroy {
               });
           }
           this.elementsKeys.forEach((key) => {
+            const recordsMap = {};
+            Object.keys(records).filter(k => k.startsWith(key)).forEach(k => {
+              recordsMap[k.split(RECORD_IDENTIFIER_SEPARATOR)[2]] = _.last(records[k]);
+            });
             this.data.push({
               entry: entries.values.find(entry => entry.key === key),
-              record: _.last(records[key])
+              recordsMap: recordsMap
             });
           });
         })
@@ -112,14 +116,16 @@ export class EntriesPageComponent implements OnInit, OnDestroy {
     this.entriesWithUnsavedChanges = [];
     if (this.entriesComponents) {
       this.entriesWithUnsavedChanges = this.entriesComponents
-        .filter((item) => item.itemCard?.hasUnsavedChange);
+        .filter((item) => {
+          return item.itemCard?.itemInputs?.filter(input => input.hasUnsavedChange).length > 0;
+        });
     }
   }
 
   saveChanges(): void {
     from(this.entriesWithUnsavedChanges).pipe(
-      mergeMap((item) => item.itemCard?.saveChanges()),
-      toArray(),
+      mergeMap((item) => item.itemCard?.itemInputs?.filter(input => input.hasUnsavedChange).map(input => input.saveChanges())),
+      concatAll(),
     ).subscribe({
       next: () => {
         this.alertService.success(this.translate.instant('USER.SAVE.PREFERENCES_UPDATED'));
@@ -133,7 +139,7 @@ export class EntriesPageComponent implements OnInit, OnDestroy {
   }
 
   resetChanges(): void {
-    this.entriesWithUnsavedChanges.forEach((item) => item.itemCard?.resetState());
+    this.entriesWithUnsavedChanges.forEach((item) => item.itemCard?.itemInputs?.forEach(input => input.resetState()));
     this.updateUnsavedChanges();
   }
 

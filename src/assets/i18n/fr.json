@@ -54,7 +54,7 @@
       "OPERATOR": "Opérateur",
       "EMAIL": "Lien de l'email",
       "RECEIPT": "Lien du reçu",
-      "USER_PAGE": "Interface utilisateur"
+      "USER": "Interface utilisateur"
     },
     "ENTRY_STATUSES": {
       "ACTIVE": "Actif",
@@ -570,14 +570,16 @@
       "VERSION": {
         "LABEL": "Version"
       },
+      "OBJECT": {
+        "LABEL": "Objet"
+      },
       "COLLECTION_METHOD": {
         "LABEL": "Méthode de collecte"
       },
-      "HISTORY": {
-        "LABEL": "Historique"
-      },
-      "EDIT": {
-        "LABEL": "Modifier"
+      "ACTIONS": {
+        "LABEL": "Actions",
+        "HISTORY": "Historique",
+        "EDIT": "Modifier"
       },
       "STATUS": {
         "LABEL": "Statut",
@@ -731,6 +733,9 @@
       "SUBJECT": {
         "LABEL": "Identifiant du client",
         "REQUIRED": "Vous devez préciser un identifiant"
+      },
+      "OBJECT": {
+        "LABEL": "Identifiant de l'objet"
       },
       "ORIENTATION": {
         "LABEL": "Orientation",
@@ -935,6 +940,7 @@
     "SHORT_PRIVACY_POLICY": "Politique de confidentialité simplifiée",
     "CONTROLLER_TITLE": "Responsable de traitement",
     "MISSING_INFO": "Aucune information disponible.",
+    "OBJECT": "Ref",
     "ACCEPT": "J'accepte",
     "REFUSE": "Je refuse",
     "UNANSWERED": "Sans réponse",

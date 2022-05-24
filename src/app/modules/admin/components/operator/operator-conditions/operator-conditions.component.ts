@@ -31,7 +31,7 @@ import { MatDialog } from '@angular/material/dialog';
 export class OperatorConditionsComponent extends OperatorConsentListDirective implements OnInit {
 
   readonly ICONS = Icons;
-  public displayedColumns = ['key', 'name', 'version', 'recordCreation', 'status', 'history'];
+  public displayedColumns = ['key', 'name', 'version', 'object', 'recordCreation', 'status', 'actions'];
   public pageSizeOptions = [10, 25, 50];
 
   constructor(
@@ -58,12 +58,12 @@ export class OperatorConditionsComponent extends OperatorConsentListDirective im
 
   showHistory(element: EntryRecord): void {
     this.dialog.open<SubjectRecordsHistoryComponent>(SubjectRecordsHistoryComponent, {
-      data: {subject: this.subject, records: this.records[element.key]?.slice().reverse()}
+      data: {subject: this.subject, records: this.records[element.recordIdentifier]?.slice().reverse()}
     });
   }
 
   hasHistory(element: EntryRecord): boolean {
-    return this.records[element.key]?.length > 0;
+    return this.records[element.recordIdentifier]?.length > 0;
   }
 
   getRecordStatus(element): string {

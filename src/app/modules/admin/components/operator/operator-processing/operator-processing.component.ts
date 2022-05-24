@@ -39,7 +39,7 @@ export class OperatorProcessingComponent extends OperatorConsentListDirective im
   readonly ICONS = Icons;
   private readonly defaultLanguage;
 
-  public displayedColumns = ['key', 'name', 'collectionMethod', 'recordExpiration', 'status', 'history', 'actions'];
+  public displayedColumns = ['key', 'name', 'collectionMethod', 'object', 'recordExpiration', 'status', 'actions'];
   public pageSizeOptions = [10, 25, 50];
 
   constructor(
@@ -58,8 +58,12 @@ export class OperatorProcessingComponent extends OperatorConsentListDirective im
     super.ngOnInit();
   }
 
-  action(element: EntryRecord): void {
-    super.action(element);
+  edit(element: EntryRecord): void {
+    if (!this.coreService.hasActiveInfo) {
+      this.snackBar.open(this.translate.instant('ALERT.NO_INFORMATION'));
+      throw new Error('No info');
+    }
+
     getActiveVersion(element.id).subscribe((version) => {
       let versionDto: Processing;
       if (version.data[this.translate.currentLang]) {
@@ -80,12 +84,12 @@ export class OperatorProcessingComponent extends OperatorConsentListDirective im
 
   showHistory(element: EntryRecord): void {
     this.dialog.open<SubjectRecordsHistoryComponent>(SubjectRecordsHistoryComponent, {
-      data: {subject: this.subject, records: this.records[element.key]?.slice().reverse()}
+      data: {subject: this.subject, records: this.records[element.recordIdentifier]?.slice().reverse()}
     });
   }
 
   hasHistory(element: EntryRecord): boolean {
-    return this.records[element.key]?.length > 0;
+    return this.records[element.recordIdentifier]?.length > 0;
   }
 
   getRecordStatus(element: EntryRecord): string {

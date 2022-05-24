@@ -25,15 +25,19 @@
     <mat-card>
       <h2>{{ 'USER.CONSENTS.TITLE' | translate }}</h2>
       <p>{{ 'USER.CONSENTS.HINT' | translate }}</p>
-      <cm-entry-card [autoSave]="true" [entry]="card.entry" [info]="infoEntry" [record]="card.record" *ngFor="let card of filterCards(data, 'conditions')"></cm-entry-card>
-      <cm-entry-card [autoSave]="true" [entry]="card.entry" [info]="infoEntry" [record]="card.record" *ngFor="let card of filterCards(data, 'processing')"></cm-entry-card>
+      <cm-entry-card [autoSave]="true" [entry]="card.entry" [info]="infoEntry" [recordsMap]="card.recordsMap"
+                     *ngFor="let card of filterCards(data, 'conditions')"></cm-entry-card>
+      <cm-entry-card [autoSave]="true" [entry]="card.entry" [info]="infoEntry" [recordsMap]="card.recordsMap"
+                     *ngFor="let card of filterCards(data, 'processing')"></cm-entry-card>
     </mat-card>
   </div>
   <div class="user-preferences">
     <mat-card>
       <h2>{{ 'USER.PREFERENCES.TITLE' | translate }}</h2>
       <p>{{ 'USER.PREFERENCES.HINT' | translate }}</p>
-      <cm-entry-card (unsavedChanged)="updateUnsavedChanges()" [entry]="card.entry" [info]="infoEntry" [record]="card.record" *ngFor="let card of filterCards(data, 'preference')"></cm-entry-card>
+      <cm-entry-card [autoSave]="false" (unsavedChanged)="updateUnsavedChanges()" [entry]="card.entry"
+                     [info]="infoEntry" [recordsMap]="card.recordsMap"
+                     *ngFor="let card of filterCards(data, 'preference')"></cm-entry-card>
     </mat-card>
   </div>
 </div>

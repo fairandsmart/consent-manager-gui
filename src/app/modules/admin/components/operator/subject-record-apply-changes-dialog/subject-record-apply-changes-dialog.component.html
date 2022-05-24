@@ -24,6 +24,11 @@
     <textarea matInput formControlName="comment" cdkTextareaAutosize cdkAutosizeMinRows="3"></textarea>
   </mat-form-field>
 
+  <mat-form-field appearance="fill">
+    <mat-label>{{'RECORDS.COMMON.OBJECT.LABEL' | translate}}</mat-label>
+    <input matInput formControlName="object" autocomplete="off">
+  </mat-form-field>
+
   <div class="checkbox-wrapper">
     <mat-checkbox formControlName="notify">{{'RECORDS.COMMON.RECIPIENT.NOTIFY' | translate}}</mat-checkbox>
   </div>
@@ -33,7 +38,7 @@
 
     <mat-form-field appearance="fill">
       <mat-label>{{'RECORDS.COMMON.RECIPIENT.LABEL' | translate}}</mat-label>
-      <input matInput type="email" required formControlName="recipient" >
+      <input matInput type="email" required formControlName="recipient">
       <mat-error *ngIf="form.hasError('required', ['recipient'])">
         {{'RECORDS.COMMON.RECIPIENT.REQUIRED' | translate }}
       </mat-error>
