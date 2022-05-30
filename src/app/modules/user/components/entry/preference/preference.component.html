@@ -19,7 +19,7 @@
     <small *ngIf="getData()?.description">{{getData().description}}</small>
   </div>
 
-  <cm-preference-input *ngFor="let objectKey of objectKeys(recordsMap)"
+  <cm-preference-input *ngFor="let objectKey of recordsKeys"
                        [recordValue]="recordsMap[objectKey].value" [autoSave]="autoSave" [object]="objectKey"
                        [infoKey]="info ? info.key : ''" [entryKey]="entry?.key" [version]="version"
                        (changed)="notifyUnsavedChanges()"></cm-preference-input>
