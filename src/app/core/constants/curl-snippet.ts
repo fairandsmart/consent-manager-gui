@@ -13,6 +13,9 @@
  * files, or see https://www.fairandsmart.com/opensource/.
  * #L%
  */
+
+// TODO this snippet is completely out-of-date
+
 import { environment } from '../../../environments/environment';
 import { ConsentContext } from '@fairandsmart/consents-ce/consents';
 
