@@ -866,6 +866,11 @@
       "KEY": {
         "LABEL": "Clé"
       },
+      "SCOPE": {
+        "LABEL": "Portée",
+        "OWNER": "Propriétaire",
+        "PEER": "Pair"
+      },
       "SECRET": {
         "LABEL": "Partie secrète de la clé"
       },

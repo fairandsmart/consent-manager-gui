@@ -866,6 +866,11 @@
       "KEY": {
         "LABEL": "Key"
       },
+      "SCOPE": {
+        "LABEL": "Scope",
+        "OWNER": "Owner",
+        "PEER": "Peer"
+      },
       "SECRET": {
         "LABEL": "Secret key part"
       },
