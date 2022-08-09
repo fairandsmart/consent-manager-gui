@@ -19,7 +19,7 @@
     {{getData()?.title}}
   </div>
 
-  <cm-conditions-input *ngFor="let objectKey of objectKeys(recordsMap)" [refusable]="getData()?.refusable"
+  <cm-conditions-input *ngFor="let objectKey of recordsKeys" [refusable]="getData()?.refusable"
                        [recordValue]="recordsMap[objectKey].value" [autoSave]="autoSave" [object]="objectKey"
                        [infoKey]="info ? info.key : ''" [entryKey]="entry?.key" [version]="version"
                        (changed)="notifyUnsavedChanges()"></cm-conditions-input>

@@ -24,6 +24,7 @@
       <button mat-button [cdkCopyToClipboard]="data.url"><mat-icon>content_copy</mat-icon> {{'FORM_CREATOR.API_URL.URL.BUTTON_COPY' | translate}}</button>
       <a mat-button [href]="data.url" target="_blank"><mat-icon>launch</mat-icon> {{'FORM_CREATOR.API_URL.URL.BUTTON_OPEN' | translate}}</a>
     </mat-tab>
+<!-- TODO snippets temporarily removed
     <mat-tab [label]="'FORM_CREATOR.API_URL.SNIPPET_CURL.TITLE' | translate">
       <p class="mat-body-2">{{'FORM_CREATOR.API_URL.SNIPPET_CURL.HINT' | translate}}</p>
       <code>{{snippet.curl}}</code>
@@ -40,6 +41,7 @@
         <button mat-button [cdkCopyToClipboard]="snippet.php"><mat-icon>content_copy</mat-icon> {{'COMMON.BUTTONS.COPY' | translate}}</button>
       </ng-template>
     </mat-tab>
+-->
   </mat-tab-group>
 </div>
 <div class="btn-uppercase align-right" mat-dialog-actions>

@@ -31,8 +31,6 @@ export abstract class EntryCardContentDirective<T extends ModelData> implements 
 
   private readonly defaultLanguage;
 
-  public readonly objectKeys = Object.keys;
-
   @ViewChildren(EntryCardInputDirective)
   itemInputs: QueryList<EntryCardInputDirective<T>>;
 
@@ -55,6 +53,7 @@ export abstract class EntryCardContentDirective<T extends ModelData> implements 
   changed: EventEmitter<void>;
 
   data: T;
+  recordsKeys: string[] = [];
 
   protected constructor(
     protected translate: TranslateService,
@@ -84,6 +83,8 @@ export abstract class EntryCardContentDirective<T extends ModelData> implements 
         value: ''
       };
     }
+    this.recordsKeys = Object.keys(this.recordsMap).sort((a, b) =>
+      a === RECORD_IDENTIFIER_DEFAULT ? -1 : b === RECORD_IDENTIFIER_DEFAULT ? 1 : a.localeCompare(b));
   }
 
   notifyUnsavedChanges(): void {
@@ -99,5 +100,4 @@ export abstract class EntryCardContentDirective<T extends ModelData> implements 
       return this.version.data[this.defaultLanguage];
     }
   }
-
 }

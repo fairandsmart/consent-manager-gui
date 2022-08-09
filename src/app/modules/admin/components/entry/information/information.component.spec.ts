@@ -64,7 +64,8 @@ describe('InformationComponent', () => {
       modificationDate: 42,
       status: ModelEntryStatus.ACTIVE,
       defaultLanguage: 'fr',
-      availableLanguages: ['fr']
+      availableLanguages: ['fr'],
+      shared: false,
     };
     fixture.detectChanges();
   });

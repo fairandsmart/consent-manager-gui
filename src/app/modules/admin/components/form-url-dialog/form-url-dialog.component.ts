@@ -38,16 +38,16 @@ export class FormUrlDialogComponent {
   };
 
   snippet: {
-    php: string,
-    curl: string,
+    php?: string,
+    curl?: string,
     formUrl: string
   };
 
   constructor(private dialogRef: MatDialogRef<FormUrlDialogComponent>,
               @Inject(MAT_DIALOG_DATA) public data: FormUrlDialogComponentData) {
     this.snippet = {
-      php: getPhpSnippetFromContext(data.context),
-      curl: getCurlSnippetFromContext(data.context),
+      // TODO temporarily removed php: getPhpSnippetFromContext(data.context),
+      // TODO temporarily removed curl: getCurlSnippetFromContext(data.context),
       formUrl: environment.managerUrl + '/consents?t=PUT_YOUR_TOKEN_HERE'
     };
   }

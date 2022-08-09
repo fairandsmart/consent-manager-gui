@@ -54,7 +54,8 @@
       "OPERATOR": "Operator",
       "EMAIL": "Email link",
       "RECEIPT": "Receipt link",
-      "USER": "User page"
+      "USER": "User page",
+      "PEER": "Peer"
     },
     "ENTRY_STATUSES": {
       "ACTIVE": "Active",
@@ -864,6 +865,11 @@
       },
       "KEY": {
         "LABEL": "Key"
+      },
+      "SCOPE": {
+        "LABEL": "Scope",
+        "OWNER": "Owner",
+        "PEER": "Peer"
       },
       "SECRET": {
         "LABEL": "Secret key part"

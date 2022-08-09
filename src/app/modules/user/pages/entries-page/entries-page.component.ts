@@ -16,7 +16,7 @@
 import { Component, OnDestroy, OnInit, QueryList, ViewChildren } from '@angular/core';
 import { KeycloakService } from 'keycloak-angular';
 import { combineLatest, from, Subscription } from 'rxjs';
-import { concatAll, map, mergeMap, toArray } from 'rxjs/operators';
+import { concatAll, map, mergeMap } from 'rxjs/operators';
 import * as _ from 'lodash';
 import { ConfigService } from '../../../../core/services/config.service';
 import { EntryCardComponent } from '../../components/entry/entry-card/entry-card.component';

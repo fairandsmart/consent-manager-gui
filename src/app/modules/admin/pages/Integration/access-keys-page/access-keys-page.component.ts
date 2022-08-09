@@ -15,7 +15,7 @@
  */
 import { AfterViewInit, Component, Inject, OnInit } from '@angular/core';
 import { MAT_DIALOG_DATA, MatDialog } from '@angular/material/dialog';
-import { createKey, deleteKey, Key } from '@fairandsmart/consents-ce/keys';
+import { createKey, deleteKey, Key, KeyScope } from '@fairandsmart/consents-ce/keys';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { AlertService } from '../../../../../core/services/alert.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
@@ -30,13 +30,14 @@ import { Icons } from '../../../../../core/models/common';
 })
 export class AccessKeysPageComponent implements OnInit, AfterViewInit {
 
-  public displayedColumns: string[] = ['name', 'creationDate', 'lastAccessDate', 'actions'];
+  public displayedColumns: string[] = ['name', 'scope', 'creationDate', 'lastAccessDate', 'actions'];
 
   public dataSource: KeysDataSource;
 
   public form: FormGroup;
 
   readonly ICONS = Icons;
+  readonly SCOPES = Object.keys(KeyScope);
 
   constructor(
     private dialog: MatDialog,
@@ -48,7 +49,8 @@ export class AccessKeysPageComponent implements OnInit, AfterViewInit {
     this.dataSource = new KeysDataSource();
     this.loadKeys();
     this.form = this.fb.group({
-      name: ['', [Validators.required, Validators.maxLength(25)]]
+      name: ['', [Validators.required, Validators.maxLength(25)]],
+      scope: [undefined, [Validators.required]]
     });
   }
 
@@ -80,8 +82,11 @@ export class AccessKeysPageComponent implements OnInit, AfterViewInit {
   generateKey(): void {
     if (this.form.valid) {
       this.form.disable();
-      const name = this.form.get('name').value;
-      createKey(name).subscribe(response => {
+      const key: Key = {
+        name: this.form.get('name').value,
+        scope: this.form.get('scope').value
+      };
+      createKey(key).subscribe(response => {
         this.dialog.open(GeneratedKeyDialogComponent, {data: response});
         this.loadKeys();
         this.form.enable();

@@ -54,7 +54,8 @@
       "OPERATOR": "Opérateur",
       "EMAIL": "Lien de l'email",
       "RECEIPT": "Lien du reçu",
-      "USER": "Interface utilisateur"
+      "USER": "Interface utilisateur",
+      "PEER": "Pair"
     },
     "ENTRY_STATUSES": {
       "ACTIVE": "Actif",
@@ -864,6 +865,11 @@
       },
       "KEY": {
         "LABEL": "Clé"
+      },
+      "SCOPE": {
+        "LABEL": "Portée",
+        "OWNER": "Propriétaire",
+        "PEER": "Pair"
       },
       "SECRET": {
         "LABEL": "Partie secrète de la clé"
