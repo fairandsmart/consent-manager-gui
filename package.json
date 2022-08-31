@@ -1,6 +1,6 @@
 {
   "name": "consent-manager-gui",
-  "version": "2.2.0",
+  "version": "2.3.0",
   "scripts": {
     "postinstall": "ngcc",
     "ng": "ng",
