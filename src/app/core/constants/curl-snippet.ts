@@ -14,22 +14,26 @@
  * #L%
  */
 
-// TODO this snippet is completely out-of-date
-
 import { environment } from '../../../environments/environment';
 import { ConsentContext } from '@fairandsmart/consents-ce/consents';
 
-export const CURL_SNIPPET =
-`curl '$$API_URL$$/consents/token' \\
+export const CURL_TOKEN_SNIPPET = (api: string, json: string) =>
+`curl '${api}/consents' \\
   -H 'Accept: application/json, text/plain, */*' \\
-  -H 'Authorization: Basic PUT_YOUR_BASE_64_ENCODED_API_KEY' \\
+  -H 'Authorization: Bearer PUT_YOUR_ADMIN_ACCESS_TOKEN_HERE' \\
   -H 'Content-Type: application/json' \\
-  --data-binary '$$JSON$$' \\
-  --compressed
-`;
+  --data-binary '${json}' \\
+  --compressed`;
 
-export function getCurlSnippetFromContext(context: ConsentContext): string {
-  return CURL_SNIPPET
-    .replace('$$API_URL$$', environment.managerUrl)
-    .replace('$$JSON$$', JSON.stringify(context));
+export function getCurlTokenSnippetFromContext(context: ConsentContext): string {
+  return CURL_TOKEN_SNIPPET(environment.managerUrl, JSON.stringify(context));
+}
+
+export const CURL_LOCATION_SNIPPET = (api: string) =>
+`curl '${api}/consents/PUT_YOUR_TRANSACTION_TOKEN_HERE' \\
+  -H 'Accept: application/json, text/plain, */*' \\
+  -H 'Authorization: Bearer PUT_YOUR_ADMIN_ACCESS_TOKEN_HERE'`;
+
+export function getCurlLocationSnippet(): string {
+  return CURL_LOCATION_SNIPPET(environment.managerUrl);
 }

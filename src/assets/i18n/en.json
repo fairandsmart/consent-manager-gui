@@ -827,18 +827,22 @@
     "API_URL": {
       "DIALOG_TITLE": "Form integration",
       "SNIPPET_PHP": {
-        "TITLE": "PHP example",
+        "TITLE": "PHP",
         "HINT": "Example of PHP code generating a token and displaying the form in an iframe :"
       },
       "SNIPPET_CURL": {
         "TITLE": "cURL",
-        "HINT": "cURL call to get a token for this form :",
-        "HINT_2": "After obtaining the token, the URL of the form will be :"
+        "HINT_1": "Call to get a token for this form:",
+        "HINT_2": "After obtaining the token, use the following call to get the transaction state:",
+        "HINT_3": "The form URL can be created using the 'task' and 'token' fields of the result ({task}?t={token})."
       },
       "URL": {
-        "TITLE": "Direct URL to the form",
+        "TITLE": "URL to the form",
         "BUTTON_COPY": "Copy the form url",
         "BUTTON_OPEN": "Open the form"
+      },
+      "JSON": {
+        "TITLE": "JSON context"
       },
       "BUTTON_VIEW": "Get API call URL"
     }
