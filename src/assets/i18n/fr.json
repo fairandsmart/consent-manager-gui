@@ -827,18 +827,22 @@
     "API_URL": {
       "DIALOG_TITLE": "Intégration du formulaire",
       "SNIPPET_PHP": {
-        "TITLE": "Exemple d'intégration PHP",
+        "TITLE": "PHP",
         "HINT": "Exemple de code PHP générant un token et affichant le formulaire dans une iframe :"
       },
       "SNIPPET_CURL": {
         "TITLE": "cURL",
-        "HINT": "Appel cURL pour obtenir un jeton pour ce formulaire :",
-        "HINT_2": "Après obtention du jeton, l'URL du formulaire sera :"
+        "HINT_1": "Appel pour obtenir un jeton pour ce formulaire :",
+        "HINT_2": "Après obtention du jeton, effectuer l'appel suivant pour obtenir l'état de la transaction :",
+        "HINT_3": "L'URL du formulaire peut être obtenue grâce aux champs 'task' et 'token' du résultat ({task}?t={token})."
       },
       "URL": {
-        "TITLE": "URL directe vers le formulaire",
+        "TITLE": "URL vers le formulaire",
         "BUTTON_COPY": "Copier l'url du formulaire",
         "BUTTON_OPEN": "Ouvrir le formulaire"
+      },
+      "JSON": {
+        "TITLE": "Contexte JSON"
       },
       "BUTTON_VIEW": "Obtenir l'URL d'appel à l'API"
     }

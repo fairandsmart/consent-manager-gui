@@ -17,31 +17,29 @@
 <div mat-dialog-content>
   <mat-tab-group>
     <mat-tab [label]="'FORM_CREATOR.API_URL.URL.TITLE' | translate">
-<!--      <div class="mat-warn">-->
-<!--        <p class="mat-body-2">{{'FORM_CREATOR.API_URL.URL.HINT' | translate}}</p>-->
-<!--      </div>-->
       <code>{{data.url}}</code>
       <button mat-button [cdkCopyToClipboard]="data.url"><mat-icon>content_copy</mat-icon> {{'FORM_CREATOR.API_URL.URL.BUTTON_COPY' | translate}}</button>
       <a mat-button [href]="data.url" target="_blank"><mat-icon>launch</mat-icon> {{'FORM_CREATOR.API_URL.URL.BUTTON_OPEN' | translate}}</a>
     </mat-tab>
-<!-- TODO snippets temporarily removed
+    <mat-tab [label]="'FORM_CREATOR.API_URL.JSON.TITLE' | translate">
+      <code>{{snippet.json}}</code>
+    </mat-tab>
     <mat-tab [label]="'FORM_CREATOR.API_URL.SNIPPET_CURL.TITLE' | translate">
-      <p class="mat-body-2">{{'FORM_CREATOR.API_URL.SNIPPET_CURL.HINT' | translate}}</p>
-      <code>{{snippet.curl}}</code>
-      <button mat-button [cdkCopyToClipboard]="snippet.curl"><mat-icon>content_copy</mat-icon> {{'COMMON.BUTTONS.COPY' | translate}}</button>
+      <p class="mat-body-2">{{'FORM_CREATOR.API_URL.SNIPPET_CURL.HINT_1' | translate}}</p>
+      <code>{{snippet.curl1}}</code>
+      <button mat-button [cdkCopyToClipboard]="snippet.curl1"><mat-icon>content_copy</mat-icon> {{'COMMON.BUTTONS.COPY' | translate}}</button>
       <p class="mat-body-2">{{'FORM_CREATOR.API_URL.SNIPPET_CURL.HINT_2' | translate}}</p>
-      <code>{{snippet.formUrl}}</code>
+      <code>{{snippet.curl2}}</code>
+      <button mat-button [cdkCopyToClipboard]="snippet.curl2"><mat-icon>content_copy</mat-icon> {{'COMMON.BUTTONS.COPY' | translate}}</button>
+      <p class="mat-body-2">{{'FORM_CREATOR.API_URL.SNIPPET_CURL.HINT_3' | translate}}</p>
     </mat-tab>
     <mat-tab [label]="'FORM_CREATOR.API_URL.SNIPPET_PHP.TITLE' | translate">
-      <ng-template matTabContent>
-        <p class="mat-body-2">{{'FORM_CREATOR.API_URL.SNIPPET_PHP.HINT' | translate}}</p>
-        <div>
-          <cm-ace-editor [mode]="'php'" [config]="ACE_OPTIONS" theme="eclipse" [ngModel]="snippet.php"></cm-ace-editor>
-        </div>
-        <button mat-button [cdkCopyToClipboard]="snippet.php"><mat-icon>content_copy</mat-icon> {{'COMMON.BUTTONS.COPY' | translate}}</button>
-      </ng-template>
+      <p class="mat-body-2">{{'FORM_CREATOR.API_URL.SNIPPET_PHP.HINT' | translate}}</p>
+      <div>
+        <cm-ace-editor [config]="ACE_OPTIONS" theme="eclipse" [ngModel]="snippet.php"></cm-ace-editor>
+      </div>
+      <button mat-button [cdkCopyToClipboard]="snippet.php"><mat-icon>content_copy</mat-icon> {{'COMMON.BUTTONS.COPY' | translate}}</button>
     </mat-tab>
--->
   </mat-tab-group>
 </div>
 <div class="btn-uppercase align-right" mat-dialog-actions>

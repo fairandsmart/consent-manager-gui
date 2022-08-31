@@ -14,28 +14,16 @@
  * #L%
  */
 
-// TODO this snippet is completely out-of-date
-
 import { environment } from '../../../environments/environment';
 import { ConsentContext } from '@fairandsmart/consents-ce/consents';
-export const PHP_SNIPPET =
-`<?php
-function getConfig()
-{
-    $config["api_url"] = "$$PRIVATE_API_URL$$";
-    $config["iframe_host_url"] = "$$API_URL$$";
-    $config["api_key"] = "PUT YOUR API KEY HERE";
 
-    // HTTP server env var override (useful for docker tests)
-    $config["api_url"] = key_exists("API_URL", $_ENV) ? $_ENV["API_URL"] : $config["api_url"];
-    $config["iframe_host_url"] = key_exists("IFRAME_HOST_URL", $_ENV) ? $_ENV["IFRAME_HOST_URL"] : $config["iframe_host_url"];
-    $config["api_key"] = key_exists("API_KEY", $_ENV) ? $_ENV["API_KEY"] : $config["api_key"];
-    return $config;
-}
-
+export const PHP_SNIPPET = `<?php
 function getFormUrl()
 {
-    $context = [
+    $api_url = "$$API_URL$$";
+    $access_token = "PUT_YOUR_ADMIN_ACCESS_TOKEN_HERE";
+
+    $consent_context = array(
         "subject" => "$$SUBJECT$$",
         "object" => "$$OBJECT$$",
         "callback" => "$$CALLBACK$$",
@@ -49,54 +37,63 @@ function getFormUrl()
         "author" => "$$AUTHOR$$",
         "confirmation" => "$$CONFIRMATION$$",
         "confirmationConfig" => $$CONFIRMATION_CONFIG$$,
-        "theme" => "$$LAYOUT_THEME$$",
-        "notification" => "$$LAYOUT_NOTIFICATION$$",
-        "layoutData" => [
-          "type" => "layout",
-          "info" => "$$LAYOUT_INFO$$",
-          "elements" => array($$LAYOUT_ELEMENTS$$),
-          "orientation" => "$$ORIENTATION$$",
-          "existingElementsVisible" => $$EXISTING_VISIBLE$$,
-          "validityVisible" => $$VALIDITY_VISIBLE$$,
-          "includeIFrameResizer" => $$IFRAME_RESIZER$$,
-          "acceptAllVisible" => $$ACCEPT_ALL_VISIBLE$$,
-          "acceptAllText" => "$$ACCEPT_ALL_TEXT$$",
-          "submitText" => "$$SUBMIT_TEXT$$",
-          "cancelVisible" => $$CANCEL_VISIBLE$$,
-          "cancelText" => "$$CANCEL_TEXT$$",
-          "footerOnTop" => $$STICKY_FOOTER$$,
-        ]
-    ];
-
-    $curl = curl_init();
-
-    curl_setopt_array($curl, array(
-        CURLOPT_URL => getConfig()["api_url"] . "/consents/token",
-        CURLOPT_RETURNTRANSFER => true,
-        CURLOPT_ENCODING => "",
-        CURLOPT_MAXREDIRS => 10,
-        CURLOPT_TIMEOUT => 30,
-        CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
-        CURLOPT_CUSTOMREQUEST => "POST",
-        CURLOPT_POSTFIELDS => json_encode($context),
-        CURLOPT_HTTPHEADER => array(
-            "Authorization: Basic " . getConfig()["api_key"],
-            "Content-Type: application/json",
+        "theme" => "$$THEME$$",
+        "notification" => "$$NOTIFICATION$$",
+        "layoutData" => array(
+            "type" => "layout",
+            "info" => "$$INFO$$",
+            "elements" => array($$ELEMENTS$$),
+            "orientation" => "$$ORIENTATION$$",
+            "existingElementsVisible" => $$EXISTING_VISIBLE$$,
+            "validityVisible" => $$VALIDITY_VISIBLE$$,
+            "includeIFrameResizer" => $$IFRAME_RESIZER$$,
+            "acceptAllVisible" => $$ACCEPT_ALL_VISIBLE$$,
+            "acceptAllText" => "$$ACCEPT_ALL_TEXT$$",
+            "submitText" => "$$SUBMIT_TEXT$$",
+            "cancelVisible" => $$CANCEL_VISIBLE$$,
+            "cancelText" => "$$CANCEL_TEXT$$",
+            "footerOnTop" => $$FOOTER_ON_TOP$$,
         ),
-    ));
+    );
 
-    $consent_token = curl_exec($curl);
-    $err = curl_error($curl);
+    $options = array(
+        'http' => array (
+            'method' => "POST",
+            'header' => array(
+                "Authorization: Bearer " . $access_token,
+                "Accept: application/json, text/plain, */*",
+                "Content-Type: application/json",
+            ),
+            'content' => json_encode($consent_context)
+        )
+    );
 
-    curl_close($curl);
+    $request_context = stream_context_create($options);
+    $consent_token = file_get_contents($api_url . "/consents", false, $request_context);
 
     if ($err) {
         echo "cURL Error #:" . $err;
     }
 
-    return getConfig()["iframe_host_url"] . "/consents?t=" . $consent_token;
-}
+    $options = array(
+        'http' => array (
+            'method' => "GET",
+            'header' => array(
+                "Authorization: Bearer " . $access_token,
+                "Accept: application/json, text/plain, */*",
+            ),
+        )
+    );
+    $request_context = stream_context_create($options);
+    $encoded_transaction = file_get_contents($api_url . "/consents/" . $consent_token, false, $request_context);
 
+    if ($err) {
+        echo "cURL Error #:" . $err;
+    }
+
+    $transaction = json_decode(trim($encoded_transaction), true);
+    return $transaction["task"] . "?t=" . $transaction["token"];
+}
 ?>
 <!DOCTYPE html>
 <html lang="fr">
@@ -105,28 +102,28 @@ function getFormUrl()
     <title>Right Consents iFrame Integration Test</title>
 </head>
 <body>
-<h2 style="text-align: center">Right Consents iFrame Integration Test</h2>
-<div style="text-align: center;">
-    <iframe src="<?php echo getFormUrl() ?>" id="content" frameborder="0" style="width:100%; height:100vh;"></iframe>
-</div>
-<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/iframe-resizer/4.2.11/iframeResizer.js" onload="iFrameResize({log: true}, '#content');"></script>
+    <h2 style="text-align: center">Right Consents iFrame Integration Test</h2>
+    <div style="text-align: center;">
+        <iframe src="<?php echo getFormUrl() ?>" id="content" frameborder="0" style="width:100%; height:100vh;"></iframe>
+    </div>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/iframe-resizer/4.2.11/iframeResizer.js" onload="iFrameResize({log: true}, '#content');"></script>
 </body>
 </html>`;
 
 function objectToPhp(object: { [key: string]: string }): string {
-  let result = '';
-  if (object) {
+  if (object && Object.keys(object).length > 0) {
+    let result = '';
     Object.keys(object).forEach((key) => {
       result += `\t\t\t"${key}" => "${object[key]}",\n`;
     });
+    return `array(\n${result}\t\t)`;
   }
-  return `[\n${result}\t\t]`;
+  return 'new stdClass()';
 }
 
 export function getPhpSnippetFromContext(context: ConsentContext): string {
   return PHP_SNIPPET
     .replace('$$API_URL$$', environment.managerUrl)
-    .replace('$$PRIVATE_API_URL$$', environment.managerPrivateUrl)
     .replace('$$SUBJECT$$', context.subject)
     .replace('$$OBJECT$$', context.object)
     .replace('$$CALLBACK$$', context.callback)
@@ -135,15 +132,15 @@ export function getPhpSnippetFromContext(context: ConsentContext): string {
     .replace('$$ORIGIN$$', context.origin)
     .replace('$$VALIDITY$$', context.validity)
     .replace('$$UPDATABLE$$', String(context.updatable))
-    .replace('SUBJECT_INFOS$$', objectToPhp(context.subjectInfos))
+    .replace('$$SUBJECT_INFOS$$', objectToPhp(context.subjectInfos))
     .replace('$$ATTRIBUTES$$', objectToPhp(context.attributes))
     .replace('$$AUTHOR$$', context.author)
     .replace('$$CONFIRMATION$$', context.confirmation)
     .replace('$$CONFIRMATION_CONFIG$$', objectToPhp(context.confirmationConfig))
-    .replace('$$LAYOUT_THEME$$', context.theme)
-    .replace('$$LAYOUT_NOTIFICATION$$', context.notification)
-    .replace('$$LAYOUT_INFO$$', context.layoutData.info)
-    .replace('$$LAYOUT_ELEMENTS$$', `"${context.layoutData.elements.join('","')}"`)
+    .replace('$$THEME$$', context.theme)
+    .replace('$$NOTIFICATION$$', context.notification)
+    .replace('$$INFO$$', context.layoutData.info)
+    .replace('$$ELEMENTS$$', `"${context.layoutData.elements.join('","')}"`)
     .replace('$$ORIENTATION$$', context.layoutData.orientation)
     .replace('$$EXISTING_VISIBLE$$', String(context.layoutData.existingElementsVisible))
     .replace('$$VALIDITY_VISIBLE$$', String(context.layoutData.validityVisible))
@@ -153,6 +150,5 @@ export function getPhpSnippetFromContext(context: ConsentContext): string {
     .replace('$$SUBMIT_TEXT$$', context.layoutData.submitText)
     .replace('$$CANCEL_VISIBLE$$', String(context.layoutData.cancelVisible))
     .replace('$$CANCEL_TEXT$$', context.layoutData.cancelText)
-    .replace('$$STICKY_FOOTER$$', String(context.layoutData.footerOnTop))
-    ;
+    .replace('$$FOOTER_ON_TOP$$', String(context.layoutData.footerOnTop));
 }

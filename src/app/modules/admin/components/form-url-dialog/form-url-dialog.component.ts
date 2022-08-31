@@ -17,8 +17,7 @@ import { Component, Inject } from '@angular/core';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { ConsentContext } from '@fairandsmart/consents-ce/consents';
 import { getPhpSnippetFromContext } from '../../../../core/constants/php-snippet';
-import { getCurlSnippetFromContext } from '../../../../core/constants/curl-snippet';
-import { environment } from '../../../../../environments/environment';
+import { getCurlTokenSnippetFromContext, getCurlLocationSnippet } from '../../../../core/constants/curl-snippet';
 import {AceConfigInterface} from 'ngx-ace-wrapper';
 
 export interface FormUrlDialogComponentData {
@@ -38,17 +37,19 @@ export class FormUrlDialogComponent {
   };
 
   snippet: {
-    php?: string,
-    curl?: string,
-    formUrl: string
+    php: string,
+    curl1: string,
+    curl2: string,
+    json: string,
   };
 
   constructor(private dialogRef: MatDialogRef<FormUrlDialogComponent>,
               @Inject(MAT_DIALOG_DATA) public data: FormUrlDialogComponentData) {
     this.snippet = {
-      // TODO temporarily removed php: getPhpSnippetFromContext(data.context),
-      // TODO temporarily removed curl: getCurlSnippetFromContext(data.context),
-      formUrl: environment.managerUrl + '/consents?t=PUT_YOUR_TOKEN_HERE'
+      php: getPhpSnippetFromContext(data.context),
+      curl1: getCurlTokenSnippetFromContext(data.context),
+      curl2: getCurlLocationSnippet(),
+      json: JSON.stringify(data.context, null, 4),
     };
   }
 
