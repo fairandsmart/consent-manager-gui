@@ -53,6 +53,7 @@ import {
   CONFIRMATION_TYPES,
   ConfirmationConfigKeys,
   ConsentContext,
+  ConsentTransaction,
   createTransactionJson,
   getSubmitFormPreview,
   SubjectInfosKeys
@@ -518,7 +519,7 @@ export class CollectFormCreatorPageComponent implements OnInit {
     }
     // @ts-ignore
     // tslint:disable-next-line:max-line-length
-    createTransactionJson(context, this.translate.currentLang, {data: {extractResponseHeaders: true}}).subscribe((res: { body: string, headers: HttpHeaders }) => {
+    createTransactionJson(context, this.translate.currentLang, {data: {extractResponseHeaders: true}}).subscribe((res: { body: ConsentTransaction, headers: HttpHeaders }) => {
       this.form.enable();
       this.dialog.open<FormUrlDialogComponent, FormUrlDialogComponentData>(FormUrlDialogComponent, {
         width: '800px',
