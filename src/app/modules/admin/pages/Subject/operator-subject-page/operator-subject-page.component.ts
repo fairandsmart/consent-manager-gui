@@ -38,8 +38,9 @@ import { OperatorLogElement, RecordsMap } from '@fairandsmart/consents-ce/record
 import {
   Confirmation,
   ConsentContext,
+  ConsentTransaction,
   createTransactionJson,
-  postSubmissionValuesHtml,
+  postSubmissionValuesJson,
   SubjectInfosKeys
 } from '@fairandsmart/consents-ce/consents';
 import {
@@ -157,7 +158,7 @@ export class OperatorSubjectPageComponent implements OnInit {
         } else {
           this.dialog.open<SubjectRecordApplyChangesDialogComponent, SubjectRecordApplyChangesDialogDataOutput>(
             SubjectRecordApplyChangesDialogComponent,
-            {data: {recipient: this.subject.emailAddress}})
+            {width: '45vw', data: {recipient: this.subject.emailAddress}})
             .afterClosed().subscribe((result) => {
             if (result) {
               const ctx: ConsentContext = {
@@ -187,11 +188,10 @@ export class OperatorSubjectPageComponent implements OnInit {
               }
 
               createTransactionJson(ctx, this.translate.currentLang).pipe(
-                mergeMap((url) => {
-                  const values = {comment: result.comment};
-                  this.operatorLog.forEach(element => values[element.identifier] = element.value);
-                  const txid = url.split('?')[0].split('/').pop();
-                  return postSubmissionValuesHtml(txid, values);
+                mergeMap((transaction: ConsentTransaction) => {
+                  const values = {comment: [result.comment]};
+                  this.operatorLog.forEach(element => values[element.identifier] = [element.value]);
+                  return postSubmissionValuesJson(transaction.id, values);
                 })
               ).subscribe(() => {
                 this.operatorLog = [];

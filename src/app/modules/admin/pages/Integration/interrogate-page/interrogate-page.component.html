@@ -123,6 +123,13 @@
         <td mat-cell *matCellDef="let element">{{element.records[0].recordSerial}}</td>
       </ng-container>
 
+      <ng-container matColumnDef="recordObject">
+        <th mat-header-cell *matHeaderCellDef>{{'INTERROGATE.RECORD_OBJECT_HEADER' | translate}}</th>
+        <td mat-cell *matCellDef="let element">
+          <span *ngIf="element.records[0].recordObject !== 'undefined'">{{element.records[0].recordObject}}</span>
+        </td>
+      </ng-container>
+
       <ng-container matColumnDef="recordValue">
         <th mat-header-cell *matHeaderCellDef>{{'INTERROGATE.RECORD_VALUE_HEADER' | translate}}</th>
         <td mat-cell *matCellDef="let element">{{element.records[0].recordValue}}</td>

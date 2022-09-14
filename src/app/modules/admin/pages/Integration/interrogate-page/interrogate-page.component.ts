@@ -77,7 +77,7 @@ export class InterrogatePageComponent implements OnInit {
 
   readonly ICONS = Icons;
 
-  readonly displayedColumns = ['subjectName', 'subjectEmail', 'recordKey', 'recordSerial', 'recordValue'];
+  readonly displayedColumns = ['subjectName', 'subjectEmail', 'recordKey', 'recordSerial', 'recordObject', 'recordValue'];
 
   private readonly defaultLanguage;
 

@@ -397,7 +397,7 @@ export class CollectFormCreatorPageComponent implements OnInit {
     }
     this.previousContext = context;
     getSubmitFormPreview(context, this.translate.currentLang).subscribe((html) => {
-      this.safePreview = this.sanitizer.bypassSecurityTrustHtml(html.replace(/\/assets\//g, `${environment.managerUrl}/assets/`));
+      this.safePreview = this.sanitizer.bypassSecurityTrustHtml(html.replace(/"\/assets\//g, `"${environment.managerUrl}/assets/`));
     }, (err) => {
       console.error(err);
       this.safePreview = '';
