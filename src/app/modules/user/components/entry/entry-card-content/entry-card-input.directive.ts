@@ -21,8 +21,9 @@ import { EMPTY, Observable, throwError } from 'rxjs';
 import {
   Confirmation,
   ConsentContext,
+  ConsentTransaction,
   createTransactionJson,
-  postSubmissionValuesHtml
+  postSubmissionValuesJson
 } from '@fairandsmart/consents-ce/consents';
 import { TranslateService } from '@ngx-translate/core';
 import { KeycloakService } from 'keycloak-angular';
@@ -163,11 +164,10 @@ export abstract class EntryCardInputDirective<T extends ModelData> implements On
     };
 
     return createTransactionJson(context, this.translate.currentLang).pipe(
-      mergeMap((url) => {
+      mergeMap((transaction: ConsentTransaction) => {
         const values = {};
-        values[this.version.identifier] = newValue;
-        const txid = url.split('?')[0].split('/').pop();
-        return postSubmissionValuesHtml(txid, values);
+        values[this.version.identifier] = [newValue];
+        return postSubmissionValuesJson(transaction.id, values);
       }),
       tap(() => {
         this.recordValue = newValue;

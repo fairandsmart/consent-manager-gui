@@ -136,7 +136,7 @@ export abstract class EntryContentDirective<T extends ModelData> extends FormSta
       const versionId = this.version ? this.version.id : ModelsResource.NEW_VERSION_UUID;
       ModelsResource.getVersionPreview(this.entry.id, versionId, dto)
         .subscribe((result: string) => {
-          this.container.preview.updateHtml(result.replace(/\/assets\//g, `${environment.managerUrl}/assets/`));
+          this.container.preview.updateHtml(result.replace(/"\/assets\//g, `"${environment.managerUrl}/assets/`));
         });
     }
   }

@@ -53,6 +53,7 @@ import {
   CONFIRMATION_TYPES,
   ConfirmationConfigKeys,
   ConsentContext,
+  ConsentTransaction,
   createTransactionJson,
   getSubmitFormPreview,
   SubjectInfosKeys
@@ -397,7 +398,7 @@ export class CollectFormCreatorPageComponent implements OnInit {
     }
     this.previousContext = context;
     getSubmitFormPreview(context, this.translate.currentLang).subscribe((html) => {
-      this.safePreview = this.sanitizer.bypassSecurityTrustHtml(html.replace(/\/assets\//g, `${environment.managerUrl}/assets/`));
+      this.safePreview = this.sanitizer.bypassSecurityTrustHtml(html.replace(/"\/assets\//g, `"${environment.managerUrl}/assets/`));
     }, (err) => {
       console.error(err);
       this.safePreview = '';
@@ -518,7 +519,7 @@ export class CollectFormCreatorPageComponent implements OnInit {
     }
     // @ts-ignore
     // tslint:disable-next-line:max-line-length
-    createTransactionJson(context, this.translate.currentLang, {data: {extractResponseHeaders: true}}).subscribe((res: { body: string, headers: HttpHeaders }) => {
+    createTransactionJson(context, this.translate.currentLang, {data: {extractResponseHeaders: true}}).subscribe((res: { body: ConsentTransaction, headers: HttpHeaders }) => {
       this.form.enable();
       this.dialog.open<FormUrlDialogComponent, FormUrlDialogComponentData>(FormUrlDialogComponent, {
         width: '800px',

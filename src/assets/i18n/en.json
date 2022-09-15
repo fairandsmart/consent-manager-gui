@@ -632,7 +632,7 @@
       "EMAIL": {
         "LABEL": "Email notification model",
         "REQUIRED": "Please specify a model",
-        "NO_MODELS_HINT": "To be able to send an email notification you must have defined at least one email model."
+        "NO_MODELS_HINT": "To be able to send an email notification, you must have defined at least one email model."
       },
       "NOTIFICATION": {
         "LABEL": "Notifications",
@@ -920,6 +920,7 @@
     "SUBJECT_EMAIL_HEADER": "Email",
     "RECORD_KEY_HEADER": "Key",
     "RECORD_SERIAL_HEADER": "Serial",
+    "RECORD_OBJECT_HEADER": "Object",
     "RECORD_VALUE_HEADER": "Value",
     "EXPORT_BUTTON": "Export",
     "PREFERENCE": {
