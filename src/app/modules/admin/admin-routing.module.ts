@@ -30,6 +30,7 @@ import { OperatorSubjectPageComponent } from './pages/Subject/operator-subject-p
 import { GettingStartedPageComponent } from './pages/getting-started-page/getting-started-page.component';
 import { InterrogatePageComponent } from './pages/Integration/interrogate-page/interrogate-page.component';
 import { RolesGuardService } from '../../core/guards/roles-guard.service';
+import { PeersPageComponent } from './pages/Integration/peers-page/peers-page.component';
 
 const routes: Routes = [
   {
@@ -104,6 +105,14 @@ const routes: Routes = [
           {
             path: 'security',
             component: AccessKeysPageComponent,
+            canActivate: [RolesGuardService],
+            data: {
+              roles: ['admin']
+            }
+          },
+          {
+            path: 'peers',
+            component: PeersPageComponent,
             canActivate: [RolesGuardService],
             data: {
               roles: ['admin']

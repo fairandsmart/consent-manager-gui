@@ -23,7 +23,8 @@
         "GETTING_STARTED": "Bien démarrer",
         "COLLECT": "Collecter",
         "INTERROGATE": "Interroger",
-        "SECURITY": "Sécurité"
+        "SECURITY": "Sécurité",
+        "PEERS": "Pairs"
       }
     }
   },
@@ -906,6 +907,26 @@
         "CONFIRM_CONTENT": "Cette opération est irréversible. Êtes-vous sûr de vouloir supprimer cette clé ?",
         "CONFIRM_BUTTON": "Supprimer",
         "SUCCESS": "La clé a été supprimée"
+      }
+    },
+    "PEERS": {
+      "TITLE": "Pairs",
+      "NAME": {
+        "LABEL": "Nom",
+        "PLACEHOLDER": "Créer un nouveau pair"
+      },
+      "URL": {
+        "LABEL": "URL"
+      },
+      "API_KEY": {
+        "LABEL": "Clé d'API"
+      },
+      "CREATE_BUTTON": "Créer",
+      "DROP": {
+        "CONFIRM_TITLE": "Supprimer le pair ?",
+        "CONFIRM_CONTENT": "Cette opération est irréversible. Êtes-vous sûr de vouloir supprimer ce pair ?",
+        "CONFIRM_BUTTON": "Supprimer",
+        "SUCCESS": "Le pair a été supprimé"
       }
     }
   },

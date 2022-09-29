@@ -46,5 +46,6 @@ export enum Icons {
   interrogate = 'search',
   security = 'vpn_key',
   all = 'assignment_turned_in',
-  subject = 'people'
+  subject = 'people',
+  peers = 'group'
 }

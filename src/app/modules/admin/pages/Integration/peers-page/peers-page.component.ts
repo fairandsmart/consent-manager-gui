@@ -14,29 +14,29 @@
  * #L%
  */
 import { AfterViewInit, Component, OnInit } from '@angular/core';
-import { MatDialog } from '@angular/material/dialog';
-import { createKey, deleteKey, Key, KeyScope } from '@fairandsmart/consents-ce/keys';
+import { PeersDataSource } from './peers-datasource';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { MatDialog } from '@angular/material/dialog';
 import { AlertService } from '../../../../../core/services/alert.service';
-import { KeysDataSource } from './keys-datasource';
 import { Icons } from '../../../../../core/models/common';
-import { GeneratedKeyDialogComponent } from './generated-key-dialog.component';
+import { createPeer, CreatePeerDto, deletePeer, Peer } from '@fairandsmart/consents-ce/peers';
 
 @Component({
-  selector: 'cm-keys',
-  templateUrl: './access-keys-page.component.html',
-  styleUrls: ['./access-keys-page.component.scss']
+  selector: 'cm-peers-page',
+  templateUrl: './peers-page.component.html',
+  styleUrls: ['./peers-page.component.scss']
 })
-export class AccessKeysPageComponent implements OnInit, AfterViewInit {
+export class PeersPageComponent implements OnInit, AfterViewInit {
 
-  public displayedColumns: string[] = ['name', 'scope', 'creationDate', 'lastAccessDate', 'actions'];
+  public displayedColumns: string[] = ['name', 'url', 'apiKey', 'actions'];
 
-  public dataSource: KeysDataSource;
+  public dataSource: PeersDataSource;
 
   public form: FormGroup;
 
   readonly ICONS = Icons;
-  readonly SCOPES = Object.keys(KeyScope);
+
+  readonly URL_PATTERN = '^https?:\\/\\/(www\\.)?[-a-zA-Z0-9@:%._\\+~#=]{1,256}\\.[a-zA-Z0-9()]{1,6}\\b([-a-zA-Z0-9()@:%_\\+.~#?&\\/=]*)$';
 
   constructor(
     private dialog: MatDialog,
@@ -45,49 +45,51 @@ export class AccessKeysPageComponent implements OnInit, AfterViewInit {
   }
 
   ngOnInit(): void {
-    this.dataSource = new KeysDataSource();
-    this.loadKeys();
+    this.dataSource = new PeersDataSource();
+    this.loadPeers();
     this.form = this.fb.group({
       name: ['', [Validators.required, Validators.maxLength(25)]],
-      scope: [undefined, [Validators.required]]
+      url: ['', [Validators.required]],
+      apiKey: [undefined, [Validators.required]]
     });
   }
 
   ngAfterViewInit(): void {
-    this.loadKeys();
+    this.loadPeers();
   }
 
-  loadKeys(): void {
+  loadPeers(): void {
     this.dataSource.load();
   }
 
-  dropKey(key: Key): void {
+  dropPeer(peer: Peer): void {
     this.alertService.confirm({
       data: {
-        title: 'API.KEYS.DROP.CONFIRM_TITLE',
-        content: 'API.KEYS.DROP.CONFIRM_CONTENT',
-        confirm: 'API.KEYS.DROP.CONFIRM_BUTTON'
+        title: 'API.PEERS.DROP.CONFIRM_TITLE',
+        content: 'API.PEERS.DROP.CONFIRM_CONTENT',
+        confirm: 'API.PEERS.DROP.CONFIRM_BUTTON'
       }
     }).afterClosed().subscribe(confirmed => {
       if (confirmed) {
-        deleteKey(key.id).subscribe(() => {
-          this.alertService.success('API.KEYS.DROP.SUCCESS');
-          this.loadKeys();
+        deletePeer(peer.id).subscribe(() => {
+          this.alertService.success('API.PEERS.DROP.SUCCESS');
+          this.loadPeers();
         });
       }
     });
   }
 
-  generateKey(): void {
+  generatePeer(): void {
     if (this.form.valid) {
       this.form.disable();
-      const key: Key = {
+      const peerDto: CreatePeerDto = {
         name: this.form.get('name').value,
-        scope: this.form.get('scope').value
+        url: this.form.get('url').value,
+        apiKey: this.form.get('apiKey').value,
+        withCounterPart: true,
       };
-      createKey(key).subscribe(response => {
-        this.dialog.open(GeneratedKeyDialogComponent, {data: response});
-        this.loadKeys();
+      createPeer(peerDto).subscribe(response => {
+        this.loadPeers();
         this.form.enable();
         this.form.reset({name: ''});
       });

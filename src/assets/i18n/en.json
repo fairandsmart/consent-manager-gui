@@ -23,7 +23,8 @@
         "GETTING_STARTED": "Getting started",
         "COLLECT": "Collect",
         "INTERROGATE": "Search",
-        "SECURITY": "Security"
+        "SECURITY": "Security",
+        "PEERS": "Peers"
       }
     }
   },
@@ -906,6 +907,26 @@
         "CONFIRM_CONTENT": "This operation is irreversible. Are you sure you want to delete this API key?",
         "CONFIRM_BUTTON": "Delete",
         "SUCCESS": "The API key has been deleted"
+      }
+    },
+    "PEERS": {
+      "TITLE": "Peers",
+      "NAME": {
+        "LABEL": "Name",
+        "PLACEHOLDER": "Create a new peer"
+      },
+      "URL": {
+        "LABEL": "URL"
+      },
+      "API_KEY": {
+        "LABEL": "API key"
+      },
+      "CREATE_BUTTON": "Create",
+      "DROP": {
+        "CONFIRM_TITLE": "Delete this peer?",
+        "CONFIRM_CONTENT": "This operation is irreversible. Are you sure you want to delete this peer?",
+        "CONFIRM_BUTTON": "Delete",
+        "SUCCESS": "The peer has been deleted"
       }
     }
   },
