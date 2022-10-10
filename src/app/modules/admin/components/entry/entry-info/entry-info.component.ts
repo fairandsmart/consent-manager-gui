@@ -23,6 +23,7 @@ import {
   ModelVersionDto,
   ModelVersionDtoLight,
   ModelVersionType,
+  updateEntryVisibility,
 } from '@fairandsmart/consents-ce/models';
 import { ConfirmDialogComponent } from '../../../../../core/components/confirm-dialog/confirm-dialog.component';
 import { filter, mergeMap } from 'rxjs/operators';
@@ -144,4 +145,16 @@ export class EntryInfoComponent implements OnInit {
     }
   }
 
+  toggleVisibility(): void {
+    this.alertService.confirm({data: {
+        title: this.translate.instant('ENTRIES.DIALOG.CHANGE_VISIBILITY.CONFIRM_TITLE'),
+        content: this.translate.instant('ENTRIES.DIALOG.CHANGE_VISIBILITY.' + (this.entry.shared ? 'TO_PRIVATE' : 'TO_PUBLIC')),
+      }}).afterClosed()
+      .pipe(mergeMap((confirmed) => {
+        if (confirmed) {
+          this.entry.shared = !this.entry.shared;
+          return updateEntryVisibility(this.entry.id, this.entry);
+        }
+      })).subscribe();
+  }
 }

@@ -24,7 +24,7 @@
         "COLLECT": "Collecter",
         "INTERROGATE": "Interroger",
         "SECURITY": "Sécurité",
-        "PEERS": "Pairs"
+        "PEERS": "Partenaires"
       }
     }
   },
@@ -56,7 +56,7 @@
       "EMAIL": "Lien de l'email",
       "RECEIPT": "Lien du reçu",
       "USER": "Interface utilisateur",
-      "PEER": "Pair"
+      "PEER": "Partenaire"
     },
     "ENTRY_STATUSES": {
       "ACTIVE": "Actif",
@@ -209,6 +209,15 @@
       "type": {
         "LABEL": "Type"
       },
+      "shared": {
+        "LABEL": "Visibilité",
+        "true": "Partagé aux partenaires",
+        "false": "Privé",
+        "TOGGLE": {
+          "true": "Partager aux partenaires",
+          "false": "Ne plus partager aux partenaires"
+        }
+      },
       "version": {
         "LABEL": "Version"
       },
@@ -279,6 +288,11 @@
         "TO_MINOR": "Créer une version mineure",
         "CONFIRM_TITLE": "Êtes-vous sûr ?",
         "CONFIRM_CONTENT": "En activant cette version en tant que version majeure, les enregistrements collectés de ce modèle deviendront obsolètes."
+      },
+      "CHANGE_VISIBILITY": {
+        "CONFIRM_TITLE": "Êtes-vous sûr de vouloir modifier la visibilité de ce modèle ?",
+        "TO_PRIVATE": "Il va devenir privé et ne sera plus accessible par vos partenaires.",
+        "TO_PUBLIC": "Il va devenir public et sera accessible par vos partenaires."
       }
     },
     "PREVIEW": {
@@ -874,7 +888,7 @@
       "SCOPE": {
         "LABEL": "Portée",
         "OWNER": "Propriétaire",
-        "PEER": "Pair"
+        "PEER": "Partenaire"
       },
       "SECRET": {
         "LABEL": "Partie secrète de la clé"
@@ -910,10 +924,10 @@
       }
     },
     "PEERS": {
-      "TITLE": "Pairs",
+      "TITLE": "Partenaires",
       "NAME": {
         "LABEL": "Nom",
-        "PLACEHOLDER": "Créer un nouveau pair"
+        "PLACEHOLDER": "Créer un nouveau partenaire"
       },
       "URL": {
         "LABEL": "URL"
@@ -923,10 +937,10 @@
       },
       "CREATE_BUTTON": "Créer",
       "DROP": {
-        "CONFIRM_TITLE": "Supprimer le pair ?",
-        "CONFIRM_CONTENT": "Cette opération est irréversible. Êtes-vous sûr de vouloir supprimer ce pair ?",
+        "CONFIRM_TITLE": "Supprimer le partenaire ?",
+        "CONFIRM_CONTENT": "Cette opération est irréversible. Êtes-vous sûr de vouloir supprimer ce partenaire ?",
         "CONFIRM_BUTTON": "Supprimer",
-        "SUCCESS": "Le pair a été supprimé"
+        "SUCCESS": "Le partenaire a été supprimé"
       }
     }
   },

@@ -31,6 +31,9 @@
         <mat-icon class="mat-icon-small" [matTooltip]="('COMMON.ENTRY_STATUSES.' + entry.status) | translate">
           {{entry.status === Status.ACTIVE ? 'check_circle' : 'unpublished'}}
         </mat-icon>
+        <mat-icon class="mat-icon-small" [matTooltip]="('ENTRIES.COMMON.shared.' + entry.shared) | translate">
+          {{entry.shared ? 'visibility' : 'visibility_off'}}
+        </mat-icon>
         <span *ngIf="entry.availableLanguages?.length > 0" class="badge" [matTooltip]="'ENTRY_CARD.LANGUAGES_TOOLTIP' | translate">
           {{languages()}}
         </span>
