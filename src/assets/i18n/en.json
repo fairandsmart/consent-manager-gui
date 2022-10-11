@@ -12,7 +12,7 @@
         "LABEL": "Configuration",
         "GETTING_STARTED": "Getting started",
         "INFO": "Information",
-        "PROCESSING": "Processings",
+        "PROCESSING": "Processing",
         "PREFERENCES": "Preferences",
         "CONDITIONS": "Terms & Conditions",
         "EMAILS": "Emails",
@@ -94,7 +94,7 @@
   },
   "ALERT": {
     "BAD_VERSION": "Your backend version is outdated",
-    "NO_INFORMATION": "You cannot create forms nor change or submit consents without completing your informations",
+    "NO_INFORMATION": "You cannot create forms nor change or submit consents without completing your information",
     "NO_INFORMATION_USER": "This feature is not yet available.",
     "NO_INFORMATION_CALL_TO_ACTION": "Click here to complete them",
     "NO_CHANGE": "No change",
@@ -146,8 +146,8 @@
       "EMPTY": "First, add information..."
     },
     "processing": {
-      "PANEL_TITLE": "Processings library",
-      "PANEL_DESCRIPTION_HTML": "<div>Here are the processings you created.</div><div>This is meant to ask your users for their consent.</div><div>You can create more at any time by clicking on \"+\".</div>",
+      "PANEL_TITLE": "Processing library",
+      "PANEL_DESCRIPTION_HTML": "<div>Here are the processing you created.</div><div>This is meant to ask your users for their consent.</div><div>You can create more at any time by clicking on \"+\".</div>",
       "EMPTY": "First, add a processing..."
     },
     "preferences": {
@@ -714,17 +714,17 @@
     "STEP_PREVIEW": "Preview",
     "BUTTON_LABEL_NEXT_STEP": "Next",
     "BUTTON_LABEL_PREVIOUS_STEP": "Previous",
-    "FORM_TYPE_ERROR": "You can't add conditions to a form containing processings, preferences or other conditions. Click confirm to remove incompatible elements from the form.",
+    "FORM_TYPE_ERROR": "You can't add conditions to a form containing processing, preferences or other conditions. Click confirm to remove incompatible elements from the form.",
     "CHANGE_FORM_TYPE": "Change the form?",
     "ADDED_PROCESSING": {
       "WARNING": "Warning",
-      "INFORMATION_MANDATORY": "Informations are mandatory for forms containing processings."
+      "INFORMATION_MANDATORY": "Information are mandatory for forms containing processing."
     },
     "FORM": {
       "TITLE": "Form creator",
       "ELEMENTS_PANEL_TITLE": {
         "infos": "Information",
-        "elements": "Displayed processings and preferences"
+        "elements": "Displayed processing and preferences"
       },
       "FOOTER_ON_TOP": {
         "LABEL": "The footer must always be visible (sticky positioning)"
@@ -824,7 +824,7 @@
         "DEFAULT": "Default theme"
       },
       "FORCE_DISPLAY": {
-        "LABEL": "Force display of all processings"
+        "LABEL": "Force display of all processing"
       },
       "EMAIL": {
         "LABEL": "Opt-out email"
@@ -871,7 +871,7 @@
     "GETTING_STARTED": {
       "TITLE": "Getting started",
       "DESCRIPTION": {
-        "configuration": "<div>The \"Configuration\" section allows you to parameterize elements which you will later use to create consent forms in the \"Integration\" section. You can configure the following elements:</div><ul><li>information templates: these information are essential to create a consent form, as they include for instance your privacy policy and define the header and footer of your forms. Beware, in this Community version, you will only be able to have one information active template at any time. If you wish to learn more and switch to the Enterprise version, click on the button at the bottom of this page.</li><li>processings templates: processings constitute the foundations of a consent form within the meaning of the GDPR. In this section, you will be able to define processings, which you may then add to a form to ask your customers for their consent regarding those processings.</li><li>preferences templates: they allow you to ask your customers for they preferred contact channel for example, or the themes about which they would like to be regularly informed.</li><li>terms and conditions templates: these elements are essential for the use of any service by your customers. You can browse here the various versions and push them to your customers through forms.</li><li>consent emails templates: these emails are sent (or not, depending on your use case) to your customers following their consent form submission, this will allow them to retrieve their receipt, to visualize their consent once more and to change it later.</li><li>themes templates: applied to forms, consent emails and receipts alike, they allow your to customize all these elements with your logo and your graphical charter.</li></ul>",
+        "configuration": "<div>The \"Configuration\" section allows you to parameterize elements which you will later use to create consent forms in the \"Integration\" section. You can configure the following elements:</div><ul><li>information templates: these information are essential to create a consent form, as they include for instance your privacy policy and define the header and footer of your forms. Beware, in this Community version, you will only be able to have one information active template at any time. If you wish to learn more and switch to the Enterprise version, click on the button at the bottom of this page.</li><li>processing templates: processing constitute the foundations of a consent form within the meaning of the GDPR. In this section, you will be able to define processing, which you may then add to a form to ask your customers for their consent regarding those processing.</li><li>preferences templates: they allow you to ask your customers for they preferred contact channel for example, or the themes about which they would like to be regularly informed.</li><li>terms and conditions templates: these elements are essential for the use of any service by your customers. You can browse here the various versions and push them to your customers through forms.</li><li>consent emails templates: these emails are sent (or not, depending on your use case) to your customers following their consent form submission, this will allow them to retrieve their receipt, to visualize their consent once more and to change it later.</li><li>themes templates: applied to forms, consent emails and receipts alike, they allow your to customize all these elements with your logo and your graphical charter.</li></ul>",
         "integration": "<p>The integration section will allow you to:</p><ul><li>build your consent forms from the templates registered in the \"Configuration\" section and integrate them in your application/website thanks to different code examples (PHP, etc...).</li><li>manage the access keys to the API</li></ul><p>In this section, you will also find a module allowing you to make queries in the base of recorded data.</p><p>There are two different actions: the collection of consent and then its exploitation afterwards.</p>"
       },
       "MORE": "<p>You can find more information about our solution:</p><ul><li>the different use cases</li><li>the two versions of our product</li><li>the product roadmap</li><li>the complete documentation of the API</li></ul>",
@@ -962,7 +962,7 @@
       "GROUP_TITLE": "Preferences"
     },
     "PROCESSING": {
-      "GROUP_TITLE": "Processings",
+      "GROUP_TITLE": "Processing",
       "VALUE": {
         "accepted": "Accepted",
         "refused": "Refused"
@@ -1006,12 +1006,12 @@
       "MODELS": "Active models",
       "RECORDS": "Data recorded",
       "SUBJECTS": "Total end-users",
-      "TOP_TABLE": "Top processings",
-      "TOP_TABLE_SUBTITLE": "Top 3 processings submitted (left) and accepted (right)",
+      "TOP_TABLE": "Top processing",
+      "TOP_TABLE_SUBTITLE": "Top 3 processing submitted (left) and accepted (right)",
       "NUMBERS": "Collection results"
     },
     "ENTRY_TYPES": {
-      "PROCESSING": "Processings",
+      "PROCESSING": "Processing",
       "PREFERENCE": "Preferences",
       "CONDITIONS": "Terms and Conditions"
     },
@@ -1053,13 +1053,13 @@
         "LABEL": "Rank"
       },
       "COLLECTED_KEY": {
-        "LABEL": "Collected processings labels"
+        "LABEL": "Collected processing labels"
       },
       "COLLECTED_VALUE": {
         "LABEL": "Total submitted"
       },
       "ACCEPTED_KEY": {
-        "LABEL": "Accepted processings labels"
+        "LABEL": "Accepted processing labels"
       },
       "ACCEPTED_VALUE": {
         "LABEL": "Total accepted"
@@ -1068,7 +1068,7 @@
     "NUMBERS": {
       "PROCESSING": {
         "SINGULAR": "processing record",
-        "PLURAL": "processings records"
+        "PLURAL": "processing records"
       },
       "PREFERENCE": {
         "SINGULAR": "preference record",

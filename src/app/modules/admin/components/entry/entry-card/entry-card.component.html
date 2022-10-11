@@ -15,6 +15,7 @@
   -->
 <mat-card *ngIf="entry">
   <mat-card-title>
+    <mat-icon class="mat-icon-small peer-icon" *ngIf="isPeer">{{ICONS.peers}}</mat-icon>
     <div class="entry-name" cmTextOverflow #name="cmTextOverflow"
           [matTooltip]="entry.name" matTooltipShowDelay="666"
           [matTooltipDisabled]="!name.overflowing">{{entry.name}}</div>

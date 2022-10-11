@@ -29,7 +29,7 @@ import { GeneratedKeyDialogComponent } from './generated-key-dialog.component';
 })
 export class AccessKeysPageComponent implements OnInit, AfterViewInit {
 
-  public displayedColumns: string[] = ['name', 'scope', 'creationDate', 'lastAccessDate', 'actions'];
+  public displayedColumns: string[] = ['name', 'scope', 'creationDate', 'actions'];
 
   public dataSource: KeysDataSource;
 
