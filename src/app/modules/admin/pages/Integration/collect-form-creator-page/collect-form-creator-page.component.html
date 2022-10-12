@@ -24,27 +24,32 @@
         <mat-step [label]="'FORM_CREATOR.STEP_ELEMENTS' | translate" [stepControl]="form.at(STEPS.ELEMENTS)">
           <ng-container *ngFor="let config of selectionConfig">
             <h4>
-              <span>{{'FORM_CREATOR.FORM.ELEMENTS_PANEL_TITLE.' + config.id | translate}}</span>
+              <span>
+                {{'FORM_CREATOR.FORM.ELEMENTS_PANEL_TITLE.' + (config.peer ? 'PEER.' : '') + config.name | translate}}
+                <ng-container *ngIf="config.peer">{{config.peer.name}}</ng-container>
+              </span>
             </h4>
             <div class="form-container"
                  [class.excluded]="isSelectionExcluded(config)"
                  [class.empty]="selectedElements[config.id]?.length === 0"
-                 cdkDropList [id]="'selected-' + config.id"
+                 cdkDropList
+                 [id]="'selected-' + config.id"
                  [cdkDropListDisabled]="!isSelectionDraggable(config)"
                  [cdkDropListData]="selectedElements[config.id]"
                  [cdkDropListConnectedTo]="getSelectionAvailableLists(config)"
                  (cdkDropListDropped)="elementDropped($event)">
               <mat-card *ngIf="selectedElements[config.id]?.length === 0" class="empty-hint">
-                <span>{{'ENTRIES.' + config.id + '.EMPTY' | translate}}</span>
+                <span>{{'ENTRIES.' + config.name + (config.peer ? '.EMPTY_PEER' : '.EMPTY') | translate}}</span>
               </mat-card>
               <cm-entry-card *ngFor="let entry of selectedElements[config.id]"
                              cdkDrag
                              [selectable]="isSelectionDraggable(config)"
                              [cdkDragData]="entry"
-                             [entry]="entry"></cm-entry-card>
+                             [entry]="entry"
+                             [isPeer]="config.peer !== undefined"></cm-entry-card>
             </div>
             <div *ngIf="isSelectionExcluded(config)" class="form-container">
-              <mat-card class="excluded-hint">{{'ENTRIES.' + config.id + '.EXCLUDED' | translate}}</mat-card>
+              <mat-card class="excluded-hint">{{'ENTRIES.' + config.name + '.EXCLUDED' | translate}}</mat-card>
             </div>
           </ng-container>
 
@@ -164,13 +169,26 @@
   </mat-sidenav-content>
 
   <mat-sidenav [disableClose]="true" opened mode="side" position="end">
-    <cm-entries-library
-      [style.display]="stepper.selectedIndex !== STEPS.ELEMENTS ? 'none' : undefined"
-      [config]="elementsLibraryConfig"
-      [selected]="selectedElements"
-      (selectedChange)="selectedElementsChange($event)"
-      [mode]="'drag'">
-    </cm-entries-library>
+    <ng-container *ngIf="peers !== undefined">
+      <cm-entries-library
+        [style.display]="stepper.selectedIndex !== STEPS.ELEMENTS ? 'none' : undefined"
+        [config]="elementsLibraryConfig"
+        [selected]="selectedElements"
+        (selectedChange)="selectedElementsChange($event)"
+        [mode]="'drag'">
+      </cm-entries-library>
+
+      <ng-container *ngFor="let peerConfig of peerElementsLibraryConfigs">
+        <cm-entries-library
+          [style.display]="stepper.selectedIndex !== STEPS.ELEMENTS ? 'none' : undefined"
+          [config]="peerConfig.config"
+          [selected]="selectedElements"
+          (selectedChange)="selectedElementsChange($event)"
+          [mode]="'drag'"
+          [peer]="peerConfig.peer">
+        </cm-entries-library>
+      </ng-container>
+    </ng-container>
 
     <ng-container *ngIf="stepper.selectedIndex === STEPS.PREVIEW" [formGroup]="getFormGroup(form, STEPS.PREVIEW)">
       <div class="panel-title-like">

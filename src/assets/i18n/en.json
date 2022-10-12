@@ -142,36 +142,49 @@
     "TITLE": "Entries",
     "infos": {
       "PANEL_TITLE": "Information library",
+      "PEERS_TITLE": "Information of",
       "PANEL_DESCRIPTION_HTML": "<div>Here are the information you created.</div><div>This is meant to inform your users about your privacy policy, for example.</div><div>You can only create one information entry.</div>",
-      "EMPTY": "First, add information..."
+      "EMPTY": "First, add information...",
+      "EMPTY_PEER": "This partner does not share any information model."
     },
     "processing": {
       "PANEL_TITLE": "Processing library",
+      "PEERS_TITLE": "Processing of",
       "PANEL_DESCRIPTION_HTML": "<div>Here are the processing you created.</div><div>This is meant to ask your users for their consent.</div><div>You can create more at any time by clicking on \"+\".</div>",
-      "EMPTY": "First, add a processing..."
+      "EMPTY": "First, add a processing...",
+      "EMPTY_PEER": "This partner does not share any processing model."
     },
     "preferences": {
       "PANEL_TITLE": "Preferences library",
+      "PEERS_TITLE": "Preferences of",
       "PANEL_DESCRIPTION_HTML": "<div>Here are the preferences you created.</div><div>This is meant to ask your users for details about their contact information or other information.</div><div>You can create more at any time by clicking on \"+\".</div>",
-      "EMPTY": "First, add a preference..."
+      "EMPTY": "First, add a preference...",
+      "EMPTY_PEER": "This partner does not share any preference model."
     },
     "conditions": {
       "PANEL_TITLE": "Terms & Conditions library",
+      "PEERS_TITLE": "Terms & Conditions of",
       "PANEL_DESCRIPTION_HTML": "<div>Here are the terms and conditions you created.</div><div>This is meant to ask your users for their consent.</div><div>You can create more at any time by clicking on \"+\".</div>",
-      "EMPTY": "First, add a terms and conditions model..."
+      "EMPTY": "First, add a terms and conditions model...",
+      "EMPTY_PEER": "This partner does not share any terms & conditions model."
     },
     "themes": {
       "PANEL_TITLE": "Themes library",
+      "PEERS_TITLE": "Themes of",
       "PANEL_DESCRIPTION_HTML": "<div>Here are the themes you created.</div><div>This is meant to define the styles of your forms.</div><div>You can create more at any time by clicking on \"+\".</div>",
-      "EMPTY": "First, add a theme..."
+      "EMPTY": "First, add a theme...",
+      "EMPTY_PEER": "This partner does not share any theme model."
     },
     "emails": {
       "PANEL_TITLE": "Emails library",
+      "PEERS_TITLE": "Emails of",
       "PANEL_DESCRIPTION_HTML": "<div>Here are the emails you created.</div><div>This is meant to notify your users.</div><div>You can create more at any time by clicking on \"+\".</div>",
-      "EMPTY": "First, add an email..."
+      "EMPTY": "First, add an email...",
+      "EMPTY_PEER": "This partner does not share any email model."
     },
     "elements": {
-      "EMPTY": "First, add a processing or a preference..."
+      "EMPTY": "First, add a processing or a preference...",
+      "EMPTY_PEER": "Contact this partner to ask them for shared models."
     },
     "BUTTON_ADD": {
       "information": "New information",
@@ -724,7 +737,11 @@
       "TITLE": "Form creator",
       "ELEMENTS_PANEL_TITLE": {
         "infos": "Information",
-        "elements": "Displayed processing and preferences"
+        "elements": "Displayed processing and preferences",
+        "PEER": {
+          "infos": "Information of",
+          "elements": "Displayed processing and preferences of"
+        }
       },
       "FOOTER_ON_TOP": {
         "LABEL": "The footer must always be visible (sticky positioning)"

@@ -14,7 +14,12 @@
  * #L%
  */
 import { AfterViewInit, ChangeDetectorRef, Component, Input, OnInit, ViewChild } from '@angular/core';
-import { AddMultipleOption, ConsentElementEntryDataSource, SectionConfig } from '../entries-library/entries-library.component';
+import {
+  AddMultipleOption,
+  ConsentElementEntryDataSource,
+  PeerConsentElementEntryDataSource,
+  SectionConfig
+} from '../entries-library/entries-library.component';
 import { tap } from 'rxjs/operators';
 import { ModelDataType, ModelEntryStatus } from '@fairandsmart/consents-ce/models';
 import { EntryEditorDialogComponent, EntryEditorDialogComponentData } from '../../entry/entry-editor-dialog/entry-editor-dialog.component';
@@ -25,6 +30,8 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 import { TranslateService } from '@ngx-translate/core';
 import { ConfigService } from '../../../../../core/services/config.service';
 import { KeycloakService } from 'keycloak-angular';
+import { Peer } from '@fairandsmart/consents-ce/peers';
+import { Icons } from '../../../../../core/models/common';
 
 @Component({
   selector: 'cm-entries-list',
@@ -34,10 +41,14 @@ import { KeycloakService } from 'keycloak-angular';
 export class EntriesListComponent implements OnInit, AfterViewInit {
 
   readonly ADD_OPTIONS = AddMultipleOption;
+  readonly ICONS = Icons;
 
   // tslint:disable-next-line:no-input-rename
   @Input('config')
   section: SectionConfig;
+
+  @Input()
+  peer: Peer;
 
   @ViewChild(MatPaginator)
   paginator!: MatPaginator;
@@ -55,7 +66,11 @@ export class EntriesListComponent implements OnInit, AfterViewInit {
 
   ngOnInit(): void {
     if (this.section.dataSource == null) {
-      this.section.dataSource = new ConsentElementEntryDataSource();
+      if (this.peer !== undefined) {
+        this.section.dataSource = new PeerConsentElementEntryDataSource(this.peer);
+      } else {
+        this.section.dataSource = new ConsentElementEntryDataSource();
+      }
     }
     if (this.section.orderingOptions == null) {
       this.section.orderingOptions = ['name', 'key', 'creationDate', 'modificationDate'];

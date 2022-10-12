@@ -16,7 +16,7 @@
 
 const PEER_PATTERN = '[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}';
 const KEY_PATTERN = `[0-9a-zA-Z-_.]{2,255}`;
-const KEY_PEER_PATTERN = `(peer/${PEER_PATTERN}\/)?${KEY_PATTERN}`;
+const KEY_PEER_PATTERN = `peer\/${PEER_PATTERN}\/${KEY_PATTERN}`;
 
 export const FIELD_VALIDATORS = {
   key: {

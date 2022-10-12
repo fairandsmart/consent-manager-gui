@@ -18,24 +18,29 @@
     <mat-expansion-panel-header>
       <mat-panel-title>
         <span class="library-title">
-          <mat-icon *ngIf="section.icon">{{section.icon}}</mat-icon> {{'ENTRIES.' + section.id + '.PANEL_TITLE' | translate}}
+          <mat-icon *ngIf="section.icon">{{section.icon}}</mat-icon>
+          <ng-container *ngIf="peer"><mat-icon *ngIf="section.icon">{{ICONS.peers}}</mat-icon></ng-container>
+          {{'ENTRIES.' + (section.name ? section.name : section.id) + (peer != undefined ? '.PEERS_TITLE' : '.PANEL_TITLE') | translate}}
+          <ng-container *ngIf="peer">{{peer.name}}</ng-container>
         </span>
       </mat-panel-title>
     </mat-expansion-panel-header>
     <div *ngIf="section.fullSize" class="panel-description"
-         [innerHTML]="'ENTRIES.' + section.id + '.PANEL_DESCRIPTION_HTML' | translate"></div>
+         [innerHTML]="'ENTRIES.' + (section.name ? section.name : section.id) + '.PANEL_DESCRIPTION_HTML' | translate"></div>
     <ng-content></ng-content>
     <div>
       <ng-container [ngSwitch]="mode">
-        <cm-entries-list *ngSwitchCase="'view'" [config]="section"></cm-entries-list>
+        <cm-entries-list *ngSwitchCase="'view'" [config]="section" [peer]="peer"></cm-entries-list>
         <cm-entries-list-drag-and-drop *ngSwitchCase="'drag'"
                                        [ngModel]="selected[section.listId ? section.listId : section.id]"
                                        (ngModelChange)="selectedEntriesChange(section, $event)"
-                                       [config]="section"></cm-entries-list-drag-and-drop>
+                                       [config]="section"
+                                       [peer]="peer"></cm-entries-list-drag-and-drop>
         <cm-entries-list-select *ngSwitchCase="'select'"
                                 [ngModel]="selected[section.listId ? section.listId : section.id]"
                                 (ngModelChange)="selectedEntriesChange(section, $event)"
-                                [config]="section"></cm-entries-list-select>
+                                [config]="section"
+                                [peer]="peer"></cm-entries-list-select>
       </ng-container>
     </div>
   </mat-expansion-panel>

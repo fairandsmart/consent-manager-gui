@@ -46,7 +46,8 @@ import {
   ModelEntryDto,
   ModelEntryHelper,
   ModelEntryStatus,
-  ModelFilter
+  ModelFilter,
+  PeerElements
 } from '@fairandsmart/consents-ce/models';
 import {
   Confirmation,
@@ -59,11 +60,21 @@ import {
   SubjectInfosKeys
 } from '@fairandsmart/consents-ce/consents';
 import { HttpHeaders } from '@angular/common/http';
+import { listPeers, Peer } from '@fairandsmart/consents-ce/peers';
 
 enum FORM_CREATOR_STEP {
   ELEMENTS,
   PREVIEW,
   OPTIONS
+}
+
+type DraggableConfig = (SectionConfig & { draggingDisabled: boolean; included: boolean });
+
+interface SelectionConfig {
+  id: string;
+  name: string;
+  peer?: Peer;
+  sectionsId: string[];
 }
 
 @Component({
@@ -77,7 +88,7 @@ enum FORM_CREATOR_STEP {
 })
 export class CollectFormCreatorPageComponent implements OnInit {
 
-  public elementsLibraryConfig: (SectionConfig & { draggingDisabled: boolean, included: boolean })[] = [
+  public elementsLibraryConfig: DraggableConfig[] = [
     {
       id: 'infos',
       types: ['information'],
@@ -128,29 +139,33 @@ export class CollectFormCreatorPageComponent implements OnInit {
     }
   ];
 
-  get informationConfig(): (SectionConfig & { draggingDisabled: boolean, included: boolean }) {
+  public peerElementsLibraryConfigs: { peer: Peer, config: DraggableConfig[] }[] = [];
+
+  get informationConfig(): DraggableConfig {
     return this.elementsLibraryConfig[0];
   }
 
-  get processingsConfig(): (SectionConfig & { draggingDisabled: boolean, included: boolean }) {
+  get processingsConfig(): DraggableConfig {
     return this.elementsLibraryConfig[1];
   }
 
-  get preferencesConfig(): (SectionConfig & { draggingDisabled: boolean, included: boolean }) {
+  get preferencesConfig(): DraggableConfig {
     return this.elementsLibraryConfig[2];
   }
 
-  get conditionsConfig(): (SectionConfig & { draggingDisabled: boolean, included: boolean }) {
+  get conditionsConfig(): DraggableConfig {
     return this.elementsLibraryConfig[3];
   }
 
-  public selectionConfig = [
+  public selectionConfig: SelectionConfig[] = [
     {
       id: 'infos',
+      name: 'infos',
       sectionsId: ['infos']
     },
     {
       id: 'elements',
+      name: 'elements',
       sectionsId: ['processing', 'preferences', 'conditions']
     }
   ];
@@ -195,6 +210,8 @@ export class CollectFormCreatorPageComponent implements OnInit {
   public hasCondition = false;
   public hasProcessing = false;
 
+  public peers: Peer[];
+
   public readonly ICONS = Icons;
   public readonly STEPS = FORM_CREATOR_STEP;
   public readonly ORIENTATIONS = CONSENT_FORM_ORIENTATIONS;
@@ -231,23 +248,12 @@ export class CollectFormCreatorPageComponent implements OnInit {
         });
       })
     ).subscribe();
-    zip(...this.elementsLibraryConfig.map(c => listEntries(
-      {types: c.types, size: 1, statuses: [ModelEntryStatus.ACTIVE]}
-    ))).pipe(
-      tap((responses) => {
-        const selected: { [id: string]: ModelEntryDto[] } = {...this.selectedElements};
-        const informationIndexInResponse = this.elementsLibraryConfig.findIndex((c) => c.id === this.informationConfig.id);
-        const informationResponse = responses[informationIndexInResponse];
-        if (informationResponse?.totalCount === 1 && ModelEntryHelper.hasActiveVersion(informationResponse.values[0])) {
-          selected[this.informationConfig.id] = informationResponse.values;
-        }
-        this.setSelectedElements(selected);
-      })
-    ).subscribe();
+
     this.form = this.fb.array([
       this.fb.group({
         info: [[], [Validators.pattern(FIELD_VALIDATORS.key.pattern), Validators.maxLength(1)]],
-        elements: [[], [Validators.required, Validators.pattern(FIELD_VALIDATORS.elementsKeys.pattern)]]
+        elements: [[], [Validators.required, Validators.pattern(FIELD_VALIDATORS.elementsKeys.pattern)]],
+        peerForms: this.fb.group({})
       }),
       this.fb.group({
         language: [this.defaultLanguage, [Validators.required]],
@@ -275,6 +281,46 @@ export class CollectFormCreatorPageComponent implements OnInit {
         confirmation: [Confirmation.NONE, [Validators.required]]
       })
     ]);
+
+    listPeers().subscribe((peers) => {
+      this.peers = peers;
+      this.peers.forEach((peer) => {
+        this.peerElementsLibraryConfigs.push(this.makePeerConfig(peer));
+        this.selectionConfig.push({
+          id: `${peer.id}/infos`,
+          name: 'infos',
+          sectionsId: [`${peer.id}/infos`],
+          peer: peer,
+        });
+        this.selectionConfig.push({
+          id: `${peer.id}/elements`,
+          name: 'elements',
+          sectionsId: [`${peer.id}/processing`, `${peer.id}/preferences`, `${peer.id}/conditions`],
+          peer: peer,
+        });
+        this.selectedElements[`${peer.id}/infos`] = [];
+        this.selectedElements[`${peer.id}/elements`] = [];
+        (this.form.at(this.STEPS.ELEMENTS).get('peerForms') as FormGroup)
+          .addControl(peer.id, this.fb.group({
+            info: [[], [Validators.pattern(FIELD_VALIDATORS.key.pattern), Validators.maxLength(1)]],
+            elements: [[], [Validators.pattern(FIELD_VALIDATORS.elementsKeys.pattern)]],
+          }));
+      });
+
+      zip(...this.elementsLibraryConfig.map(c => listEntries(
+        {types: c.types, size: 1, statuses: [ModelEntryStatus.ACTIVE]}
+      ))).pipe(
+        tap((responses) => {
+          const selected: { [id: string]: ModelEntryDto[] } = {...this.selectedElements};
+          const informationIndexInResponse = this.elementsLibraryConfig.findIndex((c) => c.id === this.informationConfig.id);
+          const informationResponse = responses[informationIndexInResponse];
+          if (informationResponse?.totalCount === 1 && ModelEntryHelper.hasActiveVersion(informationResponse.values[0])) {
+            selected[this.informationConfig.id] = informationResponse.values;
+          }
+          this.setSelectedElements(selected);
+        })
+      ).subscribe();
+    });
 
     const subjectInfos = this.fb.group({});
     subjectInfos.addControl(this.SUBJECT_INFOS_KEYS.EMAIL_KEY, this.fb.control(''));
@@ -306,6 +352,7 @@ export class CollectFormCreatorPageComponent implements OnInit {
         this.preview();
       }
     });
+
     this.form.at(FORM_CREATOR_STEP.OPTIONS).get('notify').valueChanges.subscribe((notify: boolean) => {
       if (notify) {
         this.form.at(FORM_CREATOR_STEP.OPTIONS).get('notification')
@@ -317,6 +364,7 @@ export class CollectFormCreatorPageComponent implements OnInit {
       this.form.at(FORM_CREATOR_STEP.OPTIONS).get('notification').updateValueAndValidity();
       this.updateEmailValidators(notify || this.form.at(FORM_CREATOR_STEP.OPTIONS).get('confirmation').value === Confirmation.EMAIL_CODE);
     });
+
     this.form.at(FORM_CREATOR_STEP.OPTIONS).get('confirmation').valueChanges.subscribe((confirmation: Confirmation) => {
       if (confirmation === Confirmation.EMAIL_CODE) {
         this.form.at(FORM_CREATOR_STEP.OPTIONS).get('confirmationConfig')
@@ -330,7 +378,19 @@ export class CollectFormCreatorPageComponent implements OnInit {
       this.updateEmailValidators(this.form.at(FORM_CREATOR_STEP.OPTIONS).get('notification').value
         || confirmation === Confirmation.EMAIL_CODE);
     });
+
     this.form.at(FORM_CREATOR_STEP.PREVIEW).get('cancelVisible').valueChanges.subscribe((value) => this.updateCancellable(value));
+  }
+
+  makePeerConfig(peer: Peer): { peer: Peer, config: DraggableConfig[] } {
+    const elementsLibraryConfig = _.cloneDeep(this.elementsLibraryConfig);
+    elementsLibraryConfig.forEach((config) => {
+      config.name = config.id;
+      config.id = `${peer.id}/${config.id}`;
+      config.listId = `${peer.id}/${config.listId}`;
+      config.showActions = true;
+    });
+    return {peer: peer, config: elementsLibraryConfig};
   }
 
   updateEmailValidators(isRequired: boolean): void {
@@ -431,10 +491,22 @@ export class CollectFormCreatorPageComponent implements OnInit {
 
   private buildContext(): ConsentContext {
     const formValue: Partial<ConsentContext & FormLayout & { forceDisplay: boolean, validityUnit: string }> = {
-      ...(this.form.at(FORM_CREATOR_STEP.OPTIONS) as FormGroup).getRawValue(),
       ...(this.form.at(FORM_CREATOR_STEP.ELEMENTS) as FormGroup).getRawValue(),
-      ...(this.form.at(FORM_CREATOR_STEP.PREVIEW) as FormGroup).getRawValue()
+      ...(this.form.at(FORM_CREATOR_STEP.PREVIEW) as FormGroup).getRawValue(),
+      ...(this.form.at(FORM_CREATOR_STEP.OPTIONS) as FormGroup).getRawValue(),
     };
+    const rawPeerForms = ((this.form.at(FORM_CREATOR_STEP.ELEMENTS) as FormGroup).get('peerForms') as FormGroup).getRawValue();
+    const peerElements: PeerElements[] = [];
+    this.peers.forEach((peer) => {
+      if (rawPeerForms[peer.id].info.length > 0 || rawPeerForms[peer.id].elements.length > 0) {
+        peerElements.push({
+          peer: peer.id,
+          info: rawPeerForms[peer.id].info?.[0] || '',
+          elements: rawPeerForms[peer.id].elements,
+          notification: ''
+        });
+      }
+    });
     return {
       subject: formValue.subject,
       object: formValue.object,
@@ -465,6 +537,7 @@ export class CollectFormCreatorPageComponent implements OnInit {
         orientation: formValue.orientation,
         info: formValue.info?.[0] || '',
         includeIFrameResizer: true,
+        peerElements
       }
     };
   }
@@ -478,10 +551,27 @@ export class CollectFormCreatorPageComponent implements OnInit {
     this.hasCondition = this.selectedElements.elements.find(e => e.type === 'conditions') !== undefined;
     const hadProcessingBefore = this.hasProcessing;
     this.hasProcessing = this.selectedElements.elements.find(e => e.type === 'processing') !== undefined;
+
+    this.peers.forEach((peer) => {
+      this.form.at(FORM_CREATOR_STEP.ELEMENTS).get('peerForms').get(peer.id).patchValue({
+        info: this.selectedElements[`${peer.id}/infos`].map(e => e.key),
+        elements: this.selectedElements[`${peer.id}/elements`].map(e => e.key)
+      });
+      this.hasCondition ||= this.selectedElements[`${peer.id}/elements`].find(e => e.type === 'conditions') !== undefined;
+      this.hasProcessing ||= this.selectedElements[`${peer.id}/elements`].find(e => e.type === 'processing') !== undefined;
+
+      this.form.at(FORM_CREATOR_STEP.ELEMENTS).get('peerForms').get(peer.id).get('info').setValidators(
+        this.form.at(FORM_CREATOR_STEP.ELEMENTS).get('peerForms').get(peer.id).get('elements').value.length > 0 ?
+        [Validators.required, Validators.pattern(FIELD_VALIDATORS.key.pattern), Validators.maxLength(1)]
+        : [Validators.pattern(FIELD_VALIDATORS.key.pattern), Validators.maxLength(1)]);
+      this.form.at(FORM_CREATOR_STEP.ELEMENTS).get('peerForms').get(peer.id).get('info').updateValueAndValidity();
+    });
+
     this.form.at(FORM_CREATOR_STEP.ELEMENTS).get('info').setValidators(this.hasProcessing ?
       [Validators.required, Validators.pattern(FIELD_VALIDATORS.key.pattern), Validators.maxLength(1)]
       : [Validators.pattern(FIELD_VALIDATORS.key.pattern), Validators.maxLength(1)]);
     this.form.at(FORM_CREATOR_STEP.ELEMENTS).get('info').updateValueAndValidity();
+
     if (this.hasProcessing && !hadProcessingBefore) {
       this.dialog.open(ConfirmDialogComponent, {
         data: {
@@ -534,16 +624,31 @@ export class CollectFormCreatorPageComponent implements OnInit {
     });
   }
 
-  isSelectionExcluded(config: { id: string; sectionsId: string[] }): boolean {
-    return this.elementsLibraryConfig.every(section => config.sectionsId.includes(section.id) && !section.included);
+  isSelectionExcluded(config: SelectionConfig): boolean {
+    if (config.peer) {
+      return this.peerElementsLibraryConfigs.find((c) => c.peer.id === config.peer.id).config
+        .every(section => config.sectionsId.includes(section.id) && !section.included);
+    } else {
+      return this.elementsLibraryConfig.every(section => config.sectionsId.includes(section.id) && !section.included);
+    }
   }
 
-  isSelectionDraggable(config: { id: string; sectionsId: string[] }): boolean {
-    return this.elementsLibraryConfig.some(section => config.sectionsId.includes(section.id) && !section.draggingDisabled);
+  isSelectionDraggable(config: SelectionConfig): boolean {
+    if (config.peer) {
+      return this.peerElementsLibraryConfigs.find((c) => c.peer.id === config.peer.id).config
+        .some(section => config.sectionsId.includes(section.id) && !section.draggingDisabled);
+    } else {
+      return this.elementsLibraryConfig.some(section => config.sectionsId.includes(section.id) && !section.draggingDisabled);
+    }
   }
 
-  getSelectionAvailableLists(config: { id: string; sectionsId: string[] }): string[] {
-    return this.elementsLibraryConfig.filter(section => config.sectionsId.includes(section.id)).map(section => 'available-' + section.id);
+  getSelectionAvailableLists(config: SelectionConfig): string[] {
+    if (config.peer) {
+      return this.peerElementsLibraryConfigs.find((c) => c.peer.id === config.peer.id).config
+        .filter(section => config.sectionsId.includes(section.id)).map(section => 'available-' + section.id);
+    } else {
+      return this.elementsLibraryConfig.filter(section => config.sectionsId.includes(section.id)).map(section => 'available-' + section.id);
+    }
   }
 
   getFormGroup(form: FormArray, step: FORM_CREATOR_STEP): FormGroup {
