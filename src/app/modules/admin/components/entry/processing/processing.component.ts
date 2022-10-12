@@ -84,6 +84,7 @@ export class ProcessingComponent extends EntryContentDirective<Processing> imple
       thirdParties: this.fb.array([]),
       refusable: [true],
     });
+    this.form.get('containsMedicalData').disable();
     this.form.get('dataControllerVisible').disable();
     this.checkFormState();
   }
@@ -95,16 +96,7 @@ export class ProcessingComponent extends EntryContentDirective<Processing> imple
         {emitEvent: false});
     });
 
-    this.form.get('containsSensitiveData').valueChanges.subscribe(v => {
-      if (this.canBeEdited()) {
-        if (v) {
-          this.form.get('containsMedicalData').enable();
-        } else {
-          this.form.get('containsMedicalData').setValue(false);
-        }
-      }
-    });
-
+    this.form.get('containsSensitiveData').valueChanges.subscribe(v => this.sensitiveDataChange(v));
     this.form.get('dataController').valueChanges.subscribe(v => this.dataControllerChange(v));
     super.registerFormChanges();
   }
@@ -151,6 +143,17 @@ export class ProcessingComponent extends EntryContentDirective<Processing> imple
     }
   }
 
+  private sensitiveDataChange(sensitive: boolean): void {
+    if (this.canBeEdited()) {
+      if (sensitive) {
+        this.form.get('containsMedicalData').enable();
+      } else {
+        this.form.get('containsMedicalData').setValue(false);
+        this.form.get('containsMedicalData').disable();
+      }
+    }
+  }
+
   private dataControllerChange(dataController: Controller): void {
     if (this.canBeEdited()) {
       if (this.isDataControllerEmpty(dataController)) {
@@ -170,6 +173,7 @@ export class ProcessingComponent extends EntryContentDirective<Processing> imple
   enableFormIfAllowed(): void {
     super.enableFormIfAllowed();
     this.dataControllerChange(this.form.get('dataController').value);
+    this.sensitiveDataChange(this.form.get('containsSensitiveData').value);
   }
 
 }

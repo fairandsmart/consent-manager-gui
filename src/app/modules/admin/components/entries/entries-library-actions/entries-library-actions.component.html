@@ -49,6 +49,16 @@
               </mat-select>
             </mat-form-field>
           </div>
+          <div class="filter-element" *ngIf="!section.dataSource.peer">
+            <mat-form-field appearance="outline">
+              <mat-label>{{'ENTRIES.FILTER.SHARED.LABEL' | translate}}</mat-label>
+              <mat-select formControlName="shared" multiple="true">
+                <mat-option *ngFor="let visibility of VISIBILITIES" [value]="visibility">
+                  {{'ENTRIES.COMMON.shared.' + visibility | translate}}
+                </mat-option>
+              </mat-select>
+            </mat-form-field>
+          </div>
           <div class="apply-container">
             <button mat-button (click)="applyFilters()" color="primary">{{'ENTRIES.FILTER.APPLY' | translate}}</button>
             <button mat-button (click)="resetFilters()" color="warn" *ngIf="!isDefault">{{'ENTRIES.FILTER.RESET' | translate}}</button>

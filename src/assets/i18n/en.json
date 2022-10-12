@@ -270,6 +270,9 @@
       "LANGUAGE": {
         "LABEL": "Language",
         "NONE": "None"
+      },
+      "SHARED": {
+        "LABEL": "Visibility"
       }
     },
     "CREATE_BUTTON": "New entry",
@@ -945,8 +948,7 @@
     "PEERS": {
       "TITLE": "Partners",
       "NAME": {
-        "LABEL": "Name",
-        "PLACEHOLDER": "Create a new partner"
+        "LABEL": "Name"
       },
       "URL": {
         "LABEL": "URL"

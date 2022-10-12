@@ -43,6 +43,7 @@ export class PeerConsentElementEntryDataSource extends CollectionDatasource<Mode
   }
 
   listPeerEntries(filter: ModelFilter): Observable<CollectionPage<ModelEntryDto>> {
+    filter.shared = [true];
     return RightConsents.http<CollectionPage<ModelEntryDto>>({
       method: 'GET',
       url: `${this.peer.url}/models`,

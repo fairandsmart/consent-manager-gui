@@ -31,6 +31,7 @@ export class EntriesLibraryActionsComponent implements OnInit, AfterViewInit {
 
   public readonly STATUSES = [ModelEntryStatus.ACTIVE, ModelEntryStatus.INACTIVE];
   public readonly LANGUAGES = I18N_LANGUAGES;
+  public readonly VISIBILITIES = ['true', 'false'];
   private readonly defaultLanguage;
 
   public form: FormGroup;
@@ -48,7 +49,8 @@ export class EntriesLibraryActionsComponent implements OnInit, AfterViewInit {
   private defaultForm = {
     keyword: '',
     statuses: [ModelEntryStatus.ACTIVE, ModelEntryStatus.INACTIVE],
-    languages: [this.configService.getDefaultLanguage(), '']
+    languages: [this.configService.getDefaultLanguage(), ''],
+    shared: ['true', 'false'],
   };
 
   get isDefault(): boolean {
@@ -65,7 +67,8 @@ export class EntriesLibraryActionsComponent implements OnInit, AfterViewInit {
     this.form = this.fb.group({
       keyword: [this.section.filter.keyword ? this.section.filter.keyword : this.defaultForm.keyword],
       statuses: [this.section.filter.statuses ? this.section.filter.statuses : this.defaultForm.statuses],
-      languages: [this.section.filter.languages ? this.section.filter.languages : this.defaultForm.languages]
+      languages: [this.section.filter.languages ? this.section.filter.languages : this.defaultForm.languages],
+      shared: [this.section.filter.shared ? this.section.filter.shared.map(s => s + '') : this.defaultForm.shared],
     });
     // Then set the pre-set filter as "default" for this page. Allows the "reset" button to behave properly
     this.defaultForm = this.form.getRawValue();
@@ -82,6 +85,9 @@ export class EntriesLibraryActionsComponent implements OnInit, AfterViewInit {
         }
         if (params.languages) {
           this.form.get('languages').setValue(params.languages.split(','));
+        }
+        if (params.shared) {
+          this.form.get('shared').setValue(params.shared.split(','));
         }
         this.applyFilters();
       });
@@ -112,13 +118,19 @@ export class EntriesLibraryActionsComponent implements OnInit, AfterViewInit {
     this.section.filter.keyword = data.keyword;
     this.section.filter.statuses = data.statuses;
     this.section.filter.languages = data.languages;
+    this.section.filter.shared = data.shared;
     this.loadQuery.emit();
     this.form.markAsPristine();
     if (this.section.persistFilters) {
       if (!this.isDefault) {
         this.router.navigate([], {
           relativeTo: this.route,
-          queryParams: { keyword: data.keyword, statuses: data.statuses.join(','), languages: data.languages.join(',') }
+          queryParams: {
+            keyword: data.keyword,
+            statuses: data.statuses.join(','),
+            languages: data.languages.join(','),
+            shared: data.shared.join(','),
+          }
         });
       } else {
         this.router.navigate([], {
@@ -134,7 +146,8 @@ export class EntriesLibraryActionsComponent implements OnInit, AfterViewInit {
     this.form = this.fb.group({
       keyword: [this.defaultForm.keyword],
       statuses: [this.defaultForm.statuses],
-      languages: [this.defaultForm.languages]
+      languages: [this.defaultForm.languages],
+      shared: [this.defaultForm.shared],
     });
     this.applyFilters();
   }

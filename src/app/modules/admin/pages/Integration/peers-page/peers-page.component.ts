@@ -48,7 +48,6 @@ export class PeersPageComponent implements OnInit, AfterViewInit {
     this.dataSource = new PeersDataSource();
     this.loadPeers();
     this.form = this.fb.group({
-      name: ['', [Validators.required, Validators.maxLength(25)]],
       url: ['', [Validators.required]],
       apiKey: [undefined, [Validators.required]]
     });
@@ -83,15 +82,14 @@ export class PeersPageComponent implements OnInit, AfterViewInit {
     if (this.form.valid) {
       this.form.disable();
       const peerDto: CreatePeerDto = {
-        name: this.form.get('name').value,
         url: this.form.get('url').value,
         apiKey: this.form.get('apiKey').value,
         withCounterPart: true,
       };
-      createPeer(peerDto).subscribe(response => {
+      createPeer(peerDto).subscribe(() => {
         this.loadPeers();
         this.form.enable();
-        this.form.reset({name: ''});
+        this.form.reset();
       });
     }
   }

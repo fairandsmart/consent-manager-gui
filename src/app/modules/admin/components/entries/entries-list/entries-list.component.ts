@@ -87,7 +87,8 @@ export class EntriesListComponent implements OnInit, AfterViewInit {
         direction: 'asc',
         keyword: '',
         statuses: [ModelEntryStatus.ACTIVE, ModelEntryStatus.INACTIVE],
-        languages: [this.configService.getDefaultLanguage(), '']
+        languages: [this.configService.getDefaultLanguage(), ''],
+        shared: [true, false]
       };
     }
   }
