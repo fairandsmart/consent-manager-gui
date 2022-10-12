@@ -562,8 +562,8 @@ export class CollectFormCreatorPageComponent implements OnInit {
 
       this.form.at(FORM_CREATOR_STEP.ELEMENTS).get('peerForms').get(peer.id).get('info').setValidators(
         this.form.at(FORM_CREATOR_STEP.ELEMENTS).get('peerForms').get(peer.id).get('elements').value.length > 0 ?
-        [Validators.required, Validators.pattern(FIELD_VALIDATORS.key.pattern), Validators.maxLength(1)]
-        : [Validators.pattern(FIELD_VALIDATORS.key.pattern), Validators.maxLength(1)]);
+          [Validators.required, Validators.pattern(FIELD_VALIDATORS.key.pattern), Validators.maxLength(1)]
+          : [Validators.pattern(FIELD_VALIDATORS.key.pattern), Validators.maxLength(1)]);
       this.form.at(FORM_CREATOR_STEP.ELEMENTS).get('peerForms').get(peer.id).get('info').updateValueAndValidity();
     });
 

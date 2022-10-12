@@ -19,6 +19,7 @@ import { Observable, throwError } from 'rxjs';
 import { catchError } from 'rxjs/operators';
 import { MatDialog } from '@angular/material/dialog';
 import { HealthErrorComponent } from '../components/health-error/health-error.component';
+import { environment } from '../../../environments/environment';
 
 @Injectable()
 export class HealthInterceptor implements HttpInterceptor {
@@ -30,7 +31,9 @@ export class HealthInterceptor implements HttpInterceptor {
     return next.handle(request).pipe(
       catchError((error) => {
         if (error instanceof HttpErrorResponse && error.status === 0) {
-          if (!this.dialog.openDialogs.some(d => d.componentInstance instanceof HealthErrorComponent)) {
+          if (!error.url.startsWith(environment.managerUrl)) {
+            console.error('[CONSENT-MANAGER] Peer service appears to be down...');
+          } else if (!this.dialog.openDialogs.some(d => d.componentInstance instanceof HealthErrorComponent)) {
             console.error('[CONSENT-MANAGER] Service appears to be down...');
             this.dialog.open(HealthErrorComponent, {
               disableClose: true

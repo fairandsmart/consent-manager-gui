@@ -250,7 +250,9 @@
       },
       "EMPTY_LIST": "Aucun élément",
       "EDIT_TOOLTIP": "Modifier les informations du modèle",
-      "DELETE_TOOLTIP": "Supprimer le modèle"
+      "DELETE_TOOLTIP": "Supprimer le modèle",
+      "ERROR": "Impossible de charger les modèles.",
+      "ERROR_PEER": "Impossible de charger les modèles de ce partenaire."
     },
     "SORT": {
       "PREFIX": "Trier par :"

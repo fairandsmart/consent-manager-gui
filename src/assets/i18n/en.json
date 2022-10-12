@@ -250,7 +250,9 @@
       },
       "EMPTY_LIST": "Nothing to display",
       "EDIT_TOOLTIP": "Edit model info",
-      "DELETE_TOOLTIP": "Delete model"
+      "DELETE_TOOLTIP": "Delete model",
+      "ERROR": "Models cannot be loaded.",
+      "ERROR_PEER": "Models cannot be loaded from this partner."
     },
     "SORT": {
       "PREFIX": "Sort by:"

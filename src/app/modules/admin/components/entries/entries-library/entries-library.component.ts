@@ -14,12 +14,13 @@
  * #L%
  */
 import { ChangeDetectionStrategy, Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
-import { Observable } from 'rxjs';
+import { Observable, of } from 'rxjs';
 import { listEntries, ModelDataType, ModelEntryDto, ModelFilter } from '@fairandsmart/consents-ce/models';
 import { CollectionDatasource } from '../../../utils/collection-datasource';
 import { Icons } from '../../../../../core/models/common';
 import { CollectionPage, RightConsents } from '@fairandsmart/consents-ce';
 import { Peer } from '@fairandsmart/consents-ce/peers';
+import { catchError, tap } from 'rxjs/operators';
 
 export class ConsentElementEntryDataSource extends CollectionDatasource<ModelEntryDto, ModelFilter> {
 
@@ -35,6 +36,8 @@ export class ConsentElementEntryDataSource extends CollectionDatasource<ModelEnt
 
 export class PeerConsentElementEntryDataSource extends CollectionDatasource<ModelEntryDto, ModelFilter> {
 
+  public hasError = false;
+
   constructor(public peer: Peer) {
     super();
   }
@@ -49,7 +52,14 @@ export class PeerConsentElementEntryDataSource extends CollectionDatasource<Mode
   }
 
   protected getPage(pageFilter: ModelFilter): Observable<CollectionPage<ModelEntryDto>> {
-    return this.listPeerEntries(pageFilter);
+    return this.listPeerEntries(pageFilter).pipe(
+      tap(() => this.hasError = false),
+      catchError((e) => {
+        console.error(e);
+        this.hasError = true;
+        return of({values: [], totalCount: 0} as CollectionPage<ModelEntryDto>);
+      })
+    );
   }
 
 }
