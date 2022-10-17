@@ -41,7 +41,8 @@ import { DashboardPageComponent } from './pages/Home/dashboard-page/dashboard-pa
 import { ConditionsPageComponent } from './pages/Configuration/model-library-pages/conditions-page.component';
 import { InformationPageComponent } from './pages/Configuration/model-library-pages/information-page.component';
 import { ProcessingPageComponent } from './pages/Configuration/model-library-pages/processing-page.component';
-import { GeneratedKeyDialogComponent, AccessKeysPageComponent } from './pages/Integration/access-keys-page/access-keys-page.component';
+import { AccessKeysPageComponent } from './pages/Integration/access-keys-page/access-keys-page.component';
+import { GeneratedKeyDialogComponent } from './pages/Integration/access-keys-page/generated-key-dialog.component';
 import { SubjectRecordEditorDialogComponent } from './components/operator/subject-record-editor-dialog/subject-record-editor-dialog.component';
 import { SubjectRecordApplyChangesDialogComponent } from './components/operator/subject-record-apply-changes-dialog/subject-record-apply-changes-dialog.component';
 import { CoreModule } from '../../core/core.module';
@@ -62,6 +63,7 @@ import { DashboardNumbersComponent } from './components/dashboard/dashboard-numb
 import { EntriesLibraryActionsComponent } from './components/entries/entries-library-actions/entries-library-actions.component';
 import { ModelVersionSelectorComponent } from './components/entry/model-version-selector/model-version-selector.component';
 import { EntryEditorContainerComponent } from './components/entry/entry-editor-container/entry-editor-container.component';
+import { PeersPageComponent } from './pages/Integration/peers-page/peers-page.component';
 
 @NgModule({
   declarations: [
@@ -108,7 +110,8 @@ import { EntryEditorContainerComponent } from './components/entry/entry-editor-c
     DashboardNumbersComponent,
     EntriesLibraryActionsComponent,
     ModelVersionSelectorComponent,
-    EntryEditorContainerComponent
+    EntryEditorContainerComponent,
+    PeersPageComponent,
   ],
   imports: [
     AdminRoutingModule,

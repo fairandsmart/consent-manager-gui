@@ -41,7 +41,8 @@
       </mat-grid-tile>
     </mat-grid-list>
   </div>
-  <p *ngIf="entries.length === 0" class="empty-hint">{{'ENTRIES.COMMON.EMPTY_LIST' | translate}}</p>
+  <p *ngIf="section.dataSource.hasError" class="empty-hint">{{'ENTRIES.COMMON.ERROR' + (peer !== undefined ? '_PEER' : '') | translate}}</p>
+  <p *ngIf="!section.dataSource.hasError && entries.length === 0" class="empty-hint">{{'ENTRIES.COMMON.EMPTY_LIST' | translate}}</p>
 </ng-container>
 <mat-paginator [class.single-page]="paginator.pageIndex === 0 && !paginator.hasNextPage()"
                #paginator="matPaginator" [hidePageSize]="true" [pageIndex]="section.filter.page"

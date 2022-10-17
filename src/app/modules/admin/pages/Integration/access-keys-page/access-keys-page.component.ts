@@ -13,15 +13,14 @@
  * files, or see https://www.fairandsmart.com/opensource/.
  * #L%
  */
-import { AfterViewInit, Component, Inject, OnInit } from '@angular/core';
-import { MAT_DIALOG_DATA, MatDialog } from '@angular/material/dialog';
+import { AfterViewInit, Component, OnInit } from '@angular/core';
+import { MatDialog } from '@angular/material/dialog';
 import { createKey, deleteKey, Key, KeyScope } from '@fairandsmart/consents-ce/keys';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { AlertService } from '../../../../../core/services/alert.service';
-import { MatSnackBar } from '@angular/material/snack-bar';
-import { TranslateService } from '@ngx-translate/core';
 import { KeysDataSource } from './keys-datasource';
 import { Icons } from '../../../../../core/models/common';
+import { GeneratedKeyDialogComponent } from './generated-key-dialog.component';
 
 @Component({
   selector: 'cm-keys',
@@ -30,7 +29,7 @@ import { Icons } from '../../../../../core/models/common';
 })
 export class AccessKeysPageComponent implements OnInit, AfterViewInit {
 
-  public displayedColumns: string[] = ['name', 'scope', 'creationDate', 'lastAccessDate', 'actions'];
+  public displayedColumns: string[] = ['name', 'scope', 'creationDate', 'actions'];
 
   public dataSource: KeysDataSource;
 
@@ -95,18 +94,4 @@ export class AccessKeysPageComponent implements OnInit, AfterViewInit {
     }
   }
 
-}
-
-@Component({
-  selector: 'cm-generated-key-dialog',
-  templateUrl: 'generated-key-dialog.html',
-  styleUrls: ['./generated-key-dialog.scss']
-})
-export class GeneratedKeyDialogComponent {
-  constructor(@Inject(MAT_DIALOG_DATA) public data: Key, public toaster: MatSnackBar, public translate: TranslateService) {
-  }
-
-  copied(): void {
-    this.toaster.open(this.translate.instant('COMMON.ACTIONS.COPIED'));
-  }
 }

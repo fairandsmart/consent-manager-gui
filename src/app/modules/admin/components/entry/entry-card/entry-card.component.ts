@@ -15,6 +15,7 @@
  */
 import { ChangeDetectionStrategy, Component, HostBinding, Input, OnInit } from '@angular/core';
 import { ModelEntryDto, ModelEntryStatus } from '@fairandsmart/consents-ce/models';
+import { Icons } from '../../../../../core/models/common';
 
 @Component({
   selector: 'cm-entry-card',
@@ -25,6 +26,7 @@ import { ModelEntryDto, ModelEntryStatus } from '@fairandsmart/consents-ce/model
 export class EntryCardComponent implements OnInit {
 
   public readonly Status = ModelEntryStatus;
+  public readonly ICONS = Icons;
 
   @Input()
   entry: ModelEntryDto;
@@ -39,6 +41,9 @@ export class EntryCardComponent implements OnInit {
 
   @Input()
   showDetail = false;
+
+  @Input()
+  isPeer = false;
 
   constructor() { }
 

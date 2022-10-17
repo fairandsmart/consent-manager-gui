@@ -14,9 +14,13 @@
  * #L%
  */
 
+const PEER_PATTERN = '[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}';
+const KEY_PATTERN = `[0-9a-zA-Z-_.]{2,255}`;
+const KEY_PEER_PATTERN = `peer\/${PEER_PATTERN}\/${KEY_PATTERN}`;
+
 export const FIELD_VALIDATORS = {
   key: {
-    pattern: '^[0-9a-zA-Z-_.]{2,255}$'
+    pattern: `^${KEY_PATTERN}$`
   },
   name: {
     min: 2,
@@ -26,7 +30,7 @@ export const FIELD_VALIDATORS = {
     max: 2500
   },
   elementsKeys: {
-    pattern: '^([0-9a-zA-Z-_.]{2,255},)*[0-9a-zA-Z-_.]{2,255}$'
+    pattern: `^(${KEY_PATTERN},)*${KEY_PATTERN}$`
   },
   phone: {
     pattern: '^\\+?[0-9]+$'
@@ -46,5 +50,6 @@ export enum Icons {
   interrogate = 'search',
   security = 'vpn_key',
   all = 'assignment_turned_in',
-  subject = 'people'
+  subject = 'people',
+  peers = 'group'
 }

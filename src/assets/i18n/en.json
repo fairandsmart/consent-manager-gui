@@ -12,7 +12,7 @@
         "LABEL": "Configuration",
         "GETTING_STARTED": "Getting started",
         "INFO": "Information",
-        "PROCESSING": "Processings",
+        "PROCESSING": "Processing",
         "PREFERENCES": "Preferences",
         "CONDITIONS": "Terms & Conditions",
         "EMAILS": "Emails",
@@ -23,7 +23,8 @@
         "GETTING_STARTED": "Getting started",
         "COLLECT": "Collect",
         "INTERROGATE": "Search",
-        "SECURITY": "Security"
+        "SECURITY": "Security",
+        "PEERS": "Partners"
       }
     }
   },
@@ -55,7 +56,7 @@
       "EMAIL": "Email link",
       "RECEIPT": "Receipt link",
       "USER": "User page",
-      "PEER": "Peer"
+      "PEER": "Partner"
     },
     "ENTRY_STATUSES": {
       "ACTIVE": "Active",
@@ -93,7 +94,7 @@
   },
   "ALERT": {
     "BAD_VERSION": "Your backend version is outdated",
-    "NO_INFORMATION": "You cannot create forms nor change or submit consents without completing your informations",
+    "NO_INFORMATION": "You cannot create forms nor change or submit consents without completing your information",
     "NO_INFORMATION_USER": "This feature is not yet available.",
     "NO_INFORMATION_CALL_TO_ACTION": "Click here to complete them",
     "NO_CHANGE": "No change",
@@ -141,36 +142,49 @@
     "TITLE": "Entries",
     "infos": {
       "PANEL_TITLE": "Information library",
+      "PEERS_TITLE": "Information of",
       "PANEL_DESCRIPTION_HTML": "<div>Here are the information you created.</div><div>This is meant to inform your users about your privacy policy, for example.</div><div>You can only create one information entry.</div>",
-      "EMPTY": "First, add information..."
+      "EMPTY": "First, add information...",
+      "EMPTY_PEER": "This partner does not share any information model."
     },
     "processing": {
-      "PANEL_TITLE": "Processings library",
-      "PANEL_DESCRIPTION_HTML": "<div>Here are the processings you created.</div><div>This is meant to ask your users for their consent.</div><div>You can create more at any time by clicking on \"+\".</div>",
-      "EMPTY": "First, add a processing..."
+      "PANEL_TITLE": "Processing library",
+      "PEERS_TITLE": "Processing of",
+      "PANEL_DESCRIPTION_HTML": "<div>Here are the processing you created.</div><div>This is meant to ask your users for their consent.</div><div>You can create more at any time by clicking on \"+\".</div>",
+      "EMPTY": "First, add a processing...",
+      "EMPTY_PEER": "This partner does not share any processing model."
     },
     "preferences": {
       "PANEL_TITLE": "Preferences library",
+      "PEERS_TITLE": "Preferences of",
       "PANEL_DESCRIPTION_HTML": "<div>Here are the preferences you created.</div><div>This is meant to ask your users for details about their contact information or other information.</div><div>You can create more at any time by clicking on \"+\".</div>",
-      "EMPTY": "First, add a preference..."
+      "EMPTY": "First, add a preference...",
+      "EMPTY_PEER": "This partner does not share any preference model."
     },
     "conditions": {
       "PANEL_TITLE": "Terms & Conditions library",
+      "PEERS_TITLE": "Terms & Conditions of",
       "PANEL_DESCRIPTION_HTML": "<div>Here are the terms and conditions you created.</div><div>This is meant to ask your users for their consent.</div><div>You can create more at any time by clicking on \"+\".</div>",
-      "EMPTY": "First, add a terms and conditions model..."
+      "EMPTY": "First, add a terms and conditions model...",
+      "EMPTY_PEER": "This partner does not share any terms & conditions model."
     },
     "themes": {
       "PANEL_TITLE": "Themes library",
+      "PEERS_TITLE": "Themes of",
       "PANEL_DESCRIPTION_HTML": "<div>Here are the themes you created.</div><div>This is meant to define the styles of your forms.</div><div>You can create more at any time by clicking on \"+\".</div>",
-      "EMPTY": "First, add a theme..."
+      "EMPTY": "First, add a theme...",
+      "EMPTY_PEER": "This partner does not share any theme model."
     },
     "emails": {
       "PANEL_TITLE": "Emails library",
+      "PEERS_TITLE": "Emails of",
       "PANEL_DESCRIPTION_HTML": "<div>Here are the emails you created.</div><div>This is meant to notify your users.</div><div>You can create more at any time by clicking on \"+\".</div>",
-      "EMPTY": "First, add an email..."
+      "EMPTY": "First, add an email...",
+      "EMPTY_PEER": "This partner does not share any email model."
     },
     "elements": {
-      "EMPTY": "First, add a processing or a preference..."
+      "EMPTY": "First, add a processing or a preference...",
+      "EMPTY_PEER": "Contact this partner to ask them for shared models."
     },
     "BUTTON_ADD": {
       "information": "New information",
@@ -208,6 +222,15 @@
       "type": {
         "LABEL": "Type"
       },
+      "shared": {
+        "LABEL": "Visibility",
+        "true": "Shared with partners",
+        "false": "Private",
+        "TOGGLE": {
+          "true": "Share with partners",
+          "false": "Stop sharing with partners"
+        }
+      },
       "version": {
         "LABEL": "Version"
       },
@@ -227,7 +250,9 @@
       },
       "EMPTY_LIST": "Nothing to display",
       "EDIT_TOOLTIP": "Edit model info",
-      "DELETE_TOOLTIP": "Delete model"
+      "DELETE_TOOLTIP": "Delete model",
+      "ERROR": "Models cannot be loaded.",
+      "ERROR_PEER": "Models cannot be loaded from this partner."
     },
     "SORT": {
       "PREFIX": "Sort by:"
@@ -245,6 +270,9 @@
       "LANGUAGE": {
         "LABEL": "Language",
         "NONE": "None"
+      },
+      "SHARED": {
+        "LABEL": "Visibility"
       }
     },
     "CREATE_BUTTON": "New entry",
@@ -278,6 +306,11 @@
         "TO_MINOR": "Create a minor version",
         "CONFIRM_TITLE": "Are you sure ?",
         "CONFIRM_CONTENT": "Activating this version as a major one will render obsolete all of the previously collected records for this model."
+      },
+      "CHANGE_VISIBILITY": {
+        "CONFIRM_TITLE": "Are you sure that you want to change the visibility of this model?",
+        "TO_PRIVATE": "It will become private and will not be available to your peers anymore.",
+        "TO_PUBLIC": "It will become public and will be available to all  your peers."
       }
     },
     "PREVIEW": {
@@ -699,17 +732,21 @@
     "STEP_PREVIEW": "Preview",
     "BUTTON_LABEL_NEXT_STEP": "Next",
     "BUTTON_LABEL_PREVIOUS_STEP": "Previous",
-    "FORM_TYPE_ERROR": "You can't add conditions to a form containing processings, preferences or other conditions. Click confirm to remove incompatible elements from the form.",
+    "FORM_TYPE_ERROR": "You can't add conditions to a form containing processing, preferences or other conditions. Click confirm to remove incompatible elements from the form.",
     "CHANGE_FORM_TYPE": "Change the form?",
     "ADDED_PROCESSING": {
       "WARNING": "Warning",
-      "INFORMATION_MANDATORY": "Informations are mandatory for forms containing processings."
+      "INFORMATION_MANDATORY": "Information are mandatory for forms containing processing."
     },
     "FORM": {
       "TITLE": "Form creator",
       "ELEMENTS_PANEL_TITLE": {
         "infos": "Information",
-        "elements": "Displayed processings and preferences"
+        "elements": "Displayed processing and preferences",
+        "PEER": {
+          "infos": "Information of",
+          "elements": "Displayed processing and preferences of"
+        }
       },
       "FOOTER_ON_TOP": {
         "LABEL": "The footer must always be visible (sticky positioning)"
@@ -809,7 +846,7 @@
         "DEFAULT": "Default theme"
       },
       "FORCE_DISPLAY": {
-        "LABEL": "Force display of all processings"
+        "LABEL": "Force display of all processing"
       },
       "EMAIL": {
         "LABEL": "Opt-out email"
@@ -856,7 +893,7 @@
     "GETTING_STARTED": {
       "TITLE": "Getting started",
       "DESCRIPTION": {
-        "configuration": "<div>The \"Configuration\" section allows you to parameterize elements which you will later use to create consent forms in the \"Integration\" section. You can configure the following elements:</div><ul><li>information templates: these information are essential to create a consent form, as they include for instance your privacy policy and define the header and footer of your forms. Beware, in this Community version, you will only be able to have one information active template at any time. If you wish to learn more and switch to the Enterprise version, click on the button at the bottom of this page.</li><li>processings templates: processings constitute the foundations of a consent form within the meaning of the GDPR. In this section, you will be able to define processings, which you may then add to a form to ask your customers for their consent regarding those processings.</li><li>preferences templates: they allow you to ask your customers for they preferred contact channel for example, or the themes about which they would like to be regularly informed.</li><li>terms and conditions templates: these elements are essential for the use of any service by your customers. You can browse here the various versions and push them to your customers through forms.</li><li>consent emails templates: these emails are sent (or not, depending on your use case) to your customers following their consent form submission, this will allow them to retrieve their receipt, to visualize their consent once more and to change it later.</li><li>themes templates: applied to forms, consent emails and receipts alike, they allow your to customize all these elements with your logo and your graphical charter.</li></ul>",
+        "configuration": "<div>The \"Configuration\" section allows you to parameterize elements which you will later use to create consent forms in the \"Integration\" section. You can configure the following elements:</div><ul><li>information templates: these information are essential to create a consent form, as they include for instance your privacy policy and define the header and footer of your forms. Beware, in this Community version, you will only be able to have one information active template at any time. If you wish to learn more and switch to the Enterprise version, click on the button at the bottom of this page.</li><li>processing templates: processing constitute the foundations of a consent form within the meaning of the GDPR. In this section, you will be able to define processing, which you may then add to a form to ask your customers for their consent regarding those processing.</li><li>preferences templates: they allow you to ask your customers for they preferred contact channel for example, or the themes about which they would like to be regularly informed.</li><li>terms and conditions templates: these elements are essential for the use of any service by your customers. You can browse here the various versions and push them to your customers through forms.</li><li>consent emails templates: these emails are sent (or not, depending on your use case) to your customers following their consent form submission, this will allow them to retrieve their receipt, to visualize their consent once more and to change it later.</li><li>themes templates: applied to forms, consent emails and receipts alike, they allow your to customize all these elements with your logo and your graphical charter.</li></ul>",
         "integration": "<p>The integration section will allow you to:</p><ul><li>build your consent forms from the templates registered in the \"Configuration\" section and integrate them in your application/website thanks to different code examples (PHP, etc...).</li><li>manage the access keys to the API</li></ul><p>In this section, you will also find a module allowing you to make queries in the base of recorded data.</p><p>There are two different actions: the collection of consent and then its exploitation afterwards.</p>"
       },
       "MORE": "<p>You can find more information about our solution:</p><ul><li>the different use cases</li><li>the two versions of our product</li><li>the product roadmap</li><li>the complete documentation of the API</li></ul>",
@@ -873,7 +910,7 @@
       "SCOPE": {
         "LABEL": "Scope",
         "OWNER": "Owner",
-        "PEER": "Peer"
+        "PEER": "Partner"
       },
       "SECRET": {
         "LABEL": "Secret key part"
@@ -907,6 +944,25 @@
         "CONFIRM_BUTTON": "Delete",
         "SUCCESS": "The API key has been deleted"
       }
+    },
+    "PEERS": {
+      "TITLE": "Partners",
+      "NAME": {
+        "LABEL": "Name"
+      },
+      "URL": {
+        "LABEL": "URL"
+      },
+      "API_KEY": {
+        "LABEL": "API key"
+      },
+      "CREATE_BUTTON": "Create",
+      "DROP": {
+        "CONFIRM_TITLE": "Delete this partner?",
+        "CONFIRM_CONTENT": "This operation is irreversible. Are you sure you want to delete this partner?",
+        "CONFIRM_BUTTON": "Delete",
+        "SUCCESS": "The partner has been deleted"
+      }
     }
   },
   "INTERROGATE": {
@@ -927,7 +983,7 @@
       "GROUP_TITLE": "Preferences"
     },
     "PROCESSING": {
-      "GROUP_TITLE": "Processings",
+      "GROUP_TITLE": "Processing",
       "VALUE": {
         "accepted": "Accepted",
         "refused": "Refused"
@@ -971,12 +1027,12 @@
       "MODELS": "Active models",
       "RECORDS": "Data recorded",
       "SUBJECTS": "Total end-users",
-      "TOP_TABLE": "Top processings",
-      "TOP_TABLE_SUBTITLE": "Top 3 processings submitted (left) and accepted (right)",
+      "TOP_TABLE": "Top processing",
+      "TOP_TABLE_SUBTITLE": "Top 3 processing submitted (left) and accepted (right)",
       "NUMBERS": "Collection results"
     },
     "ENTRY_TYPES": {
-      "PROCESSING": "Processings",
+      "PROCESSING": "Processing",
       "PREFERENCE": "Preferences",
       "CONDITIONS": "Terms and Conditions"
     },
@@ -1018,13 +1074,13 @@
         "LABEL": "Rank"
       },
       "COLLECTED_KEY": {
-        "LABEL": "Collected processings labels"
+        "LABEL": "Collected processing labels"
       },
       "COLLECTED_VALUE": {
         "LABEL": "Total submitted"
       },
       "ACCEPTED_KEY": {
-        "LABEL": "Accepted processings labels"
+        "LABEL": "Accepted processing labels"
       },
       "ACCEPTED_VALUE": {
         "LABEL": "Total accepted"
@@ -1033,7 +1089,7 @@
     "NUMBERS": {
       "PROCESSING": {
         "SINGULAR": "processing record",
-        "PLURAL": "processings records"
+        "PLURAL": "processing records"
       },
       "PREFERENCE": {
         "SINGULAR": "preference record",

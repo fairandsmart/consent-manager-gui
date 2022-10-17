@@ -23,7 +23,8 @@
         "GETTING_STARTED": "Bien démarrer",
         "COLLECT": "Collecter",
         "INTERROGATE": "Interroger",
-        "SECURITY": "Sécurité"
+        "SECURITY": "Sécurité",
+        "PEERS": "Partenaires"
       }
     }
   },
@@ -55,7 +56,7 @@
       "EMAIL": "Lien de l'email",
       "RECEIPT": "Lien du reçu",
       "USER": "Interface utilisateur",
-      "PEER": "Pair"
+      "PEER": "Partenaire"
     },
     "ENTRY_STATUSES": {
       "ACTIVE": "Actif",
@@ -141,36 +142,49 @@
     "TITLE": "Éléments",
     "infos": {
       "PANEL_TITLE": "Bibliothèque d'informations",
+      "PEERS_TITLE": "Informations de",
       "PANEL_DESCRIPTION_HTML": "<div>Voici les informations que vous avez paramétrées.</div><div>Cela permet d'informer vos utilisateurs de votre politique de confidentialité, par exemple.</div><div>Vous ne pouvez en créer qu'un seul modèle.</div>",
-      "EMPTY": "Commencez par spécifier des informations..."
+      "EMPTY": "Commencez par spécifier des informations...",
+      "EMPTY_PEER": "Ce partenaire ne partage aucun modèle d'informations."
     },
     "processing": {
       "PANEL_TITLE": "Bibliothèque de traitements",
+      "PEERS_TITLE": "Traitements de",
       "PANEL_DESCRIPTION_HTML": "<div>Voici les traitements que vous avez paramétrés.</div><div>Cela permet de demander leur consentement à vos utilisateurs.</div><div>Vous pouvez en créer de nouveaux à tout moment en cliquant sur \"+\".</div>",
-      "EMPTY": "Commencez par ajouter un traitement..."
+      "EMPTY": "Commencez par ajouter un traitement...",
+      "EMPTY_PEER": "Ce partenaire ne partage aucun modèle de traitement."
     },
     "preferences": {
       "PANEL_TITLE": "Bibliothèque de préférences",
+      "PEERS_TITLE": "Préférences de",
       "PANEL_DESCRIPTION_HTML": "<div>Voici les préférences que vous avez paramétrées.</div><div>Cela permet de demander à vos utilisateurs des précisions concernant leurs préférences de contact ou autre.</div><div>Vous pouvez en créer de nouvelles à tout moment en cliquant sur \"+\".</div>",
-      "EMPTY": "Commencez par ajouter une préférence..."
+      "EMPTY": "Commencez par ajouter une préférence...",
+      "EMPTY_PEER": "Ce partenaire ne partage aucun modèle de préférence."
     },
     "conditions": {
       "PANEL_TITLE": "Bibliothèque de CGU",
+      "PEERS_TITLE": "CGU de",
       "PANEL_DESCRIPTION_HTML": "<div>Voici les CGU que vous avez paramétrées.</div><div>Cela permet de demander leur consentement à vos utilisateurs.</div><div>Vous pouvez en créer de nouvelles à tout moment en cliquant sur \"+\".</div>",
-      "EMPTY": "Commencez par ajouter des CGU..."
+      "EMPTY": "Commencez par ajouter des CGU...",
+      "EMPTY_PEER": "Ce partenaire ne partage aucun modèle de CGU."
     },
     "themes": {
       "PANEL_TITLE": "Bibliothèque de thèmes",
+      "PEERS_TITLE": "Thèmes de",
       "PANEL_DESCRIPTION_HTML": "<div>Voici les thèmes que vous avez paramétrés.</div><div>Cela permet de modifier le style de vos formulaires.</div><div>Vous pouvez en créer de nouveaux à tout moment en cliquant sur \"+\".</div>",
-      "EMPTY": "Commencez par ajouter un thème..."
+      "EMPTY": "Commencez par ajouter un thème...",
+      "EMPTY_PEER": "Ce partenaire ne partage aucun modèle de thème."
     },
     "emails": {
       "PANEL_TITLE": "Bibliothèque d'emails",
+      "PEERS_TITLE": "Emails de",
       "PANEL_DESCRIPTION_HTML": "<div>Voici les emails que vous avez paramétrés.</div><div>Cela permet de notifier vos utilisateurs.</div><div>Vous pouvez en créer de nouveaux à tout moment en cliquant sur \"+\".</div>",
-      "EMPTY": "Commencez par ajouter un email..."
+      "EMPTY": "Commencez par ajouter un email...",
+      "EMPTY_PEER": "Ce partenaire ne partage aucun modèle d'email."
     },
     "elements": {
-      "EMPTY": "Commencez par ajouter un traitement ou une préférence..."
+      "EMPTY": "Commencez par ajouter un traitement ou une préférence...",
+      "EMPTY_PEER": "Contactez ce partenaire pour qu'il vous partage des modèles."
     },
     "BUTTON_ADD": {
       "information": "Ajouter des informations",
@@ -208,6 +222,15 @@
       "type": {
         "LABEL": "Type"
       },
+      "shared": {
+        "LABEL": "Visibilité",
+        "true": "Partagé aux partenaires",
+        "false": "Privé",
+        "TOGGLE": {
+          "true": "Partager aux partenaires",
+          "false": "Ne plus partager aux partenaires"
+        }
+      },
       "version": {
         "LABEL": "Version"
       },
@@ -227,7 +250,9 @@
       },
       "EMPTY_LIST": "Aucun élément",
       "EDIT_TOOLTIP": "Modifier les informations du modèle",
-      "DELETE_TOOLTIP": "Supprimer le modèle"
+      "DELETE_TOOLTIP": "Supprimer le modèle",
+      "ERROR": "Impossible de charger les modèles.",
+      "ERROR_PEER": "Impossible de charger les modèles de ce partenaire."
     },
     "SORT": {
       "PREFIX": "Trier par :"
@@ -245,6 +270,9 @@
       "LANGUAGE": {
         "LABEL": "Langue",
         "NONE": "Aucune"
+      },
+      "SHARED": {
+        "LABEL": "Visibilité"
       }
     },
     "CREATE_BUTTON": "Nouvel élément",
@@ -278,6 +306,11 @@
         "TO_MINOR": "Créer une version mineure",
         "CONFIRM_TITLE": "Êtes-vous sûr ?",
         "CONFIRM_CONTENT": "En activant cette version en tant que version majeure, les enregistrements collectés de ce modèle deviendront obsolètes."
+      },
+      "CHANGE_VISIBILITY": {
+        "CONFIRM_TITLE": "Êtes-vous sûr de vouloir modifier la visibilité de ce modèle ?",
+        "TO_PRIVATE": "Il va devenir privé et ne sera plus accessible par vos partenaires.",
+        "TO_PUBLIC": "Il va devenir public et sera accessible par vos partenaires."
       }
     },
     "PREVIEW": {
@@ -709,7 +742,11 @@
       "TITLE": "Génération du formulaire de consentement",
       "ELEMENTS_PANEL_TITLE": {
         "infos": "Informations",
-        "elements": "Traitements et préférences affichés"
+        "elements": "Traitements et préférences affichés",
+        "PEER": {
+          "infos": "Informations de",
+          "elements": "Traitements et préférences affichés de"
+        }
       },
       "FOOTER_ON_TOP": {
         "LABEL": "Le pied de page doit toujours être visible (positionnement adhérent)"
@@ -873,7 +910,7 @@
       "SCOPE": {
         "LABEL": "Portée",
         "OWNER": "Propriétaire",
-        "PEER": "Pair"
+        "PEER": "Partenaire"
       },
       "SECRET": {
         "LABEL": "Partie secrète de la clé"
@@ -906,6 +943,25 @@
         "CONFIRM_CONTENT": "Cette opération est irréversible. Êtes-vous sûr de vouloir supprimer cette clé ?",
         "CONFIRM_BUTTON": "Supprimer",
         "SUCCESS": "La clé a été supprimée"
+      }
+    },
+    "PEERS": {
+      "TITLE": "Partenaires",
+      "NAME": {
+        "LABEL": "Nom"
+      },
+      "URL": {
+        "LABEL": "URL"
+      },
+      "API_KEY": {
+        "LABEL": "Clé d'API"
+      },
+      "CREATE_BUTTON": "Créer",
+      "DROP": {
+        "CONFIRM_TITLE": "Supprimer le partenaire ?",
+        "CONFIRM_CONTENT": "Cette opération est irréversible. Êtes-vous sûr de vouloir supprimer ce partenaire ?",
+        "CONFIRM_BUTTON": "Supprimer",
+        "SUCCESS": "Le partenaire a été supprimé"
       }
     }
   },

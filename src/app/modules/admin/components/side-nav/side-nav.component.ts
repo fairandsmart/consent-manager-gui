@@ -114,6 +114,12 @@ export class SideNavComponent implements OnInit {
           icon: Icons.security,
           adminOnly: true
         },
+        {
+          title: 'NAV.CATEGORIES.INTEGRATION.PEERS',
+          link: '/admin/integration/peers',
+          icon: Icons.peers,
+          adminOnly: true
+        },
       ]
     }
   ];

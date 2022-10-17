@@ -35,6 +35,15 @@
   </ng-container>
   <dt>{{'ENTRIES.COMMON.key.LABEL' | translate}}</dt>
   <dd>{{entry.key}}</dd>
+  <dt>{{'ENTRIES.COMMON.shared.LABEL' | translate}}</dt>
+  <dd>
+    <span class="visibility-line">
+      {{'ENTRIES.COMMON.shared.' + entry.shared | translate}}
+      <button mat-icon-button (click)="toggleVisibility()">
+        <mat-icon>{{entry.shared ? 'visibility' : 'visibility_off'}}</mat-icon>
+      </button>
+    </span>
+  </dd>
   <dt>{{'ENTRIES.COMMON.creationDate.LABEL' | translate}}</dt>
   <dd *ngIf="entry.creationDate > 0">{{entry.creationDate | date: 'short'}}</dd>
   <dd *ngIf="entry.creationDate === 0">{{'ENTRIES.COMMON.creationDate.EMPTY' | translate}}</dd>

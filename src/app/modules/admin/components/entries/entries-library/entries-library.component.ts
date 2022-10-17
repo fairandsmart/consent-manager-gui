@@ -14,11 +14,13 @@
  * #L%
  */
 import { ChangeDetectionStrategy, Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
-import { Observable } from 'rxjs';
+import { Observable, of } from 'rxjs';
 import { listEntries, ModelDataType, ModelEntryDto, ModelFilter } from '@fairandsmart/consents-ce/models';
 import { CollectionDatasource } from '../../../utils/collection-datasource';
 import { Icons } from '../../../../../core/models/common';
-import { CollectionPage } from '@fairandsmart/consents-ce';
+import { CollectionPage, RightConsents } from '@fairandsmart/consents-ce';
+import { Peer } from '@fairandsmart/consents-ce/peers';
+import { catchError, tap } from 'rxjs/operators';
 
 export class ConsentElementEntryDataSource extends CollectionDatasource<ModelEntryDto, ModelFilter> {
 
@@ -32,6 +34,37 @@ export class ConsentElementEntryDataSource extends CollectionDatasource<ModelEnt
 
 }
 
+export class PeerConsentElementEntryDataSource extends CollectionDatasource<ModelEntryDto, ModelFilter> {
+
+  public hasError = false;
+
+  constructor(public peer: Peer) {
+    super();
+  }
+
+  listPeerEntries(filter: ModelFilter): Observable<CollectionPage<ModelEntryDto>> {
+    filter.shared = [true];
+    return RightConsents.http<CollectionPage<ModelEntryDto>>({
+      method: 'GET',
+      url: `${this.peer.url}/models`,
+      params: filter,
+      headers: { Authorization: `Basic ${this.peer.apiKey}` }
+    });
+  }
+
+  protected getPage(pageFilter: ModelFilter): Observable<CollectionPage<ModelEntryDto>> {
+    return this.listPeerEntries(pageFilter).pipe(
+      tap(() => this.hasError = false),
+      catchError((e) => {
+        console.error(e);
+        this.hasError = true;
+        return of({values: [], totalCount: 0} as CollectionPage<ModelEntryDto>);
+      })
+    );
+  }
+
+}
+
 export enum AddMultipleOption {
   ALWAYS = 'ALWAYS',
   NEVER = 'NEVER',
@@ -40,11 +73,12 @@ export enum AddMultipleOption {
 
 export interface SectionConfig {
   id: string;
+  name?: string;
   types: ModelDataType[];
   canAddMultiple: AddMultipleOption;
   showActions: boolean;
   filter?: ModelFilter;
-  dataSource?: ConsentElementEntryDataSource;
+  dataSource?: ConsentElementEntryDataSource | PeerConsentElementEntryDataSource;
   orderingOptions?: (keyof ModelEntryDto)[];
   icon?: Icons;
   fullSize: boolean;
@@ -61,6 +95,8 @@ export interface SectionConfig {
 })
 export class EntriesLibraryComponent implements OnInit {
 
+  readonly ICONS = Icons;
+
   // tslint:disable-next-line:no-input-rename
   @Input('config')
   sections: SectionConfig[];
@@ -73,6 +109,9 @@ export class EntriesLibraryComponent implements OnInit {
 
   @Input()
   selected: {[id: string]: ModelEntryDto[]};
+
+  @Input()
+  peer: Peer;
 
   @Output()
   selectedChange = new EventEmitter<{[id: string]: ModelEntryDto[]}>();
