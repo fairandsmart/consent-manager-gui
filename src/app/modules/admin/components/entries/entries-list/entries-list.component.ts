@@ -32,6 +32,7 @@ import { ConfigService } from '../../../../../core/services/config.service';
 import { KeycloakService } from 'keycloak-angular';
 import { Peer } from '@fairandsmart/consents-ce/peers';
 import { Icons } from '../../../../../core/models/common';
+import { HttpClient } from '@angular/common/http';
 
 @Component({
   selector: 'cm-entries-list',
@@ -62,12 +63,13 @@ export class EntriesListComponent implements OnInit, AfterViewInit {
     protected translate: TranslateService,
     protected configService: ConfigService,
     private keycloak: KeycloakService,
+    public http: HttpClient,
     ) {}
 
   ngOnInit(): void {
     if (this.section.dataSource == null) {
       if (this.peer !== undefined) {
-        this.section.dataSource = new PeerConsentElementEntryDataSource(this.peer);
+        this.section.dataSource = new PeerConsentElementEntryDataSource(this.peer, this.http);
       } else {
         this.section.dataSource = new ConsentElementEntryDataSource();
       }
