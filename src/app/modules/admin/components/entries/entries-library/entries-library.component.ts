@@ -18,9 +18,10 @@ import { Observable, of } from 'rxjs';
 import { listEntries, ModelDataType, ModelEntryDto, ModelFilter } from '@fairandsmart/consents-ce/models';
 import { CollectionDatasource } from '../../../utils/collection-datasource';
 import { Icons } from '../../../../../core/models/common';
-import { CollectionPage, RightConsents } from '@fairandsmart/consents-ce';
+import { CollectionPage } from '@fairandsmart/consents-ce';
 import { Peer } from '@fairandsmart/consents-ce/peers';
 import { catchError, tap } from 'rxjs/operators';
+import { HttpClient, HttpParams } from '@angular/common/http';
 
 export class ConsentElementEntryDataSource extends CollectionDatasource<ModelEntryDto, ModelFilter> {
 
@@ -38,17 +39,15 @@ export class PeerConsentElementEntryDataSource extends CollectionDatasource<Mode
 
   public hasError = false;
 
-  constructor(public peer: Peer) {
+  constructor(public peer: Peer, private http: HttpClient) {
     super();
   }
 
   listPeerEntries(filter: ModelFilter): Observable<CollectionPage<ModelEntryDto>> {
     filter.shared = [true];
-    return RightConsents.http<CollectionPage<ModelEntryDto>>({
-      method: 'GET',
-      url: `${this.peer.url}/models`,
-      params: filter,
-      headers: { Authorization: `Basic ${this.peer.apiKey}` }
+    return this.http.get<CollectionPage<ModelEntryDto>>(`${this.peer.url}/models`, {
+      params: new HttpParams({fromObject: filter as any}),
+      headers: { Authorization: `Basic ${this.peer.apiKey}` },
     });
   }
 
