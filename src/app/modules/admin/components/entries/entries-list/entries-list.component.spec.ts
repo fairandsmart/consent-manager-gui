@@ -29,6 +29,7 @@ import { RightConsents } from '@fairandsmart/consents-ce';
 import { KeycloakService } from 'keycloak-angular';
 import SpyObj = jasmine.SpyObj;
 import createSpyObj = jasmine.createSpyObj;
+import { HttpClientModule } from '@angular/common/http';
 
 describe('EntriesListComponent', () => {
   let component: EntriesListComponent;
@@ -44,7 +45,7 @@ describe('EntriesListComponent', () => {
 
     TestBed.configureTestingModule({
       declarations: [ EntriesListComponent ],
-      imports: [ CoreTestingModule, RouterTestingModule, FormsModule ],
+      imports: [ CoreTestingModule, RouterTestingModule, FormsModule, HttpClientModule ],
       providers: [
         {provide: KeycloakService, useValue: keycloakServiceSpy},
         {provide: ActivatedRoute, useValue: activatedRouteStub},
