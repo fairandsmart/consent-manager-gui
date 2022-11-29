@@ -38,11 +38,11 @@ function getFormUrl()
         "confirmation" => "$$CONFIRMATION$$",
         "confirmationConfig" => $$CONFIRMATION_CONFIG$$,
         "theme" => "$$THEME$$",
-        "notification" => "$$NOTIFICATION$$",
         "layoutData" => array(
             "type" => "layout",
             "info" => "$$INFO$$",
             "elements" => array($$ELEMENTS$$),
+            "defaultNotification" => "$$NOTIFICATION$$",
             "orientation" => "$$ORIENTATION$$",
             "existingElementsVisible" => $$EXISTING_VISIBLE$$,
             "validityVisible" => $$VALIDITY_VISIBLE$$,
@@ -138,7 +138,7 @@ export function getPhpSnippetFromContext(context: ConsentContext): string {
     .replace('$$CONFIRMATION$$', context.confirmation)
     .replace('$$CONFIRMATION_CONFIG$$', objectToPhp(context.confirmationConfig))
     .replace('$$THEME$$', context.theme)
-    .replace('$$NOTIFICATION$$', context.notification)
+    .replace('$$NOTIFICATION$$', context.layoutData.defaultNotification)
     .replace('$$INFO$$', context.layoutData.info)
     .replace('$$ELEMENTS$$', `"${context.layoutData.elements.join('","')}"`)
     .replace('$$ORIENTATION$$', context.layoutData.orientation)

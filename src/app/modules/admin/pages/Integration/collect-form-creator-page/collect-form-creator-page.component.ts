@@ -503,7 +503,7 @@ export class CollectFormCreatorPageComponent implements OnInit {
           peer: peer.id,
           info: rawPeerForms[peer.id].info?.[0] || '',
           elements: rawPeerForms[peer.id].elements,
-          notification: ''
+          defaultNotification: ''
         });
       }
     });
@@ -517,11 +517,9 @@ export class CollectFormCreatorPageComponent implements OnInit {
       language: formValue.language,
       subjectInfos: formValue.subjectInfos,
       attributes: {},
-      author: '',
       origin: ConsentOrigin.WEBFORM,
       confirmation: formValue.confirmation,
       confirmationConfig: formValue.confirmationConfig,
-      notification: formValue.notification,
       theme: formValue.theme,
       layoutData: {
         type: 'layout',
@@ -533,9 +531,10 @@ export class CollectFormCreatorPageComponent implements OnInit {
         cancelVisible: formValue.cancelVisible,
         cancelText: formValue.cancelText,
         validityVisible: formValue.validityVisible,
-        elements: formValue.elements,
         orientation: formValue.orientation,
         info: formValue.info?.[0] || '',
+        elements: formValue.elements,
+        defaultNotification: formValue.notification,
         includeIFrameResizer: true,
         peerElements
       }

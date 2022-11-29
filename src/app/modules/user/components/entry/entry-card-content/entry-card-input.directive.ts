@@ -143,16 +143,12 @@ export abstract class EntryCardInputDirective<T extends ModelData> implements On
     const context: ConsentContext = {
       subject: this.keycloakService.getUsername(),
       object: this.object,
-      callback: '',
-      validity: '',
       language: this.defaultLanguage,
       subjectInfos: {},
       attributes: {},
       origin: ConsentOrigin.USER,
       author: this.keycloakService.getUsername(),
       confirmation: Confirmation.NONE,
-      notification: '',
-      theme: '',
       layoutData: {
         type: 'layout',
         orientation: FormLayoutOrientation.VERTICAL,

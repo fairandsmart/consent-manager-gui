@@ -166,9 +166,10 @@ export class OperatorSubjectPageComponent implements OnInit {
                   type: 'layout',
                   orientation: FormLayoutOrientation.VERTICAL,
                   existingElementsVisible: true,
-                  elements: this.operatorLog.map(e => e.key),
-                  includeIFrameResizer: true,
                   info: infos.values[0].key,
+                  elements: this.operatorLog.map(e => e.key),
+                  defaultNotification: result.email,
+                  includeIFrameResizer: true,
                 },
                 origin: ConsentOrigin.OPERATOR,
                 subject: this.subject.name,
@@ -179,7 +180,6 @@ export class OperatorSubjectPageComponent implements OnInit {
                 attributes: {},
                 author: '',
                 confirmation: Confirmation.NONE,
-                notification: result.email,
                 theme: '',
               };
 
