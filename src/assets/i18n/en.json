@@ -341,7 +341,7 @@
           "TITLE": "Data controller",
           "SUBTITLE_OPTIONAL": "(if different from the one in the information)",
           "COMPANY": {
-            "LABEL": "Company"
+            "LABEL": "Organisation"
           },
           "INFO": {
             "LABEL": "Further information"
@@ -408,7 +408,7 @@
           "LABEL": "Processing label"
         },
         "DATA": {
-          "LABEL": "Collected data description"
+          "LABEL": "Description of the data processed"
         },
         "RETENTION": {
           "BODY": {
@@ -435,15 +435,15 @@
             "CONSENT_CORE_SERVICE": "Core service",
             "CONSENT_IMPROVED_SERVICE": "Improved service",
             "CONSENT_MARKETING": "Marketing",
-            "CONSENT_THIRD_PART_SHARING": "Third part sharing",
+            "CONSENT_THIRD_PART_SHARING": "Third party sharing",
             "CONSENT_RESEARCH": "Research"
           }
         },
         "SENSITIVE": {
-          "LABEL": "This processing collects sensitive data"
+          "LABEL": "This processing uses special categories of data"
         },
         "MEDICAL": {
-          "LABEL": "This processing collects medical data"
+          "LABEL": "This processing uses health data"
         },
         "THIRD_PARTIES": {
           "LABEL": "Third parties",

@@ -408,7 +408,7 @@
           "LABEL": "Libellé du traitement"
         },
         "DATA": {
-          "LABEL": "Description des données collectées"
+          "LABEL": "Description des données traitées"
         },
         "RETENTION": {
           "BODY": {
@@ -435,7 +435,7 @@
             "CONSENT_CORE_SERVICE": "Service principal",
             "CONSENT_IMPROVED_SERVICE": "Service amélioré",
             "CONSENT_MARKETING": "Marketing",
-            "CONSENT_THIRD_PART_SHARING": "Partage à une tierce-partie",
+            "CONSENT_THIRD_PART_SHARING": "Transfert à un tiers",
             "CONSENT_RESEARCH": "Recherche"
           }
         },
@@ -446,11 +446,11 @@
           "LABEL": "Ce traitement collecte des données de santé"
         },
         "THIRD_PARTIES": {
-          "LABEL": "Tierce-parties",
+          "LABEL": "Tiers",
           "NAME": "Nom",
           "VALUE": "Description",
-          "BUTTON_ADD": "Ajouter une tierce-partie",
-          "EMPTY": "Aucune tierce-partie pour le moment."
+          "BUTTON_ADD": "Ajouter un tiers",
+          "EMPTY": "Aucun tiers pour le moment."
         },
         "REFUSABLE": {
           "LABEL": "Ce traitement peut être refusé"
